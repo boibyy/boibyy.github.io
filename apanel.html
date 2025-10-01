@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moderator Panel</title>
+    <style>
+        .violation-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+        .violation-item select, .violation-item textarea {
+            width: 100%;
+            margin-bottom: 5px;
+        }
+        .remove-violation {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 3px 6px;
+            cursor: pointer;
+        }
+        #addViolation {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Moderator Panel</h1>
+    
+    <form id="punishmentForm">
+        <h2>Violations</h2>
+        <div id="violationsContainer">
+            <!-- Violation items will be added here -->
+        </div>
+        <button type="button" id="addViolation">Add Violation</button>
+        
+        <h2>Punishment Type:</h2>
+        <input type="radio" id="ban1" name="punishment" value="ban1" checked>
+        <label for="ban1">Ban 1 Day</label><br>
+        
+        <input type="radio" id="ban3" name="punishment" value="ban3">
+        <label for="ban3">Ban 3 Days</label><br>
+        
+        <input type="radio" id="ban7" name="punishment" value="ban7">
+        <label for="ban7">Ban 7 Days</label><br>
+        
+        <input type="radio" id="ban14" name="punishment" value="ban14">
+        <label for="ban14">Ban 14 Days</label><br>
+        
+        <input type="radio" id="delete" name="punishment" value="delete">
+        <label for="delete">Delete</label><br>
+        
+        <input type="radio" id="poison" name="punishment" value="poison">
+        <label for="poison">Poison</label><br>
+        
+        <h2>Moderator Note:</h2>
+        <textarea id="modNote" name="modNote" maxlength="1000" placeholder="Enter note (optional)"></textarea><br>
+        
+        <input type="checkbox" id="hasMembership" name="hasMembership">
+        <label for="hasMembership">User has active membership</label><br>
+        
+        <button type="submit">Submit Punishment</button>
+    </form>
+
+    <script>
+        // Violation reasons
+        const violationReasons = [
+            "Harassment",
+            "Spam",
+            "Inappropriate",
+            "Scamming",
+            "Adult Content",
+            "Privacy",
+            "Profanity",
+            "Other"
+        ];
+
+        // Add violation button functionality
+        document.getElementById('addViolation').addEventListener('click', function() {
+            const violationsContainer = document.getElementById('violationsContainer');
+            const violationId = Date.now();
+            
+            const violationItem = document.createElement('div');
+            violationItem.className = 'violation-item';
+            violationItem.id = `violation-${violationId}`;
+            
+            // Create reason dropdown
+            const reasonSelect = document.createElement('select');
+            reasonSelect.className = 'violation-reason';
+            reasonSelect.required = true;
+            
+            violationReasons.forEach(reason => {
+                const option = document.createElement('option');
+                option.value = reason;
+                option.textContent = reason;
+                reasonSelect.appendChild(option);
+            });
+            
+            // Create evidence textarea
+            const evidenceTextarea = document.createElement('textarea');
+            evidenceTextarea.className = 'violation-evidence';
+            evidenceTextarea.placeholder = 'Enter evidence/context for this violation';
+            evidenceTextarea.required = true;
+            evidenceTextarea.rows = 3;
+            
+            // Create remove button
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.className = 'remove-violation';
+            removeButton.textContent = 'Remove Violation';
+            removeButton.addEventListener('click', function() {
+                violationsContainer.removeChild(violationItem);
+            });
+            
+            // Append all elements
+            violationItem.appendChild(reasonSelect);
+            violationItem.appendChild(document.createElement('br'));
+            violationItem.appendChild(evidenceTextarea);
+            violationItem.appendChild(document.createElement('br'));
+            violationItem.appendChild(removeButton);
+            
+            violationsContainer.appendChild(violationItem);
+        });
+
+        // Form submission
+        document.getElementById('punishmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const punishment = document.querySelector('input[name="punishment"]:checked').value;
+            const modNote = document.getElementById('modNote').value.trim();
+            const hasMembership = document.getElementById('hasMembership').checked;
+            const now = new Date();
+            
+            // Collect violations
+            const violations = [];
+            const violationItems = document.querySelectorAll('.violation-item');
+            
+            violationItems.forEach(item => {
+                const reason = item.querySelector('.violation-reason').value;
+                const evidence = item.querySelector('.violation-evidence').value.trim();
+                
+                if (reason && evidence) {
+                    violations.push({
+                        reason: reason,
+                        evidence: evidence
+                    });
+                }
+            });
+            
+            // Format date as MM/DD/YYYY HH:MM:SS AM/PM
+            const reviewedDate = now.toLocaleString('en-US', {
+                month: '2-digit',
+                day: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            });
+            
+            // Calculate expiration date for bans and membership renewal
+            let expirationDate = new Date();
+            let renewalDate = new Date();
+            let banDuration = 0;
+            
+            switch(punishment) {
+                case 'ban1':
+                    banDuration = 1;
+                    break;
+                case 'ban3':
+                    banDuration = 3;
+                    break;
+                case 'ban7':
+                    banDuration = 7;
+                    break;
+                case 'ban14':
+                    banDuration = 14;
+                    break;
+            }
+            
+            expirationDate.setDate(expirationDate.getDate() + banDuration);
+            renewalDate.setDate(renewalDate.getDate() + 12);
+            
+            const expirationDateStr = expirationDate.toLocaleString('en-US', {
+                month: '2-digit',
+                day: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            });
+            
+            const renewalDateStr = renewalDate.toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
+            });
+            
+            // Store data in localStorage to pass to the ban page
+            localStorage.setItem('punishmentData', JSON.stringify({
+                punishmentType: punishment,
+                modNote: modNote,
+                reviewedDate: reviewedDate,
+                expirationDate: banDuration > 0 ? expirationDateStr : null,
+                banDuration: banDuration,
+                hasNote: modNote.length > 0,
+                hasMembership: hasMembership,
+                renewalDate: renewalDateStr,
+                isTempBan: ['ban1', 'ban3', 'ban7', 'ban14'].includes(punishment),
+                violations: violations
+            }));
+            
+            // Redirect to ban page
+            window.location.href = 'atwaat.html';
+        });
+        
+        // Add one violation by default
+        document.getElementById('addViolation').click();
+    </script>
+</body>
+</html>

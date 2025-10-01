@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Not Approved</title>
+    <link id="themeStylesheet" href="/ban-new.css" rel="stylesheet" type="text/css" media="all">
+    <style>
+* {
+    font-family: "Inter", serif;
+}
+        body {
+margin: 0!important;
+        }
+  header {
+    position: sticky;
+    box-sizing: border-box;
+    top: 0;
+    width: 100%;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    background: #fff;
+    color: #000;
+    z-index: 1000;
+  }
+
+  .left, .right {
+    display: flex;
+    align-items: center;
+  }
+
+  .left img {
+    height: 32px;
+    margin-right: 32px;
+  }
+
+  .left span {
+    font-weight: bold;
+    margin-right: 32px;
+    font-size: 16px;
+  }
+
+  .left nav a {
+    margin-right: 32px;
+    text-decoration: none;
+    color: inherit;
+    font-size: 16px;
+  }
+
+  .right .user-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #eee;
+    margin-right: 5px;
+  }
+
+  .right span, .right img {
+    font-size: 16px;
+    margin-left: 5px;
+    margin-right: 10px;
+  }
+
+  .right img {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Dark mode */
+  header.dark {
+    background: #1F1F1F;
+    color: #eee;
+  }
+
+  header.dark .left nav a {
+    color: #eee;
+  }
+
+  header.dark .right .user-circle {
+    background: #555;
+  }
+        .warning-margin {
+            margin: 10px auto 0 auto!important;
+            margin-bottom: 12px!important;
+        }
+        .logout {
+            min-width: 80px;
+        }
+        .reactivate {
+            margin: 14px auto 1px auto;
+        }
+        .evidence-image {
+            max-width: 640px;
+            height: auto;
+            max-height: 300px;
+            display: flex;
+            margin-top: 8px;
+            max-width: 100%;
+        }
+        .margins-for-img {
+            margin-top: 2px;
+            margin-left: 6px;
+            margin-right: 6px;
+        }
+        audio {
+            width: 100%;
+            max-width: 400px;
+            display: block;
+            margin-top: 8px;
+        }
+        .evidence-box {
+            margin-top: 12px!important;
+            padding: 12px;
+            display: block;
+            border-radius: 0px;
+        }
+        .inneritem {
+            display: block;
+            margin: 0px;
+        }
+        .violation-section {
+            margin-bottom: 0px;
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+        .classic-violation {
+            margin-bottom: 20px;
+        }
+        .viol {
+            margin: 0px;
+        }
+        #evidenceheading {
+            margin: 0px;
+            line-height: 1em;
+            font-size: 18px;
+        }
+        #violationtype {
+            font-size: 14px;
+        }
+        .ban-box {
+            border-radius: 0px;
+            max-width: 840px !important;
+            box-sizing: border-box;
+        }
+        #abideRules {
+            line-height: 1;
+        }
+        .logoutlink {
+            color: #222;
+        }
+        #evidenceContainer {
+            border-left: 5px solid #c2c2c2;
+            padding-left: 12px;
+            margin-bottom: 14px;
+            margin-left: 1px;
+        }
+        .violation-text {
+            font-weight: 500;
+        }
+        .evidence-content {
+            font-weight: normal;
+            display: inline;
+        }
+        .agree-checkbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0 5px 0;
+            font-family: "Noto Sans", serif;
+            font-size: 14px;
+        }
+        .label {
+            font-family: "Inter", serif;
+            color: #111;
+            font-size: 14px;
+        }
+        .agree-checkbox input {
+            margin-right: 8px;
+        }
+        .reactivate[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+        }
+        #agreeContainer {
+            display: none;
+        }
+
+    /* Sidebar */
+#sidebar {
+  position: fixed;
+  top: 44px; /* below header */
+  left: 0;
+  width: 160px;
+  height: 100%;
+  background: #fff;
+  border-right: 1px solid #ddd;
+  padding: 16px;
+  box-sizing: border-box;
+  font-size: 16px;
+  display: none; /* default hidden for <1600px */
+  flex-direction: column;
+  gap: 12px;
+  z-index: 900;
+}
+
+#sidebar a, #sidebar .premium-btn {
+  display: block;
+  text-decoration: none;
+  color: #000;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.premium-btn {
+  margin-top: auto;
+  padding: 8px;
+  border: none;
+  background: #ffd633;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Dark mode */
+header.dark + #sidebar {
+  background: #1F1F1F;
+  border-right: 1px solid #444;
+}
+
+header.dark + #sidebar a,
+header.dark + #sidebar .premium-btn {
+  color: #eee;
+}
+
+/* Hamburger icon */
+#hamburger {
+  display: none;
+  font-size: 22px;
+  cursor: pointer;
+  margin-right: 12px;
+}
+
+/* Responsive */
+@media (max-width: 1599px) {
+  #sidebar {
+    display: none;
+  }
+  #hamburger {
+    display: block;
+  }
+}
+
+@media (min-width: 1600px) {
+  #sidebar {
+    display: flex;
+  }
+}
+#logo {
+  content: url("https://boibyban.github.io/boibylongdark.png");
+  height: 36px; /* adjust as needed */
+}
+
+/* If .dark-mode is applied to body or header, swap to light logo */
+.dark-mode #logo {
+  content: url("https://boibyban.github.io/boibylonglight.png");
+}
+
+    </style>
+<header id="header">
+  <div class="left">
+    <div id="hamburger">☰</div>
+    <img id="logo" src="https://boibyban.github.io/boibylongdark.png" alt="Boiby Logo">
+    <nav>
+      <a href="#">Discover</a>
+      <a href="#">Catalog</a>
+      <a href="#">Develop</a>
+      <a href="#">Boibucks</a>
+    </nav>
+  </div>
+
+  <div class="right">
+    <div class="user-circle"></div>
+    <span id="username" style="font-weight:500;">f</span>
+    <span> </span>
+    <img src="https://boibyban.github.io/bgreen.png" alt="Boibucks">
+    <span>?</span>
+  </div>
+</header>
+</head>
+<body>
+    <div id="sidebar">
+        <a href="#">Home</a>
+        <a href="#">Profile</a>
+        <a href="#">Discover</a>
+        <a href="#">Catalog</a>
+        <a href="#">Acquaintances</a>
+        <a href="#">Chat</a>
+        <a href="#">Trade</a>
+        <a href="#">Money</a>
+        <a href="#">Develop</a>
+        <a href="#">Premium</a>
+
+
+  <button style="display:none" class="premium-btn">Get Premium</button>
+</div>
+
+    <div class="ban-box">
+        <h3 id="banDuration">Warning</h3>
+        <p id="cautionWarningMessage" style="display:none"></p>
+        <p id="termsOfUse"></p>
+        <p id="violationHeader"></p>
+        <div id="evidenceContainer"><p id="reviewedContainer"></p>
+        <p id="detection" style="display:none"></p></div>
+        <p id="communityRules"></p>
+        <p id="reactivateMessage"></p>
+        <p id="appealsMessage"></p>
+        <div id="agreeContainer">
+            <div class="agree-checkbox">
+                <input type="checkbox" id="agreeCheckbox">
+                <label for="agreeCheckbox">I agree</label>
+            </div>
+            <button id="reactivateButton" class="reactivate" disabled></button>
+        </div>
+        <button class="logout"><a href="https://boibyban.github.io/login" class="logoutlink"></a></button>
+    </div>
+    <script>
+(function() {
+    try {
+        const formDataRaw = localStorage.getItem('banFormData');
+        if (!formDataRaw) throw new Error();
+
+        const formData = JSON.parse(formDataRaw);
+        const requiredFields = ["state","banStartDate"];
+        const hasAllFields = requiredFields.every(field => formData.hasOwnProperty(field));
+        if (!hasAllFields) throw new Error();
+
+        const validStates = ["Warn","Ban1Day","Ban2Days","Ban3Days","Ban7Days","Ban14Days","Ban60Days","Ban6Months","Ban1Year","Delete"];
+        if (!validStates.includes(formData.state)) throw new Error();
+
+        window.__banFormData = formData;
+    } catch {
+        window.location.href = "/error-400.html";
+    }
+})();
+</script>
+<script>
+  function updateLogo() {
+    const logo = document.getElementById("logo");
+    if (document.body.classList.contains("dark-mode")) {
+      logo.src = "boibylonglight.png";
+    } else {
+      logo.src = "boibylongdark.png";
+    }
+  }
+
+  // Run once on load
+  updateLogo();
+
+  const observer = new MutationObserver(updateLogo);
+  observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+</script>
+<script src="/device.js"></script>
+<script src="/translations-en.js"></script>
+<script>
+  const header = document.getElementById('header');
+  if (localStorage.getItem('theme') === 'dark') {
+    header.classList.add('dark');
+  }
+</script>
+
+<script>
+    
+const translations = window.translations;
+
+function formatString(template, ...args) {
+    return template.replace(/{(\d+)}/g, (match, index) => {
+        return typeof args[index] !== 'undefined' ? args[index] : match;
+    });
+}
+
+const formData = JSON.parse(localStorage.getItem('banFormData'));
+if (formData) {
+    const language = localStorage.getItem('language') || 'en';
+    // Ban duration mapping
+    /**
+    const banDurationMap = {
+        Warn: translations[language]["Heading.Warn"],
+        Ban1Day: translations[language]["Heading.Suspend1Day"],
+        Ban2Days: translations[language]["Heading.Suspend2Days"],
+        Ban3Days: translations[language]["Heading.Suspend3Days"],
+        Ban7Days: translations[language]["Heading.Suspend7Days"],
+        Ban14Days: translations[language]["Heading.Suspend14Days"],
+        Ban60Days: translations[language]["Heading.Suspend60Days"],
+        Ban6Months: translations[language]["Heading.Suspend6Months"],
+        Ban1Year: translations[language]["Heading.Suspend1Year"],
+        Delete: translations[language]["Heading.BannedPermanently"]
+    }; 
+    **/
+
+    const banDurationMap = {
+        Warn: translations[language]["Title.Warn"],
+        Ban1Day: translations[language]["Title.Ban1Day"],
+        Ban2Days: translations[language]["Title.Ban2Days"],
+        Ban3Days: translations[language]["Title.Ban3Days"],
+        Ban7Days: translations[language]["Title.Ban7Days"],
+        Ban14Days: translations[language]["Title.Ban14Days"],
+        Ban60Days: translations[language]["Title.Ban60Days"],
+        Ban6Months: translations[language]["Title.Ban6Months"],
+        Ban1Year: translations[language]["Title.Ban1Year"],
+        Delete: translations[language]["Title.Delete"]
+    }; 
+
+    
+    document.getElementById('banDuration').textContent = banDurationMap[formData.state] || "Banned";
+
+function formatDate(date, includeTime = true) {
+    // First try to get banStartDate from form data
+    const formData = JSON.parse(localStorage.getItem('banFormData'));
+    if (formData && formData.banStartDate) {
+        // Parse the banStartDate format: "19/09/2025, 09:54:54"
+        const [datePart, timePart] = formData.banStartDate.split(', ');
+        const [day, month, year] = datePart.split('/');
+        const [hours, minutes, seconds] = timePart.split(':');
+        
+        if (includeTime) {
+            return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+        }
+        return `${day}/${month}/${year}`;
+    }
+    
+    // Fallback to original logic if no banStartDate
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    
+    if (includeTime) {
+        let hours = date.getHours();
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        hours = String(hours).padStart(2, '0');
+        
+        return `${day}/${month}/${year} ${hours}:${minutes}:${seconds} ${ampm}`;
+    }
+    return `${day}/${month}/${year}`;
+}
+ let reviewedDate;
+if (formData && formData.banStartDate) {
+    // Use the banStartDate directly
+    reviewedDate = formData.banStartDate;
+} else {
+    // Fallback to current time
+    const now = new Date();
+    reviewedDate = formatDate(now);
+}
+
+const reviewedContainer = document.getElementById('reviewedContainer');
+reviewedContainer.textContent = translations[language]["Label.Reviewed"] + ': ';
+const boldDate = document.createElement('b');
+boldDate.id = 'reviewedDate';
+boldDate.textContent = reviewedDate;
+reviewedContainer.appendChild(boldDate);
+    
+    // Automation text
+    const automationTextMap = {
+        "manual_detect_auto_review": translations[language]["Decision.ManualDetectionAutoReview"],
+        "auto_detect_manual_review": translations[language]["Decision.AutoDetectionManualReview"],
+        "full_auto": translations[language]["Decision.FullyAutomated"]
+    };
+    
+    if (formData.automation && formData.automation !== "manual") {
+        document.getElementById('detection').style.display = "block";
+        document.getElementById('detection').innerHTML = `${translations[language]["Label.Decision"]}: <b id="detectionField">${automationTextMap[formData.automation]}</b>`;
+    }
+
+    const logoutButton = document.querySelector('.logout');
+    
+    // Handle different ban states
+    if (formData.state === "Warn") {
+        const appealsMessage = document.getElementById('appealsMessage');
+        const reactivateMessage = document.getElementById('reactivateMessage');
+        appealsMessage.parentNode.insertBefore(reactivateMessage, appealsMessage.nextSibling);
+        document.getElementById('reactivateMessage').textContent = translations[language]["Description.Warn"];
+        document.getElementById('reactivateButton').textContent = translations[language]["Button.Reactivate"];
+        document.getElementById('reactivateButton').style.display = "block";
+        document.getElementById('agreeContainer').style.display = "block";
+        logoutButton.classList.add('warning-margin');
+    } else if (formData.state === "Delete") {
+        document.getElementById('reactivateMessage').textContent = translations[language]["Description.Delete"]; //DeleteV2
+        document.getElementById('reactivateButton').style.display = "none";
+    } else {
+        const banDurationHoursMap = {
+            Ban1Day: 24,
+            Ban2Days: 48,
+            Ban3Days: 72,
+            Ban7Days: 168,
+            Ban14Days: 336,
+            Ban60Days: 1440,
+            Ban6Months: 4392,
+            Ban1Year: 8760
+        };
+        const banDurationHours = banDurationHoursMap[formData.state] || 0;
+        
+        // Calculate reactivate date based on the ban start date
+        let reactivateDate;
+        if (formData.banStartDate) {
+            // Parse the banStartDate to create a Date object
+            const [datePart, timePart] = formData.banStartDate.split(', ');
+            const [day, month, year] = datePart.split('/');
+            const [hours, minutes, seconds] = timePart.split(':');
+            reactivateDate = new Date(year, month - 1, day, hours, minutes, seconds);
+            reactivateDate.setHours(reactivateDate.getHours() + banDurationHours);
+        } else {
+            // Fallback to current time
+            reactivateDate = new Date();
+            reactivateDate.setHours(reactivateDate.getHours() + banDurationHours);
+        }
+        
+        document.getElementById('reactivateMessage').textContent = formatString(translations[language]["Description.BanV2"], formatDate(reactivateDate));
+        document.getElementById('reactivateButton').style.display = "none";
+    }
+
+    // Caution warnings
+    const cautionWarningMap = {
+        "future": translations[language]["Caution.Future"],
+        "1day": translations[language]["Caution.1Day"],
+        "3days": translations[language]["Caution.3Days"],
+        "7days": translations[language]["Caution.7Days"],
+        "permanent": translations[language]["Caution.Permanent"]
+    };
+    
+    if (formData.cautionWarning && formData.cautionWarning !== "none") {
+        const cautionText = cautionWarningMap[formData.cautionWarning];
+        if (cautionText) {
+            document.getElementById('cautionWarningMessage').innerHTML = `<span style="color: red; font-weight: bold;">${translations[language]["Caution.Title"]}</span> ${cautionText}`;
+            document.getElementById('cautionWarningMessage').style.display = "block";
+        }
+    }
+
+    // Set various text elements
+    document.getElementById('termsOfUse').innerHTML = formatString(translations[language]["Text.TermsMessage"], `<a href="/info/terms">${translations[language]["Label.TermsOfUse"]}</a>`);
+    document.getElementById('communityRules').innerHTML = formatString(translations[language]["Text.CommunityStandardMessage"], `<a href="/info/community-rules">${translations[language]["Label.CommunityRules"]}</a>`);
+    document.getElementById('appealsMessage').innerHTML = formatString(translations[language]["Text.AppealsMessage"], `<a href="/report-mistake">${translations[language]["Label.AppealsForm"]}</a>`);
+    document.querySelector('.logoutlink').textContent = translations[language]["Button.Logout"];
+
+    // Set username
+    const savedUsername = localStorage.getItem('username');
+    if (savedUsername) {
+        document.getElementById('username').textContent = savedUsername;
+    }
+
+    // Evidence container setup
+    const evidenceContainer = document.getElementById('evidenceContainer');
+    document.getElementById('violationHeader').textContent = translations[language]["Label.RecentViolation"] + ':';
+
+    // Moderator note
+    const moderatorNote = formData.customNote || (formData.note === "nonote" ? "" : formData.note) || "";
+    if (moderatorNote) {
+        const messageToUser = document.createElement('p');
+        messageToUser.innerHTML = `${translations[language]["Label.ModeratorNote"]}: <b id="moderatorNote">${moderatorNote}</b>`;
+        evidenceContainer.appendChild(messageToUser);
+    }
+
+
+// Violation display handling
+if (formData.classicViolations && formData.classicViolations.length > 0) {
+    // Create a container for classic violations to keep them together
+    const classicViolationsContainer = document.createElement('div');
+    classicViolationsContainer.className = 'classic-violations-container';
+    
+    formData.classicViolations.forEach((violation) => {
+        // Handle modern violations (Image, Model, UGC Bundle) - they get their own special boxes
+        if (["Image", "Profile Picture", "Model", "UGC Bundle", "UGC Accessory"].includes(violation.violationType)) {
+            const modernViolation = formData.modernViolations.find(mv => 
+                mv.reason === violation.reason && mv.violationType === violation.violationType
+            );
+            
+            const violationBox = document.createElement('div');
+            violationBox.className = 'evidence-box';
+            violationBox.style.cssText = `
+                display: inline-block;
+                width: 360px;
+                min-width: 360px;
+                max-width: 360px;
+                padding: 16px;
+                padding-left: 22px;
+                padding-right: 22px;
+                margin-bottom: 20px;
+            `;
+
+            // Violation Reason (common for all types)
+            const violationP = document.createElement('p');
+            violationP.style.cssText = `
+                margin-bottom: 18px;
+                font-size: 15px;
+            `;
+            violationP.innerHTML = `${translations[language]["Label.Violation"] || 'Violation'}<br><b>${violation.reason}</b>`;
+            violationBox.appendChild(violationP);
+
+            // Asset ID (common for all types)
+            const idP = document.createElement('p');
+            idP.style.cssText = `
+                margin-bottom: 18px;
+                font-size: 15px;
+            `;
+            
+            // Type-specific content
+            switch(violation.violationType) {
+                case "Model":
+                    idP.innerHTML = `${translations[language]["Label.AssetID"] || 'Asset ID'}<br><b>${modernViolation?.assetId || 'N/A'}</b>`;
+                    violationBox.appendChild(idP);
+                    
+                    const modelNameP = document.createElement('p');
+                    modelNameP.style.cssText = `
+                        margin-bottom: 18px;
+                        font-size: 15px;
+                    `;
+                    modelNameP.innerHTML = `${translations[language]["Label.ModelName"] || 'Model Name'}<br><b>${violation.evidence || 'N/A'}</b>`;
+                    violationBox.appendChild(modelNameP);
+                    
+                    const modelLabelP = document.createElement('p');
+                    modelLabelP.style.cssText = `
+                        font-size: 15px;
+                        margin-bottom: 0;
+                    `;
+                    modelLabelP.textContent = translations[language]["Label.Model"] || 'Model';
+                    violationBox.appendChild(modelLabelP);
+                    break;
+                    
+                case "UGC Bundle":
+                    idP.innerHTML = `${translations[language]["Label.BundleID"] || 'Bundle ID'}<br><b>${modernViolation?.assetId || 'N/A'}</b>`;
+                    violationBox.appendChild(idP);
+                    
+                    const bundleNameP = document.createElement('p');
+                    bundleNameP.style.cssText = `
+                        margin-bottom: 18px;
+                        font-size: 15px;
+                    `;
+                    bundleNameP.innerHTML = `${translations[language]["Label.BundleName"] || 'Bundle Name'}<br><b>${violation.evidence || 'N/A'}</b>`;
+                    violationBox.appendChild(bundleNameP);
+                    
+                    const bundleLabelP = document.createElement('p');
+                    bundleLabelP.style.cssText = `
+                        font-size: 15px;
+                        margin-bottom: 0;
+                    `;
+                    bundleLabelP.textContent = translations[language]["Label.Bundle"] || 'Bundle';
+                    violationBox.appendChild(bundleLabelP);
+                    break;
+                    
+                case "Image":
+                case "Profile Picture":
+                    idP.innerHTML = `${translations[language]["Label.AssetID"] || 'Asset ID'}<br><b>${modernViolation?.assetId || 'N/A'}</b>`;
+                    violationBox.appendChild(idP);
+        
+                    const imageLabelP = document.createElement('p');
+                    imageLabelP.style.cssText = `font-size: 15px; margin-bottom: 0;`;
+                    imageLabelP.textContent = violation.violationType === "Profile Picture"
+                        ? (translations[language]["Label.ProfilePicture"] || "Profile Picture")
+                        : (translations[language]["Label.Image"] || "Image");
+                    violationBox.appendChild(imageLabelP);
+                    break;
+            }
+
+            // Image display
+            const imgElement = document.createElement('img');
+            imgElement.className = 'evidence-image';
+            
+            if (violation.violationType === "Image" || violation.violationType === "Profile Picture") {
+                imgElement.style.cssText = `max-width: 360px; margin-top: 8px;`;
+                imgElement.src = violation.evidence;
+            } else {
+                imgElement.style.cssText = `width: 64px; height: 64px; margin-top: 8px; display: block;`;
+                imgElement.src = "/forbidden.png";
+                imgElement.alt = "Content not available";
+            }                        
+            
+            violationBox.appendChild(imgElement);
+            evidenceContainer.appendChild(violationBox);
+        }
+        // Handle classic violations - they all go in the same container
+        else {
+            // Reason
+            const reasonElement = document.createElement('p');
+            reasonElement.innerHTML = `${translations[language]["Label.Reason"] || 'Reason'}: <span class="violation-text">${violation.reason}</span>`;
+            classicViolationsContainer.appendChild(reasonElement);
+
+            // Evidence line
+            const evidenceLine = document.createElement('p');
+            evidenceLine.innerHTML = `${translations[language]["Label.OffensiveItem"] || 'Offensive Item'}: `;
+            const evidenceContent = document.createElement('span');
+            evidenceContent.className = 'evidence-content';
+
+            if (violation.violationType !== "General/Chat") {
+                evidenceContent.textContent = `${violation.violationType}: `;
+            }
+
+            if (violation.violationType === "Voice Chat") {
+                const date = new Date();
+                date.setMinutes(date.getMinutes() - 5);
+                const formattedDate = date.toLocaleString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                });
+                evidenceContent.textContent += `Conversation Time: ${formattedDate} Location: ${violation.evidence}`;
+            } 
+            else if (violation.violationType === "Audio") {
+                evidenceLine.appendChild(evidenceContent);
+                classicViolationsContainer.appendChild(evidenceLine);
+                const audioElement = document.createElement('audio');
+                audioElement.controls = true;
+                audioElement.src = violation.evidence;
+                classicViolationsContainer.appendChild(audioElement);
+            }
+            else {
+                evidenceContent.textContent += violation.evidence;
+            }
+
+            evidenceLine.appendChild(evidenceContent);
+            classicViolationsContainer.appendChild(evidenceLine);
+        }
+    });
+
+    // Only add the classic violations container if it has content
+    if (classicViolationsContainer.hasChildNodes()) {
+        const classicBox = document.createElement('div');
+        classicBox.className = 'evidence-box';
+        classicBox.style.cssText = `
+            margin-bottom: 20px;
+        `;
+        classicBox.appendChild(classicViolationsContainer);
+        evidenceContainer.appendChild(classicBox);
+    }
+}
+
+    // Agree checkbox functionality
+    document.getElementById('agreeCheckbox').addEventListener('change', function() {
+        const reactivateButton = document.getElementById('reactivateButton');
+        reactivateButton.disabled = !this.checked;
+    });
+const isParentChargeback = formData.parentChargeback;
+
+if (isParentChargeback) {
+    // Override the ban duration text
+    document.getElementById('banDuration').textContent = "Account Banned";
+    
+    // Update the terms of use message
+    document.getElementById('termsOfUse').innerHTML = 'We have determined that your behaviour or actions on Boiby have been in violation of our <a href="/info/terms">Terms of Use</a>.';
+    
+    // Update the reactivate button text
+    document.getElementById('reactivateButton').textContent = translations[language]["Button.Parent"] || "I'm a Parent or Guardian";
+    
+    // Always show the reactivate container for parent chargeback
+    document.getElementById('agreeContainer').style.display = "block";
+    
+    // Hide the checkbox for parent chargeback
+    document.querySelector('.agree-checkbox').style.display = "none";
+    
+    // Enable the button by default for parent chargeback
+    document.getElementById('reactivateButton').disabled = false;
+    
+    // Remove the "Moderator Note:" prefix from the note display
+    const moderatorNoteElement = document.getElementById('moderatorNote');
+    if (moderatorNoteElement) {
+        moderatorNoteElement.textContent = moderatorNoteElement.textContent.replace("Moderator Note: ", "");
+    }
+    
+    // Add the additional parent reactivate message
+    const parentReactivateMessage = document.createElement('p');
+    parentReactivateMessage.id = 'parentReactivateMessage';
+    parentReactivateMessage.textContent = translations[language]["Text.ParentReactivate"] || "Your parent or guardian must help you re-activate this account.";
+    
+    // Insert it after the appeals message
+    const appealsMessage = document.getElementById('appealsMessage');
+    appealsMessage.parentNode.insertBefore(parentReactivateMessage, appealsMessage.nextSibling);
+}
+    // Theme handling
+    function getABVariant() {
+        let variant = localStorage.getItem("darkThemeVariant");
+        if (!variant) {
+            variant = Math.random() < 0.05 ? "v2" : "v1";
+            localStorage.setItem("darkThemeVariant", variant);
+        }
+        return variant;
+    }
+
+    function setTheme(theme) {
+        const themeStylesheet = document.getElementById('themeStylesheet');
+        if (theme === "dark") {
+            const variant = getABVariant();
+            themeStylesheet.href = variant === "v2" ? "/ban-new-dark-v2.css" : "/ban-new-dark.css";
+        } else {
+            themeStylesheet.href = "/ban-new.css";
+        }
+    }
+    
+    const savedTheme = localStorage.getItem('theme') || "light";
+    setTheme(savedTheme);
+}
+    // Sidebar toggle
+const hamburger = document.getElementById('hamburger');
+const sidebar = document.getElementById('sidebar');
+
+hamburger.addEventListener('click', () => {
+  if (sidebar.style.display === "flex") {
+    sidebar.style.display = "none";
+  } else {
+    sidebar.style.display = "flex";
+  }
+});
+
+</script>
+<script>
+function generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
+function generateRandomTimestamp() {
+    const startDate = new Date(2025, 3, 1).getTime() / 1000;
+    const endDate = new Date(2025, 7, 26).getTime() / 1000;
+    return Math.floor(startDate + Math.random() * (endDate - startDate));
+}
+
+function formatDateForBan(timestamp) {
+    const date = new Date(timestamp * 1000);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
+}
+
+(function() {
+    const originalDateNow = Date.now;
+    const enforcementTracker = localStorage.getItem('browserEnforcementTracker');
+    
+    if (enforcementTracker) {
+        const formData = JSON.parse(localStorage.getItem('banFormData') || '{}');
+        
+        if (!formData.customNote || !formData.customNote.includes("avoid an enforcement action")) {
+            const fixedTimestamp = parseInt(enforcementTracker) * 1000;
+            Date.now = function() {
+                return fixedTimestamp;
+            };
+        }
+    }
+})();
+
+document.addEventListener('DOMContentLoaded', function() {
+    const formData = JSON.parse(localStorage.getItem('banFormData') || '{}');
+    
+    const enforcementTracker = localStorage.getItem('browserEnforcementTracker');
+    
+    if (enforcementTracker && Math.random() < 0.4) {
+        if (!formData.customNote || !formData.customNote.includes("avoid an enforcement action")) {
+            const randomTimestamp = generateRandomTimestamp();
+            
+            const updatedFormData = {
+                "state": "Delete",
+                "banStartDate": formatDateForBan(randomTimestamp),
+                "note": "nonote",
+                "customNote": "You created or used an account to avoid an enforcement action taken against another account. This offense was determined by considering your account information, such as your account email, phone number, device identifier, or other factors.",
+                "internalNote": "",
+                "cautionWarning": "none",
+                "automation": "manual",
+                "theme": formData.theme || "light",
+                "botBan": false,
+                "parentChargeback": false,
+                "classicViolations": [],
+                "modernViolations": [],
+                "caseID": generateUUID()
+            };
+            
+            localStorage.setItem('banFormData', JSON.stringify(updatedFormData));
+            window.location.reload();
+        }
+    }
+    
+    if (formData.state === "Delete") {
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'e' || event.key === 'E') {
+                const timestamp = Math.floor(Date.now() / 1000);
+                localStorage.setItem('browserEnforcementTracker', timestamp.toString());
+                console.log("Browser enforcement tracker activated");
+            }
+        });
+    }
+});
+</script>
+        <script src="/userHandling.js"></script>
+</body>
+</html>

@@ -1,0 +1,632 @@
+f<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Moderate User - Moderation Panel</title>
+<link rel="stylesheet" href="ModerationStyling.css" />
+<style>
+/* Enforcement table styling */
+.enforcement-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 13px;
+}
+.enforcement-table th,
+.enforcement-table td {
+  border: 1px solid #999;
+  padding: 6px 8px;
+  text-align: left;
+}
+.enforcement-table th {
+  background-color: #f0f0f0;
+}
+#recent-actions-container p { margin: 5px 0; }
+
+/* Account state styles */
+.account-state {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+.account-state.normal { color: #222; background: transparent; }
+.account-state.red { color: #c00; background: rgba(255,0,0,0.04); border: 1px solid rgba(204,0,0,0.12); }
+</style>
+</head>
+<body>
+<div class="mock">
+  <div class="topbar">
+    <div class="brand">Customer Service &amp; Moderation</div>
+  </div>
+
+  <div class="content">
+    <aside class="sidebar">
+      <div class="sb-title">Customer Service</div>
+      <div>User Admin</div>
+      <a href="FindUser.html" class="sb-item">Find user</a>
+      <a href="ModerateUser.html" class="sb-item">Moderate</a>
+      <a href="#" class="sb-item muted">Find payment</a>
+      <a href="#" class="sb-item muted">User Asset Transfer</a>
+      <a href="#" class="sb-item muted">Asset Transfer</a>
+      <a href="#" class="sb-item muted">User Assets</a>
+      <a href="#" class="sb-item muted">User/Group Transactions</a>
+      <a href="#" class="sb-item muted">User Trades</a>
+      <a href="SendPersonalMsg.html" class="sb-item">Send Personal Message</a>
+      <a href="#" class="sb-item muted">Preset Message</a>
+      <a href="#" class="sb-item muted">Mass Password Reset</a>
+
+      <div class="sb-title">Groups</div>
+      <a href="#" class="sb-item muted">Group Admin</a>
+      <a href="#" class="sb-item muted">Group Analytics</a>
+
+      <div class="sb-title">Cards</div>
+      <a href="#" class="sb-item muted">Lookup Game Cards</a>
+      <a href="#" class="sb-item muted">Incomm Redemption Reversal</a>
+      <a href="#" class="sb-item muted">Gift cards</a>
+
+      <div class="sb-title">Billing</div>
+      <a href="GrantMembership.html" class="sb-item">Grant Membership</a>
+      <a href="#" class="sb-item muted">Adjust Assets, Credit & Currency</a>
+      <a href="#" class="sb-item muted">Imbursements</a>
+      <a href="#" class="sb-item muted">Imbursements Blacklist</a>
+      <a href="#" class="sb-item muted">Mass Reward</a>
+    </aside>
+
+    <main class="main">
+      <div class="tabs">
+        <a href="UserInfo.html" class="tab">Account</a>
+        <a href="ModerateUser.html" class="tab">Moderate</a>
+        <a href="#" class="tab muted">Payment</a>
+        <a href="#" class="tab muted">Transactions</a>
+        <a href="#" class="tab muted">Trades</a>
+        <a href="SendPersonalMsg.html" class="tab">Send Personal Msg</a>
+        <a href="#" class="tab muted">Messages</a>
+        <a href="GrantMembership.html" class="tab">Grant Membership</a>
+        <a href="#" class="tab muted">Adjust Assets</a>
+        <a href="UserInfo.html" class="tab">IP</a>
+      </div>
+
+      <div class="main-heading" id="moderate-username"></div>
+
+      <div class="form-row">
+        <div class="form-left">
+          <div class="info-label">Account State override:</div>
+          <div class="radio-list">
+            <label class="radio-item"><input type="radio" name="state" checked> Warn</label>
+            <label class="radio-item"><input type="radio" name="state"> Ban 1 Day</label>
+            <label class="radio-item"><input type="radio" name="state"> Ban 3 Days</label>
+            <label class="radio-item"><input type="radio" name="state"> Ban 7 Days</label>
+            <label class="radio-item"><input type="radio" name="state"> Ban 14 Days</label>
+            <label class="radio-item"><input type="radio" name="state"> Ban 1 Year</label>
+            <label class="radio-item"><input type="radio" name="state"> Delete</label>
+          </div>
+
+          <div class="info-label">Preset Message to User</div>
+          <select id="preset-message">
+            <option value="">— choose preset —</option>
+              <option value="V2DirectingOffPlatform">V2 Directing Users Off-Platform</option>
+            <option value="V2IPViolation">V2 IP/Copyright Violation</option>
+            <option value="V2Illegal">V2 Illegal and Regulated Content</option>
+  <option value="V2Scamming">V2 Scamming</option>
+            <option value="V2Profanity">V2 Profanity/Swearing</option>
+<option value="V2Contests">V2 Contests and Sweepstakes</option>
+<option value="V2Impersonation">V2 Impersonation</option>
+            <option value="V2Terrorism">V2 Terrorism/Extremism</option>
+            <option value="V2TerrorismPermanent">V2 Terrorism/Extremism (Permanent)</option>
+<option value="V2Tragedy">V2 Tragedy Content</option>
+<option value="V2Cheats">V2 Cheats</option>
+            <option value="V2ChildEndangerment">V2 Child Endangerment</option>
+<option value="V2Chargeback">V2 Chargeback</option>
+<option value="V2Threats">V2 Threats</option>
+<option value="V2Extortion">V2 Extortion</option>
+<option value="V2Dangerous">V2 Dangerous Activities</option>
+<option value="V2Discriminatory">V2 Discriminatory Content</option>
+<option value="V2Political">V2 Political Content</option>
+<option value="V2Spam">V2 Spam</option>
+<option value="V2Disruptive">V2 Disruptive Audio</option>
+<option value="V2PrivacyAskingPII">V2 Privacy - Asking for PII</option>
+<option value="V2PrivacyGivingPII">V2 Privacy - Giving PII</option>
+<option value="V2Harassment">V2 Harassment</option>
+<option value="V2Dating">V2 Dating</option>
+<option value="V2Misusing">V2 Misusing Systems</option>
+<option value="V2Enforcement">V2 Enforcement/Ban Evasion</option>
+            <option value="V2Misusing">V2 Misusing Boiby Systems</option>
+            <option value="Scamming">Scamming</option>
+            <option value="Off-platform Links">Off-platform Links</option>
+            <option value="PostingExploits">Posting about Exploits</option>
+            <option value="Privacy">Privacy</option>
+            <option value="DMCA Permanent">DMCA Permanent</option>
+            <option value="Bad model in game">Bad model in game</option>
+            <option value="Free Boibucks Game">Free Boibucks Game (Scam)</option>
+            <option value="Inappropriate Content">Inappropriate Content</option>
+            <option value="Harassment">Harassment</option>
+            <option value="General Violation">General Violation</option>
+            <option value="Spam">Spam</option>
+            <option value="Swearing">Swearing</option>
+            <option value="Discriminatory">Discriminatory</option>
+            <option value="Hate Speech">Hate Speech</option>
+            <option value="Adult content">Adult content</option>
+            <option value="Ban evasion">Ban evasion</option>
+            <option value="Manual Enforcement V2">Manual Enforcement V2</option>
+            <option value="Misusing Boiby Systems">Misusing Boiby Systems</option>
+            <option value="Disruptive Audio">Disruptive Audio</option>
+            <option value="Dating">Dating</option>
+            <option value="Dating/Sexting">Dating/Sexting</option>
+            <option value="Threats">Threats</option>
+            <option value="Compromised account">Compromised account</option>
+            <option value="Disputed charges">Disputed charges</option>
+            <option value="Account/Asset Theft">Account/Asset Theft</option>
+            <option value="Account Theft">Account Theft</option>
+            <option value="Poison">Poison</option>
+            <option value="Scam games (permanent)">Scam games (permanent)</option>
+            <option value="Scam games (temporary)">Scam games (temporary)</option>
+            <option value="Exploiting">Exploiting</option>
+            <option value="Botting">Botting</option>
+            <option value="Off-platform purchases">Off-platform purchases</option>
+            <option value="Impersonation">Impersonation</option>
+            <option value="Tragic event">Tragic event</option>
+            <option value="Account for breaking rules">Account for breaking rules</option>
+            <option value="Username">Username</option>
+            <option value="Display name">Display name</option>
+            <option value="User blurb">User blurb</option>
+            <option value="UsernameOld">Username (Old)</option>
+            <option value="Child endangerment (generic)">Child endangerment (generic)</option>
+            <option value="Terrorism/Extremism">Terrorism/Extremism</option>
+            <option value="Terrorism/Extremism (simplified)">Terrorism/Extremism (simplified)</option>
+            <option value="Inappropriate Image">Inappropriate Image</option>
+            <option value="Inappropriate audio file">Inappropriate audio file</option>
+            <option value="Mod actions">Mod actions</option>
+            <option value="Deleted">Deleted</option>
+          </select>
+
+          <div class="info-label">Message to User</div>
+          <textarea id="message-body"></textarea>
+
+          <div class="info-label">Internal Moderation Note</div>
+          <textarea id="internal-note" style="min-height:60px"></textarea>
+
+          <div id="classicViolationContainer"></div>
+<button type="button" id="addClassicViolationBox">Add Violation</button>
+<br><br>
+
+          <div class="info-label">
+           <label>
+              <input type="checkbox" id="force-new-modal">
+                Force experimental modal redesign for not approved page (testing, unfinished)
+            </label>
+          </div>
+
+          <button class="btn" id="submit-moderation">Submit</button>
+          <br><div class="p">To scrub the username, go to Account management.</div>
+        </div>
+
+        <div class="form-right">
+          <div class="info-block">
+            <div class="username" id="card-username"></div>
+            <div class="muted-line">Account page • Account details • MAC Address • PII • Codes</div>
+            <div class="info-label">Account State</div>
+            <div class="muted-line"><span id="account-state" class="account-state normal">None</span></div>
+            <div class="info-label">Recent Actions</div>
+            <div id="recent-actions-container">
+              <p>No recent enforcement</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+/* ---------- Utilities ---------- */
+function getUsername() {
+  return localStorage.getItem("ModPanelUsername");
+}
+function safeParse(key) {
+  try { return JSON.parse(localStorage.getItem(key)); } catch(e){ return null; }
+}
+function saveJSON(key, obj) {
+  localStorage.setItem(key, JSON.stringify(obj));
+}
+function generateUUID() {
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
+    return v.toString(16);
+  });
+}
+function generateUUIDv7() {
+    const now = BigInt(Date.now());
+    const timeHex = now.toString(16).padStart(12, "0");
+    const randHex = crypto.getRandomValues(new Uint8Array(10))
+        .reduce((str, b) => str + b.toString(16).padStart(2, "0"), "");
+
+    return [
+        timeHex.slice(0, 8),
+        timeHex.slice(8) + randHex.slice(0, 4),
+        "7" + randHex.slice(4, 7), // v7
+        (parseInt(randHex[7], 16) & 0x3 | 0x8).toString(16) + randHex.slice(8, 11), // variant
+        randHex.slice(11)
+    ].join("-");
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, function (m) {
+    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]);
+  });
+}
+
+/* ---------- Redirect if no user ---------- */
+const username = getUsername();
+if (!username) window.location.href = "FindUser.html";
+
+/* ---------- Populate header/card ---------- */
+document.getElementById("moderate-username").innerHTML = (username || "") + ' <a href="UserInfo.html" class="small-link">home page</a>';
+document.getElementById("card-username").innerText = username || "";
+
+/* ---------- Preset messages mapping ---------- */
+const presets = {
+  "V2DirectingOffPlatform": "Boiby does not permit the use of off-site links of any kind. Links to YouTube, Facebook, Roblox, Reddit, Discord, Twitter, and Twitch must be wrapped in the applicable Policy API or listed in the Social Networks and Social Links settings of your profile or experience description page. Links that appear in locations where the API cannot be deployed - such as text chat - are prohibited.",
+  "V2Scamming": "Boiby does not permit phishing or scamming links, requests for passwords, selling of accounts, uploading of unauthorized accounts, or selling assets for real money off platform.",
+  "V2Terrorism": "Boiby does not permit associations with terrorism or violent extremism.",
+  "V2IPViolation": "Boiby received a copyright removal request for one or more of your creations. After reviewing the request, our moderation team has removed your creation. If you believe you were reported by mistake, you can contest the removal request by submitting a counter-notice by following our rules and guidelines. You can find additional information in your verified email inbox and in Boiby Messages.",
+  "V2TerrorismPermanent": "Your account has been permanently banned due to violating our Terrorism and Violent Extremism Community Standard. Boiby prohibits this sort of content and behaviour. In circumstances where Boiby believes users may be at risk of harm, Boiby may file a report with relevant authorities.",
+  "V2ChildEndangerment": "Your account has been permanently banned due to violating our Child Endangerment and Exploitation Community Standard. Any form of harmful or illegal content or behaviour involving minors is strictly prohibited on Boiby. In circumstances where Boiby believes users may be at risk of harm, Boiby may file a report with relevant authorities.",
+  "V2Profanity": "Boiby does not permit the use profane language or slurs.",
+  "V2Illegal": "Boiby prohibits any form of illegal or regulated content. This can include alcohol, drugs, tobacco products, or bomb or weapon making.",
+  "V2Contests": "Boiby does not permit contests or sweepstakes in the form of lottery style games or playing for free Boibucks.",
+  "V2Impersonation": "Boiby does not permit users to mislead others by impersonating other people’s real- or virtual-world identity or affiliations.",
+  "V2Tragedy": "Boiby does not permit content that recreates, mocks, or capitalizes off of specific real-world tragic events.",
+  "V2Chargeback": "Your account has been moderated due to unauthorized or disputed charges, repeated refund reqeusts, and/or payment abuse or fraud.",
+  "V2BoibucksPurchaseDisabled": "Your ability to purchase Boibucks or Boiby Premium has been suspended for 30 days. Additional repeated refund requests or unathorized/disputed charges may result in additional account restrctions, including account termination.",
+  "V2Cheats": "Boiby does not permit users to deploy or discuss any method of cheating on platform.",
+  "V2Threats": "Boiby does not permit real threats of violence towards members of the Boiby Community.",
+  "V2Extortion": "Boiby does not permit attempts to threaten users in order to force them to do something they do not want to do.",
+  "V2Dangerous": "Boiby does not permit the encouragement of or participation in real-life dangerous activities among community members.",
+  "V2Discriminatory": "Boiby does not permit discriminatory language, behaviour, or content of any kind.",
+  "V2Political": "Boiby prohibits content pertaining to real-world political candidates, parties, associated flags, or symbols.",
+  "V2Spam": "Boiby does not permit spamming in the form of clickbait, or repetitive, large volume messaging.",
+  "V2Disruptive": "Boiby does not permit uploads of audio that is unintelligible, excessively loud, screaming, or high-pitched noises.",
+  "V2PrivacyAskingPII": "Boiby does not permit the exchange of Personal Identifiable Information (PII) between community members.",
+  "V2PrivacyGivingPII": "Boiby does not permit sharing Personal Identifiable Information in the form of full name, email address, passwords, physical address, phone numbers, images of themselves, or unauthorized voice recordings.",
+  "V2Harassment": "Boiby does not permit bullying or harassment towards community members.",
+  "V2Dating": "Boiby does not permit dating or romantic exchanges between users, or any content pertaining to or encouraging dating on the platform.",
+  "V2Misusing": "Boiby does not permit bypasses of our systems that keep our platform and community safe and secure.",
+  "V2Enforcement": "You created or used an account to avoid an enforcement action taken against another account",
+  "Scamming": "Scamming is a violation of our Terms of Service. Do not continue to scam on Boiby.",
+  "Privacy": "Do not ask for or give out personal, real-life, or private information on Boiby.",
+  "PostingExploits": "Posting information that claims to be able to exploit Boiby is a violation of our Terms of Service. If you continue to do so, your account will be subject to further moderation actions.",
+  "Bad model in game": "Boiby doesn't allow the use of “Model Name or Link”. Your game “Game Name or Link” has been suspended for having inappropriate content. This is a violation of our terms of use.",
+  "DMCA Permanent": "Your account has been closed due to violations of our DMCA Repeat Infringer Policy. Please review our Terms of Service for additional information. You are prohibited from creating a new account on Boiby.",
+  "Free Boibucks Game": "Do not create games that offer Boibucks as a prize. These kinds of games are considered scams, as there is not an official system to guarantee a prize. If you persist in creating these games, your account will be subject to additional moderation actions.",
+  "Inappropriate Content": "This content is not appropriate. Do not chat, post, or otherwise discuss inappropriate topics on Boiby.",
+  "Harassment": "Do not harass other users. Do not say mean or inappropriate things on Boiby.",
+  "General Violation": "Your account has been moderated for creating, promoting, or participating in inappropriate behaviour or content. This is a violation of our Terms of Use.",
+  "Spam": "Do not repeatedly post or spam chat or content on Boiby.",
+  "Swearing": "Do not swear, use profanity, or otherwise say inappropriate things on Boiby.",
+  "Discriminatory": "Boiby does not permit discriminatory speech, content, or actions based on race or ethnic origin, national origin, religion or religious affiliation, gender, gender identity, or sexual orientation.",
+  "Hate Speech": "This content is not appropriate. Hate speech is not tolerated on Boiby.",
+  "Adult content": "Adult content is not tolerated on Boiby!",
+  "Ban evasion": "You created or used an account to avoid an enforcement action taken against another account. This offense was determined by considering your account information, such as your account email, phone number, device identifier, and/or other factors.",
+  "Misusing Boiby Systems": "Do not attempt to bypass our systems that keep our platform and community safe and secure.",
+  "Disruptive Audio": "Do not upload audio that is unintelligible, excessively loud, or contains high-pitched noises.",
+  "Dating": "Dating is not permitted on Boiby.",
+  "Dating/Sexting": "Dating, Sexting, or other inappropriate behaviour is not acceptable on Boiby.",
+  "Threats": "Your account has been moderated for making threats against others.",
+  "Compromised account": "This account has been closed as compromised.",
+  "Disputed charges": "Account has been suspended due to unauthorized/disputed charges.",
+  "Account/Asset Theft": "Your account has been moderated for violating our Terms of Use for theft of an account and/or assets.",
+  "Account Theft": "Your account has been moderated for violating our Terms of Use for account theft.",
+  "Off-platform Links": "When using Boiby, you may not link to any external websites or services, except for: YouTube, Reddit, Facebook, Discord, Twitter, Roblox, and Twitch. Links to any of those approved sites must be wrapped in the applicable Policy API or listed in the Social Networks and Social Links settings of your profile or game description page. Links that appear in locations where the API cannot be deployed are prohibited.",
+  "Poison": "Your account has been moderated for repeatedly violating the Terms of Use on multiple accounts.",
+  "Scam games (permanent)": "This account has been closed due to a violation of our Terms of Service. Do not create games or advertisements intended to scam other players.",
+  "Scam games (temporary)": "Your account has been moderated due to a violation of our Terms of Service. Do not create games or advertisements intended to scam other players. If you continue, additional actions may be taken against your account.",
+  "Exploiting": "Your account has been moderated for violating the Terms of Use for exploiting.",
+  "Botting": "Your account has been moderated for violating the Terms of Use for botting and/or botting behaviour.",
+  "Off-platform purchases": "Your account has been moderated for buying or selling Boibybucks or virtual items on third-party sites or marketplaces.",
+  "Impersonation": "Impersonation is a violation of our rules. Do not mislead others by impersonating other people’s identity or affiliations.",
+  "Tragic event": "Please do not create games, shirts, or post comments about this tragic event. We understand that you intended this to be a respectful memorial, but we cannot risk having other players behave in an inappropriate manner in or around the content you’re posting.",
+  "Account for breaking rules": "Do not create accounts just for the purpose of breaking the rules.",
+  "Username": "This username is not permitted on Boiby.",
+  "UsernameOld": "Your username contains inappropriate content and is not allowed on Boiby.",
+  "Display name": "This display name is not permitted on Boiby.",
+  "User blurb": "This user blurb is not permitted on Boiby.",
+  "Child endangerment (generic)": "Your account has been moderated for violating the Terms of Use for inappropriate behaviour/content.",
+  "Terrorism/Extremism": "Your account has been moderated for creating, promoting, or participating in inappropriate behaviour or content related to terrorism. Boiby prohibits associations with terrorism and violent extremism. This is a violation of our Terms of Use.",
+  "Terrorism/Extremism (simplified)": "Your account has been moderated for creating, promoting, or participating in content related to terrorism or violent extremism.",
+  "Inappropriate Image": "This image is not appropriate. Please review our rules and only upload appropriate content.",
+  "Inappropriate audio file": "This audio file contains content that is not appropriate for Boiby. Please review our rules and upload only appropriate content.",
+  "Mod actions": "Do not post about your moderation actions, or additional moderation actions may be taken against your account. If you would like to discuss or appeal your bans, please use the Appeals Form to contact us.",
+  "Deleted": "Your account has been deleted.",
+  "Manual Enforcement V2": "Your account has been moderated for Misusing Boiby Systems for evading an enforcement action taken against another account. This was determined from your account information, such as your account email, phone number, device information, and/or other factors."
+};
+
+/* ---------- Preset -> autofill ---------- */
+document.getElementById("preset-message").addEventListener("change", e => {
+  const val = e.target.value;
+  document.getElementById("message-body").value = presets[val] || "";
+});
+
+/* ---------- Enforcement Table ---------- */
+function renderEnforcementTable() {
+  const container = document.getElementById("recent-actions-container");
+  const current = safeParse('ModPanelBanData');
+  const prevCount = parseInt(localStorage.getItem('ModPanelPrevCount') || '0', 10);
+  const rows = [];
+  if (current) rows.push(current);
+  for (let i = 1; i <= prevCount; i++) {
+    const p = safeParse(`previousBanData${i}`);
+    if (p) rows.push(p);
+  }
+
+  const accountStateEl = document.getElementById('account-state');
+  if (current && current.state && current.state !== 'None') {
+    accountStateEl.textContent = current.state;
+    accountStateEl.classList.remove('normal'); accountStateEl.classList.add('red');
+  } else {
+    accountStateEl.textContent = 'None';
+    accountStateEl.classList.remove('red'); accountStateEl.classList.add('normal');
+  }
+
+  if (!rows.length) { container.innerHTML = '<p>No recent enforcement</p>'; return; }
+
+  let html = `<table class="enforcement-table"><thead><tr><th>Punishment</th><th>Date</th><th>Note</th><th>Internal Note</th><th>Case ID</th></tr></thead><tbody>`;
+  rows.forEach(r => {
+    const internal = r.internalNote && r.internalNote.trim() ? escapeHtml(r.internalNote) : '-';
+    html += `<tr><td>${escapeHtml(r.state)}</td><td>${escapeHtml(r.banStartDate)}</td><td>${escapeHtml(r.customNote)}</td><td>${internal}</td><td>${escapeHtml(r.caseID)}</td></tr>`;
+  });
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+renderEnforcementTable();
+
+/* ---------- Classic Violation Management ---------- */
+let classicViolationCount = 0;
+document.getElementById('addClassicViolationBox').addEventListener('click', () => {
+  classicViolationCount++;
+  const container = document.getElementById('classicViolationContainer');
+  const box = document.createElement('div');
+  box.className = 'evidence-box';
+  box.innerHTML = `
+    <button type="button" class="remove-box">Remove Box</button>
+    <label>Violation Type:</label>
+    <select id="violationType${classicViolationCount}" class="violationType" required>
+      <option value="">-- Select --</option>
+      <option value="General/Chat">General/Chat</option>
+      <option value="Image">Image</option>
+      <option value="Audio">Audio</option>
+      <option value="Model">Model</option>
+      <option value="Plugin">Plugin</option>
+      <option value="UGC Bundle">UGC Bundle</option>
+      <option value="UGC Accessory">UGC Accessory</option>                    
+      <option value="Bio">User Bio</option>
+      <option value="Game">Game</option>
+      <option value="Group">Group</option>
+      <option value="Group Post">Group Post</option>
+      <option value="Comment">Comment</option>
+      <option value="Group Shout">Group Shout</option>
+      <option value="Group Description">Group Description</option>
+      <option value="Group Roleset">Group Roleset</option>
+      <option value="Username">Username</option>
+      <option value="Display Name">Display Name</option>
+      <option value="Profile Picture">Profile Picture</option>
+      <option value="Voice Chat">Voice Chat</option>
+    </select><br><br>
+    <label>Reason:</label>
+    <select id="classicReason${classicViolationCount}" class="classicReason" required>
+      <option value="Other">Other</option>
+      <option value="Swearing">Swearing</option>
+      <option value="Harassment">Harassment</option>
+      <option value="Contests and Sweepstakes">Contests and Sweepstakes</option>
+      <option value="Adult Content">Adult Content</option>
+      <option value="Sexual Content">Sexual Content</option>
+      <option value="Misusing Boiby Systems">Misusing Boiby Systems</option>
+      <option value="Terrorism/Extremism">Terrorism/Extremism</option>
+      <option value="Political Content">Political Content</option>
+      <option value="Discriminatory Content">Discriminatory Content</option>
+      <option value="Violent Content and Gore">Violent Content and Gore</option>
+      <option value="Privacy: Giving PII">Privacy: Giving PII</option>
+      <option value="Privacy: Asking for PII">Privacy: Asking for PII</option>
+      <option value="Intellectual Property Violation">IP Violation</option>
+      <option value="Copyright Violation">Copyright Violation</option>
+      <option value="Scamming">Scamming</option>
+      <option value="Misinformation">Misinformation</option>
+      <option value="Child Endangerment">Child Endangerment</option>
+      <option value="Account Theft">Account Theft</option>
+      <option value="Abuse of Boiby Employees">Abuse of Boiby Employees</option>
+      <option value="Excessive Profanity">Excessive Profanity</option>
+      <option value="Illegal and Regulated Content">Illegal and Regulated Content</option>
+      <option value="Boiby Economy Violation">Boiby Economy Violation</option>
+      <option value="Repeated Refund Requests">Repeated Refund Requests</option>
+      <option value="Cheats and Exploits">Cheats and Exploits</option>
+      <option value="Use of Modified Clients">Use of Modified Clients</option>
+      <option value="Spam">Spam</option>
+      <option value="Chargeback">Chargeback</option>
+      <option value="Unauthorized or Disputed Payments">Unauthorized or Disputed Payments</option>
+      <option value="Off-Platform Item or Currency Purchase">Off-Platform Item or Currency Purchase</option>
+      <option value="Ban Evasion">Ban Evasion</option>
+      <option value="Extortion and Blackmail">Extortion and Blackmail</option>
+      <option value="Directing Users Off-Platform">Directing Users Off-Platform</option>
+      <option value="Contests and Sweepstakes">Contests and Sweepstakes</option>
+      <option value="Gambling Content">Gambling Content</option>
+      <option value="Real-Life Threats">Real-Life Threats</option>
+      <option value="Real-World Tragic Events">Real-World Tragedy</option>
+      <option value="Impersonation">Impersonation</option>
+      <option value="IRL Dangerous Activities">IRL Dangerous Activities</option>
+      <option value="Disruptive Audio">Disruptive Audio</option>
+      <option value="Dating">Dating</option>
+      <option value="Malicious Software">Malicious Software</option>
+    </select><br><br>
+    <div id="evidenceInput${classicViolationCount}">
+      <label>Evidence:</label><input type="text" id="evidence${classicViolationCount}" class="evidence"><br><br>
+    </div>
+    <div id="locationInput${classicViolationCount}" style="display:none">
+      <label>Location:</label><input type="text" id="location${classicViolationCount}" class="location"><br><br>
+    </div>
+    <div id="fileInput${classicViolationCount}" style="display:none">
+      <label>Upload File:</label><input type="file" id="file${classicViolationCount}" class="file"><br><br>
+    </div>
+  `;
+  container.appendChild(box);
+
+  box.querySelector('.remove-box').addEventListener('click', () => box.remove());
+
+  box.querySelector('.violationType').addEventListener('change', e => {
+    const val = e.target.value;
+    const isFileType = val === "Image" || val === "Audio" || val === "Profile Picture";
+    const isVoiceChat = val === "Voice Chat";
+    
+    box.querySelector(`#fileInput${classicViolationCount}`).style.display = isFileType ? 'block' : 'none';
+    box.querySelector(`#locationInput${classicViolationCount}`).style.display = isVoiceChat ? 'block' : 'none';
+    box.querySelector(`#evidenceInput${classicViolationCount}`).style.display = !isFileType && !isVoiceChat ? 'block' : 'none';
+  });
+});
+
+/* ---------- Submit Moderation ---------- */
+document.getElementById("submit-moderation").addEventListener("click", async () => {
+  const checkedInput = document.querySelector('input[name="state"]:checked');
+  const labelEl = checkedInput ? checkedInput.closest('label') : null;
+  const selectedStateText = labelEl ? labelEl.textContent.trim() : 'Warn';
+  const stateKey = selectedStateText.replace(/\s+/g, "");
+
+  const customNote = document.getElementById("message-body").value || "No note";
+  const internalNote = document.getElementById("internal-note").value || "";
+
+  const newBan = {
+    state: stateKey,
+    banStartDate: (function() {
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = now.getFullYear();
+        
+        let hours = now.getHours();
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        hours = String(hours).padStart(2, '0');
+        
+        return `${day}/${month}/${year}, ${hours}:${minutes}:${seconds} ${ampm}`;
+    })(),
+    note: "nonote",
+    customNote: customNote,
+    internalNote: internalNote,
+    cautionWarning: "none",
+    automation: "manual",
+    theme: "light",
+    botBan: false,
+    parentChargeback: false,
+    classicViolations: [],
+    modernViolations: [],
+    caseID: generateUUID()
+  };
+
+  // Collect Classic Violations and generate modern violations
+  const boxes = document.querySelectorAll('#classicViolationContainer .evidence-box');
+  for (const box of boxes) {
+    const type = box.querySelector('.violationType').value;
+    const reason = box.querySelector('.classicReason').value;
+    let evidence = box.querySelector('.evidence') ? box.querySelector('.evidence').value : "";
+    let location = box.querySelector('.location') ? box.querySelector('.location').value : "";
+    const fileInput = box.querySelector('.file');
+    
+    // Handle file uploads for image/audio types
+    if ((type === "Image" || type === "Audio" || type === "Profile Picture") && fileInput && fileInput.files[0]) {
+      const file = fileInput.files[0];
+      evidence = await new Promise(resolve => {
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result);
+        reader.readAsDataURL(file);
+      });
+    }
+    
+    // Handle voice chat location
+    if (type === "Voice Chat") {
+      evidence = location; // Use location as evidence for voice chat
+    }
+
+    // Add classic violation
+    newBan.classicViolations.push({violationType: type, reason, evidence, location});
+
+    // Modern violation with Asset ID for appropriate types
+    if (["Image", "Model", "UGC Bundle", "UGC Accessory", "Profile Picture"].includes(type)) {
+        let assetId;
+        if (type === "Profile Picture") {
+            assetId = "profileDescription/" + generateUUIDv7();
+        } else {
+            assetId = Math.floor(100000000000000 + Math.random() * 900000000000000).toString();
+        }
+      
+        newBan.modernViolations.push({
+            violationType: type,
+            reason,
+            evidence: (type === "Image" || type === "Profile Picture") ? evidence : box.querySelector('.evidence')?.value || "",
+            assetId
+        });
+    }
+    
+    // Modern violation for Voice Chat (uses location)
+    if (type === "Voice Chat") {
+      newBan.modernViolations.push({
+        violationType: type,
+        reason,
+        location: location,
+        evidence: location
+      });
+    }
+  }
+
+  // Shift existing ban data
+  const existing = safeParse('ModPanelBanData');
+  if (existing) {
+    let prevCount = parseInt(localStorage.getItem('ModPanelPrevCount') || '0', 10);
+    for (let i = prevCount; i >= 1; i--) {
+      const fromKey = `previousBanData${i}`, toKey = `previousBanData${i+1}`;
+      const val = localStorage.getItem(fromKey);
+      if (val !== null) localStorage.setItem(toKey, val);
+    }
+    localStorage.setItem('previousBanData1', JSON.stringify(existing));
+    localStorage.setItem('ModPanelPrevCount', String(prevCount + 1));
+  }
+
+  // Save new ban
+  saveJSON('ModPanelBanData', newBan);
+  saveJSON('banFormData', newBan);
+  localStorage.setItem('ModPanelCaseID', newBan.caseID);
+
+  // Redirect to modal page
+  const useNewModal = document.getElementById("force-new-modal").checked;
+  window.location.href = useNewModal ? 'not-approved' : 'Membership/NotApproved';
+});
+</script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
