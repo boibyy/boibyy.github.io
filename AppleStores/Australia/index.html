@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Australia Apple Store Database</title>
+  <style>
+    :root{
+      --c-bg:#f6f7f9;
+      --c-panel:#ffffff;
+      --c-contrast:#0b1220;
+      --c-muted:#5b6770;
+      --c-border:#e6e9ec;
+      --c-blue:#335fff;
+      --c-green:#149b6c;
+      --c-purple:#9b59b6;
+      --c-red:#e74c3c;
+      --c-orange:#f39c12;
+      --card-width:480px; 
+      --card-min-height:420px;
+
+      --modal-max-width:640px; 
+      --modal-img-width:520px; 
+      --modal-img-height:240px;
+      --timeline-gap:26px;
+      --timeline-item-bg:#fbfdff;
+      --timeline-divider:rgba(11,18,32,0.06);
+    }
+    *{box-sizing:border-box}
+    body{font-family:var(--font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial);margin:24px;background:var(--c-bg);color:var(--c-contrast)}
+    .header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .header h1{margin:0;font-size:20px}
+    .controls{margin-left:auto;display:flex;gap:8px;align-items:center}
+    .controls select,input{padding:8px;border-radius:8px;border:1px solid var(--c-border);background:var(--c-panel);color:var(--c-contrast)}
+
+    .grid{display:grid;gap:18px;justify-content:center;align-content:start;grid-auto-rows:1fr;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));}
+    @media(min-width:1100px){
+      .grid{grid-template-columns:repeat(auto-fill, var(--card-width));}
+    }
+
+    .card{background:var(--c-panel);border:1px solid var(--c-border);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-height:var(--card-min-height);box-shadow:0 6px 20px rgba(11,18,32,0.06);width:100%;max-width:var(--card-width)}
+    .card .img{width:100%;height:220px;background:#f0f0f0;display:flex;align-items:center;justify-content:center}
+    .card .img img{width:100%;height:100%;object-fit:cover;display:block}
+    .card .content{padding:14px;flex:1;display:flex;flex-direction:column}
+    .title{font-size:16px;margin:0 0 6px;color:var(--c-contrast);font-weight:600}
+    .meta{color:var(--c-muted);font-size:13px;margin-bottom:8px}
+    .meta .small{display:block;color:var(--c-muted);font-size:12px;margin-top:6px}
+    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+    .tag{padding:6px 10px;border-radius:999px;font-size:12px;color:#fff}
+    .tag.classic{background:var(--c-muted);color:#fff}
+    .tag.upgraded{background:var(--c-blue)}
+    .tag.vintaged{background:var(--c-green)}
+    .tag.vintagee{background:var(--c-purple)}
+    .tag.historic{background:#7f8c8d}
+    .tag.temp{background:var(--c-red)}
+    .tag.closing{background:var(--c-orange)}
+    .actions{margin-top:auto;display:flex;gap:8px;align-items:center}
+    .actions button{padding:8px 10px;border-radius:8px;border:none;cursor:pointer}
+    .button-primary{background:var(--c-blue);color:#fff}
+    .button-ghost{background:transparent;border:1px solid var(--c-border);color:var(--c-contrast)}
+
+    .modal{position:fixed;inset:0;background:rgba(11,18,32,0.55);display:none;align-items:center;justify-content:center;padding:18px;z-index:2000}
+    .modal.open{display:flex}
+    .modal-card{background:var(--c-panel);width:100%;max-width:var(--modal-max-width);border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(11,18,32,0.35)}
+    .modal-header{padding:14px;border-bottom:1px solid var(--c-border);text-align:center}
+    .modal-header h2{margin:0;font-size:18px}
+    .modal-body{padding:14px;max-height:62vh;overflow:auto}
+    .timeline-list{display:flex;flex-direction:column;gap:var(--timeline-gap);padding:8px 0}
+
+    .timeline-item{display:flex;flex-direction:column;gap:10px;padding:12px;border-radius:8px;background:linear-gradient(180deg,var(--timeline-item-bg),#fff);border:1px solid var(--timeline-divider)}
+    .timeline-item + .timeline-item{margin-top:6px}
+
+    .timeline-item .label{font-size:16px;font-weight:700;color:var(--c-contrast)}
+    .timeline-item .date{font-size:13px;color:var(--c-muted)}
+    .timeline-item .note{color:var(--c-muted);font-size:14px}
+    .timeline-item img{width:100%;max-width:var(--modal-img-width);height:var(--modal-img-height);object-fit:cover;border-radius:6px;border:1px solid var(--c-border)}
+
+    .modal-footer{padding:10px 14px;border-top:1px solid var(--c-border);display:flex;justify-content:center}
+    .close-btn{padding:8px 12px;border-radius:8px;background:var(--c-blue);border:none;color:#fff;cursor:pointer}
+
+    .footer{margin-top:18px;color:var(--c-muted);font-size:13px}
+
+    @media(max-width:700px){.card{min-height:360px}.card .img{height:180px}.timeline-item img{height:160px;max-width:100%}}
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Australia Apple Store Database</h1>
+    <div id="storeCount" style="color:var(--c-muted);font-size:13px">Loading…</div>
+    <div class="controls">
+      <select id="filterType"><option value="all">All design types</option></select>
+      <select id="filterState"><option value="all">All states</option></select>
+      <select id="sortBy"><option value="name">Sort: Name</option><option value="opened">Sort: Open date (oldest)</option><option value="opened_desc">Sort: Open date (newest)</option><option value="renovated_desc">Sort: Most recent renovation</option><option value="state">Sort: State</option></select>
+      <input id="search" type="search" placeholder="Search name or code" />
+    </div>
+  </div>
+
+  <main>
+    <div class="grid" id="grid"></div>
+    <div class="footer">Reference date: September 30, 2025. Data stored as JSON inside this page.</div>
+  </main>
+
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" role="document">
+      <div class="modal-header"><h2 id="modalTitle">Store timeline</h2></div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer"><button class="close-btn" id="modalClose">Close</button></div>
+    </div>
+  </div>
+
+  <script>
+    const STORES = [
+      {"name":"Chatswood Chase","code":"R253","state":"NSW","design":"Classic","timeline":[{"date":"2008-08-09","label":"Opened"},{"date":"2013-02-23","label":"Resized / Reopened"},{"date":null,"label":"Temp Closed","note":"Temporary closure (status)"}]},
+      {"name":"Doncaster","code":"R342","state":"QLD","design":"Classic","timeline":[{"date":"2009-05-23","label":"Opened"}]},
+      {"name":"Chermside","code":"R384","state":"QLD","design":"Classic","timeline":[{"date":"2009-11-14","label":"Opened"}]},
+      {"name":"Castle Towers","code":"R344","state":"NSW","design":"Classic","timeline":[{"date":"2010-08-19","label":"Opened"}]},
+      {"name":"Charlestown","code":"R385","state":"NSW","design":"Classic","timeline":[{"date":"2010-10-21","label":"Opened"}]},
+      {"name":"Penrith","code":"R440","state":"NSW","design":"Classic","timeline":[{"date":"2011-07-23","label":"Opened"}]},
+      {"name":"Southland","code":"R343","state":"VIC","design":"Classic","timeline":[{"date":"2011-08-13","label":"Opened"}]},
+      {"name":"Hornsby","code":"R458","state":"NSW","design":"Classic","timeline":[{"date":"2011-09-24","label":"Opened"},{"date":"2025-10-04","label":"Scheduled Closing","note":"Closing on Oct 4, 2025"}]},
+      {"name":"Canberra","code":"R483","state":"ACT","design":"Classic","timeline":[{"date":"2012-09-08","label":"Opened"}]},
+      {"name":"Booragoon","code":"R508","state":"WA","design":"Classic","timeline":[{"date":"2012-09-08","label":"Opened"}]},
+      {"name":"Brisbane City","code":"R466","state":"QLD","design":"Classic","timeline":[{"date":"2014-01-17","label":"Opened","note":"Historic Building"}]},
+
+      {"name":"Sydney","code":"R238","state":"NSW","design":"Upgraded Classic","timeline":[{"date":"2008-06-19","label":"Opened"},{"date":"2020-05-28","label":"Reopened","note":"Video Wall, New Ceilings, Forum Installed"}]},
+      {"name":"Bondi","code":"R254","state":"NSW","design":"Upgraded Classic","timeline":[{"date":"2010-05-28","label":"Opened"},{"date":"2019-06-29","label":"Reopened","note":"Video Wall, Green Wall, Forum Installed"}]},
+      {"name":"Broadway","code":"R523","state":"NSW","design":"Upgraded Classic","timeline":[{"date":"2012-06-30","label":"Opened"},{"date":"2019-05-01","label":"Reopened","note":"Video Wall + Forum Installed"}]},
+      {"name":"Carindale","code":"R509","state":"QLD","design":"Upgraded Classic","timeline":[{"date":"2012-08-25","label":"Opened"},{"date":"2019-07-01","label":"Reopened","note":"Video Wall + Forum Installed"}]},
+      {"name":"Fountain Gate","code":"R530","state":"QLD","design":"Upgraded Classic","timeline":[{"date":"2012-12-15","label":"Opened"},{"date":"2019-10-23","label":"Reopened","note":"Video Wall + Forum Installed"}]},
+      {"name":"Rundle Place","code":"R405","state":"SA","design":"Upgraded Classic","timeline":[{"date":"2013-05-25","label":"Opened"},{"date":"2018-11-07","label":"Reopened","note":"Video Wall + Forum Installed"}]},
+      {"name":"Miranda","code":"R606","state":"NSW","design":"Upgraded Classic","timeline":[{"date":"2015-07-25","label":"Opened"},{"date":"2019-08-08","label":"Reopened","note":"Video Wall + Forum Installed"}]},
+
+      {"name":"Chadstone","code":"R180","state":"VIC","design":"Modern (Vintage D)","timeline":[{"date":"2008-09-13","label":"Opened"},{"date":"2017-11-24","label":"Moved & Reopened","note":"Modern Vintage D"}]},
+      {"name":"Robina","code":"R351","state":"QLD","design":"Modern (Vintage D)","timeline":[{"date":"2009-05-09","label":"Opened"},{"date":"2018-09-29","label":"Moved & Reopened","note":"Modern Vintage D"}]},
+      {"name":"Perth City","code":"R386","state":"WA","design":"Modern (Vintage E)","timeline":[{"date":"2010-06-26","label":"Opened"},{"date":"2025-06-27","label":"Moved & Reopened","note":"Modern Vintage E; Historic Building"}]}
+    ];
+
+    function primaryImagePath(code){return `${code}.jpg`;}
+    function oldImagePath(code, idx){ // idx: 1 -> _old.jpg, 2 -> _old2.jpg, etc
+      return `${code}_old${idx===1?'':idx}.jpg`;
+    }
+
+    const REF = new Date('2025-09-30T00:00:00Z');
+    function parseDate(d){return d?new Date(d+'T00:00:00Z'):null}
+    function timeAgoDisplay(d){
+      if(!d) return '';
+      const ms = 1000*60*60*24;
+      const delta = Math.floor((d - REF)/ms); 
+      const abs = Math.abs(delta);
+      const years = Math.floor(abs/365);
+      if(years>=1) return delta>0 ? `in ${years} year${years>1?'s':''}` : `${years} year${years>1?'s':''} ago`;
+      const months = Math.floor(abs/30);
+      if(months>=1) return delta>0 ? `in ${months} month${months>1?'s':''}` : `${months} month${months>1?'s':''} ago`;
+      return delta>0 ? `in ${abs} day${abs>1?'s':''}` : `${abs} day${abs>1?'s':''} ago`;
+    }
+
+    const grid=document.getElementById('grid');
+    const filterType=document.getElementById('filterType');
+    const filterState=document.getElementById('filterState');
+    const sortBy=document.getElementById('sortBy');
+    const search=document.getElementById('search');
+    const storeCount=document.getElementById('storeCount');
+
+    // populate filters
+    const types=Array.from(new Set(STORES.map(s=>s.design))).sort(); types.forEach(t=>{const o=document.createElement('option');o.value=t;o.textContent=t;filterType.appendChild(o)});
+    const states=Array.from(new Set(STORES.map(s=>s.state))).sort(); states.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;filterState.appendChild(o)});
+
+    function latestRenovation(store){const dated=store.timeline.filter(e=>e.date).map(e=>parseDate(e.date));if(!dated.length) return null;return new Date(Math.max(...dated.map(d=>d.getTime())))}
+    function designTagFor(design){const d=design.toLowerCase();if(d.includes('upgraded')) return {class:'upgraded',label:design}; if(d.includes('vintage d')) return {class:'vintaged',label:design}; if(d.includes('vintage e')) return {class:'vintagee',label:design}; return {class:'classic',label:design};}
+    function statusTagsFor(store){const tags=[]; if(store.timeline.some(e=>/historic/i.test((e.note||'')+e.label))) tags.push({class:'historic',label:'Historic Building'}); if(store.timeline.some(e=>/temp/i.test((e.label||'')+(e.note||'')))) tags.push({class:'temp',label:'Temp Closed'}); const closing = store.timeline.find(e=>/closing/i.test((e.label||'')+(e.note||''))||/scheduled closing/i.test((e.label||'')+(e.note||''))); if(closing) tags.push({class:'closing',label:closing.note||closing.label}); return tags}
+
+    function render(){
+      const q=search.value.trim().toLowerCase();let list=STORES.slice();
+      if(filterType.value!=='all') list=list.filter(s=>s.design===filterType.value);
+      if(filterState.value!=='all') list=list.filter(s=>s.state===filterState.value);
+      if(q) list=list.filter(s=> (s.name+" "+s.code).toLowerCase().includes(q));
+      if(sortBy.value==='name') list.sort((a,b)=>a.name.localeCompare(b.name));
+      else if(sortBy.value==='opened') list.sort((a,b)=> new Date(a.timeline[0].date) - new Date(b.timeline[0].date));
+      else if(sortBy.value==='opened_desc') list.sort((a,b)=> new Date(b.timeline[0].date) - new Date(a.timeline[0].date));
+      else if(sortBy.value==='renovated_desc') list.sort((a,b)=> (latestRenovation(b)||0) - (latestRenovation(a)||0));
+      else if(sortBy.value==='state') list.sort((a,b)=> a.state.localeCompare(b.state) || a.name.localeCompare(b.name));
+
+      grid.innerHTML=''; storeCount.textContent = `${list.length} store(s) shown — total ${STORES.length}`;
+
+      list.forEach(store=>{
+        const card=document.createElement('article'); card.className='card';
+        const imgWrap=document.createElement('div'); imgWrap.className='img';
+        const imgPath = primaryImagePath(store.code);
+        const img = document.createElement('img'); img.alt = store.name;
+        let appendPrimary=false;
+        img.onload = ()=>{ if(!appendPrimary){appendPrimary=true; imgWrap.appendChild(img);} };
+        img.onerror = ()=>{ /* don't show */ };
+        img.src = imgPath;
+        setTimeout(()=>{ if(!appendPrimary && !img.complete){ /* keep awaiting load */ } },300);
+
+        const content=document.createElement('div'); content.className='content';
+        const tagsDiv=document.createElement('div'); tagsDiv.className='tags';
+        const dtag=designTagFor(store.design); const dt=document.createElement('div'); dt.className='tag '+dtag.class; dt.textContent=dtag.label; tagsDiv.appendChild(dt);
+        const status=statusTagsFor(store); status.forEach(s=>{ const el=document.createElement('div'); el.className='tag '+s.class; el.textContent=s.label; tagsDiv.appendChild(el)});
+
+        const title=document.createElement('h3'); title.className='title'; title.textContent = `${store.name} — ${store.code}`;
+        const opened = store.timeline[0] && store.timeline[0].date ? parseDate(store.timeline[0].date) : null;
+        const meta=document.createElement('div'); meta.className='meta';
+        // last renovated/moved
+        const lastRen = latestRenovation(store);
+        const lastRenText = lastRen ? lastRen.toLocaleDateString('en-GB',{year:'numeric',month:'long',day:'numeric'}) : '-';
+        meta.innerHTML = `${store.state} • ${store.design} <br>Opened ${opened? opened.toLocaleDateString('en-GB',{year:'numeric',month:'long',day:'numeric'}) : '—'} ${opened?`(${timeAgoDisplay(opened)})`:''}`;
+        const small = document.createElement('span'); small.className='small'; small.textContent = `Last major change: ${lastRenText}`;
+        meta.appendChild(small);
+
+        const actions=document.createElement('div'); actions.className='actions';
+        const view=document.createElement('button'); view.className='button-primary'; view.textContent='View timeline';
+        view.addEventListener('click',()=>openModalFor(store));
+
+        actions.appendChild(view);
+
+        content.appendChild(tagsDiv); content.appendChild(title); content.appendChild(meta); content.appendChild(actions);
+        card.appendChild(imgWrap); card.appendChild(content);
+
+        setTimeout(()=>{
+          if(!imgWrap.querySelector('img')){
+            imgWrap.textContent = store.code;
+          }
+        },800);
+
+        grid.appendChild(card);
+      });
+    }
+
+    const modal=document.getElementById('modal'); const modalTitle=document.getElementById('modalTitle'); const modalBody=document.getElementById('modalBody'); const modalClose=document.getElementById('modalClose');
+    function openModalFor(store){
+      modalTitle.textContent = `${store.name} — ${store.code}`;
+      modalBody.innerHTML = '';
+      const timelineList = document.createElement('div'); timelineList.className='timeline-list';
+
+      const entries = store.timeline.slice(); 
+      const n = entries.length;
+      
+      for(let i=0;i<n;i++){
+        const ev = entries[i];
+        const item = document.createElement('div'); item.className='timeline-item';
+
+        // determine image for this entry
+        let imgCandidate = null;
+        if(i === n-1){ imgCandidate = primaryImagePath(store.code); }
+        else {
+          const offset = (n-1) - i; // 1 -> n-2, 2 -> n-3
+          const path = oldImagePath(store.code, offset);
+          imgCandidate = path;
+        }
+
+        if(imgCandidate){
+          const im = document.createElement('img');
+          let appended = false;
+          im.onload = ()=>{ if(!appended){ item.insertBefore(im, item.firstChild); appended = true; } };
+          im.onerror = ()=>{ /* don't append */ };
+          im.src = imgCandidate;
+        }
+
+        const labelEl = document.createElement('div'); labelEl.className='label'; labelEl.textContent = ev.label;
+        const d = ev.date ? parseDate(ev.date) : null;
+        const dateText = ev.date ? new Date(ev.date+'T00:00:00Z').toLocaleDateString('en-GB',{year:'numeric',month:'long',day:'numeric'}) + (d?` (${timeAgoDisplay(d)})`:'') : '';
+        const dateEl = document.createElement('div'); dateEl.className='date'; dateEl.textContent = dateText;
+        const noteEl = document.createElement('div'); noteEl.className='note'; noteEl.textContent = ev.note || '';
+
+        item.appendChild(labelEl);
+        if(dateText) item.appendChild(dateEl);
+        if(ev.note) item.appendChild(noteEl);
+        timelineList.appendChild(item);
+      }
+
+      modalBody.appendChild(timelineList);
+      modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+      modalClose.focus();
+    }
+    modalClose.addEventListener('click',()=>{ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); });
+    modal.addEventListener('click',(e)=>{ if(e.target===modal) { modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); } });
+
+    render(); [filterType,filterState,sortBy,search].forEach(el=>el.addEventListener('input',render));
+    window.addEventListener('keydown',e=>{ if(e.key==='/'&&document.activeElement.tagName!=='INPUT') { e.preventDefault(); search.focus(); } });
+  </script>
+</body>
+</html>
