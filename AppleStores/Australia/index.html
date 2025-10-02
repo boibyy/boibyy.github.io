@@ -97,7 +97,7 @@
 
   <main>
     <div class="grid" id="grid"></div>
-    <div class="footer">Reference date: October 1, 2025.</div>
+    <div class="footer">Reference date: October 2, 2025.</div>
   </main>
 
   <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
@@ -141,7 +141,7 @@
       return `${code}_old${idx===1?'':idx}.jpg`;
     }
 
-    const REF = new Date('2025-09-30T00:00:00Z');
+    const REF = new Date('2025-10-02T12:00:00Z');
     function parseDate(d){return d?new Date(d+'T00:00:00Z'):null}
     function timeAgoDisplay(d){
       if(!d) return '';
