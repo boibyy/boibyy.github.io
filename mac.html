@@ -1,0 +1,3890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mac Upgradeability</title>
+  <style>
+  :root{
+    --bg: #111;
+    --card: #161616;
+    --muted: #9aa0a6;
+    --border: #2a2a2a;
+    --text: #eee;
+    --accent: #0071e3;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .container { max-width: 920px; width: 100%; }
+  h1 { font-size: 24px; margin-bottom: 16px; }
+  
+  /* Search and Filter Styles */
+  .search-container {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  
+  .search-bar {
+    flex: 1;
+    min-width: 200px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  
+  .year-filter {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    min-width: 120px;
+  }
+  
+  /* Tab Styles */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  
+  .tab {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  
+  .tab.active {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  
+  .tab:hover:not(.active) {
+    background: #222;
+  }
+  
+  /* Controls */
+  .controls { 
+    margin-bottom: 18px; 
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  button {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+  }
+  
+  button:hover {
+    background: #222;
+  }
+
+  /* Model Styles */
+  .model {
+    border: 1px solid var(--border);
+    background: var(--card);
+    padding: 18px;
+    margin-bottom: 18px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    border-radius: 8px;
+  }
+  
+  .model img {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: #0f0f0f;
+    flex-shrink: 0;
+    min-height: 80px;
+  }
+
+  .model h2 {
+    font-size: 18px;
+    margin: 0 0 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .specs {
+    margin-top: 5px;
+    margin-bottom: 0px;
+  }
+  
+  details {
+    margin-top: 20px;
+  }
+  
+  details summary {
+    cursor: pointer;
+    font-size: 15px;
+    margin: 8px 0;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+  }
+  
+  details summary::-webkit-details-marker { display: none; }
+  
+  .arrow {
+    display: inline-block;
+    width: 12px;
+    text-align: center;
+    transition: transform 0.18s ease;
+    transform-origin: center;
+  }
+  
+  details[open] .arrow { transform: rotate(180deg); }
+
+  .specs {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 6px 16px;
+    font-size: 14px;
+    align-items: center;
+    word-break: break-word;
+  }
+  
+  .specs .label { 
+    color: var(--muted); 
+    font-weight: 600; 
+    display: flex; 
+    align-items: center; 
+    gap: 4px; 
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  details[data-difficulty="easy"] .dot { background: #2ecc71; }
+  details[data-difficulty="medium"] .dot { background: #f1c40f; }
+  details[data-difficulty="hard"] .dot { background: #e67e22; }
+  details[data-difficulty="impossible"] .dot { background: #e74c3c; }
+  
+  .year-section {
+    margin-top: 32px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 4px;
+  }
+  
+  .no-results {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  @media (max-width: 640px) {
+    .model { flex-direction: column; }
+    .model img { width: 100%; height: 160px; }
+    .specs { grid-template-columns: 1fr; }
+    .specs .label { font-size: 13px; }
+    .search-container { flex-direction: column; }
+  }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Mac Upgradeability</h1>
+  
+  <!-- Search and Filter -->
+  <div class="search-container">
+    <input type="text" id="searchInput" class="search-bar" placeholder="Search Mac models...">
+    <select id="yearFilter" class="year-filter">
+      <option value="all">All Years</option>
+      <!-- Years will be populated dynamically -->
+    </select>
+  </div>
+  
+  <!-- Tabs -->
+  <div class="tabs" id="productTabs">
+    <!-- Tabs will be populated dynamically -->
+  </div>
+  
+  <!-- Controls -->
+  <div class="controls">
+    <button id="expandModels">Expand all models</button>
+    <button id="expandCats">Expand all categories</button>
+  </div>
+  
+  <!-- Models Container -->
+  <div id="modelsContainer"></div>
+</div>
+
+<script>
+// JSON data for all Mac models
+const macModels = [
+  // iMac Models
+    {
+    type: "iMac",
+    year: 2024,
+    name: "iMac (24-inch, M4, 2024)",
+    image: "imac-2024.png",
+    difficulty: "impossible",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "32 GB",
+          officialMax: "32 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M4 chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+    {
+    type: "iMac",
+    year: 2023,
+    name: "iMac (24-inch, M3, 2023)",
+    image: "imac-2023.jpg",
+    difficulty: "impossible",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "24 GB",
+          officialMax: "24 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M3 chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2021,
+    name: "iMac (24-inch, M1, 2021)",
+    image: "imac-2021.jpg",
+    difficulty: "impossible",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M1 chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2020,
+    name: "iMac (Retina 5K, 27-inch, 2020)",
+    image: "imac-2020-27.jpg",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "128 GB",
+          officialMax: "128 GB",
+          type: "DDR4 2666MHz SODIMM (4 slots)",
+          notes: "User-accessible memory door on the back."
+        }
+      },
+      storage: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          type: "Proprietary Apple SSD (NVMe)",
+          notes: "Requires display removal. T2 chip requires system configuration for new drives. Some models are fully soldered, however."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed with the LGA 1200 socket supporting 10th generation Intel processors, but the socket is only accessible after significant disassembly, including display and logic board removal."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated or soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2019,
+    name: "iMac (Retina 5K, 27-inch, 2019)",
+    image: "imac-2019-27.jpg",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "128 GB",
+          officialMax: "64 GB",
+          type: "DDR4 2666MHz SODIMM (4 slots)",
+          notes: "User-accessible memory door on the back."
+        }
+      },
+      storage: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          type: "3.5\" SATA HDD (Fusion) or proprietary Apple SSD",
+          notes: "Requires display removal and significant disassembly."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed with the LGA 1151 socket supporting 9th generation Intel processors, but the socket is only accessible after significant disassembly, including display and logic board removal."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2019,
+    name: "iMac (Retina 4K, 21.5-inch, 2019)",
+    image: "imac-2019-21.jpg",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "32 GB",
+          officialMax: "32 GB",
+          type: "DDR4 2400MHz SODIMM (2 slots)",
+          notes: "Requires disassembly of the display to access slots."
+        }
+      },
+      storage: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          type: "2.5\" SATA HDD (Fusion) or proprietary Apple SSD",
+          notes: "Requires complete disassembly including display removal."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed with the LGA 1151 socket supporting 8th generation Intel processors, but the socket is only accessible after significant disassembly, including display and logic board removal."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2017,
+    name: "iMac (Retina 5K, 27-inch, 2017)",
+    image: "imac-2017-27.jpg",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "64 GB",
+          officialMax: "64 GB",
+          type: "DDR4 2400MHz SO-DIMM (4 slots)",
+          notes: "Memory slots accessible via rear panel; easy upgrade."
+        }
+      },
+      storage: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          type: "2.5\" SATA HDD or proprietary Apple SSD",
+          notes: "Requires full disassembly including display removal."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed with the LGA 1151 socket supporting 9th generation Intel processors, but the socket is only accessible after significant disassembly, including display and logic board removal."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2017,
+    name: "iMac (Retina 4K, 21.5-inch, 2017)",
+    image: "imac-2017-21.jpg",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "32 GB",
+          officialMax: "32 GB",
+          type: "DDR4 2400MHz SO-DIMM (2 slots)",
+          notes: "Requires disassembly of the display to access slots."
+        }
+      },
+      storage: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          type: "2.5\" SATA HDD or proprietary Apple SSD",
+          notes: "Requires full disassembly including display removal."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed with the LGA 1151 socket supporting 8th generation Intel processors, but the socket is only accessible after significant disassembly, including display and logic board removal."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2017,
+    name: "iMac (21.5-inch, 2017)",
+    image: "imac-2017-21-n.jpg",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "DDR4 2133MHz SO-DIMM (2 slots)",
+          notes: "Requires disassembly of the display to access slots."
+        }
+      },
+      storage: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          type: "2.5\" SATA HDD",
+          notes: "Requires full disassembly including display removal."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2015,
+    name: "iMac (Retina 5K, 27-inch, Late 2015)",
+    image: "imac-2015-27.jpg",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "64 GB",
+          officialMax: "64 GB",
+          type: "DDR3 1867MHz SO-DIMM (4 slots)",
+          notes: "Memory slots accessible via rear panel; easy upgrade."
+        }
+      },
+      storage: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          type: "2.5\" SATA HDD or proprietary Apple SSD",
+          notes: "Requires full disassembly including display removal."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed with the LGA 1151 socket supporting 6th generation Intel processors, but the socket is only accessible after significant disassembly, including display and logic board removal."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2015,
+    name: "iMac (Retina 4K, 21.5-inch, Late 2015)",
+    image: "imac-2015-21.jpg",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "32 GB",
+          officialMax: "32 GB",
+          type: "DDR3 1867MHz SO-DIMM (2 slots)",
+          notes: "Requires disassembly of the display to access slots."
+        }
+      },
+      storage: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          type: "2.5\" SATA HDD or proprietary Apple SSD",
+          notes: "Requires full disassembly including display removal."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2015,
+    name: "iMac (21.5-inch, Late 2015)",
+    image: "imac-2015-21-n.jpg",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "DDR3 1867 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          type: "2.5\" SATA HDD",
+          notes: "Requires full disassembly including display removal."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2015,
+    name: "iMac (Retina 5K, 27-inch, Mid 2015)",
+    image: "imac-m-2017-27.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "32 GB",
+          officialMax: "32 GB",
+          type: "DDR3 1600MHz SO-DIMM (4 slots)",
+          notes: "Memory slots accessible via rear panel; easy upgrade."
+        }
+      },
+      storage: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          type: "2.5\" SATA HDD or proprietary Apple SSD",
+          notes: "Requires full disassembly including display removal."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed with the LGA 1150 H3 socket supporting 4th generation Intel processors, but the socket is only accessible after significant disassembly, including display and logic board removal."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2014,
+    name: "iMac (Retina 5K, 27-inch, Late 2014)",
+    image: "imac-m-2017-27.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "32 GB",
+          officialMax: "32 GB",
+          type: "DDR3 1600MHz SO-DIMM (4 slots)",
+          notes: "Memory slots accessible via rear panel; easy upgrade."
+        }
+      },
+      storage: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          type: "2.5\" SATA HDD or proprietary Apple SSD",
+          notes: "Requires full disassembly including display removal."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed with the LGA 1150 H3 socket supporting 4th generation Intel processors, but the socket is only accessible after significant disassembly, including display and logic board removal."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2014,
+    name: "iMac (21.5-inch, Mid 2014)",
+    image: "imac-2014-21.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "8 GB",
+          officialMax: "8 GB",
+          type: "DDR3 1600MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          type: "2.5\" SATA HDD or proprietary Apple SSD",
+          notes: "Requires full disassembly including display removal."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2013,
+    name: "iMac (27-inch, Late 2013)",
+    image: "imac-late-2013-27.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "32 GB",
+          officialMax: "32 GB",
+          type: "DDR3 1600MHz SO-DIMM (4 slots)",
+          notes: "Memory slots accessible via rear panel; easy upgrade."
+        }
+      },
+      storage: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          type: "2.5\" SATA HDD or proprietary Apple SSD",
+          notes: "Requires full disassembly including display removal."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed with the LGA 1150 H3 socket supporting 4th generation Intel processors, but the socket is only accessible after significant disassembly, including display and logic board removal."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2013,
+    name: "iMac (21.5-inch, Late 2013, 2.9 or 3.1 GHz S-series CPU)",
+    image: "imac-late-2013-21.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "DDR3 1600MHz SO-DIMM (2 slots)",
+          notes: "Requires disassembly of the display to access slots."
+        }
+      },
+      storage: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          type: "2.5\" SATA HDD or proprietary Apple SSD",
+          notes: "Requires full disassembly including display removal."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed with the LGA 1150 H3 socket supporting 4th generation Intel processors, but the socket is only accessible after significant disassembly, including display and logic board removal."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2013,
+    name: "iMac (21.5-inch, Late 2013, 2.7 GHz R-series CPU)",
+    image: "imac-late-2013-21.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "DDR3 1600MHz SO-DIMM (2 slots)",
+          notes: "Requires disassembly of the display to access slots."
+        }
+      },
+      storage: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          type: "2.5\" SATA HDD or proprietary Apple SSD",
+          notes: "Requires full disassembly including display removal."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2012,
+    name: "iMac (27-inch, Late 2012)",
+    image: "imac-late-2012-27.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "32 GB",
+          officialMax: "32 GB",
+          type: "DDR3 1600MHz SO-DIMM (4 slots)",
+          notes: "Memory slots accessible via rear panel; easy upgrade."
+        }
+      },
+      storage: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          type: "2.5\" SATA HDD or proprietary Apple SSD",
+          notes: "Requires full disassembly including display removal."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed with the LGA 1155 H2 socket supporting 3rd generation Intel processors, but the socket is only accessible after significant disassembly, including display and logic board removal."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2012,
+    name: "iMac (21.5-inch, Late 2012)",
+    image: "imac-late-2012-21.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "DDR3 1600MHz SO-DIMM (2 slots)",
+          notes: "Requires disassembly of the display to access slots."
+        }
+      },
+      storage: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          type: "2.5\" SATA HDD or proprietary Apple SSD",
+          notes: "Requires full disassembly including display removal."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed with the LGA 1155 H2 socket supporting 3rd generation Intel processors, but the socket is only accessible after significant disassembly, including display and logic board removal."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2011,
+    name: "iMac (21.5-inch, Late 2011, Education)",
+    image: "imac-2011-21.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "DDR3 1333MHz SODIMM (2 slots)",
+          notes: "Two SO-DIMM slots accessible via bottom panel."
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "3.5\" SATA HDD or 2.5\" SATA SSD",
+          notes: "Requires display removal; temperature sensor must be transferred or replaced."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed with the LGA-1155 H2 socket supporting 2nd generation Intel Core processors but requires significant disassembly to access."
+        }
+      },
+      gpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "GPU is on an MXM card but requires significant disassembly and compatibility considerations."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2011,
+    name: "iMac (27-inch, Mid 2011)",
+    image: "imac-2011-27.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "32 GB",
+          officialMax: "32 GB",
+          type: "DDR3 1333MHz SODIMM (4 slots)",
+          notes: "Four SO-DIMM slots accessible via bottom panel."
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "3.5\" SATA HDD or 2.5\" SATA SSD",
+          notes: "Requires display removal; temperature sensor must be transferred or replaced."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed with the LGA-1155 H2 socket supporting 2nd generation Intel Core processors but requires significant disassembly to access."
+        }
+      },
+      gpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "GPU is on an MXM card but requires significant disassembly and compatibility considerations."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2011,
+    name: "iMac (21.5-inch, Mid 2011)",
+    image: "imac-2011-21.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "32 GB",
+          officialMax: "16 GB",
+          type: "DDR3 1333MHz SODIMM (2 slots)",
+          notes: "Two SO-DIMM slots accessible via bottom panel."
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "3.5\" SATA HDD or 2.5\" SATA SSD",
+          notes: "Requires display removal; temperature sensor must be transferred or replaced."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed with the LGA-1155 H2 socket supporting 2nd generation Intel Core processors but requires significant disassembly to access."
+        }
+      },
+      gpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "GPU is on an MXM card but requires significant disassembly and compatibility considerations."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2010,
+    name: "iMac (27-inch, Mid 2010)",
+    image: "imac-2010-27.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "32 GB",
+          officialMax: "16 GB",
+          type: "DDR3 1333MHz SODIMM (4 slots)",
+          notes: "Four SO-DIMM slots accessible via bottom panel."
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "3.5\" SATA HDD or 2.5\" SATA SSD",
+          notes: "Requires display removal; temperature sensor must be transferred or replaced."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed with the LGA-1156 (H) socket supporting 1st generation Intel Core processors but requires significant disassembly to access."
+        }
+      },
+      gpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "GPU is on an MXM card but requires significant disassembly and compatibility considerations."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2010,
+    name: "iMac (21.5-inch, Mid 2010)",
+    image: "imac-2010-21.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "16 GB",
+          officialMax: "8 GB",
+          type: "DDR3 1333MHz SODIMM (2 slots)",
+          notes: "Two SO-DIMM slots accessible via bottom panel."
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "3.5\" SATA HDD or 2.5\" SATA SSD",
+          notes: "Requires display removal; temperature sensor must be transferred or replaced."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed with the LGA-1156 (H) socket supporting 1st generation Intel Core processors but requires significant disassembly to access."
+        }
+      },
+      gpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "GPU is on an MXM card but requires significant disassembly and compatibility considerations."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2009,
+    name: "iMac (27-inch, Late 2009)",
+    image: "imac-2009-27.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "32 GB (Core i5/i7), 16 GB (Core 2 Duo)",
+          officialMax: "16 GB",
+          type: "DDR3 1066MHz SODIMM (4 slots)",
+          notes: "Four SO-DIMM slots accessible via bottom panel."
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "3.5\" SATA HDD or 2.5\" SATA SSD",
+          notes: "Requires display removal; temperature sensor must be transferred or replaced."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed through the LGA-775 (T) socket for Core 2 Duo models, or LGA-1156 (H) socket for 1st gen Core i5/i7, but requires significant disassembly to access."
+        }
+      },
+      gpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "GPU is on an MXM card but requires significant disassembly and compatibility considerations."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2009,
+    name: "iMac (21.5-inch, Late 2009)",
+    image: "imac-2009-21.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "16 GB",
+          officialMax: "8 GB",
+          type: "DDR3 1066MHz SODIMM (2 slots)",
+          notes: "Two SO-DIMM slots accessible via bottom panel."
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "3.5\" SATA HDD or 2.5\" SATA SSD",
+          notes: "Requires display removal; temperature sensor must be transferred or replaced."
+        }
+      },
+      cpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed with the LGA-775 (T) socket supporting Intel Core 2 Duo processors, but requires significant disassembly to access."
+        }
+      },
+      gpu: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          notes: "GPU is on an MXM card but requires significant disassembly and compatibility considerations."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2009,
+    name: "iMac (20-inch, Mid 2009, Education)",
+    image: "imac-2009-20.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "8 GB",
+          officialMax: "8 GB",
+          type: "DDR3 1066MHz SODIMM (2 slots)",
+          notes: "Two SO-DIMM slots accessible via bottom panel."
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "3.5\" SATA HDD or 2.5\" SATA SSD",
+          notes: "Requires display removal; temperature sensor must be transferred or replaced."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2009,
+    name: "iMac (24-inch, Early 2009)",
+    image: "imac-2009-24.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "8 GB",
+          officialMax: "8 GB",
+          type: "DDR3 1066MHz SODIMM (2 slots)",
+          notes: "Two SO-DIMM slots accessible via bottom panel."
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "3.5\" SATA HDD or 2.5\" SATA SSD",
+          notes: "Requires display removal; temperature sensor must be transferred or replaced."
+        }
+      },
+      cpu: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed through ZIF socket supporting Intel Core 2 Duo processors, but requires some disassembly to access."
+        }
+      },
+      gpu: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          notes: "GPU is on an MXM card but requires disassembly and compatibility considerations."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2009,
+    name: "iMac (20-inch, Early 2009)",
+    image: "imac-2009-20.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "8 GB",
+          officialMax: "8 GB",
+          type: "DDR3 1066MHz SODIMM (2 slots)",
+          notes: "Two SO-DIMM slots accessible via bottom panel."
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "3.5\" SATA HDD or 2.5\" SATA SSD",
+          notes: "Requires display removal; temperature sensor must be transferred or replaced."
+        }
+      },
+      cpu: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed through ZIF socket supporting Intel Core 2 Duo processors, but requires some disassembly to access."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2008,
+    name: "iMac (24-inch, Early 2008)",
+    image: "imac-2008-24.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "6 GB",
+          officialMax: "4 GB",
+          type: "DDR2 800MHz SODIMM (2 slots)",
+          notes: "Two SO-DIMM slots accessible via bottom panel."
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "3.5\" SATA HDD or 2.5\" SATA SSD",
+          notes: "Requires display removal; temperature sensor must be transferred or replaced."
+        }
+      },
+      cpu: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed through ZIF socket supporting Intel Core 2 Duo processors, but requires some disassembly to access."
+        }
+      },
+      gpu: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          notes: "GPU is on an MXM card but requires disassembly and compatibility considerations."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2008,
+    name: "iMac (24-inch, Early 2008)",
+    image: "imac-2008-20.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "6 GB",
+          officialMax: "4 GB",
+          type: "DDR2 800MHz SODIMM (2 slots)",
+          notes: "Two SO-DIMM slots accessible via bottom panel."
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "3.5\" SATA HDD or 2.5\" SATA SSD",
+          notes: "Requires display removal; temperature sensor must be transferred or replaced."
+        }
+      },
+      cpu: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed through ZIF socket supporting Intel Core 2 Duo processors, but requires some disassembly to access."
+        }
+      },
+      gpu: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          notes: "GPU is on an MXM card but requires disassembly and compatibility considerations."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2007,
+    name: "iMac (24-inch, Mid 2007)",
+    image: "imac-2008-24.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "6 GB",
+          officialMax: "4 GB",
+          type: "DDR2 800MHz SODIMM (2 slots)",
+          notes: "Two SO-DIMM slots accessible via bottom panel."
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "3.5\" SATA HDD or 2.5\" SATA SSD",
+          notes: "Requires display removal; temperature sensor must be transferred or replaced."
+        }
+      },
+      cpu: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed through ZIF socket supporting Intel Core 2 Duo or Core 2 Extreme processors, but requires some disassembly to access."
+        }
+      },
+      gpu: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          notes: "GPU is on an MXM card but requires disassembly and compatibility considerations."
+        }
+      }
+    }
+  },
+  {
+    type: "iMac",
+    year: 2007,
+    name: "iMac (20-inch, Mid 2007)",
+    image: "imac-2007-20.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "6 GB",
+          officialMax: "4 GB",
+          type: "DDR2 800MHz SODIMM (2 slots)",
+          notes: "Two SO-DIMM slots accessible via bottom panel."
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "3.5\" SATA HDD or 2.5\" SATA SSD",
+          notes: "Requires display removal; temperature sensor must be transferred or replaced."
+        }
+      },
+      cpu: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          notes: "CPU is socketed through ZIF socket supporting Intel Core 2 Duo processors, but requires some disassembly to access."
+        }
+      },
+      gpu: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          notes: "GPU is on an MXM card but requires disassembly and compatibility considerations."
+        }
+      }
+    }
+  },
+  
+  // MacBook Pro Models
+  {
+    type: "MacBook Pro",
+    year: 2024,
+    name: "MacBook Pro (16-inch, 2024)",
+    image: "mbp-16-2024.png",
+    difficulty: "impossible",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "128 GB",
+          officialMax: "128 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M4 Pro / M4 Max chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2024,
+    name: "MacBook Pro (14-inch, 2024)",
+    image: "mbp-14-2024.png",
+    difficulty: "impossible",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "128 GB",
+          officialMax: "128 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M4 / M4 Pro / M4 Max chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2023,
+    name: "MacBook Pro (16-inch, Nov 2023)",
+    image: "mbp-16-nov-2023.png",
+    difficulty: "impossible",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "128 GB",
+          officialMax: "128 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M3 Pro / M3 Max chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2023,
+    name: "MacBook Pro (14-inch, Nov 2023)",
+    image: "mbp-14-nov-2023.png",
+    difficulty: "impossible",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "128 GB",
+          officialMax: "128 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M3 / M3 Pro / M3 Max chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2023,
+    name: "MacBook Pro (16-inch, 2023)",
+    image: "mbp-16-2023.png",
+    difficulty: "medium",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "96 GB",
+          officialMax: "96 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M2 Pro/Max chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2023,
+    name: "MacBook Pro (14-inch, 2023)",
+    image: "mbp-14-2023.png",
+    difficulty: "medium",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "96 GB",
+          officialMax: "96 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M2 Pro/Max chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2022,
+    name: "MacBook Pro (13-inch, M2, 2022)",
+    image: "mbp-13-2022.png",
+    difficulty: "medium",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "24 GB",
+          officialMax: "24 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M2 chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2021,
+    name: "MacBook Pro (16-inch, 2021)",
+    image: "mbp-16-2021.png",
+    difficulty: "medium",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "64 GB",
+          officialMax: "64 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M1 Pro/Max chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2021,
+    name: "MacBook Pro (14-inch, 2021)",
+    image: "mbp-14-2021.png",
+    difficulty: "medium",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "64 GB",
+          officialMax: "64 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M1 Pro/Max chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2020,
+    name: "MacBook Pro (13-inch, M1, 2020)",
+    image: "mbp-13-2020.png",
+    difficulty: "medium",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M1 chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2020,
+    name: "MacBook Pro (13-inch, 2020, Four Thunderbolt 3 ports)",
+    image: "mbp-13-2020-intel.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "32 GB",
+          officialMax: "32 GB",
+          type: "LPDDR4X 3733 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2020,
+    name: "MacBook Pro (13-inch, 2020, Two Thunderbolt 3 ports)",
+    image: "mbp-13-2020-intel.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "LPDDR3 2133 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2019,
+    name: "MacBook Pro (16-inch, 2019)",
+    image: "mbp-16-2019.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "64 GB",
+          officialMax: "64 GB",
+          type: "DDR4 2666 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2019,
+    name: "MacBook Pro (15-inch, 2019)",
+    image: "mbp-15-2019.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "32 GB",
+          officialMax: "32 GB",
+          type: "DDR4 2400 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2019,
+    name: "MacBook Pro (13-inch, 2019, Four Thunderbolt 3 ports)",
+    image: "mbp-13-2019.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "LPDDR3 2133 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2019,
+    name: "MacBook Pro (13-inch, 2019, Two Thunderbolt 3 ports)",
+    image: "mbp-13-2019.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "LPDDR3 2133 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2018,
+    name: "MacBook Pro (15-inch, 2018)",
+    image: "mbp-15-2018.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "32 GB",
+          officialMax: "32 GB",
+          type: "DDR4 2400 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2018,
+    name: "MacBook Pro (13-inch, 2018, Four Thunderbolt 3 ports)",
+    image: "mbp-13-2018.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "LPDDR3 2133 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2017,
+    name: "MacBook Pro (15-inch, 2017)",
+    image: "mbp-15-2017.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "LPDDR3 2133 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2017,
+    name: "MacBook Pro (13-inch, 2017, Four Thunderbolt 3 ports)",
+    image: "mbp-13-2017.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "LPDDR3 2133 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2017,
+    name: "MacBook Pro (13-inch, 2017, Two Thunderbolt 3 ports)",
+    image: "mbp-13-2017.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "LPDDR3 1866 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2016,
+    name: "MacBook Pro (15-inch, 2016)",
+    image: "mbp-15-2016.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "LPDDR3 2133 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2016,
+    name: "MacBook Pro (13-inch, 2016, Four Thunderbolt 3 ports)",
+    image: "mbp-13-2016.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "LPDDR3 2133 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2016,
+    name: "MacBook Pro (13-inch, 2016, Two Thunderbolt 3 ports)",
+    image: "mbp-13-2016.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "LPDDR3 1866 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2016,
+    name: "MacBook Pro (15-inch, 2016)",
+    image: "mbp-15-2016.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "LPDDR3 2133 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "SSD is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2015,
+    name: "MacBook Pro (15-inch, Mid 2015)",
+    image: "mbp-15-2015.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "DDR3L 1600 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          type: "Properietary Apple SSD",
+          notes: "SSD is in a PCIe slot and can easily be upgraded, however it is a proprietary Apple SSD."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2015,
+    name: "MacBook Pro (13-inch, Early 2015)",
+    image: "mbp-13-2015.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "LPDDR3 1866 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          type: "Properietary Apple SSD",
+          notes: "SSD is in a PCIe slot and can easily be upgraded, however it is a proprietary Apple SSD."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2014,
+    name: "MacBook Pro (15-inch, Mid 2014)",
+    image: "mbp-15-2014.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "DDR3L 1600 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          type: "Properietary Apple SSD",
+          notes: "SSD is in a PCIe slot and can easily be upgraded, however it is a proprietary Apple SSD."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2014,
+    name: "MacBook Pro (13-inch, Late 2014)",
+    image: "mbp-13-2014.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "DDR3L 1600 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          type: "Properietary Apple SSD",
+          notes: "SSD is in a PCIe slot and can easily be upgraded, however it is a proprietary Apple SSD."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2013,
+    name: "MacBook Pro (15-inch, Late 2013)",
+    image: "mbp-15-2013.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "DDR3L 1600 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          type: "Properietary Apple SSD",
+          notes: "SSD is in a PCIe slot and can easily be upgraded, however it is a proprietary Apple SSD."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2013,
+    name: "MacBook Pro (13-inch, Late 2013)",
+    image: "mbp-13-2013.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "DDR3L 1600 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          type: "Properietary Apple SSD",
+          notes: "SSD is in a PCIe slot and can easily be upgraded, however it is a proprietary Apple SSD."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2013,
+    name: "MacBook Pro (15-inch, Early 2013)",
+    image: "mbp-15-2013.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "DDR3L 1600 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          type: "Properietary Apple SSD",
+          notes: "SSD is in a PCIe slot and can easily be upgraded, however it is a proprietary Apple SSD."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Pro",
+    year: 2013,
+    name: "MacBook Pro (13-inch, Early 2013)",
+    image: "mbp-13-2013.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "8 GB",
+          officialMax: "8 GB",
+          type: "DDR3L 1600 MHz Soldered",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          type: "Properietary Apple SSD",
+          notes: "SSD is in a PCIe slot and can easily be upgraded, however it is a proprietary Apple SSD."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  
+  // MacBook Air Models
+  {
+    type: "MacBook Air",
+    year: 2025,
+    name: "MacBook Air (15-inch, M4, 2025)",
+    image: "mba-m4-2025.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "32 GB",
+          officialMax: "32 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "Storage is integrated into the Apple Silicon chip and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M4 chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Air",
+    year: 2025,
+    name: "MacBook Air (13-inch, M4, 2025)",
+    image: "mba-m4-2025.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "32 GB",
+          officialMax: "32 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "Storage is integrated into the Apple Silicon chip and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M4 chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Air",
+    year: 2024,
+    name: "MacBook Air (15-inch, M3, 2024)",
+    image: "mba-m3-2024.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "24 GB",
+          officialMax: "24 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "Storage is integrated into the Apple Silicon chip and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M3 chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "MacBook Air",
+    year: 2024,
+    name: "MacBook Air (13-inch, M3, 2024)",
+    image: "mba-m3-2024.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "24 GB",
+          officialMax: "24 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "Storage is integrated into the Apple Silicon chip and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M3 chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+
+   {
+    type: "MacBook Air",
+    year: 2022,
+    name: "MacBook Air (15-inch, M2, 2023)",
+    image: "mba-m2-2022.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "24 GB",
+          officialMax: "24 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "Storage is integrated into the Apple Silicon chip and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M2 chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+
+  {
+    type: "MacBook Air",
+    year: 2022,
+    name: "MacBook Air (M2, 2022)",
+    image: "mba-m2-2022.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "24 GB",
+          officialMax: "24 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "Storage is integrated into the Apple Silicon chip and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M2 chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+
+  {
+    type: "MacBook Air",
+    year: 2020,
+    name: "MacBook Air (M1, 2020)",
+    image: "mba-m1-2020.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "Storage is integrated into the Apple Silicon chip and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M1 chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  
+  // Mac Pro Models
+  {
+    type: "Mac Pro",
+    year: 2023,
+    name: "Mac Pro (2023)",
+    image: "macpro-2019.png",
+    difficulty: "impossible",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "192 GB",
+          officialMax: "192 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "Storage is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M2 Ultra chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "Mac Pro",
+    year: 2019,
+    name: "Mac Pro (2019)",
+    image: "macpro-2019.png",
+    difficulty: "easy",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "1.5 TB",
+          officialMax: "1.5 TB",
+          type: "DDR4 2666 MHz ECC RDIMM (12 slots)",
+          notes: "User-accessible memory slots with tool-less access."
+        }
+      },
+      storage: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          type: "PCIe SSD and SATA bays",
+          notes: "Multiple storage options with tool-less access to bays."
+        }
+      },
+      cpu: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "Intel Xeon W-series",
+          notes: "CPU is socketed but requires some disassembly to access."
+        }
+      },
+      gpu: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          type: "MPX Modules or standard PCIe",
+          notes: "Multiple GPU slots with tool-less access; compatible with various GPUs."
+        }
+      }
+    }
+  },
+  
+  // Mac mini Models
+  {
+    type: "Mac mini",
+    year: 2024,
+    name: "Mac mini (2024)",
+    image: "macmini-2024.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "64 GB",
+          officialMax: "64 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "Proprietary Apple SSD",
+          notes: "SSD is upgradeable with some dissasembly via the bottom cover, however it is a proprietary Apple SSD."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M4/M4 Pro chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "Mac mini",
+    year: 2023,
+    name: "Mac mini (2023)",
+    image: "macmini-2023.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "32 GB",
+          officialMax: "32 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "Storage is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M2/M2 Pro chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "Mac mini",
+    year: 2020,
+    name: "Mac mini (M1, 2020)",
+    image: "macmini-m1-2020.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "Storage is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M1 chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "Mac mini",
+    year: 2018,
+    name: "Mac mini (2018)",
+    image: "macmini-2018.png",
+    difficulty: "medium",
+    categories: {
+      memory: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "64 GB",
+          officialMax: "64 GB",
+          type: "DDR4 2666 MHz SODIMM (2 slots)",
+          notes: "Two SODIMM slots are accessible with via the bottom cover with some disassembly."
+        }
+      },
+      storage: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          type: "Soldered SSD",
+          notes: "Storage is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "Integrated GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  
+  // Mac Studio Models
+  {
+    type: "Mac Studio",
+    year: 2025,
+    name: "Mac Studio (2025)",
+    image: "macstudio-2022.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "512 GB",
+          officialMax: "512 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "Proprietary Apple SSD",
+          notes: "SSD is upgradeable with some dissasembly via the bottom cover, however it is a proprietary Apple SSD."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M4 Max / M3 Ultra chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "Mac Studio",
+    year: 2023,
+    name: "Mac Studio (2023)",
+    image: "macstudio-2022.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "192 GB",
+          officialMax: "192 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "Proprietary Apple SSD",
+          notes: "SSD is upgradeable with some dissasembly via the bottom cover, however it is a proprietary Apple SSD."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M2 Max/Ultra chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "Mac Studio",
+    year: 2022,
+    name: "Mac Studio (2022)",
+    image: "macstudio-2022.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "128 GB",
+          officialMax: "128 GB",
+          type: "Unified Memory (soldered)",
+          notes: "Memory is integrated to the SoC cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "Proprietary Apple SSD",
+          notes: "SSD is upgradeable with some dissasembly via the bottom cover, however it is a proprietary Apple SSD."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "M1 Max/Ultra chip is integrated and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "GPU is integrated into the SoC and cannot be upgraded."
+        }
+      }
+    }
+  }
+];
+
+// Function to generate the HTML for a single model
+function generateModelHTML(model) {
+  const categoriesHTML = Object.entries(model.categories).map(([category, data]) => {
+    const specsHTML = Object.entries(data.specs).map(([key, value]) => {
+      const label = key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1');
+      return `
+        <div class="label">${label}</div>
+        <div class="value">${value}</div>
+      `;
+    }).join('');
+    
+    return `
+      <details data-difficulty="${data.difficulty}">
+        <summary><span class="arrow">▼</span> ${category.toUpperCase()} <span class="dot"></span></summary>
+        <div class="specs">
+          ${specsHTML}
+        </div>
+      </details>
+    `;
+  }).join('');
+  
+  return `
+    <div class="model" data-difficulty="${model.difficulty}">
+      <img src="${model.image}" alt="${model.name}">
+      <div>
+        <h2>${model.name} <span class="dot"></span></h2>
+        ${categoriesHTML}
+      </div>
+    </div>
+  `;
+}
+
+// Function to render all models grouped by year
+function renderModels(filteredModels = macModels) {
+  const container = document.getElementById('modelsContainer');
+  
+  if (filteredModels.length === 0) {
+    container.innerHTML = '<div class="no-results">No models match your search criteria.</div>';
+    return;
+  }
+  
+  const modelsByYear = {};
+  
+  // Group models by year
+  filteredModels.forEach(model => {
+    if (!modelsByYear[model.year]) {
+      modelsByYear[model.year] = [];
+    }
+    modelsByYear[model.year].push(model);
+  });
+  
+  // Sort years in descending order
+  const sortedYears = Object.keys(modelsByYear).sort((a, b) => b - a);
+  
+  let html = '';
+  sortedYears.forEach(year => {
+    html += `<h2 class="year-section">${year}</h2>`;
+    modelsByYear[year].forEach(model => {
+      html += generateModelHTML(model);
+    });
+  });
+  
+  container.innerHTML = html;
+  addDotLabels();
+}
+
+// Function to add difficulty labels next to dots
+function addDotLabels() {
+  document.querySelectorAll('details').forEach(detail => {
+    const dot = detail.querySelector('.dot');
+    if (!dot) return;
+
+    // Determine label text
+    let textLabel = '';
+    const difficulty = detail.dataset.difficulty?.toLowerCase();
+
+    // Check upgradeable value if present
+    const upgradeableLabel = detail.querySelector('.label');
+    const upgradeableValue = upgradeableLabel?.textContent.toLowerCase().includes('upgradeable') 
+      ? detail.querySelector('.value')?.textContent.toLowerCase() 
+      : '';
+
+    if (upgradeableValue === 'no') {
+      textLabel = 'Not Upgradeable';
+    } else if (difficulty) {
+      textLabel = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
+    }
+
+    if (textLabel) {
+      // Avoid adding multiple labels
+      if (!dot.nextElementSibling || !dot.nextElementSibling.classList.contains('dot-label')) {
+        const span = document.createElement('span');
+        span.textContent = ' ' + textLabel;
+        span.className = 'dot-label';
+        dot.insertAdjacentElement('afterend', span);
+      }
+    }
+  });
+}
+
+// Function to populate year filter dropdown
+function populateYearFilter() {
+  const yearFilter = document.getElementById('yearFilter');
+  const years = [...new Set(macModels.map(model => model.year))].sort((a, b) => b - a);
+  
+  years.forEach(year => {
+    const option = document.createElement('option');
+    option.value = year;
+    option.textContent = year;
+    yearFilter.appendChild(option);
+  });
+}
+
+// Function to populate product tabs
+function populateProductTabs() {
+  const tabsContainer = document.getElementById('productTabs');
+  const productTypes = [...new Set(macModels.map(model => model.type))];
+  
+  productTypes.forEach(type => {
+    const tab = document.createElement('div');
+    tab.className = 'tab';
+    tab.textContent = type;
+    tab.dataset.type = type;
+    tabsContainer.appendChild(tab);
+  });
+  
+  // Set iMac as active by default
+  document.querySelector('.tab[data-type="iMac"]').classList.add('active');
+}
+
+// Function to filter models based on search, year, and product type
+function filterModels() {
+  const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+  const selectedYear = document.getElementById('yearFilter').value;
+  const activeTab = document.querySelector('.tab.active').dataset.type;
+  
+  const filteredModels = macModels.filter(model => {
+    // Filter by product type
+    if (model.type !== activeTab) return false;
+    
+    // Filter by year
+    if (selectedYear !== 'all' && model.year != selectedYear) return false;
+    
+    // Filter by search term
+    if (searchTerm && !model.name.toLowerCase().includes(searchTerm)) return false;
+    
+    return true;
+  });
+  
+  renderModels(filteredModels);
+}
+
+// Initialize the page when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  populateYearFilter();
+  populateProductTabs();
+  renderModels();
+  
+  // Set up event listeners
+  document.getElementById('searchInput').addEventListener('input', filterModels);
+  document.getElementById('yearFilter').addEventListener('change', filterModels);
+  
+  // Tab click events
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      filterModels();
+    });
+  });
+  
+  // Expand/Collapse buttons
+  const expandModelsBtn = document.getElementById('expandModels');
+  const expandCatsBtn = document.getElementById('expandCats');
+
+  function firstLevelDetailsInModel(modelEl) {
+    return Array.from(modelEl.querySelectorAll(':scope > div > details'));
+  }
+  
+  function allCategoryDetails() {
+    return Array.from(document.querySelectorAll('.model details'));
+  }
+
+  function updateButtonText() {
+    const models = Array.from(document.querySelectorAll('.model'));
+    const allModelsExpanded = models.length > 0 && models.every(m => firstLevelDetailsInModel(m).every(d => d.open));
+    expandModelsBtn.textContent = allModelsExpanded ? 'Collapse all models' : 'Expand all models';
+
+    const cats = allCategoryDetails();
+    const allCatsExpanded = cats.length > 0 && cats.every(d => d.open);
+    expandCatsBtn.textContent = allCatsExpanded ? 'Collapse all categories' : 'Expand all categories';
+  }
+
+  expandModelsBtn.addEventListener('click', () => {
+    const models = Array.from(document.querySelectorAll('.model'));
+    const anyClosed = models.some(m => firstLevelDetailsInModel(m).some(d => !d.open));
+    models.forEach(m => firstLevelDetailsInModel(m).forEach(d => d.open = anyClosed));
+    updateButtonText();
+  });
+
+  expandCatsBtn.addEventListener('click', () => {
+    const cats = allCategoryDetails();
+    const anyClosed = cats.some(d => !d.open);
+    cats.forEach(d => d.open = anyClosed);
+    updateButtonText();
+  });
+
+  document.querySelectorAll('details').forEach(d => {
+    d.addEventListener('toggle', updateButtonText);
+  });
+
+  updateButtonText();
+});
+</script>
+</body>
+</html>

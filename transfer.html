@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>File Transfer Simulator</title>
+  <style>
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;margin:0;padding:24px;background:#000;color:#eee;display:flex;align-items:center;justify-content:center;height:100vh}
+    .card{width:780px;max-width:96vw;background:#222;padding:22px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.6)}
+    h1{margin:0 0 6px;font-size:20px}
+    p.lead{margin:0 0 20px;color:#aaa;font-size:13px}
+
+    form.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+    label{display:block;font-size:13px;color:#aaa;margin-bottom:6px}
+    input[type="number"], input[type="text"], select{width:100%;padding:10px;border-radius:8px;border:1px solid #444;background:#111;color:inherit;outline:none;font-size:14px}
+    .row{display:flex;gap:12px}
+    .full{grid-column:1/-1}
+    .controls{display:flex;gap:10px;align-items:center}
+    .btn{background:#444;color:white;padding:10px 14px;border-radius:8px;border:0;cursor:pointer;font-weight:600}
+    .btn.secondary{background:transparent;border:1px solid #555}
+    .progress-wrap{background:#111;padding:14px;border-radius:10px;border:1px solid #333}
+    .file-name{font-weight:700;margin-bottom:8px}
+
+    .bar{height:18px;background:#333;border-radius:999px;overflow:hidden;position:relative}
+    .bar .fill{height:100%;width:0%;background:linear-gradient(90deg,#3b82f6 0%, #06b6d4 100%);transition:width 0.4s linear}
+    .meta{margin-top:10px;color:#aaa;font-size:13px;display:flex;justify-content:space-between;align-items:center}
+
+    .finished{background:#111;border:1px solid #333;padding:16px;border-radius:10px}
+    footer{margin-top:12px;color:#777;font-size:12px}
+
+    @media (max-width:600px){.card{padding:16px}.grid{grid-template-columns:1fr}.row{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>File Transfer Simulator</h1>
+    <p class="lead">Simulate a file transfer. Enter a desired transfer speed and file size. Updates occur every 0.5s.</p>
+
+    <form id="sim-form" class="grid" onsubmit="return false;">
+        <div>
+        <label for="preset">Speed Presets</label>
+        <select id="preset">
+            <option value="">— pick a preset —</option>
+
+            <!-- Hard drives / SSDs -->
+            <option value="4200">4200 RPM HDD — ~50 MB/s</option>
+            <option value="5400">5400 RPM HDD — ~100 MB/s</option>
+            <option value="7200">7200 RPM HDD — ~150 MB/s</option>
+            <option value="sata">SATA SSD — ~550 MB/s</option>
+            <option value="pci3">PCIe Gen 3 SSD — ~2000 MB/s</option>
+            <option value="pci4">PCIe Gen 4 SSD — ~5000 MB/s</option>
+
+            <!-- CD-ROM -->
+            <option value="cd4">CD 4× — ~0.59 MB/s</option>
+            <option value="cd8">CD 8× — ~1.17 MB/s</option>
+            <option value="cd16">CD 16× — ~2.34 MB/s</option>
+            <option value="cd24">CD 24× — ~3.51 MB/s</option>
+
+            <!-- DVD-ROM -->
+            <option value="dvd2">DVD 2× — ~2.64 MB/s</option>
+            <option value="dvd4">DVD 4× — ~5.28 MB/s</option>
+            <option value="dvd8">DVD 8× — ~10.56 MB/s</option>
+        </select>
+        </div>
+
+      <div>
+        <label for="filename">File name</label>
+        <input id="filename" type="text" placeholder="example.iso" value="sample-file.bin" required />
+      </div>
+
+      <div>
+        <label for="speed">Transfer speed (MB/s)</label>
+        <input id="speed" type="number" min="0.01" step="0.01" value="50" required />
+      </div>
+
+      <div>
+        <label for="size">File size</label>
+        <div class="row">
+          <input id="filesize" type="number" min="0.01" step="0.01" value="5" />
+          <select id="unit">
+            <option value="MB">MB</option>
+            <option value="GB" selected>GB</option>
+            <option value="TB">TB</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="full controls">
+        <button id="startBtn" class="btn">Start Transfer</button>
+        <button id="cancelBtn" class="btn secondary" type="button">Reset</button>
+      </div>
+    </form>
+
+    <div id="simArea"></div>
+    <footer>Tip: 1 GB ≈ 1024 MB. The simulator uses this convention to display transfer progress.</footer>
+  </div>
+
+<script>
+preset.addEventListener('change', ()=>{
+  const val = preset.value;
+  if (!val) return;
+  let speedMBs = 50; // default
+
+  switch(val){
+    case '4200': speedMBs = 50; break;
+    case '5400': speedMBs = 100; break;
+    case '7200': speedMBs = 150; break;
+    case 'sata': speedMBs = 550; break;
+    case 'pci3': speedMBs = 2000; break;
+    case 'pci4': speedMBs = 5000; break;
+    case 'cd4': speedMBs = 0.586; break;
+    case 'cd8': speedMBs = 1.17; break;
+    case 'cd16': speedMBs = 2.34; break;
+    case 'cd24': speedMBs = 3.51; break;
+    case 'dvd2': speedMBs = 2.64; break;
+    case 'dvd4': speedMBs = 5.28; break;
+    case 'dvd8': speedMBs = 10.56; break;
+  }
+
+  document.getElementById('speed').value = speedMBs;
+});
+
+(function(){
+  const startBtn = document.getElementById('startBtn');
+  const cancelBtn = document.getElementById('cancelBtn');
+  const simArea = document.getElementById('simArea');
+
+  let sim = null;
+
+  function humanTime(seconds){
+    if (!isFinite(seconds) || seconds < 0) return '--:--';
+    const mins = Math.floor(seconds/60);
+    const secs = Math.floor(seconds%60);
+    if (mins >= 60*24){
+      const days = Math.floor(mins / (60*24));
+      const hours = Math.floor((mins % (60*24)) / 60);
+      const m = mins % 60;
+      return `${days}d ${hours}h ${m}m`;
+    }
+    if (mins >= 60){
+      const h = Math.floor(mins/60);
+      const m = mins % 60;
+      return `${h}h ${m}m`;
+    }
+    return `${mins}m ${secs}s`;
+  }
+
+  function bytesFrom(size, unit){
+    const n = Number(size) || 0;
+    if (unit === 'TB') return n * 1024 * 1024 * 1024 * 1024;
+    if (unit === 'GB') return n * 1024 * 1024 * 1024;
+    return n * 1024 * 1024;
+  }
+
+  function formatSize(bytes){
+    if (!isFinite(bytes) || bytes < 0) return '--';
+    const tb = bytes / (1024**4);
+    if (tb >= 1) return tb.toFixed(2) + ' TB';
+    const gb = bytes / (1024**3);
+    if (gb >= 1) return gb.toFixed(2) + ' GB';
+    const mb = bytes / (1024**2);
+    if (mb >= 1) return mb.toFixed(2) + ' MB';
+    const kb = bytes / 1024;
+    return kb.toFixed(0) + ' KB';
+  }
+
+  function formatSpeed(bps){
+    const mbs = bps / (1024*1024);
+    if (mbs >= 1024) return (mbs/1024).toFixed(2) + ' GB/s';
+    return mbs.toFixed(2) + ' MB/s';
+  }
+
+  function createSimUI(fileName, totalBytes){
+    simArea.innerHTML = '';
+    const wrap = document.createElement('div'); wrap.className = 'progress-wrap';
+    const title = document.createElement('div'); title.className = 'file-name'; title.textContent = fileName;
+    const bar = document.createElement('div'); bar.className = 'bar';
+    const fill = document.createElement('div'); fill.className = 'fill'; bar.appendChild(fill);
+    const meta = document.createElement('div'); meta.className = 'meta';
+    const remaining = document.createElement('div'); remaining.id = 'remaining';
+    const right = document.createElement('div'); right.id = 'right';
+    meta.appendChild(remaining); meta.appendChild(right);
+
+    wrap.appendChild(title); wrap.appendChild(bar); wrap.appendChild(meta);
+    simArea.appendChild(wrap);
+
+    remaining.textContent = `-- remaining - 0 / ${formatSize(totalBytes)}`;
+    right.textContent = '--';
+
+    return {fill, remaining, right};
+  }
+
+  function startSimulation(opts){
+    if (sim) stopSimulation();
+    const {speedMBs, totalBytes, filename} = opts;
+
+    const ui = createSimUI(filename, totalBytes);
+    const overshoot = 1 + (Math.random() * 0.05); // 0-5% fluctuation
+    const baseSpeed = speedMBs * overshoot * 1024*1024; // MB/s -> bytes/s
+
+    let transferred = 0;
+    let start = performance.now();
+    let rampDuration = 2000 + Math.random()*2000; // 2-4s ramp
+    let stopped = false;
+
+    function tick(){
+      if (stopped) return;
+      const now = performance.now();
+      const rampT = Math.min(1, (now - start)/rampDuration);
+      const rampFactor = (-Math.cos(Math.PI*rampT)+1)/2;
+      const fluct = 1 + (Math.random()-0.5)*0.05;
+      const currentBps = baseSpeed * (0.6 + 0.4*rampFactor) * fluct;
+
+      transferred += currentBps*0.5;
+      if (transferred > totalBytes) transferred = totalBytes;
+
+      const percent = Math.min(100, (transferred/totalBytes)*100);
+      ui.fill.style.width = percent.toFixed(3)+'%';
+
+      const remainingBytes = Math.max(0, totalBytes-transferred);
+      const etaSec = remainingBytes / (currentBps||1);
+
+      ui.remaining.textContent = `${humanTime(etaSec)} remaining - ${formatSize(transferred)} / ${formatSize(totalBytes)} (${formatSpeed(currentBps)})`;
+      ui.right.textContent = formatSpeed(currentBps);
+
+      if (transferred >= totalBytes-0.0001){
+        finished();
+        return;
+      }
+
+      sim._timer = setTimeout(tick, 500);
+    }
+
+    function finished(){
+      stopped = true;
+      clearTimeout(sim._timer);
+      const end = performance.now();
+      const totalSeconds = Math.round((end-start)/1000);
+      simArea.innerHTML = '';
+      const f = document.createElement('div'); f.className = 'finished';
+      const t = document.createElement('div'); t.className = 'file-name'; t.textContent = filename;
+      const msg = document.createElement('div'); msg.style.marginTop='6px'; msg.textContent = `Transferred (${humanTime(totalSeconds)}) - ${formatSize(totalBytes)}`;
+      f.appendChild(t); f.appendChild(msg);
+      simArea.appendChild(f);
+      sim = null;
+    }
+
+    sim = {
+      _timer: setTimeout(tick, 500),
+      stop(){ stopped=true; clearTimeout(this._timer); }
+    };
+  }
+
+  function stopSimulation(){
+    if (!sim) return;
+    try{ sim.stop(); }catch(e){}
+    sim = null;
+    simArea.innerHTML = '';
+  }
+
+  startBtn.addEventListener('click', ()=>{
+    const speed = Number(document.getElementById('speed').value) || 0;
+    const fname = document.getElementById('filename').value || 'file.bin';
+    const fsizeVal = Number(document.getElementById('filesize').value) || 0.1;
+    const unit = document.getElementById('unit').value;
+
+    if (speed <= 0 || fsizeVal <= 0){ alert('Please enter positive values.'); return; }
+
+    const totalBytes = bytesFrom(fsizeVal, unit);
+    startSimulation({speedMBs: speed, totalBytes, filename: fname});
+  });
+
+  cancelBtn.addEventListener('click', ()=>{ stopSimulation(); });
+})();
+</script>
+</body>
+</html>
