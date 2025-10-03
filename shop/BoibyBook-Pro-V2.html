@@ -1048,7 +1048,7 @@
             coating: ["No anti-reflective coating (base)", "Anti-reflective display coating (+A$100)"],
             chip: [
               // B6 Pro configurations
-              "Boiby B6 Pro chip with 13-core CPU and 20-core GPU (base)", 
+              "Boiby B6 Pro chip with 12-core CPU and 20-core GPU (base)", 
               "Boiby B6 Pro chip with 14-core CPU and 24-core GPU (+A$300)",
               // B6 Max configurations
               "Boiby B6 Max chip with 14-core CPU and 40-core GPU (+A$1200)",
@@ -1335,7 +1335,7 @@
           if (category === 'memory') {
             const note = document.createElement('div');
             note.className = 'note';
-            note.innerText = 'Select B5 Max for 64 GB or 96 GB unified memory. Select B5 Max with 18-core CPU and 48-core GPU for 128 GB unified memory.';
+            note.innerText = 'Select B5 Max for 96 GB unified memory. Select B5 Max with 18-core CPU and 48-core GPU for 96 GB or 128 GB unified memory.';
             group.appendChild(note);
             
             // Add event listener to the info icon
@@ -1435,11 +1435,11 @@
             // B6 Max 14/40-core can have 64GB or 96GB
             else if (chipFull.includes('14-core CPU') && chipFull.includes('40-core GPU')) {
                 // Enable 64GB and 96GB
+                if (mem48) mem48.classList.remove('disabled');
                 if (mem64) mem64.classList.remove('disabled');
                 if (mem96) mem96.classList.remove('disabled');
                 // Disable 32GB and 128GB
                 if (mem32) mem32.classList.add('disabled');
-                if (mem48) mem48.classList.add('disabled');
                 if (mem128) mem128.classList.add('disabled');
                 console.log('B6 Max 14/40: 64GB and 96GB enabled, 32GB and 128GB disabled');
             }
