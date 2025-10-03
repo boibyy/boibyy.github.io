@@ -407,7 +407,7 @@
 <body>
   <header>
     <h1 id="headerTitle">Buy BoibyBook</h1>
-    <div style="color:var(--muted);margin-top:8px">12-inch</div>
+    <div style="color:var(--muted);margin-top:8px">13-inch</div>
   </header>
 
   <main>
@@ -439,28 +439,28 @@
   </main>
 
   <div class="checkout" id="checkout">
-    <div class="total" id="finalPrice">Total: A$849</div>
+    <div class="total" id="finalPrice">Total: A$999</div>
     <button class="add-to-bag" id="addToBagBtn">Add to Bag</button>
   </div>
 
   <script>
     (function () {
-      const colors = ['Silver', 'Blue', 'Yellow', 'Pink', 'Green'];
+      const colors = ['Silver', 'Blue', 'Red', 'Pink', 'Green', 'Yellow'];
       let selectedColor = 'Silver';
 
       const baseConfig = {
-        "C16": {
-          price: 849,
-          display: "12.8-inch 90Hz IPS 2340×1504 display",
+        "C11": {
+          price: 999,
+          display: "13.2-inch 90Hz IPS 2340×1504 display (500 nits peak brightness)",
           ports: [
-            "Two USB 4 20Gbps (Type-C) ports",
+            "BoibySafe 4 port",
+            "Two USB 3.2 20Gbps (Type-C) ports",
             "Audio Jack"
           ],
           upgrades: {
             memory: [
-              "12 GB unified memory (base)",
-              "18 GB unified memory (+A$70)",
-              "24 GB unified memory (+A$150)"
+              "16 GB unified memory (base)",
+              "24 GB unified memory (+A$100)"
             ],
             storage: [
               "256 GB SSD storage (base)",
@@ -468,8 +468,8 @@
               "1 TB SSD storage (+A$150)"
             ],
             adapter: [
-              "25W USB-C Power Adapter (base)",
-              "45W USB-C Power Adapter (+A$30)"
+              "45W USB-C Power Adapter (base)",
+              "70W USB-C Power Adapter (+A$50)"
             ]
           }
         }
@@ -507,11 +507,11 @@
               <img src="${imageUrl}" alt="BoibyBook ${selectedColor}" id="card-image-C16">
             </div>
             <div class="card-details">
-              <h2>12-inch BoibyBook</h2>
+              <h2>13-inch BoibyBook</h2>
               <p class="price">From ${formatPrice(cfg.price)}</p>
               <ul>
                 <li>${cfg.display}</li>
-                <li>Boiby C16 chip with 6-core CPU and 6-core GPU</li>
+                <li>Boiby C11 chip with 6-core CPU and 8-core GPU</li>
                 <li>${cleanLabel(cfg.upgrades.memory[0])}</li>
                 <li>${cleanLabel(cfg.upgrades.storage[0])}</li>
                 <li>${cleanLabel(cfg.upgrades.adapter[0])}</li>
@@ -560,7 +560,7 @@
         // Add select button event
         card.querySelector('.select-btn').addEventListener('click', (e) => {
           e.stopPropagation();
-          selectedModel = "C16";
+          selectedModel = "C11";
           
           const modelsEl = $('#models');
           if (modelsEl) modelsEl.style.display = 'none';
@@ -629,9 +629,9 @@
         if (!list) return;
         list.innerHTML = '';
         const cfg = baseConfig[selectedModel];
-        list.appendChild(li(`BoibyBook 12-inch — ${cfg.display}`));
+        list.appendChild(li(`BoibyBook 13-inch — ${cfg.display}`));
         list.appendChild(li(`Color: ${selectedColor}`));
-        list.appendChild(li(`Boiby C16 chip with 6-core CPU and 6-core GPU`));
+        list.appendChild(li(`Boiby C11 chip with 6-core CPU and 8-core GPU`));
         
         // Add ports information
         list.appendChild(li("Ports:"));
@@ -673,9 +673,9 @@
         const list = $('#confirmationList');
         list.innerHTML = '';
         
-        list.appendChild(li(`Model: BoibyBook 12-inch`));
+        list.appendChild(li(`Model: BoibyBook 13-inch`));
         list.appendChild(li(`Color: ${selectedColor}`));
-        list.appendChild(li(`Boiby C16 chip with 6-core CPU and 6-core GPU`));
+        list.appendChild(li(`Boiby C11 chip with 6-core CPU and 6-core GPU`));
         list.appendChild(li(cleanLabel(selectedOptions.memory || cfg.upgrades.memory[0])));
         list.appendChild(li(cleanLabel(selectedOptions.storage || cfg.upgrades.storage[0])));
         list.appendChild(li(cleanLabel(selectedOptions.adapter || cfg.upgrades.adapter[0])));
