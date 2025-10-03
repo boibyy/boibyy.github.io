@@ -438,7 +438,7 @@ const macModels = [
         specs: {
           upgradeable: "Yes",
           type: "3.5\" SATA HDD (Fusion) or proprietary Apple SSD",
-          notes: "Requires display removal and significant disassembly."
+          notes: "Requires display removal and significant disassembly. However, some CPU configs support LDIMMs while other CPU configs support only RDIMMs."
         }
       },
       cpu: {
@@ -453,6 +453,211 @@ const macModels = [
         specs: {
           upgradeable: "No",
           notes: "GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    "type": "Mac Pro",
+    "year": 2013,
+    "name": "Mac Pro (Late 2013)",
+    "image": "macpro-2013.jpg",
+    "difficulty": "medium",
+    "categories": {
+      "memory": {
+        "difficulty": "medium",
+        "specs": {
+          "upgradeable": "Yes",
+          "actualMax": "64 GB",
+          "officialMax": "64 GB",
+          "type": "DDR3 1866MHz ECC SODIMM (4 slots)",
+          "notes": "Memory is user-accessible after removing outer shell; fairly easy with some caution."
+        }
+      },
+      "storage": {
+        "difficulty": "easy",
+        "specs": {
+          "upgradeable": "Yes",
+          "type": "PCIe flash storage (Apple proprietary)",
+          "notes": "Storage is replaceable with PCIe SSDs, accessible by removing the outer shell."
+        }
+      },
+      "cpu": {
+        "difficulty": "hard",
+        "specs": {
+          "upgradeable": "Yes",
+          "notes": "CPU is socketed (Intel Xeon E5) but requires removing all components, including cooling and logic board"
+        }
+      },
+      "gpu": {
+        "difficulty": "hard",
+        "specs": {
+          "upgradeable": "Yes",
+          "notes": "Dual GPUs are on a proprietary board. Technically replaceable, but this is difficult and expensive."
+        }
+      }
+    }
+  },
+  {
+    "type": "Mac Pro",
+    "year": 2012,
+    "name": "Mac Pro (Mid 2012)",
+    "image": "macpro-2012.jpg",
+    "difficulty": "easy",
+    "categories": {
+      "memory": {
+        "difficulty": "easy",
+        "specs": {
+          "upgradeable": "Yes",
+          "actualMax": "128 GB",
+          "officialMax": "64 GB",
+          "type": "DDR3 1333MHz ECC DIMM (4 slots, single CPU; or 8 slots, dual CPU)",
+          "notes": "Memory is easily accessible from the side panel. Maximum memory depends on CPU configuration: single-CPU models support up to 64 GB (4 × 16 GB), while dual-CPU models support up to 128 GB (8 × 16 GB)."
+        }
+      },
+      "storage": {
+        "difficulty": "easy",
+        "specs": {
+          "upgradeable": "Yes",
+          "type": "3.5\" SATA HDD/SSD or PCIe flash via adapter",
+          "notes": "Drive bays are accessible from the side panel. Very straightforward to upgrade."
+        }
+      },
+      "cpu": {
+        "difficulty": "medium",
+        "specs": {
+          "upgradeable": "Yes",
+          "notes": "Both single-socket and dual-socket Xeon CPUs are removable and upgradeable with some disassembly."
+        }
+      },
+      "gpu": {
+        "difficulty": "easy",
+        "specs": {
+          "upgradeable": "Yes",
+          "notes": "Full-length PCIe GPUs can be swapped easily; just remove the side panel and old card, and insert new card and attach power connectors, just like a regular desktop PC."
+        }
+      }
+    }
+  },
+  {
+    "type": "Mac Pro",
+    "year": 2010,
+    "name": "Mac Pro (Mid 2010)",
+    "image": "macpro-2010.jpg",
+    "difficulty": "easy",
+    "categories": {
+      "memory": {
+        "difficulty": "easy",
+        "specs": {
+          "upgradeable": "Yes",
+          "actualMax": "128 GB",
+          "officialMax": "32 GB",
+          "type": "DDR3 1066MHz ECC DIMM (4 slots, single CPU) or 8 slots (dual CPU)",
+          "notes": "Memory is accessible via side panel. Single-CPU models support up to 32 GB; dual-CPU models up to 128 GB."
+        }
+      },
+      "storage": {
+        "difficulty": "easy",
+        "specs": {
+          "upgradeable": "Yes",
+          "type": "3.5\" SATA or SATA2 HDD/SSD",
+          "notes": "Four internal drive bays are accessible from the side panel. Easy to upgrade."
+        }
+      },
+      "cpu": {
+        "difficulty": "medium",
+        "specs": {
+          "upgradeable": "Yes",
+          "notes": "DBoth single-socket and dual-socket Xeon CPUs are removable and upgradeable with some disassembly."
+        }
+      },
+      "gpu": {
+        "difficulty": "easy",
+        "specs": {
+          "upgradeable": "Yes",
+          "notes": "PCIe GPUs can be swapped easily; side panel removal gives full access."
+        }
+      }
+    }
+  },
+  {
+    "type": "Mac Pro",
+    "year": 2008,
+    "name": "Mac Pro (Early/Mid 2008)",
+    "image": "macpro-2008.jpg",
+    "difficulty": "easy",
+    "categories": {
+      "memory": {
+        "difficulty": "easy",
+        "specs": {
+          "upgradeable": "Yes",
+          "actualMax": "32 GB",
+          "officialMax": "16 GB",
+          "type": "DDR2 800MHz ECC DIMM (4 slots)",
+          "notes": "Memory is accessible via side panel. Single-CPU models support up to 16 GB; dual-CPU models up to 32 GB."
+        }
+      },
+      "storage": {
+        "difficulty": "easy",
+        "specs": {
+          "upgradeable": "Yes",
+          "type": "3.5\" SATA or SATA2 HDD",
+          "notes": "Four drive bays are accessible from the side panel. Easy to swap or upgrade drives."
+        }
+      },
+      "cpu": {
+        "difficulty": "medium",
+        "specs": {
+          "upgradeable": "Yes",
+          "notes": "Both single-socket and dual-socket Xeon CPUs are removable and upgradeable with some disassembly."
+        }
+      },
+      "gpu": {
+        "difficulty": "easy",
+        "specs": {
+          "upgradeable": "Yes",
+          "notes": "PCIe GPUs can be swapped easily. Side panel removal gives full access."
+        }
+      }
+    }
+  },
+  {
+    "type": "Mac Pro",
+    "year": 2006,
+    "name": "Mac Pro (Original, 2006)",
+    "image": "macpro-2006.jpg",
+    "difficulty": "easy",
+    "categories": {
+      "memory": {
+        "difficulty": "easy",
+        "specs": {
+          "upgradeable": "Yes",
+          "actualMax": "32 GB",
+          "officialMax": "16 GB",
+          "type": "DDR2 667MHz ECC DIMM (4 slots)",
+          "notes": "Memory is accessible via the side panel. Single-CPU models support up to 16 GB; dual-CPU models up to 32 GB."
+        }
+      },
+      "storage": {
+        "difficulty": "easy",
+        "specs": {
+          "upgradeable": "Yes",
+          "type": "3.5\" SATA or SATA2 HDD",
+          "notes": "Four drive bays are accessible from the side panel. Easy to swap or upgrade drives."
+        }
+      },
+      "cpu": {
+        "difficulty": "medium",
+        "specs": {
+          "upgradeable": "Yes",
+          "notes": "Both single-socket and dual-socket Xeon CPUs are removable and upgradeable with some disassembly."
+        }
+      },
+      "gpu": {
+        "difficulty": "easy",
+        "specs": {
+          "upgradeable": "Yes",
+          "notes": "PCIe GPUs can be swapped easily. Side panel removal gives full access."
         }
       }
     }
