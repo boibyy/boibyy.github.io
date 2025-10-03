@@ -42,11 +42,26 @@
         <select id="preset">
             <option value="">— pick a preset —</option>
 
+            <!-- Ports -->
+            <option value="fw400">FireWire 400 — ~50 MB/s</option>
+            <option value="fw800">FireWire 800 — ~100 MB/s</option>
+            <option value="usb10">USB 1 (low) — ~192 KB/s</option>
+            <option value="usb11">USB 1 (high) — ~1.5 MB/s</option>
+            <option value="usb20">USB 2 — ~60 MB/s</option>
+            <option value="usb30">USB 3 — ~640 MB/s</option>
+            <option value="usb31">USB 3.1 — ~1280 MB/s</option>
+            <option value="usb32">USB 3.2 (Type C) — ~2560 MB/s</option>
+            <option value="usb4">USB 4 (Type-C) — ~5120 MB/s</option>
+            <option value="tb34">Thunderbolt 3/4 — ~5120 MB/s</option>
+            <option value="tb5a">Thunderbolt 5 (base) — ~10240 MB/s</option>
+            <option value="tb5b">Thunderbolt 5 (full) — ~15360 MB/s</option>
+
             <!-- Hard drives / SSDs -->
             <option value="4200">4200 RPM HDD — ~50 MB/s</option>
             <option value="5400">5400 RPM HDD — ~100 MB/s</option>
             <option value="7200">7200 RPM HDD — ~150 MB/s</option>
-            <option value="sata">SATA SSD — ~550 MB/s</option>
+            <option value="sata2">SATA2 SSD — ~550 MB/s</option>
+            <option value="sata3">SATA3 SSD — ~550 MB/s</option>
             <option value="pci3">PCIe Gen 3 SSD — ~2000 MB/s</option>
             <option value="pci4">PCIe Gen 4 SSD — ~5000 MB/s</option>
 
@@ -92,7 +107,7 @@
     </form>
 
     <div id="simArea"></div>
-    <footer>Tip: 1 GB ≈ 1024 MB. The simulator uses this convention to display transfer progress.</footer>
+    <footer>1 GB = 1024 MB</footer>
   </div>
 
 <script>
@@ -105,9 +120,22 @@ preset.addEventListener('change', ()=>{
     case '4200': speedMBs = 50; break;
     case '5400': speedMBs = 100; break;
     case '7200': speedMBs = 150; break;
-    case 'sata': speedMBs = 550; break;
+    case 'sata2': speedMBs = 300; break;
+    case 'sata3': speedMBs = 600; break;
     case 'pci3': speedMBs = 2000; break;
     case 'pci4': speedMBs = 5000; break;
+    case 'usb10': speedMBs = 0.1875; break;
+    case 'usb11': speedMBs = 1.5; break;
+    case 'usb20': speedMBs = 60; break;
+    case 'usb30': speedMBs = 640; break;
+    case 'usb31': speedMBs = 1280; break;
+    case 'usb32': speedMBs = 2560; break;
+    case 'usb4': speedMBs = 5120; break;
+    case 'tb34': speedMBs = 5120; break;
+    case 'tb5a': speedMBs = 10240; break;
+    case 'tb5b': speedMBs = 15360; break;
+    case 'fw400': speedMBs = 50; break;
+    case 'fw800': speedMBs = 100; break;
     case 'cd4': speedMBs = 0.586; break;
     case 'cd8': speedMBs = 1.17; break;
     case 'cd16': speedMBs = 2.34; break;
