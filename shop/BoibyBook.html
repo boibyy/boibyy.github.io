@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Buy BoibyBook — 12-inch</title>
+  <title>Buy BoibyBook — 13-inch</title>
   <style>
     :root {
       --blue: #0071e3;
@@ -493,10 +493,10 @@
         if (!container) return;
         container.innerHTML = '';
         
-        const cfg = baseConfig["C16"];
+        const cfg = baseConfig["C11"];
         const card = document.createElement('div');
         card.className = 'card';
-        card.setAttribute('data-model', "C16");
+        card.setAttribute('data-model', "C11");
         
         // Create image element
         const imageUrl = `BoibyBook${selectedColor}.png`;
@@ -504,7 +504,7 @@
         card.innerHTML = `
           <div class="card-content">
             <div class="card-image">
-              <img src="${imageUrl}" alt="BoibyBook ${selectedColor}" id="card-image-C16">
+              <img src="${imageUrl}" alt="BoibyBook ${selectedColor}" id="card-image-C11">
             </div>
             <div class="card-details">
               <h2>13-inch BoibyBook</h2>
@@ -525,12 +525,12 @@
           <div class="color-selector">
             ${colors.map(color => `
               <div class="color-pill ${color === selectedColor ? 'selected' : ''}" 
-                   data-color="${color}" data-model="C16">
+                   data-color="${color}" data-model="C11">
                 ${color}
               </div>
             `).join('')}
           </div>
-          <button class="select-btn" data-model="C16">Select</button>
+          <button class="select-btn" data-model="C11">Select</button>
         `;
         
         // Add color selection event
@@ -577,7 +577,7 @@
         optionsDiv.innerHTML = '';
         selectedOptions = {};
 
-        $('#heroTitle').innerText = `Customise your BoibyBook — 12-inch`;
+        $('#heroTitle').innerText = `Customise your BoibyBook — 13-inch`;
         
         // Update hero image
         const heroImage = $('#heroImage');
@@ -667,7 +667,7 @@
         $('#confirmationImage').innerHTML = `<img src="BoibyBook${selectedColor}.png" alt="BoibyBook ${selectedColor}">`;
         
         // Set confirmation model text
-        $('#confirmationModel').textContent = `BoibyBook 12-inch - ${selectedColor}`;
+        $('#confirmationModel').textContent = `BoibyBook 13-inch - ${selectedColor}`;
         
         // Build confirmation list
         const list = $('#confirmationList');
@@ -675,7 +675,7 @@
         
         list.appendChild(li(`Model: BoibyBook 13-inch`));
         list.appendChild(li(`Color: ${selectedColor}`));
-        list.appendChild(li(`Boiby C11 chip with 6-core CPU and 6-core GPU`));
+        list.appendChild(li(`Boiby C11 chip with 6-core CPU and 8-core GPU`));
         list.appendChild(li(cleanLabel(selectedOptions.memory || cfg.upgrades.memory[0])));
         list.appendChild(li(cleanLabel(selectedOptions.storage || cfg.upgrades.storage[0])));
         list.appendChild(li(cleanLabel(selectedOptions.adapter || cfg.upgrades.adapter[0])));
