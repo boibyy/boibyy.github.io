@@ -3545,7 +3545,88 @@ const macModels = [
       }
     }
   },
-  
+  {
+    type: "Mac mini",
+    year: 2014,
+    name: "Mac mini (Late 2014)",
+    image: "macmini-2014.png",
+    difficulty: "hard",
+    categories: {
+      memory: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "Soldered DDR3L-1600",
+          notes: "Memory is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      storage: {
+        difficulty: "hard",
+        specs: {
+          upgradeable: "Yes",
+          type: "2.5-inch HDD or SATA SSD",
+          notes: "Storage can be accessed and replaced with any 2.5-inch SATA drive via the bottom cover, but requires special screwdrivers for the bottom cover and significant disassembly."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "Integrated GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
+  {
+    type: "Mac mini",
+    year: 2012,
+    name: "Mac mini (Late 2012)",
+    image: "macmini-2012.png",
+    difficulty: "medium",
+    categories: {
+      memory: {
+        difficulty: "easy",
+        specs: {
+          upgradeable: "Yes",
+          actualMax: "16 GB",
+          officialMax: "16 GB",
+          type: "DDR3 1600 MHz SODIMM (2 slots)",
+          notes: "Two SODIMM slots are accessible with via the bottom cover, no tools required"
+        }
+      },
+      storage: {
+        difficulty: "medium",
+        specs: {
+          upgradeable: "Yes",
+          type: "2.5-inch HDD or SATA SSD",
+          notes: "Storage can easily be accessed and replaced with any 2.5-inch SATA drive via the bottom cover and some disassembly."
+        }
+      },
+      cpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "CPU is soldered to the logic board and cannot be upgraded."
+        }
+      },
+      gpu: {
+        difficulty: "impossible",
+        specs: {
+          upgradeable: "No",
+          notes: "Integrated GPU is soldered to the logic board and cannot be upgraded."
+        }
+      }
+    }
+  },
   // Mac Studio Models
   {
     type: "Mac Studio",
