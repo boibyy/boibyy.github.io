@@ -1421,41 +1421,34 @@
             const mem96 = findPill('96 GB');
             const mem128 = findPill('128 GB');
 
-            // B6 Pro chips (any configuration) can have 32GB or 64GB
             if (chipFull.includes('B6 Pro')) {
-                // Enable 32GB and 64GB
+                // Enable 32GB, 48GB, 64GB
                 if (mem32) mem32.classList.remove('disabled');
                 if (mem48) mem48.classList.remove('disabled');
                 if (mem64) mem64.classList.remove('disabled');
                 // Disable 96GB and 128GB
                 if (mem96) mem96.classList.add('disabled');
                 if (mem128) mem128.classList.add('disabled');
-                console.log('B6 Pro: 32GB, 48GB, and 64GB enabled, 96GB and 128GB disabled');
             }
-            // B6 Max 14/40-core can have 64GB or 96GB
             else if (chipFull.includes('14-core CPU') && chipFull.includes('40-core GPU')) {
-                // Enable 64GB and 96GB
+                // Enable 96GB
                 if (mem48) mem48.classList.remove('disabled');
-                if (mem64) mem64.classList.remove('disabled');
                 if (mem96) mem96.classList.remove('disabled');
-                // Disable 32GB and 128GB
+                // Disable 32GB, 64GB and 128GB
                 if (mem32) mem32.classList.add('disabled');
+                if (mem64) mem64.classList.add('disabled');
                 if (mem128) mem128.classList.add('disabled');
-                console.log('B6 Max 14/40: 64GB and 96GB enabled, 32GB and 128GB disabled');
             }
-            // B6 Max 18/48-core can have 64GB, 96GB, or 128GB
             else if (chipFull.includes('18-core CPU') && chipFull.includes('48-core GPU')) {
                 // Enable 64GB, 96GB, and 128GB
                 if (mem64) mem64.classList.remove('disabled');
                 if (mem96) mem96.classList.remove('disabled');
                 if (mem128) mem128.classList.remove('disabled');
-                // Disable 32GB
+                // Disable 32GB and 48GB
                 if (mem32) mem32.classList.add('disabled');
                 if (mem48) mem48.classList.add('disabled');
-                console.log('B6 Max 18/48: 64GB, 96GB, and 128GB enabled, 32GB disabled');
             }
 
-            // Auto-select appropriate memory if current selection is invalid
             if (selectedOptions.memory) {
                 const currentMemoryPill = memoryPills.find(p => 
                     p.dataset.value === selectedOptions.memory
@@ -1525,7 +1518,6 @@
           }
         });
         
-        // Close modal with Escape key
         document.addEventListener('keydown', function escHandler(e) {
           if (e.key === 'Escape') {
             hideChipModal();
