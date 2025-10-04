@@ -3,30 +3,43 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Boiby's Website</title>
-    <link rel="stylesheet" href="css/aqua.css">
+    <title>Page Not Found</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="bouncy.css">
+
+    <script src="modal.js"></script>
+    <script src="theme.js"></script>
+    <script src="nav.js"></script>
 </head>
-<body>
+
+<body class="dark">
     <header>
-        <div class="pinstripe">
-            <div class="bar" role="navigation" aria-label="mac tabs">
-                <a class="tab active" href="/"><span>Home</span></a>
-                <a class="tab" href="/about"><span>About</span></a>
-                <a class="tab" href="/blog"><span>Posts</span></a>
-                <a class="tab" href="/projects"><span>Projects</span></a>
-                <a class="tab" href="/contact"><span>Contact</span></a>
-                <a class="tab" href="/more"><span>More</span></a>
-            </div>
-            <div class="gloss-panel">
-            </div>
-        </div>
+        <img src="boiby.png" class="favicon" alt="Boiby">
+        <a href="#" class="hamburger">☰</a>
+        <nav>
+            <a href="/index" class="link active">Home</a>
+            <a href="/about" class="link">About</a>
+            <a href="/projects" class="link">Projects</a>
+            <a href="/extras" class="link">Extras</a>
+            <a href="/contact" class="link">Contact</a>
+        </nav>
+        <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
+        <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
     </header>
+
     <main>
-        <section id="welcome">
-        <h1 class="garamond">Error 404</h1>
-        <h3 class="garamond">Page could not be found or no longer exists.</h3>
-            <a href="/index.html" class="mac-aqua-button aqua-button-blue" style="margin-left:auto; margin-right:auto">ok</a>
+        <section id="home" class="heading">
+            <div class="heading-container">
+                <img src="boiby.png" class="bouncy-image db" style="height:128px; width: 128px; margin-left: auto; margin-right: auto;" alt="Boiby Icon">
+                <h1 class="text-center header-margin-home">We couldn't find that page</h1>
+                <p class="text-center">Error 404 - Page could not be found or no longer exists</p>
+            </div>
         </section>
     </main>
+    
+    <footer>
+        <hr>
+        <p>© Boiby 2025</p>
+    </footer>
 </body>
 </html>

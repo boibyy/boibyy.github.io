@@ -1,95 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Boiby's Website</title>
-<link rel="stylesheet" href="css/aqua.css">
-<link rel="stylesheet" href="css/bubbles.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Boiby's Website</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="bouncy.css">
+
+    <script src="modal.js"></script>
+    <script src="theme.js"></script>
+    <script src="nav.js"></script>
 </head>
-<body>
-<header>
-  <div class="pinstripe">
-    <div class="bar" role="navigation" aria-label="mac tabs">
-      <a class="tab active" href="/"><span>Home</span></a>
-      <a class="tab" href="/about"><span>About</span></a>
-      <a class="tab" href="/blog"><span>Posts</span></a>
-      <a class="tab" href="/projects"><span>Projects</span></a>
-      <a class="tab" href="/contact"><span>Contact</span></a>
-      <a class="tab" href="/more"><span>More</span></a>
+
+<body class="dark">
+    <header>
+        <img src="boiby.png" class="favicon" alt="Boiby">
+        <a href="#" class="hamburger">☰</a>
+        <nav>
+            <a href="/index" class="link active">Home</a>
+            <a href="/about" class="link">About</a>
+            <a href="/projects" class="link">Projects</a>
+            <a href="/extras" class="link">Extras</a>
+            <a href="/contact" class="link">Contact</a>
+        </nav>
+        <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
+        <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
+    </header>
+
+    <main>
+        <section id="home" class="heading">
+            <div class="heading-container">
+                <h1 class="text-center header-margin-home">Welcome to the Boiby Website</h1>
+                <img src="boiby.jpg" class="heading-hero-image-full" alt="Heading Image">
+            </div>
+        </section>
+        
+        <div class="container">
+            <section>
+                <h2 class="section-title">Welcome to my website
+                    <img src="boiby.png" class="bouncy-image" alt="Boiby Icon">
+                </h2>
+                <div class="cards-container">
+                    <div class="card full-width">
+                        <h2>Hello!</h2>
+                        <p>My name is boiby, and I like messing with technology and computers. I don't know what else to tell you. I will write a proper about page eventually.</p>
+                    </div>
+                    <div class="card">
+                        <h2>My Projects</h2>
+                        <p>Personal projects... Many of these are unfinished and may be buggy; I made these for fun, after all.</p>
+                        <!-- <button class="primary-blue w-100"><a href="/projects">Projects</a></button> -->
+                        <button class="secondary w-100 disabled"><a>Work In Progress</a></button>
+                    </div>
+                    <div class="card">
+                        <h2>Extras</h2>
+                        <p>A collection of other stuff that doesn't really fit into it's own category.</p>
+                        <button class="secondary w-100 disabled"><a>Work In Progress</a></button>
+                    </div>
+                    <div class="card">
+                        <h2>Contact</h2>
+                        <p>If you wish to contact me via Discord or on Github, you can do so via these links.</p>
+                        <!-- <button class="primary-blue w-100"><a href="/contacts">Contacts</a></button> -->
+                        <button class="secondary w-100 disabled"><a>Work In Progress</a></button>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="modal-button-container">
+                <button class="primary-blue" onclick="openModal()">Random blue button</button>
+            </section>
+        </div>
+    </main>
+    
+    <footer>
+        <hr>
+        <p>© Boiby 2025</p>
+    </footer>
+    
+    <div id="modal" class="modal" onclick="closeModal()" style="display: none;">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <p class="modal-header-text">Hello hello</p>
+            </div>
+            <div class="modal-body">
+                <p>Thank you for clicking on the blue button.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="secondary" onclick="closeModal()">Close</button>
+                <button class="primary-blue">This button does nothing lol</button>
+            </div>
+        </div>
     </div>
-    <div class="gloss-panel"></div>
-  </div>
-</header>
-<main>
-  <section id="welcome">
-    <h1 class="garamond">Welcome to Boiby's Website</h1>
-    <a href="#" id="bubbles" class="mac-aqua-button aqua-button-blue" style="margin-left:auto; margin-right:auto">Bubbles?</a>
-    <a href="#" class="mac-aqua-button aqua-button-grey" style="margin-left:auto; margin-right:auto">what</a>
-  </section>
-  <section id="about">
-    <h3 class="garamond">Hello! My name is boiby.</h3>
-    <h3 class="garamond">I like technology and other stuff. I will write a proper about page eventually.</h3>
-  </section>
-  <img src="images/boiby.JPG" alt="cat named boiby" style="margin-left:25%; margin-right:25%; max-width:1600px; width: 50%;">
-  <div style="border-top: 1px solid #444; margin-top: 50px; max-width: 66%; margin-left:auto; margin-right:auto;"></div>
-  <p style="text-align: center;">Copyright Boiby 2025</p>
-</main>
-
-<div id="background-wrap">
-  <div class="bubble x1"><div class="bubble-inner"></div></div>
-  <div class="bubble x2"><div class="bubble-inner"></div></div>
-  <div class="bubble x3"><div class="bubble-inner"></div></div>
-  <div class="bubble x4"><div class="bubble-inner"></div></div>
-  <div class="bubble x5"><div class="bubble-inner"></div></div>
-  <div class="bubble x6"><div class="bubble-inner"></div></div>
-  <div class="bubble x7"><div class="bubble-inner"></div></div>
-  <div class="bubble x8"><div class="bubble-inner"></div></div>
-  <div class="bubble x9"><div class="bubble-inner"></div></div>
-  <div class="bubble x10"><div class="bubble-inner"></div></div>
-</div>
-<div class="bottom-bar" style="display: none">
-  <img src="images/boiby.png" alt="Boiby">
-  <img src="imgaes/discord.png" alt="Discord">
-  <img src="images/github.png" alt="GitHub">
-  <img src="images/question.png" alt="Huh">
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const button = document.getElementById('bubbles');
-  const wrap = document.getElementById('background-wrap');
-  const bubbles = document.querySelectorAll('.bubble');
-
-  bubbles.forEach(b => {
-    if (!b.dataset.origDuration) {
-      b.dataset.origDuration = b.style.getPropertyValue('--duration') || '20s';
-    }
-  });
-
-  button.addEventListener('click', e => {
-    e.preventDefault();
-
-    wrap.classList.add('active');
-
-    bubbles.forEach(b => {
-      b.classList.remove('active');
-      b.style.animation = 'none';         
-      void b.offsetWidth;                
-      b.style.setProperty('--duration', b.dataset.origDuration);
-      b.style.animation = '';        
-      b.classList.add('active');           
-    });
-
-    setTimeout(() => {
-      bubbles.forEach(b => {
-        b.classList.remove('active');    
-        b.style.animation = 'none';      
-      });
-      wrap.classList.remove('active');     
-    }, 5000);
-  });
-});
-</script>
 </body>
 </html>

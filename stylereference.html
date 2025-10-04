@@ -1,0 +1,202 @@
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Boiby's Website</title>
+    <link rel="stylesheet" href="main.css">
+
+    <script src="modal.js"></script>
+    <script src="theme.js"></script>
+    <script src="nav.js"></script>
+</head>
+
+<body class="dark">
+    <header>
+        <img src="boiby.png" class="favicon" alt="Boiby">
+        <a href="#" class="hamburger">☰</a>
+        <nav>
+            <a href="/index" class="link">Home</a>
+            <a href="/about" class="link">About</a>
+            <a href="/projects" class="link">Projects</a>
+            <a href="/extras" class="link">Extras</a>
+            <a href="/contact" class="link">Contact</a>
+        </nav>
+        <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
+        <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
+    </header>
+
+        <main>
+          <section id="buttons">
+            <button class="primary-blue" onclick="openModal()">Open Modal</button>
+            <button class="secondary" onclick="openModal()">Secondary Button</button>
+          </section>
+
+        <section id="main-items">
+            <h1>This is an <em>h1</em> header</h1>
+            <h2>This is an <em>h2</em> header</h2>
+            <h3>This is an <em>h3</em> header</h3>
+            <h4>This is an <em>h4</em> header</h4>
+            <h5>This is an <em>h5</em> header</h5>
+            <h6>This is an <em>h6</em> header</h6>
+
+            <p>This is a paragraph, and below is a list:</p>
+            <ul>
+                <li>This is a list item</li>
+                <li>This is a list item</li>
+                <li>This is a list item</li>
+            </ul>
+
+            <p>This is another paragraph, and below is a bold text item:</p>
+            <strong>This is a bold text item.</strong>
+
+            <p>This is a small text example: <small>I'm a small text.</small></p>
+            <p>This is a highlighted text: <mark>Important!</mark></p>
+            <p>This is inline code: <code>console.log('Hello');</code></p>
+
+            <blockquote>
+                <p><em>This is a blockquote.</em></p>
+            </blockquote>
+            
+            <h2 id="palette">Palette</h2>
+            <nav>
+                <a href="#palette-gray">gray</a>
+                <span> | </span>
+                <a href="#palette-red">red</a>
+                <span> | </span>
+                <a href="#palette-pink">pink</a>
+                <span> | </span>
+                <a href="#palette-purple">purple</a>
+                <span> | </span>
+                <a href="#palette-blue">blue</a>
+                <span> | </span>
+                <a href="#palette-green">green</a>
+                <span> | </span>
+                <a href="#palette-yellow">yellow</a>
+                <span> | </span>
+                <a href="#palette-orange">orange</a>
+            </nav>
+<section id="palette-gray">
+  <h3>gray</h3>
+  <div class="palette palette--gray">
+    <div class="palette__variants">
+      <div class="palette__variant palette__variant--light"></div>
+      <div class="palette__variant palette__variant--primary"></div>
+      <div class="palette__variant palette__variant--dark"></div>
+    </div>
+  </div>
+</section>
+
+<section id="palette-red">
+  <h3>red</h3>
+  <div class="palette palette--red">
+    <div class="palette__variants">
+      <div class="palette__variant palette__variant--light"></div>
+      <div class="palette__variant palette__variant--primary"></div>
+      <div class="palette__variant palette__variant--dark"></div>
+    </div>
+  </div>
+</section>
+
+<section id="palette-pink">
+  <h3>pink</h3>
+  <div class="palette palette--pink">
+    <div class="palette__variants">
+      <div class="palette__variant palette__variant--light"></div>
+      <div class="palette__variant palette__variant--primary"></div>
+      <div class="palette__variant palette__variant--dark"></div>
+    </div>
+  </div>
+</section>
+
+<section id="palette-purple">
+  <h3>purple</h3>
+  <div class="palette palette--purple">
+    <div class="palette__variants">
+      <div class="palette__variant palette__variant--light"></div>
+      <div class="palette__variant palette__variant--primary"></div>
+      <div class="palette__variant palette__variant--dark"></div>
+    </div>
+  </div>
+</section>
+
+<section id="palette-blue">
+  <h3>blue</h3>
+  <div class="palette palette--blue">
+    <div class="palette__variants">
+      <div class="palette__variant palette__variant--light"></div>
+      <div class="palette__variant palette__variant--primary"></div>
+      <div class="palette__variant palette__variant--dark"></div>
+    </div>
+  </div>
+</section>
+
+<section id="palette-green">
+  <h3>green</h3>
+  <div class="palette palette--green">
+    <div class="palette__variants">
+      <div class="palette__variant palette__variant--light"></div>
+      <div class="palette__variant palette__variant--primary"></div>
+      <div class="palette__variant palette__variant--dark"></div>
+    </div>
+  </div>
+</section>
+
+<section id="palette-yellow">
+  <h3>yellow</h3>
+  <div class="palette palette--yellow">
+    <div class="palette__variants">
+      <div class="palette__variant palette__variant--light"></div>
+      <div class="palette__variant palette__variant--primary"></div>
+      <div class="palette__variant palette__variant--dark"></div>
+    </div>
+  </div>
+</section>
+
+<section id="palette-orange">
+  <h3>orange</h3>
+  <div class="palette palette--orange">
+    <div class="palette__variants">
+      <div class="palette__variant palette__variant--light"></div>
+      <div class="palette__variant palette__variant--primary"></div>
+      <div class="palette__variant palette__variant--dark"></div>
+    </div>
+  </div>
+</section>
+
+
+
+
+            <p>Below is an hr element:</p>
+            <hr>
+            <p>The end</p>
+        </section>
+
+        <section>
+            <div style="margin-bottom:20px;">
+                <button class="primary-blue">Primary Blue</button>
+                <button class="primary-green">Primary Green</button>
+                <button class="secondary">Secondary</button>
+            </div>
+        </section>
+
+    </main>
+    <footer>
+        <hr>
+        <p>© Boiby 2025</p>
+    </footer>
+        <div id="modal" class="modal" onclick="closeModal()" style="display: none;">
+          <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+              <p class="modal-header-text">Modal</p>
+            </div>
+            <div class="modal-body">
+              <p>This is a dialog box. It can contain text, buttons, or anything else.</p>
+            </div>
+            <div class="modal-footer">
+              <button class="secondary" onclick="closeModal()">Close</button>
+              <button class="primary-blue">Action</button>
+            </div>
+          </div>
+        </div>
+
+
+</body></html>

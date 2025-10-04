@@ -1,0 +1,35 @@
+.bouncy-image {
+    width: 64px;
+    height: 64px;
+    vertical-align: middle;
+    margin-left: 10px;
+    animation: bounce 0.6s infinite;
+    transform-origin: bottom center;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+    border-radius: 100%;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0) scaleY(0.95) scaleX(1.1); 
+    }
+    25% {
+        transform: translateY(-17%) scaleY(1.016) scaleX(1.02); 
+    }
+    50% {
+        transform: translateY(-20%) scaleY(1.01) scaleX(0.99); /* top stretch */
+    }
+    75% {
+        transform: translateY(-17%) scaleY(1.015) scaleX(1.02);
+    }
+    100% {
+        transform: translateY(0) scaleY(0.95) scaleX(1.1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bouncy-image {
+        animation: none !important;
+        transform: none !important;
+    }
+}
