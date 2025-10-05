@@ -1,183 +1,262 @@
-<!-- download.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Download — Boiby App</title>
-  <link rel="stylesheet" href="main.css">
-  <link rel="stylesheet" href="bouncy.css">
-  <script defer src="download-page.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Download — Boiby App</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="bouncy.css">
+
+    <style>
+        :root {
+            --page-padding: 12px;
+            --page-margin: 40px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0 var(--page-padding);
+            width: 100% !important;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 18px;
+            z-index: 1000;
+        }
+
+        main {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding-top: 96px;
+        }
+
+        .cards-container .card h1,
+        .cards-container .card h2,
+        .cards-container .card h3 {
+            height: auto !important;
+            visibility: visible !important;
+        }
+
+        .cards-container .card button {
+            width: 100% !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        button>a {
+            display: inline-block !important;
+            width: 100% !important;
+            height: 100% !important;
+            color: inherit !important;
+            text-decoration: none !important;
+        }
+
+        .modal {
+            display: none;
+        }
+
+        .favicon {
+            width: 36px !important;
+        }
+
+        .download-cta {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .download-meta {
+            color: var(--secondary-text);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width:800px) {
+            main {
+                padding-top: 80px;
+            }
+        }
+    </style>
+    
+    <script src="modal.js"></script>
+    <script src="nav.js"></script>
 </head>
+
 <body class="dark">
-  <header>
-    <img src="boiby.png" class="favicon" alt="Boiby">
-    <a href="#" class="hamburger">☰</a>
-    <nav>
-      <a href="/index" class="link">Home</a>
-      <a href="/about" class="link">About</a>
-      <a href="/projects" class="link">Projects</a>
-      <a href="/extras" class="link">Extras</a>
-      <a href="/contact" class="link">Contact</a>
-    </nav>
-    <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
-    <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
-  </header>
+    <header>
+        <img src="boiby.png" class="favicon" alt="Boiby">
+        <a href="#" class="hamburger" aria-label="Open menu">☰</a>
+        <nav aria-label="Main navigation">
+            <a href="/index" class="link">Home</a>
+            <a href="/about" class="link">About</a>
+            <a href="/projects" class="link">Projects</a>
+            <a href="/extras" class="link">Extras</a>
+            <a href="/contact" class="link">Contact</a>
+        </nav>
 
-  <main>
-    <section class="wrap heading">
-      <h1 class="text-center header-margin-home">Download Boiby</h1>
-
-      <div class="cards-container">
-        <div class="card full-width">
-          <h2 id="download-heading">Download for your operating system</h2>
-          <p id="download-sub" class="small">If your OS can't be detected, click the button below to view all downloads and requirements.</p>
-
-          <div style="display:flex;gap:12px;align-items:center;margin-top:12px;">
-            <a id="download-button" class="primary-blue" href="#">Download for your operating system</a>
-            <button id="view-all" class="secondary" onclick="openDownloadsModal()">View all downloads</button>
-          </div>
-
-          <p style="margin-top:12px;">Current version: <strong>beta 3.0</strong></p>
-          <p>Notes:</p>
-          <ul>
-            <li>6 meows included in this beta build.</li>
-            <li>2 Boiby images available; more will be added.</li>
-            <li>For best results, use a GPU that supports Vulkan rendering (required).</li>
-          </ul>
+        <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
+            <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
+            <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
         </div>
+    </header>
 
-        <div class="card">
-          <h2>Requirements</h2>
-          <ul>
-            <li>64‑bit CPU and OS</li>
-            <li>Vulkan-capable GPU (required for rendering)</li>
-            <li>~200 MB free storage space</li>
-          </ul>
-          <p class="small">If you cannot run Vulkan on your system, try updating GPU drivers or use a compatible OS / hardware.</p>
+    <main>
+        <section class="wrap heading">
+            <h1 class="text-center header-margin-home">Download Boiby</h1>
+
+            <div class="cards-container">
+                <div class="card full-width">
+                    <h2 id="download-heading">Download for your operating system</h2>
+                    <p id="download-sub" class="download-meta">If your OS can't be detected, click the button below to
+                        view all downloads and requirements.</p>
+
+                    <div class="download-cta" style="margin-top:12px;">
+                        <a id="download-button" class="primary-blue" href="#">Download for your operating system</a>
+                        <button id="view-all" class="secondary" onclick="openDownloadsModal()">View all
+                            downloads</button>
+                    </div>
+
+                    <p style="margin-top:12px;">Current version: <strong>beta 3.0</strong></p>
+                    <p>Notes:</p>
+                    <ul>
+                        <li>6 meows included in this beta build.</li>
+                        <li>2 Boiby images available; more will be added.</li>
+                        <li><strong>GPU with Vulkan support is required</strong> for the app to run correctly.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h2>Requirements</h2>
+                    <ul>
+                        <li>64-bit CPU and OS</li>
+                        <li>Vulkan-capable GPU (required)</li>
+                        <li>~200 MB disk space</li>
+                    </ul>
+                    <p class="small">If you cannot run Vulkan, update your GPU drivers or try a different machine.</p>
+                </div>
+                <div>
+                    <h3 style="margin-top:12px;">Important for macOS users</h3>
+                    <ul>
+                        <li>Boiby App is designed to run on both Intel (x86) Macs and Apple Silicon (M1 chip and newer)
+                            Macs.</li>
+                        <li><strong>You will need to allow the app through gatekeeper, as Apple blocks it as it's not a
+                                signed application. You can do this through System Settings.</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <hr>
+        <p style="text-align:center;">© Boiby 2025</p>
+    </footer>
+
+    <!-- Downloads modal -->
+    <div id="downloads-modal" class="modal" onclick="closeDownloadsModal()" aria-hidden="true">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <p class="modal-header-text">All downloads & requirements</p>
+            </div>
+            <div class="modal-body">
+                <h3>Available downloads</h3>
+                <ul>
+                    <li><strong>Windows</strong> - <small>Windows 10 and later (64-bit)</small><br>
+                        <button id="dl-win" href="/downloads/boiby-windows-beta3.zip" class="primary-blue">Download:
+                            boiby-windows-beta3.zip</button>
+                    </li>
+                    <li><strong>macOS</strong> - <small>macOS 11 Big Sur and later</small><br>
+                        <button id="dl-mac" href="/downloads/boiby-macos-beta3.zip" class="primary-blue">Download:
+                            boiby-macos-beta3.zip</button>
+                    </li>
+                    <li><strong>Linux</strong> - <small>64-bit Linux</small><br>
+                        <button id="dl-linux" href="/downloads/boiby-linux-beta3.tar.xz" class="primary-blue">Download:
+                            boiby-linux-beta3.tar.xz</button>
+                    </li>
+                </ul>
+
+                <h3 style="margin-top:12px;">System requirements</h3>
+                <ul>
+                    <li>64-bit OS</li>
+                    <li>Vulkan-capable GPU (required)</li>
+                    <li>Up-to-date GPU drivers</li>
+                </ul>
+
+                <h3 style="margin-top:12px;">macOS info/requirements</h3>
+                <ul>
+                    <li>Boiby App is designed to run on both Intel (x86) Macs and Apple Silicon (ARM) (M1 chip and
+                        newer) Macs.</li>
+                    <li><strong>You will need to allow the app through gatekeeper, as Apple blocks it as it's not a
+                            signed application. You can do this through System Settings.</strong></li>
+                </ul>
+
+                <p class="small">If you're unsure whether your GPU supports Vulkan, consult the GPU vendor or run a
+                    Vulkan-capable system info tool.</p>
+            </div>
+            <div class="modal-footer"><button class="secondary" onclick="closeDownloadsModal()">Close</button></div>
         </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <hr>
-    <p>© Boiby 2025</p>
-  </footer>
-
-  <!-- Downloads modal (shared) -->
-  <div id="downloads-modal" class="modal" onclick="closeDownloadsModal()" style="display:none;">
-    <div class="modal-content" onclick="event.stopPropagation()">
-      <div class="modal-header">
-        <p class="modal-header-text">All downloads & requirements</p>
-      </div>
-      <div class="modal-body">
-        <h3>Available builds</h3>
-        <ul>
-          <li>
-            <strong>Windows</strong> — <small>Windows 10 and later (64-bit)</small><br>
-            <a href="/downloads/boiby-windows-beta3.zip" class="primary-blue">Download: boiby-windows-beta3.zip</a>
-          </li>
-          <li>
-            <strong>macOS</strong> — <small>macOS 11 Big Sur and later</small><br>
-            <a href="/downloads/boiby-macos-beta3.zip" class="primary-blue">Download: boiby-macos-beta3.zip</a>
-          </li>
-          <li>
-            <strong>Linux</strong> — <small>Modern 64-bit Linux</small><br>
-            <a href="/downloads/boiby-linux-beta3.tar.xz" class="primary-blue">Download: boiby-linux-beta3.tar.xz</a>
-          </li>
-        </ul>
-
-        <h3 style="margin-top:12px;">System requirements</h3>
-        <ul>
-          <li>64-bit OS (Windows/macOS/Linux)</li>
-          <li>Vulkan-capable GPU (required)</li>
-          <li>Up-to-date GPU drivers</li>
-          <li>Internet connection for updates/feedback</li>
-        </ul>
-
-        <p class="small">If you're unsure whether your system supports Vulkan, check your GPU vendor's driver pages or use a Vulkan-capable system info tool.</p>
-      </div>
-      <div class="modal-footer">
-        <button class="secondary" onclick="closeDownloadsModal()">Close</button>
-      </div>
     </div>
-  </div>
 
-  <script>
-    // Minimal client-side OS detection and button wiring.
-    (function(){
-      function detectOS() {
-        const ua = navigator.userAgent || navigator.vendor || window.opera || '';
-        const platform = navigator.platform || '';
-
-        // Windows
-        if (/Windows NT/.test(ua) || /Win32/.test(platform) || /Win64/.test(platform)) return 'windows';
-
-        // macOS (MacIntel covers Apple Silicon too when running as macOS)
-        if (/Macintosh/.test(ua) || /MacIntel/.test(platform) || /MacPPC/.test(platform)) return 'macos';
-
-        // Linux
-        if (/Linux/.test(platform) || /X11/.test(ua) || /Linux/.test(ua)) return 'linux';
-
-        return null;
-      }
-
-      function setDownloadFor(os) {
-        const heading = document.getElementById('download-heading');
-        const sub = document.getElementById('download-sub');
-        const btn = document.getElementById('download-button');
-        const viewAll = document.getElementById('view-all');
-
-        if (!os) {
-          heading.textContent = 'Download for your operating system';
-          btn.textContent = 'Download for your operating system';
-          btn.href = '#';
-          viewAll.style.display = 'inline-block';
-          return;
+    <script>
+        function detectOS() {
+            const ua = navigator.userAgent || '';
+            const platform = navigator.platform || '';
+            if (/Windows NT/.test(ua) || /Win32|Win64/.test(platform)) return 'windows';
+            if (/Macintosh|MacIntel/.test(ua) || /Mac/.test(platform)) return 'macos';
+            if (/Linux/.test(platform) || /X11/.test(ua) || /Linux/.test(ua)) return 'linux';
+            return null;
         }
 
-        viewAll.style.display = 'inline-block';
+        function setDownloadFor(os) {
+            const heading = document.getElementById('download-heading');
+            const sub = document.getElementById('download-sub');
+            const btn = document.getElementById('download-button');
+            const viewAll = document.getElementById('view-all');
 
-        if (os === 'windows') {
-          heading.textContent = 'Download for Windows';
-          sub.textContent = 'Windows 10 and newer (64-bit)';
-          btn.textContent = 'Download for Windows';
-          btn.href = '/downloads/boiby-windows-beta3.zip';
-        } else if (os === 'macos') {
-          heading.textContent = 'Download for macOS';
-          sub.textContent = 'macOS 11 Big Sur and newer';
-          btn.textContent = 'Download for macOS';
-          btn.href = '/downloads/boiby-macos-beta3.zip';
-        } else if (os === 'linux') {
-          heading.textContent = 'Download for Linux';
-          sub.textContent = 'Modern 64-bit Linux';
-          btn.textContent = 'Download for Linux';
-          btn.href = '/downloads/boiby-linux.appimage';
+            if (!os) {
+                heading.textContent = 'Download for your operating system';
+                sub.textContent = "If your OS can't be detected, click the button below to view all downloads and requirements.";
+                btn.textContent = 'Download for your operating system';
+                btn.href = '#';
+                viewAll.style.display = 'inline-block';
+                return;
+            }
+
+            viewAll.style.display = 'inline-block';
+
+            if (os === 'windows') {
+                heading.textContent = 'Download for Windows';
+                sub.textContent = 'Windows 10 and later (64-bit)';
+                btn.textContent = 'Download for Windows';
+                btn.href = document.getElementById('dl-win').href;
+            } else if (os === 'macos') {
+                heading.textContent = 'Download for macOS';
+                sub.textContent = 'macOS 11 Big Sur and later';
+                btn.textContent = 'Download for macOS';
+                btn.href = document.getElementById('dl-mac').href;
+            } else if (os === 'linux') {
+                heading.textContent = 'Download for Linux';
+                sub.textContent = 'Modern 64-bit Linux';
+                btn.textContent = 'Download for Linux';
+                btn.href = document.getElementById('dl-linux').href;
+            }
         }
-      }
-
-      window.openDownloadsModal = function() {
-        const modal = document.getElementById('downloads-modal');
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-      };
-
-      window.closeDownloadsModal = function() {
-        const modal = document.getElementById('downloads-modal');
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-      };
-
-      // initialise on DOM ready
-      document.addEventListener('DOMContentLoaded', function(){
-        const os = detectOS();
-        setDownloadFor(os);
-
-        // close modal on Esc
-        document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeDownloadsModal(); });
-      });
-    })();
-  </script>
+    </script>
 </body>
+
 </html>
