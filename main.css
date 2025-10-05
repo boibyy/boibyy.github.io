@@ -118,7 +118,12 @@ body.dark {
 
 body {
     max-width: 90%;
+    background: var(--primary);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
+
 
 a:focus,
 button:focus {
