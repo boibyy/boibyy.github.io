@@ -97,7 +97,6 @@ body.dark {
     --btn-secondary-text: var(--text);
 }
 
-/* Automatic dark mode detection for users without explicit theme */
 @media(prefers-color-scheme: dark) {
     body:not(.light):not(.dark) {
         --primary: var(--c-black);
@@ -119,6 +118,12 @@ body.dark {
 
 body {
     max-width: 90%;
+}
+
+a:focus,
+button:focus {
+    outline: 3px solid rgba(51, 95, 255, 0.18);
+    outline-offset: 3px;
 }
 
 /* Utilities */
@@ -266,14 +271,14 @@ body {
 }
 
 :root {
-    --ambient-shadow: 
+    --ambient-shadow:
         0 0 15px 3px rgba(20, 155, 108, 0.15),
         0 0 30px 6px rgba(20, 155, 108, 0.1),
         0 0 50px 15px rgba(20, 155, 108, 0.05);
 }
 
 body[data-theme="dark"] {
-    --ambient-shadow: 
+    --ambient-shadow:
         0 0 15px 3px rgba(20, 255, 140, 0.2),
         0 0 30px 6px rgba(20, 255, 140, 0.15),
         0 0 50px 15px rgba(20, 255, 140, 0.1);
@@ -465,7 +470,7 @@ header nav button:hover {
     .hamburger {
         display: block;
         font-size: 24px;
-        color: var(--text)!important;
+        color: var(--text) !important;
         text-decoration: none;
         cursor: pointer;
         height: 40px;
@@ -569,7 +574,7 @@ footer {
     margin-top: 5rem;
 }
 
-footer > p {
+footer>p {
     text-align: center;
 }
 
@@ -658,6 +663,7 @@ footer > p {
         grid-template-columns: 1fr;
     }
 }
+
 /* Individual Cards */
 .cards-container .card {
     background-color: var(--secondary);
@@ -698,8 +704,8 @@ footer > p {
     flex-direction: column
 }
 
-button.primary-blue > a {
-    color: var(--btn-primary-text)!important;
+button.primary-blue>a {
+    color: var(--btn-primary-text) !important;
 }
 
 button.disabled {
