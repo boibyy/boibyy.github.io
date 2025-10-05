@@ -86,50 +86,44 @@
 
     <script src="modal.js"></script>
     <script src="nav.js"></script>
-    <script>
-        function detectOS() {
-            const ua = navigator.userAgent || '';
-            const platform = navigator.platform || '';
-            if (/Windows NT/.test(ua) || /Win32|Win64/.test(platform)) return 'windows';
-            if (/Macintosh|MacIntel/.test(ua) || /Mac/.test(platform)) return 'macos';
-            if (/Linux/.test(platform) || /X11/.test(ua) || /Linux/.test(ua)) return 'linux';
-            return null;
-        }
+    <script src="theme.js"></script>
 
-        function setDownloadFor(os) {
-            const heading = document.getElementById('download-heading');
-            const sub = document.getElementById('download-sub');
-            const btn = document.getElementById('download-button');
-            const viewAll = document.getElementById('modal-button');
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            function detectOS() {
+                const ua = navigator.userAgent || "", p = navigator.platform || "";
+                if (/Win/.test(p) || /Windows NT/.test(ua)) return "windows";
+                if (/Mac/.test(p)) return "macos";
+                if (/Linux/.test(p) && !/Android/.test(ua)) return "linux";
+                return null;
+            }
+
+            const os = detectOS();
+            const heading = document.getElementById("download-heading");
+            const sub = document.getElementById("download-sub");
+            const btn = document.getElementById("download-button");
+            const viewAll = document.getElementById("modal-button");
 
             if (!os) {
-                heading.textContent = 'Download for your operating system';
-                sub.textContent = "If your OS can't be detected, click the button below to view all downloads and requirements.";
-                btn.textContent = 'Download for your operating system';
-                btn.href = '#';
-                viewAll.style.display = 'inline-block';
+                if (heading) heading.textContent = "Download for your operating system";
+                if (sub) sub.textContent = "If your OS can't be detected, click the button below to view all downloads and requirements.";
+                if (btn) btn.onclick = () => openModal && openModal("downloads-modal");
+                if (viewAll) viewAll.style.display = "inline-block";
                 return;
             }
 
-            viewAll.style.display = 'inline-block';
+            if (viewAll) viewAll.style.display = "inline-block";
 
-            if (os === 'windows') {
-                heading.textContent = 'Download for Windows';
-                sub.textContent = 'Windows 10 and later (64-bit)';
-                btn.textContent = 'Download for Windows';
-                btn.href = document.getElementById('dl-win').href;
-            } else if (os === 'macos') {
-                heading.textContent = 'Download for macOS';
-                sub.textContent = 'macOS 11 Big Sur and later';
-                btn.textContent = 'Download for macOS';
-                btn.href = document.getElementById('dl-mac').href;
-            } else if (os === 'linux') {
-                heading.textContent = 'Download for Linux';
-                sub.textContent = 'Modern 64-bit Linux';
-                btn.textContent = 'Download for Linux';
-                btn.href = document.getElementById('dl-linux').href;
-            }
-        }
+            let url;
+            if (os === "windows") url = document.getElementById("dl-win")?.getAttribute("href");
+            if (os === "macos") url = document.getElementById("dl-mac")?.getAttribute("href");
+            if (os === "linux") url = document.getElementById("dl-linux")?.getAttribute("href");
+
+            if (heading) heading.textContent = `Download for ${os === "macos" ? "macOS" : os === "windows" ? "Windows" : "Linux"}`;
+            if (sub) sub.textContent = os === "windows" ? "Windows 10 and later (64-bit)" : os === "macos" ? "macOS 11 Big Sur and later" : "Modern 64-bit Linux";
+
+            if (btn && url) btn.onclick = () => window.location.assign(url);
+        });
     </script>
 </head>
 
@@ -153,7 +147,8 @@
     <main>
         <section class="heading">
             <div id="boiby-app-container" class="auto-margin db">
-                <img class="boiby-app-image auto-margin db" src="boiby.png" style="border-radius: 18px; max-width: 96px; width: 96px;">
+                <img class="boiby-app-image auto-margin db" src="boiby.png"
+                    style="border-radius: 18px; max-width: 96px; width: 96px;">
             </div>
             <h1 class="text-center header-margin-home">Download Boiby</h1>
             <hr><br>
@@ -203,7 +198,7 @@
     </footer>
 
     <!-- Downloads modal -->
-    <div id="downloads-modal" class="modal" onclick="closeModal()" aria-hidden="true">
+    <div id="modal" class="modal downloads-modal" onclick="closeModal()" aria-hidden="true">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-header">
                 <p class="modal-header-text">All downloads & requirements</p>
