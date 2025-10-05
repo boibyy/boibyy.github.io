@@ -168,7 +168,7 @@
 
     function latestRenovation(store){const dated=store.timeline.filter(e=>e.date).map(e=>parseDate(e.date));if(!dated.length) return null;return new Date(Math.max(...dated.map(d=>d.getTime())))}
     function designTagFor(design){const d=design.toLowerCase();if(d.includes('upgraded')) return {class:'upgraded',label:design}; if(d.includes('vintage d')) return {class:'vintaged',label:design}; if(d.includes('vintage e')) return {class:'vintagee',label:design}; return {class:'classic',label:design};}
-    function statusTagsFor(store){const tags=[]; if(store.timeline.some(e=>/historic/i.test((e.note||'')+e.label))) tags.push({class:'historic',label:'Historic Building'}); if(store.timeline.some(e=>/temp/i.test((e.label||'')+(e.note||'')))) tags.push({class:'temp',label:'Temp Closed'}); const closing = store.timeline.find(e=>/closing/i.test((e.label||'')+(e.note||''))||/scheduled closing/i.test((e.label||'')+(e.note||''))); if(closing) tags.push({class:'closing',label:closing.note||closing.label}); return tags}
+    function statusTagsFor(store){const tags=[]; if(store.timeline.some(e=>/historic/i.test((e.note||'')+e.label))) tags.push({class:'historic',label:'Historic Building'}); if(store.timeline.some(e=>/temp/i.test((e.label||'')+(e.note||'')))) tags.push({class:'temp',label:'Temp Closed'}); const closing = store.timeline.find(e=>/closed/i.test((e.label||'')+(e.note||''))||/closed/i.test((e.label||'')+(e.note||''))); if(closing) tags.push({class:'closing',label:closing.note||closing.label}); return tags}
 
     function render(){
       const q=search.value.trim().toLowerCase();let list=STORES.slice();
