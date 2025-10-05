@@ -1,0 +1,89 @@
+<!-- about.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>About - Boiby App</title>
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="bouncy.css">
+  <script defer src="download-page.js"></script>
+</head>
+<body class="dark">
+  <header>
+    <img src="boiby.png" class="favicon" alt="Boiby">
+    <a href="#" class="hamburger">☰</a>
+    <nav>
+      <a href="/index" class="link">Home</a>
+      <a href="/about" class="link active">About</a>
+      <a href="/projects" class="link">Projects</a>
+      <a href="/extras" class="link">Extras</a>
+      <a href="/contact" class="link">Contact</a>
+    </nav>
+    <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
+    <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
+  </header>
+
+  <main>
+    <section class="wrap heading">
+      <h1 class="text-center header-margin-home">About Boiby</h1>
+      <div class="cards-container">
+        <div class="card full-width">
+          <h2>What is the Boiby App?</h2>
+          <p>
+            Boiby is a tiny virtual desktop cat that lives inside a window on your computer. Built in Godot, Boiby responds to simple keyboard controls: press <code>Space</code> to hear a meow, and <code>E</code> to change Boiby's image. It's intentionally playful — part pet, part toy — designed to bring a little character to your desktop.
+          </p>
+          <p>
+            The project is currently in <strong>beta</strong> (version <strong>beta 3.0</strong>) and available for Windows, macOS and Linux.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Controls & Features</h2>
+          <ul>
+            <li><strong>Space</strong> - play one of Boiby's meows (6 meows available in beta).</li>
+            <li><strong>E</strong> - cycle Boiby's images (2 images available in beta).</li>
+            <li>Resizable windowed mode; toggles and preferences are planned for future releases.</li>
+          </ul>
+          <small>More meows, images and features are planned.</small>
+        </div>
+
+        <div class="card">
+          <h2>Supported Platforms</h2>
+          <p>Boiby beta 3.0 runs on:</p>
+          <ul>
+            <li>Windows 10 (64-bit) and later</li>
+            <li>macOS 11 Big Sur and later</li>
+            <li>Modern 64-bit Linux distributions</li>
+          </ul>
+          <p class="small">A GPU that supports <strong>Vulkan</strong> rendering is required for the Godot renderer to function properly (see download page for details).</p>
+        </div>
+
+        <div class="card">
+          <h2>About the Beta</h2>
+          <p>
+            This is an experimental build. Expect occasional crashes, missing features, and rough edges. Your feedback is very welcome — if you find bugs or have suggestions, open an issue on the project's GitHub or contact me through the site.
+          </p>
+          <p>
+            <strong>Current build:</strong> <code>beta 3.0</code>
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Credits</h2>
+          <p>Made in Godot.</p>
+        </div>
+      </div>
+
+      <section class="modal-button-container">
+        <a href="/download" class="primary-blue">Download Boiby</a>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <hr>
+    <p>© Boiby 2025</p>
+  </footer>
+</body>
+</html>
