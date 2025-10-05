@@ -70,6 +70,13 @@
             font-size: 0.95rem;
         }
 
+        .download-button {
+            font-size: 18px;
+            border-radius: 10px;
+            font-weight: 550;
+            padding: 12px 24px;
+        }
+
         @media (max-width:800px) {
             main {
                 padding-top: 80px;
@@ -93,7 +100,7 @@
             const heading = document.getElementById('download-heading');
             const sub = document.getElementById('download-sub');
             const btn = document.getElementById('download-button');
-            const viewAll = document.getElementById('view-all');
+            const viewAll = document.getElementById('modal-button');
 
             if (!os) {
                 heading.textContent = 'Download for your operating system';
@@ -140,13 +147,10 @@
 
         <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
             <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
-            <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
         </div>
     </header>
 
     <main>
-
-        
         <section class="heading">
             <div id="boiby-app-container" class="auto-margin db">
                 <img class="boiby-app-image auto-margin db" src="boiby.png" style="border-radius: 18px; max-width: 96px; width: 96px;">
@@ -160,7 +164,7 @@
 
             <div class="download-cta" style="margin-top:12px;">
                 <button id="download-button" class="primary-blue" href="#">Download for your operating system</button>
-                <button id="modal" class="secondary" onclick="openModal()">View all
+                <button id="modal-button" class="secondary" onclick="openModal()">View all
                     downloads</button>
             </div><br>
 
