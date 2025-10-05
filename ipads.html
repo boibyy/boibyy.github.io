@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Download — Boiby App</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="bouncy.css">
+
+    <style>
+        :root {
+            --page-padding: 12px;
+            --page-margin: 40px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+        }
+
+        button {
+            width: auto;
+            display: block
+        }
+
+        .cards-container .card h1,
+        .cards-container .card h2,
+        .cards-container .card h3 {
+            height: auto !important;
+            visibility: visible !important;
+        }
+
+        .cards-container .card button {
+            width: 100% !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        button>a {
+            display: inline-block !important;
+            width: 100% !important;
+            height: 100% !important;
+            color: inherit !important;
+            text-decoration: none !important;
+        }
+
+        .modal {
+            display: none;
+        }
+
+        .favicon {
+            width: 36px !important;
+        }
+
+        .download-cta {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .download-meta {
+            color: var(--secondary-text);
+            font-size: 0.95rem;
+        }
+
+        .download-button {
+            font-size: 18px;
+            border-radius: 10px;
+            font-weight: 550;
+            padding: 12px 24px;
+        }
+
+        @media (max-width:800px) {
+            main {
+                padding-top: 80px;
+            }
+        }
+    </style>
+
+    <script src="modal.js"></script>
+    <script src="nav.js"></script>
+    <script src="theme.js"></script>
+</head>
+
+<body class="dark">
+    <header>
+        <img src="boiby.png" class="favicon" alt="Boiby">
+        <a href="#" class="hamburger" aria-label="Open menu">☰</a>
+        <nav aria-label="Main navigation">
+            <a href="/index" class="link">Home</a>
+            <a href="/about" class="link">About</a>
+            <a href="/projects" class="link">Projects</a>
+            <a href="/extras" class="link">Extras</a>
+            <a href="/contact" class="link">Contact</a>
+        </nav>
+
+        <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
+            <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="heading">
+            <h1 class="text-center header-margin-home">iPad models & specifications</h1>
+            <hr><br>
+
+            <h2>iPad Pro 13-inch (M4, 8th generation, 2024) (Models with 1TB/2TB storage)</h2>
+            <blockquote>
+            <h4>Hardware</h4>
+            <ul>
+                <li><strong>Apple M4 chip</strong> - From 2024</li>
+                <li><strong>10-core CPU</strong> with 4 performance cores and 6 efficiency cores</li>
+                <li><strong>10-core GPU</strong></li>
+                <li><strong>16 GB memory</strong></li>
+                <li><strong>256 GB, 512 GB, 1 TB, or 2 TB storage</strong></li>
+                <li><strong>16-core Neural Engine</strong></li>
+                <li><strong>Hardware accelerated ray-tracing support</strong></li>
+                <li><strong>Media engine with 8K ProRes encode/decode and AV1 decode</strong></li>
+            </ul>
+            <h4>Display</h4>
+            <ul>
+                <li><strong>13-inch display size</strong></li>
+                <li><strong>Tandem OLED "Ultra Retina XDR" display</strong></li>
+                <li><strong>Edge to edge design with rounded corners</strong></li>
+                <li><strong>2752-by-2064 resolution at 264 ppi</strong></li>
+                <li><strong>120 Hz ProMotion</strong></li>
+                <li><strong>1000 nits SDR brightness</strong></li>
+                <li><strong>1600 nits peak brightness</strong></li>
+            </ul>
+            <h4>WiFi, Bluetooth, Ports</h4>
+            <ul>
+                <li><strong>WiFi 6E</strong></li>
+                <li><strong>Bluetooth 5.3</strong></li>
+                <li><strong>USB-C charging port</strong></li>
+                <li>Thunderbolt / USB 4 support, up to 20Gbps transfer</li>
+            </ul>
+            <h4>Operating System</h4>
+            <ul>
+                <li>Minimum OS: <strong>iPadOS 18</strong></li>
+                <li>Newest OS: <strong>Current (iPadOS 26)</strong></li>
+                <li><strong>Currently supported</strong></li>
+            </ul>
+            </blockquote>
+            <p class="small">If you cannot run Vulkan, update your graphics drivers or try a different computer.</p>
+
+            <h3 style="margin-top:12px;">Important for macOS users</h3>
+            <ul>
+                <li>Boiby App is designed to run on both Intel (x86) Macs and Apple Silicon (M1 chip and newer)
+                    Macs.</li>
+                <li><strong>You will need to allow the app through gatekeeper, as Apple blocks it as it's not a
+                        signed application. You can do this through System Settings.</strong></li>
+                <li>A Metal-capable GPU is required to run this app. This means most Mac models from 2012 and later that support macOS Catalina 10.15 natively. Mac Pro models from 2008-2012, and iMac models from late 2009 until 2011 can be upgraded with a Metal-capable GPU. Older Mac models that do not support macOS 11 Big Sur can be upgraded to it for free using the <a href="https://dortania.github.io/OpenCore-Legacy-Patcher/">OpenCore Legacy Patcher</a></li>
+            </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <hr>
+        <p style="text-align:center;">© Boiby 2025</p>
+    </footer>
+
+    <!-- Downloads modal -->
+    <div id="modal" class="modal downloads-modal" onclick="closeModal()" aria-hidden="true">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <p class="modal-header-text">All downloads & requirements</p>
+            </div>
+            <div class="modal-body">
+                <h3>Available downloads</h3>
+                <ul>
+                    <p><strong>Windows</strong> - Windows 10 and later (x86, 64-bit)</p>
+                        <button id="dl-win" href="https://cdn.boiby.dev/boiby-3.0.exe" class="primary-blue">Download for
+                            Windows</button><br>
+                    <p><strong>macOS</strong> - macOS 11 Big Sur and later</p>
+                        <button id="dl-mac" href="https://cdn.boiby.dev/boiby-macos-3.0.zip" class="primary-blue">Download for
+                            macOS</button><br>
+                    <p><strong>Linux</strong> - 64-bit Linux (AppImage)</p>
+                        <button id="dl-linux" href="https://cdn.boiby.dev/boiby-linux-3.0.x86_64" class="primary-blue">Download
+                            for Linux</button><br>
+                </ul>
+            </div>
+            <div class="modal-footer"><button class="secondary" onclick="closeModal()">Close</button></div>
+        </div>
+    </div>
+</body>
+
+</html>
