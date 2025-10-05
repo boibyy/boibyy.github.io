@@ -120,7 +120,7 @@
             if (os === "linux") url = document.getElementById("dl-linux")?.getAttribute("href");
 
             if (heading) heading.textContent = `Download for ${os === "macos" ? "macOS" : os === "windows" ? "Windows" : "Linux"}`;
-            if (sub) sub.textContent = os === "windows" ? "Windows 10 and later (64-bit)" : os === "macos" ? "macOS 11 Big Sur and later" : "Modern 64-bit Linux";
+            if (sub) sub.textContent = os === "windows" ? "Windows 10 and later (x86, 64-bit)" : os === "macos" ? "macOS 11 Big Sur and later" : "Modern 64-bit Linux";
 
             if (btn && url) btn.onclick = () => window.location.assign(url);
         });
@@ -187,6 +187,7 @@
                     Macs.</li>
                 <li><strong>You will need to allow the app through gatekeeper, as Apple blocks it as it's not a
                         signed application. You can do this through System Settings.</strong></li>
+                <li>A Metal-capable GPU is required to run this app. This means most Mac models from 2012 and later that support macOS Catalina 10.15 natively. Mac Pro models from 2008-2012, and iMac models from late 2009 until 2011 can be upgraded with a Metal-capable GPU. Older Mac models that do not support macOS 11 Big Sur can be upgraded to it for free using the <a href="https://dortania.github.io/OpenCore-Legacy-Patcher/">OpenCore Legacy Patcher</a></li>
             </ul>
             </div>
         </section>
@@ -206,7 +207,7 @@
             <div class="modal-body">
                 <h3>Available downloads</h3>
                 <ul>
-                    <p><strong>Windows</strong> - Windows 10 and later (64-bit)</p>
+                    <p><strong>Windows</strong> - Windows 10 and later (x86, 64-bit)</p>
                         <button id="dl-win" href="/downloads/boiby-windows-beta3.exe" class="primary-blue">Download for
                             Windows</button><br>
                     <p><strong>macOS</strong> - macOS 11 Big Sur and later</p>
