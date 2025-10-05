@@ -10,6 +10,18 @@ function closeModal() {
     document.body.style.overflow = "";
 }
 
+function openModal() {
+    const modal = document.getElementById("downloadsModal");
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+    const modal = document.getElementById("downloadsModal");
+    modal.style.display = "none";
+    document.body.style.overflow = "";
+}
+
 document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") {
         closeModal();
@@ -18,6 +30,12 @@ document.addEventListener("keydown", function (e) {
 
 document.addEventListener("DOMContentLoaded", function() {
         const modal = document.getElementById("modal");
+        modal.style.display = "none"; 
+        document.body.style.overflow = ""; 
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+        const modal = document.getElementById("downloadsModal");
         modal.style.display = "none"; 
         document.body.style.overflow = ""; 
 });
