@@ -44,7 +44,7 @@ function updateCountdown() {
     if (days > 0 || hours > 0 || minutes > 0) parts.push(minutes + "m");
     parts.push(seconds + "s");
 
-    document.getElementById("countdown").textContent = parts.join(", ");
+    document.getElementById("countdown").textContent = parts.join(" ");
 }
 
 updateCountdown(); // initial call
@@ -71,7 +71,7 @@ const interval = setInterval(updateCountdown, 1000);
         <section id="home" class="heading">
             <div class="heading-container">
                 <p class="text-center" id="countdown">Windows 10 EOL date (Oct 15, 2025, 11:59 PT time)</p>
-                <h1 id="countdown" class="header-margin-home text-center">00d 00h 00m 00s</h1>
+                <h1 id="countdown" class="header-margin-home text-center">0s</h1>
             </div>
         </section>
     </main>
