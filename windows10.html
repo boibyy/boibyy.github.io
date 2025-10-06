@@ -40,43 +40,43 @@
     </footer>
 
     <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const targetUnix = 1760425199; // seconds
-        const targetTimestamp = targetUnix * 1000; // convert to milliseconds
-
-        function updateCountdown() {
-            const now = Date.now();
-            let remaining = targetTimestamp - now;
-
-            if (remaining <= 0) {
-                document.getElementById("countdown").textContent = "0s";
-                clearInterval(interval);
-                return;
+        document.addEventListener("DOMContentLoaded", () => {
+            const targetUnix = 1760425199; // seconds
+            const targetTimestamp = targetUnix * 1000; // convert to milliseconds
+        
+            function updateCountdown() {
+                const now = Date.now();
+                let remaining = targetTimestamp - now;
+        
+                if (remaining <= 0) {
+                    document.getElementById("countdown").textContent = "Countdown finished";
+                    clearInterval(interval);
+                    return;
+                }
+        
+                let totalSeconds = Math.floor(remaining / 1000);
+        
+                const days = Math.floor(totalSeconds / 86400);
+                totalSeconds %= 86400;
+        
+                const hours = Math.floor(totalSeconds / 3600);
+                totalSeconds %= 3600;
+        
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
+        
+                let parts = [];
+                if (days > 0) parts.push(days + "d");
+                if (hours > 0) parts.push(hours + "h");
+                if (minutes > 0) parts.push(minutes + "m");
+                parts.push(seconds + "s");
+        
+                document.getElementById("countdown").textContent = parts.join(", ");
             }
-
-            let totalSeconds = Math.floor(remaining / 1000);
-
-            const days = Math.floor(totalSeconds / 86400);
-            totalSeconds %= 86400;
-
-            const hours = Math.floor(totalSeconds / 3600);
-            totalSeconds %= 3600;
-
-            const minutes = Math.floor(totalSeconds / 60);
-            const seconds = totalSeconds % 60;
-
-            let parts = [];
-            if (days > 0) parts.push(days + "d");
-            if (hours > 0) parts.push(hours + "h");
-            if (minutes > 0) parts.push(minutes + "m");
-            parts.push(seconds + "s");
-
-            document.getElementById("countdown").textContent = parts.join(", ");
-        }
-
-        updateCountdown(); // initial call
-        const interval = setInterval(updateCountdown, 1000);
-    });
+        
+            updateCountdown(); // initial call
+            const interval = setInterval(updateCountdown, 1000);
+        });
     </script>
 </body>
 </html>
