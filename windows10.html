@@ -6,6 +6,9 @@
     <title>Windows 10 EOL countdown</title>
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="bouncy.css">
+    <script src="modal.js"></script>
+    <script src="theme.js"></script>
+    <script src="nav.js"></script>
 </head>
 <body class="dark">
     <header>
@@ -18,11 +21,14 @@
             <a href="/extras" class="link">Extras</a>
             <a href="/contact" class="link">Contact</a>
         </nav>
+        <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
+        <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
     </header>
 
     <main>
         <section id="home" class="heading">
             <div class="heading-container">
+                <p class="text-center">Windows 10 EOL (Oct 14, 2025, 11:59:59 PDT)</p>
                 <h1 id="countdown" class="header-margin-home text-center">Loading...</h1>
             </div>
         </section>
@@ -35,7 +41,8 @@
 
     <script>
     document.addEventListener("DOMContentLoaded", () => {
-        const targetTimestamp = 1760511599 * 1000; // convert to milliseconds
+        const targetUnix = 1760425199; // seconds
+        const targetTimestamp = targetUnix * 1000; // convert to milliseconds
 
         function updateCountdown() {
             const now = Date.now();
