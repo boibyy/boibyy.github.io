@@ -6,52 +6,7 @@
     <title>Windows 10 EOL countdown</title>
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="bouncy.css">
-
-    <script src="modal.js"></script>
-    <script src="theme.js"></script>
-    <script src="nav.js"></script>
-    <script>
-const targetTimestamp = 1760511658 * 1000; // convert to milliseconds
-
-function updateCountdown() {
-    const now = Date.now();
-    let remaining = targetTimestamp - now;
-
-    if (remaining <= 0) {
-        document.getElementById("countdown").textContent = "0s";
-        clearInterval(interval);
-        return;
-    }
-
-    const secondsInDay = 86400;
-    const secondsInHour = 3600;
-    const secondsInMinute = 60;
-
-    let totalSeconds = Math.floor(remaining / 1000);
-
-    const days = Math.floor(totalSeconds / secondsInDay);
-    totalSeconds %= secondsInDay;
-
-    const hours = Math.floor(totalSeconds / secondsInHour);
-    totalSeconds %= secondsInHour;
-
-    const minutes = Math.floor(totalSeconds / secondsInMinute);
-    const seconds = totalSeconds % secondsInMinute;
-
-    let parts = [];
-    if (days > 0) parts.push(days + "d");
-    if (days > 0 || hours > 0) parts.push(hours + "h");
-    if (days > 0 || hours > 0 || minutes > 0) parts.push(minutes + "m");
-    parts.push(seconds + "s");
-
-    document.getElementById("countdown").textContent = parts.join(" ");
-}
-
-updateCountdown(); // initial call
-const interval = setInterval(updateCountdown, 1000);
-    </script>
 </head>
-
 <body class="dark">
     <header>
         <img src="boiby.png" class="favicon" alt="Boiby">
@@ -63,15 +18,12 @@ const interval = setInterval(updateCountdown, 1000);
             <a href="/extras" class="link">Extras</a>
             <a href="/contact" class="link">Contact</a>
         </nav>
-        <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
-        <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
     </header>
 
     <main>
         <section id="home" class="heading">
             <div class="heading-container">
-                <p class="text-center">Windows 10 EOL (Oct 15, 2025, 11:59:59 PT time)</p>
-                <h1 id="countdown" class="header-margin-home text-center">0s</h1>
+                <h1 id="countdown" class="header-margin-home text-center">Loading...</h1>
             </div>
         </section>
     </main>
@@ -80,5 +32,44 @@ const interval = setInterval(updateCountdown, 1000);
         <hr>
         <p>© Boiby 2025</p>
     </footer>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const targetTimestamp = 1760511599 * 1000; // convert to milliseconds
+
+        function updateCountdown() {
+            const now = Date.now();
+            let remaining = targetTimestamp - now;
+
+            if (remaining <= 0) {
+                document.getElementById("countdown").textContent = "0s";
+                clearInterval(interval);
+                return;
+            }
+
+            let totalSeconds = Math.floor(remaining / 1000);
+
+            const days = Math.floor(totalSeconds / 86400);
+            totalSeconds %= 86400;
+
+            const hours = Math.floor(totalSeconds / 3600);
+            totalSeconds %= 3600;
+
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+
+            let parts = [];
+            if (days > 0) parts.push(days + "d");
+            if (hours > 0) parts.push(hours + "h");
+            if (minutes > 0) parts.push(minutes + "m");
+            parts.push(seconds + "s");
+
+            document.getElementById("countdown").textContent = parts.join(", ");
+        }
+
+        updateCountdown(); // initial call
+        const interval = setInterval(updateCountdown, 1000);
+    });
+    </script>
 </body>
 </html>
