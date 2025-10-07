@@ -8,121 +8,179 @@
 <link rel="stylesheet" href="main.css">
 <link rel="stylesheet" href="bouncy.css">
 <style>
-    body {
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-        background: #111;
-        color: #eee;
-        line-height: 1.6;
-    }
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: #111;
+    color: #eee;
+    line-height: 1.6;
+}
 
-    main {
-        padding: 120px 20px 40px 20px;
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 50px;
-    }
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 12px 20px;
+    position: relative;
+}
 
+header nav {
+    display: flex;
+    gap: 16px;
+}
+
+header .hamburger {
+    position: absolute;
+    left: 20px;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: #eee;
+}
+
+header .favicon {
+    height: 40px;
+}
+
+#theme-toggle {
+    position: absolute;
+    right: 20px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+}
+
+main {
+    padding: 120px 20px 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    text-align: center;
+}
+
+.hero-left h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero-left h2 {
+    font-size: 1.4rem;
+    font-weight: normal;
+    margin-bottom: 1rem;
+}
+
+.hero-left p {
+    font-size: 1.1rem;
+}
+
+.hero-right img {
+    max-width: 360px;
+    width: 100%;
+    border-radius: 18px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+hr {
+    width: 80%;
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin: 60px 0;
+}
+
+.feature-block {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    background: #1c1c1c;
+    border-radius: 16px;
+    padding: 28px;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    gap: 20px;
+}
+
+.feature-block img {
+    max-width: 360px;
+    border-radius: 12px;
+}
+
+.feature-text {
+    flex: 1 1 400px;
+    text-align: left;
+}
+
+.feature-text h3 {
+    margin-top: 0;
+    font-size: 1.6rem;
+}
+
+.feature-text p, .feature-text ul {
+    margin: 0.5rem 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li::before {
+    content: "• ";
+    color: #335fff;
+}
+
+/* Alternating image alignment */
+.feature-block:nth-child(odd) .feature-img {
+    order: 2;
+}
+
+.feature-block:nth-child(even) .feature-img {
+    order: 1;
+}
+
+.feature-block:nth-child(odd) .feature-text {
+    order: 1;
+}
+
+.feature-block:nth-child(even) .feature-text {
+    order: 2;
+}
+
+footer {
+    text-align: center;
+    padding: 24px;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+@media (max-width: 900px) {
     .hero {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: 28px;
-        text-align: center;
-    }
-
-    .hero-left h1 {
-        font-size: 2.8rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .hero-left h2 {
-        font-size: 1.4rem;
-        font-weight: normal;
-        margin-bottom: 1rem;
-    }
-
-    .hero-left p {
-        font-size: 1.1rem;
-    }
-
-    .hero-right img {
-        max-width: 360px;
-        width: 100%;
-        border-radius: 18px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
-
-    hr {
-        width: 80%;
-        border: none;
-        border-top: 1px solid rgba(255,255,255,0.1);
-        margin: 60px 0;
-    }
-
-    .feature-block {
-        background: #1c1c1c;
-        border-radius: 16px;
-        padding: 28px;
-        width: 100%;
-        max-width: 800px;
-        display: flex;
         flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
-
-    .feature-block img {
-        max-width: 100%;
-        border-radius: 12px;
+    .feature-block {
+        flex-direction: column;
     }
-
-    .feature-block h3 {
-        margin: 0;
-        font-size: 1.6rem;
-        text-align: center;
+    .feature-block .feature-img, .feature-block .feature-text {
+        order: unset !important;
     }
-
-    .feature-block p, .feature-block ul {
-        text-align: center;
-        margin: 0;
-        padding: 0;
-    }
-
-    ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    ul li::before {
-        content: "• ";
-        color: #335fff;
-    }
-
-    footer {
-        text-align: center;
-        padding: 24px;
-        margin-top: 40px;
-        border-top: 1px solid rgba(255,255,255,0.1);
-    }
-
-    @media (max-width: 900px) {
-        .hero {
-            flex-direction: column;
-        }
-    }
+}
 </style>
 </head>
 
 <body class="dark">
 <header>
-    <img src="boiby.png" class="favicon" alt="Boiby logo">
     <a href="#" class="hamburger" aria-label="Open menu">☰</a>
+    <img src="boiby.png" class="favicon" alt="Boiby logo">
     <nav aria-label="Main navigation">
         <a href="/index" class="link">Home</a>
         <a href="/about" class="link">About</a>
@@ -130,9 +188,7 @@
         <a href="/support" class="link">Support</a>
         <a href="/contact" class="link">Contact</a>
     </nav>
-    <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
-        <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
-    </div>
+    <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
 </header>
 
 <main>
@@ -148,75 +204,116 @@
     </section>
 
     <section class="wrap">
+        <!-- Feature block 1 -->
         <div class="feature-block">
-            <h3>Two perfect sizes. One Pro experience.</h3>
-            <p>The all-new <strong>BoibyPhone 11 Pro</strong> comes in two perfect forms:</p>
-            <ul>
-                <li><strong>BoibyPhone 11 Pro</strong> - a compact <strong>6.4-inch</strong> design that fits comfortably in one hand.¹</li>
-                <li><strong>BoibyPhone 11 Pro Max</strong> - an expansive <strong>7-inch</strong> display, our biggest ever, for those who want the most immersive experience possible.¹</li>
-            </ul>
-            <p>Each size is crafted from grade 5 titanium with precision-milled edges and our strongest glass yet. Every curve feels refined, every surface purposeful.</p>
-            <p><strong>Colors:</strong> Obsidian - Silver - Pacific Blue</p>
-            <img src="colors.png" alt="BoibyPhone 11 Pro colors">
+            <div class="feature-text">
+                <h3>Two perfect sizes. One Pro experience.</h3>
+                <p>The all-new <strong>BoibyPhone 11 Pro</strong> comes in two perfect forms:</p>
+                <ul>
+                    <li><strong>BoibyPhone 11 Pro</strong> - a compact <strong>6.4-inch</strong> design that fits comfortably in one hand.¹</li>
+                    <li><strong>BoibyPhone 11 Pro Max</strong> - an expansive <strong>7-inch</strong> display, our biggest ever, for those who want the most immersive experience possible.¹</li>
+                </ul>
+                <p>Each size is crafted from grade 5 titanium with precision-milled edges and our strongest glass yet. Every curve feels refined, every surface purposeful.</p>
+                <p><strong>Colors:</strong> Obsidian - Silver - Pacific Blue</p>
+            </div>
+            <div class="feature-img">
+                <img src="colors.png" alt="BoibyPhone 11 Pro colors">
+            </div>
         </div>
 
+        <!-- Feature block 2 -->
         <div class="feature-block">
-            <h3>A brighter view of everything.</h3>
-            <p>The BoibyPhone 11 Pro's <strong>Ultra OLED XDR</strong> display pushes brightness to new extremes at <strong>4000 nits</strong> peak outdoor brightness, <strong>25 percent brighter</strong> than BoibyPhone X.</p>
-            <p>HDR content bursts with lifelike contrast, while refined pixel architecture improves outdoor visibility dramatically. With a <strong>0.5 Hz - 120 Hz adaptive refresh rate</strong>, scrolling is buttery smooth just like always, but even more battery-efficient. NaturalTone adjusts white balance using a 12-channel ambient sensor for the most natural viewing experience in any light.</p>
-            <img src="display.png" alt="BoibyPhone 11 Pro display">
+            <div class="feature-text">
+                <h3>A brighter view of everything.</h3>
+                <p>The BoibyPhone 11 Pro's <strong>Ultra OLED XDR</strong> display pushes brightness to new extremes at <strong>4000 nits</strong> peak outdoor brightness, <strong>25 percent brighter</strong> than BoibyPhone X.</p>
+                <p>HDR content bursts with lifelike contrast, while refined pixel architecture improves outdoor visibility dramatically. With a <strong>0.5 Hz - 120 Hz adaptive refresh rate</strong>, scrolling is buttery smooth just like always, but even more battery-efficient. NaturalTone adjusts white balance using a 12-channel ambient sensor for the most natural viewing experience in any light.</p>
+            </div>
+            <div class="feature-img">
+                <img src="display.png" alt="BoibyPhone 11 Pro display">
+            </div>
         </div>
 
+        <!-- Feature block 3 -->
         <div class="feature-block">
-            <h3>Smarter selfies.</h3>
-            <p>The new <strong>18 MP Front Camera</strong> introduces an f/1.6 aperture for better low-light shots and a new <strong>Photonic Engine 6</strong> that reframes your photo in real time.</p>
-            <p>Even holding BoibyPhone 11 Pro vertically, the camera can automatically switch to <strong>horizontal capture</strong>, ideal for group shots. When more people join the frame, it <strong>intelligently zooms out</strong> to fit everyone in the shot.</p>
+            <div class="feature-text">
+                <h3>Smarter selfies.</h3>
+                <p>The new <strong>18 MP Front Camera</strong> introduces an f/1.6 aperture for better low-light shots and a new <strong>Photonic Engine 6</strong> that reframes your photo in real time.</p>
+                <p>Even holding BoibyPhone 11 Pro vertically, the camera can automatically switch to <strong>horizontal capture</strong>, ideal for group shots. When more people join the frame, it <strong>intelligently zooms out</strong> to fit everyone in the shot.</p>
+            </div>
+            <div class="feature-img">
+                <img src="frontcamera.png" alt="BoibyPhone 11 Pro front camera">
+            </div>
         </div>
 
+        <!-- Feature block 4 -->
         <div class="feature-block">
-            <h3>Our most advanced camera system</h3>
-            <p>8K 60fps HDR recording is now avaliable on BoibyPhone 11 Pro, taking the capability of filming video on BoibyPhone even further.</p>
-            <p>BoibyPhone 11 Pro has improved image processing and a larger second-generation 96MP main sensor, as well as a 5x 48MP telephoto lens for up to 100x zoom, and a great 48MP 0.5x ultrawide camera.</p>
-            <img src="camera.png" alt="BoibyPhone 11 Pro camera system">
+            <div class="feature-text">
+                <h3>Our most advanced camera system</h3>
+                <p>8K 60fps HDR recording is now available on BoibyPhone 11 Pro, taking the capability of filming video on BoibyPhone even further.</p>
+                <p>BoibyPhone 11 Pro has improved image processing and a larger second-generation 96MP main sensor, as well as a 5x 48MP telephoto lens for up to 100x zoom, and a great 48MP 0.5x ultrawide camera.</p>
+            </div>
+            <div class="feature-img">
+                <img src="camera.png" alt="BoibyPhone 11 Pro camera system">
+            </div>
         </div>
 
+        <!-- Feature block 5 -->
         <div class="feature-block">
-            <h3>See the unseen.</h3>
-            <p>The all-new <strong>Thermal Camera</strong> on BoibyPhone 11 Pro brings a new dimension of perception to your phone. It can measure the surface temperature of nearby objects or environments with remarkable precision - perfect for checking electronics, reading surface temperature, or assisting in creative AR workflows.</p>
-            <p>Every thermal reading is <strong>processed on-device</strong>, never uploaded, with privacy safeguards built-in.</p>
-            <img src="thermal.png" alt="BoibyPhone 11 Pro thermal camera">
+            <div class="feature-text">
+                <h3>See the unseen.</h3>
+                <p>The all-new <strong>Thermal Camera</strong> on BoibyPhone 11 Pro brings a new dimension of perception to your phone. It can measure the surface temperature of nearby objects or environments with remarkable precision - perfect for checking electronics, reading surface temperature, or assisting in creative AR workflows.</p>
+                <p>Every thermal reading is <strong>processed on-device</strong>, never uploaded, with privacy safeguards built-in.</p>
+            </div>
+            <div class="feature-img">
+                <img src="thermal.png" alt="BoibyPhone 11 Pro thermal camera">
+            </div>
         </div>
 
+        <!-- Feature block 6 -->
         <div class="feature-block">
-            <h3>Performance to the next level.</h3>
-            <p>Introducing the <strong>Boiby C11 Pro</strong> chip. Engineered on a new <strong>2 nm process</strong>, it delivers industry-leading efficiency and incredible raw power.</p>
-            <ul>
-                <li><strong>Up to 20 % faster CPU</strong> vs Boiby C10</li>
-                <li><strong>Up to 30 % faster</strong> than <strong>Apple A19 Pro¹</strong>.</li>
-                <li><strong>Up to 35 % faster</strong> than <strong>Snapdragon 8 Elite Gen 2¹</strong>.</li>
-                <li><strong>New 8-core GPU</strong>, now <strong>50 % faster overall</strong> and <strong>70 % faster in real-time ray tracing</strong>.</li>
-            </ul>
-            <p>The Neural Engine gains 40 % faster machine-learning throughput for intelligent photo enhancement, on-device translation, and smart power management — all while consuming less energy than before.</p>
-            <img src="performance.png" alt="BoibyPhone 11 Pro chip performance">
+            <div class="feature-text">
+                <h3>Performance to the next level.</h3>
+                <p>Introducing the <strong>Boiby C11 Pro</strong> chip. Engineered on a new <strong>2 nm process</strong>, it delivers industry-leading efficiency and incredible raw power.</p>
+                <ul>
+                    <li><strong>Up to 20 % faster CPU</strong> vs Boiby C10</li>
+                    <li><strong>Up to 30 % faster</strong> than <strong>Apple A19 Pro¹</strong>.</li>
+                    <li><strong>Up to 35 % faster</strong> than <strong>Snapdragon 8 Elite Gen 2¹</strong>.</li>
+                    <li><strong>New 8-core GPU</strong>, now <strong>50 % faster overall</strong> and <strong>70 % faster in real-time ray tracing</strong>.</li>
+                </ul>
+                <p>The Neural Engine gains 40 % faster machine-learning throughput for intelligent photo enhancement, on-device translation, and smart power management — all while consuming less energy than before.</p>
+            </div>
+            <div class="feature-img">
+                <img src="performance.png" alt="BoibyPhone 11 Pro chip performance">
+            </div>
         </div>
 
+        <!-- Feature block 7 -->
         <div class="feature-block">
-            <h3>Advanced Vapor Chamber Cooling</h3>
-            <p>Our custom-engineered vapor chamber cooling system ensures sustained performance even under the most demanding workloads. It efficiently spreads heat across the chassis using a liquid-vapor cycle, maintaining optimal temperatures.</p>
-            <img src="vapor.png" alt="Vapor Chamber Cooling">
+            <div class="feature-text">
+                <h3>Advanced Vapor Chamber Cooling</h3>
+                <p>Our custom-engineered vapor chamber cooling system ensures sustained performance even under the most demanding workloads. It efficiently spreads heat across the chassis using a liquid-vapor cycle, maintaining optimal temperatures.</p>
+            </div>
+            <div class="feature-img">
+                <img src="vapor.png" alt="Vapor Chamber Cooling">
+            </div>
         </div>
 
+        <!-- Feature block 8 -->
         <div class="feature-block">
-            <h3>All-day battery, and then some.</h3>
-            <p>With a massive <strong>5079 mAh</strong> battery, fit into a compact 6.4-inch form-factor, BoibyPhone 11 Pro lasts <strong>up to 10 % longer</strong> than BoibyPhone X.</p>
-            <p>BoibyPhone 11 Pro Max has our biggest battery yet at 6033 mAh, and with incredible optimization from boibyOS it delivers the best battery in any smartphone, ever.</p>
-            <h4>Charging is faster too:</h4>
-            <ul>
-                <li><strong>90 W fast charging</strong> — 0 to 50 % in under 15-20 minutes.</li>
-                <li><strong>25 W wireless charging</strong> with magnetic alignment for optimal efficiency.</li>
-            </ul>
-            <p>And yes, it still has a <strong>headphone jack</strong>. We're proud to give audio enthusiasts and everyday users what they deserve, now upgraded for <strong>high-impedance headphones</strong> for improved lossless playback.</p>
-            <img src="battery.png" alt="BoibyPhone 11 Pro battery">
+            <div class="feature-text">
+                <h3>All-day battery, and then some.</h3>
+                <p>With a massive <strong>5079 mAh</strong> battery, fit into a compact 6.4-inch form-factor, BoibyPhone 11 Pro lasts <strong>up to 10 % longer</strong> than BoibyPhone X.</p>
+                <p>BoibyPhone 11 Pro Max has our biggest battery yet at 6033 mAh, and with incredible optimization from boibyOS it delivers the best battery in any smartphone, ever.</p>
+                <h4>Charging is faster too:</h4>
+                <ul>
+                    <li><strong>90 W fast charging</strong> — 0 to 50 % in under 15-20 minutes.</li>
+                    <li><strong>25 W wireless charging</strong> with magnetic alignment for optimal efficiency.</li>
+                </ul>
+                <p>And yes, it still has a <strong>headphone jack</strong>. We're proud to give audio enthusiasts and everyday users what they deserve, now upgraded for <strong>high-impedance headphones</strong> for improved lossless playback.</p>
+            </div>
+            <div class="feature-img">
+                <img src="battery.png" alt="BoibyPhone 11 Pro battery">
+            </div>
         </div>
 
         <p><small>Footnotes<br>
@@ -229,7 +326,7 @@
 
 <footer>
     <hr>
-    <p style="text-align:center;">© Boiby 2025</p>
+    <p>© Boiby 2025</p>
 </footer>
 
 <script>
