@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Configure Boiby Pro — Boiby Store</title>
+  <style>
+    body {
+      font-family: Helvetica, Arial, sans-serif;
+      margin: 0;
+      background: #f2f2f2;
+      color: #222
+    }
+
+    a {
+      text-decoration: none;
+      color: #06c
+    }
+
+    .topbar {
+      background: #e6e6e6;
+      border-bottom: 1px solid #ccc;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .topbar h1 {
+      font-size: 20px;
+      margin: 0;
+      font-weight: 600
+    }
+
+    .nav-tabs {
+      background: #f7f7f7;
+      border-bottom: 1px solid #ccc;
+      display: flex;
+      gap: 12px;
+      padding: 10px 20px;
+      align-items: center
+    }
+
+    .nav-tabs a {
+      color: #06c;
+      padding: 6px 10px;
+      border-radius: 4px
+    }
+
+    .nav-tabs a.active {
+      background: #d9e6f7;
+      font-weight: 600;
+      color: #000
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 0 20px
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-bottom: 10px
+    }
+
+    .config-section {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 14px;
+      margin-bottom: 18px
+    }
+
+    .config-section h3 {
+      margin: 0 0 8px;
+      font-size: 15px
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #eee;
+      padding: 6px 0
+    }
+
+    .option:first-of-type {
+      border-top: none
+    }
+
+    .option label {
+      font-size: 13px;
+      color: #333;
+      flex: 1
+    }
+
+    .option input {
+      margin-right: 8px
+    }
+
+    .price-display {
+      font-weight: bold;
+      font-size: 13px;
+      color: #000;
+      text-align: right
+    }
+
+    .summary {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 14px
+    }
+
+    .summary h4 {
+      margin: 0 0 10px
+    }
+
+    .total {
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 10px
+    }
+
+    .add-bag {
+      display: inline-block;
+      background: linear-gradient(#5a5a5a, #333);
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 14px;
+      font-size: 13px;
+      margin-top: 10px;
+      cursor: pointer;
+      border: none
+    }
+
+    .section-flex {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .section-content {
+      flex: 1;
+      min-width: 220px
+    }
+
+    .section-image img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border: 0;
+      border-radius: 0
+    }
+
+    .section-desc {
+      font-size: 12px;
+      color: #666;
+      margin: 0 0 8px
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <h1>Boiby Store</h1>
+  </div>
+
+  <div class="nav-tabs">
+    <a href="/2011/BoibyBook">BoibyBook</a>
+    <a href="/2011/BoibyBook-Pro">BoibyBook Pro</a>
+    <a href="/2011/Boiby-mini">Boiby mini</a>
+    <a href="/2011/Boiby-Pro" class="active">Boiby Pro</a>
+    <a href="/2011/bDesk">bDesk</a>
+    <a href="/2011/bPhone-3">bPhone 3</a>
+    <a href="/2011/bPhone-3S">bPhone 3S</a>
+    <a href="/2011/bPad">bPad</a>
+  </div>
+
+  <div class="container">
+    <h2 id="config-title">Configure your bDesk</h2>
+    <div id="config-area"></div>
+
+    <div class="summary">
+      <h4>Summary</h4>
+      <div id="summary-options" style="font-size:13px;color:#555;"></div>
+      <div class="total" id="total-price">Total: A$0.00</div>
+      <button class="add-bag" id="add-bag-btn">Add to Bag</button>
+    </div>
+  </div>
+
+  <div style="max-width:1000px;margin:20px auto;font-size:12px;color:#666;padding:0 20px;">
+    © 2011 Boiby Inc. All rights reserved.
+  </div>
+
+  <script>
+    // ----- Config data -----
+    const bdeskModels = {
+      "boiby-pro-quad-core": {
+        name: "Boiby Pro (Quad-core)",
+        basePrice: 3499,
+        options: {
+          Processor: [
+            { name: "One 3.2GHz Quad-Core Intel Xeon “Nehalem”", price: 0 },
+            { name: "One 3.33GHz 6-Core Intel Xeon “Westmere”", price: 1200 },
+          ],
+          Memory: [
+            { name: "6GB (three 2GB) 1333MHz DDR3 ECC", price: 0 },
+            { name: "8GB (four 2GB) 1333MHz DDR3 ECC", price: 200 },
+            { name: "12GB (three 4GB) 1333MHz DDR3 ECC", price: 600 },
+            { name: "16GB (four 4GB) 1333MHz DDR3 ECC", price: 1000 }
+          ],
+          "RAID Card": [
+            { name: "None", price: 0 },
+            { name: "Boiby Pro RAID card", price: 800 }
+          ],
+          "Hard Drive - Bay 1": [
+            { name: "1TB Serial ATA Drive", price: 0 },
+            { name: "2TB Serial ATA Drive", price: 200 },
+            { name: "512GB SSD", price: 1600 }
+          ],
+          "Hard Drive - Bay 2": [
+            { name: "No second hard drive", price: 0 },
+            { name: "1TB Serial ATA Drive", price: 200 },
+            { name: "2TB Serial ATA Drive", price: 400 },
+            { name: "512GB SSD", price: 1800 }
+          ],
+          "Hard Drive - Bay 3": [
+            { name: "No third hard drive", price: 0 },
+            { name: "1TB Serial ATA Drive", price: 200 },
+            { name: "2TB Serial ATA Drive", price: 400 },
+            { name: "512GB SSD", price: 1800 }
+          ],
+          "Hard Drive - Bay 4": [
+            { name: "No third hard drive", price: 0 },
+            { name: "1TB Serial ATA Drive", price: 200 },
+            { name: "2TB Serial ATA Drive", price: 400 },
+            { name: "512GB SSD", price: 1800 }
+          ],
+          Graphics: [
+            { name: "ATI Radeon HD 5770 (1GB)", price: 0 },
+            { name: "Two ATI Radeon HD 5770 (1GB)", price: 350 },
+          ],
+          "Optical Drive": [
+            { name: "One 24x SuperDrive", price: 0 },
+            { name: "Two 24x SuperDrives", price: 150 }
+          ],
+          "Fibre Channel Card": [
+            { name: "None", price: 0 },
+            { name: "Dual-channel 4Gb Fibre Channel PCI Express card", price: 800 },
+            { name: "Quad-channel 4Gb Fibre Channel PCI Express card", price: 1200 }
+          ],
+          "Mouse & Trackpad": [
+            { name: "Pro Mouse", price: 0 },
+            { name: "Pro Mouse + Pro Trackpad", price: 100 }
+          ],
+          Keyboard: [
+            { name: "Pro Keyboard", price: 0 },
+            { name: "Pro Keyboard with Numeric Keypad", price: 70 }
+          ]
+        }
+      },
+      "boiby-pro-8-core": {
+        name: "Boiby Pro (8-core)",
+        basePrice: 4999,
+        options: {
+          Processor: [
+            { name: "Two 2.4GHz Quad-Core Intel Xeon “Westmere” processors", price: 0 },
+            { name: "Two 2.8GHz Quad-Core Intel Xeon “Westmere” processors", price: 1200 },
+          ],
+          Memory: [
+            { name: "12GB (three 4GB) 1333MHz DDR3 ECC", price: 0 },
+            { name: "16GB (four 4GB) 1333MHz DDR3 ECC", price: 400 },
+            { name: "24GB (three 8GB) 1333MHz DDR3 ECC", price: 1200 },
+            { name: "32GB (four 8GB) 1333MHz DDR3 ECC", price: 2000 }
+          ],
+          "RAID Card": [
+            { name: "None", price: 0 },
+            { name: "Boiby Pro RAID card", price: 800 }
+          ],
+          "Hard Drive - Bay 1": [
+            { name: "1TB Serial ATA Drive", price: 0 },
+            { name: "2TB Serial ATA Drive", price: 200 },
+            { name: "512GB SSD", price: 1600 }
+          ],
+          "Hard Drive - Bay 2": [
+            { name: "No second hard drive", price: 0 },
+            { name: "1TB Serial ATA Drive", price: 200 },
+            { name: "2TB Serial ATA Drive", price: 400 },
+            { name: "512GB SSD", price: 1800 }
+          ],
+          "Hard Drive - Bay 3": [
+            { name: "No third hard drive", price: 0 },
+            { name: "1TB Serial ATA Drive", price: 200 },
+            { name: "2TB Serial ATA Drive", price: 400 },
+            { name: "512GB SSD", price: 1800 }
+          ],
+          "Hard Drive - Bay 4": [
+            { name: "No third hard drive", price: 0 },
+            { name: "1TB Serial ATA Drive", price: 200 },
+            { name: "2TB Serial ATA Drive", price: 400 },
+            { name: "512GB SSD", price: 1800 }
+          ],
+          Graphics: [
+            { name: "ATI Radeon HD 5770 (1GB)", price: 0 },
+            { name: "Two ATI Radeon HD 5770 (1GB)", price: 350 },
+            { name: "NVIDIA Quadro 4000 (1GB GDDR5)", price: 800 },
+            { name: "NVIDIA Quadro 5000 (2.5GB GDDR5)", price: 1300 },
+          ],
+          "Optical Drive": [
+            { name: "One 24x SuperDrive", price: 0 },
+            { name: "Two 24x SuperDrives", price: 150 }
+          ],
+          "Fibre Channel Card": [
+            { name: "None", price: 0 },
+            { name: "Dual-channel 4Gb Fibre Channel PCI Express card", price: 800 },
+            { name: "Quad-channel 4Gb Fibre Channel PCI Express card", price: 1200 }
+          ],
+          "Mouse & Trackpad": [
+            { name: "Pro Mouse", price: 0 },
+            { name: "Pro Mouse + Pro Trackpad", price: 100 }
+          ],
+          Keyboard: [
+            { name: "Pro Keyboard", price: 0 },
+            { name: "Pro Keyboard with Numeric Keypad", price: 70 }
+          ]
+        }
+      },
+      "boiby-pro-12-core": {
+        name: "Boiby Pro (12-core)",
+        basePrice: 5999,
+        options: {
+          Processor: [
+            { name: "Two 2.66GHz Six-Core Intel Xeon “Westmere” processors", price: 0 },
+            { name: "Two 2.93GHz Six-Core Intel Xeon “Westmere” processors", price: 1800 },
+          ],
+          Memory: [
+            { name: "12GB (three 4GB) 1333MHz DDR3 ECC", price: 0 },
+            { name: "16GB (four 4GB) 1333MHz DDR3 ECC", price: 400 },
+            { name: "24GB (three 8GB) 1333MHz DDR3 ECC", price: 1200 },
+            { name: "32GB (four 8GB) 1333MHz DDR3 ECC", price: 2000 },
+            { name: "48GB (three 16GB) 1333MHz DDR3 ECC", price: 3600 },
+            { name: "64GB (four 16GB) 1333MHz DDR3 ECC", price: 5400 },
+          ],
+          "RAID Card": [
+            { name: "None", price: 0 },
+            { name: "Boiby Pro RAID card", price: 800 }
+          ],
+          "Hard Drive - Bay 1": [
+            { name: "1TB Serial ATA Drive", price: 0 },
+            { name: "2TB Serial ATA Drive", price: 200 },
+            { name: "512GB SSD", price: 1600 }
+          ],
+          "Hard Drive - Bay 2": [
+            { name: "No second hard drive", price: 0 },
+            { name: "1TB Serial ATA Drive", price: 200 },
+            { name: "2TB Serial ATA Drive", price: 400 },
+            { name: "512GB SSD", price: 1800 }
+          ],
+          "Hard Drive - Bay 3": [
+            { name: "No third hard drive", price: 0 },
+            { name: "1TB Serial ATA Drive", price: 200 },
+            { name: "2TB Serial ATA Drive", price: 400 },
+            { name: "512GB SSD", price: 1800 }
+          ],
+          "Hard Drive - Bay 4": [
+            { name: "No third hard drive", price: 0 },
+            { name: "1TB Serial ATA Drive", price: 200 },
+            { name: "2TB Serial ATA Drive", price: 400 },
+            { name: "512GB SSD", price: 1800 }
+          ],
+          Graphics: [
+            { name: "NVIDIA Quadro 4000 (1GB GDDR5)", price: 0 },
+            { name: "NVIDIA Quadro 5000 (2.5GB GDDR5)", price: 500 },
+            { name: "Two NVIDIA Quadro 5000 (2x 2.5GB GDDR5)", price: 1000 },
+            { name: "NVIDIA Quadro 6000 (6GB GDDR5)", price: 1600 },
+          ],
+          "Optical Drive": [
+            { name: "One 24x SuperDrive", price: 0 },
+            { name: "Two 24x SuperDrives", price: 150 }
+          ],
+          "Fibre Channel Card": [
+            { name: "None", price: 0 },
+            { name: "Dual-channel 4Gb Fibre Channel PCI Express card", price: 800 },
+            { name: "Quad-channel 4Gb Fibre Channel PCI Express card", price: 1200 }
+          ],
+          "Mouse & Trackpad": [
+            { name: "Pro Mouse", price: 0 },
+            { name: "Pro Mouse + Pro Trackpad", price: 100 }
+          ],
+          Keyboard: [
+            { name: "Pro Keyboard", price: 0 },
+            { name: "Pro Keyboard with Numeric Keypad", price: 70 }
+          ]
+        }
+      }
+    };
+
+    // ----- Section descriptions and placeholder images -----
+    const sectionInfo = {
+      Processor: { description: "Get amazing performance from the Intel Xeon processor, which features four or six processor cores on a single chip. Choose a quad-core “Nehalem” processor or the six-core “Westmere” processor. ", image: "/2011/Boiby-Pro/Processor.png" },
+      Memory: { description: "The single-processor Boiby Pro supports up to 16GB of DDR3 ECC SDRAM memory in four slots. Choose more memory to improve overall system performance for better multitasking", image: "/2011/Boiby-Pro/Memory.png" },
+      "RAID Card": { description: "Enhance data protection and storage performance by configuring your system with the Boiby Pro RAID Card and multiple SATA hard drives.", image: "/2011/Boiby-Pro/RAID.png" },
+      "Hard Drive - Bay 1": { description: "Your Boiby Pro includes four drive bays, allowing you to configure it with up to 8 terabytes of storage using 7200-RPM Serial ATA 3Gb/s drives, up to 2 terabytes of storage using high-performance solid-state drives, or any combination of each type of drive. Configure each drive bay separately.", image: "/2011/Boiby-Pro/HardDrive.png" },
+      "Hard Drive - Bay 2": { description: " Configure the second drive bay with an additional hard drive or solid-state drive.", image: "/2011/Boiby-Pro/HardDrive.png" },
+      "Hard Drive - Bay 3": { description: " Configure the third drive bay with an additional hard drive or solid-state drive.", image: "/2011/Boiby-Pro/HardDrive.png" },
+      "Hard Drive - Bay 4": { description: " Configure the fourth drive bay with an additional hard drive or solid-state drive.", image: "/2011/Boiby-Pro/HardDrive.png" },
+      Graphics: { description: "Select the graphics card for your graphics performance and display output capabilities.", image: "/2011/Boiby-Pro/Graphics.png" },
+      "Optical Drive": { description: "Your Boiby Pro comes standard with one 24x double-layer SuperDrive that burns and plays both CDs and DVDs. Add a second SuperDrive to streamline disc burning", image: "/2011/Boiby-Pro/Optical.jpg" },
+      "Fibre Channel Card": { description: "Add a Fibre Channel PCI Express card to connect your Boiby Pro to Fibre Channel-based storage or an Xsan storage network.", image: "/2011/Boiby-Pro/Fiber.jpg" },
+      "Mouse & Trackpad": { description: "The wireless Boiby Pro Mouse comes standard with your bDesk. But if the look and feel of a trackpad is more your thing, then choose to have an extra Pro Trackpad shipped with your bDesk instead.", image: "/2011/Boiby-Pro/Mouse.png" },
+      Keyboard: { description: "The wireless Pro Keyboard comes standard with your Boiby Pro. Its ultra-compact design saves space and lets you place your mouse comfortably next to your keyboard. Or you can choose the wired Boiby Keyboard with Numeric Keypad.", image: "/2011/Boiby-Pro/Keyboard.png" }
+    };
+
+    // ----- Helpers -----
+    const formatPrice = (p) => `A$${p.toFixed(2)}`;
+    const params = new URLSearchParams(window.location.search);
+    const modelKey = params.get("model");
+    const model = bdeskModels[modelKey];
+
+    const configArea = document.getElementById("config-area");
+    const summary = document.getElementById("summary-options");
+    const totalDisplay = document.getElementById("total-price");
+
+    if (!model) {
+      configArea.innerHTML = "<p>Invalid model selected. Please go back and choose a valid bDesk.</p>";
+    } else {
+      document.getElementById("config-title").textContent = `Configure your ${model.name}`;
+      for (const [section, opts] of Object.entries(model.options)) {
+        const info = sectionInfo[section] || { description: "", image: "https://" };
+
+        const sectionDiv = document.createElement("div");
+        sectionDiv.className = "config-section";
+
+        sectionDiv.innerHTML = `
+        <div class="section-flex">
+          <div class="section-image">
+            <img src="${info.image}" alt="${section}">
+          </div>
+          <div class="section-content">
+            <h3>${section}</h3>
+            <p class="section-desc">${info.description}</p>
+            ${opts.map((opt, i) => `
+              <div class="option">
+                <label><input type="radio" name="${section}" value="${i}" ${i === 0 ? "checked" : ""}>${opt.name}</label>
+                <span class="price-display">${opt.price > 0 ? `+${formatPrice(opt.price)}` : ""}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+        configArea.appendChild(sectionDiv);
+      }
+    }
+
+    function updateSummary() {
+      let total = model.basePrice;
+      let html = "";
+      for (const [section, opts] of Object.entries(model.options)) {
+        const sel = document.querySelector(`input[name="${section}"]:checked`);
+        if (sel) {
+          const opt = opts[parseInt(sel.value)];
+          total += opt.price;
+          html += `<div>${section}: ${opt.name}</div>`;
+        }
+      }
+      summary.innerHTML = html;
+      totalDisplay.textContent = `Total: ${formatPrice(total)}`;
+    }
+
+    configArea.addEventListener("change", updateSummary);
+    updateSummary();
+
+    document.getElementById("add-bag-btn").addEventListener("click", () => {
+      alert(`Added ${model.name} to bag with your selected configuration.`);
+    });
+  </script>
+</body>
+
+</html>
