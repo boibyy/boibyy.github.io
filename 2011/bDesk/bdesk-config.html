@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Configure your bDesk — Boiby Business Store</title>
+  <style>
+    body{font-family:Helvetica,Arial,sans-serif;margin:0;background:#f2f2f2;color:#222}
+    a{text-decoration:none;color:#06c}
+    .topbar{background:#e6e6e6;border-bottom:1px solid #ccc;padding:10px 20px;display:flex;align-items:center;gap:10px}
+    .topbar h1{font-size:20px;margin:0;font-weight:600}
+    .nav-tabs{background:#f7f7f7;border-bottom:1px solid #ccc;display:flex;gap:12px;padding:10px 20px;align-items:center}
+    .nav-tabs a{color:#06c;padding:6px 10px;border-radius:4px}
+    .nav-tabs a.active{background:#d9e6f7;font-weight:600;color:#000}
+    .container{max-width:1000px;margin:20px auto;padding:0 20px}
+    h2{font-size:20px;margin-bottom:10px}
+    .config-section{background:#fff;border:1px solid #ccc;border-radius:6px;padding:14px;margin-bottom:18px}
+    .config-section h3{margin:0 0 8px;font-size:15px}
+    .option{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #eee;padding:6px 0}
+    .option:first-of-type{border-top:none}
+    .option label{font-size:13px;color:#333;flex:1}
+    .option input{margin-right:8px}
+    .price-display{font-weight:bold;font-size:13px;color:#000;text-align:right}
+    .summary{background:#fff;border:1px solid #ccc;border-radius:6px;padding:14px}
+    .summary h4{margin:0 0 10px}
+    .total{font-size:16px;font-weight:bold;margin-top:10px}
+    .add-bag{display:inline-block;background:linear-gradient(#5a5a5a,#333);color:#fff;padding:8px 20px;border-radius:14px;font-size:13px;margin-top:10px;cursor:pointer;border:none}
+    .section-flex{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .section-content{flex:1;min-width:220px}
+    .section-image img{width:80px;height:80px;object-fit:cover;border:1px solid #ccc;border-radius:4px}
+    .section-desc{font-size:12px;color:#666;margin:0 0 8px}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <h1>Boiby Store</h1>
+  </div>
+
+  <div class="nav-tabs">
+    <a href="#">BoibyBook</a>
+    <a href="#">BoibyBook Pro</a>
+    <a href="#">Boiby mini</a>
+    <a href="#">Boiby Pro</a>
+    <a href="#" class="active">bDesk</a>
+  </div>
+
+  <div class="container">
+    <h2 id="config-title">Configure your bDesk</h2>
+    <div id="config-area"></div>
+
+    <div class="summary">
+      <h4>Summary</h4>
+      <div id="summary-options" style="font-size:13px;color:#555;"></div>
+      <div class="total" id="total-price">Total: A$0.00</div>
+      <button class="add-bag" id="add-bag-btn">Add to Bag</button>
+    </div>
+  </div>
+
+  <div style="max-width:1000px;margin:20px auto;font-size:12px;color:#666;padding:0 20px;">
+    © 2011 Boiby Inc. All rights reserved.
+  </div>
+
+  <script>
+  // ----- Config data -----
+  const bdeskModels = {
+    "bdesk-22-25": {
+      name: "bDesk 22-inch 2.5GHz",
+      basePrice: 1599,
+      options: {
+        Processor: [
+          { name: "2.5GHz Quad-core Intel Core i5", price: 0 },
+        ],
+        Memory: [
+          { name: "4GB (two 2GB) 1333MHz DDR3", price: 0 },
+          { name: "8GB (two 4GB) 1333MHz DDR3", price: 200 },
+        ],
+        "Hard Drive": [
+          { name: "500GB Serial ATA Drive", price: 0 },
+          { name: "1TB Serial ATA Drive", price: 120 },
+        ],
+        Graphics: [
+          { name: "ATI Radeon HD 5670 (512MB)", price: 0 },
+        ],
+        "Mouse & Trackpad": [
+          { name: "Magic Mouse", price: 0 },
+          { name: "Magic Trackpad", price: 100 }
+        ],
+        Keyboard: [
+          { name: "Pro Keyboard", price: 0 },
+          { name: "Pro Keyboard with Numeric Keypad", price: 70 }
+        ]
+      }
+    },
+    "bdesk-22-27": {
+      name: "bDesk 22-inch 2.5GHz",
+      basePrice: 1999,
+      options: {
+        Processor: [
+          { name: "2.7GHz Quad-core Intel Core i7", price: 0 }
+        ],
+        Memory: [
+          { name: "4GB (two 2GB) 1333MHz DDR3", price: 0 },
+          { name: "8GB (two 4GB) 1333MHz DDR3", price: 200 },
+          { name: "16GB (two 8GB) 1333MHz DDR3", price: 600 }
+        ],
+        "Hard Drive": [
+          { name: "1TB Serial ATA Drive", price: 0 },
+          { name: "2TB Serial ATA Drive", price: 250 },
+          { name: "256GB SSD", price: 700 },
+          { name: "1TB Serial ATA Drive + 256GB SSD", price: 850 },
+          { name: "2TB Serial ATA Drive + 256GB SSD", price: 1050 }
+        ],
+        Graphics: [
+          { name: "NVIDIA GeForce GTX 560M (768MB)", price: 0 },
+          { name: "NVIDIA GeForce GTX 560M (1.5GB)", price: 150 },
+        ],
+        "Mouse & Trackpad": [
+          { name: "Magic Mouse", price: 0 },
+          { name: "Magic Trackpad", price: 100 }
+        ],
+        Keyboard: [
+          { name: "Pro Keyboard", price: 0 },
+          { name: "Pro Keyboard with Numeric Keypad", price: 70 }
+        ]
+      }
+    },
+    "bdesk-27-27": {
+      name: "bDesk 27-inch 2.7GHz",
+      basePrice: 2399,
+      options: {
+        Processor: [
+          { name: "2.7GHz Quad-core Intel Core i5", price: 0 },
+          { name: "3.1GHz Quad-core Intel Core i7", price: 400 }
+        ],
+        Memory: [
+          { name: "4GB (two 2GB) 1333MHz DDR3", price: 0 },
+          { name: "8GB (two 4GB) 1333MHz DDR3", price: 200 },
+          { name: "16GB (two 8GB) 1333MHz DDR3", price: 600 }
+        ],
+        "Hard Drive": [
+          { name: "1TB Serial ATA Drive", price: 0 },
+          { name: "2TB Serial ATA Drive", price: 250 },
+          { name: "256GB SSD", price: 700 },
+          { name: "1TB Serial ATA Drive + 256GB SSD", price: 850 },
+          { name: "2TB Serial ATA Drive + 256GB SSD", price: 1050 }
+        ],
+        Graphics: [
+          { name: "NVIDIA GeForce GTX 560M (768MB)", price: 0 },
+          { name: "NVIDIA GeForce GTX 570M (1.5GB)", price: 200 }
+        ],
+        "Mouse & Trackpad": [
+          { name: "Magic Mouse", price: 0 },
+          { name: "Magic Trackpad", price: 100 }
+        ],
+        Keyboard: [
+          { name: "Pro Keyboard", price: 0 },
+          { name: "Pro Keyboard with Numeric Keypad", price: 70 }
+        ]
+      }
+    },
+    "bdesk-27-31": {
+      name: "bDesk 27-inch 3.1GHz",
+      basePrice: 2899,
+      options: {
+        Processor: [
+          { name: "3.1GHz Quad-core Intel Core i7", price: 0 },
+          { name: "3.3GHz Quad-core Intel Core i7", price: 200 }
+        ],
+        Memory: [
+          { name: "8GB (two 4GB) 1333MHz DDR3", price: 0 },
+          { name: "16GB (two 8GB) 1333MHz DDR3", price: 400 }
+        ],
+        "Hard Drive": [
+          { name: "1TB Serial ATA Drive", price: 0 },
+          { name: "2TB Serial ATA Drive", price: 250 },
+          { name: "256GB SSD", price: 700 },
+          { name: "1TB Serial ATA Drive + 256GB SSD", price: 850 },
+          { name: "2TB Serial ATA Drive + 256GB SSD", price: 1050 }
+        ],
+        Graphics: [
+          { name: "NVIDIA GeForce GTX 560M (768MB)", price: 0 },
+          { name: "NVIDIA GeForce GTX 570M (1.5GB)", price: 200 },
+          { name: "NVIDIA GeForce GTX 580M (1.5GB)", price: 400 }
+        ],
+        "Mouse & Trackpad": [
+          { name: "Magic Mouse", price: 0 },
+          { name: "Magic Trackpad", price: 100 }
+        ],
+        Keyboard: [
+          { name: "Pro Keyboard", price: 0 },
+          { name: "Pro Keyboard with Numeric Keypad", price: 70 }
+        ]
+      }
+    }
+  };
+
+  // ----- Section descriptions and placeholder images -----
+  const sectionInfo = {
+    Processor: { description: "Get amazing performance from the quad-core Intel Core i5 or Core i7 processor, which features four processor cores on a single chip. Choose the speed and processor you want.", image: "/2011/bDesk/Processor.png" },
+    Memory: { description: "More memory (RAM) increases performance for more demanding tasks. Choose additional 1333MHz DDR3 memory for your bDesk.", image: "/2011/bDesk/Memory.png" },
+    "Hard Drive": { description: "Configure your bDesk with a large 7200-rpm Serial ATA hard drive. Or choose a solid-state drive, which has no moving parts and provides greater responsiveness and durability. Or select both a hard drive and a solid-state drive.", image: "/2011/bDesk/HardDrive.png" },
+    Graphics: { description: "Select the graphics card for your graphics performance and display output capabilities.", image: "/2011/bDesk/Graphics.png" },
+    "Mouse & Trackpad": { description: "The wireless Boiby Pro Mouse comes standard with your bDesk. But if the look and feel of a trackpad is more your thing, then choose to have an extra Pro Trackpad shipped with your bDesk instead.", image: "/2011/bDesk/Mouse.png" },
+    Keyboard: { description: "The wireless Boiby Pro Keyboard comes standard with your bDesk. Its ultra-compact design saves space and lets you place your mouse comfortably next to your keyboard. Or you can choose the wired Apple Keyboard with Numeric Keypad.", image: "/2011/bDesk/Keyboard.png" }
+
+  };
+
+  // ----- Helpers -----
+  const formatPrice = (p) => `A$${p.toFixed(2)}`;
+  const params = new URLSearchParams(window.location.search);
+  const modelKey = params.get("model");
+  const model = bdeskModels[modelKey];
+
+  const configArea = document.getElementById("config-area");
+  const summary = document.getElementById("summary-options");
+  const totalDisplay = document.getElementById("total-price");
+
+  if (!model) {
+    configArea.innerHTML = "<p>Invalid model selected. Please go back and choose a valid bDesk.</p>";
+  } else {
+    document.getElementById("config-title").textContent = `Configure your ${model.name}`;
+    for (const [section, opts] of Object.entries(model.options)) {
+      const info = sectionInfo[section] || { description: "", image: "https://via.placeholder.com/80" };
+
+      const sectionDiv = document.createElement("div");
+      sectionDiv.className = "config-section";
+
+      sectionDiv.innerHTML = `
+        <div class="section-flex">
+          <div class="section-content">
+            <h3>${section}</h3>
+            <p class="section-desc">${info.description}</p>
+            ${opts.map((opt,i)=>`
+              <div class="option">
+                <label><input type="radio" name="${section}" value="${i}" ${i===0?"checked":""}>${opt.name}</label>
+                <span class="price-display">${opt.price>0?`+${formatPrice(opt.price)}`:""}</span>
+              </div>
+            `).join('')}
+          </div>
+          <div class="section-image">
+            <img src="${info.image}" alt="${section}">
+          </div>
+        </div>
+      `;
+      configArea.appendChild(sectionDiv);
+    }
+  }
+
+  function updateSummary() {
+    let total = model.basePrice;
+    let html = "";
+    for (const [section, opts] of Object.entries(model.options)) {
+      const sel = document.querySelector(`input[name="${section}"]:checked`);
+      if (sel) {
+        const opt = opts[parseInt(sel.value)];
+        total += opt.price;
+        html += `<div>${section}: ${opt.name}</div>`;
+      }
+    }
+    summary.innerHTML = html;
+    totalDisplay.textContent = `Total: ${formatPrice(total)}`;
+  }
+
+  configArea.addEventListener("change", updateSummary);
+  updateSummary();
+
+  document.getElementById("add-bag-btn").addEventListener("click", () => {
+    alert(`Added ${model.name} to bag with your selected configuration.`);
+  });
+  </script>
+</body>
+</html>
