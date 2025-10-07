@@ -914,3 +914,26 @@ button.disabled {
     padding-top: 20px;
     border-top: 1px solid #444;
 }
+
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.nav-buttons button {
+    flex: 1;
+    min-width: 150px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .nav-buttons {
+        flex-direction: column;
+    }
+    
+    .nav-buttons button {
+        width: 100%;
+    }
+}
