@@ -223,13 +223,16 @@
   } else {
     document.getElementById("config-title").textContent = `Configure your ${model.name}`;
     for (const [section, opts] of Object.entries(model.options)) {
-      const info = sectionInfo[section] || { description: "", image: "https://via.placeholder.com/80" };
+      const info = sectionInfo[section] || { description: "", image: "https://" };
 
       const sectionDiv = document.createElement("div");
       sectionDiv.className = "config-section";
 
       sectionDiv.innerHTML = `
         <div class="section-flex">
+          <div class="section-image">
+            <img src="${info.image}" alt="${section}">
+          </div>
           <div class="section-content">
             <h3>${section}</h3>
             <p class="section-desc">${info.description}</p>
@@ -239,9 +242,6 @@
                 <span class="price-display">${opt.price>0?`+${formatPrice(opt.price)}`:""}</span>
               </div>
             `).join('')}
-          </div>
-          <div class="section-image">
-            <img src="${info.image}" alt="${section}">
           </div>
         </div>
       `;
@@ -273,5 +273,6 @@
   </script>
 </body>
 </html>
+
 
 
