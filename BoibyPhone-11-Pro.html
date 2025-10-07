@@ -1,815 +1,368 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Buy BoibyPhone 11 Pro</title>
-  <style>
-    :root {
-      --blue: #0071e3;
-      --border: #d2d2d7;
-      --text: #1d1d1f;
-      --muted: #6e6e73;
-      --bg: #fff;
-    }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>BoibyPhone 11 Pro — Learn More</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="bouncy.css">
+    <style>
+        /* Page-specific tweaks to reuse existing styling */
+        main {
+            padding-top: 110px;
+        }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--text);
-      -webkit-font-smoothing: antialiased;
-      transition: opacity 0.3s ease;
-    }
+        .hero {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 18px;
+        }
 
-    body.fade-out {
-      opacity: 0.5;
-    }
+        .hero-left {
+            max-width: 56%;
+        }
 
-    header {
-      text-align: center;
-      padding: 28px 16px;
-      border-bottom: 1px solid var(--border);
-      transition: all 0.3s ease;
-    }
-    
-    h1 {
-      font-size: 2rem;
-      font-weight: 600;
-      margin: 0;
-    }
+        .hero-right {
+            width: 40%;
+            text-align: center;
+        }
 
-    .models {
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 25px;
-    }
-    
-    .card {
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      background: #fff;
-      transition: box-shadow .15s, transform .06s;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .card:hover {
-      border-color: var(--blue);
-      transform: translateY(-2px);
-    }
-    
-    .card-content {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 15px;
-    }
-    
-    .card-image {
-      width: 140px;
-      height: 140px;
-      border-radius: 0px;
-      overflow: hidden;
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .card-image img {
-      max-width: 100%;
-      max-height: 100%;
-      transition: opacity 0.3s ease;
-    }
-    
-    .card-details {
-      flex: 1;
-    }
-    
-    .card h2 {
-      font-size: 1.3rem;
-      margin: 0 0 6px;
-      font-weight: 600;
-    }
-    
-    .price {
-      font-size: 1.05rem;
-      font-weight: 500;
-      margin: 6px 0 12px;
-      color: var(--muted);
-    }
-    
-    .card ul {
-      margin: 0;
-      padding-left: 20px;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-    
-    .select-btn {
-      margin-top: auto;
-      padding: 10px 0;
-      background: var(--blue);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background .2s;
-    }
-    
-    .select-btn:hover {
-      background: #005bb5;
-    }
+        .hero-right img {
+            max-width: 360px;
+            width: 100%;
+            border-radius: 18px;
+            box-shadow: var(--ambient-shadow);
+        }
 
-    .back-btn {
-      margin: 10px 0 20px;
-      padding: 8px 18px;
-      background: #f5f5f7;
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
-      font-size: 0.95rem;
-    }
-    
-    .back-btn:hover { 
-      background: #e6e6e9; 
-    }
+        .eyebrow {
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--secondary-text);
+            font-size: 13px;
+        }
 
-    .hero { 
-      margin-bottom: 24px; 
-    }
-    
-    .hero-title {
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-      margin: 0 0 12px;
-    }
-    
-    .hero-content {
-      display: flex;
-      gap: 30px;
-      align-items: flex-start;
-    }
-    
-    .hero-image {
-      width: 280px;
-      flex-shrink: 0;
-      border-radius: 0px;
-      overflow: hidden;
-      background: #fff;
-    }
-    
-    .hero-image img {
-      width: 100%;
-      display: block;
-      transition: opacity 0.3s ease;
-    }
-    
-    .hero-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      color: var(--muted);
-      flex: 1;
-    }
-    
-    .hero-list li {
-      font-size: 1rem;
-      line-height: 1.6;
-      margin: 6px 0;
-    }
+        .price {
+            font-size: 20px;
+            margin-top: 6px;
+            color: var(--secondary-text);
+        }
 
-    .group { 
-      margin: 24px 0; 
-      position: relative;
-    }
-    
-    .group h3 {
-      font-size: 1.1rem;
-      margin: 0 0 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    
-    .info-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: var(--muted);
-      color: white;
-      font-size: 12px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    
-    .info-icon:hover {
-      background: var(--blue);
-    }
+        .subhead {
+            font-size: 22px;
+            margin: 8px 0 16px;
+            color: var(--text);
+        }
 
-    .pill {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 28px 20px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      margin: 10px 0;
-      cursor: pointer;
-      background: #fff;
-      transition: border-color .12s, box-shadow .12s, transform .06s;
-    }
-    
-    .pill:hover { 
-      border-color: var(--blue); 
-      transform: translateY(-2px); 
-    }
-    
-    .pill.selected {
-      border: 2px solid var(--blue);
-      box-shadow: 0 4px 14px rgba(0,113,227,0.08);
-    }
-    
-    .pill.disabled {
-      opacity: .6;
-      cursor: not-allowed;
-      background: #fbfbfb;
-    }
-    
-    .pill .label { 
-      font-weight: 600; 
-    }
-    
-    .pill .price-right { 
-      color: var(--muted); 
-      font-weight: 600; 
-      white-space: nowrap; 
-    }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-top: 22px;
+        }
 
-    .note {
-      font-size: .9rem;
-      color: var(--muted);
-      margin-top: 6px;
-    }
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column;
+            }
 
-    .color-selector {
-      display: flex;
-      gap: 10px;
-      margin: 10px 0;
-      flex-wrap: wrap;
-    }
-    
-    .color-pill {
-      padding: 6px 12px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: all 0.2s;
-    }
-    
-    .color-pill.selected {
-      background: var(--blue);
-      color: #fff;
-      border-color: var(--blue);
-    }
+            .hero-left,
+            .hero-right {
+                width: 100%;
+                max-width: 100%
+            }
 
-    .configurator, .confirmation {
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px;
-    }
+            .feature-grid {
+                grid-template-columns: 1fr
+            }
+        }
 
-    .checkout {
-      position: sticky;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      width: auto;
-      max-width: 100vw;
-      box-sizing: border-box;
-      background: #fff;
-      border-top: 1px solid var(--border);
-      padding: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-      z-index: 100;
-      overflow-x: hidden;
-      padding-left: max(18px, env(safe-area-inset-left));
-      padding-right: max(18px, env(safe-area-inset-right));
-    }
-    
-    .total {
-      font-size: 1.4rem;
-      font-weight: 700;
-    }
-    
-    .add-to-bag {
-      padding: 12px 22px;
-      font-size: 1.05rem;
-      background: var(--blue);
-      color: #fff;
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: background .2s;
-    }
-    
-    .add-to-bag:hover { 
-      background: #005bb5; 
-    }
+        .feature-block {
+            background: var(--secondary);
+            padding: 18px;
+            border-radius: 12px;
+        }
 
-    .confirmation {
-      text-align: center;
-      display: none;
-    }
-    
-    .confirmation-image {
-      width: 300px;
-      margin: 0 auto 20px;
-      border-radius: 0px;
-      overflow: hidden;
-    }
-    
-    .confirmation-image img {
-      width: 100%;
-    }
-    
-    .confirmation-details {
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: left;
-      background: #f9f9f9;
-      padding: 20px;
-      border-radius: 12px;
-    }
-    
-    .confirmation-title {
-      font-size: 2.2rem;
-      margin-bottom: 10px;
-      color: #0071e3;
-    }
-    
-    .confirmation-model {
-      font-size: 1.4rem;
-      margin-bottom: 20px;
-    }
-    
-    .confirmation-list {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 20px;
-    }
-    
-    .confirmation-list li {
-      padding: 8px 0;
-      border-bottom: 1px solid #eee;
-    }
-    
-    .confirmation-total {
-      font-size: 1.6rem;
-      font-weight: 700;
-      text-align: center;
-      margin-top: 20px;
-    }
+        .feature-block h3 {
+            margin: 0 0 8px;
+        }
 
-    .learn-more {
-      display: none;
-    }
+        .specs {
+            display: flex;
+            gap: 20px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
 
-    @media (max-width: 900px) {
-      .models {
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      }
-      
-      .hero-content {
-        flex-direction: column;
-      }
-      
-      .hero-image {
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-      }
-    }
+        .specs .spec {
+            background: var(--secondary);
+            padding: 14px;
+            border-radius: 12px;
+            min-width: 220px;
+            flex: 1;
+        }
 
-    @media (max-width: 600px) {
-      .pill { 
-        padding: 14px; 
-      }
-      
-      .checkout {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-      }
-      
-      .add-to-bag { 
-        width: 100%; 
-      }
-      
-      .card-content {
-        flex-direction: column;
-      }
-      
-      .card-image {
-        width: 100%;
-        height: 180px;
-        margin-bottom: 15px;
-      }
-      
-      .models {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+        .cta-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .hero-kicker {
+            font-size: 14px;
+            color: var(--secondary-text);
+        }
+
+        .section-visual {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            margin-top: 14px;
+        }
+
+        .visual-card {
+            background: var(--secondary);
+            border-radius: 12px;
+            padding: 14px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .visual-card img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        .repair-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        @media (max-width: 800px) {
+            .repair-list {
+                grid-template-columns: 1fr
+            }
+        }
+
+        table.spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+
+        table.spec-table th,
+        table.spec-table td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .muted {
+            color: var(--secondary-text);
+            font-size: 14px;
+        }
+    </style>
 </head>
-<body>
-  <header>
-    <h1 id="headerTitle">Buy BoibyPhone 11 Pro</h1>
-  </header>
 
-  <main>
-    <div class="models" id="models">
-      <!-- Cards will be inserted by JavaScript -->
-    </div>
-
-    <div class="configurator" id="configurator" style="display:none;">
-      <button class="back-btn" id="backBtn">← Back</button>
-      <div class="hero">
-        <h2 class="hero-title" id="heroTitle"></h2>
-        <div class="hero-content">
-          <div class="hero-image" id="heroImage"></div>
-          <ul class="hero-list" id="heroList"></ul>
+<body class="dark">
+    <header>
+        <img src="boiby.png" class="favicon" alt="Boiby logo">
+        <a href="#" class="hamburger" aria-label="Open menu">☰</a>
+        <nav aria-label="Main navigation">
+            <a href="/index" class="link">Home</a>
+            <a href="/about" class="link">About</a>
+            <a href="/products" class="link active">Products</a>
+            <a href="/support" class="link">Support</a>
+            <a href="/contact" class="link">Contact</a>
+        </nav>
+        <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
+            <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
         </div>
-      </div>
-      <div id="options"></div>
-    </div>
+    </header>
 
-    <div class="confirmation" id="confirmation">
-      <h2 class="confirmation-title">Order Confirmed</h2>
-      <div class="confirmation-image" id="confirmationImage"></div>
-      <h3 class="confirmation-model" id="confirmationModel"></h3>
-      <div class="confirmation-details">
-        <h4>Order Summary:</h4>
-        <ul class="confirmation-list" id="confirmationList"></ul>
-        <div class="confirmation-total" id="confirmationTotal"></div>
-      </div>
-      <button class="back-btn" id="confirmationBackBtn" style="margin-top: 30px;">Back to Store</button>
-    </div>
-  </main>
+    <main>
+        <section class="wrap heading">
+            <h1 class="text-center header-margin-home">BoibyPhone 11 Pro</h1>
+            <h2 class="text-center">The most advanced BoibyPhone ever. The most advanced smartphone phone ever.</h2>
+            <p class="text-center"><strong>Starting at US$1199</strong> | <strong>AU$1999</strong></p>
 
-  <section class="learn-more" style="display: none;">
-    <!-- Learn more content can be added here later -->
-  </section>
+            <hr>
 
-  <div class="checkout" id="checkout">
-    <div class="total" id="finalPrice">Total: A$0</div>
-    <button class="add-to-bag" id="addToBagBtn">Add to Bag</button>
-  </div>
+            <h3>Two perfect sizes. One Pro experience.</h3>
+            <p>The all-new <strong>BoibyPhone 11 Pro</strong> comes in two perfect forms:
+            <ul>
+                <li><strong>BoibyPhone 11 Pro</strong> - a compact <strong>6.4-inch</strong> design that fits
+                    comfortably in one hand.¹</li>
+                <li><strong>BoibyPhone 11 Pro Max</strong> - an expansive <strong>7-inch</strong> display, our biggest
+                    ever, for those who want the most immersive experience possible.¹</li>
+            </ul>
+            Each size is crafted from grade 5 titanium with precision-milled edges and our strongest glass yet. Every
+            curve feels refined, every surface purposeful.</p>
 
-  <script>
-    (function () {
-      const colors = ['Obsidian', 'Silver', 'Pacific Blue'];
-      let selectedColor = 'Obsidian';
+            <p><strong>Colors:</strong> Obsidian - Silver - Pacific Blue</p>
+            <p>BoibyPhone 11 Pro comes in the same Obsidian and Silver finishes found on BoibyPhone X, as well as a
+                stunning new Pacific Blue.</p>
 
-      const template = {
-        "BoibyPhone 11 Pro": {
-          price: 2199,
-          display: "6.4-inch 2730x1260 Seamless Super OLED display with Hidden Dynamic Dot",
-          specs: [
-            "120Hz Adaptive refresh rate (LTPO3 1-120Hz)",
-            "4000 nits peak brightness",
-            "Boiby C11 Pro chip with 6-core CPU and 8-core GPU",
-            "5079 mAh Li-ion battery",
-            "Titanium frame with Boiby Glass front and back",
-            "16 GB of memory",
-            "USB-C (USB 4 40Gbps) port + Headphone Jack",
-            "Triple camera system: 96MP Wide + 48MP Ultrawide + 48MP 5x Periscope Telephoto (50x digital zoom)",
-            "Thermal camera + LiDAR scanner + Quad LED flash",
-            "18MP front camera with adaptive sensor",
-            "90 W fast charging + 25 W Qi2 Wireless charging",
-            "WiFi 7 + Bluetooth 6"
-          ],
-          upgrades: {
-            color: ["Obsidian (base)", "Silver (base)", "Pacific Blue (base)"],
-            storage: ["256 GB storage (base)", "512 GB storage (+A$100)", "1 TB storage (+A$300)", "2 TB storage (+A$700)"]
-          },
-          included: [
-            "BoibyPhone 11 Pro",
-            "USB-C to USB-C 1m braided charging cable",
-            "90 W USB-C power adapter",
-            "SIM ejector tool",
-            "Documentation & Boiby Stickers"
-          ]
-        },
-        "BoibyPhone 11 Pro Max": {
-          price: 2399,
-          display: "7.0-inch 3120x1440 Seamless Super OLED display with Hidden Dynamic Dot",
-          specs: [
-            "120Hz Adaptive refresh rate (LTPO3 1-120Hz)",
-            "4000 nits peak brightness",
-            "Boiby C11 Pro chip with 6-core CPU and 8-core GPU",
-            "6033 mAh Li-ion battery",
-            "Titanium frame with Boiby Glass front and back",
-            "16 GB of memory",
-            "USB-C (USB 4 40Gbps) port + Headphone Jack",
-            "Triple camera system: 96MP Wide + 48MP Ultrawide + 48MP 5x Periscope Telephoto (50x digital zoom)",
-            "Thermal camera + LiDAR scanner + Quad LED flash",
-            "18MP front camera with adaptive sensor",
-            "90 W fast charging + 25 W Qi2 Wireless charging",
-            "WiFi 7 + Bluetooth 6"
-          ],
-          upgrades: {
-            color: ["Obsidian (base)", "Silver (base)", "Pacific Blue (base)"],
-            storage: ["256 GB storage (base)", "512 GB storage (+A$100)", "1 TB storage (+A$300)", "2 TB storage (+A$700)"]
-          },
-          included: [
-            "BoibyPhone 11 Pro Max",
-            "USB-C to USB-C 1m braided charging cable",
-            "90 W USB-C power adapter",
-            "SIM ejector tool",
-            "Documentation & Boiby Stickers"
-          ]
+            <hr>
+
+            <h3>A brighter view of everything.</h3>
+            <p>The BoibyPhone 11 Pro's <strong>Ultra OLED XDR</strong> display pushes brightness to new extremes at
+                <strong>4000 nits</strong> peak outdoor brightness, <strong>25 percent brighter</strong> than BoibyPhone
+                X.</p>
+            <p>HDR content bursts with lifelike contrast, while refined pixel architecture improves outdoor visibility
+                dramatically. With a <strong>0.5 Hz - 120 Hz adaptive refresh rate</strong>, scrolling is buttery smooth
+                just like always, but even more battery-efficient. And NaturalTone adjusts white balance using a
+                12-channel ambient sensor for the most natural viewing experience in any light.</p>
+
+            <hr>
+
+            <h3>Smarter selfies.</h3>
+            <p>The new <strong>18 MP Front Camera</strong> introduces an f/1.6 aperture for better low-light shots and a
+                new <strong>Photonic Engine 6</strong> that reframes your photo in real time.</p>
+            <p>Even holding BoibyPhone 11 Pro vertically, the camera can automatically switch to <strong>horizontal
+                    capture</strong>, ideal for group shots. When more people join the frame, it <strong>intelligently
+                    zooms out</strong> to fit everyone in the shot.</p>
+
+            <h3>Our most advanced camera system</h3>
+            <p>8K 60fps HDR recording is now avaliable on BoibyPhone 11 Pro, taking the capability of filming video on
+                BoibyPhone even further.</p>
+            <p>BoibyPhone 11 Pro has improved image processing and a larger second-generation 96MP main sensor, as well
+                as a 5x 48MP telephoto lens for up to 100x zoom, and a great 48MP 0.5x ultrawide camera.
+
+                <hr>
+
+            <h3>See the unseen.</h3>
+            <p>The all-new <strong>Thermal Camera</strong> on BoibyPhone 11 Pro brings a new dimension of perception to
+                your phone. It can measure the surface temperature of nearby objects or environments with remarkable
+                precision - perfect for checking electronics, reading surface temperature, or assisting in creative AR
+                workflows.</p>
+            <p>Every thermal reading is <strong>processed on-device</strong>, never uploaded, with privacy safeguards
+                built-in.</p>
+
+            <hr>
+
+            <h3>Performance to the highest point.</h3>
+            <p>Intoducing the <strong>Boiby C11 Pro</strong> chip. Engineered on a new <strong>2 nm process</strong>, it
+                delivers industry-leading efficiency and incredible raw power.</p>
+            <ul>
+                <li><strong>Up to 20 % faster CPU</strong> vs Boiby C10</li>
+                <li><strong>Up to 30 % faster</strong> than <strong>Apple A19 Pro¹</strong>.</li>
+                <li><strong>Up to 35 % faster</strong> than <strong>Snapdragon 8 Elite Gen 2¹</strong>.</li>
+                <li><strong>New 8-core GPU</strong>, now <strong>50 % faster overall</strong> and <strong>70 % faster in
+                        real-time ray tracing</strong>.</li>
+            </ul>
+            <p>The Neural Engine gains 40 % faster machine-learning throughput for intelligent photo enhancement,
+                on-device translation, and smart power management — all while consuming less energy than before.</p>
+
+            <hr>
+
+            <section>
+                <h2>Advanced Vapor Chamber Cooling</h2>
+                <p>Our custom-engineered vapor chamber cooling system ensures sustained performance even under the most demanding workloads. It efficiently spreads heat across the chassis using a liquid-vapor cycle, maintaining optimal temperatures.</p>
+            </section>
+
+            <h3>All-day battery, and then some.</h3>
+            <p>With a massive <strong>5079 mAh</strong> battery, fit into a compact 6.4-inch form-factor, BoibyPhone 11
+                Pro lasts <strong>up to 10 % longer</strong> than BoibyPhone X.</p>
+            <p>BoibyPhone 11 Pro Max has our biggest battery yet at 6033 mAh, and with incredible optimization from boibyOS it delivers the best battery in any smartphone, ever.
+            <h4>Charging is faster too:</h4>
+            <ul>
+                <li><strong>90 W fast charging</strong> — 0 to 50 % in under 15-20 minutes.</li>
+                <li><strong>25 W wireless charging</strong> with magnetic alignment for optimal efficiency.</li>
+            </ul>
+            <p>And yes, it still has a <strong>headphone jack</strong>. We're proud to give audio enthusiasts and everday users what they
+                deserve, now upgraded for <strong>high-impedance headphones</strong> for improved lossless playback.</p>
+
+            <hr>
+
+            <h3>Stronger by design.</h3>
+            <p>Our cutting-edge <strong>Boiby Glass</strong> is now on both sides, with nanocrystalline reinforcement providing
+                <strong>3x better scratch resistance</strong> and <strong>2x better crack resistance</strong>. Combined
+                with a precision-sealed aluminium frame, it's rated for <strong>IP69</strong> dust and water resistance
+                - the highest in its class.³</p>
+            <p>Every device is tested for durability under extreme pressure, temperature, and impact to ensure it's
+                ready for you now, and for years to come.</p>
+
+            <hr>
+
+            <h3>Faster connections</h3>
+            <p>BoibyPhone 11 Pro now comes with faster connections across the board:</p>
+            <ul>
+                <li><strong>USB 4 (40 Gbps)</strong> for transfers up to 2x faster, and external displays up to dual 8K.</li>
+                <li><strong>Bluetooth 6</strong> for extended range, lower power, and ultra-low latency audio.</li>
+                <li><strong>Wi-Fi 7</strong> with up to 5 Gbps throughput.</li>
+                <li>Dual <strong>5G Ultra</strong> band compatibility for blazing global coverage.</li>
+            </ul>
+            <p>With <strong>boibyOS 11</strong>, the entire experience feels fluid and intuitive - from faster app
+                launches to smarter multitasking, all with a beautiful yet customizable UI. And with <strong>
+                    8 years of software updates</strong> and <strong>12
+                    years of security patches</strong>, BoibyPhone 11 Pro is truly built to last.</p>
+
+            <hr>
+
+            <h3>Repairable. By design.</h3>
+            <p>We believe great technology should stay great, and stay yours. That's why the BoibyPhone 11 Pro is built
+                for <strong>repairability</strong> without compromise.</p>
+            <p>With <strong>minimal tools and time</strong>, and with our step-by-step official <strong>Boiby Repair
+                    Guide</strong>, you can replace or upgrade:
+            <ul>
+                <li>the <strong>display</strong></li>
+                <li><strong>back glass</strong></li>
+                <li><strong>camera modules</strong></li>
+                <li><strong>battery</strong></li>
+                <li><strong>USB-C port</strong></li>
+                <li><strong>logic board</strong></li>
+                <li><strong>front camera</strong></li>
+            </ul>
+            Everything is documented. We provide <strong>full schematics</strong> and component diagrams for every
+            model, right on our website.</p>
+            <p>Our software is <strong>fully open-source</strong>. It's free from any artificial restrictions yet engineered to
+                maintain <strong>industry-leading privacy and security</strong> for all users. Because control,
+                transparency, and trust shouldn't be optional.</p>
+
+            <hr>
+
+            <h3>Better for you. Better for everyone.</h3>
+            <p>Every BoibyPhone 11 Pro includes a <strong>90 W power adapter</strong> and <strong>USB-C to C
+                    cable</strong> in the box, because the full experience matters. Packaging is made from <strong>100
+                    % recycled fiber</strong>, with minimal inks and zero plastics.</p>
+            <p>You can trade in your old BoibyPhone, iPhone, or Android device for credit toward your next upgrade, which can be resold,
+                keeping capable devices still in circulation and waste out of landfills.</p>
+
+            <hr>
+
+            <h3>Available soon.</h3>
+            <p>The BoibyPhone 11 Pro defines what a flagship should be: powerful, beautiful, open, and built to last.</p>
+            <p><strong>Starting at US$1199 / AU$1999.</strong> Available later this year.</p>
+
+            <hr>
+
+            <p><small>Footnotes<br>
+            ¹ Display size is measured diagonally as a full rectangle; actual viewable area is slightly less.
+            ² Performance comparisons based on internal testing against publicly available specifications as of October 2025. Actual performance may vary depending on configuration and workload.<br>
+            ³ Water resistance rating applies to fresh water only; resistance may decrease with normal wear.<br>
+            </small></p>
+
+        </section>
+    </main>
+
+    <footer>
+        <hr>
+        <p style="text-align:center;">© Boiby 2025</p>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('light');
+            document.body.classList.toggle('dark');
+            var b = document.getElementById('theme-toggle');
+            b.textContent = document.body.classList.contains('light') ? 'Switch to Dark Mode' : 'Switch to Light Mode';
         }
-      };
-
-      const baseConfigs = JSON.parse(JSON.stringify(template));
-
-      let selectedModel = null;
-      let selectedOptions = {};
-
-      const $ = q => document.querySelector(q);
-      const $$ = q => Array.from(document.querySelectorAll(q));
-      const cleanLabel = opt => (opt||'').split("(")[0].trim();
-      const priceDelta = opt => {
-        if (!opt) return 0;
-        const m = opt.match(/\+A\$(\d+)/);
-        return m ? parseInt(m[1],10) : 0;
-      };
-      const formatPrice = n => `A$${n.toLocaleString('en-AU')}`;
-
-      function findGroupByName(name) {
-        const groups = $$('#options .group');
-        return groups.find(g => g.querySelector('h3') && g.querySelector('h3').innerText.toLowerCase() === name.toLowerCase());
-      }
-
-      function renderModels() {
-        const container = $('#models');
-        if (!container) return;
-        container.innerHTML = '';
-        Object.keys(baseConfigs).forEach(model => {
-          const cfg = baseConfigs[model];
-          const card = document.createElement('div');
-          card.className = 'card';
-          card.setAttribute('data-model', model);
-          
-          // Create image element
-          const colorFilename = selectedColor.replace(/\s+/g, '');
-          const imageUrl = `BoibyPhone11Pro${colorFilename}.png`;
-          
-          card.innerHTML = `
-            <div class="card-content">
-              <div class="card-image">
-                <img src="${imageUrl}" alt="${model} ${selectedColor}" id="card-image-${model.replace(/\s+/g, '-')}">
-              </div>
-              <div class="card-details">
-                <h2>${model}</h2>
-                <p class="price">From ${formatPrice(cfg.price)}</p>
-                <ul>
-                  <li>${cfg.display}</li>
-                  <li>${cfg.specs[0]}</li>
-                  <li>${cfg.specs[1]}</li>
-                  <li>${cfg.specs[2]}</li>
-                  <li>${cfg.specs[3]}</li>
-                </ul>
-              </div>
-            </div>
-            <button class="select-btn" data-model="${model}">Select</button>
-          `;
-          
-          // Add select button event
-          card.querySelector('.select-btn').addEventListener('click', (e) => {
-            e.stopPropagation();
-            const model = e.target.getAttribute('data-model');
-            selectedModel = model;
-            selectedColor = 'Obsidian'; // Reset to default color
-            
-            const modelsEl = $('#models');
-            if (modelsEl) modelsEl.style.display = 'none';
-            $('#configurator').style.display = 'block';
-            showConfigurator();
-          });
-          
-          container.appendChild(card);
-        });
-      }
-
-      function showConfigurator() {
-        const cfg = baseConfigs[selectedModel];
-        const optionsDiv = $('#options');
-        optionsDiv.innerHTML = '';
-        selectedOptions = {};
-
-        $('#heroTitle').innerText = `Customise your ${selectedModel}`;
-        const heroImage = $('#heroImage');
-        heroImage.innerHTML = `<img src="BoibyPhone11Pro${selectedColor.replace(/\s+/g, '')}.png" alt="${selectedModel} ${selectedColor}" style="width: 100%;">`;
-        
-        // Color selection in the configurator
-        const colorGroup = document.createElement('div');
-        colorGroup.className = 'group';
-        const colorTitle = document.createElement('h3');
-        colorTitle.innerText = 'Colour';
-        colorGroup.appendChild(colorTitle);
-        
-        const colorSelector = document.createElement('div');
-        colorSelector.className = 'color-selector';
-        
-        colors.forEach(color => {
-          const colorPill = document.createElement('div');
-          colorPill.className = `color-pill ${color === selectedColor ? 'selected' : ''}`;
-          colorPill.dataset.color = color;
-          colorPill.innerText = color;
-          
-          colorPill.addEventListener('click', () => {
-            colorSelector.querySelectorAll('.color-pill').forEach(p => p.classList.remove('selected'));    
-            colorPill.classList.add('selected');
-            selectedColor = color;
-
-            const heroImg = heroImage.querySelector('img');
-            heroImg.style.opacity = 0;
-            
-            setTimeout(() => {
-              let colorFilename = selectedColor;
-              if (selectedColor === 'Pacific Blue') colorFilename = 'PacificBlue';
-              heroImg.src = `BoibyPhone11Pro${colorFilename}.png`;
-              heroImg.alt = `${selectedModel} ${selectedColor}`;
-              heroImg.style.opacity = 1;
-            }, 150);
-            
-            renderHeroSummary();
-          });
-          
-          colorSelector.appendChild(colorPill);
-        });
-        
-        colorGroup.appendChild(colorSelector);
-        optionsDiv.appendChild(colorGroup);
-
-        // Storage options
-        const storageGroup = document.createElement('div');
-        storageGroup.className = 'group';
-        const storageTitle = document.createElement('h3');
-        storageTitle.innerText = 'Storage';
-        storageGroup.appendChild(storageTitle);
-
-        cfg.upgrades.storage.forEach((opt, idx) => {
-          const pill = document.createElement('div');
-          pill.className = 'pill';
-          pill.dataset.cat = 'storage';
-          pill.dataset.value = opt;
-          pill.innerHTML = `<span class="label">${cleanLabel(opt)}</span><span class="price-right">${priceDelta(opt) ? ('+A$' + priceDelta(opt)) : ''}</span>`;
-
-          pill.addEventListener('click', () => {
-            Array.from(storageGroup.querySelectorAll('.pill')).forEach(s => s.classList.remove('selected'));
-            pill.classList.add('selected');
-            selectedOptions.storage = pill.dataset.value;
-            renderHeroSummary();
-            updatePrice();
-          });
-
-          // Default selection logic
-          if (idx === 0) {
-            pill.classList.add('selected');
-            selectedOptions.storage = pill.dataset.value;
-          }
-
-          storageGroup.appendChild(pill);
-        });
-
-        optionsDiv.appendChild(storageGroup);
-
-        renderHeroSummary();
-        updatePrice();
-      }
-
-      function renderHeroSummary() {
-        const list = $('#heroList');
-        if (!list) return;
-        list.innerHTML = '';
-        const cfg = baseConfigs[selectedModel];
-        
-        list.appendChild(li(`${selectedModel} — ${cfg.display}`));
-        list.appendChild(li(`Colour: ${selectedColor}`));
-        
-        // Add specifications
-        cfg.specs.forEach(spec => {
-          list.appendChild(li(spec));
-        });
-        
-        // Add storage information
-        if (selectedOptions.storage) {
-          list.appendChild(li(cleanLabel(selectedOptions.storage)));
-        }
-        
-        // Add included items
-        list.appendChild(li("Included in the box:"));
-        cfg.included.forEach(item => {
-          list.appendChild(li(`• ${item}`));
-        });
-      }
-
-      function updatePrice() {
-        const cfg = baseConfigs[selectedModel];
-        let price = cfg.price;
-        
-        Object.keys(selectedOptions).forEach(cat => {
-          price += priceDelta(selectedOptions[cat]);
-        });
-        
-        $('#finalPrice').innerText = `Total: ${formatPrice(price)}`;
-      }
-
-      function showConfirmation() {
-        const cfg = baseConfigs[selectedModel];
-        let price = cfg.price;
-        
-        $('#configurator').style.display = 'none';
-        $('#checkout').style.display = 'none';
-        $('#confirmation').style.display = 'block';
-
-        const colorFilename = selectedColor.replace(/\s+/g, '');
-        $('#confirmationImage').innerHTML = `<img src="BoibyPhone11Pro${colorFilename}.png" alt="${selectedModel} ${selectedColor}">`;
-        
-        const storageOption = selectedOptions.storage || cfg.upgrades.storage[0];
-        let storageSize = '256GB';
-        if (storageOption.includes('512')) storageSize = '512GB';
-        else if (storageOption.includes('1 TB')) storageSize = '1TB';
-        else if (storageOption.includes('2 TB')) storageSize = '2TB';
-
-        $('#confirmationModel').textContent = `${selectedModel} ${storageSize} ${selectedColor}`;
-        
-        // Build confirmation list
-        const list = $('#confirmationList');
-        list.innerHTML = '';
-        
-        list.appendChild(li(`Model: ${selectedModel}`));
-        list.appendChild(li(`Color: ${selectedColor}`));
-        list.appendChild(li(cleanLabel(storageOption)));
-        
-        list.appendChild(li(""));
-        list.appendChild(li("Included in the box:"));
-        cfg.included.forEach(item => {
-          list.appendChild(li(`• ${item}`));
-        });
-        
-        Object.keys(selectedOptions).forEach(cat => {
-          price += priceDelta(selectedOptions[cat]);
-        });
-        
-        $('#confirmationTotal').textContent = `Total: ${formatPrice(price)}`;
-      }
-
-      function li(text) { 
-        const el = document.createElement('li'); 
-        el.textContent = text; 
-        return el; 
-      }
-
-      const backBtn = $('#backBtn');
-      if (backBtn) backBtn.addEventListener('click', () => {
-        $('#configurator').style.display = 'none';
-        $('#models').style.display = 'grid';
-      });
-
-      const confirmationBackBtn = $('#confirmationBackBtn');
-      if (confirmationBackBtn) confirmationBackBtn.addEventListener('click', () => {
-        $('#confirmation').style.display = 'none';
-        $('#models').style.display = 'grid';
-        $('#checkout').style.display = 'flex';
-      });
-
-      const addToBagBtn = $('#addToBagBtn');
-      if (addToBagBtn) addToBagBtn.addEventListener('click', showConfirmation);
-
-      document.addEventListener('DOMContentLoaded', () => {
-        renderModels();
-      });
-    })();
-  </script>
+    </script>
 </body>
+
 </html>
