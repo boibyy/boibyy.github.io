@@ -1,0 +1,209 @@
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Boiby's Website</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="bouncy.css"><style>
+* {
+    font-family: "Inter", serif;
+}
+body.dark svg {
+    filter: invert(1) brightness(2);
+}
+.blocked {
+    width: 100px!important;
+    margin: auto;
+    display: block;
+    margin-bottom: 36px;
+}
+        body {
+margin: 0!important;
+        }
+  
+
+  
+        .warning-margin {
+            margin: 10px auto 0 auto!important;
+            margin-bottom: 12px!important;
+        }
+        .logout {
+            min-width: 80px;
+        }
+        .reactivate {
+            margin: 14px auto 1px auto;
+        }
+        .evidence-image {
+            max-width: 640px;
+            height: auto;
+            max-height: 300px;
+            display: flex;
+            margin-top: 8px;
+            max-width: 100%;
+        }
+        .margins-for-img {
+            margin-top: 2px;
+            margin-left: 6px;
+            margin-right: 6px;
+        }
+        audio {
+            width: 100%;
+            max-width: 400px;
+            display: block;
+            margin-top: 8px;
+        }
+        .evidence-box {
+            margin-top: 12px!important;
+            padding: 12px;
+            display: block;
+            border-radius: 0px;
+        }
+        .inneritem {
+            display: block;
+            margin: 0px;
+        }
+        .violation-section {
+            margin-bottom: 0px;
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+        .classic-violation {
+            margin-bottom: 20px;
+        }
+        .viol {
+            margin: 0px;
+        }
+        #evidenceheading {
+            margin: 0px;
+            line-height: 1em;
+            font-size: 18px;
+        }
+        #violationtype {
+            font-size: 14px;
+        }
+        .ban-box {
+            border-radius: 0px;
+            max-width: 440px !important;
+            box-sizing: border-box;
+        }
+        #abideRules {
+            line-height: 1;
+        }
+        .logoutlink {
+            color: #222;
+        }
+        #evidenceContainer {
+            border-left: 5px solid #c2c2c2;
+            padding-left: 12px;
+            margin-bottom: 14px;
+            margin-left: 1px;
+        }
+        .violation-text {
+            font-weight: 500;
+        }
+        .evidence-content {
+            font-weight: normal;
+            display: inline;
+        }
+        .agree-checkbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0 5px 0;
+            font-family: "Noto Sans", serif;
+            font-size: 14px;
+        }
+        .label {
+            font-family: "Inter", serif;
+            color: #111;
+            font-size: 14px;
+        }
+        .agree-checkbox input {
+            margin-right: 8px;
+        }
+        .reactivate[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+        }
+        #agreeContainer {
+            display: none;
+        }
+
+   
+
+    </style>
+
+    <script src="modal.js"></script>
+    <script src="theme.js"></script>
+    <script src="nav.js"></script>
+</head>
+
+<body class="dark">
+    <header>
+        <img src="boiby.png" class="favicon" alt="Boiby">
+        <a href="#" class="hamburger">☰</a>
+        <nav>
+            <a href="/index" class="link active">Home</a>
+            <a href="/about" class="link">About</a>
+            <a href="/projects" class="link">Projects</a>
+            <a href="/extras" class="link">Extras</a>
+            <a href="/contact" class="link">Contact</a>
+        </nav>
+        <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
+        <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
+    </header>
+
+    <div class="ban-box" style="
+    margin: auto;
+    margin-top: 120px;
+    font-family: 'Inter';
+    max-width: 440px;
+">
+        <h4 id="" style="
+    margin-bottom: 30px;
+    font-size: 23px;
+    text-align: center;
+    margin: 12px 0px 38px 0px;
+    font-weight: 500;
+">Browser Banned</h4><img class="blocked" alt="Device Banned" src="https://cdn-icons-png.flaticon.com/512/17379/17379174.png" style="filter: invert(1) brightness(2)">
+
+        <p id="termsOfUse" style="
+    margin-bottom: 24px;
+    text-align: center;
+    margin-bottom: 12px;
+    line-height: 1.67;
+    font-weight: 350;
+    color: var(--text);
+">This browser has been banned due to severe violations of our website policies. To appeal, send an email to boibyboiby3@gmail.com.</p>
+        <div id="agreeContainer">
+            <div class="agree-checkbox">
+                <input type="checkbox" id="agreeCheckbox">
+                <label for="agreeCheckbox">I agree</label>
+            </div>
+            <button id="reactivateButton" class="reactivate" disabled="" style="display: none;"></button>
+        </div>
+        <button class="primary-blue" style="
+    margin: auto;
+    width: 90%;
+    margin-left: 15px;
+    margin-top: 20px;
+    min-width: 410px;
+"><a href="https://boibyban.github.io/login" class="logoutlink" style="
+    color: #fff!important;
+">OK</a></button>
+    </div>
+    
+    <footer>
+        <hr>
+        <p>© Boiby 2025</p>
+    </footer>
+    
+<script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;6999d5cadd0c4c0c98adbce4898269d6&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+
+</body></html>
