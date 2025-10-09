@@ -1,0 +1,101 @@
+<main>
+    <section id="blog-post" class="heading">
+        <div class="heading-container">
+            <h1 class="text-center header-margin-home">Install or Upgrade Memory in Your Boiby Pro (2025)</h1>
+            <p class="text-center blog-meta">Updated October 9, 2025</p>
+            <img src="/boiby-pro-memory.jpg" class="heading-hero-image-full" alt="Boiby Pro Memory">
+        </div>
+    </section>
+
+    <div class="container">
+        <article class="blog-content">
+
+            <section>
+                <h2 class="section-title">Memory Compatibility</h2>
+                <ul>
+                    <li>Supported memory types: 5600 MHz DDR5 ECC Registered DIMMs (R-DIMM) or Load-Reduced DIMMs (LR-DIMM).</li>
+                    <li>Do <strong>not</strong> mix R-DIMMs and LR-DIMMs—doing so will trigger a memory error flash on the status indicator light.</li>
+                    <li>DIMMs with heatsinks are not supported.</li>
+                    <li>12 DIMM slots available on six-channel memory controller:</li>
+                    <ul>
+                        <li>BX6 Ultra chip: up to 1.5 TB memory.</li>
+                        <li>BX6 Extreme chip: up to 3 TB memory.</li>
+                    </ul>
+                    <li>Supported configurations: 4 or 8 slots for quad-channel, 6 or 12 slots for six-channel, 10 slots for mixed operation.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="section-title">Recommended Practices</h2>
+                <ul>
+                    <li>Use identical memory modules across all slots to maximize performance.</li>
+                    <li>If using R-DIMMs of mixed capacities:
+                        <ul>
+                            <li>Use only R-DIMMs.</li>
+                            <li>Install larger DIMMs in the first slot of each channel pair.</li>
+                        </ul>
+                    </li>
+                    <li>If using LR-DIMMs, all DIMMs must be identical in capacity.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="section-title">Step 1: Remove the Top Cover</h2>
+                <ul>
+                    <li>Shut down your Boiby Pro and wait 5 minutes to cool down.</li>
+                    <li>Unplug all cables except the power cord.</li>
+                    <li>Discharge static by touching the metal housing, then unplug the power cord.</li>
+                    <li>Flip the top latch up, twist left to unlock, and lift the housing straight up.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="section-title">Step 2: Remove DIMMs</h2>
+                <ul>
+                    <li>Slide each lock left to open the DIMM covers.</li>
+                    <li>Locate the DIMM(s) to remove. Push down the ejectors on each end; the DIMM will lift slightly.</li>
+                    <li>Grip the DIMM at the ends and pull straight out—do not twist or force.</li>
+                    <li>Place removed DIMMs in an ESD-protective bag.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="section-title">Step 3: Install DIMMs</h2>
+                <ul>
+                    <li>Locate an empty DIMM slot.</li>
+                    <li>Align the DIMM with the slot and insert gently—ensure the notch is aligned.</li>
+                    <li>Press until the bottom edge touches the gold contacts, then fully seat the DIMM until the ejectors click.</li>
+                    <li>Replace DIMM covers, pressing down until they click.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="section-title">Step 4: Reinstall the Top Cover</h2>
+                <ul>
+                    <li>Lower the housing over the Boiby Pro.</li>
+                    <li>Twist the top latch right and flip down to lock.</li>
+                    <li>Reconnect power, display, and peripherals.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="section-title">Other Configurations</h2>
+                <ul>
+                    <li>Test a single DIMM by installing it in the first slot of a channel - this will enter diagnostic mode on boot.</li>
+                    <li>Test the second slot of a channel by installing DIMMs in both slots of that channel.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="section-title">Tips</h2>
+                <ul>
+                    <li>Always discharge static before touching internal components.</li>
+                    <li>Do not mix R-DIMMs and LR-DIMMs.</li>
+                    <li>Do not use DIMMs with heatsinks—they can damage the slot.</li>
+                    <li>Follow supported memory configurations to avoid boot errors.</li>
+                </ul>
+            </section>
+
+        </article>
+    </div>
+</main>
