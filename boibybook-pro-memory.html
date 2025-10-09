@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Post Template</title>
+    <title>Upgrade BoibyBook Pro memory</title>
     <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="/bouncy.css">
 
@@ -30,7 +30,7 @@
 <main>
     <section id="blog-post" class="heading">
         <div class="heading-container">
-            <h1 class="text-center header-margin-home">Replace the LPCAMM2 Memory Module</h1>
+            <h1 class="text-center header-margin-home">Upgrading the memory in your BoibyBook Pro (2024 and later)</h1>
             <p class="text-center blog-meta">Updated October 9, 2025</p>
             <img src="/boiby-memory.jpg" class="heading-hero-image-full" alt="BoibyBook Pro Memory">
         </div>
@@ -46,65 +46,80 @@
                 <ul>
                     <li><strong>BoibyBook Pro 14-inch B5 (2024) & B6 (2025):</strong> 16 GB, 24 GB, or 32 GB LPDDR5-7500 LPCAMM2 (one module supported).</li>
                     <li><strong>BoibyBook Pro 14-inch & 16-inch B5 Pro (2024) & B6 Pro (2025):</strong> 32 GB, 48 GB, or 64 GB LPDDR5X-8533 LPCAMM2 (one module supported).</li>
-                    <li><strong>BoibyBook Pro 14-inch & 16-inch B5 Max (2024) & B6 Max (2025):</strong> 48 GB, 64 GB, 96 GB, or 128 GB LPDDR5X-8533 LPCAMM2 (two modules supported; both modules must match capacity and timings, and be fully populated, or the computer will not boot).</li>
+                    <li><strong>BoibyBook Pro 14-inch & 16-inch B5 Max (2024) & B6 Max (2025):</strong> 48 GB, 64 GB, 96 GB, or 128 GB LPDDR5X-8533 LPCAMM2 (two modules supported; both modules must match capacity and timing, and sockets must be fully populated, or the system may not boot correctly).</li>
                 </ul>
             </section>
 
             <section>
                 <h2 class="section-title">Before You Begin</h2>
                 <ul>
-                    <li>Check your BoibyBook Pro model and memory compatibility.</li>
-                    <li>Back up your files using Boiby Time or another backup method.</li>
-                    <li>Gather tools: Torx screwdriver (T5 or T6 depending on model), spudger, and optional anti-static wrist strap.</li>
+                    <li>Confirm your exact BoibyBook Pro variant and check its LPCAMM2 socket count and supported capacity.</li>
+                    <li>Back up all data (for example, via Boiby Time or another backup solution).</li>
+                    <li>Prepare tools: Torx (T5, T6) screwdriver, and a plastic spudger or opening pick..</li>
                 </ul>
             </section>
 
             <section>
-                <h2 class="section-title">Step 1: Shut Down and Unplug</h2>
-                <p>Power off your BoibyBook Pro completely and disconnect all cables, including the power adapter.</p>
+                <h2 class="section-title">Step 1: Power Off and Disconnect</h2>
+                <p>Shut down the BoibyBook Pro fully, and unplug all peripherals, power cables, and external devices.</p>
             </section>
 
             <section>
                 <h2 class="section-title">Step 2: Remove the Bottom Cover</h2>
-                <p>Flip the BoibyBook Pro over, remove all Torx screws securing the bottom cover, and lift the cover carefully using a spudger.</p>
+                <p>Flip the unit over. Remove all Torx screws securing the bottom cover.</p>
+                <p>Use a spudger to gently pry up the cover, releasing clips one edge at a time. Lift off and set aside safely.</p>
             </section>
 
             <section>
-                <h2 class="section-title">Step 3: Remove the Old Memory Module</h2>
+                <h2 class="section-title">Step 3: Disconnect Battery</h2>
+                <p>Lift and disconnect the battery connector from the logic board to prevent power during this process.</p>
+            </section>
+
+            <section>
+                <h2 class="section-title">Step 4: Remove the LPCAMM2 Module(s)</h2>
                 <ul>
-                    <li>Locate the LPCAMM2 memory module on the logic board.</li>
-                    <li>Push the side clips outward to release the module.</li>
-                    <li>Lift the module out at an angle, holding it by the edges.</li>
+                    <li>Locate the LPCAMM2 modules on the logic board.</li>
+                    <li>Loosen the three screws to lift the bracket off the module.</li>
+                    <li>Grip the LPCAMM2 board by its edges and carefully lift it straight upward (perpendicular) from the compression connector. Do not touch the contacts.</li>
+                    <li>If your BoibyBoook Pro uses two modules, repeat for the second socket, ensuring both modules match exactly in orientation, and are the same specification.</li>
                 </ul>
             </section>
 
             <section>
-                <h2 class="section-title">Step 4: Install the New Memory Module</h2>
+                <h2 class="section-title">Step 5: Install the New LPCAMM2 Module(s)</h2>
                 <ul>
-                    <li>Align the notch on the new module with the socket.</li>
-                    <li>Insert at a 30° angle and press until the clips click.</li>
-                    <li>For models with two modules (B5 Max/B6 Max), repeat for the second module ensuring both have identical capacity and timings.</li>
+                    <li>Align the new LPCAMM2 module’s alignment pegs and notch with the logic board connector. The orientation must match exactly.</li>
+                    <li>Gently press straight down until the module seats flush with the connector. Avoid tilting.</li>
+                    <li>Place the bracket back over the module and tighten screws in a symmetrical sequence (center → left → right). Do not over-torque</li>
+                    <li>For dual-module systems, install the second LPCAMM2 module in the same way, ensuring both modules are identical in capacity, speed, and orientation.</li>
                 </ul>
             </section>
 
             <section>
-                <h2 class="section-title">Step 5: Reassemble and Check</h2>
+                <h2 class="section-title">Step 6: Reconnect Battery & Reassemble</h2>
                 <ul>
-                    <li>Replace the bottom cover and secure all Torx screws.</li>
-                    <li>Reconnect power and peripherals.</li>
-                    <li>Power on the BoibyBook Pro and verify the new memory is recognized under <strong>About This BoibyBook → Memory</strong>.</li>
+                    <li>Reattach the battery connector to the logic board.</li>
                 </ul>
             </section>
 
             <section>
-                <h2 class="section-title">Tips</h2>
+                <h2 class="section-title">Step 7: Power On and Verify</h2>
                 <ul>
-                    <li>Use Boiby-certified LPCAMM2 modules for best performance.</li>
-                    <li>Handle all components carefully to prevent static damage.</li>
-                    <li>Memory only fits one way—do not force it into the socket.</li>
+                    <li>Reconnect power and peripherals, then power on the BoibyBook Pro.</li>
+                    <li>Open <strong>About This BoibyBook → Memory</strong> and confirm the full capacity and correct speed of the newly installed LPCAMM2 module(s).</li>
+                    <li>If the system fails to boot or does not detect the memory, shut down and reseat the module(s), ensuring alignment and full contact. Mismatched modules or incorrect seating can prevent boot.</li>
                 </ul>
             </section>
 
+            <section>
+                <h2 class="section-title">Tips & Notes</h2>
+                <ul>
+                    <li>Always handle the LPCAMM2 by its edges; do not touch the contacts.</li>
+                    <li>Use Boiby-certified LPCAMM2 modules matched in timing, speed, and revision to guarantee compatibility.</li>
+                    <li>Do not force a module into place—if it does not seat cleanly, double-check orientation and alignment pegs.</li>
+                    <li>When tightening bracket screws, do so gently but firmly; excess torque can warp the module or logic board.</li>
+                </ul>
+            </section>
         </article>
     </div>
 </main>
