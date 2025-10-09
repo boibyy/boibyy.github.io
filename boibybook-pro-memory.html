@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Post Template</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/bouncy.css">
+
+    <script src="/modal.js"></script>
+    <script src="/theme.js"></script>
+    <script src="/nav.js"></script>
+</head>
+
+<body class="dark">
+    <header>
+        <img src="/boiby.png" class="favicon" alt="Boiby">
+        <a href="#" class="hamburger">☰</a>
+        <nav>
+            <a href="/" class="link">Home</a>
+            <a href="/about" class="link">About</a>
+            <a href="/projects" class="link">Projects</a>
+            <a href="/extras" class="link">Extras</a>
+            <a href="/contact" class="link">Contact</a>
+        </nav>
+        <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
+        <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
+    </header>
+
+<main>
+    <section id="blog-post" class="heading">
+        <div class="heading-container">
+            <h1 class="text-center header-margin-home">Replace the LPCAMM2 Memory Module</h1>
+            <p class="text-center blog-meta">Updated October 9, 2025</p>
+            <img src="/boiby-memory.jpg" class="heading-hero-image-full" alt="BoibyBook Pro Memory">
+        </div>
+    </section>
+
+    <div class="container">
+        <article class="blog-content">
+
+            <section>
+                <h2 class="section-title">Memory Compatibility
+                    <img src="/boiby.png" class="bouncy-image" alt="Boiby Icon">
+                </h2>
+                <ul>
+                    <li><strong>BoibyBook Pro 14-inch B5 (2024) & B6 (2025):</strong> 16 GB, 24 GB, or 32 GB LPDDR5-7500 LPCAMM2 (one module supported).</li>
+                    <li><strong>BoibyBook Pro 14-inch & 16-inch B5 Pro (2024) & B6 Pro (2025):</strong> 32 GB, 48 GB, or 64 GB LPDDR5X-8533 LPCAMM2 (one module supported).</li>
+                    <li><strong>BoibyBook Pro 14-inch & 16-inch B5 Max (2024) & B6 Max (2025):</strong> 48 GB, 64 GB, 96 GB, or 128 GB LPDDR5X-8533 LPCAMM2 (two modules supported; both modules must match capacity and timings, and be fully populated, or the computer will not boot).</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="section-title">Before You Begin</h2>
+                <ul>
+                    <li>Check your BoibyBook Pro model and memory compatibility.</li>
+                    <li>Back up your files using Boiby Time or another backup method.</li>
+                    <li>Gather tools: Torx screwdriver (T5 or T6 depending on model), spudger, and optional anti-static wrist strap.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="section-title">Step 1: Shut Down and Unplug</h2>
+                <p>Power off your BoibyBook Pro completely and disconnect all cables, including the power adapter.</p>
+            </section>
+
+            <section>
+                <h2 class="section-title">Step 2: Remove the Bottom Cover</h2>
+                <p>Flip the BoibyBook Pro over, remove all Torx screws securing the bottom cover, and lift the cover carefully using a spudger.</p>
+            </section>
+
+            <section>
+                <h2 class="section-title">Step 3: Remove the Old Memory Module</h2>
+                <ul>
+                    <li>Locate the LPCAMM2 memory module on the logic board.</li>
+                    <li>Push the side clips outward to release the module.</li>
+                    <li>Lift the module out at an angle, holding it by the edges.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="section-title">Step 4: Install the New Memory Module</h2>
+                <ul>
+                    <li>Align the notch on the new module with the socket.</li>
+                    <li>Insert at a 30° angle and press until the clips click.</li>
+                    <li>For models with two modules (B5 Max/B6 Max), repeat for the second module ensuring both have identical capacity and timings.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="section-title">Step 5: Reassemble and Check</h2>
+                <ul>
+                    <li>Replace the bottom cover and secure all Torx screws.</li>
+                    <li>Reconnect power and peripherals.</li>
+                    <li>Power on the BoibyBook Pro and verify the new memory is recognized under <strong>About This BoibyBook → Memory</strong>.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="section-title">Tips</h2>
+                <ul>
+                    <li>Use Boiby-certified LPCAMM2 modules for best performance.</li>
+                    <li>Handle all components carefully to prevent static damage.</li>
+                    <li>Memory only fits one way—do not force it into the socket.</li>
+                </ul>
+            </section>
+
+        </article>
+    </div>
+</main>
+    
+    <footer>
+        <hr>
+        <p>© Boiby 2025</p>
+    </footer>
+</body>
+</html>
