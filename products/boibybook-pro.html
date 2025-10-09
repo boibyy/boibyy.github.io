@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BoibyBook Pro — Boiby</title>
+  <style>
+    /* -------------------------
+       Basic page + typography
+       ------------------------- */
+    :root{
+      --bg:#070707;
+      --panel:#0f0f10;
+      --muted:#9ea3a8;
+      --accent-1: #0ea5a4; /* teal-ish */
+      --accent-2: #6b46ff; /* purple */
+      --card-shadow: 0 20px 60px rgba(0,0,0,0.7);
+      --rounded: 18px;
+      --glass: rgba(255,255,255,0.03);
+    }
+
+    html,body{height:100%;margin:0;background:var(--bg);color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;}
+    a{color:inherit;text-decoration:none}
+    main{max-width:1220px;margin:120px auto 80px;padding:0 28px;box-sizing:border-box;}
+    h1,h2,h3{margin:0 0 12px 0;line-height:1.02}
+    p{margin:0 0 18px;color:var(--muted);font-size:15px;max-width:900px}
+
+    /* -------------------------
+       Header (UNCHANGED — exact as provided)
+       ------------------------- */
+    .topbar {
+      background: #111;
+      border-bottom: 1px solid #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+    }
+    .topbar a {
+      color: #ccc;
+      text-decoration: none;
+      margin: 0 12px;
+      font-size: 14px;
+    }
+    .topbar a:hover { color: #fff; }
+
+    /* -------------------------
+       Highlights horizontal carousel (Apple-like)
+       ------------------------- */
+    .highlights {
+      margin: 0 auto 38px;
+      text-align: center;
+    }
+    .highlights .title {
+      font-size: 34px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #f5f7f8;
+    }
+    .highlights .subnote { color: var(--muted); font-size:13px; margin-bottom:28px; display:block; }
+
+    .carousel-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* horizontal scroll container */
+    .carousel {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(320px, 1fr);
+      gap: 28px;
+      width: 100%;
+      overflow-x: auto;
+      padding: 28px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      box-sizing: border-box;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent 40%);
+    }
+
+    .carousel::-webkit-scrollbar{height:10px}
+    .carousel::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.06);border-radius:999px}
+
+    .card {
+      scroll-snap-align: center;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding: 20px;
+      border-radius: 12px;
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--card-shadow);
+      box-sizing: border-box;
+      position:relative;
+    }
+
+    .card .overlay-title { font-weight:700; font-size:18px; color:#dfe6ea; text-align:left; margin-bottom:8px; }
+    .card .overlay-sub { color:var(--muted); font-size:13px; text-align:left; margin-bottom:12px; }
+
+    .card .hero-placeholder {
+      background: linear-gradient(120deg, rgba(14,165,164,0.06), rgba(107,70,255,0.04) 60%);
+      border-radius: 10px;
+      height: 160px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#7a8286;
+      font-size:16px;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    /* rounded big center card style */
+    .card.large {
+      border-radius: 20px;
+      padding: 28px;
+    }
+
+    /* carousel controls (dots + play) */
+    .carousel-controls {
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:center;
+      margin-top:22px;
+    }
+
+    .dot {
+      width:14px;height:8px;border-radius:999px;background:rgba(255,255,255,0.08);border:none;cursor:pointer;
+      display:inline-block;transition:all .25s ease;
+    }
+    .dot.active{background:linear-gradient(90deg,#fff,#bbb);width:40px}
+
+    .play-btn {
+      width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.03);border:none;color:#fff;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;
+    }
+
+    /* -------------------------
+       Pro All Out / Performance section
+       ------------------------- */
+    .performance {
+      margin-top:56px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:28px;
+    }
+
+    .perf-hero {
+      text-align:left;
+    }
+    .perf-hero .kicker { font-size:13px;color:var(--muted);letter-spacing:1px;font-weight:600;margin-bottom:8px }
+    .perf-hero h1 { font-size:56px; margin:0 0 12px; color:#fff }
+    .perf-hero p { max-width:720px; color:var(--muted); font-size:16px; line-height:1.6 }
+
+    .chip-row {
+      display:flex;
+      gap:18px;
+      margin-top:24px;
+      flex-wrap:wrap;
+    }
+
+    .chip {
+      background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.008));
+      border-radius:14px;
+      padding:18px;
+      flex: 1 1 300px;
+      box-sizing:border-box;
+    }
+    .chip .chip-box {
+      height:120px;border-radius:10px;background:linear-gradient(120deg,rgba(14,165,164,0.06),rgba(107,70,255,0.04));display:flex;align-items:center;justify-content:center;color:#9aa2a6;font-weight:700;font-size:20px;border:1px solid rgba(255,255,255,0.03);
+      margin-bottom:14px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+    }
+    .chip h3{margin:0 0 8px 0;font-size:20px}
+    .chip p{color:var(--muted);font-size:14px;margin-bottom:12px}
+
+    /* tiny divider line and stat area */
+    .chip .divider{height:1px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));margin:12px 0;border-radius:4px}
+    .stats {display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+
+    /* simple bar chart style (apple-like thin bars) */
+    .bar-chart {
+      width:100%;
+      display:flex;
+      gap:10px;
+      align-items:end;
+      height:70px;
+      margin-top:8px;
+    }
+    .bar-col {flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+    .bar {
+      width:100%;
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border-radius:6px;
+      position:relative;
+      overflow:hidden;
+      min-height:8px;
+      align-self:flex-end;
+      transition:height .8s cubic-bezier(.2,.9,.2,1);
+    }
+    .bar.fill { background:linear-gradient(90deg,var(--accent-1),var(--accent-2)); box-shadow:0 6px 24px rgba(107,70,255,0.06)}
+    .bar-label { font-size:12px;color:var(--muted); margin-top:6px; text-align:center }
+
+    /* small numeric labels under charts */
+    .chart-foot { display:flex; gap:22px; justify-content:space-between; margin-top:12px; color:var(--muted); font-size:13px; flex-wrap:wrap }
+
+    /* -------------------------
+       Display / Ports / Design / Repair sections
+       ------------------------- */
+    .section {
+      margin-top:56px;
+      padding:28px;
+      border-radius:14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+      box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+    }
+
+    .two-col { display:flex; gap:28px; align-items:stretch; flex-wrap:wrap }
+    .col { flex:1 1 360px; }
+
+    .placeholder-large {
+      border-radius:14px;
+      height:320px;
+      background:linear-gradient(180deg, rgba(14,165,164,0.04), rgba(107,70,255,0.02));
+      border:1px solid rgba(255,255,255,0.02);
+      display:flex;align-items:center;justify-content:center;color:#8b9397;font-size:16px;
+    }
+
+    .ports-grid { display:flex; flex-wrap:wrap; gap:12px; margin-top:18px }
+    .port { width:140px; min-height:76px; border-radius:10px; background:var(--glass); border:1px solid rgba(255,255,255,0.02); display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted); font-size:13px; }
+
+    .design-cards { display:flex; gap:16px; margin-top:18px; flex-wrap:wrap }
+    .design-card { flex:1 1 220px; padding:14px; border-radius:12px; background:rgba(255,255,255,0.01); border:1px solid rgba(255,255,255,0.02); color:var(--muted); }
+
+    /* repair */
+    .repair-list { display:flex; gap:18px; flex-wrap:wrap; margin-top:12px }
+    .repair-item { background:rgba(255,255,255,0.01); padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02); color:var(--muted); flex:1 1 200px; }
+
+    /* responsive */
+    @media (max-width: 980px){
+      main{margin-top:100px;padding:0 18px}
+      .perf-hero h1 { font-size:42px }
+      .carousel { padding:20px; gap:18px }
+      .card .hero-placeholder { height:140px }
+    }
+    @media (max-width:640px){
+      .chip-row { flex-direction:column }
+      .two-col { flex-direction:column }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header EXACT: unchanged -->
+  <div class="topbar">
+    <div class="logo"><a href="index.html">Boiby</a></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="/products/indexproducts.html">Products</a>
+    </nav>
+  </div>
+
+  <main>
+    <!-- HIGHLIGHTS CAROUSEL -->
+    <section class="highlights" aria-label="Highlights">
+      <div class="title">Get the highlights.</div>
+      <span class="subnote">Watch the announcement • Watch in ASL</span>
+
+      <div class="carousel-wrap">
+        <div class="carousel" id="carousel" role="list">
+          <!-- Card 1 -->
+          <article class="card large" role="listitem" aria-label="Boiby Intelligence">
+            <div>
+              <div class="overlay-title">Built for Boiby Intelligence.</div>
+              <div class="overlay-sub">Personal, private, powerful.</div>
+              <div class="hero-placeholder">Boiby Intelligence — Placeholder App Scene</div>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="card large" role="listitem" aria-label="Chips">
+            <div>
+              <div class="overlay-title">B6 Pro and B6 Max.</div>
+              <div class="overlay-sub">Ready for whatever’s impossible.</div>
+              <div class="hero-placeholder">Chips placeholder — B6 family</div>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="card large" role="listitem" aria-label="Battery">
+            <div>
+              <div class="overlay-title">Longest battery life ever in a BoibyBook.</div>
+              <div class="overlay-sub">Up to 24 hours.</div>
+              <div class="hero-placeholder">Battery life / lifestyle placeholder</div>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="card large" role="listitem" aria-label="Display">
+            <div>
+              <div class="overlay-title">Display brilliance.</div>
+              <div class="overlay-sub">High brightness, HDR, and true-to-life color.</div>
+              <div class="hero-placeholder">Display placeholder — HDR panel</div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- controls -->
+      <div class="carousel-controls" aria-hidden="false">
+        <button class="dot active" data-i="0" aria-label="Slide 1"></button>
+        <button class="dot" data-i="1" aria-label="Slide 2"></button>
+        <button class="dot" data-i="2" aria-label="Slide 3"></button>
+        <button class="dot" data-i="3" aria-label="Slide 4"></button>
+        <button class="play-btn" id="playPause" aria-pressed="true" title="Pause auto-play">⏸</button>
+      </div>
+    </section>
+
+    <!-- PERFORMANCE -->
+    <section class="performance" aria-labelledby="perf-title">
+      <div class="perf-hero">
+        <div class="kicker">PERFORMANCE</div>
+        <h1 id="perf-title">Pro all out.</h1>
+        <p>
+          BoibyBook Pro features the most advanced line-up of chips ever designed for a pro laptop.
+          Phenomenal single- and multi-threaded CPU performance, faster unified memory, and machine learning accelerators —
+          the B6 family gives you speed and capability you’ve never thought possible.
+        </p>
+      </div>
+
+      <!-- chips + charts -->
+      <div class="chip-row" role="list">
+        <!-- B6 (baseline) -->
+        <div class="chip" role="listitem" aria-label="B6">
+          <div class="chip-box">B6</div>
+          <h3>B6</h3>
+          <p>Efficient performance for everyday pro workflows. Great battery life and smart thermal tuning.</p>
+          <div class="divider"></div>
+          <div class="chart-title" style="font-size:13px;color:var(--muted)">Typical CPU performance vs older BoibyBooks</div>
+          <div class="bar-chart" data-targets="45,70,100">
+            <div class="bar-col">
+              <div class="bar" style="height:12%"></div>
+              <div class="bar-label">B4 Pro</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar" style="height:32%"></div>
+              <div class="bar-label">B5 Max</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar fill" style="height:60%"></div>
+              <div class="bar-label">B6</div>
+            </div>
+          </div>
+          <div class="chart-foot"><span>B6 vs B4 Pro: ~2×</span><span>B6 vs B5 Max: ~1.25×</span></div>
+        </div>
+
+        <!-- B6 Pro -->
+        <div class="chip" role="listitem" aria-label="B6 Pro">
+          <div class="chip-box">B6 Pro</div>
+          <h3>B6 Pro</h3>
+          <p>Pro-level compute for demanding creative and engineering workloads — balanced power and efficiency.</p>
+          <div class="divider"></div>
+          <div class="chart-title" style="font-size:13px;color:var(--muted)">GPU/ML throughput vs older BoibyBooks</div>
+          <div class="bar-chart" data-targets="35,80,170">
+            <div class="bar-col">
+              <div class="bar" style="height:8%"></div>
+              <div class="bar-label">B4 Pro</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar" style="height:40%"></div>
+              <div class="bar-label">B5 Max</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar fill" style="height:86%"></div>
+              <div class="bar-label">B6 Pro</div>
+            </div>
+          </div>
+          <div class="chart-foot"><span>B6 Pro is up to 3× faster than B4 Pro</span><span>and faster than B5 Max</span></div>
+        </div>
+
+        <!-- B6 Max -->
+        <div class="chip" role="listitem" aria-label="B6 Max">
+          <div class="chip-box">B6 Max</div>
+          <h3>B6 Max</h3>
+          <p>The maximum configuration for uncompromising creators — more GPU cores, higher memory bandwidth, extreme ML acceleration.</p>
+          <div class="divider"></div>
+          <div class="chart-title" style="font-size:13px;color:var(--muted)">Peak render performance vs older BoibyBooks</div>
+          <div class="bar-chart" data-targets="30,95,210">
+            <div class="bar-col">
+              <div class="bar" style="height:6%"></div>
+              <div class="bar-label">B4 Pro</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar" style="height:48%"></div>
+              <div class="bar-label">B5 Max</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar fill" style="height:95%"></div>
+              <div class="bar-label">B6 Max</div>
+            </div>
+          </div>
+          <div class="chart-foot"><span>B6 Max up to 3.5× faster than B4 Pro</span><span>and significantly faster than B5 Max</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISPLAY -->
+    <section class="section" aria-labelledby="display-title">
+      <div class="two-col">
+        <div class="col">
+          <h2 id="display-title">Display — Brilliance on every pixel</h2>
+          <p>
+            A new high-brightness mini-LED panel with full HDR support, extreme color accuracy, and variable refresh rates.
+            Perfect for color-critical work and immersive entertainment — with true blacks and unmatched contrast.
+          </p>
+
+          <div class="design-cards" style="margin-top:18px">
+            <div class="design-card">
+              <strong>Liquid Retina HDR</strong><br><small style="color:var(--muted)">Extreme contrast and peak brightness for HDR assets.</small>
+            </div>
+            <div class="design-card">
+              <strong>Wide color (P3)</strong><br><small style="color:var(--muted)">Accurate colors for pro workflows.</small>
+            </div>
+            <div class="design-card">
+              <strong>ProMotion</strong><br><small style="color:var(--muted)">Adaptive refresh up to 120Hz.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="placeholder-large">Display image placeholder</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTS -->
+    <section class="section" aria-labelledby="ports-title">
+      <h2 id="ports-title">More connections. More possibilities.</h2>
+      <p>BoibyBook Pro offers a flexible selection of ports so you can connect pro displays, fast storage, and more — without adapters.</p>
+
+      <div class="ports-grid">
+        <div class="port"><strong>MagSafe</strong><div style="font-size:12px;margin-top:6px;color:var(--muted)">Fast charging</div></div>
+        <div class="port"><strong>3× Thunderbolt</strong><div style="font-size:12px;margin-top:6px;color:var(--muted)">Display & high-speed I/O</div></div>
+        <div class="port"><strong>HDMI</strong><div style="font-size:12px;margin-top:6px;color:var(--muted)">4K/120Hz output</div></div>
+        <div class="port"><strong>SD Card</strong><div style="font-size:12px;margin-top:6px;color:var(--muted)">UHS-II</div></div>
+        <div class="port"><strong>3.5 mm</strong><div style="font-size:12px;margin-top:6px;color:var(--muted)">High-impedance headphone</div></div>
+      </div>
+    </section>
+
+    <!-- DESIGN -->
+    <section class="section" aria-labelledby="design-title">
+      <div class="two-col">
+        <div class="col">
+          <h2 id="design-title">Design — Power meets poise</h2>
+          <p>Precision milled from a single aluminum block, BoibyBook Pro balances strength, thermal performance, and refined simplicity. The magnetic lid seal, slim bezels, and tapered profile make it unmistakably pro.</p>
+
+          <div class="design-cards" style="margin-top:18px">
+            <div class="design-card"><strong>Unibody Aluminum</strong><br><small style="color:var(--muted)">Durable and premium feel.</small></div>
+            <div class="design-card"><strong>Quiet fans</strong><br><small style="color:var(--muted)">Active cooling tuned for silence.</small></div>
+            <div class="design-card"><strong>Keyboard & Trackpad</strong><br><small style="color:var(--muted)">Tactile keys, large precision trackpad.</small></div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="placeholder-large">Design / materials placeholder</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REPAIRABILITY -->
+    <section class="section" aria-labelledby="repair-title">
+      <h2 id="repair-title">Repairability — Built to last. Designed to be fixed.</h2>
+      <p>We engineered BoibyBook Pro for longevity. Key components are serviceable: modular battery, user-accessible SSD, and streamlined repair guides — reducing waste and keeping your machine running longer.</p>
+
+      <div class="repair-list">
+        <div class="repair-item"><strong>Modular battery</strong><div style="color:var(--muted);margin-top:6px;font-size:13px">Replaceable by authorized service</div></div>
+        <div class="repair-item"><strong>Serviceable SSD</strong><div style="color:var(--muted);margin-top:6px;font-size:13px">Upgradable storage</div></div>
+        <div class="repair-item"><strong>Accessible internals</strong><div style="color:var(--muted);margin-top:6px;font-size:13px">Fewer glued assemblies</div></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    /* -------------------------
+       Carousel behaviour (snap + dots + autoplay)
+       ------------------------- */
+    (function(){
+      const carousel = document.getElementById('carousel');
+      const dots = Array.from(document.querySelectorAll('.dot'));
+      const playBtn = document.getElementById('playPause');
+      let autoplay = true;
+      let autoTimer = null;
+
+      function setActiveDot(i){
+        dots.forEach(d=>d.classList.remove('active'));
+        if(dots[i]) dots[i].classList.add('active');
+      }
+
+      // map the visible items positions to index
+      function snapToIndex(i){
+        const children = Array.from(carousel.querySelectorAll('.card'));
+        const target = children[i];
+        if(!target) return;
+        const left = target.offsetLeft - (carousel.clientWidth - target.clientWidth)/2;
+        carousel.scrollTo({left, behavior:'smooth'});
+        setActiveDot(i);
+      }
+
+      // calculate nearest centered index on scroll
+      function nearestIndex(){
+        const children = Array.from(carousel.querySelectorAll('.card'));
+        const center = carousel.scrollLeft + carousel.clientWidth / 2;
+        let bestIndex = 0, bestDist = Infinity;
+        children.forEach((c,i)=>{
+          const cCenter = c.offsetLeft + c.clientWidth/2;
+          const d = Math.abs(center - cCenter);
+          if(d < bestDist){ bestDist = d; bestIndex = i; }
+        });
+        return bestIndex;
+      }
+
+      // dot clicks
+      dots.forEach((dot,i)=>dot.addEventListener('click',()=>{ snapToIndex(i); }));
+
+      // sync dots on scroll (debounced)
+      let scTimer = null;
+      carousel.addEventListener('scroll', ()=> {
+        if(scTimer) clearTimeout(scTimer);
+        scTimer = setTimeout(()=> {
+          const i = nearestIndex();
+          setActiveDot(i);
+        }, 120);
+      });
+
+      // autoplay
+      function startAuto(){
+        stopAuto();
+        autoTimer = setInterval(()=> {
+          const i = nearestIndex();
+          const children = Array.from(carousel.querySelectorAll('.card'));
+          const next = (i + 1) % children.length;
+          snapToIndex(next);
+        }, 6000);
+        autoplay = true;
+        playBtn.innerText = '⏸';
+        playBtn.setAttribute('aria-pressed','true');
+      }
+      function stopAuto(){
+        if(autoTimer) clearInterval(autoTimer);
+        autoTimer = null;
+        autoplay = false;
+        playBtn.innerText = '▶';
+        playBtn.setAttribute('aria-pressed','false');
+      }
+      playBtn.addEventListener('click', ()=> {
+        if(autoplay) stopAuto(); else startAuto();
+      });
+      // start by centering first
+      window.addEventListener('load', ()=> { snapToIndex(0); startAuto(); });
+
+      // keyboard navigation
+      window.addEventListener('keydown', (e)=>{
+        if(e.key === 'ArrowLeft') snapToIndex(Math.max(0, nearestIndex()-1));
+        if(e.key === 'ArrowRight') snapToIndex(nearestIndex()+1);
+      });
+    })();
+
+    /* -------------------------
+       Animate simple bar charts (grow height)
+       ------------------------- */
+    (function(){
+      // For each .bar-chart in document, animate the third column as highlighted
+      const charts = document.querySelectorAll('.bar-chart');
+      charts.forEach((chart)=>{
+        // read current child bars and their inline heights as percentages; we'll animate them slightly to 'fill'
+        const cols = chart.querySelectorAll('.bar-col .bar');
+        // small delay for nicer effect
+        setTimeout(()=>{
+          cols.forEach((b, idx)=>{
+            // if has class 'fill' leave height as-is or increase
+            const base = parseFloat(b.style.height) || 20;
+            // compute final height depending on presence of .fill
+            let final = base;
+            if(b.classList.contains('fill')) final = Math.min(96, base + 28 + (idx*5));
+            else final = Math.min(70, base + 12 + (idx*6));
+            b.style.height = final + '%';
+            // add subtle glow to filled bars
+            if(b.classList.contains('fill')){
+              b.style.boxShadow = '0 10px 40px rgba(107,70,255,0.14)';
+            }
+          });
+        }, 250 + (Math.random()*400));
+      });
+    })();
+  </script>
+</body>
+</html>
