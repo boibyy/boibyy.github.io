@@ -11,7 +11,6 @@
     <script src="theme.js"></script>
     <script src="nav.js"></script>
 
-    <!-- Inline configurator styles (updated per request) -->
     <style>
         /* Configurator: layout */
         .configurator {
@@ -27,10 +26,9 @@
             }
         }
 
-        /* make the panel visually sit on page background (no background card) */
         .config-panel {
-            background: transparent;      /* transparent so options sit on plain page background */
-            padding: 1rem 0;              /* keep vertical spacing but remove heavy card feel */
+            background: transparent;      
+            padding: 1rem 0;              
             border-radius: 0;
             box-shadow: none;
             display: flex;
@@ -44,7 +42,6 @@
             align-items: flex-start;
         }
 
-        /* keep product-image as-is but remove gradient to match request focus on options */
         .product-image {
             width: 240px;
             height: 160px;
@@ -67,11 +64,10 @@
         .product-meta h3 { margin: 0 0 6px 0; font-size: 18px; }
         .product-meta p { margin: 0; font-size: 14px; color: var(--secondary-text); }
 
-        /* Option groups: transparent background, vertical-only spacing */
         .option-group {
             border-radius: 0;
-            padding: 0; /* vertical spacing handled inside option-row now */
-            background: transparent; /* no card background */
+            padding: 0; 
+            background: transparent; 
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
@@ -84,58 +80,64 @@
             color: var(--text);
         }
 
-        /* Stack options vertically and make them full width */
+
         .option-row {
             display: flex;
             flex-direction: column;   /* vertical only */
-            gap: 10px;                /* even spacing between selector items */
-            align-items: stretch;     /* make labels full width */
+            gap: 10px;                
+            align-items: stretch;     
             margin: 0;
-            padding: 8px 0;           /* vertical breathing room around the whole set */
+            padding: 8px 0;           
         }
 
-        /* Labels become block-like full-width selector rows.
-           Vertical-only padding inside each label (top/bottom heavier), minimal horizontal padding so content aligns. */
+
         .option-row label {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 12px 14px;          /* vertical emphasis, small horizontal padding retained for content */
+            padding: 14px 14px;          
             border-radius: 8px;
             cursor: pointer;
             user-select: none;
             background: transparent;     /* no fill */
-            border: 1px solid rgba(255,255,255,1); /* white stroke when not selected */
-            transition: border-color 0.12s ease, background 0.12s ease;
-            font-size: 14px;
-            justify-content: space-between; /* keep price badge on right */
+            border: 1px solid rgba(255,255,255,1); 
+            transition: border-color 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+            font-size: 17px; 
+            justify-content: flex-start; /* left align text */
             box-shadow: none;
+            color: var(--text);
         }
 
-        /* ensure borders are clearly visible in dark mode */
         body.dark .option-row label {
             border-color: rgba(255,255,255,0.98);
             color: var(--text);
         }
 
-        /* Selected: blue stroke, no fill */
         .option-row label.selected {
             border-color: #335fff; /* blue stroke */
+            box-shadow: 0 0 18px rgba(51,95,255,0.28), inset 0 0 6px rgba(51,95,255,0.06);
             background: transparent;
         }
 
-        /* keep price badge aligned at right */
+        .option-row input[type="radio"],
+        .option-row input[type="checkbox"] {
+            position: absolute !important;
+            opacity: 0 !important;
+            width: 0 !important;
+            height: 0 !important;
+            pointer-events: none;
+        }
+
         .price-badge {
-            margin-left: 12px;
+            margin-left: auto;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 14px;
             padding: 3px 6px;
             border-radius: 6px;
             background: transparent;
             color: var(--text);
         }
 
-        /* inputs acccent */
         .option-row input[type="radio"],
         .option-row input[type="checkbox"] {
             accent-color: #335fff;
@@ -209,7 +211,7 @@
                 </div>
 
                 <div class="configurator" role="region" aria-label="BoibyBook Pro S14 configurator">
-                    <!-- Left: options (UNCHANGED markup) -->
+                    <!-- Left: options -->
                     <div>
                         <!-- Display -->
                         <div class="option-group" id="opt-display">
@@ -217,19 +219,19 @@
                             <div class="option-row" role="radiogroup" aria-labelledby="display-label">
                                 <label data-value="base" class="selected">
                                     <input type="radio" name="display" value="base" checked>
-                                    14.1" 1920×1200 120Hz LCD (sRGB) display
+                                    <span>14.1" 1920×1200 120Hz LCD (sRGB) display</span>
                                     <span class="price-badge"></span>
                                 </label>
 
                                 <label data-value="d1">
                                     <input type="radio" name="display" value="d1">
-                                    14.1" 2560×1600 120Hz LCD (DCI-P3) display
+                                    <span>14.1" 2560×1600 120Hz LCD (DCI-P3) display</span>
                                     <span class="price-badge">+A$200</span>
                                 </label>
 
                                 <label data-value="d2">
                                     <input type="radio" name="display" value="d2">
-                                    14.1" 2880×1800 165Hz OLED (DCI-P3) display
+                                    <span>14.1" 2880×1800 165Hz OLED (DCI-P3) display</span>
                                     <span class="price-badge">+A$600</span>
                                 </label>
                             </div>
@@ -241,13 +243,13 @@
                             <div class="option-row" role="radiogroup">
                                 <label class="selected">
                                     <input type="radio" name="cpu" value="r5" checked>
-                                    AMD Ryzen 5 340 (6 cores, 12 threads, up to 4.8 GHz) Zen 5 processor
+                                    <span>AMD Ryzen 5 340 (6 cores, 12 threads, up to 4.8 GHz) Zen 5 processor</span>
                                     <span class="price-badge"></span>
                                 </label>
 
                                 <label>
                                     <input type="radio" name="cpu" value="r7">
-                                    AMD Ryzen 7 350 (8 cores, 16 threads, up to 5.0 GHz) Zen 5 processor
+                                    <span>AMD Ryzen 7 350 (8 cores, 16 threads, up to 5.0 GHz) Zen 5 processor</span>
                                     <span class="price-badge">+A$350</span>
                                 </label>
                             </div>
@@ -255,29 +257,29 @@
 
                         <!-- Memory -->
                         <div class="option-group" id="opt-ram">
-                            <h4>Memory ()</h4>
+                            <h4>Memory</h4>
                             <div class="option-row" role="radiogroup">
                                 <label class="selected">
                                     <input type="radio" name="ram" value="16" checked>
-                                    16 GB of 7500 MHz LPDDR5 (LCAMM2) memory
+                                    <span>16 GB of 7500 MHz LPDDR5 (CAMM2) memory</span>
                                     <span class="price-badge"></span>
                                 </label>
 
                                 <label>
                                     <input type="radio" name="ram" value="32">
-                                    32 GB of 7500 MHz LPDDR5 (LCAMM2) memory
+                                    <span>32 GB of 7500 MHz LPDDR5 (CAMM2) memory</span>
                                     <span class="price-badge">+A$200</span>
                                 </label>
 
                                 <label>
                                     <input type="radio" name="ram" value="48">
-                                    48 GB of 7500 MHz LPDDR5 (LCAMM2) memory
+                                    <span>48 GB of 7500 MHz LPDDR5 (CAMM2) memory</span>
                                     <span class="price-badge">+A$400</span>
                                 </label>
 
                                 <label>
                                     <input type="radio" name="ram" value="64">
-                                    64 GB of 7500 MHz LPDDR5 (LCAMM2) memory
+                                    <span>64 GB of 7500 MHz LPDDR5 (CAMM2) memory</span>
                                     <span class="price-badge">+A$600</span>
                                 </label>
                             </div>
@@ -286,34 +288,34 @@
                         <!-- Storage -->
                         <div class="option-group" id="opt-ssd">
                             <h4>Storage (NVMe)</h4>
-                            <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                                <label style="min-width:220px;">
+                            <div class="option-row" role="radiogroup">
+                                <label>
                                     <input type="radio" name="ssd" value="512" checked>
-                                    512 GB NVMe M.2 PCIe Gen4 SSD
+                                    <span>512 GB NVMe M.2 PCIe Gen4 SSD</span>
                                     <span class="price-badge"></span>
                                 </label>
 
-                                <label style="min-width:220px;">
+                                <label>
                                     <input type="radio" name="ssd" value="1tb">
-                                    1 TB NVMe M.2 PCIe Gen4 SSD
+                                    <span>1 TB NVMe M.2 PCIe Gen4 SSD</span>
                                     <span class="price-badge">+A$50</span>
                                 </label>
 
-                                <label style="min-width:220px;">
+                                <label>
                                     <input type="radio" name="ssd" value="2tbg4">
-                                    2 TB NVMe M.2 PCIe Gen4 SSD
+                                    <span>2 TB NVMe M.2 PCIe Gen4 SSD</span>
                                     <span class="price-badge">+A$150</span>
                                 </label>
 
-                                <label style="min-width:220px;">
+                                <label>
                                     <input type="radio" name="ssd" value="2tbg5">
-                                    2 TB NVMe M.2 PCIe Gen5 SSD
+                                    <span>2 TB NVMe M.2 PCIe Gen5 SSD</span>
                                     <span class="price-badge">+A$250</span>
                                 </label>
 
-                                <label style="min-width:220px;">
+                                <label>
                                     <input type="radio" name="ssd" value="4tbg5">
-                                    4 TB NVMe M.2 PCIe Gen5 SSD
+                                    <span>4 TB NVMe M.2 PCIe Gen5 SSD</span>
                                     <span class="price-badge">+A$550</span>
                                 </label>
                             </div>
@@ -325,13 +327,13 @@
                             <div class="option-row" role="radiogroup">
                                 <label class="selected">
                                     <input type="radio" name="gpu" value="igp" checked>
-                                    AMD Radeon 860M integrated GPU
+                                    <span>AMD Radeon 860M integrated GPU</span>
                                     <span class="price-badge">A$0</span>
                                 </label>
 
                                 <label>
                                     <input type="radio" name="gpu" value="pro">
-                                    AMD Radeon Pro W7300M 4GB GDDR6 dedicated GPU
+                                    <span>AMD Radeon Pro W7300M 4GB GDDR6 dedicated GPU</span>
                                     <span class="price-badge">+A$430</span>
                                 </label>
                             </div>
@@ -343,30 +345,30 @@
                             <div class="option-row" role="radiogroup">
                                 <label class="selected">
                                     <input type="radio" name="wifi" value="w6" checked>
-                                    Wi-Fi 6 802.11ax + Bluetooth 5.3
+                                    <span>Wi-Fi 6 802.11ax + Bluetooth 5.3</span>
                                     <span class="price-badge"></span>
                                 </label>
                                 <label>
                                     <input type="radio" name="wifi" value="w6e">
-                                    Wi-Fi 6e 802.11ax + Bluetooth 5.4
+                                    <span>Wi-Fi 6e 802.11ax + Bluetooth 5.4</span>
                                     <span class="price-badge">+A$70</span>
                                 </label>
                                 <label>
                                     <input type="radio" name="wifi" value="w7">
-                                    Wi-Fi 7 802.11be + Bluetooth 6
+                                    <span>Wi-Fi 7 802.11be + Bluetooth 6</span>
                                     <span class="price-badge">+A$160</span>
                                 </label>
                             </div>
 
-                            <div class="option-row" style="margin-top:8px;">
+                            <div class="option-row" style="margin-top:8px;" role="radiogroup">
                                 <label class="selected">
                                     <input type="radio" name="eth" value="1g" checked>
-                                    Gigabit Ethernet
+                                    <span>Gigabit Ethernet</span>
                                     <span class="price-badge"></span>
                                 </label>
                                 <label>
                                     <input type="radio" name="eth" value="2_5g">
-                                    2.5 Gigabit Ethernet
+                                    <span>2.5 Gigabit Ethernet</span>
                                     <span class="price-badge">+A$90</span>
                                 </label>
                             </div>
@@ -378,31 +380,36 @@
                             <div class="option-row" role="radiogroup">
                                 <label>
                                     <input type="radio" name="webcam" value="none">
-                                    No webcam
+                                    <span>No webcam</span>
                                     <span class="price-badge">-A$30</span>
                                 </label>
                                 <label class="selected">
                                     <input type="radio" name="webcam" value="1080p" checked>
-                                    1080p webcam
+                                    <span>1080p webcam</span>
                                     <span class="price-badge"></span>
                                 </label>
                                 <label>
                                     <input type="radio" name="webcam" value="5mp">
-                                    5 MP webcam
+                                    <span>5 MP webcam</span>
                                     <span class="price-badge">+A$50</span>
                                 </label>
                             </div>
                         </div>
 
-                        <!-- OS -->
+                        <!-- OS (now same style as other option groups) -->
                         <div class="option-group" id="opt-os">
                             <h4>Operating System</h4>
-                            <div style="display:flex;gap:8px;align-items:center;">
-                                <select id="os-select" class="option-select" aria-label="Choose operating system">
-                                    <option value="boibyos" selected>boibyOS 2</option>
-                                    <option value="win11">Windows 11 Pro (debloated)</option>
-                                </select>
-                                <div class="small-note">Windows option available at no extra cost.</div>
+                            <div class="option-row" role="radiogroup" aria-label="Operating system">
+                                <label class="selected">
+                                    <input type="radio" name="os" value="boibyos" checked>
+                                    <span>boibyOS 2</span>
+                                    <span class="price-badge"></span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="os" value="win11">
+                                    <span>Windows 11 Pro (debloated)</span>
+                                    <span class="price-badge"></span>
+                                </label>
                             </div>
                         </div>
 
@@ -449,7 +456,7 @@
     <script>
         (function () {
             // Base price (AUD)
-            const basePrice = 1499;
+            const basePrice = 1349;
 
             const prices = {
                 // Display
@@ -506,6 +513,9 @@
                 return aud.toLocaleString('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 });
             }
 
+            // include os in the same list as other radio groups now
+            const optionNames = ['display','cpu','ram','ssd','gpu','wifi','eth','webcam','os'];
+
             const formInputs = document.querySelectorAll('.configurator input[type="radio"]');
             const basePriceEl = document.getElementById('base-price');
             const totalPriceEl = document.getElementById('total-price');
@@ -530,13 +540,10 @@
 
             function getCurrentConfig() {
                 const cfg = {};
-                ['display','cpu','ram','ssd','gpu','wifi','eth','webcam'].forEach(name => {
+                optionNames.forEach(name => {
                     const el = document.querySelector(`input[name="${name}"]:checked`);
                     cfg[name] = el ? el.value : defaults[name];
                 });
-                // OS select
-                const os = document.getElementById('os-select');
-                cfg.os = os ? os.value : defaults.os;
                 return cfg;
             }
 
@@ -573,11 +580,7 @@
                             detail = v;
                         }
                     } else {
-                        if (k === 'os') {
-                            detail = (v === 'win11') ? 'Windows 11 Pro (debloated)' : 'boibyOS 2';
-                        } else {
-                            detail = v;
-                        }
+                        detail = v;
                     }
 
                     lines.push({ key: pretty, detail: detail, amount: delta });
@@ -610,9 +613,6 @@
                 inp.addEventListener('change', recalc);
             });
 
-            const osSelect = document.getElementById('os-select');
-            if (osSelect) osSelect.addEventListener('change', recalc);
-
             // Reset button
             document.getElementById('reset-config').addEventListener('click', function () {
                 // reset radios
@@ -620,8 +620,6 @@
                     const el = document.querySelector(`[name="${k}"][value="${v}"]`);
                     if (el) el.checked = true;
                 });
-                // reset OS
-                if (osSelect) osSelect.value = defaults.os;
                 recalc();
                 // focus top
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -634,11 +632,15 @@
                 alert('Added to cart — ' + total + '\n\nConfiguration:\n' + details);
             });
 
+            // Label click handlers (inputs are hidden but still in DOM)
             document.querySelectorAll('.option-row label').forEach(label => {
                 label.addEventListener('click', function (e) {
                     const inp = label.querySelector('input[type="radio"], input[type="checkbox"]');
                     if (inp) {
                         inp.checked = true;
+                        // trigger change event to ensure any listeners fire
+                        const ev = new Event('change', { bubbles: true });
+                        inp.dispatchEvent(ev);
                     }
                     recalc();
                 });
@@ -651,7 +653,11 @@
                     if (e.key === ' ' || e.key === 'Enter') {
                         e.preventDefault();
                         const inp = label.querySelector('input[type="radio"], input[type="checkbox"]');
-                        if (inp) inp.checked = true;
+                        if (inp) {
+                            inp.checked = true;
+                            const ev = new Event('change', { bubbles: true });
+                            inp.dispatchEvent(ev);
+                        }
                         recalc();
                     }
                 });
