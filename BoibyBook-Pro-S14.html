@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Boiby's Website — BoibyBook Pro S14 Configurator</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="bouncy.css">
+
+    <script src="modal.js"></script>
+    <script src="theme.js"></script>
+    <script src="nav.js"></script>
+
+    <!-- Inline configurator styles (kept separate so main.css remains untouched) -->
+    <style>
+        /* Configurator: layout */
+        .configurator {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 1.25rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 980px) {
+            .configurator {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .config-panel {
+            background: var(--secondary);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: var(--ambient-shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .product-card {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .product-image {
+            width: 240px;
+            height: 160px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(51,95,255,0.12), rgba(20,155,108,0.08));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--text);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            flex-shrink: 0;
+        }
+
+        .product-meta {
+            flex: 1;
+        }
+
+        .product-meta h3 { margin: 0 0 6px 0; font-size: 18px; }
+        .product-meta p { margin: 0; font-size: 14px; color: var(--secondary-text); }
+
+        .option-group {
+            border-radius: 8px;
+            padding: 0.75rem;
+            background: rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .option-group h4 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .option-row {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .option-row label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            user-select: none;
+            background: transparent;
+            border: 1px solid rgba(0,0,0,0.06);
+            transition: background 0.15s, border-color 0.15s;
+            font-size: 14px;
+        }
+
+        body.dark .option-row label {
+            border-color: rgba(255,255,255,0.06);
+        }
+
+        .option-row input[type="radio"],
+        .option-row input[type="checkbox"] {
+            accent-color: var(--c-blue);
+        }
+
+        .price-badge {
+            margin-left: auto;
+            font-weight: 600;
+            font-size: 13px;
+            padding: 3px 6px;
+            border-radius: 6px;
+            background: rgba(0,0,0,0.04);
+        }
+
+        .summary {
+            position: sticky;
+            top: 70px;
+        }
+
+        .summary h3 { margin: 0 0 8px 0; }
+        .summary .summary-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(0,0,0,0.06);
+            font-size: 15px;
+        }
+        .summary .summary-line.total {
+            border-top: 1px solid rgba(0,0,0,0.08);
+            font-size: 20px;
+            font-weight: 700;
+            padding-top: 12px;
+        }
+
+        .small-note { font-size: 13px; color: var(--secondary-text); margin-top: 8px; }
+
+        /* Make options visually indicate the selected state */
+        .option-row label.selected {
+            background: rgba(51,95,255,0.08);
+            border-color: rgba(51,95,255,0.18);
+        }
+
+        /* Slight spacing for selects */
+        .option-select {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(0,0,0,0.08);
+            background: var(--primary);
+            color: var(--text);
+        }
+
+        /* Add to cart button */
+        .cta {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .cta button { flex: 1; }
+
+        /* Compact price label */
+        .price-hero {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .price-hero .price-value {
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        /* Accessibility focus */
+        .option-row label:focus-within {
+            outline: 3px solid rgba(51,95,255,0.14);
+            outline-offset: 3px;
+        }
+    </style>
+</head>
+
+<body class="dark">
+    <header>
+        <img src="boiby.png" class="favicon" alt="Boiby">
+        <a href="#" class="hamburger">☰</a>
+        <nav>
+            <a href="/index" class="link active">Home</a>
+            <a href="/about" class="link">About</a>
+            <a href="/projects" class="link">Projects</a>
+            <a href="/extras" class="link">Extras</a>
+            <a href="/contact" class="link">Contact</a>
+        </nav>
+        <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
+        <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
+    </header>
+
+    <main>
+
+            <section class="config-panel" aria-labelledby="config-title" style="margin-bottom:1.5rem;">
+                <h2 id="config-title" style="margin:0 0 8px 0">BoibyBook Pro S14</h2>
+                <div class="product-card">
+                    <div class="product-image">BoibyBook S14</div>
+                    <div class="product-meta">
+                        <h3>Starts at A$1,349</h3>
+                        <p>14.1" ultraportable, LPCAMM2 LPDDR5 memory, AMD Zen 5 architecture, black aluminium chassis, 65Wh battery.</p>
+                    </div>
+                </div>
+
+                <div class="configurator" role="region" aria-label="BoibyBook Pro S14 configurator">
+                    <!-- Left: options -->
+                    <div>
+                        <!-- Display -->
+                        <div class="option-group" id="opt-display">
+                            <h4>Display</h4>
+                            <div class="option-row" role="radiogroup" aria-labelledby="display-label">
+                                <label data-value="base" class="selected">
+                                    <input type="radio" name="display" value="base" checked>
+                                    14.1" 1920×1200 120Hz LCD (sRGB) display
+                                    <span class="price-badge"></span>
+                                </label>
+
+                                <label data-value="d1">
+                                    <input type="radio" name="display" value="d1">
+                                    14.1" 2560×1600 120Hz LCD (DCI-P3) display
+                                    <span class="price-badge">+A$200</span>
+                                </label>
+
+                                <label data-value="d2">
+                                    <input type="radio" name="display" value="d2">
+                                    14.1" 2880×1800 165Hz OLED (DCI-P3) display
+                                    <span class="price-badge">+A$600</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- CPU -->
+                        <div class="option-group" id="opt-cpu">
+                            <h4>Processor</h4>
+                            <div class="option-row" role="radiogroup">
+                                <label class="selected">
+                                    <input type="radio" name="cpu" value="r5" checked>
+                                    AMD Ryzen 5 340 (6 cores, 12 threads, up to 4.8 GHz) Zen 5 processor
+                                    <span class="price-badge"></span>
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="cpu" value="r7">
+                                    AMD Ryzen 7 350 (8 cores, 16 threads, up to 5.0 GHz) Zen 5 processor
+                                    <span class="price-badge">+A$350</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Memory -->
+                        <div class="option-group" id="opt-ram">
+                            <h4>Memory ()</h4>
+                            <div class="option-row" role="radiogroup">
+                                <label class="selected">
+                                    <input type="radio" name="ram" value="16" checked>
+                                    16 GB of 7500 MHz LPDDR5 (LCAMM2) memory
+                                    <span class="price-badge"></span>
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="ram" value="32">
+                                    32 GB of 7500 MHz LPDDR5 (LCAMM2) memory
+                                    <span class="price-badge">+A$200</span>
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="ram" value="48">
+                                    48 GB of 7500 MHz LPDDR5 (LCAMM2) memory
+                                    <span class="price-badge">+A$400</span>
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="ram" value="64">
+                                    64 GB of 7500 MHz LPDDR5 (LCAMM2) memory
+                                    <span class="price-badge">+A$600</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Storage -->
+                        <div class="option-group" id="opt-ssd">
+                            <h4>Storage (NVMe)</h4>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                                <label style="min-width:220px;">
+                                    <input type="radio" name="ssd" value="512" checked>
+                                    512 GB NVMe M.2 PCIe Gen4 SSD
+                                    <span class="price-badge"></span>
+                                </label>
+
+                                <label style="min-width:220px;">
+                                    <input type="radio" name="ssd" value="1tb">
+                                    1 TB NVMe M.2 PCIe Gen4 SSD
+                                    <span class="price-badge">+A$50</span>
+                                </label>
+
+                                <label style="min-width:220px;">
+                                    <input type="radio" name="ssd" value="2tbg4">
+                                    2 TB NVMe M.2 PCIe Gen4 SSD
+                                    <span class="price-badge">+A$150</span>
+                                </label>
+
+                                <label style="min-width:220px;">
+                                    <input type="radio" name="ssd" value="2tbg5">
+                                    2 TB NVMe M.2 PCIe Gen5 SSD
+                                    <span class="price-badge">+A$250</span>
+                                </label>
+
+                                <label style="min-width:220px;">
+                                    <input type="radio" name="ssd" value="4tbg5">
+                                    4 TB NVMe M.2 PCIe Gen5 SSD
+                                    <span class="price-badge">+A$550</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- GPU -->
+                        <div class="option-group" id="opt-gpu">
+                            <h4>Graphics</h4>
+                            <div class="option-row" role="radiogroup">
+                                <label class="selected">
+                                    <input type="radio" name="gpu" value="igp" checked>
+                                    AMD Radeon 860M integrated GPU
+                                    <span class="price-badge">A$0</span>
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="gpu" value="pro">
+                                    AMD Radeon Pro W7300M 4GB GDDR6 dedicated GPU
+                                    <span class="price-badge">+A$430</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Networking -->
+                        <div class="option-group" id="opt-network">
+                            <h4>Networking</h4>
+                            <div class="option-row" role="radiogroup">
+                                <label class="selected">
+                                    <input type="radio" name="wifi" value="w6" checked>
+                                    Wi-Fi 6 802.11ax + Bluetooth 5.3
+                                    <span class="price-badge"></span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="wifi" value="w6e">
+                                    Wi-Fi 6e 802.11ax + Bluetooth 5.4
+                                    <span class="price-badge">+A$70</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="wifi" value="w7">
+                                    Wi-Fi 7 802.11be + Bluetooth 6
+                                    <span class="price-badge">A$160</span>
+                                </label>
+                            </div>
+
+                            <div class="option-row" style="margin-top:8px;">
+                                <label class="selected">
+                                    <input type="radio" name="eth" value="1g" checked>
+                                    Gigabit Ethernet
+                                    <span class="price-badge"></span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="eth" value="2_5g">
+                                    2.5 Gigabit Ethernet
+                                    <span class="price-badge">+A$90</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Webcam -->
+                        <div class="option-group" id="opt-webcam">
+                            <h4>Webcam</h4>
+                            <div class="option-row" role="radiogroup">
+                                <label>
+                                    <input type="radio" name="webcam" value="none">
+                                    No webcam
+                                    <span class="price-badge">-A$30</span>
+                                </label>
+                                <label class="selected">
+                                    <input type="radio" name="webcam" value="1080p" checked>
+                                    1080p webcam
+                                    <span class="price-badge"></span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="webcam" value="5mp">
+                                    5 MP webcam
+                                    <span class="price-badge">+A$50</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- OS -->
+                        <div class="option-group" id="opt-os">
+                            <h4>Operating System</h4>
+                            <div style="display:flex;gap:8px;align-items:center;">
+                                <select id="os-select" class="option-select" aria-label="Choose operating system">
+                                    <option value="boibyos" selected>boibyOS 2</option>
+                                    <option value="win11">Windows 11 Pro (debloated)</option>
+                                </select>
+                                <div class="small-note">Windows option available at no extra cost.</div>
+                            </div>
+                        </div>
+
+                        <div class="small-note">All prices are in Australian dollars (A$). Taxes and shipping calculated at checkout.</div>
+                    </div>
+
+                    <!-- Right: summary -->
+                    <aside class="config-panel summary" aria-label="Price summary">
+                        <h3>Summary</h3>
+
+                        <div class="summary-line">
+                            <div>Base price</div>
+                            <div id="base-price">A$1,499</div>
+                        </div>
+
+                        <div id="breakdown">
+                            <!-- populated by JS -->
+                        </div>
+
+                        <div class="summary-line total">
+                            <div>Total</div>
+                            <div id="total-price">A$1,499</div>
+                        </div>
+
+                        <div style="margin-top:8px;">
+                            <button id="add-to-cart" class="primary-blue">Add to cart</button>
+                            <button id="reset-config" class="secondary">Reset to base</button>
+                        </div>
+
+                        <div class="small-note" id="dimensions-note" style="margin-top:10px;">
+                            Size: 314 × 219 × 17 mm — Black aluminium chassis, backlit keyboard, fingerprint reader.
+                        </div>
+                    </aside>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <footer>
+        <hr>
+        <p>© Boiby 2025</p>
+    </footer>
+
+    <script>
+        (function () {
+            // Base price (AUD)
+            const basePrice = 1499;
+
+            const prices = {
+                // Display
+                'base': 0,
+                'd1': 200,
+                'd2': 600,
+                // CPU
+                'r5': 0,
+                'r7': 350,
+                // RAM
+                '16': 0,
+                '32': 200,
+                '48': 400,
+                '64': 600,
+                // SSD
+                '512': 0,
+                '1tb': 50,
+                '2tbg4': 150,
+                '2tbg5': 250,
+                '4tbg5': 550,
+                // GPU
+                'igp': 0,
+                'pro': 430,
+                // Wifi
+                'w6': 0,
+                'w6e': 70,
+                'w7': 160,
+                // Ethernet
+                '1g': 0,
+                '2_5g': 90,
+                // Webcam
+                'none': -30,
+                '1080p': 0,
+                '5mp': 50,
+                // OS
+                'boibyos': 0,
+                'win11': 0
+            };
+
+            // Default selections (name -> value)
+            const defaults = {
+                display: 'base',
+                cpu: 'r5',
+                ram: '16',
+                ssd: '512',
+                gpu: 'igp',
+                wifi: 'w6',
+                eth: '1g',
+                webcam: '1080p',
+                os: 'boibyos'
+            };
+
+            function fmt(aud) {
+                return aud.toLocaleString('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 });
+            }
+
+            const formInputs = document.querySelectorAll('.configurator input[type="radio"]');
+            const basePriceEl = document.getElementById('base-price');
+            const totalPriceEl = document.getElementById('total-price');
+            const breakdownEl = document.getElementById('breakdown');
+
+            basePriceEl.textContent = fmt(basePrice);
+
+            function updateSelectedVisuals() {
+                document.querySelectorAll('.option-group').forEach(group => {
+                    const radios = group.querySelectorAll('input[type="radio"]');
+                    radios.forEach(r => {
+                        const label = r.closest('label');
+                        if (!label) return;
+                        if (r.checked) {
+                            label.classList.add('selected');
+                        } else {
+                            label.classList.remove('selected');
+                        }
+                    });
+                });
+            }
+
+            function getCurrentConfig() {
+                const cfg = {};
+                ['display','cpu','ram','ssd','gpu','wifi','eth','webcam'].forEach(name => {
+                    const el = document.querySelector(`input[name="${name}"]:checked`);
+                    cfg[name] = el ? el.value : defaults[name];
+                });
+                // OS select
+                const os = document.getElementById('os-select');
+                cfg.os = os ? os.value : defaults.os;
+                return cfg;
+            }
+
+            function recalc() {
+                const cfg = getCurrentConfig();
+                // compute breakdown
+                const lines = [];
+                let total = basePrice;
+
+                Object.entries(cfg).forEach(([k, v]) => {
+                    const delta = prices[v] ?? 0;
+                    if (delta === 0) return; // hide zero-priced options
+                    total += delta;
+                    const labelMap = {
+                        display: 'Display',
+                        cpu: 'Processor',
+                        ram: 'Memory',
+                        ssd: 'Storage',
+                        gpu: 'Graphics',
+                        wifi: 'Wireless',
+                        eth: 'Ethernet',
+                        webcam: 'Webcam',
+                        os: 'Operating System'
+                    };
+                    let pretty = labelMap[k] || k;
+                    const selInput = document.querySelector(`[name="${k}"][value="${v}"]`);
+                    let detail = '';
+                    if (selInput) {
+                        const lab = selInput.closest('label');
+                        if (lab) {
+                            // clone and strip badge text
+                            detail = lab.cloneNode(true).textContent.replace(/\\s*A\\$?\\-?\\d+[\\d,]*\\s*$/, '').trim();
+                        } else {
+                            detail = v;
+                        }
+                    } else {
+                        if (k === 'os') {
+                            detail = (v === 'win11') ? 'Windows 11 Pro (debloated)' : 'boibyOS 2';
+                        } else {
+                            detail = v;
+                        }
+                    }
+
+                    lines.push({ key: pretty, detail: detail, amount: delta });
+                });
+
+                // Render breakdown
+                breakdownEl.innerHTML = '';
+                if (lines.length === 0) {
+                    const el = document.createElement('div');
+                    el.className = 'summary-line';
+                    el.textContent = 'No upgrades selected';
+                    breakdownEl.appendChild(el);
+                } else {
+                    lines.forEach(item => {
+                        const el = document.createElement('div');
+                        el.className = 'summary-line';
+                        el.innerHTML = '<div style="max-width:65%"><strong>' + item.key + '</strong><div style="font-size:13px;color:var(--secondary-text)">' + item.detail + '</div></div><div>' + (item.amount >= 0 ? fmt(item.amount) : '-' + fmt(Math.abs(item.amount))) + '</div>';
+                        breakdownEl.appendChild(el);
+                    });
+                }
+
+                totalPriceEl.textContent = fmt(total);
+
+                updateSelectedVisuals();
+            }
+
+            recalc();
+
+            formInputs.forEach(inp => {
+                inp.addEventListener('change', recalc);
+            });
+
+            const osSelect = document.getElementById('os-select');
+            if (osSelect) osSelect.addEventListener('change', recalc);
+
+            // Reset button
+            document.getElementById('reset-config').addEventListener('click', function () {
+                // reset radios
+                Object.entries(defaults).forEach(([k, v]) => {
+                    const el = document.querySelector(`[name="${k}"][value="${v}"]`);
+                    if (el) el.checked = true;
+                });
+                // reset OS
+                if (osSelect) osSelect.value = defaults.os;
+                recalc();
+                // focus top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            document.getElementById('add-to-cart').addEventListener('click', function () {
+                const cfg = getCurrentConfig();
+                const total = totalPriceEl.textContent;
+                const details = Object.entries(cfg).map(([k,v]) => k + ': ' + v).join('\\n');
+                alert('Added to cart — ' + total + '\\n\\nConfiguration:\\n' + details);
+            });
+
+            document.querySelectorAll('.option-row label').forEach(label => {
+                label.addEventListener('click', function (e) {
+                    const inp = label.querySelector('input[type="radio"], input[type="checkbox"]');
+                    if (inp) {
+                        inp.checked = true;
+                    }
+                    recalc();
+                });
+            });
+
+            // allow keyboard selection on labels
+            document.querySelectorAll('.option-row label').forEach(label => {
+                label.setAttribute('tabindex', '0');
+                label.addEventListener('keydown', function (e) {
+                    if (e.key === ' ' || e.key === 'Enter') {
+                        e.preventDefault();
+                        const inp = label.querySelector('input[type="radio"], input[type="checkbox"]');
+                        if (inp) inp.checked = true;
+                        recalc();
+                    }
+                });
+            });
+
+            updateSelectedVisuals();
+        })();
+    </script>
+</body>
+</html>
