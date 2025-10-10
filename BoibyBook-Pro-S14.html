@@ -201,8 +201,8 @@
                 <div class="product-card">
                     <div class="product-image">BoibyBook S14</div>
                     <div class="product-meta">
-                        <h3>Starts at A$1,349</h3>
-                        <p>14.1" ultraportable, LPCAMM2 LPDDR5 memory, AMD Zen 5 architecture, black aluminium chassis, 65Wh battery.</p>
+                        <h3>Starts at A$1,199</h3>
+                        <p>14.1" ultraportable, DDR5 memory, AMD Zen 4 or 5 architecture, black aluminium chassis, 65Wh battery.</p>
                     </div>
                 </div>
 
@@ -239,14 +239,20 @@
                             <div class="option-row" role="radiogroup">
                                 <label class="selected">
                                     <input type="radio" name="cpu" value="r5" checked>
-                                    <span>AMD Ryzen 5 340 (6 cores, 12 threads, up to 4.8 GHz) Zen 5 processor</span>
+                                    <span>AMD Ryzen 5 230 (6 cores, 12 threads, up to 4.9 GHz) Zen 4 processor</span>
                                     <span class="price-badge"></span>
+                                </label>
+
+                                <label class="selected">
+                                    <input type="radio" name="cpu" value="r5_2" checked>
+                                    <span>AMD Ryzen 5 340 (6 cores, 12 threads, up to 4.8 GHz) Zen 5 processor</span>
+                                    <span class="price-badge">+$200</span>
                                 </label>
 
                                 <label>
                                     <input type="radio" name="cpu" value="r7">
                                     <span>AMD Ryzen 7 350 (8 cores, 16 threads, up to 5.0 GHz) Zen 5 processor</span>
-                                    <span class="price-badge">+A$350</span>
+                                    <span class="price-badge">+A$600</span>
                                 </label>
                             </div>
                         </div>
@@ -257,26 +263,44 @@
                             <div class="option-row" role="radiogroup">
                                 <label class="selected">
                                     <input type="radio" name="ram" value="16" checked>
-                                    <span>16 GB of 7500 MHz LPDDR5 (LPCAMM2) memory</span>
+                                    <span>16 GB of 5600 MHz DDR5 (2x 8 GB SODIMM) memory</span>
                                     <span class="price-badge"></span>
                                 </label>
 
                                 <label>
                                     <input type="radio" name="ram" value="32">
-                                    <span>32 GB of 7500 MHz LPDDR5 (LPCAMM2) memory</span>
-                                    <span class="price-badge">+A$200</span>
+                                    <span>24 GB of 5600 MHz DDR5 (2x 12 GB SODIMM) memory</span>
+                                    <span class="price-badge">+A$60</span>
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="ram" value="32">
+                                    <span>32 GB of 5600 MHz DDR5 (2x 16 GB SODIMM) memory</span>
+                                    <span class="price-badge">+A$100</span>
                                 </label>
 
                                 <label>
                                     <input type="radio" name="ram" value="48">
-                                    <span>48 GB of 7500 MHz LPDDR5 (LPCAMM2) memory</span>
-                                    <span class="price-badge">+A$400</span>
+                                    <span>48 GB of 5600 MHz DDR5 (2x 24 GB SODIMM) memory</span>
+                                    <span class="price-badge">+A$200</span>
                                 </label>
 
                                 <label>
                                     <input type="radio" name="ram" value="64">
-                                    <span>64 GB of 7500 MHz LPDDR5 (LPCAMM2) memory</span>
-                                    <span class="price-badge">+A$600</span>
+                                    <span>64 GB of 5600 MHz DDR5 (2x 32 GB SODIMM) memory</span>
+                                    <span class="price-badge">+A$320</span>
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="ram" value="64">
+                                    <span>96 GB of 5600 MHz DDR5 (2x 48 GB SODIMM) memory</span>
+                                    <span class="price-badge">+A$450</span>
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="ram" value="64">
+                                    <span>128 GB of 5200 MHz DDR5 (2x 64 GB SODIMM) memory</span>
+                                    <span class="price-badge">+A$680</span>
                                 </label>
                             </div>
                         </div>
@@ -457,12 +481,17 @@
                 'd2': 600,
                 // CPU
                 'r5': 0,
-                'r7': 350,
+                'r5_2': 200,
+                'r7': 600,
                 // RAM
                 '16': 0,
-                '32': 200,
-                '48': 400,
-                '64': 600,
+                '24': 60,
+                '32': 100,
+                '48': 200,
+                '64': 320,
+                '96': 450,
+                '128': 680,
+
                 // SSD
                 '512': 0,
                 '1tb': 50,
