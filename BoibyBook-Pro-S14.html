@@ -98,11 +98,11 @@
         }
         
         .option-row label.selected {
-            border-color: #335fff;
+            border: 2px solid #335fff;
             background: transparent;
         }
         body.dark .option-row label.selected {
-            border-color: #335fff;
+            border: 2px solid #335fff;
             background: transparent;
         }
 
@@ -437,7 +437,7 @@
                         </div>
 
                         <div class="small-note" id="dimensions-note" style="margin-top:10px;">
-                            Size: 314 × 219 × 17 mm — Black aluminium chassis, backlit keyboard, fingerprint reader.
+                            Size: 314 × 219 × 17 mm - Black aluminium chassis, backlit keyboard, fingerprint reader.
                         </div>
                     </aside>
                 </div>
@@ -626,7 +626,7 @@
                 const cfg = getCurrentConfig();
                 const total = totalPriceEl.textContent;
                 const details = Object.entries(cfg).map(([k,v]) => k + ': ' + v).join('\n');
-                alert('Added to cart — ' + total + '\n\nConfiguration:\n' + details);
+                alert('Added to cart: ' + total + '\n\nConfiguration:\n' + details);
             });
 
             // Label click handlers (inputs are hidden but still in DOM)
