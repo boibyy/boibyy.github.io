@@ -11,7 +11,7 @@
     <script src="theme.js"></script>
     <script src="nav.js"></script>
 
-    <!-- Inline configurator styles (kept separate so main.css remains untouched) -->
+    <!-- Inline configurator styles (updated per request) -->
     <style>
         /* Configurator: layout */
         .configurator {
@@ -27,11 +27,12 @@
             }
         }
 
+        /* make the panel visually sit on page background (no background card) */
         .config-panel {
-            background: var(--secondary);
-            padding: 1rem;
-            border-radius: 12px;
-            box-shadow: var(--ambient-shadow);
+            background: transparent;      /* transparent so options sit on plain page background */
+            padding: 1rem 0;              /* keep vertical spacing but remove heavy card feel */
+            border-radius: 0;
+            box-shadow: none;
             display: flex;
             flex-direction: column;
             gap: 1rem;
@@ -43,17 +44,19 @@
             align-items: flex-start;
         }
 
+        /* keep product-image as-is but remove gradient to match request focus on options */
         .product-image {
             width: 240px;
             height: 160px;
             border-radius: 8px;
-            background: linear-gradient(135deg, rgba(51,95,255,0.12), rgba(20,155,108,0.08));
+            background: none; /* remove gradient */
+            border: 1px solid rgba(255,255,255,0.06);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
             color: var(--text);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            box-shadow: none;
             flex-shrink: 0;
         }
 
@@ -64,63 +67,87 @@
         .product-meta h3 { margin: 0 0 6px 0; font-size: 18px; }
         .product-meta p { margin: 0; font-size: 14px; color: var(--secondary-text); }
 
+        /* Option groups: transparent background, vertical-only spacing */
         .option-group {
-            border-radius: 8px;
-            padding: 0.75rem;
-            background: rgba(0,0,0,0.02);
+            border-radius: 0;
+            padding: 0; /* vertical spacing handled inside option-row now */
+            background: transparent; /* no card background */
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
         }
 
         .option-group h4 {
-            margin: 0;
+            margin: 0 0 6px 0;
             font-size: 15px;
             font-weight: 600;
+            color: var(--text);
         }
 
+        /* Stack options vertically and make them full width */
         .option-row {
             display: flex;
-            gap: 0.75rem;
-            align-items: center;
-            flex-wrap: wrap;
+            flex-direction: column;   /* vertical only */
+            gap: 10px;                /* even spacing between selector items */
+            align-items: stretch;     /* make labels full width */
+            margin: 0;
+            padding: 8px 0;           /* vertical breathing room around the whole set */
         }
 
+        /* Labels become block-like full-width selector rows.
+           Vertical-only padding inside each label (top/bottom heavier), minimal horizontal padding so content aligns. */
         .option-row label {
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 6px 8px;
+            gap: 12px;
+            padding: 12px 14px;          /* vertical emphasis, small horizontal padding retained for content */
             border-radius: 8px;
             cursor: pointer;
             user-select: none;
-            background: transparent;
-            border: 1px solid rgba(0,0,0,0.06);
-            transition: background 0.15s, border-color 0.15s;
+            background: transparent;     /* no fill */
+            border: 1px solid rgba(255,255,255,1); /* white stroke when not selected */
+            transition: border-color 0.12s ease, background 0.12s ease;
             font-size: 14px;
+            justify-content: space-between; /* keep price badge on right */
+            box-shadow: none;
         }
 
+        /* ensure borders are clearly visible in dark mode */
         body.dark .option-row label {
-            border-color: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.98);
+            color: var(--text);
         }
 
-        .option-row input[type="radio"],
-        .option-row input[type="checkbox"] {
-            accent-color: var(--c-blue);
+        /* Selected: blue stroke, no fill */
+        .option-row label.selected {
+            border-color: #335fff; /* blue stroke */
+            background: transparent;
         }
 
+        /* keep price badge aligned at right */
         .price-badge {
-            margin-left: auto;
+            margin-left: 12px;
             font-weight: 600;
             font-size: 13px;
             padding: 3px 6px;
             border-radius: 6px;
-            background: rgba(0,0,0,0.04);
+            background: transparent;
+            color: var(--text);
+        }
+
+        /* inputs acccent */
+        .option-row input[type="radio"],
+        .option-row input[type="checkbox"] {
+            accent-color: #335fff;
         }
 
         .summary {
             position: sticky;
             top: 70px;
+            background: transparent; /* keep summary on page background too */
+            box-shadow: none;
+            border-radius: 0;
+            padding: 0;
         }
 
         .summary h3 { margin: 0 0 8px 0; }
@@ -128,11 +155,11 @@
             display: flex;
             justify-content: space-between;
             padding: 8px 0;
-            border-bottom: 1px dashed rgba(0,0,0,0.06);
+            border-bottom: 1px dashed rgba(255,255,255,0.06);
             font-size: 15px;
         }
         .summary .summary-line.total {
-            border-top: 1px solid rgba(0,0,0,0.08);
+            border-top: 1px solid rgba(255,255,255,0.06);
             font-size: 20px;
             font-weight: 700;
             padding-top: 12px;
@@ -140,46 +167,16 @@
 
         .small-note { font-size: 13px; color: var(--secondary-text); margin-top: 8px; }
 
-        /* Make options visually indicate the selected state */
-        .option-row label.selected {
-            background: rgba(51,95,255,0.08);
-            border-color: rgba(51,95,255,0.18);
-        }
-
-        /* Slight spacing for selects */
-        .option-select {
-            width: 100%;
-            padding: 8px 10px;
-            border-radius: 8px;
-            border: 1px solid rgba(0,0,0,0.08);
-            background: var(--primary);
-            color: var(--text);
-        }
-
-        /* Add to cart button */
-        .cta {
-            display: flex;
-            gap: 8px;
-            margin-top: 12px;
-        }
-
-        .cta button { flex: 1; }
-
-        /* Compact price label */
-        .price-hero {
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-        }
-        .price-hero .price-value {
-            font-size: 28px;
-            font-weight: 800;
-        }
-
         /* Accessibility focus */
         .option-row label:focus-within {
             outline: 3px solid rgba(51,95,255,0.14);
             outline-offset: 3px;
+        }
+
+        /* Keep selector widths consistent on narrow screens */
+        @media (max-width: 640px) {
+            .product-image { width: 180px; height: 120px; }
+            .configurator { gap: 1rem; }
         }
     </style>
 </head>
@@ -212,7 +209,7 @@
                 </div>
 
                 <div class="configurator" role="region" aria-label="BoibyBook Pro S14 configurator">
-                    <!-- Left: options -->
+                    <!-- Left: options (UNCHANGED markup) -->
                     <div>
                         <!-- Display -->
                         <div class="option-group" id="opt-display">
@@ -357,7 +354,7 @@
                                 <label>
                                     <input type="radio" name="wifi" value="w7">
                                     Wi-Fi 7 802.11be + Bluetooth 6
-                                    <span class="price-badge">A$160</span>
+                                    <span class="price-badge">+A$160</span>
                                 </label>
                             </div>
 
@@ -571,7 +568,7 @@
                         const lab = selInput.closest('label');
                         if (lab) {
                             // clone and strip badge text
-                            detail = lab.cloneNode(true).textContent.replace(/\\s*A\\$?\\-?\\d+[\\d,]*\\s*$/, '').trim();
+                            detail = lab.cloneNode(true).textContent.replace(/\s*A\$?\-?\d+[\d,]*\s*$/, '').trim();
                         } else {
                             detail = v;
                         }
@@ -633,8 +630,8 @@
             document.getElementById('add-to-cart').addEventListener('click', function () {
                 const cfg = getCurrentConfig();
                 const total = totalPriceEl.textContent;
-                const details = Object.entries(cfg).map(([k,v]) => k + ': ' + v).join('\\n');
-                alert('Added to cart — ' + total + '\\n\\nConfiguration:\\n' + details);
+                const details = Object.entries(cfg).map(([k,v]) => k + ': ' + v).join('\n');
+                alert('Added to cart — ' + total + '\n\nConfiguration:\n' + details);
             });
 
             document.querySelectorAll('.option-row label').forEach(label => {
