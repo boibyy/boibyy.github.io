@@ -41,7 +41,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const targetUnix = 1760425199; // seconds
+            const targetUnix = 1760461200; // seconds
             const targetTimestamp = targetUnix * 1000; // convert to milliseconds
         
             function updateCountdown() {
@@ -49,7 +49,7 @@
                 let remaining = targetTimestamp - now;
         
                 if (remaining <= 0) {
-                    document.getElementById("countdown").textContent = "Countdown finished";
+                    document.getElementById("countdown").textContent = "Windows 10 support has ended";
                     clearInterval(interval);
                     return;
                 }
