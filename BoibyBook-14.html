@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>BoibyBook 13</title>
+    <title>BoibyBook 14</title>
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="bouncy.css">
 
@@ -197,49 +197,67 @@
     <main>
 
             <section class="config-panel" aria-labelledby="config-title" style="margin-bottom:1.5rem;">
-                <h2 id="config-title" style="margin:0 0 8px 0">BoibyBook 13 (New)</h2>
+                <h2 id="config-title" style="margin:0 0 8px 0">BoibyBook 14</h2>
                 <div class="product-card">
-                    <div class="product-image">BoibyBook 13</div>
+                    <div class="product-image">BoibyBook 14</div>
                     <div class="product-meta">
-                        <h3>Starts at A$1,499</h3>
-                        <p>13.6" ultraportable, LPCAMM2 LPDDR5X memory, Boiby RISC-V SoCs, black aluminium chassis, 65Wh battery.</p>
+                        <h3>Starts at A$1,799</h3>
+                        <p>14.0-inch 2880x1800 120Hz OLED display (peak brightness up to 1000 nits)</p>
+                        <p>Boiby B1 or Boiby B1 Plus chip</p>
+                        <p>Up to 32 GB LPDDR5X-8500 RAM</p>
+                        <p>Up to 2 TB SSD storage</p>
+                        <p>Durable precision-milled aluminium body</p>
+                        <p>WiFi 7 and Bluetooth 6</p>
+                        <p>Boiby Hello - Face Unlock & Touch Unlock</p>
+                        <p>boibyOS 3</p>
                     </div>
                 </div>
 
-                <div class="configurator" role="region" aria-label="BoibyBook 13 configurator">
+                <div class="configurator" role="region" aria-label="BoibyBook 14 configurator">
                     <!-- Left: options -->
                     <div>
-                        <!-- Display -->
-                        <div class="option-group" id="opt-display">
-                            <h4>Display</h4>
-                            <div class="option-row" role="radiogroup" aria-labelledby="display-label">
-                                <label data-value="base">
-                                    <input type="radio" name="display" value="base">
-                                    <span>13.6" 2560×1600 120Hz LCD (DCI-P3) display</span>
+                    <!-- Colour -->
+                        <div class="option-group" id="opt-colour">
+                            <h4>Processor</h4>
+                            <div class="option-row" role="radiogroup">
+                                <label class="selected">
+                                    <input type="radio" name="colour" value="black" checked>
+                                    <span>Black</span>
                                     <span class="price-badge"></span>
                                 </label>
 
-                                <label data-value="d2">
-                                    <input type="radio" name="display" value="d2">
-                                    <span>13.6" 2880×1800 120Hz OLED (DCI-P3) display</span>
-                                    <span class="price-badge">+A$400</span>
+                                <label>
+                                    <input type="radio" name="colour" value="silver">
+                                    <span>Silver</span>
+                                    <span class="price-badge"></span>
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="colour" value="blue">
+                                    <span>Blue</span>
+                                    <span class="price-badge"></span>
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="colour" value="violet">
+                                    <span>Violet</span>
+                                    <span class="price-badge"></span>
                                 </label>
                             </div>
                         </div>
-
                         <!-- CPU -->
                         <div class="option-group" id="opt-cpu">
                             <h4>Processor</h4>
                             <div class="option-row" role="radiogroup">
                                 <label class="selected">
-                                    <input type="radio" name="cpu" value="r1" checked>
-                                    <span>Boiby R1 (10-core CPU and 14-core GPU)</span>
+                                    <input type="radio" name="cpu" value="b1" checked>
+                                    <span>Boiby B1 (10-core)</span>
                                     <span class="price-badge"></span>
                                 </label>
 
-                                <label class="selected">
-                                    <input type="radio" name="cpu" value="r1plus" checked>
-                                    <span>Boiby R1 Plus (12-core CPU and 18-core GPU)</span>
+                                <label>
+                                    <input type="radio" name="cpu" value="b1p">
+                                    <span>Boiby B1 Plus (12-core)</span>
                                     <span class="price-badge">+$200</span>
                                 </label>
                             </div>
@@ -247,17 +265,17 @@
 
                         <!-- Memory -->
                         <div class="option-group" id="opt-ram">
-                            <h4>Memory</h4>
+                            <h4>RAM/Memory</h4>
                             <div class="option-row" role="radiogroup">
                                 <label class="selected">
                                     <input type="radio" name="ram" value="16" checked>
-                                    <span>16 GB of 8533 MHz LPDDR5X (LPCAMM2) memory</span>
+                                    <span>16 GB of RAM (8500 MHz LPDDR5X LPCAMM2)</span>
                                     <span class="price-badge"></span>
                                 </label>
 
-                                <label class="selected">
-                                    <input type="radio" name="ram" value="16" checked>
-                                    <span>32 GB of 8533 MHz LPDDR5X (LPCAMM2) memory</span>
+                                <label>
+                                    <input type="radio" name="ram" value="32">
+                                    <span>32 GB of RAM (8500 MHz LPDDR5X LPCAMM2)</span>
                                     <span class="price-badge">+A$200</span>
                                 </label>
                             </div>
@@ -265,41 +283,24 @@
 
                         <!-- Storage -->
                         <div class="option-group" id="opt-ssd">
-                            <h4>Storage (NVMe)</h4>
+                            <h4>SSD Storage</h4>
                             <div class="option-row" role="radiogroup">
-                                <label>
+                                <label class="selected">
                                     <input type="radio" name="ssd" value="512" checked>
-                                    <span>512 GB PCIe M.2 SSD</span>
+                                    <span>512 GB of SSD storage</span>
                                     <span class="price-badge"></span>
                                 </label>
 
                                 <label>
                                     <input type="radio" name="ssd" value="1tb">
-                                    <span>1 TB PCIe M.2 SSD</span>
-                                    <span class="price-badge">+A$50</span>
+                                    <span>1 TB of SSD storage</span>
+                                    <span class="price-badge">+A$100</span>
                                 </label>
 
                                 <label>
                                     <input type="radio" name="ssd" value="2tb">
-                                    <span>2 TB PCIe M.2 SSD</span>
-                                    <span class="price-badge">+A$150</span>
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <!-- OS (now same style as other option groups) -->
-                        <div class="option-group" id="opt-os">
-                            <h4>Operating System</h4>
-                            <div class="option-row" role="radiogroup" aria-label="Operating system">
-                                <label class="selected">
-                                    <input type="radio" name="os" value="boibyos" checked>
-                                    <span>boibyOS 2</span>
-                                    <span class="price-badge"></span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="os" value="no_os">
-                                    <span>No Operating System</span>
-                                    <span class="price-badge"></span>
+                                    <span>2 TB of SSD storage</span>
+                                    <span class="price-badge">+A$250</span>
                                 </label>
                             </div>
                         </div>
@@ -313,7 +314,7 @@
 
                         <div class="summary-line">
                             <div>Base price</div>
-                            <div id="base-price">A$1,499</div>
+                            <div id="base-price">A$1,799</div>
                         </div>
 
                         <div id="breakdown">
@@ -322,7 +323,7 @@
 
                         <div class="summary-line total">
                             <div>Total</div>
-                            <div id="total-price">A$1,499</div>
+                            <div id="total-price">A$1,799</div>
                         </div>
 
                         <div style="margin-top:8px;">
@@ -331,7 +332,7 @@
                         </div>
 
                         <div class="small-note" id="dimensions-note" style="margin-top:10px;">
-                            Size: 314 × 219 × 17 mm - Black aluminium chassis, backlit keyboard, fingerprint reader.
+                            Size: 308 × 219 × 12.5 mm
                         </div>
                     </aside>
                 </div>
@@ -347,35 +348,32 @@
     <script>
         (function () {
             // Base price (AUD)
-            const basePrice = 1499;
+            const basePrice = 1799;
 
             const prices = {
-                // Display
-                // 'base': 0,
-                'base': 0, // d1 200
-                'd2': 400, // 600
+                // color
+                'black': 0,
+                'silver': 0,
+                'blue': 0,
+                'violet': 0,
                 // CPU
-                'r1': 0,
-                'r1plus': 200,
+                'b1': 0,
+                'b1p': 150,
                 // RAM
                 '16': 0,
                 '32': 200,
                 // SSD
                 '512': 0,
-                '1tb': 50,
-                '2tb': 100,
-                // OS
-                'boibyos': 0,
-                'win11': 0
+                '1tb': 100,
+                '2tb': 250
             };
 
             // Default selections (name -> value)
             const defaults = {
-                display: 'base',
-                cpu: 'r1',
+                color: 'black',
+                cpu: 'b1',
                 ram: '16',
-                ssd: '512',
-                os: 'boibyos'
+                ssd: '512'
             };
 
             function fmt(aud) {
