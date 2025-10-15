@@ -995,3 +995,80 @@ button.disabled {
         width: 100%;
     }
 }
+
+/* ===== Sidebar ===== */
+.layout {
+    display: flex;
+    max-width: 1280px;
+    margin: var(--page-margin) auto;
+    padding-top: 60px;
+    gap: 30px;
+}
+
+/* Sidebar base */
+.sidebar {
+    width: 250px;
+    background-color: var(--secondary);
+    color: var(--text);
+    border-radius: 12px;
+    padding: 20px;
+    height: fit-content;
+    position: sticky;
+    top: 70px;
+    align-self: flex-start;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Sidebar headings */
+.sidebar-nav h3 {
+    margin-top: 0;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Sidebar lists */
+.sidebar-nav ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.sidebar-nav ul ul {
+    margin-top: 6px;
+    margin-left: 12px;
+    border-left: 2px solid var(--secondary-text);
+    padding-left: 10px;
+}
+
+.sidebar-nav li {
+    margin-bottom: 8px;
+}
+
+.sidebar-nav a {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.sidebar-nav a:hover {
+    color: var(--link);
+}
+
+/* Responsive layout: hide sidebar on small screens */
+@media (max-width: 800px) {
+    .layout {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    main {
+        width: 100%;
+        margin: 0;
+    }
+}
