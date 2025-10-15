@@ -128,8 +128,8 @@ body.light {
     --text: var(--c-near-black);
     --secondary-text: var(--c-dark-gray);
 
-    --link: #3b82f6;
-    --link-visited: #2563eb;
+    --link: #1d4ed8;
+    --link-visited: #1e40af;
 
     --btn-primary-bg: var(--c-blue);
     --btn-primary-text: var(--c-white);
@@ -145,8 +145,8 @@ body.dark {
     --text: var(--c-white);
     --secondary-text: var(--c-light-gray);
 
-    --link: #1d4ed8;
-    --link-visited: #1e40af;
+    --link: #3b82f6;
+    --link-visited: #2563eb;
 
     --btn-primary-bg: var(--c-blue);
     --btn-primary-text: var(--c-white);
