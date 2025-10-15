@@ -996,88 +996,62 @@ button.disabled {
     }
 }
 
-/* sidebar */
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-.layout {
-    display: flex;
-    flex: 1;
-    align-items: stretch;
-}
-
-.sidebar {
-    width: 240px;
+/* Sidebar */
+#sidebar {
+    position: fixed;
+    top: 50px; /* below header */
+    left: 0;
+    width: 220px;
+    height: calc(100% - 50px);
     background-color: var(--secondary);
-    color: var(--text);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 30px 20px;
-    box-shadow: inset -1px 0 0 var(--border-color, rgba(0,0,0,0.1));
-    min-height: calc(100vh - 60px);
-    position: sticky;
-    top: 60px;
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: 2px 0 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    z-index: 999;
 }
 
 .sidebar-nav ul {
     list-style: none;
-    margin: 0;
-    padding: 0;
+    padding-left: 0;
 }
 
-.sidebar-nav li {
-    margin: 6px 0;
+.sidebar-nav ul li {
+    margin-bottom: 8px;
+}
+
+.sidebar-nav ul li ul {
+    margin-top: 4px;
+    margin-left: 12px;
 }
 
 .sidebar-nav a {
-    text-decoration: none;
     color: var(--text);
+    text-decoration: none;
     font-weight: 500;
-    transition: color 0.2s;
+    display: block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
 }
 
 .sidebar-nav a:hover {
-    color: var(--link);
+    background-color: var(--primary);
 }
 
-.sidebar-nav ul ul {
-    margin-top: 6px;
-    margin-left: 14px;
-    border-left: 2px solid var(--secondary-text);
-    padding-left: 10px;
-}
-
-main {
-    flex: 1;
-    padding: 40px;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-footer {
-    background: var(--secondary);
-    color: var(--text);
-    text-align: center;
-    padding: 20px;
-    margin-left: 0;
-    width: 100%;
-    border-top: 1px solid var(--border-color, rgba(0,0,0,0.1));
-}
-
-@media (max-width: 800px) {
-    .layout {
-        flex-direction: column;
-    }
-
-    .sidebar {
+/* Hide sidebar on small screens */
+@media (max-width: 1024px) {
+    #sidebar {
         display: none;
     }
 
     main {
-        padding: 20px;
+        margin-left: 0;
     }
+}
+
+/* Adjust main content when sidebar is visible */
+main {
+    margin-left: 240px; /* space for sidebar */
+    transition: margin-left 0.3s;
 }
