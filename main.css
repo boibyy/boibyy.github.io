@@ -996,28 +996,30 @@ button.disabled {
     }
 }
 
-/* Sidebar */
 #sidebar {
     position: fixed;
-    top: 50px; /* below header */
+    top: 50px;
     left: 0;
     width: 220px;
-    height: calc(100% - 50px);
+    height: calc(100vh - 50px);
     background-color: var(--secondary);
+    border-right: 1px solid var(--primary);
     padding: 20px;
+    box-sizing: border-box;
     overflow-y: auto;
-    box-shadow: 2px 0 6px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-    z-index: 999;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+    z-index: 900;
 }
 
+/* Sidebar links */
 .sidebar-nav ul {
     list-style: none;
     padding-left: 0;
+    margin: 0;
 }
 
 .sidebar-nav ul li {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .sidebar-nav ul li ul {
@@ -1030,16 +1032,21 @@ button.disabled {
     text-decoration: none;
     font-weight: 500;
     display: block;
-    padding: 4px 8px;
-    border-radius: 4px;
-    transition: background 0.2s;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
 }
 
 .sidebar-nav a:hover {
     background-color: var(--primary);
+    color: var(--text);
 }
 
-/* Hide sidebar on small screens */
+main {
+    margin-left: 240px; 
+    transition: margin-left 0.3s;
+}
+
 @media (max-width: 1024px) {
     #sidebar {
         display: none;
@@ -1050,8 +1057,3 @@ button.disabled {
     }
 }
 
-/* Adjust main content when sidebar is visible */
-main {
-    margin-left: 240px; /* space for sidebar */
-    transition: margin-left 0.3s;
-}
