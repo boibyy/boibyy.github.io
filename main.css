@@ -997,11 +997,16 @@ button.disabled {
 }
 
 /* sidebar */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
 .layout {
     display: flex;
+    flex: 1;
     align-items: stretch;
-    min-height: calc(100vh - 60px); /* fill below header */
 }
 
 .sidebar {
@@ -1013,12 +1018,11 @@ button.disabled {
     justify-content: flex-start;
     padding: 30px 20px;
     box-shadow: inset -1px 0 0 var(--border-color, rgba(0,0,0,0.1));
+    min-height: calc(100vh - 60px);
     position: sticky;
-    top: 60px; 
-    height: calc(100vh - 60px);
+    top: 60px;
 }
 
-/* Sidebar links */
 .sidebar-nav ul {
     list-style: none;
     margin: 0;
