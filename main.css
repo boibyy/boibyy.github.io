@@ -1042,8 +1042,8 @@ button.disabled {
     color: var(--text);
 }
 
-body:has(#sidebar) main {
-    margin-left: 240px;
+sidebar {
+    padding-right: 240px;
 }
 
 @media (max-width: 1024px) {
