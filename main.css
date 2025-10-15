@@ -996,53 +996,37 @@ button.disabled {
     }
 }
 
-/* ===== Sidebar ===== */
+/* sidebar */
+
 .layout {
     display: flex;
-    max-width: 1280px;
-    margin: var(--page-margin) auto;
-    padding-top: 60px;
-    gap: 30px;
+    align-items: stretch;
+    min-height: calc(100vh - 60px); /* fill below header */
 }
 
-/* Sidebar base */
 .sidebar {
-    width: 250px;
+    width: 240px;
     background-color: var(--secondary);
     color: var(--text);
-    border-radius: 12px;
-    padding: 20px;
-    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 30px 20px;
+    box-shadow: inset -1px 0 0 var(--border-color, rgba(0,0,0,0.1));
     position: sticky;
-    top: 70px;
-    align-self: flex-start;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: background 0.3s, color 0.3s;
+    top: 60px; 
+    height: calc(100vh - 60px);
 }
 
-/* Sidebar headings */
-.sidebar-nav h3 {
-    margin-top: 0;
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-/* Sidebar lists */
+/* Sidebar links */
 .sidebar-nav ul {
     list-style: none;
-    padding-left: 0;
     margin: 0;
-}
-
-.sidebar-nav ul ul {
-    margin-top: 6px;
-    margin-left: 12px;
-    border-left: 2px solid var(--secondary-text);
-    padding-left: 10px;
+    padding: 0;
 }
 
 .sidebar-nav li {
-    margin-bottom: 8px;
+    margin: 6px 0;
 }
 
 .sidebar-nav a {
@@ -1056,11 +1040,33 @@ button.disabled {
     color: var(--link);
 }
 
-/* Responsive layout: hide sidebar on small screens */
+.sidebar-nav ul ul {
+    margin-top: 6px;
+    margin-left: 14px;
+    border-left: 2px solid var(--secondary-text);
+    padding-left: 10px;
+}
+
+main {
+    flex: 1;
+    padding: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+footer {
+    background: var(--secondary);
+    color: var(--text);
+    text-align: center;
+    padding: 20px;
+    margin-left: 0;
+    width: 100%;
+    border-top: 1px solid var(--border-color, rgba(0,0,0,0.1));
+}
+
 @media (max-width: 800px) {
     .layout {
         flex-direction: column;
-        gap: 0;
     }
 
     .sidebar {
@@ -1068,7 +1074,6 @@ button.disabled {
     }
 
     main {
-        width: 100%;
-        margin: 0;
+        padding: 20px;
     }
 }
