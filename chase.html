@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Chase Opening</title>
@@ -9,6 +7,37 @@
     <script src="modal.js"></script>
     <script src="theme.js"></script>
     <script src="nav.js"></script>
+    <style>
+        /* Progress bar styling */
+        .progress-container {
+            width: 80%;
+            margin: 20px auto;
+            background: var(--secondary);
+            border-radius: 8px;
+            overflow: hidden;
+            height: 24px;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: #4caf50; /* green */
+            text-align: center;
+            color: #fff;
+            font-weight: bold;
+            line-height: 24px;
+            transition: width 0.5s linear, background 0.5s;
+        }
+        .progress-complete {
+            background: #2196f3; /* blue */
+        }
+        #progress-label {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
 </head>
 <body class="dark">
     <header>
@@ -26,22 +55,28 @@
     </header>
 
     <main>
-    <section id="home" class="heading">
-        <div class="heading-container">
-            <p class="text-center">Chase opening (Oct 23, 2025, 9:00 AM AEDT)</p>
-            <h1 id="countdown" class="header-margin-home text-center">Loading...</h1>
-            
-            <!-- Apple Store countdown -->
-            <p class="text-center">Apple Store opening (Oct 30, 2025, 9:30 AM AEDT)</p>
-            <h1 id="apple-countdown" class="header-margin-home text-center">Loading...</h1>
-        </div>
-    </section>
-</main>
+        <section id="home" class="heading">
+            <div class="heading-container">
+                <p class="text-center">Chase opening (Oct 23, 2025, 9:30 AM AEDT)</p>
+                <h1 id="countdown" class="header-margin-home text-center">5d 18h 34m 58s</h1>
+
+                <!-- Progress bar for Chase countdown -->
+                <div class="progress-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                <p id="progress-label">0%</p>
+
+                <!-- Apple Store countdown -->
+                <p style="display:none" class="text-center">Apple Store opening (Oct 30, 2025, 9:30 AM AEDT)</p>
+                <h1 style="display:none" id="apple-countdown" class="header-margin-home text-center">12d 19h 4m 58s</h1>
+
+            </div>
+        </section>
+    </main>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    // Chase countdown
-    const chaseUnix = 1761170400; // Oct 23, 2025 9:00 AM AEDT
+    const chaseUnix = 1761172200; // Oct 23, 2025 9:30 AM AEDT
     const chaseTimestamp = chaseUnix * 1000;
 
     function updateCountdown(targetTimestamp, elementId) {
@@ -70,17 +105,63 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById(elementId).textContent = parts.join(" ");
     }
 
-    // Set intervals
     updateCountdown(chaseTimestamp, "countdown");
-    const chaseInterval = setInterval(() => updateCountdown(chaseTimestamp, "countdown"), 1000);
+    setInterval(() => updateCountdown(chaseTimestamp, "countdown"), 1000);
 
-    // Apple Store countdown
     const appleUnix = 1761777000; // Oct 30, 2025 9:30 AM AEDT
     const appleTimestamp = appleUnix * 1000;
 
     updateCountdown(appleTimestamp, "apple-countdown");
-    const appleInterval = setInterval(() => updateCountdown(appleTimestamp, "apple-countdown"), 1000);
+    setInterval(() => updateCountdown(appleTimestamp, "apple-countdown"), 1000);
+
+    // Progress bar
+    const startUnix = 1711231200; // March 14, 2024 9:00 AM AEDT
+    const startTimestamp = startUnix * 1000;
+    const endTimestamp = chaseTimestamp;
+
+    const progressBar = document.getElementById("progress-bar");
+    const progressLabel = document.getElementById("progress-label");
+
+    let decimalPlaces = 3;
+
+    progressLabel.addEventListener("click", () => {
+        decimalPlaces = decimalPlaces === 3 ? 5 : 3;
+    });
+
+    function updateProgress() {
+        const now = Date.now();
+
+        if (isNaN(now) || now <= 0) {
+            progressLabel.textContent = "Loading current time...";
+            return;
+        }
+
+        const total = endTimestamp - startTimestamp;
+        const elapsed = Math.max(0, now - startTimestamp);
+
+        if (total <= 0) {
+            progressLabel.textContent = "Invalid";
+            return;
+        }
+
+        let percent = Math.min(100, (elapsed / total) * 100);
+
+        if (percent >= 100) {
+            progressBar.classList.add("progress-complete");
+            progressBar.style.width = "100%";
+            progressBar.textContent = "Countdown complete";
+            progressLabel.textContent = "";
+        } else {
+            const factor = Math.pow(10, decimalPlaces);
+            const flooredPercent = Math.floor(percent * factor) / factor;
+            progressBar.style.width = flooredPercent + "%";
+            progressBar.textContent = "";
+            progressLabel.textContent = flooredPercent + "%";
+        }
+    }
+
+    updateProgress();
+    setInterval(updateProgress, 1000);
 });
 </script>
-</body>
-</html>
+</body></html>
