@@ -8,7 +8,6 @@
     <script src="theme.js"></script>
     <script src="nav.js"></script>
     <style>
-        /* Progress bar styling */
         .progress-container {
             width: 80%;
             margin: 20px auto;
@@ -20,7 +19,7 @@
         .progress-bar {
             height: 100%;
             width: 0%;
-            background: #4caf50; /* green */
+            background: #4caf50; 
             text-align: center;
             color: #fff;
             font-weight: bold;
@@ -28,7 +27,7 @@
             transition: width 0.5s linear, background 0.5s;
         }
         .progress-complete {
-            background: #2196f3; /* blue */
+            background: #2196f3; 
         }
         #progress-label {
             text-align: center;
@@ -55,33 +54,57 @@
     </header>
 
     <main>
-        <section id="home" class="heading">
-            <div class="heading-container">
-                <p class="text-center">Chase opening (Oct 23, 2025, 9:30 AM AEDT)</p>
-                <h1 id="countdown" class="header-margin-home text-center">5d 18h 34m 58s</h1>
+    <section id="home" class="heading">
+        <div class="heading-container">
+            <p class="text-center">Chase opening (Oct 23, 2025, 9:30 AM AEDT)</p>
+            <h1 id="countdown" class="header-margin-home text-center"></h1>
 
-                <!-- Progress bar for Chase countdown -->
-                <div class="progress-container">
-                    <div id="progress-bar" class="progress-bar"></div>
-                </div>
-                <p id="progress-label">0%</p>
-
-                <!-- Apple Store countdown -->
-                <p style="display:none" class="text-center">Apple Store opening (Oct 30, 2025, 9:30 AM AEDT)</p>
-                <h1 style="display:none" id="apple-countdown" class="header-margin-home text-center">12d 19h 4m 58s</h1>
-
+            <div class="progress-container">
+                <div id="progress-bar" class="progress-bar" style="width: 99.676%;"></div>
             </div>
-        </section>
-    </main>
+            <p id="progress-label">99.676%</p><br>
+<hr><br>
+            <p class="text-center extra-countdown-label">Initial (Oct 23, 2025, 10:35 AM AEDT)</p>
+            <h2 id="countdown2" class="text-center small-text"></h2>
+
+            <p class="text-center extra-countdown-label">Second (Oct 23, 2025, 12:50 PM AEDT)</p>
+            <h3 id="countdown3" class="text-center small-text"></h3>
+
+            <p class="text-center extra-countdown-label">Afternoon (Oct 23, 2025, 3:10 PM AEDT)</p>
+            <h3 id="countdown4" class="text-center small-text"></h3>
+
+            <p class="text-center extra-countdown-label">Saturday (Oct 25, 2025, 11:00 AM AEDT)</p>
+            <h3 id="countdown5" class="text-center small-text"></h3>
+<br><hr><br>
+            <p class="text-center">Apple Store opening (Oct 30, 2025, 9:30 AM AEDT)</p>
+            <h1 id="apple-countdown" class="header-margin-home text-center"></h1>
+
+            <div class="progress-container">
+                <div id="apple-progress-bar" class="progress-bar" style="width: 0%;"></div>
+            </div>
+            <p id="apple-progress-label" style="margin:auto; text-align: center">0%</p>
+        </div>
+    </section>
+</main>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const chaseUnix = 1761172200; // Oct 23, 2025 9:30 AM AEDT
-    const chaseTimestamp = chaseUnix * 1000;
+    const countdowns = [
+        {id: "countdown", timestamp: 1761172200},
+        {id: "countdown2", timestamp: 1761176100},
+        {id: "countdown3", timestamp: 1761184200},
+        {id: "countdown4", timestamp: 1761192600},
+        {id: "countdown5", timestamp: 1761350400},
+        {id: "apple-countdown", timestamp: 1761777000}
+    ];
 
-    function updateCountdown(targetTimestamp, elementId) {
+    const formatStates = ["d h m s", "h m s", "m s", "s"];
+    const formatIndexes = {};
+
+    function updateCountdown(targetUnix, elementId) {
         const now = Date.now();
-        let remaining = targetTimestamp - now;
+        const target = targetUnix * 1000;
+        let remaining = target - now;
 
         if (remaining <= 0) {
             document.getElementById(elementId).textContent = "Countdown finished";
@@ -96,54 +119,40 @@ document.addEventListener("DOMContentLoaded", () => {
         const minutes = Math.floor(totalSeconds / 60);
         const seconds = totalSeconds % 60;
 
-        let parts = [];
-        if (days > 0) parts.push(days + "d");
-        if (hours > 0) parts.push(hours + "h");
-        if (minutes > 0) parts.push(minutes + "m");
-        parts.push(seconds + "s");
+        const state = formatStates[formatIndexes[elementId] || 0];
+        const parts = [];
+
+        if (state.includes("d") && days > 0) parts.push(days + "d");
+        if (state.includes("h") && (hours > 0 || parts.length > 0)) parts.push(hours + "h");
+        if (state.includes("m") && (minutes > 0 || parts.length > 0)) parts.push(minutes + "m");
+        if (state.includes("s")) parts.push(seconds + "s");
 
         document.getElementById(elementId).textContent = parts.join(" ");
     }
 
-    updateCountdown(chaseTimestamp, "countdown");
-    setInterval(() => updateCountdown(chaseTimestamp, "countdown"), 1000);
+    countdowns.forEach(cd => {
+        formatIndexes[cd.id] = 0;
+        setInterval(() => updateCountdown(cd.timestamp, cd.id), 1000);
 
-    const appleUnix = 1761777000; // Oct 30, 2025 9:30 AM AEDT
-    const appleTimestamp = appleUnix * 1000;
+        const el = document.getElementById(cd.id);
+        el.style.cursor = "pointer";
+        el.addEventListener("click", () => {
+            formatIndexes[cd.id] = (formatIndexes[cd.id] + 1) % formatStates.length;
+        });
+    });
 
-    updateCountdown(appleTimestamp, "apple-countdown");
-    setInterval(() => updateCountdown(appleTimestamp, "apple-countdown"), 1000);
-
-    // Progress bar
-    const startUnix = 1711231200; // March 14, 2024 9:00 AM AEDT
-    const startTimestamp = startUnix * 1000;
-    const endTimestamp = chaseTimestamp;
-
+    const chaseStartUnix = 1711231200;
+    const chaseEndUnix = 1761172200;
     const progressBar = document.getElementById("progress-bar");
     const progressLabel = document.getElementById("progress-label");
-
     let decimalPlaces = 3;
 
-    progressLabel.addEventListener("click", () => {
-        decimalPlaces = decimalPlaces === 3 ? 5 : 3;
-    });
+    progressLabel.addEventListener("click", () => decimalPlaces = decimalPlaces === 3 ? 5 : 3);
 
     function updateProgress() {
         const now = Date.now();
-
-        if (isNaN(now) || now <= 0) {
-            progressLabel.textContent = "Loading current time...";
-            return;
-        }
-
-        const total = endTimestamp - startTimestamp;
-        const elapsed = Math.max(0, now - startTimestamp);
-
-        if (total <= 0) {
-            progressLabel.textContent = "Invalid";
-            return;
-        }
-
+        const total = (chaseEndUnix - chaseStartUnix) * 1000;
+        const elapsed = Math.max(0, now - chaseStartUnix * 1000);
         let percent = Math.min(100, (elapsed / total) * 100);
 
         if (percent >= 100) {
@@ -159,9 +168,120 @@ document.addEventListener("DOMContentLoaded", () => {
             progressLabel.textContent = flooredPercent + "%";
         }
     }
-
-    updateProgress();
     setInterval(updateProgress, 1000);
+
+    const appleStartUnix = 1720395000;
+    const appleEndUnix = 1761777000;
+    const appleBar = document.getElementById("apple-progress-bar");
+    const appleLabel = document.getElementById("apple-progress-label");
+
+    function updateAppleProgress() {
+        const now = Date.now();
+        const total = (appleEndUnix - appleStartUnix) * 1000;
+        const elapsed = Math.max(0, now - appleStartUnix * 1000);
+        let percent = Math.min(100, (elapsed / total) * 100);
+        appleBar.style.width = percent + "%";
+        appleLabel.textContent = percent.toFixed(2) + "%";
+    }
+    setInterval(updateAppleProgress, 1000);
 });
 </script>
+
+<style>
+    .small-text { font-size: 1.25em; }
+</style>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const countdowns = [
+        {id: "countdown", timestamp: 1761172200},
+        {id: "countdown2", timestamp: 1761176100},
+        {id: "countdown3", timestamp: 1761184200},
+        {id: "countdown4", timestamp: 1761192600},
+        {id: "countdown5", timestamp: 1761350400},
+        {id: "apple-countdown", timestamp: 1761777000}
+    ];
+
+    const formatStates = [
+        "d h m s",
+        "h m s",
+        "m s",
+        "s"
+    ];
+
+    const formatIndexes = {};
+
+    function updateCountdown(targetUnix, elementId) {
+        const now = Date.now();
+        const remainingMs = Math.max(0, targetUnix * 1000 - now);
+        const totalSeconds = Math.floor(remainingMs / 1000);
+
+        if (totalSeconds <= 0) {
+            document.getElementById(elementId).textContent = "Countdown finished";
+            return;
+        }
+
+        const format = formatStates[formatIndexes[elementId] || 0].split(" ");
+        let display = [];
+
+        let secondsRemaining = totalSeconds;
+
+        if (format.includes("d")) {
+            const days = Math.floor(secondsRemaining / 86400);
+            secondsRemaining %= 86400;
+            display.push(days + "d");
+        }
+
+        if (format.includes("h")) {
+            let hours;
+            if (formatIndexes[elementId] === 1) {
+                hours = Math.floor(secondsRemaining / 3600) + ((format.includes("d")) ? 0 : 0);
+            } else {
+                hours = Math.floor(secondsRemaining / 3600);
+            }
+            secondsRemaining %= 3600;
+            display.push(hours + "h");
+        }
+
+        if (format.includes("m")) {
+            let minutes;
+            if (formatIndexes[elementId] === 2) {
+                minutes = Math.floor(secondsRemaining / 60) + (Math.floor(secondsRemaining / 3600) * 60);
+            } else {
+                minutes = Math.floor(secondsRemaining / 60);
+            }
+            secondsRemaining %= 60;
+            display.push(minutes + "m");
+        }
+
+        if (format.includes("s")) {
+            let secs;
+            if (formatIndexes[elementId] === 3) {
+                secs = totalSeconds;
+            } else {
+                secs = secondsRemaining;
+            }
+            display.push(secs + "s");
+        }
+
+        document.getElementById(elementId).textContent = display.join(" ");
+    }
+
+    countdowns.forEach(cd => {
+        formatIndexes[cd.id] = 0;
+        const el = document.getElementById(cd.id);
+
+        setInterval(() => updateCountdown(cd.timestamp, cd.id), 1000);
+
+        el.style.cursor = "pointer";
+        el.addEventListener("click", () => {
+            formatIndexes[cd.id] = (formatIndexes[cd.id] + 1) % formatStates.length;
+            updateCountdown(cd.timestamp, cd.id);
+        });
+    });
+});
+</script>
+
+
 </body></html>
