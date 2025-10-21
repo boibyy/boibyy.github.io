@@ -1,4 +1,5 @@
-<html lang="en"><head>
+<html lang="en">
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Chase Opening</title>
@@ -19,7 +20,7 @@
         .progress-bar {
             height: 100%;
             width: 0%;
-            background: #4caf50; 
+            background: #4caf50;
             text-align: center;
             color: #fff;
             font-weight: bold;
@@ -27,7 +28,7 @@
             transition: width 0.5s linear, background 0.5s;
         }
         .progress-complete {
-            background: #2196f3; 
+            background: #2196f3;
         }
         #progress-label {
             text-align: center;
@@ -36,6 +37,7 @@
             cursor: pointer;
             user-select: none;
         }
+        .small-text { font-size: 1.25em; }
     </style>
 </head>
 <body class="dark">
@@ -52,147 +54,127 @@
         <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
         <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
     </header>
-
     <main>
-    <section id="home" class="heading">
-        <div class="heading-container">
-            <p class="text-center">Chase opening (Oct 23, 2025, 9:30 AM AEDT)</p>
-            <h1 id="countdown" class="header-margin-home text-center"></h1>
-
-            <div class="progress-container">
-                <div id="progress-bar" class="progress-bar" style="width: 99.676%;"></div>
+        <section id="home" class="heading">
+            <div class="heading-container">
+                <p class="text-center">Chase opening (Oct 23, 2025, 9:30 AM AEDT)</p>
+                <h1 id="countdown" class="header-margin-home text-center"></h1>
+                <div class="progress-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                <p id="progress-label">0%</p>
+                <br><hr><br>
+                <p class="text-center extra-countdown-label">Initial (Oct 23, 2025, 10:35 AM AEDT)</p>
+                <h2 id="countdown2" class="text-center small-text"></h2>
+                <p class="text-center extra-countdown-label">Second (Oct 23, 2025, 12:50 PM AEDT)</p>
+                <h3 id="countdown3" class="text-center small-text"></h3>
+                <p class="text-center extra-countdown-label">Afternoon (Oct 23, 2025, 3:10 PM AEDT)</p>
+                <h3 id="countdown4" class="text-center small-text"></h3>
+                <p class="text-center extra-countdown-label">Saturday (Oct 25, 2025, 11:00 AM AEDT)</p>
+                <h3 id="countdown5" class="text-center small-text"></h3>
+                <br><hr><br>
+                <p class="text-center">Apple Store opening (Oct 30, 2025, 9:30 AM AEDT)</p>
+                <h1 id="apple-countdown" class="header-margin-home text-center"></h1>
+                <div class="progress-container">
+                    <div id="apple-progress-bar" class="progress-bar" style="width:0%;"></div>
+                </div>
+                <p id="apple-progress-label" style="text-align:center; margin:auto;">0%</p>
             </div>
-            <p id="progress-label">99.676%</p><br>
-<hr><br>
-            <p class="text-center extra-countdown-label">Initial (Oct 23, 2025, 10:35 AM AEDT)</p>
-            <h2 id="countdown2" class="text-center small-text"></h2>
-
-            <p class="text-center extra-countdown-label">Second (Oct 23, 2025, 12:50 PM AEDT)</p>
-            <h3 id="countdown3" class="text-center small-text"></h3>
-
-            <p class="text-center extra-countdown-label">Afternoon (Oct 23, 2025, 3:10 PM AEDT)</p>
-            <h3 id="countdown4" class="text-center small-text"></h3>
-
-            <p class="text-center extra-countdown-label">Saturday (Oct 25, 2025, 11:00 AM AEDT)</p>
-            <h3 id="countdown5" class="text-center small-text"></h3>
-<br><hr><br>
-            <p class="text-center">Apple Store opening (Oct 30, 2025, 9:30 AM AEDT)</p>
-            <h1 id="apple-countdown" class="header-margin-home text-center"></h1>
-
-            <div class="progress-container">
-                <div id="apple-progress-bar" class="progress-bar" style="width: 0%;"></div>
-            </div>
-            <p id="apple-progress-label" style="margin:auto; text-align: center">0%</p>
-        </div>
-    </section>
-</main>
-
-<style>
-    .small-text { font-size: 1.25em; }
-</style>
-
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const countdowns = [
-        {id: "countdown", timestamp: 1761172200},
-        {id: "countdown2", timestamp: 1761176100},
-        {id: "countdown3", timestamp: 1761184200},
-        {id: "countdown4", timestamp: 1761192600},
-        {id: "countdown5", timestamp: 1761350400},
-        {id: "apple-countdown", timestamp: 1761777000}
-    ];
-
-    const formatStates = ["d h m s","h m s","m s","s"];
-    const formatIndexes = {};
-
-    function updateCountdown(targetUnix, elementId) {
-        const now = Date.now();
-        let remaining = Math.max(0, targetUnix*1000 - now);
-        const totalSeconds = Math.floor(remaining/1000);
-
-        if (totalSeconds <= 0) {
-            document.getElementById(elementId).textContent = "Countdown finished";
-            return;
-        }
-
-        let secsLeft = totalSeconds;
-        let display = [];
-        const format = formatStates[formatIndexes[elementId]||0].split(" ");
-
-        if (format.includes("d")) {
-            const days = Math.floor(secsLeft/86400);
-            secsLeft %= 86400;
-            display.push(days + "d");
-        }
-        if (format.includes("h")) {
-            const hours = formatIndexes[elementId]===1 ? Math.floor(totalSeconds/3600) : Math.floor(secsLeft/3600);
-            secsLeft %= 3600;
-            display.push(hours + "h");
-        }
-        if (format.includes("m")) {
-            const minutes = formatIndexes[elementId]===2 ? Math.floor(totalSeconds/60) : Math.floor(secsLeft/60);
-            secsLeft %= 60;
-            display.push(minutes + "m");
-        }
-        if (format.includes("s")) {
-            display.push(formatIndexes[elementId]===3 ? totalSeconds + "s" : secsLeft + "s");
-        }
-
-        document.getElementById(elementId).textContent = display.join(" ");
-    }
-
-    countdowns.forEach(cd => {
-        formatIndexes[cd.id] = 0;
-        const el = document.getElementById(cd.id);
-        el.style.cursor = "pointer";
-        setInterval(() => updateCountdown(cd.timestamp, cd.id), 1000);
-        el.addEventListener("click", () => {
-            formatIndexes[cd.id] = (formatIndexes[cd.id]+1)%formatStates.length;
-            updateCountdown(cd.timestamp, cd.id);
+        </section>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const countdowns = [
+                {id:"countdown", timestamp:1761172200},
+                {id:"countdown2", timestamp:1761176100},
+                {id:"countdown3", timestamp:1761184200},
+                {id:"countdown4", timestamp:1761192600},
+                {id:"countdown5", timestamp:1761350400},
+                {id:"apple-countdown", timestamp:1761777000}
+            ];
+            const formatStates = ["d h m s","h m s","m s","s"];
+            const formatIndexes = {};
+            function updateCountdown(targetUnix, elementId){
+                const now = Date.now();
+                let remainingSeconds = Math.max(0, Math.floor(targetUnix*1000-now)/1000);
+                if(remainingSeconds<=0){
+                    document.getElementById(elementId).textContent="Countdown finished";
+                    return;
+                }
+                const days = Math.floor(remainingSeconds/86400);
+                remainingSeconds%=86400;
+                const hours = Math.floor(remainingSeconds/3600);
+                remainingSeconds%=3600;
+                const minutes = Math.floor(remainingSeconds/60);
+                const seconds = Math.floor(remainingSeconds%60);
+                const format=formatStates[formatIndexes[elementId]||0].split(" ");
+                let display=[];
+                if(format.includes("d")) display.push(days+"d");
+                if(format.includes("h")) display.push((format.includes("d")?hours:hours+days*24)+"h");
+                if(format.includes("m")) display.push((format.includes("h")?minutes:minutes+hours*60+days*1440)+"m");
+                if(format.includes("s")) display.push(seconds+"s");
+                document.getElementById(elementId).textContent=display.join(" ");
+            }
+            countdowns.forEach(cd=>{
+                formatIndexes[cd.id]=0;
+                const el=document.getElementById(cd.id);
+                el.style.cursor="pointer";
+                setInterval(()=>updateCountdown(cd.timestamp,cd.id),1000);
+                el.addEventListener("click",()=>{
+                    formatIndexes[cd.id]=(formatIndexes[cd.id]+1)%formatStates.length;
+                    updateCountdown(cd.timestamp,cd.id);
+                });
+            });
+            const chaseStartUnix=1711231200;
+            const chaseEndUnix=1761172200;
+            const progressBar=document.getElementById("progress-bar");
+            const progressLabel=document.getElementById("progress-label");
+            let decimalPlaces=3;
+            progressLabel.addEventListener("click",()=>decimalPlaces=decimalPlaces===3?5:3);
+            function updateChaseProgress(){
+                const now=Date.now();
+                const total=(chaseEndUnix-chaseStartUnix)*1000;
+                const elapsed=Math.max(0,now-chaseStartUnix*1000);
+                let percent=Math.min(100,(elapsed/total)*100);
+                if(percent>=100){
+                    progressBar.classList.add("progress-complete");
+                    progressBar.style.width="100%";
+                    progressBar.textContent="Countdown complete";
+                    progressLabel.textContent="";
+                }else{
+                    const factor=Math.pow(10,decimalPlaces);
+                    const flooredPercent=Math.floor(percent*factor)/factor;
+                    progressBar.style.width=flooredPercent+"%";
+                    progressBar.textContent="";
+                    progressLabel.textContent=flooredPercent+"%";
+                }
+            }
+            setInterval(updateChaseProgress,1000);
+            const appleStartUnix=1720395000;
+            const appleEndUnix=1761777000;
+            const appleBar=document.getElementById("apple-progress-bar");
+            const appleLabel=document.getElementById("apple-progress-label");
+            appleLabel.addEventListener("click",()=>decimalPlaces=decimalPlaces===3?5:3);
+            function updateAppleProgress(){
+                const now=Date.now();
+                const total=(appleEndUnix-appleStartUnix)*1000;
+                const elapsed=Math.max(0,now-appleStartUnix*1000);
+                let percent=Math.min(100,(elapsed/total)*100);
+                if(percent>=100){
+                    appleBar.classList.add("progress-complete");
+                    appleBar.style.width="100%";
+                    appleBar.textContent="Countdown complete";
+                    appleLabel.textContent="";
+                }else{
+                    const factor=Math.pow(10,decimalPlaces);
+                    const flooredPercent=Math.floor(percent*factor)/factor;
+                    appleBar.style.width=flooredPercent+"%";
+                    appleBar.textContent="";
+                    appleLabel.textContent=flooredPercent+"%";
+                }
+            }
+            setInterval(updateAppleProgress,1000);
         });
-    });
-
-    const chaseStartUnix = 1711231200;
-    const chaseEndUnix = 1761172200;
-    const progressBar = document.getElementById("progress-bar");
-    const progressLabel = document.getElementById("progress-label");
-    let decimalPlaces = 3;
-    progressLabel.addEventListener("click", () => decimalPlaces = decimalPlaces===3 ? 5 : 3);
-    function updateChaseProgress() {
-        const now = Date.now();
-        const total = (chaseEndUnix - chaseStartUnix)*1000;
-        const elapsed = Math.max(0, now - chaseStartUnix*1000);
-        let percent = Math.min(100, (elapsed/total)*100);
-        if (percent >= 100) {
-            progressBar.classList.add("progress-complete");
-            progressBar.style.width = "100%";
-            progressBar.textContent = "Countdown complete";
-            progressLabel.textContent = "";
-        } else {
-            const factor = Math.pow(10, decimalPlaces);
-            const flooredPercent = Math.floor(percent*factor)/factor;
-            progressBar.style.width = flooredPercent + "%";
-            progressBar.textContent = "";
-            progressLabel.textContent = flooredPercent + "%";
-        }
-    }
-    setInterval(updateChaseProgress, 1000);
-
-    const appleStartUnix = 1720395000;
-    const appleEndUnix = 1761777000;
-    const appleBar = document.getElementById("apple-progress-bar");
-    const appleLabel = document.getElementById("apple-progress-label");
-    function updateAppleProgress() {
-        const now = Date.now();
-        const total = (appleEndUnix - appleStartUnix)*1000;
-        const elapsed = Math.max(0, now - appleStartUnix*1000);
-        const percent = Math.min(100, (elapsed/total)*100);
-        appleBar.style.width = percent + "%";
-        appleLabel.textContent = percent.toFixed(2) + "%";
-    }
-    setInterval(updateAppleProgress, 1000);
-});
-</script>
+    </script>
 </body>
 </html>
