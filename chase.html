@@ -94,27 +94,44 @@
             ];
             const formatStates = ["d h m s","h m s","m s","s"];
             const formatIndexes = {};
-            function updateCountdown(targetUnix, elementId){
-                const now = Date.now();
-                let remainingSeconds = Math.max(0, Math.floor(targetUnix*1000-now)/1000);
-                if(remainingSeconds<=0){
-                    document.getElementById(elementId).textContent="Countdown finished";
-                    return;
-                }
-                const days = Math.floor(remainingSeconds/86400);
-                remainingSeconds%=86400;
-                const hours = Math.floor(remainingSeconds/3600);
-                remainingSeconds%=3600;
-                const minutes = Math.floor(remainingSeconds/60);
-                const seconds = Math.floor(remainingSeconds%60);
-                const format=formatStates[formatIndexes[elementId]||0].split(" ");
-                let display=[];
-                if(format.includes("d")) display.push(days+"d");
-                if(format.includes("h")) display.push((format.includes("d")?hours:hours+days*24)+"h");
-                if(format.includes("m")) display.push((format.includes("h")?minutes:minutes+hours*60+days*1440)+"m");
-                if(format.includes("s")) display.push(seconds+"s");
-                document.getElementById(elementId).textContent=display.join(" ");
-            }
+           function updateCountdown(targetUnix, elementId) {
+    const now = Date.now();
+    let totalSeconds = Math.max(0, Math.floor((targetUnix * 1000 - now) / 1000));
+
+    if (totalSeconds <= 0) {
+        document.getElementById(elementId).textContent = "Countdown finished";
+        return;
+    }
+
+    const format = formatStates[formatIndexes[elementId] || 0].split(" ");
+    const display = [];
+
+    if (format.includes("d")) {
+        const days = Math.floor(totalSeconds / 86400);
+        totalSeconds -= days * 86400;
+        display.push(days + "d");
+    }
+
+    if (format.includes("h")) {
+        let hours = Math.floor(totalSeconds / 3600);
+        if (!format.includes("d")) hours += Math.floor((targetUnix * 1000 - now) / 1000 / 3600) - hours; 
+        totalSeconds -= hours * 3600;
+        display.push(hours + "h");
+    }
+
+    if (format.includes("m")) {
+        let minutes = Math.floor(totalSeconds / 60);
+        if (!format.includes("h")) minutes += Math.floor((targetUnix * 1000 - now) / 1000 / 60) - minutes;
+        totalSeconds -= minutes * 60;
+        display.push(minutes + "m");
+    }
+
+    if (format.includes("s")) {
+        display.push(totalSeconds + "s");
+    }
+
+    document.getElementById(elementId).textContent = display.join(" ");
+}
             countdowns.forEach(cd=>{
                 formatIndexes[cd.id]=0;
                 const el=document.getElementById(cd.id);
