@@ -63,6 +63,8 @@
 
         .product-meta h3 { margin: 0 0 6px 0; font-size: 18px; }
         .product-meta p { margin: 0; font-size: 14px; color: var(--secondary-text); }
+        .product-meta li { margin: 0; font-size: 14px; color: var(--secondary-text); }
+        product-meta ul { margin: 0; font-size: 14px; color: var(--secondary-text); }
 
         .option-group {
             margin-bottom: 1rem!important;
@@ -197,28 +199,43 @@
     <main>
 
             <section class="config-panel" aria-labelledby="config-title" style="margin-bottom:1.5rem;">
-                <h2 id="config-title" style="margin:0 0 8px 0">BoibyBook Studio 14</h2>
+                <h2 id="config-title" style="margin:0 0 8px 0">BoibyBook 14</h2>
                 <div class="product-card">
-                    <div class="product-image">BoibyBook Studio 14</div>
+                    <div class="product-image">BoibyBook 14</div>
                     <div class="product-meta">
-                        <h3>Starts at A$1,699</h3>
-                        <p>14.5-inch 2430x1620 120Hz OLED display (peak brightness up to 1000 nits)</p>
-                        <p>Boiby B1 or Boiby B1 Plus chip</p>
-                        <p>Up to 32 GB LPDDR5X-8500 RAM</p>
-                        <p>Up to 2 TB SSD storage</p>
+                        <h3>Starts at A$2,599</h3>
+                        <p>14.3-inch 3000x2000 120Hz Tandem OLED display</p>
+                        <p>Boiby B2 Ultra 16-core or 18-core SoC</p>
+                        <p>Up to 128 GB LPDDR5X-8533 LPCAMM2 RAM</p>
+                        <p>Up to 8 TB SSD storage</p>
                         <p>Durable precision-milled aluminium body</p>
-                        <p>WiFi 7 and Bluetooth 6</p>
+                        <strong>Ports:</strong>
+                        <ul>
+                            <li>Two USB 4 (Type-C) ports (two 80Gbps + one 40Gbps), One USB 3.1 (Type-A) port;</li>
+                            <li>HDMI 2.1 port, 2.5Gb Ethernet, SD card slot, audio jack</li>
+                        </ul>
+                        <p>WiFi 7 and Bluetooth 6 LE</p>
+                        <p>12 MP webcam with disable switch</p>
                         <p>Boiby Hello - Face Unlock & Touch Unlock</p>
-                        <p>boibyOS 3</p>
+                        <p>83Wh Lithium-polymer battery</p>
+                        <p>boibyOS</p>
+                        <strong>Inside the box:</strong>
+                        <ul>
+                            <li>BoibyBook 14</li>
+                            <li>75W USB-C power adapter</li>
+                            <li>USB4 80Gbps 2m cable</li>
+                            <li>Documentation & Boiby Stickers</li>
+                            <li>Boiby Polishing Cloth</li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="configurator" role="region" aria-label="BoibyBook Studio 14 configurator">
+                <div class="configurator" role="region" aria-label="BoibyBook 14 configurator">
                     <!-- Left: options -->
                     <div>
                     <!-- Colour -->
                         <div class="option-group" id="opt-colour">
-                            <h4>Colour</h4>
+                            <h4>Processor</h4>
                             <div class="option-row" role="radiogroup">
                                 <label class="selected">
                                     <input type="radio" name="colour" value="black" checked>
@@ -238,15 +255,14 @@
                             <h4>Processor</h4>
                             <div class="option-row" role="radiogroup">
                                 <label class="selected">
-                                    <input type="radio" name="cpu" value="b1" checked>
-                                    <span>Boiby B1 Extreme (16-core)</span>
+                                    <input type="radio" name="cpu" value="b2u" checked>
+                                    <span>Boiby B2 Ultra (16 cores)</span>
                                     <span class="price-badge"></span>
                                 </label>
-
                                 <label>
-                                    <input type="radio" name="cpu" value="b1p">
-                                    <span>Boiby B1 Extreme Plus (18-core)</span>
-                                    <span class="price-badge">+$250</span>
+                                    <input type="radio" name="cpu" value="b2u2">
+                                    <span>Boiby B2 Ultra (18 cores)</span>
+                                    <span class="price-badge">+A$200</span>
                                 </label>
                             </div>
                         </div>
@@ -256,15 +272,21 @@
                             <h4>RAM/Memory</h4>
                             <div class="option-row" role="radiogroup">
                                 <label class="selected">
-                                    <input type="radio" name="ram" value="16" checked>
-                                    <span>32 GB of RAM (8500 MHz LPDDR5X LPCAMM2)</span>
+                                    <input type="radio" name="ram" value="32">
+                                    <span>32 GB RAM - LPDDR5X-8533 (LPCAMM2)</span>
                                     <span class="price-badge"></span>
                                 </label>
 
                                 <label>
-                                    <input type="radio" name="ram" value="32">
-                                    <span>64 GB of RAM (8500 MHz LPDDR5X LPCAMM2)</span>
+                                    <input type="radio" name="ram" value="64">
+                                    <span>64 GB RAM - LPDDR5X-8533 (LPCAMM2)</span>
                                     <span class="price-badge">+A$300</span>
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="ram" value="128">
+                                    <span>128 GB RAM - LPDDR5X-8533 (LPCAMM2)</span>
+                                    <span class="price-badge">+A$900</span>
                                 </label>
                             </div>
                         </div>
@@ -275,20 +297,26 @@
                             <div class="option-row" role="radiogroup">
                                 <label class="selected">
                                     <input type="radio" name="ssd" value="1tb" checked>
-                                    <span>1 TB of SSD storage</span>
+                                    <span>1 TB SSD - PCIe Gen5 (WD_BLACK SN8100)</span>
                                     <span class="price-badge"></span>
                                 </label>
 
                                 <label>
                                     <input type="radio" name="ssd" value="2tb">
-                                    <span>2 TB of SSD storage</span>
-                                    <span class="price-badge">+A$120</span>
+                                    <span>2 TB SSD - PCIe Gen5</span>
+                                    <span class="price-badge">+A$150</span>
                                 </label>
 
                                 <label>
                                     <input type="radio" name="ssd" value="4tb">
-                                    <span>4 TB of SSD storage</span>
-                                    <span class="price-badge">+A$360</span>
+                                    <span>4 TB SSD - PCIe Gen5</span>
+                                    <span class="price-badge">+A$400</span>
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="ssd" value="8tb">
+                                    <span>8 TB SSD - PCIe Gen5</span>
+                                    <span class="price-badge">+A$950</span>
                                 </label>
                             </div>
                         </div>
@@ -302,7 +330,7 @@
 
                         <div class="summary-line">
                             <div>Base price</div>
-                            <div id="base-price">A$2,799</div>
+                            <div id="base-price">A$2,499</div>
                         </div>
 
                         <div id="breakdown">
@@ -311,7 +339,7 @@
 
                         <div class="summary-line total">
                             <div>Total</div>
-                            <div id="total-price">A$2,799</div>
+                            <div id="total-price">A$2,499</div>
                         </div>
 
                         <div style="margin-top:8px;">
@@ -336,30 +364,30 @@
     <script>
         (function () {
             // Base price (AUD)
-            const basePrice = 2799;
+            const basePrice = 2599;
 
             const prices = {
                 // color
                 'black': 0,
                 'silver': 0,
-                'blue': 0,
-                'violet': 0,
                 // CPU
-                'b1': 0,
-                'b1p': 150,
+                'b2u': 0,
+                'b2u2': 200,
                 // RAM
-                '16': 0,
-                '32': 150,
+                '32': 0,
+                '64': 300,
+                '128': 900,
                 // SSD
-                '512': 0,
-                '1tb': 80,
-                '2tb': 200
+                '1tb': 0,
+                '2tb': 150,
+                '4tb': 400,
+                '8tb': 950,
             };
 
             // Default selections (name -> value)
             const defaults = {
                 color: 'black',
-                cpu: 'b1',
+                cpu: 'b2p',
                 ram: '16',
                 ssd: '512'
             };
