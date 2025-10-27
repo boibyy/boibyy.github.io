@@ -81,7 +81,19 @@
             font-size: 20px;
             font-weight: 600;
             color: var(--text);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
+        .option-group h4 .info-link {
+            font-size: 14px;
+            font-weight: normal;
+            color: var(--link);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
         .option-row label {
             border: 1px solid rgba(0,0,0,0.6);
             display: flex;
@@ -97,6 +109,12 @@
             justify-content: flex-start;
             color: var(--text);
             margin-bottom: 0.66rem !important;
+        }
+
+        .option-row label.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
         }
         
         .option-row label.selected {
@@ -235,7 +253,7 @@
                     <div>
                     <!-- Colour -->
                         <div class="option-group" id="opt-colour">
-                            <h4>Processor</h4>
+                            <h4>Colour</h4>
                             <div class="option-row" role="radiogroup">
                                 <label class="selected">
                                     <input type="radio" name="colour" value="black" checked>
@@ -258,7 +276,9 @@
                         </div>
                         <!-- CPU -->
                         <div class="option-group" id="opt-cpu">
-                            <h4>Processor</h4>
+                            <h4>Processor
+                                <span class="info-link" onclick="openModal('cpu-modal')">Which chip should I pick?</span>
+                            </h4>
                             <div class="option-row" role="radiogroup">
                                 <label class="selected">
                                     <input type="radio" name="cpu" value="b2p" checked>
@@ -275,7 +295,9 @@
 
                         <!-- Memory -->
                         <div class="option-group" id="opt-ram">
-                            <h4>RAM/Memory</h4>
+                            <h4>RAM/Memory
+                                <span class="info-link" onclick="openModal('ram-modal')">How much RAM do I need?</span>
+                            </h4>
                             <div class="option-row" role="radiogroup">
                                 <label class="selected">
                                     <input type="radio" name="ram" value="16" checked>
@@ -287,7 +309,7 @@
                                     <span>32 GB RAM - LPDDR5X-8533 (LPCAMM2)</span>
                                     <span class="price-badge">+A$160</span>
                                 </label>
-                                <label>
+                                <label id="ram-64-label">
                                     <input type="radio" name="ram" value="64">
                                     <span>64 GB RAM - LPDDR5X-8533 (LPCAMM2)</span>
                                     <span class="price-badge">+A$480</span>
@@ -297,7 +319,6 @@
 
                         <!-- Storage -->
                         <div class="option-group" id="opt-ssd">
-                            <h4>SSD Storage</h4>
                             <div class="option-row" role="radiogroup">
                                 <label class="selected">
                                     <input type="radio" name="ssd" value="512" checked>
@@ -325,9 +346,11 @@
                             </div>
                         </div>
 
-                        <!-- Memory -->
+                        <!-- OS -->
                         <div class="option-group" id="opt-os">
-                            <h4>Operating System</h4>
+                            <h4>Operating System
+                                <span class="info-link" onclick="openModal('os-modal')">Which operating system is right for me?</span>
+                            </h4>
                             <div class="option-row" role="radiogroup">
                                 <label class="selected">
                                     <input type="radio" name="os" value="boibyos" checked>
@@ -384,6 +407,57 @@
         </div>
     </main>
     
+    <!-- Modal dialogs -->
+    <div id="ram-modal" class="modal" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-header-text">How much RAM do I need?</h2>
+                <button onclick="closeModal('ram-modal')" aria-label="Close">×</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>16 GB:</strong> Good for everyday tasks like web browsing, office applications, general multitasking, as well as photo editing and light video editing or development.</p>
+                <p><strong>32 GB:</strong> Recommended for power users, developers, and content creators/video editors. Good for lots of browser tabs and runbing multiple applications simultaneously.</p>
+                <p><strong>64 GB:</strong> Ideal for 4K video editing with complex timelines, large development projects, 3D modelling/rendering, virtual machines, and data science. <em>Note: Only available with B2 Neo.</em></p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeModal('ram-modal')" class="primary-blue"Okay</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="cpu-modal" class="modal" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-header-text">Which chip should I pick?</h2>
+                <button onclick="closeModal('cpu-modal')" aria-label="Close">×</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Boiby B2 Plus (10 cores):</strong> Great performance for most users and great efficiency.</p>
+                <p><strong>Boiby B2 Neo (12 cores):</strong> Ideal for those who need more performance for more demanding workflows or tasks.</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeModal('cpu-modal')" class="primary-blue">Okay</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="os-modal" class="modal" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-header-text">Which operating system is right for me?</h2>
+                <button onclick="closeModal('os-modal')" aria-label="Close">×</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>boibyOS 25.11:</strong> Boiby's custom operating system designed with Boiby hardware in mind. Offers optimized performance, seamless integration, and a clean interface.</p>
+                <p><strong>Windows 11 Pro:</strong> Familiar Windows environment with full compatibility for business and productivity software, games, and specialized applications.</p>
+                <p><strong>No operating system:</strong> For users who prefer to install their own OS (Linux distributions, etc.).</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeModal('os-modal')" class="primary-blue">Okay</button>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <hr>
         <p>© Boiby 2025</p>
@@ -400,19 +474,18 @@
                 'silver': 0,
                 'blue': 0,
                 'purple': 0,
-                'green': 0,
                 // CPU
                 'b2p': 0,
                 'b2n': 120,
                 // RAM
                 '16': 0,
-                '32': 150,
-                '64': 350,
+                '32': 160,
+                '64': 480,
                 // SSD
                 '512': 0,
-                '1tb': 80,
-                '2tb': 200,
-                '4tb': 450,
+                '1tb': 100,
+                '2tb': 250,
+                '4tb': 500,
                 // OS
                 'boibyos': 0,
                 'win11pro': 0,
@@ -421,10 +494,11 @@
 
             // Default selections (name -> value)
             const defaults = {
-                color: 'black',
+                colour: 'black',
                 cpu: 'b2p',
                 ram: '16',
-                ssd: '512'
+                ssd: '512',
+                os: 'boibyos'
             };
 
             function fmt(aud) {
@@ -432,14 +506,43 @@
             }
 
             // include os in the same list as other radio groups now
-            const optionNames = ['display','cpu','ram','ssd','os'];
+            const optionNames = ['colour','cpu','ram','ssd','os'];
 
             const formInputs = document.querySelectorAll('.configurator input[type="radio"]');
             const basePriceEl = document.getElementById('base-price');
             const totalPriceEl = document.getElementById('total-price');
             const breakdownEl = document.getElementById('breakdown');
+            const ram64Label = document.getElementById('ram-64-label');
+            const ram64Input = document.querySelector('input[name="ram"][value="64"]');
 
             basePriceEl.textContent = fmt(basePrice);
+
+            // Function to handle RAM-CPU dependency
+            function updateRamOptions() {
+                const cpuValue = document.querySelector('input[name="cpu"]:checked').value;
+                const ramValue = document.querySelector('input[name="ram"]:checked').value;
+                
+                // Enable/disable 64GB RAM option based on CPU selection
+                if (cpuValue === 'b2n') {
+                    // B2 Neo selected - enable 64GB option
+                    ram64Label.classList.remove('disabled');
+                    ram64Input.disabled = false;
+                } else {
+                    // B2 Plus selected - disable 64GB option
+                    ram64Label.classList.add('disabled');
+                    ram64Input.disabled = true;
+                    
+                    // If 64GB was selected, revert to 32GB
+                    if (ramValue === '64') {
+                        const ram32Input = document.querySelector('input[name="ram"][value="32"]');
+                        ram32Input.checked = true;
+                        
+                        // Trigger change event to update UI and pricing
+                        const ev = new Event('change', { bubbles: true });
+                        ram32Input.dispatchEvent(ev);
+                    }
+                }
+            }
 
             function updateSelectedVisuals() {
                 document.querySelectorAll('.option-group').forEach(group => {
@@ -476,7 +579,7 @@
                     if (delta === 0) return; // hide zero-priced options
                     total += delta;
                     const labelMap = {
-                        display: 'Display',
+                        colour: 'Colour',
                         cpu: 'Processor',
                         ram: 'Memory',
                         ssd: 'Storage',
@@ -519,6 +622,7 @@
                 totalPriceEl.textContent = fmt(total);
 
                 updateSelectedVisuals();
+                updateRamOptions(); // Ensure RAM options are properly updated
             }
 
             recalc();
@@ -549,8 +653,13 @@
             // Label click handlers (inputs are hidden but still in DOM)
             document.querySelectorAll('.option-row label').forEach(label => {
                 label.addEventListener('click', function (e) {
+                    // Skip if label is disabled
+                    if (this.classList.contains('disabled')) {
+                        return;
+                    }
+                    
                     const inp = label.querySelector('input[type="radio"], input[type="checkbox"]');
-                    if (inp) {
+                    if (inp && !inp.disabled) {
                         inp.checked = true;
                         // trigger change event to ensure any listeners fire
                         const ev = new Event('change', { bubbles: true });
@@ -564,10 +673,15 @@
             document.querySelectorAll('.option-row label').forEach(label => {
                 label.setAttribute('tabindex', '0');
                 label.addEventListener('keydown', function (e) {
+                    // Skip if label is disabled
+                    if (this.classList.contains('disabled')) {
+                        return;
+                    }
+                    
                     if (e.key === ' ' || e.key === 'Enter') {
                         e.preventDefault();
                         const inp = label.querySelector('input[type="radio"], input[type="checkbox"]');
-                        if (inp) {
+                        if (inp && !inp.disabled) {
                             inp.checked = true;
                             const ev = new Event('change', { bubbles: true });
                             inp.dispatchEvent(ev);
