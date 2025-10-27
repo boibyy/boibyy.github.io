@@ -203,7 +203,7 @@
                     <div class="product-meta">
                         <h3>Starts at A$1,699</h3>
                         <p>14.0-inch 2880x1800 120Hz OLED display</p>
-                        <p>Boiby B2 or B2 Plus SoC</p>
+                        <p>Boiby B2 Plus or B2 Neo SoC</p>
                         <p>Up to 64 GB LPDDR5X-8533 RAM</p>
                         <p>Up to 4 TB SSD storage</p>
                         <p>Durable precision-milled aluminium body</p>
@@ -256,14 +256,14 @@
                             <h4>Processor</h4>
                             <div class="option-row" role="radiogroup">
                                 <label class="selected">
-                                    <input type="radio" name="cpu" value="b2" checked>
-                                    <span>Boiby B2 (10-core)</span>
+                                    <input type="radio" name="cpu" value="b2p" checked>
+                                    <span>Boiby B2 Plus (10 cores)</span>
                                     <span class="price-badge"></span>
                                 </label>
 
                                 <label>
-                                    <input type="radio" name="cpu" value="b2p">
-                                    <span>Boiby B2 Plus (12-core)</span>
+                                    <input type="radio" name="cpu" value="b2n">
+                                    <span>Boiby B2 Neo (12 cores)</span>
                                     <span class="price-badge">+$150</span>
                                 </label>
                             </div>
@@ -275,20 +275,20 @@
                             <div class="option-row" role="radiogroup">
                                 <label>
                                     <input type="radio" name="ram" value="24">
-                                    <span>16 GB</span>
+                                    <span>16 GB RAM - LPDDR5X-8533 (LPCAMM2)</span>
                                     <span class="price-badge">+A$0</span>
                                 </label>
 
                                 <label>
                                     <input type="radio" name="ram" value="24">
-                                    <span>32 GB</span>
-                                    <span class="price-badge">+A$200</span>
+                                    <span>32 GB RAM - LPDDR5X-8533 (LPCAMM2)</span>
+                                    <span class="price-badge">+A$150</span>
                                 </label>
 
                                 <label>
                                     <input type="radio" name="ram" value="32">
-                                    <span>64 GB</span>
-                                    <span class="price-badge">+A$400</span>
+                                    <span>64 GB RAM - LPDDR5X-8533 (LPCAMM2)</span>
+                                    <span class="price-badge">+A$350</span>
                                 </label>
                             </div>
                         </div>
@@ -376,8 +376,8 @@
                 'purple': 0,
                 'green': 0,
                 // CPU
-                'b2': 0,
-                'b2p': 150,
+                'b2p': 0,
+                'b2n': 150,
                 // RAM
                 '16': 0,
                 '32': 200,
@@ -392,7 +392,7 @@
             // Default selections (name -> value)
             const defaults = {
                 color: 'black',
-                cpu: 'b2',
+                cpu: 'b2p',
                 ram: '16',
                 ssd: '512'
             };
