@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Boiby Stores Directory</title>
+  <style>
+    :root{
+      --c-bg:#f6f7f9;
+      --c-panel:#ffffff;
+      --c-contrast:#0b1220;
+      --c-muted:#5b6770;
+      --c-border:#e6e9ec;
+      --c-blue:#335fff;
+      --c-green:#149b6c;
+      --c-red:#e74c3c;
+      --c-orange:#f39c12;
+    }
+    *{box-sizing:border-box}
+    body{font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;margin:24px;background:var(--c-bg);color:var(--c-contrast);line-height:1.5}
+    .header{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+    .header h1{margin:0;font-size:20px}
+    .controls{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .controls select{padding:8px;border-radius:8px;border:1px solid var(--c-border);background:var(--c-panel);color:var(--c-contrast)}
+    
+    .store-list{display:flex;flex-direction:column;gap:18px}
+    .country-section{margin-bottom:24px}
+    .country-header{font-size:18px;font-weight:600;margin-bottom:12px;color:var(--c-contrast);padding-bottom:8px;border-bottom:1px solid var(--c-border)}
+    .state-section{margin-bottom:16px}
+    .state-header{font-size:16px;font-weight:500;margin-bottom:8px;color:var(--c-muted)}
+    
+    .store-card{background:var(--c-panel);border:1px solid var(--c-border);border-radius:10px;overflow:hidden;padding:16px;box-shadow:0 6px 20px rgba(11,18,32,0.06)}
+    .store-name{font-size:16px;margin:0 0 8px;color:var(--c-contrast);font-weight:600}
+    .store-location{color:var(--c-muted);font-size:14px;margin-bottom:8px}
+    .store-details{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+    .store-status{padding:4px 10px;border-radius:999px;font-size:12px;color:#fff}
+    .status-open{background:var(--c-green)}
+    .status-closed{background:var(--c-red)}
+    .status-soon{background:var(--c-orange)}
+    
+    .footer{margin-top:18px;color:var(--c-muted);font-size:13px}
+    
+    @media(max-width:700px){
+      .header{flex-direction:column;align-items:flex-start}
+      .controls{margin-left:0;margin-top:12px}
+      .store-details{flex-direction:column;align-items:flex-start;gap:8px}
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Boiby Stores Directory</h1>
+    <div id="storeCount" style="color:var(--c-muted);font-size:13px">Loading stores...</div>
+    <div class="controls">
+      <select id="filterStatus">
+        <option value="all">All statuses</option>
+        <option value="open">Open</option>
+        <option value="closed">Closed</option>
+        <option value="soon">Opening soon</option>
+      </select>
+      <select id="filterState">
+        <option value="all">All states</option>
+        <option value="NSW">NSW</option>
+      </select>
+      <select id="sortBy">
+        <option value="name">Sort: Name</option>
+        <option value="status">Sort: Status</option>
+        <option value="state">Sort: State</option>
+      </select>
+    </div>
+  </div>
+
+  <main>
+    <div class="store-list" id="storeList">
+      <!-- Stores will be dynamically inserted here -->
+    </div>
+    <div class="footer">Last updated: October 30, 2025</div>
+  </main>
+
+  <script>
+    const STORES = [
+      {
+        name: "Boiby Macquarie Centre",
+        location: "Level 3, Macquarie Centre<br>Cnr Herring Rd & Waterloo Rd, Macquarie Park 2113, NSW",
+        status: "open",
+        state: "NSW",
+        country: "Australia"
+      },
+      {
+        name: "Boiby Westfield Sydney",
+        location: "Level 5, Westfield Sydney<br>Cnr Pitt St Mall and Market St, Sydney 2000, NSW",
+        status: "open",
+        state: "NSW",
+        country: "Australia"
+      },
+      {
+        name: "Boiby Chatswood Chase",
+        location: "Level 1, Chatswood Chase<br>345 Victoria Avenue, Chatswood 2067, NSW",
+        status: "soon",
+        state: "NSW",
+        country: "Australia"
+      },
+      {
+        name: "Boiby Warringah Mall",
+        location: "Level 1, Westfield Warringah Mall<br>Pittwater Rd, Brookvale 2100, NSW",
+        status: "open",
+        state: "NSW",
+        country: "Australia"
+      },
+      {
+        name: "Boiby Bondi Junction",
+        location: "Level 4, Westfield Bondi Junction<br>500 Oxford St, Bondi Junction 2022, NSW",
+        status: "open",
+        state: "NSW",
+        country: "Australia"
+      },
+      {
+        name: "Boiby Barangaroo",
+        location: "23 Barangaroo Ave, Barangaroo 2000 NSW",
+        status: "open",
+        state: "NSW",
+        country: "Australia"
+      },
+      {
+        name: "Boiby Castle Towers",
+        location: "Level 3, Castle Towers Shopping Centre<br>Castle St, Castle Hill 2154, NSW",
+        status: "open",
+        state: "NSW",
+        country: "Australia"
+      },
+      {
+        name: "Boiby Paramatta",
+        location: "378-382 Church St, Paramatta 2150, NSW",
+        status: "soon",
+        state: "NSW",
+        country: "Australia"
+      },
+      {
+        name: "Boiby Miranda",
+        location: "Level 3, Westfield Miranda<br>600 Kingsway, Miranda 2228, NSW",
+        status: "open",
+        state: "NSW",
+        country: "Australia"
+      }
+    ];
+
+    const storeList = document.getElementById('storeList');
+    const storeCount = document.getElementById('storeCount');
+    const filterStatus = document.getElementById('filterStatus');
+    const filterState = document.getElementById('filterState');
+    const sortBy = document.getElementById('sortBy');
+
+    function renderStores() {
+      // Clear existing content
+      storeList.innerHTML = '';
+      
+      // Filter stores
+      let filteredStores = STORES.filter(store => {
+        const statusMatch = filterStatus.value === 'all' || store.status === filterStatus.value;
+        const stateMatch = filterState.value === 'all' || store.state === filterState.value;
+        return statusMatch && stateMatch;
+      });
+      
+      // Sort stores
+      filteredStores.sort((a, b) => {
+        if (sortBy.value === 'name') {
+          return a.name.localeCompare(b.name);
+        } else if (sortBy.value === 'status') {
+          return a.status.localeCompare(b.status);
+        } else if (sortBy.value === 'state') {
+          return a.state.localeCompare(b.state) || a.name.localeCompare(b.name);
+        }
+        return 0;
+      });
+      
+      // Update store count
+      storeCount.textContent = `${filteredStores.length} store(s) shown — total ${STORES.length}`;
+      
+      // Group stores by country and state
+      const groupedStores = {};
+      filteredStores.forEach(store => {
+        if (!groupedStores[store.country]) {
+          groupedStores[store.country] = {};
+        }
+        if (!groupedStores[store.country][store.state]) {
+          groupedStores[store.country][store.state] = [];
+        }
+        groupedStores[store.country][store.state].push(store);
+      });
+      
+      // Render stores by country and state
+      for (const country in groupedStores) {
+        const countrySection = document.createElement('div');
+        countrySection.className = 'country-section';
+        
+        const countryHeader = document.createElement('div');
+        countryHeader.className = 'country-header';
+        countryHeader.textContent = country;
+        countrySection.appendChild(countryHeader);
+        
+        for (const state in groupedStores[country]) {
+          const stateSection = document.createElement('div');
+          stateSection.className = 'state-section';
+          
+          const stateHeader = document.createElement('div');
+          stateHeader.className = 'state-header';
+          stateHeader.textContent = state;
+          stateSection.appendChild(stateHeader);
+          
+          groupedStores[country][state].forEach(store => {
+            const storeCard = document.createElement('div');
+            storeCard.className = 'store-card';
+            
+            const storeName = document.createElement('div');
+            storeName.className = 'store-name';
+            storeName.textContent = store.name;
+            
+            const storeLocation = document.createElement('div');
+            storeLocation.className = 'store-location';
+            storeLocation.innerHTML = store.location;
+            
+            const storeDetails = document.createElement('div');
+            storeDetails.className = 'store-details';
+            
+            const storeStatus = document.createElement('div');
+            storeStatus.className = 'store-status';
+            
+            // Set status class and text based on status value
+            if (store.status === 'open') {
+              storeStatus.classList.add('status-open');
+              storeStatus.textContent = 'Open';
+            } else if (store.status === 'closed') {
+              storeStatus.classList.add('status-closed');
+              storeStatus.textContent = 'Closed';
+            } else if (store.status === 'soon') {
+              storeStatus.classList.add('status-soon');
+              storeStatus.textContent = 'Closed (opening soon)';
+            }
+            
+            storeDetails.appendChild(storeStatus);
+            
+            storeCard.appendChild(storeName);
+            storeCard.appendChild(storeLocation);
+            storeCard.appendChild(storeDetails);
+            
+            stateSection.appendChild(storeCard);
+          });
+          
+          countrySection.appendChild(stateSection);
+        }
+        
+        storeList.appendChild(countrySection);
+      }
+    }
+
+    // Initial render
+    renderStores();
+    
+    // Add event listeners for filters and sorting
+    filterStatus.addEventListener('change', renderStores);
+    filterState.addEventListener('change', renderStores);
+    sortBy.addEventListener('change', renderStores);
+  </script>
+</body>
+</html>
