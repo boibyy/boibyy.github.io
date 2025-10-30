@@ -78,71 +78,302 @@
   </main>
 
   <script>
-    const STORES = [
-      {
-        name: "Boiby Macquarie Centre",
-        location: "Level 3, Macquarie Centre<br>Cnr Herring Rd & Waterloo Rd, Macquarie Park 2113, NSW",
-        status: "open",
-        state: "NSW",
-        country: "Australia"
-      },
-      {
-        name: "Boiby Westfield Sydney",
-        location: "Level 5, Westfield Sydney<br>Cnr Pitt St Mall and Market St, Sydney 2000, NSW",
-        status: "open",
-        state: "NSW",
-        country: "Australia"
-      },
-      {
-        name: "Boiby Chatswood Chase",
-        location: "Level 1, Chatswood Chase<br>345 Victoria Avenue, Chatswood 2067, NSW",
-        status: "soon",
-        state: "NSW",
-        country: "Australia"
-      },
-      {
-        name: "Boiby Warringah Mall",
-        location: "Level 1, Westfield Warringah Mall<br>Pittwater Rd, Brookvale 2100, NSW",
-        status: "open",
-        state: "NSW",
-        country: "Australia"
-      },
-      {
-        name: "Boiby Bondi Junction",
-        location: "Level 4, Westfield Bondi Junction<br>500 Oxford St, Bondi Junction 2022, NSW",
-        status: "open",
-        state: "NSW",
-        country: "Australia"
-      },
-      {
-        name: "Boiby Barangaroo",
-        location: "23 Barangaroo Ave, Barangaroo 2000 NSW",
-        status: "open",
-        state: "NSW",
-        country: "Australia"
-      },
-      {
-        name: "Boiby Castle Towers",
-        location: "Level 3, Castle Towers Shopping Centre<br>Castle St, Castle Hill 2154, NSW",
-        status: "open",
-        state: "NSW",
-        country: "Australia"
-      },
-      {
-        name: "Boiby Paramatta",
-        location: "378-382 Church St, Paramatta 2150, NSW",
-        status: "soon",
-        state: "NSW",
-        country: "Australia"
-      },
-      {
-        name: "Boiby Miranda",
-        location: "Level 3, Westfield Miranda<br>600 Kingsway, Miranda 2228, NSW",
-        status: "open",
-        state: "NSW",
-        country: "Australia"
-      }
-    ];
+const STORES = [
+  // Australia (existing stores)
+  {
+    name: "Boiby Macquarie Centre",
+    location: "Level 3, Macquarie Centre<br>Cnr Herring Rd & Waterloo Rd, Macquarie Park 2113, NSW",
+    status: "open",
+    state: "NSW",
+    country: "Australia"
+  },
+  {
+    name: "Boiby Westfield Sydney",
+    location: "Level 5, Westfield Sydney<br>Cnr Pitt St Mall and Market St, Sydney 2000, NSW",
+    status: "open",
+    state: "NSW",
+    country: "Australia"
+  },
+  {
+    name: "Boiby Chatswood Chase",
+    location: "Level 1, Chatswood Chase<br>345 Victoria Avenue, Chatswood 2067, NSW",
+    status: "soon",
+    state: "NSW",
+    country: "Australia"
+  },
+  {
+    name: "Boiby Warringah Mall",
+    location: "Level 1, Westfield Warringah Mall<br>Pittwater Rd, Brookvale 2100, NSW",
+    status: "open",
+    state: "NSW",
+    country: "Australia"
+  },
+  {
+    name: "Boiby Bondi Junction",
+    location: "Level 4, Westfield Bondi Junction<br>500 Oxford St, Bondi Junction 2022, NSW",
+    status: "open",
+    state: "NSW",
+    country: "Australia"
+  },
+  {
+    name: "Boiby Barangaroo",
+    location: "23 Barangaroo Ave, Barangaroo 2000 NSW",
+    status: "open",
+    state: "NSW",
+    country: "Australia"
+  },
+  {
+    name: "Boiby Castle Towers",
+    location: "Level 3, Castle Towers Shopping Centre<br>Castle St, Castle Hill 2154, NSW",
+    status: "open",
+    state: "NSW",
+    country: "Australia"
+  },
+  {
+    name: "Boiby Paramatta",
+    location: "378-382 Church St, Paramatta 2150, NSW",
+    status: "soon",
+    state: "NSW",
+    country: "Australia"
+  },
+  {
+    name: "Boiby Miranda",
+    location: "Level 3, Westfield Miranda<br>600 Kingsway, Miranda 2228, NSW",
+    status: "open",
+    state: "NSW",
+    country: "Australia"
+  },
+  {
+  name: "Boiby Brisbane",
+  location: "Queen Street<br>Brisbane, QLD 4000",
+  status: "open",
+  state: "QLD",
+  country: "Australia"
+},
+{
+  name: "Boiby Pacific Fair",
+  location: "Ground Level, Pacific Fair<br>Broadbeach, QLD 4218",
+  status: "open",
+  state: "QLD",
+  country: "Australia"
+},
+{
+  name: "Boiby Chermside",
+  location: "Level 2, Westfield Chermside<br>Gympie Road, Chermside, QLD 4032",
+  status: "open",
+  state: "QLD",
+  country: "Australia"
+},
+{
+  name: "Boiby Perth",
+  location: "150 Murray Street<br>Perth, WA 6000",
+  status: "open",
+  state: "WA",
+  country: "Australia"
+},
+  {
+  name: "Boiby Chadstone",
+  location: "Ground Floor, Chadstone Shopping Centre<br>Chadstone, VIC 3148",
+  status: "open",
+  state: "VIC",
+  country: "Australia"
+},
+{
+  name: "Boiby Melbourne",
+  location: "250 Bourke Street<br>Melbourne, VIC 3000",
+  status: "open",
+  state: "VIC",
+  country: "Australia"
+},
+  
+  // United States
+  {
+    name: "Boiby Madison Avenue",
+    location: "625 Madison Avenue<br>New York, NY 10022",
+    status: "open",
+    state: "NY",
+    country: "United States"
+  },
+  {
+    name: "Boiby The Grove",
+    location: "Level 1, The Grove<br>189 The Grove Drive, Los Angeles, CA 90036",
+    status: "open", 
+    state: "CA",
+    country: "United States"
+  },
+  {
+    name: "Boiby Michigan Avenue",
+    location: "600 North Michigan Avenue<br>Chicago, IL 60611",
+    status: "open",
+    state: "IL", 
+    country: "United States"
+  },
+  {
+    name: "Boiby Union Square",
+    location: "333 Post Street<br>San Francisco, CA 94108",
+    status: "open",
+    state: "CA",
+    country: "United States"
+  },
+  {
+    name: "Boiby Bal Harbour Shops",
+    location: "Level 1, Bal Harbour Shops<br>9700 Collins Avenue, Bal Harbour, FL 33154",
+    status: "open",
+    state: "FL",
+    country: "United States"
+  },
+  {
+    name: "Boiby Mall of America",
+    location: "Level 1, East Broadway<br>Bloomington, MN 55425",
+    status: "open",
+    state: "MN",
+    country: "United States"
+  },
+  {
+    name: "Boiby American Dream",
+    location: "Level 2, American Dream<br>1 American Dream Way, East Rutherford, NJ 07073",
+    status: "soon",
+    state: "NJ",
+    country: "United States"
+  },
+  {
+    name: "Boiby Mall of America",
+    location: "Level 1, East Broadway<br>Bloomington, MN 55425",
+    status: "open",
+    state: "MN",
+    country: "United States"
+  },
+  {
+    name: "Boiby Haywood Mall",
+    location: "Level 1, Haywood Mall<br>Greenville, SC 29607",
+    status: "open",
+    state: "SC",
+    country: "United States"
+  },
+  {
+    name: "Boiby Lenox Square",
+    location: "Level 2, Lenox Square<br>Atlanta, GA 30326",
+    status: "open",
+    state: "GA",
+    country: "United States"
+  },
+  {
+    name: "Boiby King of Prussia",
+    location: "Level 1, King of Prussia Mall<br>160 North Gulph Road, King of Prussia, PA 19406",
+    status: "open",
+    state: "PA",
+    country: "United States"
+  },
+  {
+    name: "Boiby Beverly Center",
+    location: "Level 2, Beverly Center<br>8500 Beverly Boulevard, Los Angeles, CA 90048",
+    status: "open",
+    state: "CA",
+    country: "United States"
+  },
+  {
+    name: "Boiby Stanford Shopping Center",
+    location: "Level 1, Stanford Shopping Center<br>Palo Alto, CA 94304",
+    status: "open",
+    state: "CA",
+    country: "United States"
+  },
+  {
+    name: "Boiby Sawgrass Mills",
+    location: "Level 1, Sawgrass Mills<br>Sunrise, FL 33323",
+    status: "open",
+    state: "FL",
+    country: "United States"
+  },
+  
+  // United Kingdom
+  {
+    name: "Boiby London",
+    location: "200 Oxford Street<br>London W1C 1JH",
+    status: "soon",
+    state: "England",
+    country: "United Kingdom"
+  },
+  {
+    name: "Boiby White City",
+    location: "Level 1, Westfield London<br>Ariel Way, White City, London W12 7GF",
+    status: "open",
+    state: "England",
+    country: "United Kingdom"
+  },
+  {
+    name: "Boiby The Glades", 
+    location: "Upper Mall, The Glades<br>High Street, Bromley BR1 1DN",
+    status: "open",
+    state: "England",
+    country: "United Kingdom"
+  },
+  {
+    name: "Boiby Bluewater",
+    location: "Upper Mall, Bluewater Shopping Centre<br>Bluewater Parkway, Greenhithe DA9 9ST", 
+    status: "open",
+    state: "England",
+    country: "United Kingdom"
+  },
+  {
+    name: "Boiby Manchester Arndale",
+    location: "Ground Floor, Manchester Arndale<br>High Street, Manchester M4 3AQ", 
+    status: "open",
+    state: "England",
+    country: "United Kingdom"
+  },
+  {
+    name: "Boiby Glasgow",
+    location: "Level 2, St. Enoch Centre<br>St. Enoch Square, Glasgow G1 4BW",
+    status: "open",
+    state: "Scotland",
+    country: "United Kingdom"
+  },
+  {
+    name: "Boiby Belfast",
+    location: "Level 1, Victoria Square Shopping Centre,<br>1 Victoria Square, Belfast BT1 4QG",
+    status: "open",
+    state: "Northern Ireland",
+    country: "United Kingdom"
+  },
+  {
+    name: "Boiby Trafford Centre",
+    location: "Ground Floor, Trafford Centre<br>Manchester M17 8AA", 
+    status: "open",
+    state: "England",
+    country: "United Kingdom"
+  },
+  {
+    name: "Boiby Westquay",
+    location: "Level 3, Westquay Shopping Centre<br>Southampton SO15 1QF",
+    status: "open",
+    state: "England",
+    country: "United Kingdom"
+  },
+  {
+    name: "Boiby Milton Keynes",
+    location: "Centre:MK<br>Milton Keynes MK9 3ES",
+    status: "open",
+    state: "England",
+    country: "United Kingdom"
+  },
+  
+  // Canada
+  {
+    name: "Boiby Vancouver",
+    location: "Level 2, Pacific Centre<br>701 West Georgia Street, Vancouver, BC V7Y 1G5",
+    status: "soon",
+    state: "BC",
+    country: "Canada"
+  },
+  {
+    name: "Boiby Toronto",
+    location: "Level 1, Yorkdale Shopping Centre<br>Toronto, ON M6A 2T9",
+    status: "open",
+    state: "ON",
+    country: "Canada"
+  }
+];
 
     const storeList = document.getElementById('storeList');
     const storeCount = document.getElementById('storeCount');
