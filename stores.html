@@ -52,15 +52,21 @@
     <h1>Boiby Stores Directory</h1>
     <div id="storeCount" style="color:var(--c-muted);font-size:13px">Loading stores...</div>
     <div class="controls">
+      <select id="filterCountry">
+        <option value="all">All countries</option>
+        <option value="Australia">Australia</option>
+        <option value="United States">United States</option>
+        <option value="United Kingdom">United Kingdom</option>
+        <option value="Canada">Canada</option>
+      </select>
+      <select id="filterState">
+        <option value="all">All states</option>
+      </select>
       <select id="filterStatus">
         <option value="all">All statuses</option>
         <option value="open">Open</option>
         <option value="closed">Closed</option>
         <option value="soon">Opening soon</option>
-      </select>
-      <select id="filterState">
-        <option value="all">All states</option>
-        <option value="NSW">NSW</option>
       </select>
       <select id="sortBy">
         <option value="name">Sort: Name</option>
@@ -237,13 +243,6 @@ const STORES = [
     country: "United States"
   },
   {
-    name: "Boiby Mall of America",
-    location: "Level 1, East Broadway<br>Bloomington, MN 55425",
-    status: "open",
-    state: "MN",
-    country: "United States"
-  },
-  {
     name: "Boiby Haywood Mall",
     location: "Level 1, Haywood Mall<br>Greenville, SC 29607",
     status: "open",
@@ -377,9 +376,31 @@ const STORES = [
 
     const storeList = document.getElementById('storeList');
     const storeCount = document.getElementById('storeCount');
-    const filterStatus = document.getElementById('filterStatus');
+    const filterCountry = document.getElementById('filterCountry');
     const filterState = document.getElementById('filterState');
+    const filterStatus = document.getElementById('filterStatus');
     const sortBy = document.getElementById('sortBy');
+
+    const COUNTRY_STATES = {
+      'Australia': ['NSW', 'QLD', 'VIC', 'WA'],
+      'United States': ['NY', 'CA', 'IL', 'FL', 'MN', 'NJ', 'SC', 'GA', 'PA'],
+      'United Kingdom': ['England', 'Scotland', 'Northern Ireland'],
+      'Canada': ['BC', 'ON']
+    };
+
+    function updateStateFilter() {
+      const country = filterCountry.value;
+      filterState.innerHTML = '<option value="all">All states</option>';
+      
+      if (country !== 'all' && COUNTRY_STATES[country]) {
+        COUNTRY_STATES[country].forEach(state => {
+          const option = document.createElement('option');
+          option.value = state;
+          option.textContent = state;
+          filterState.appendChild(option);
+        });
+      }
+    }
 
     function renderStores() {
       // Clear existing content
@@ -387,9 +408,10 @@ const STORES = [
       
       // Filter stores
       let filteredStores = STORES.filter(store => {
-        const statusMatch = filterStatus.value === 'all' || store.status === filterStatus.value;
+        const countryMatch = filterCountry.value === 'all' || store.country === filterCountry.value;
         const stateMatch = filterState.value === 'all' || store.state === filterState.value;
-        return statusMatch && stateMatch;
+        const statusMatch = filterStatus.value === 'all' || store.status === filterStatus.value;
+        return countryMatch && stateMatch && statusMatch;
       });
       
       // Sort stores
@@ -485,11 +507,16 @@ const STORES = [
     }
 
     // Initial render
+    updateStateFilter();
     renderStores();
     
     // Add event listeners for filters and sorting
-    filterStatus.addEventListener('change', renderStores);
+    filterCountry.addEventListener('change', () => {
+      updateStateFilter();
+      renderStores();
+    });
     filterState.addEventListener('change', renderStores);
+    filterStatus.addEventListener('change', renderStores);
     sortBy.addEventListener('change', renderStores);
   </script>
 </body>
