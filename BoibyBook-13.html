@@ -27,6 +27,7 @@
             .product-image-container {
                 position: relative;
                 top: auto;
+                margin-bottom: 2rem;
             }
             
             .options-container {
@@ -247,6 +248,31 @@
                     <div class="product-image">
                         <img src="BB13Silver.png" alt="BoibyBook 13 in Silver" id="color-image">
                     </div>
+                    <!-- Moved the summary to be directly under the image in the same column -->
+                    <aside class="image-summary" aria-label="Price summary">
+                        <h3>Order Summary</h3>
+
+                        <div class="summary-line">
+                            <div>Base price</div>
+                            <div id="base-price">$1,499</div>
+                        </div>
+
+                        <div id="breakdown"><div class="summary-line">No upgrades selected</div></div>
+
+                        <div class="summary-line total">
+                            <div>Total</div>
+                            <div id="total-price">$1,499</div>
+                        </div>
+
+                        <div style="margin-top:12px;">
+                            <button id="add-to-cart" class="primary-blue">Add to Cart</button>
+                            <button id="reset-config" class="secondary">Reset Configuration</button>
+                        </div>
+
+                        <div class="small-note" id="dimensions-note" style="margin-top:10px;">
+                            Size: 304 × 213 × 12.6 mm
+                        </div>
+                    </aside>
                 </div>
 
                 <div class="options-container">
@@ -355,31 +381,6 @@
 
                     <div class="small-note">All prices are in Australian dollars (A$). Taxes and shipping calculated at checkout.</div>
                 </div>
-                
-                <aside class="image-summary" aria-label="Price summary">
-                    <h3>Order Summary</h3>
-
-                    <div class="summary-line">
-                        <div>Base price</div>
-                        <div id="base-price">$1,499</div>
-                    </div>
-
-                    <div id="breakdown"><div class="summary-line">No upgrades selected</div></div>
-
-                    <div class="summary-line total">
-                        <div>Total</div>
-                        <div id="total-price">$1,499</div>
-                    </div>
-
-                    <div style="margin-top:12px;">
-                        <button id="add-to-cart" class="primary-blue">Add to Cart</button>
-                        <button id="reset-config" class="secondary">Reset Configuration</button>
-                    </div>
-
-                    <div class="small-note" id="dimensions-note" style="margin-top:10px;">
-                        Size: 304 × 213 × 12.6 mm
-                    </div>
-                </aside>
             </div>
         </section>
     </main>
