@@ -24,6 +24,23 @@
             .config-container {
                 grid-template-columns: 1fr;
             }
+            
+            /* Remove sticky positioning on mobile */
+            .product-image-container {
+                position: static;
+                order: 1; /* Image first on mobile */
+            }
+            
+            .options-container {
+                order: 2; /* Config options second on mobile */
+                max-height: none; /* Remove max-height on mobile */
+                overflow-y: visible; /* Remove scrolling on mobile */
+                padding-right: 0; /* Remove padding on mobile */
+            }
+            
+            .image-summary {
+                order: 3; /* Summary last on mobile */
+            }
         }
 
         .config-panel {
@@ -580,7 +597,7 @@
             }
 
             recalc();
-            // what is diddy blud doing? does he think is einstein? what is he typing into the calculator? does he think he's doing something smart?
+
             formInputs.forEach(inp => {
                 inp.removeEventListener('change', recalc);
                 inp.addEventListener('change', recalc);
