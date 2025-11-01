@@ -254,10 +254,10 @@
                     <img src="BB13-Silver.jpg" alt="BoibyBook 13 in Silver" id="color-image">
                 </div>
                 <div class="product-meta">
-                    <h3>Starts at A$1,349</h3>
+                    <h3>Starts at A$1,399</h3>
                     <p>13.7-inch display options</p>
-                    <p>AMD Ryzen AI Series Processors</p>
-                    <p>Up to 64 GB DDR5-5600 RAM</p>
+                    <p>Boiby B1 Series Processors</p>
+                    <p>Up to 64 GB LPDDR5X-9600 LPCAMM2 RAM</p>
                     <p>Up to 4 TB SSD storage</p>
                     <p>Durable precision-milled aluminium body</p>
                     <strong>Ports:</strong>
@@ -328,27 +328,15 @@
                         <h4>Processor</h4>
                         <div class="option-row" role="radiogroup">
                             <label class="selected" tabindex="0">
-                                <input type="radio" name="cpu" value="ai5" checked>
-                                <span>AMD Ryzen AI 5 340 (6 cores) - Radeon 840M graphics</span>
+                                <input type="radio" name="cpu" value="b1plus" checked>
+                                <span>Boiby B1 Plus X10-46 (10 cores, up to 4.6 GHz)</span>
                                 <span class="price-badge"></span>
                             </label>
 
                             <label tabindex="0">
-                                <input type="radio" name="cpu" value="ai7">
-                                <span>AMD Ryzen AI 7 350 (8 cores) - Radeon 860M graphics</span>
-                                <span class="price-badge">+A$250</span>
-                            </label>
-
-                            <label tabindex="0">
-                                <input type="radio" name="cpu" value="ai9">
-                                <span>AMD Ryzen AI 9 365 (10 cores) - Radeon 880M graphics</span>
-                                <span class="price-badge">+A$500</span>
-                            </label>
-
-                            <label class="disabled" tabindex="0">
-                                <input type="radio" name="cpu" value="ai9hx" disabled>
-                                <span>AMD Ryzen AI 9 HX 370 (12 cores) - Radeon 890M graphics</span>
-                                <span class="price-badge">Coming Soon</span>
+                                <input type="radio" name="cpu" value="b1neo">
+                                <span>Boiby B1 Neo X12-50 (12 cores, up to 5.0 GHz)</span>
+                                <span class="price-badge">+A$150</span>
                             </label>
                         </div>
                     </div>
@@ -359,26 +347,20 @@
                         <div class="option-row" role="radiogroup">
                             <label class="selected" tabindex="0">
                                 <input type="radio" name="ram" value="16" checked>
-                                <span>16 GB RAM (2 x 8 GB) - DDR5-5600 SODIMM</span>
+                                <span>16 GB RAM - LPDDR5X-9600 (LPCAMM2)</span>
                                 <span class="price-badge"></span>
                             </label>
 
                             <label tabindex="0">
                                 <input type="radio" name="ram" value="32">
-                                <span>32 GB RAM (2 x 16 GB) - DDR5-5600 SODIMM</span>
-                                <span class="price-badge">+A$100</span>
-                            </label>
-
-                            <label tabindex="0">
-                                <input type="radio" name="ram" value="48">
-                                <span>48 GB RAM (2 x 24 GB) - DDR5-5600 SODIMM</span>
-                                <span class="price-badge">+A$200</span>
+                                <span>32 GB RAM - LPDDR5X-9600 (LPCAMM2)</span>
+                                <span class="price-badge">+A$150</span>
                             </label>
 
                             <label tabindex="0">
                                 <input type="radio" name="ram" value="64">
-                                <span>64 GB RAM (2 x 32 GB) - DDR5-5600 SODIMM</span>
-                                <span class="price-badge">+A$300</span>
+                                <span>64 GB RAM - LPDDR5X-9600 (LPCAMM2)</span>
+                                <span class="price-badge">+A$450</span>
                             </label>
                         </div>
                     </div>
@@ -422,14 +404,14 @@
 
                     <div class="summary-line">
                         <div>Base price</div>
-                        <div id="base-price">$1,349</div>
+                        <div id="base-price">$1,399</div>
                     </div>
 
                     <div id="breakdown"><div class="summary-line">No upgrades selected</div></div>
 
                     <div class="summary-line total">
                         <div>Total</div>
-                        <div id="total-price">$1,349</div>
+                        <div id="total-price">$1,399</div>
                     </div>
 
                     <div style="margin-top:8px;">
@@ -453,7 +435,7 @@
     <script>
         (function () {
             // Base price (AUD)
-            const basePrice = 1349;
+            const basePrice = 1399;
 
             const prices = {
                 // color
@@ -463,15 +445,12 @@
                 '2.3k': 0,
                 '2.8k': 300,
                 // CPU
-                'ai5': 0,
-                'ai7': 250,
-                'ai9': 500,
-                'ai9hx': 0, // Coming soon, no price
+                'b1plus': 0,
+                'b1neo': 150,
                 // RAM
                 '16': 0,
-                '32': 100,
-                '48': 200,
-                '64': 300,
+                '32': 150,
+                '64': 450,
                 // SSD
                 '512': 0,
                 '1tb': 80,
@@ -483,7 +462,7 @@
             const defaults = {
                 colour: 'silver',
                 display: '2.3k',
-                cpu: 'ai5',
+                cpu: 'b1plus',
                 ram: '16',
                 ssd: '512'
             };
