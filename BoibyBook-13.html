@@ -183,6 +183,49 @@
             opacity: 0.5;
             cursor: not-allowed;
         }
+        /* Custom scrollbar styles */
+.options-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.options-container::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+}
+
+.options-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+.options-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* For light theme */
+body.light .options-container::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+body.light .options-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Firefox scrollbar */
+.options-container {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+body.light .options-container {
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+/* Optional: Add smooth scrolling to the container */
+.options-container {
+    scroll-behavior: smooth;
+}
     </style>
 </head>
 
