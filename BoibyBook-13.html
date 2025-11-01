@@ -37,7 +37,6 @@
             gap: 1rem;
         }
 
-        /* Product image - fixed on left */
         .product-image-container {
             position: sticky;
             top: 80px;
@@ -60,14 +59,13 @@
             object-fit: cover;
         }
 
-        /* Summary below image - REMOVED BACKGROUND */
         .image-summary {
             margin-top: 1.5rem;
-            background: transparent; /* Removed background color */
+            background: transparent;
             padding: 1.5rem;
-            border-radius: 0; /* Removed border radius */
-            box-shadow: none; /* Removed box shadow */
-            border: 1px solid rgba(255,255,255,0.06); /* Added subtle border */
+            border-radius: 0; 
+            box-shadow: none;
+            border: none
         }
 
         .image-summary h3 { margin: 0 0 12px 0; }
@@ -85,7 +83,6 @@
             padding-top: 12px;
         }
 
-        /* Options container - scrollable on right */
         .options-container {
             max-height: calc(100vh - 160px);
             overflow-y: auto;
@@ -169,24 +166,20 @@
 
         .small-note { font-size: 13px; color: var(--secondary-text); margin-top: 8px; }
 
-        /* Accessibility focus */
         .option-row label:focus-within {
             outline: 3px solid rgba(46,139,87,0.14);
             outline-offset: 3px;
         }
 
-        /* Keep selector widths consistent on narrow screens */
         @media (max-width: 640px) {
             .product-image { width: 180px; height: 120px; }
         }
 
-        /* Greyed out option */
         .option-row label.disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
 
-        /* Custom scrollbar styles */
         .options-container::-webkit-scrollbar {
             width: 8px;
         }
@@ -215,7 +208,6 @@
             background: rgba(0, 0, 0, 0.3);
         }
 
-        /* Firefox scrollbar */
         .options-container {
             scrollbar-width: thin;
             scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
