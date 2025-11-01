@@ -22,6 +22,7 @@
     .config-container {
         grid-template-columns: 1fr;
         display: block;
+        padding-bottom: 120px; /* Space for sticky summary */
     }
     
     .product-image-container {
@@ -38,6 +39,19 @@
     
     .image-summary {
         margin-top: 2rem;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--card-bg);
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding: 1rem;
+        z-index: 100;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .image-summary #breakdown {
+        display: none;
     }
     
     .product-image {
@@ -628,6 +642,18 @@ body.light .options-container {
 
             updateSelectedVisuals();
         })();
+        function updateMobileSummary() {
+            if (window.innerWidth <= 980) {
+                const configContainer = document.querySelector('.config-container');
+                const imageSummary = document.querySelector('.image-summary');
+                if (configContainer && imageSummary && !imageSummary.classList.contains('mobile-moved')) {
+                    configContainer.appendChild(imageSummary);
+                    imageSummary.classList.add('mobile-moved');
+                }
+            }
+        }
+        updateMobileSummary();
+        window.addEventListener('resize', updateMobileSummary);
     </script>
 </body>
 </html>
