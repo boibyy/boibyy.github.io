@@ -11,16 +11,17 @@
     <script src="nav.js"></script>
 
     <style>
-        /* Configurator: layout */
-        .configurator {
+        /* Main layout */
+        .config-container {
             display: grid;
-            grid-template-columns: 1fr 360px;
-            gap: 1.25rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
             margin: 2rem 0;
+            position: relative;
         }
 
         @media (max-width: 980px) {
-            .configurator {
+            .config-container {
                 grid-template-columns: 1fr;
             }
         }
@@ -35,11 +36,11 @@
             gap: 1rem;
         }
 
-        .product-card {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
+        /* Product image - fixed on left */
+        .product-image-container {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
         }
 
         .product-image {
@@ -49,13 +50,6 @@
             border-radius: 8px;
             background: none;
             border: 1px solid rgba(255,255,255,0.06);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            color: var(--text);
-            box-shadow: none;
-            flex-shrink: 0;
             overflow: hidden;
         }
 
@@ -65,14 +59,12 @@
             object-fit: cover;
         }
 
-        .product-meta {
-            flex: 1;
+        /* Options container - scrollable on right */
+        .options-container {
+            max-height: calc(100vh - 160px);
+            overflow-y: auto;
+            padding-right: 10px;
         }
-
-        .product-meta h3 { margin: 0 0 6px 0; font-size: 18px; }
-        .product-meta p { margin: 0; font-size: 14px; color: var(--secondary-text); }
-        .product-meta li { margin: 0; font-size: 14px; color: var(--secondary-text); }
-        product-meta ul { margin: 0; font-size: 14px; color: var(--secondary-text); }
 
         .option-group {
             margin-bottom: 1rem!important;
@@ -108,11 +100,11 @@
         }
         
         .option-row label.selected {
-            border: 2px solid #2e8b57; /* Changed to less bright green */
+            border: 2px solid #2e8b57;
             background: transparent;
         }
         body.dark .option-row label.selected {
-            border: 2px solid #2e8b57; /* Changed to less bright green */
+            border: 2px solid #2e8b57;
             background: transparent;
         }
 
@@ -146,9 +138,10 @@
 
         .option-row input[type="radio"],
         .option-row input[type="checkbox"] {
-            accent-color: #2e8b57; /* Changed to less bright green */
+            accent-color: #2e8b57;
         }
 
+        /* Summary - stickied to bottom */
         .summary {
             position: sticky;
             bottom: 20px;
@@ -156,6 +149,7 @@
             padding: 1rem;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-top: 2rem;
         }
 
         .summary h3 { margin: 0 0 8px 0; }
@@ -177,35 +171,13 @@
 
         /* Accessibility focus */
         .option-row label:focus-within {
-            outline: 3px solid rgba(46,139,87,0.14); /* Changed to less bright green */
+            outline: 3px solid rgba(46,139,87,0.14);
             outline-offset: 3px;
         }
 
         /* Keep selector widths consistent on narrow screens */
         @media (max-width: 640px) {
             .product-image { width: 180px; height: 120px; }
-            .configurator { gap: 1rem; }
-        }
-
-        /* New layout for image on left, options on right */
-        @media (min-width: 981px) {
-            .configurator {
-                display: grid;
-                grid-template-columns: 1fr 360px;
-                gap: 1.25rem;
-            }
-            
-            .options-container {
-                max-height: 60vh;
-                overflow-y: auto;
-                padding-right: 10px;
-            }
-        }
-
-        @media (max-width: 980px) {
-            .product-card {
-                grid-template-columns: 1fr;
-            }
         }
 
         /* Greyed out option */
@@ -234,43 +206,16 @@
     <main>
         <section class="config-panel" aria-labelledby="config-title" style="margin-bottom:1.5rem;">
             <h2 id="config-title" style="margin:0 0 8px 0">BoibyBook 13</h2>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="BB13Silver.png" alt="BoibyBook 13 in Silver" id="color-image">
+            
+            <div class="config-container" role="region" aria-label="BoibyBook 13 configurator">
+                <!-- Left: Product image (fixed) -->
+                <div class="product-image-container">
+                    <div class="product-image">
+                        <img src="BB13Silver.png" alt="BoibyBook 13 in Silver" id="color-image">
+                    </div>
                 </div>
-                <div class="product-meta">
-                    <h3>Starts at A$1,499</h3>
-                    <p>13.7-inch display options</p>
-                    <p>Boiby B1 series processors</p>
-                    <p>Up to 64 GB LPDDR5X-9600 LPCAMM2 RAM</p>
-                    <p>Up to 4 TB SSD storage</p>
-                    <p>Durable precision-milled aluminium body</p>
-                    <strong>Ports:</strong>
-                    <ul>
-                        <li>2x USB-C (USB 4 40 Gbps)</li>
-                        <li>2x USB-A (USB 3.1 10Gbps)</li>
-                        <li>1x HDMI 2.1</li>
-                        <li>microSD slot</li>
-                        <li>Audio jack</li>
-                    </ul>
-                    <p>WiFi 7 and Bluetooth 5.4 LE</p>
-                    <p>8MP webcam with hardware disable switch</p>
-                    <p>Boiby Hello - Touch Unlock and Face Unlock</p>
-                    <p>64Wh Lithium-polymer battery</p>
-                    <p>boibyOS</p>
-                    <strong>Inside the box:</strong>
-                    <ul>
-                        <li>BoibyBook 13</li>
-                        <li>50W USB-C power adapter</li>
-                        <li>USB-C to DisplayPort adapter</li>
-                        <li>Documentation &amp; Boiby Stickers</li>
-                        <li>Boiby Polishing Cloth</li>
-                    </ul>
-                </div>
-            </div>
 
-            <div class="configurator" role="region" aria-label="BoibyBook 13 configurator">
-                <!-- Left: options -->
+                <!-- Right: Scrollable options -->
                 <div class="options-container">
                     <!-- Colour -->
                     <div class="option-group" id="opt-colour">
@@ -381,33 +326,33 @@
                     </div>
 
                     <div class="small-note">All prices are in Australian dollars (A$). Taxes and shipping calculated at checkout.</div>
+
+                    <!-- Summary - stickied to bottom -->
+                    <aside class="summary" aria-label="Price summary">
+                        <h3>Summary</h3>
+
+                        <div class="summary-line">
+                            <div>Base price</div>
+                            <div id="base-price">$1,499</div>
+                        </div>
+
+                        <div id="breakdown"><div class="summary-line">No upgrades selected</div></div>
+
+                        <div class="summary-line total">
+                            <div>Total</div>
+                            <div id="total-price">$1,499</div>
+                        </div>
+
+                        <div style="margin-top:8px;">
+                            <button id="add-to-cart" class="primary-blue">Add to cart</button>
+                            <button id="reset-config" class="secondary">Reset to base</button>
+                        </div>
+
+                        <div class="small-note" id="dimensions-note" style="margin-top:10px;">
+                            Size: 304 × 213 × 12.6 mm
+                        </div>
+                    </aside>
                 </div>
-
-                <!-- Right: summary -->
-                <aside class="config-panel summary" aria-label="Price summary">
-                    <h3>Summary</h3>
-
-                    <div class="summary-line">
-                        <div>Base price</div>
-                        <div id="base-price">$1,399</div>
-                    </div>
-
-                    <div id="breakdown"><div class="summary-line">No upgrades selected</div></div>
-
-                    <div class="summary-line total">
-                        <div>Total</div>
-                        <div id="total-price">$1,399</div>
-                    </div>
-
-                    <div style="margin-top:8px;">
-                        <button id="add-to-cart" class="primary-blue">Add to cart</button>
-                        <button id="reset-config" class="secondary">Reset to base</button>
-                    </div>
-
-                    <div class="small-note" id="dimensions-note" style="margin-top:10px;">
-                        Size: 304 × 213 × 12.6 mm
-                    </div>
-                </aside>
             </div>
         </section>
     </main>
@@ -456,10 +401,9 @@
                 return aud.toLocaleString('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 });
             }
 
-            // include os in the same list as other radio groups now
             const optionNames = ['colour', 'display', 'cpu', 'ram', 'ssd'];
 
-            const formInputs = document.querySelectorAll('.configurator input[type="radio"]');
+            const formInputs = document.querySelectorAll('.options-container input[type="radio"]');
             const basePriceEl = document.getElementById('base-price');
             const totalPriceEl = document.getElementById('total-price');
             const breakdownEl = document.getElementById('breakdown');
@@ -564,13 +508,11 @@
 
             // Reset button
             document.getElementById('reset-config').addEventListener('click', function () {
-                // reset radios
                 Object.entries(defaults).forEach(([k, v]) => {
                     const el = document.querySelector(`[name="${k}"][value="${v}"]`);
                     if (el) el.checked = true;
                 });
                 recalc();
-                // focus top
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
@@ -581,14 +523,13 @@
                 alert('Added to cart: ' + total + '\n\nConfiguration:\n' + details);
             });
 
-            // Label click handlers (inputs are hidden but still in DOM)
+            // Label click handlers
             document.querySelectorAll('.option-row label').forEach(label => {
                 label.addEventListener('click', function (e) {
                     if (label.classList.contains('disabled')) return;
                     const inp = label.querySelector('input[type="radio"], input[type="checkbox"]');
                     if (inp) {
                         inp.checked = true;
-                        // trigger change event to ensure any listeners fire
                         const ev = new Event('change', { bubbles: true });
                         inp.dispatchEvent(ev);
                     }
@@ -596,7 +537,7 @@
                 });
             });
 
-            // allow keyboard selection on labels
+            // Keyboard navigation
             document.querySelectorAll('.option-row label').forEach(label => {
                 label.setAttribute('tabindex', '0');
                 label.addEventListener('keydown', function (e) {
