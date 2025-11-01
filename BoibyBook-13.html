@@ -21,26 +21,34 @@
         @media (max-width: 980px) {
             .config-container {
                 grid-template-columns: 1fr;
-                display: block;
+                display: flex;
+                flex-direction: column;
             }
             
             .product-image-container {
                 position: relative;
                 top: auto;
                 margin-bottom: 2rem;
+                height: auto;
             }
             
             .options-container {
                 max-height: none;
                 overflow-y: visible;
                 padding-right: 0;
+                order: 2;
             }
             
             .image-summary {
                 margin-top: 2rem;
+                order: 3;
             }
             
             .product-image {
+                width: 100%;
+            }
+            
+            .config-container > * {
                 width: 100%;
             }
         }
@@ -79,6 +87,8 @@
             margin-top: 1.5rem;
             background: transparent;
             padding: 1.5rem;
+            position: sticky;
+            top: calc(80px + 100vh - 300px); /* Position below image with offset */
         }
 
         .image-summary h3 { margin: 0 0 12px 0; }
@@ -244,11 +254,14 @@
             <h2 id="config-title" style="margin:0 0 8px 0">BoibyBook 13</h2>
             
             <div class="config-container" role="region" aria-label="BoibyBook 13 configurator">
-                <div class="product-image-container">
-                    <div class="product-image">
-                        <img src="BB13Silver.png" alt="BoibyBook 13 in Silver" id="color-image">
+                <!-- Left Column: Image and Summary -->
+                <div class="left-column">
+                    <div class="product-image-container">
+                        <div class="product-image">
+                            <img src="BB13Silver.png" alt="BoibyBook 13 in Silver" id="color-image">
+                        </div>
                     </div>
-                    <!-- Moved the summary to be directly under the image in the same column -->
+                    
                     <aside class="image-summary" aria-label="Price summary">
                         <h3>Order Summary</h3>
 
@@ -275,6 +288,7 @@
                     </aside>
                 </div>
 
+                <!-- Right Column: Options -->
                 <div class="options-container">
                     <div class="option-group" id="opt-colour">
                         <h4>Colour</h4>
