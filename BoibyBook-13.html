@@ -1,4 +1,3 @@
-<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -12,109 +11,78 @@
     <script src="nav.js"></script>
 
     <style>
-        /* Configurator: layout */
+        /* === Layout === */
         .configurator {
             display: grid;
-            grid-template-columns: 1fr 360px;
-            gap: 1.25rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
             margin: 2rem 0;
+            align-items: start;
         }
 
-        @media (max-width: 980px) {
+        @media (max-width: 960px) {
             .configurator {
                 grid-template-columns: 1fr;
             }
         }
 
-        .config-panel {
-            background: transparent;      
-            padding: 1rem 0;              
-            border-radius: 0;
-            box-shadow: none;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .product-card {
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-        }
-
         .product-image {
-            width: 240px;
-            height: 160px;
-            border-radius: 8px;
-            background: none; /* remove gradient */
-            border: 1px solid rgba(255,255,255,0.06);
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.08);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            color: var(--text);
-            box-shadow: none;
-            flex-shrink: 0;
+            overflow: hidden;
         }
 
-        .product-meta {
-            flex: 1;
+        .product-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
         }
 
-        .product-meta h3 { margin: 0 0 6px 0; font-size: 18px; }
-        .product-meta p { margin: 0; font-size: 14px; color: var(--secondary-text); }
-        .product-meta li { margin: 0; font-size: 14px; color: var(--secondary-text); }
-        product-meta ul { margin: 0; font-size: 14px; color: var(--secondary-text); }
-
-        .option-group {
-            margin-bottom: 1rem!important;
-            border-radius: 0;
-            padding: 0; 
-            background: transparent; 
+        .config-panel {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 1rem;
+            height: 70vh;
+            overflow-y: auto;
+            padding-right: 0.5rem;
         }
 
+        /* === Option groups === */
         .option-group h4 {
             margin: 0 0 6px 0;
             font-size: 20px;
             font-weight: 600;
             color: var(--text);
         }
+
         .option-row label {
             border: 1px solid rgba(0,0,0,0.6);
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 14px 14px;
+            padding: 14px;
             border-radius: 8px;
             cursor: pointer;
             user-select: none;
             background: transparent;
             transition: border-color 0.12s ease, background 0.12s ease;
             font-size: 17px;
-            justify-content: flex-start;
             color: var(--text);
-            margin-bottom: 0.66rem !important;
         }
-        
+
         .option-row label.selected {
-            border: 2px solid #335fff;
-            background: transparent;
-        }
-        body.dark .option-row label.selected {
-            border: 2px solid #335fff;
-            background: transparent;
+            border: 2px solid #00b45a;
+            background: rgba(0,180,90,0.08);
         }
 
         body.dark .option-row label {
             border: 1px solid rgba(255,255,255,0.6);
-            color: var(--text);
-        }
-        body.light .option-row label {
-            border-color: 1px solid rgba(0,0,0,0.6);
-            color: var(--text);
         }
 
         .option-row input[type="radio"],
@@ -123,7 +91,6 @@
             opacity: 0 !important;
             width: 0 !important;
             height: 0 !important;
-            pointer-events: none;
         }
 
         .price-badge {
@@ -136,47 +103,63 @@
             color: var(--text);
         }
 
-        .option-row input[type="radio"],
-        .option-row input[type="checkbox"] {
-            accent-color: #335fff;
+        .small-note {
+            font-size: 13px;
+            color: var(--secondary-text);
+            margin-top: 8px;
         }
 
+        /* === Summary sticky at bottom === */
         .summary {
             position: sticky;
-            top: 70px;
-            background: transparent; /* keep summary on page background too */
-            box-shadow: none;
-            border-radius: 0;
-            padding: 0;
+            bottom: 0;
+            background: var(--background);
+            padding: 0.75rem 0;
+            border-top: 1px dashed rgba(255,255,255,0.1);
+            margin-top: 1rem;
         }
 
-        .summary h3 { margin: 0 0 8px 0; }
-        .summary .summary-line {
+        .summary-line {
             display: flex;
             justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px dashed rgba(255,255,255,0.06);
+            padding: 6px 0;
             font-size: 15px;
         }
-        .summary .summary-line.total {
-            border-top: 1px solid rgba(255,255,255,0.06);
+
+        .summary-line.total {
+            border-top: 1px solid rgba(255,255,255,0.2);
             font-size: 20px;
             font-weight: 700;
-            padding-top: 12px;
+            padding-top: 10px;
         }
 
-        .small-note { font-size: 13px; color: var(--secondary-text); margin-top: 8px; }
-
-        /* Accessibility focus */
-        .option-row label:focus-within {
-            outline: 3px solid rgba(51,95,255,0.14);
-            outline-offset: 3px;
+        button.primary-green {
+            background-color: #00b45a;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 16px;
+            cursor: pointer;
         }
 
-        /* Keep selector widths consistent on narrow screens */
-        @media (max-width: 640px) {
-            .product-image { width: 180px; height: 120px; }
-            .configurator { gap: 1rem; }
+        button.primary-green:hover {
+            background-color: #00c868;
+        }
+
+        button.secondary {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 8px;
+            color: var(--text);
+            padding: 10px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .coming-soon {
+            opacity: 0.4;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -193,164 +176,153 @@
             <a href="/contact" class="link">Contact</a>
         </nav>
         <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
-        <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
     </header>
 
     <main>
+        <section class="configurator" aria-labelledby="config-title">
+            <!-- Left: Product image -->
+            <div class="product-image" id="product-image">
+                <img src="BB13Dark.png" alt="BoibyBook 13 Dark Grey" id="main-image">
+            </div>
 
-            <section class="config-panel" aria-labelledby="config-title" style="margin-bottom:1.5rem;">
-                <h2 id="config-title" style="margin:0 0 8px 0">BoibyBook 13</h2>
-                <div class="product-card">
-                    <div class="product-image">BoibyBook 13</div>
-                    <div class="product-meta">
-                        <h3>Starts at A$1,249</h3>
-                        <p>13.2-inch 1920x1280 90Hz IPS display</p>
-                        <p>Boiby B2 SoC</p>
-                        <p>Up to 32 GB LPDDR5X-7466 LPCAMM2 RAM</p>
-                        <p>Up to 2 TB SSD storage</p>
-                        <p>Durable precision-milled aluminium body</p>
-                        <strong>Ports:</strong>
-                        <ul>
-                            <li>Two USB (Type-C) ports (USB 4 + USB 3.2), One USB 3.0 (Type-A) port;</li>
-                            <li>Audio jack</li>
-                        </ul>
-                        <p>WiFi 6E and Bluetooth 5.3</p>
-                        <p>1080p webcam with disable switch</p>
-                        <p>Boiby Hello - Touch Unlock</p>
-                        <p>52Wh Lithium-polymer battery</p>
-                        <p>boibyOS</p>
-                        <strong>Inside the box:</strong>
-                        <ul>
-                            <li>BoibyBook 14</li>
-                            <li>39W USB-C power adapter</li>
-                            <li>HDMI to USB-C adapter</li>
-                            <li>Documentation & Boiby Stickers</li>
-                            <li>Boiby Polishing Cloth</li>
-                        </ul>
+            <!-- Right: Options -->
+            <div class="config-panel">
+                <h2 id="config-title">BoibyBook 13</h2>
+                <p>13.7-inch ultra-portable performance laptop with AMD Ryzen AI processors.</p>
+
+                <!-- Colour -->
+                <div class="option-group" id="opt-colour">
+                    <h4>Colour</h4>
+                    <div class="option-row">
+                        <label class="selected">
+                            <input type="radio" name="colour" value="dark">
+                            <span>Dark Grey</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="colour" value="silver">
+                            <span>Silver</span>
+                        </label>
                     </div>
                 </div>
 
-                <div class="configurator" role="region" aria-label="BoibyBook 14 configurator">
-                    <!-- Left: options -->
-                    <div>
-                    <!-- Colour -->
-                        <div class="option-group" id="opt-colour">
-                            <h4>Processor</h4>
-                            <div class="option-row" role="radiogroup">
-                                <label>
-                                    <input type="radio" name="colour" value="silver">
-                                    <span>Silver</span>
-                                    <span class="price-badge"></span>
-                                </label>
-
-                                <label>
-                                    <input type="radio" name="colour" value="blue">
-                                    <span>Blue</span>
-                                    <span class="price-badge"></span>
-                                </label>
-
-                                <label>
-                                    <input type="radio" name="colour" value="purple">
-                                    <span>Purple</span>
-                                    <span class="price-badge"></span>
-                                </label>
-
-                                <label>
-                                    <input type="radio" name="colour" value="green">
-                                    <span>Green</span>
-                                    <span class="price-badge"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <!-- CPU -->
-                        <div class="option-group" id="opt-cpu">
-                            <h4>Processor</h4>
-                            <div class="option-row" role="radiogroup">
-                                <label class="selected">
-                                    <input type="radio" name="cpu" value="b2" checked>
-                                    <span>Boiby B2 (8 cores)</span>
-                                    <span class="price-badge"></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Memory -->
-                        <div class="option-group" id="opt-ram">
-                            <h4>RAM/Memory</h4>
-                            <div class="option-row" role="radiogroup">
-                                <label class="selected">
-                                    <input type="radio" name="ram" value="16" checked>
-                                    <span>16 GB RAM - LPDDR5X-7466 (LPCAMM2)</span>
-                                    <span class="price-badge"></span>
-                                </label>
-
-                                <label>
-                                    <input type="radio" name="ram" value="32">
-                                    <span>32 GB RAM - LPDDR5X-7466 (LPCAMM2)</span>
-                                    <span class="price-badge">+A$150</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Storage -->
-                        <div class="option-group" id="opt-ssd">
-                            <h4>SSD Storage</h4>
-                            <div class="option-row" role="radiogroup">
-                                <label class="selected">
-                                    <input type="radio" name="ssd" value="512" checked>
-                                    <span>512 GB SSD - PCIe Gen4 (WD_BLACK SN770)</span>
-                                    <span class="price-badge"></span>
-                                </label>
-
-                                <label>
-                                    <input type="radio" name="ssd" value="1tb">
-                                    <span>1 TB SSD - PCIe Gen4 (WD_BLACK SN770)</span>
-                                    <span class="price-badge">+A$80</span>
-                                </label>
-
-                                <label>
-                                    <input type="radio" name="ssd" value="2tb">
-                                    <span>2 TB SSD - PCIe Gen4 (WD_BLACK SN770)</span>
-                                    <span class="price-badge">+A$180</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="small-note">All prices are in Australian dollars (A$). Taxes and shipping calculated at checkout.</div>
+                <!-- Display -->
+                <div class="option-group" id="opt-display">
+                    <h4>Display</h4>
+                    <div class="option-row">
+                        <label class="selected">
+                            <input type="radio" name="display" value="23k">
+                            <span>2.3K IPS display – 2304×1536 120Hz (13.7-inch)</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="display" value="28koled">
+                            <span>2.8K OLED display – 2880×1920 120Hz (13.7-inch)</span>
+                            <span class="price-badge">+A$300</span>
+                        </label>
                     </div>
-
-                    <!-- Right: summary -->
-                    <aside class="config-panel summary" aria-label="Price summary">
-                        <h3>Summary</h3>
-
-                        <div class="summary-line">
-                            <div>Base price</div>
-                            <div id="base-price">A$1,249</div>
-                        </div>
-
-                        <div id="breakdown">
-                            <!-- populated by JS -->
-                        </div>
-
-                        <div class="summary-line total">
-                            <div>Total</div>
-                            <div id="total-price">A$1,249</div>
-                        </div>
-
-                        <div style="margin-top:8px;">
-                            <button id="add-to-cart" class="primary-blue">Add to cart</button>
-                            <button id="reset-config" class="secondary">Reset to base</button>
-                        </div>
-
-                        <div class="small-note" id="dimensions-note" style="margin-top:10px;">
-                            Size: 304 × 213 × 12.6 mm
-                        </div>
-                    </aside>
                 </div>
-            </section>
-        </div>
+
+                <!-- CPU -->
+                <div class="option-group" id="opt-cpu">
+                    <h4>Processor</h4>
+                    <div class="option-row">
+                        <label class="selected">
+                            <input type="radio" name="cpu" value="ai5">
+                            <span>AMD Ryzen AI 5 340 (6 cores) – Radeon 840M graphics</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="cpu" value="ai7">
+                            <span>AMD Ryzen AI 7 350 (8 cores) – Radeon 860M graphics</span>
+                            <span class="price-badge">+A$250</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="cpu" value="ai9">
+                            <span>AMD Ryzen AI 9 365 (10 cores) – Radeon 880M graphics</span>
+                            <span class="price-badge">+A$500</span>
+                        </label>
+                        <label class="coming-soon">
+                            <input type="radio" disabled name="cpu" value="ai9hx">
+                            <span>AMD Ryzen AI 9 HX 370 (12 cores) – Radeon 890M graphics (coming soon)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- RAM -->
+                <div class="option-group" id="opt-ram">
+                    <h4>Memory (RAM)</h4>
+                    <div class="option-row">
+                        <label class="selected">
+                            <input type="radio" name="ram" value="16">
+                            <span>16 GB (2×8 GB) DDR5-5600 SODIMM</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="ram" value="32">
+                            <span>32 GB (2×16 GB) DDR5-5600 SODIMM</span>
+                            <span class="price-badge">+A$100</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="ram" value="48">
+                            <span>48 GB (2×24 GB) DDR5-5600 SODIMM</span>
+                            <span class="price-badge">+A$200</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="ram" value="64">
+                            <span>64 GB (2×32 GB) DDR5-5600 SODIMM</span>
+                            <span class="price-badge">+A$300</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- SSD -->
+                <div class="option-group" id="opt-ssd">
+                    <h4>SSD Storage</h4>
+                    <div class="option-row">
+                        <label class="selected">
+                            <input type="radio" name="ssd" value="512">
+                            <span>512 GB SSD – PCIe Gen4 NVMe</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="ssd" value="1tb">
+                            <span>1 TB SSD – PCIe Gen4 NVMe</span>
+                            <span class="price-badge">+A$80</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="ssd" value="2tb">
+                            <span>2 TB SSD – PCIe Gen4 NVMe</span>
+                            <span class="price-badge">+A$160</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="ssd" value="4tb">
+                            <span>4 TB SSD – PCIe Gen4 NVMe</span>
+                            <span class="price-badge">+A$480</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="small-note">
+                    Ports: 2× USB-C (USB4 40Gbps), 2× USB-A (USB 3.1 10Gbps), HDMI 2.1, microSD slot, audio jack.<br>
+                    64 Wh battery • Wi-Fi 6E • Bluetooth 5.3 • 1080p webcam with privacy shutter.
+                </div>
+
+                <!-- Summary -->
+                <aside class="summary">
+                    <div class="summary-line">
+                        <div>Base price</div>
+                        <div id="base-price">$1,349</div>
+                    </div>
+                    <div id="breakdown"><div class="summary-line">No upgrades selected</div></div>
+                    <div class="summary-line total">
+                        <div>Total</div>
+                        <div id="total-price">$1,349</div>
+                    </div>
+                    <div style="margin-top:8px; display:flex; gap:0.5rem;">
+                        <button id="add-to-cart" class="primary-green">Add to cart</button>
+                        <button id="reset-config" class="secondary">Reset</button>
+                    </div>
+                </aside>
+            </div>
+        </section>
     </main>
-    
+
     <footer>
         <hr>
         <p>© Boiby 2025</p>
@@ -358,185 +330,94 @@
 
     <script>
         (function () {
-            // Base price (AUD)
-            const basePrice = 1249;
-
+            const basePrice = 1349;
             const prices = {
-                // color
-                'silver': 0,
-                'blue': 0,
-                'purple': 0,
-                'green': 0,
+                // Display
+                '23k': 0,
+                '28koled': 300,
                 // CPU
-                'b2': 0,
+                'ai5': 0,
+                'ai7': 250,
+                'ai9': 500,
                 // RAM
                 '16': 0,
-                '32': 150,
+                '32': 100,
+                '48': 200,
+                '64': 300,
                 // SSD
                 '512': 0,
                 '1tb': 80,
-                '2tb': 180
+                '2tb': 160,
+                '4tb': 480
             };
 
-            // Default selections (name -> value)
             const defaults = {
-                color: 'black',
-                cpu: 'b2p',
+                colour: 'dark',
+                display: '23k',
+                cpu: 'ai5',
                 ram: '16',
                 ssd: '512'
             };
+
+            const basePriceEl = document.getElementById('base-price');
+            const totalPriceEl = document.getElementById('total-price');
+            const breakdownEl = document.getElementById('breakdown');
+            const imgEl = document.getElementById('main-image');
 
             function fmt(aud) {
                 return aud.toLocaleString('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 });
             }
 
-            // include os in the same list as other radio groups now
-            const optionNames = ['display','cpu','ram','ssd','os'];
-
-            const formInputs = document.querySelectorAll('.configurator input[type="radio"]');
-            const basePriceEl = document.getElementById('base-price');
-            const totalPriceEl = document.getElementById('total-price');
-            const breakdownEl = document.getElementById('breakdown');
-
-            basePriceEl.textContent = fmt(basePrice);
-
-            function updateSelectedVisuals() {
-                document.querySelectorAll('.option-group').forEach(group => {
-                    const radios = group.querySelectorAll('input[type="radio"]');
-                    radios.forEach(r => {
-                        const label = r.closest('label');
-                        if (!label) return;
-                        if (r.checked) {
-                            label.classList.add('selected');
-                        } else {
-                            label.classList.remove('selected');
-                        }
-                    });
-                });
+            function updateImage() {
+                const color = document.querySelector('input[name="colour"]:checked').value;
+                imgEl.src = color === 'silver' ? 'BB13-Silver.png' : 'BB13Dark.png';
             }
 
-            function getCurrentConfig() {
-                const cfg = {};
-                optionNames.forEach(name => {
+            function getConfig() {
+                const config = {};
+                ['colour', 'display', 'cpu', 'ram', 'ssd'].forEach(name => {
                     const el = document.querySelector(`input[name="${name}"]:checked`);
-                    cfg[name] = el ? el.value : defaults[name];
+                    config[name] = el ? el.value : defaults[name];
                 });
-                return cfg;
+                return config;
             }
 
             function recalc() {
-                const cfg = getCurrentConfig();
-                // compute breakdown
-                const lines = [];
+                const cfg = getConfig();
                 let total = basePrice;
+                const lines = [];
 
-                Object.entries(cfg).forEach(([k, v]) => {
+                for (const [k, v] of Object.entries(cfg)) {
                     const delta = prices[v] ?? 0;
-                    if (delta === 0) return; // hide zero-priced options
-                    total += delta;
-                    const labelMap = {
-                        display: 'Display',
-                        cpu: 'Processor',
-                        ram: 'Memory',
-                        ssd: 'Storage',
-                        os: 'Operating System'
-                    };
-                    let pretty = labelMap[k] || k;
-                    const selInput = document.querySelector(`[name="${k}"][value="${v}"]`);
-                    let detail = '';
-                    if (selInput) {
-                        const lab = selInput.closest('label');
-                        if (lab) {
-                            // clone and strip badge text
-                            detail = lab.cloneNode(true).textContent.replace(/\s*A\$?\-?\d+[\d,]*\s*$/, '').trim();
-                        } else {
-                            detail = v;
-                        }
-                    } else {
-                        detail = v;
+                    if (delta !== 0) {
+                        total += delta;
+                        const label = document.querySelector(`[name="${k}"][value="${v}"]`)?.closest('label');
+                        const desc = label ? label.textContent.trim() : v;
+                        lines.push({ name: k, desc, price: delta });
                     }
-
-                    lines.push({ key: pretty, detail: detail, amount: delta });
-                });
-
-                // Render breakdown
-                breakdownEl.innerHTML = '';
-                if (lines.length === 0) {
-                    const el = document.createElement('div');
-                    el.className = 'summary-line';
-                    el.textContent = 'No upgrades selected';
-                    breakdownEl.appendChild(el);
-                } else {
-                    lines.forEach(item => {
-                        const el = document.createElement('div');
-                        el.className = 'summary-line';
-                        el.innerHTML = '<div style="max-width:65%"><strong>' + item.key + '</strong><div style="font-size:13px;color:var(--secondary-text)">' + item.detail + '</div></div><div>' + (item.amount >= 0 ? fmt(item.amount) : '-' + fmt(Math.abs(item.amount))) + '</div>';
-                        breakdownEl.appendChild(el);
-                    });
                 }
 
-                totalPriceEl.textContent = fmt(total);
+                breakdownEl.innerHTML = lines.length
+                    ? lines.map(x => `<div class="summary-line"><div>${x.desc}</div><div>${fmt(x.price)}</div></div>`).join('')
+                    : '<div class="summary-line">No upgrades selected</div>';
 
-                updateSelectedVisuals();
+                totalPriceEl.textContent = fmt(total);
+                updateImage();
             }
 
-            recalc();
-
-            formInputs.forEach(inp => {
-                inp.addEventListener('change', recalc);
+            document.querySelectorAll('.option-row input').forEach(i => {
+                i.addEventListener('change', recalc);
             });
 
-            // Reset button
-            document.getElementById('reset-config').addEventListener('click', function () {
-                // reset radios
-                Object.entries(defaults).forEach(([k, v]) => {
+            document.getElementById('reset-config').addEventListener('click', () => {
+                for (const [k, v] of Object.entries(defaults)) {
                     const el = document.querySelector(`[name="${k}"][value="${v}"]`);
                     if (el) el.checked = true;
-                });
+                }
                 recalc();
-                // focus top
-                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
-            document.getElementById('add-to-cart').addEventListener('click', function () {
-                const cfg = getCurrentConfig();
-                const total = totalPriceEl.textContent;
-                const details = Object.entries(cfg).map(([k,v]) => k + ': ' + v).join('\n');
-                alert('Added to cart: ' + total + '\n\nConfiguration:\n' + details);
-            });
-
-            // Label click handlers (inputs are hidden but still in DOM)
-            document.querySelectorAll('.option-row label').forEach(label => {
-                label.addEventListener('click', function (e) {
-                    const inp = label.querySelector('input[type="radio"], input[type="checkbox"]');
-                    if (inp) {
-                        inp.checked = true;
-                        // trigger change event to ensure any listeners fire
-                        const ev = new Event('change', { bubbles: true });
-                        inp.dispatchEvent(ev);
-                    }
-                    recalc();
-                });
-            });
-
-            // allow keyboard selection on labels
-            document.querySelectorAll('.option-row label').forEach(label => {
-                label.setAttribute('tabindex', '0');
-                label.addEventListener('keydown', function (e) {
-                    if (e.key === ' ' || e.key === 'Enter') {
-                        e.preventDefault();
-                        const inp = label.querySelector('input[type="radio"], input[type="checkbox"]');
-                        if (inp) {
-                            inp.checked = true;
-                            const ev = new Event('change', { bubbles: true });
-                            inp.dispatchEvent(ev);
-                        }
-                        recalc();
-                    }
-                });
-            });
-
-            updateSelectedVisuals();
+            recalc();
         })();
     </script>
 </body>
