@@ -59,13 +59,14 @@
             object-fit: cover;
         }
 
-        /* Summary below image */
+        /* Summary below image - REMOVED BACKGROUND */
         .image-summary {
             margin-top: 1.5rem;
-            background: var(--card-bg);
+            background: transparent; /* Removed background color */
             padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 0; /* Removed border radius */
+            box-shadow: none; /* Removed box shadow */
+            border: 1px solid rgba(255,255,255,0.06); /* Added subtle border */
         }
 
         .image-summary h3 { margin: 0 0 12px 0; }
@@ -183,49 +184,45 @@
             opacity: 0.5;
             cursor: not-allowed;
         }
+
         /* Custom scrollbar styles */
-.options-container::-webkit-scrollbar {
-    width: 8px;
-}
+        .options-container::-webkit-scrollbar {
+            width: 8px;
+        }
 
-.options-container::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 4px;
-}
+        .options-container::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 4px;
+        }
 
-.options-container::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
-    transition: background 0.2s ease;
-}
+        .options-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            transition: background 0.2s ease;
+        }
 
-.options-container::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
+        .options-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
 
-/* For light theme */
-body.light .options-container::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-}
+        /* For light theme */
+        body.light .options-container::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+        }
 
-body.light .options-container::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.3);
-}
+        body.light .options-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
 
-/* Firefox scrollbar */
-.options-container {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
-}
+        /* Firefox scrollbar */
+        .options-container {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+        }
 
-body.light .options-container {
-    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
-}
-
-/* Optional: Add smooth scrolling to the container */
-.options-container {
-    scroll-behavior: smooth;
-}
+        body.light .options-container {
+            scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+        }
     </style>
 </head>
 
@@ -410,9 +407,8 @@ body.light .options-container {
                 <p class="modal-header-text">Added to Cart</p>
             </div>
             <div class="modal-body">
-                <p>Your BoibyBook 13 configuration has been added to your shopping cart!</p>
+                <p>Your BoibyBook 13 configuration has been added to your cart!</p>
                 <div id="modal-config-details" style="margin-top: 1rem; padding: 1rem; background: var(--card-bg); border-radius: 6px; font-size: 14px;">
-                    <!-- Configuration details will be inserted here -->
                 </div>
             </div>
             <div class="modal-footer">
@@ -448,7 +444,6 @@ body.light .options-container {
                 '4tb': 500
             };
 
-            // Default selections (name -> value)
             const defaults = {
                 colour: 'silver',
                 display: '2.3k',
@@ -529,13 +524,12 @@ body.light .options-container {
 
             function recalc() {
                 const cfg = getCurrentConfig();
-                // compute breakdown
                 const lines = [];
                 let total = basePrice;
 
                 Object.entries(cfg).forEach(([k, v]) => {
                     const delta = prices[v] ?? 0;
-                    if (delta === 0) return; // hide zero-priced options
+                    if (delta === 0) return; 
                     total += delta;
                     const labelMap = {
                         colour: 'Colour',
@@ -593,8 +587,9 @@ body.light .options-container {
             }
 
             recalc();
-
+            // what is diddy blud doing? does he think is einstein? what is he typing into the calculator? does he think he's doing something smart?
             formInputs.forEach(inp => {
+                inp.removeEventListener('change', recalc);
                 inp.addEventListener('change', recalc);
             });
 
@@ -605,10 +600,8 @@ body.light .options-container {
                     if (el) el.checked = true;
                 });
                 recalc();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
-            // Add to cart button with modal
             document.getElementById('add-to-cart').addEventListener('click', function () {
                 const cfg = getCurrentConfig();
                 const total = totalPriceEl.textContent;
@@ -622,9 +615,9 @@ body.light .options-container {
                 openModal('cart-modal');
             });
 
-            // Label click handlers
             document.querySelectorAll('.option-row label').forEach(label => {
                 label.addEventListener('click', function (e) {
+                    e.preventDefault(); 
                     if (label.classList.contains('disabled')) return;
                     const inp = label.querySelector('input[type="radio"], input[type="checkbox"]');
                     if (inp) {
@@ -636,7 +629,6 @@ body.light .options-container {
                 });
             });
 
-            // Keyboard navigation
             document.querySelectorAll('.option-row label').forEach(label => {
                 label.setAttribute('tabindex', '0');
                 label.addEventListener('keydown', function (e) {
