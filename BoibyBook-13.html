@@ -59,6 +59,30 @@
             object-fit: cover;
         }
 
+        /* Summary below image */
+        .image-summary {
+            margin-top: 1.5rem;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .image-summary h3 { margin: 0 0 12px 0; }
+        .image-summary .summary-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(255,255,255,0.06);
+            font-size: 15px;
+        }
+        .image-summary .summary-line.total {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            font-size: 20px;
+            font-weight: 700;
+            padding-top: 12px;
+        }
+
         /* Options container - scrollable on right */
         .options-container {
             max-height: calc(100vh - 160px);
@@ -141,32 +165,6 @@
             accent-color: #2e8b57;
         }
 
-        /* Summary - stickied to bottom */
-        .summary {
-            position: sticky;
-            bottom: 20px;
-            background: var(--card-bg);
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            margin-top: 2rem;
-        }
-
-        .summary h3 { margin: 0 0 8px 0; }
-        .summary .summary-line {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px dashed rgba(255,255,255,0.06);
-            font-size: 15px;
-        }
-        .summary .summary-line.total {
-            border-top: 1px solid rgba(255,255,255,0.06);
-            font-size: 20px;
-            font-weight: 700;
-            padding-top: 12px;
-        }
-
         .small-note { font-size: 13px; color: var(--secondary-text); margin-top: 8px; }
 
         /* Accessibility focus */
@@ -213,6 +211,32 @@
                     <div class="product-image">
                         <img src="BB13Silver.png" alt="BoibyBook 13 in Silver" id="color-image">
                     </div>
+                    
+                    <!-- Summary below image -->
+                    <aside class="image-summary" aria-label="Price summary">
+                        <h3>Order Summary</h3>
+
+                        <div class="summary-line">
+                            <div>Base price</div>
+                            <div id="base-price">$1,499</div>
+                        </div>
+
+                        <div id="breakdown"><div class="summary-line">No upgrades selected</div></div>
+
+                        <div class="summary-line total">
+                            <div>Total</div>
+                            <div id="total-price">$1,499</div>
+                        </div>
+
+                        <div style="margin-top:12px;">
+                            <button id="add-to-cart" class="primary-blue">Add to Cart</button>
+                            <button id="reset-config" class="secondary">Reset Configuration</button>
+                        </div>
+
+                        <div class="small-note" id="dimensions-note" style="margin-top:10px;">
+                            Size: 304 × 213 × 12.6 mm
+                        </div>
+                    </aside>
                 </div>
 
                 <!-- Right: Scrollable options -->
@@ -326,32 +350,6 @@
                     </div>
 
                     <div class="small-note">All prices are in Australian dollars (A$). Taxes and shipping calculated at checkout.</div>
-
-                    <!-- Summary - stickied to bottom -->
-                    <aside class="summary" aria-label="Price summary">
-                        <h3>Summary</h3>
-
-                        <div class="summary-line">
-                            <div>Base price</div>
-                            <div id="base-price">$1,499</div>
-                        </div>
-
-                        <div id="breakdown"><div class="summary-line">No upgrades selected</div></div>
-
-                        <div class="summary-line total">
-                            <div>Total</div>
-                            <div id="total-price">$1,499</div>
-                        </div>
-
-                        <div style="margin-top:8px;">
-                            <button id="add-to-cart" class="primary-blue">Add to cart</button>
-                            <button id="reset-config" class="secondary">Reset to base</button>
-                        </div>
-
-                        <div class="small-note" id="dimensions-note" style="margin-top:10px;">
-                            Size: 304 × 213 × 12.6 mm
-                        </div>
-                    </aside>
                 </div>
             </div>
         </section>
@@ -361,6 +359,25 @@
         <hr>
         <p>© Boiby 2025</p>
     </footer>
+
+    <!-- Add to Cart Modal -->
+    <div id="cart-modal" class="modal" onclick="closeModal('cart-modal')" aria-hidden="true">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <p class="modal-header-text">Added to Cart</p>
+            </div>
+            <div class="modal-body">
+                <p>Your BoibyBook 13 configuration has been added to your shopping cart!</p>
+                <div id="modal-config-details" style="margin-top: 1rem; padding: 1rem; background: var(--card-bg); border-radius: 6px; font-size: 14px;">
+                    <!-- Configuration details will be inserted here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="secondary" onclick="closeModal('cart-modal')">Continue Shopping</button>
+                <button class="primary-blue" onclick="closeModal('cart-modal'); window.location.href='/checkout'">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         (function () {
@@ -433,6 +450,38 @@
                     cfg[name] = el ? el.value : defaults[name];
                 });
                 return cfg;
+            }
+
+            function getConfigDisplayName(config) {
+                const displayNames = {
+                    colour: {
+                        'silver': 'Silver',
+                        'darkgrey': 'Dark Grey'
+                    },
+                    display: {
+                        '2.3k': '2.3K IPS Display',
+                        '2.8k': '2.8K OLED Display'
+                    },
+                    cpu: {
+                        'b1plus': 'Boiby B1 Plus X10-46',
+                        'b1neo': 'Boiby B1 Neo X12-50'
+                    },
+                    ram: {
+                        '16': '16 GB RAM',
+                        '32': '32 GB RAM', 
+                        '64': '64 GB RAM'
+                    },
+                    ssd: {
+                        '512': '512 GB SSD',
+                        '1tb': '1 TB SSD',
+                        '2tb': '2 TB SSD',
+                        '4tb': '4 TB SSD'
+                    }
+                };
+                
+                return Object.entries(config).map(([key, value]) => {
+                    return `${displayNames[key]?.[value] || value}`;
+                }).join('<br>');
             }
 
             function recalc() {
@@ -516,11 +565,18 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
+            // Add to cart button with modal
             document.getElementById('add-to-cart').addEventListener('click', function () {
                 const cfg = getCurrentConfig();
                 const total = totalPriceEl.textContent;
-                const details = Object.entries(cfg).map(([k,v]) => k + ': ' + v).join('\n');
-                alert('Added to cart: ' + total + '\n\nConfiguration:\n' + details);
+                const configDetails = getConfigDisplayName(cfg);
+                
+                // Update modal content
+                document.getElementById('modal-config-details').innerHTML = 
+                    `<strong>Configuration:</strong><br>${configDetails}<br><br><strong>Total: ${total}</strong>`;
+                
+                // Show modal
+                openModal('cart-modal');
             });
 
             // Label click handlers
