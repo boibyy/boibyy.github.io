@@ -1,0 +1,732 @@
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>BoibyBook 16</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="bouncy.css">
+
+    <script src="modal.js"></script>
+    <script src="theme.js"></script>
+    <script src="nav.js"></script>
+
+    <style>
+.config-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+@media (max-width: 980px) {
+    .config-container {
+        grid-template-columns: 1fr;
+        display: block;
+        padding-bottom: 120px; /* Space for sticky summary */
+    }
+    
+    .product-image-container {
+        position: relative !important;
+        top: auto !important;
+        margin-bottom: 2rem;
+    }
+    
+    .options-container {
+        max-height: none!important;
+        overflow-y: none!important;
+        padding-right: 0;
+    }
+    
+    .image-summary {
+        margin-top: 2rem;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: var(--primary)!important;
+        border-top: 1px solid rgba(255,255,255,0.1)!important;
+        padding: 1rem;
+        z-index: 100;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .image-summary #breakdown {
+        display: none;
+    }
+    
+    .product-image {
+        width: 100%;
+    }
+}
+
+.config-panel {
+    background: transparent;      
+    padding: 1rem 0;              
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.product-image-container {
+    top: 80px;
+    height: fit-content;
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/2;
+    border-radius: 8px;
+    background: none;
+    border: none;
+    overflow: hidden;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-summary {
+    margin-top: 1.5rem;
+    background: var(--card-bg);
+    padding: 1.5rem;
+}
+
+.image-summary h3 { margin: 0 0 12px 0; }
+.image-summary .summary-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(255,255,255,0.06);
+    font-size: 15px;
+}
+.image-summary .summary-line.total {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 20px;
+    font-weight: 700;
+    padding-top: 12px;
+}
+
+.options-container {
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.option-group {
+    margin-bottom: 1rem!important;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.option-group h4 {
+    margin: 0 0 6px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+}
+.option-row label {
+    border: 1px solid rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    background: transparent;
+    transition: border-color 0.12s ease, background 0.12s ease;
+    font-size: 17px;
+    justify-content: flex-start;
+    color: var(--text);
+    margin-bottom: 0.66rem !important;
+}
+
+.option-row label.selected {
+    border: 2px solid #2e8b57;
+    background: transparent;
+}
+body.dark .option-row label.selected {
+    border: 2px solid #2e8b57;
+    background: transparent;
+}
+
+body.dark .option-row label {
+    border: 1px solid rgba(255,255,255,0.6);
+    color: var(--text);
+}
+body.light .option-row label {
+    border-color: 1px solid rgba(0,0,0,0.6);
+    color: var(--text);
+}
+
+.option-row input[type="radio"],
+.option-row input[type="checkbox"] {
+    position: absolute !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    pointer-events: none;
+}
+
+.price-badge {
+    margin-left: auto;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 3px 6px;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text);
+}
+
+.option-row input[type="radio"],
+.option-row input[type="checkbox"] {
+    accent-color: #2e8b57;
+}
+
+.small-note { font-size: 13px; color: var(--secondary-text); margin-top: 8px; }
+
+.option-row label:focus-within {
+    outline: 3px solid rgba(46,139,87,0.14);
+    outline-offset: 3px;
+}
+
+.option-row label.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.options-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.options-container::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+}
+
+.options-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+.options-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+body.light .options-container::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+body.light .options-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.options-container {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+body.light .options-container {
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+    </style>
+</head>
+
+<body class="dark">
+    <header>
+        <img src="boiby.png" class="favicon" alt="Boiby">
+        <a href="#" class="hamburger">☰</a>
+        <nav>
+            <a href="/index" class="link active">Home</a>
+            <a href="/about" class="link">About</a>
+            <a href="/projects" class="link">Projects</a>
+            <a href="/extras" class="link">Extras</a>
+            <a href="/contact" class="link">Contact</a>
+        </nav>
+        <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
+        <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
+    </header>
+
+    <main>
+        <section class="config-panel" aria-labelledby="config-title" style="margin-bottom:1.5rem;">
+            <h2 id="config-title" style="margin:0 0 8px 0">BoibyBook 16</h2>
+            
+            <div class="config-container" role="region" aria-label="BoibyBook 16 configurator">
+                <!-- Left Column: Image and Summary -->
+                <div class="left-column">
+                    <div class="product-image-container">
+                        <div class="product-image">
+                            <img src="BB16Dark.png" alt="BoibyBook 16 in Dark Grey" id="color-image">
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+
+                <!-- Right Column: Options -->
+                <div class="options-container">
+                    <div class="option-group" id="opt-colour">
+                        <h4>Colour</h4>
+                        <div class="option-row" role="radiogroup">
+                            <label class="disabled" tabindex="-1">
+                                <input type="radio" name="colour" value="silver" disabled>
+                                <span>Silver</span>
+                                <span class="price-badge">Coming Soon</span>
+                            </label>
+
+                            <label tabindex="0" class="selected">
+                                <input type="radio" name="colour" value="darkgrey" checked="">
+                                <span>Dark Grey</span>
+                                <span class="price-badge"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group" id="opt-display">
+                        <h4>Display</h4>
+                        <div class="option-row" role="radiogroup">
+                            <label class="selected" tabindex="0">
+                                <input type="radio" name="display" value="2.8k" checked="">
+                                <span>2.8K IPS display - 2880x1920 120Hz (16.2-inch)</span>
+                                <span class="price-badge"></span>
+                            </label>
+
+                            <label tabindex="0">
+                                <input type="radio" name="display" value="4k">
+                                <span>4K OLED display - 3840x2560 144Hz (16.2-inch)</span>
+                                <span class="price-badge">+A$400</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="option-group" id="opt-cpu">
+                        <h4>Processor</h4>
+                        <div class="option-row" role="radiogroup">
+                            <label class="selected" tabindex="0">
+                                <input type="radio" name="cpu" value="b1ultra" checked="">
+                                <span>Boiby B1 Ultra X14-50 (14 cores, up to 5.0 GHz)</span>
+                                <span class="price-badge"></span>
+                            </label>
+
+                            <label tabindex="0">
+                                <input type="radio" name="cpu" value="b1ultraneo">
+                                <span>Boiby B1 Ultra Neo X18-52 (18 cores, up to 5.2 GHz)</span>
+                                <span class="price-badge">+A$300</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="option-group" id="opt-ram">
+                        <h4>RAM/Memory</h4>
+                        <div class="option-row" role="radiogroup">
+                            <label class="selected" tabindex="0">
+                                <input type="radio" name="ram" value="32" checked="">
+                                <span>32 GB RAM - LPDDR5X-9600 (modular)</span>
+                                <span class="price-badge"></span>
+                            </label>
+
+                            <label tabindex="0">
+                                <input type="radio" name="ram" value="64">
+                                <span>64 GB RAM - LPDDR5X-9600 (modular)</span>
+                                <span class="price-badge">+A$300</span>
+                            </label>
+
+                            <label tabindex="0">
+                                <input type="radio" name="ram" value="128">
+                                <span>128 GB RAM - LPDDR5X-9600 (modular)</span>
+                                <span class="price-badge">+A$900</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="option-group" id="opt-gpu">
+                        <h4>Graphics</h4>
+                        <div class="option-row" role="radiogroup">
+                            <label class="selected" tabindex="0">
+                                <input type="radio" name="gpu" value="rx7700s" checked="">
+                                <span>AMD Radeon RX 7700S - 8GB</span>
+                                <span class="price-badge"></span>
+                            </label>
+
+                            <label tabindex="0">
+                                <input type="radio" name="gpu" value="rtx5070ti">
+                                <span>NVIDIA GeForce RTX 5070 Ti - 12GB</span>
+                                <span class="price-badge">+A$400</span>
+                            </label>
+
+                            <label tabindex="0">
+                                <input type="radio" name="gpu" value="rtxpro4000">
+                                <span>NVIDIA RTX PRO 4000 Blackwell - 16GB</span>
+                                <span class="price-badge">+A$700</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="option-group" id="opt-ssd">
+                        <h4>SSD Storage</h4>
+                        <div class="option-row" role="radiogroup">
+                            <label class="selected" tabindex="0">
+                                <input type="radio" name="ssd" value="1tb" checked="">
+                                <span>1TB SSD - PCIe Gen4 NVMe</span>
+                                <span class="price-badge"></span>
+                            </label>
+
+                            <label tabindex="0">
+                                <input type="radio" name="ssd" value="2tb">
+                                <span>2TB SSD - PCIe Gen4 NVMe</span>
+                                <span class="price-badge">+A$200</span>
+                            </label>
+
+                            <label tabindex="0">
+                                <input type="radio" name="ssd" value="4tb">
+                                <span>4TB SSD - PCIe Gen4 NVMe</span>
+                                <span class="price-badge">+A$500</span>
+                            </label>
+
+                            <label tabindex="0">
+                                <input type="radio" name="ssd" value="8tb">
+                                <span>8TB SSD - PCIe Gen4 NVMe</span>
+                                <span class="price-badge">+A$1200</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="option-group" id="opt-secondary-ssd">
+                        <h4>Secondary SSD Storage</h4>
+                        <div class="option-row" role="radiogroup">
+                            <label class="selected" tabindex="0">
+                                <input type="radio" name="secondary-ssd" value="none" checked="">
+                                <span>No secondary storage</span>
+                                <span class="price-badge"></span>
+                            </label>
+
+                            <label tabindex="0">
+                                <input type="radio" name="secondary-ssd" value="1tb">
+                                <span>1TB Secondary SSD - PCIe Gen4 NVMe</span>
+                                <span class="price-badge">+A$100</span>
+                            </label>
+
+                            <label tabindex="0">
+                                <input type="radio" name="secondary-ssd" value="2tb">
+                                <span>2TB Secondary SSD - PCIe Gen4 NVMe</span>
+                                <span class="price-badge">+A$200</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="small-note">All prices are in Australian dollars (A$). Taxes and shipping calculated at checkout.</div>
+                </div>
+            <aside class="image-summary mobile-moved" aria-label="Price summary">
+                        <h3>Order Summary</h3>
+
+                        <div class="summary-line">
+                            <div>Base price</div>
+                            <div id="base-price">$2,999</div>
+                        </div>
+
+                        <div id="breakdown"><div class="summary-line"><div style="max-width:65%"><strong>Display</strong><div style="font-size:13px;color:var(--secondary-text)">2.8K IPS display - 2880x1920 120Hz (16.2-inch)
+                                +</div></div><div>$0</div></div><div class="summary-line"><div style="max-width:65%"><strong>Processor</strong><div style="font-size:13px;color:var(--secondary-text)">Boiby B1 Ultra X14-50 (14 cores, up to 5.0 GHz)
+                                +</div></div><div>$0</div></div><div class="summary-line"><div style="max-width:65%"><strong>Memory</strong><div style="font-size:13px;color:var(--secondary-text)">32 GB RAM - LPDDR5X-9600 (modular)
+                                +</div></div><div>$0</div></div><div class="summary-line"><div style="max-width:65%"><strong>Graphics</strong><div style="font-size:13px;color:var(--secondary-text)">AMD Radeon RX 7700S - 8GB
+                                +</div></div><div>$0</div></div><div class="summary-line"><div style="max-width:65%"><strong>Storage</strong><div style="font-size:13px;color:var(--secondary-text)">1TB SSD - PCIe Gen4 NVMe
+                                +</div></div><div>$0</div></div><div class="summary-line"><div style="max-width:65%"><strong>Secondary Storage</strong><div style="font-size:13px;color:var(--secondary-text)">No secondary storage
+                                +</div></div><div>$0</div></div></div>
+
+                        <div class="summary-line total">
+                            <div>Total</div>
+                            <div id="total-price">$2,999</div>
+                        </div>
+
+                        <div style="margin-top:12px;">
+                            <button id="add-to-cart" class="primary-blue">Add to Cart</button>
+                            <button id="reset-config" class="secondary">Reset Configuration</button>
+                        </div>
+
+                        <div class="small-note" id="dimensions-note" style="margin-top:10px;">
+                            Size: 344 × 243 × 14.2 mm
+                        </div>
+                    </aside></div>
+        </section>
+    </main>
+    
+    <footer>
+        <hr>
+        <p>© Boiby 2025</p>
+    </footer>
+
+    <div id="cart-modal" class="modal" onclick="closeModal('cart-modal')" aria-hidden="true" style="display: none;">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <p class="modal-header-text">Added to Cart</p>
+            </div>
+            <div class="modal-body">
+                <p>Your BoibyBook 16 configuration has been added to your cart!</p>
+                <div id="modal-config-details" style="margin-top: 1rem; padding: 1rem; background: var(--card-bg); border-radius: 6px; font-size: 14px;">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="secondary" onclick="closeModal('cart-modal')">Okay</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const basePrice = 2999;
+
+            const prices = {
+                'silver': 0,
+                'darkgrey': 0,
+                '2.8k': 0,
+                '4k': 400,
+                'b1ultra': 0,
+                'b1ultraneo': 300,
+                '32': 0,
+                '64': 300,
+                '128': 900,
+                'rx7700s': 0,
+                'rtx5070ti': 400,
+                'rtxpro4000': 700,
+                '1tb': 0,
+                '2tb': 200,
+                '4tb': 500,
+                '8tb': 1200,
+                'none': 0,
+                '1tb-secondary': 100,
+                '2tb-secondary': 200
+            };
+
+            const defaults = {
+                colour: 'darkgrey',
+                display: '2.8k',
+                cpu: 'b1ultra',
+                ram: '32',
+                gpu: 'rx7700s',
+                ssd: '1tb',
+                'secondary-ssd': 'none'
+            };
+
+            function fmt(aud) {
+                return aud.toLocaleString('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 });
+            }
+
+            const optionNames = ['colour', 'display', 'cpu', 'ram', 'gpu', 'ssd', 'secondary-ssd'];
+
+            const formInputs = document.querySelectorAll('.options-container input[type="radio"]');
+            const basePriceEl = document.getElementById('base-price');
+            const totalPriceEl = document.getElementById('total-price');
+            const breakdownEl = document.getElementById('breakdown');
+            const colorImage = document.getElementById('color-image');
+
+            basePriceEl.textContent = fmt(basePrice);
+
+            function updateSelectedVisuals() {
+                document.querySelectorAll('.option-group').forEach(group => {
+                    const radios = group.querySelectorAll('input[type="radio"]');
+                    radios.forEach(r => {
+                        const label = r.closest('label');
+                        if (!label) return;
+                        if (r.checked) {
+                            label.classList.add('selected');
+                        } else {
+                            label.classList.remove('selected');
+                        }
+                    });
+                });
+            }
+
+            function getCurrentConfig() {
+                const cfg = {};
+                optionNames.forEach(name => {
+                    const el = document.querySelector(`input[name="${name}"]:checked`);
+                    cfg[name] = el ? el.value : defaults[name];
+                });
+                return cfg;
+            }
+
+            function getConfigDisplayName(config) {
+                const displayNames = {
+                    colour: {
+                        'silver': 'Silver',
+                        'darkgrey': 'Dark Grey'
+                    },
+                    display: {
+                        '2.8k': '2.8K IPS Display',
+                        '4k': '4K OLED Display'
+                    },
+                    cpu: {
+                        'b1ultra': 'Boiby B1 Ultra X14-50',
+                        'b1ultraneo': 'Boiby B1 Ultra Neo X18-52'
+                    },
+                    ram: {
+                        '32': '32 GB RAM',
+                        '64': '64 GB RAM', 
+                        '128': '128 GB RAM'
+                    },
+                    gpu: {
+                        'rx7700s': 'AMD Radeon RX 7700S - 8GB',
+                        'rtx5070ti': 'NVIDIA GeForce RTX 5070 Ti - 12GB',
+                        'rtxpro4000': 'NVIDIA RTX PRO 4000 Blackwell - 16GB'
+                    },
+                    ssd: {
+                        '1tb': '1 TB SSD',
+                        '2tb': '2 TB SSD',
+                        '4tb': '4 TB SSD',
+                        '8tb': '8 TB SSD'
+                    },
+                    'secondary-ssd': {
+                        'none': 'No Secondary Storage',
+                        '1tb': '1 TB Secondary SSD',
+                        '2tb': '2 TB Secondary SSD'
+                    }
+                };
+                
+                return Object.entries(config).map(([key, value]) => {
+                    return `${displayNames[key]?.[value] || value}`;
+                }).join('<br>');
+            }
+
+            function recalc() {
+                const cfg = getCurrentConfig();
+                const lines = [];
+                let total = basePrice;
+
+                Object.entries(cfg).forEach(([k, v]) => {
+                    let priceKey = v;
+                    if (k === 'secondary-ssd' && v !== 'none') {
+                        priceKey = v + '-secondary';
+                    }
+                    const delta = prices[priceKey] ?? 0;
+                    if (delta === 0) return; 
+                    total += delta;
+                    const labelMap = {
+                        colour: 'Colour',
+                        display: 'Display',
+                        cpu: 'Processor',
+                        ram: 'Memory',
+                        gpu: 'Graphics',
+                        ssd: 'Storage',
+                        'secondary-ssd': 'Secondary Storage'
+                    };
+                    let pretty = labelMap[k] || k;
+                    const selInput = document.querySelector(`[name="${k}"][value="${v}"]`);
+                    let detail = '';
+                    if (selInput) {
+                        const lab = selInput.closest('label');
+                        if (lab) {
+                            detail = lab.cloneNode(true).textContent.replace(/\s*A\$?\-?\d+[\d,]*\s*$/, '').trim();
+                        } else {
+                            detail = v;
+                        }
+                    } else {
+                        detail = v;
+                    }
+
+                    lines.push({ key: pretty, detail: detail, amount: delta });
+                });
+
+                breakdownEl.innerHTML = '';
+                if (lines.length === 0) {
+                    const el = document.createElement('div');
+                    el.className = 'summary-line';
+                    el.textContent = 'No upgrades selected';
+                    breakdownEl.appendChild(el);
+                } else {
+                    lines.forEach(item => {
+                        const el = document.createElement('div');
+                        el.className = 'summary-line';
+                        el.innerHTML = '<div style="max-width:65%"><strong>' + item.key + '</strong><div style="font-size:13px;color:var(--secondary-text)">' + item.detail + '</div></div><div>' + (item.amount >= 0 ? fmt(item.amount) : '-' + fmt(Math.abs(item.amount))) + '</div>';
+                        breakdownEl.appendChild(el);
+                    });
+                }
+
+                totalPriceEl.textContent = fmt(total);
+
+                updateSelectedVisuals();
+                
+                if (cfg.colour === 'silver') {
+                    colorImage.src = 'BB16Silver.png';
+                    colorImage.alt = 'BoibyBook 16 in Silver';
+                } else if (cfg.colour === 'darkgrey') {
+                    colorImage.src = 'BB16Dark.png';
+                    colorImage.alt = 'BoibyBook 16 in Dark Grey';
+                }
+            }
+
+            recalc();
+
+            formInputs.forEach(inp => {
+                inp.removeEventListener('change', recalc);
+                inp.addEventListener('change', recalc);
+            });
+
+            document.getElementById('reset-config').addEventListener('click', function () {
+                Object.entries(defaults).forEach(([k, v]) => {
+                    const el = document.querySelector(`[name="${k}"][value="${v}"]`);
+                    if (el) el.checked = true;
+                });
+                recalc();
+            });
+
+            document.getElementById('add-to-cart').addEventListener('click', function () {
+                const cfg = getCurrentConfig();
+                const total = totalPriceEl.textContent;
+                const configDetails = getConfigDisplayName(cfg);
+                
+                document.getElementById('modal-config-details').innerHTML = 
+                    `<strong>Configuration:</strong><br>${configDetails}<br><br><strong>Total: ${total}</strong>`;
+                
+                openModal('cart-modal');
+            });
+
+            document.querySelectorAll('.option-row label').forEach(label => {
+                label.addEventListener('click', function (e) {
+                    e.preventDefault(); 
+                    if (label.classList.contains('disabled')) return;
+                    const inp = label.querySelector('input[type="radio"], input[type="checkbox"]');
+                    if (inp) {
+                        inp.checked = true;
+                        const ev = new Event('change', { bubbles: true });
+                        inp.dispatchEvent(ev);
+                    }
+                    recalc();
+                });
+            });
+
+            document.querySelectorAll('.option-row label').forEach(label => {
+                label.setAttribute('tabindex', '0');
+                label.addEventListener('keydown', function (e) {
+                    if (e.key === ' ' || e.key === 'Enter') {
+                        e.preventDefault();
+                        if (label.classList.contains('disabled')) return;
+                        const inp = label.querySelector('input[type="radio"], input[type="checkbox"]');
+                        if (inp) {
+                            inp.checked = true;
+                            const ev = new Event('change', { bubbles: true });
+                            inp.dispatchEvent(ev);
+                        }
+                        recalc();
+                    }
+                });
+            });
+
+            updateSelectedVisuals();
+        })();
+        function updateMobileSummary() {
+            if (window.innerWidth <= 980) {
+                const configContainer = document.querySelector('.config-container');
+                const imageSummary = document.querySelector('.image-summary');
+                if (configContainer && imageSummary && !imageSummary.classList.contains('mobile-moved')) {
+                    configContainer.appendChild(imageSummary);
+                    imageSummary.classList.add('mobile-moved');
+                }
+            }
+        }
+        updateMobileSummary();
+        window.addEventListener('resize', updateMobileSummary);
+    </script>
+</body></html>
