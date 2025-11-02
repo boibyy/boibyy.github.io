@@ -1,768 +1,707 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Buy BoibyPhone 11</title>
-  <style>
-    :root {
-      --blue: #0071e3;
-      --border: #d2d2d7;
-      --text: #1d1d1f;
-      --muted: #6e6e73;
-      --bg: #fff;
-    }
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>BoibyPhone 11</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="bouncy.css">
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--text);
-      -webkit-font-smoothing: antialiased;
-      transition: opacity 0.3s ease;
-    }
+    <script src="modal.js"></script>
+    <script src="theme.js"></script>
+    <script src="nav.js"></script>
 
-    body.fade-out {
-      opacity: 0.5;
-    }
+    <style>
+.config-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+}
 
-    header {
-      text-align: center;
-      padding: 28px 16px;
-      border-bottom: 1px solid var(--border);
-      transition: all 0.3s ease;
+@media (max-width: 980px) {
+    .config-container {
+        grid-template-columns: 1fr;
+        display: block;
+        padding-bottom: 120px; /* Space for sticky summary */
     }
     
-    h1 {
-      font-size: 2rem;
-      font-weight: 600;
-      margin: 0;
-    }
-
-    .models {
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px;
+    .product-image-container {
+        position: relative !important;
+        top: auto !important;
+        margin-bottom: 2rem;
     }
     
-    .card {
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      background: #fff;
-      transition: box-shadow .15s, transform .06s;
-      display: flex;
-      flex-direction: column;
-      max-width: 800px;
-      margin: 0 auto;
+    .options-container {
+        max-height: none!important;
+        overflow-y: none!important;
+        padding-right: 0;
     }
     
-    .card:hover {
-      border-color: var(--blue);
-      transform: translateY(-2px);
+    .image-summary {
+        margin-top: 2rem;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: var(--primary)!important;
+        border-top: 1px solid rgba(255,255,255,0.1)!important;
+        padding: 1rem;
+        z-index: 100;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
     }
     
-    .card-content {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 15px;
+    .image-summary #breakdown {
+        display: none;
     }
     
-    .card-image {
-      width: 140px;
-      height: 140px;
-      border-radius: 0px;
-      overflow: hidden;
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .card-image img {
-      max-width: 100%;
-      max-height: 100%;
-      transition: opacity 0.3s ease;
-    }
-    
-    .card-details {
-      flex: 1;
-    }
-    
-    .card h2 {
-      font-size: 1.3rem;
-      margin: 0 0 6px;
-      font-weight: 600;
-    }
-    
-    .price {
-      font-size: 1.05rem;
-      font-weight: 500;
-      margin: 6px 0 12px;
-      color: var(--muted);
-    }
-    
-    .card ul {
-      margin: 0;
-      padding-left: 20px;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-    
-    .select-btn {
-      margin-top: auto;
-      padding: 10px 0;
-      background: var(--blue);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background .2s;
-    }
-    
-    .select-btn:hover {
-      background: #005bb5;
-    }
-
-    .back-btn {
-      margin: 10px 0 20px;
-      padding: 8px 18px;
-      background: #f5f5f7;
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
-      font-size: 0.95rem;
-    }
-    
-    .back-btn:hover { 
-      background: #e6e6e9; 
-    }
-
-    .hero { 
-      margin-bottom: 24px; 
-    }
-    
-    .hero-title {
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-      margin: 0 0 12px;
-    }
-    
-    .hero-content {
-      display: flex;
-      gap: 30px;
-      align-items: flex-start;
-    }
-    
-    .hero-image {
-      width: 280px;
-      flex-shrink: 0;
-      border-radius: 0px;
-      overflow: hidden;
-      background: #fff;
-    }
-    
-    .hero-image img {
-      width: 100%;
-      display: block;
-      transition: opacity 0.3s ease;
-    }
-    
-    .hero-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      color: var(--muted);
-      flex: 1;
-    }
-    
-    .hero-list li {
-      font-size: 1rem;
-      line-height: 1.6;
-      margin: 6px 0;
-    }
-
-    .group { 
-      margin: 24px 0; 
-      position: relative;
-    }
-    
-    .group h3 {
-      font-size: 1.1rem;
-      margin: 0 0 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    
-    .info-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: var(--muted);
-      color: white;
-      font-size: 12px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    
-    .info-icon:hover {
-      background: var(--blue);
-    }
-
-    .pill {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 28px 20px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      margin: 10px 0;
-      cursor: pointer;
-      background: #fff;
-      transition: border-color .12s, box-shadow .12s, transform .06s;
-    }
-    
-    .pill:hover { 
-      border-color: var(--blue); 
-      transform: translateY(-2px); 
-    }
-    
-    .pill.selected {
-      border: 2px solid var(--blue);
-      box-shadow: 0 4px 14px rgba(0,113,227,0.08);
-    }
-    
-    .pill.disabled {
-      opacity: .6;
-      cursor: not-allowed;
-      background: #fbfbfb;
-    }
-    
-    .pill .label { 
-      font-weight: 600; 
-    }
-    
-    .pill .price-right { 
-      color: var(--muted); 
-      font-weight: 600; 
-      white-space: nowrap; 
-    }
-
-    .note {
-      font-size: .9rem;
-      color: var(--muted);
-      margin-top: 6px;
-    }
-
-    .color-selector {
-      display: flex;
-      gap: 10px;
-      margin: 10px 0;
-      flex-wrap: wrap;
-    }
-    
-    .color-pill {
-      padding: 6px 12px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: all 0.2s;
-    }
-    
-    .color-pill.selected {
-      background: var(--blue);
-      color: #fff;
-      border-color: var(--blue);
-    }
-
-    .configurator, .confirmation {
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px;
-    }
-
-    .checkout {
-      position: sticky;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      width: auto;
-      max-width: 100vw;
-      box-sizing: border-box;
-      background: #fff;
-      border-top: 1px solid var(--border);
-      padding: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-      z-index: 100;
-      overflow-x: hidden;
-      padding-left: max(18px, env(safe-area-inset-left));
-      padding-right: max(18px, env(safe-area-inset-right));
-    }
-    
-    .total {
-      font-size: 1.4rem;
-      font-weight: 700;
-    }
-    
-    .add-to-bag {
-      padding: 12px 22px;
-      font-size: 1.05rem;
-      background: var(--blue);
-      color: #fff;
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: background .2s;
-    }
-    
-    .add-to-bag:hover { 
-      background: #005bb5; 
-    }
-
-    .confirmation {
-      text-align: center;
-      display: none;
-    }
-    
-    .confirmation-image {
-      width: 300px;
-      margin: 0 auto 20px;
-      border-radius: 0px;
-      overflow: hidden;
-    }
-    
-    .confirmation-image img {
-      width: 100%;
-    }
-    
-    .confirmation-details {
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: left;
-      background: #f9f9f9;
-      padding: 20px;
-      border-radius: 12px;
-    }
-    
-    .confirmation-title {
-      font-size: 2.2rem;
-      margin-bottom: 10px;
-      color: #0071e3;
-    }
-    
-    .confirmation-model {
-      font-size: 1.4rem;
-      margin-bottom: 20px;
-    }
-    
-    .confirmation-list {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 20px;
-    }
-    
-    .confirmation-list li {
-      padding: 8px 0;
-      border-bottom: 1px solid #eee;
-    }
-    
-    .confirmation-total {
-      font-size: 1.6rem;
-      font-weight: 700;
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .learn-more {
-      display: none;
-    }
-
-    @media (max-width: 900px) {
-      .hero-content {
-        flex-direction: column;
-      }
-      
-      .hero-image {
+    .product-image {
         width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-      }
     }
+}
 
-    @media (max-width: 600px) {
-      .pill { 
-        padding: 14px; 
-      }
-      
-      .checkout {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-      }
-      
-      .add-to-bag { 
-        width: 100%; 
-      }
-      
-      .card-content {
-        flex-direction: column;
-      }
-      
-      .card-image {
-        width: 100%;
-        height: 180px;
-        margin-bottom: 15px;
-      }
-    }
-  </style>
+.config-panel {
+    background: transparent;      
+    padding: 1rem 0;              
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.product-image-container {
+    top: 80px;
+    height: fit-content;
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/2;
+    border-radius: 8px;
+    background: none;
+    border: none;
+    overflow: hidden;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-summary {
+    margin-top: 1.5rem;
+    background: var(--card-bg);
+    padding: 1.5rem;
+}
+
+.image-summary h3 { margin: 0 0 12px 0; }
+.image-summary .summary-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(255,255,255,0.06);
+    font-size: 15px;
+}
+.image-summary .summary-line.total {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 20px;
+    font-weight: 700;
+    padding-top: 12px;
+}
+
+.options-container {
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.option-group {
+    margin-bottom: 1rem!important;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.option-group h4 {
+    margin: 0 0 6px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+}
+.option-row label {
+    border: 1px solid rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    background: transparent;
+    transition: border-color 0.12s ease, background 0.12s ease;
+    font-size: 17px;
+    justify-content: flex-start;
+    color: var(--text);
+    margin-bottom: 0.66rem !important;
+}
+
+.option-row label.selected {
+    border: 2px solid #2e8b57;
+    background: transparent;
+}
+body.dark .option-row label.selected {
+    border: 2px solid #2e8b57;
+    background: transparent;
+}
+
+body.dark .option-row label {
+    border: 1px solid rgba(255,255,255,0.6);
+    color: var(--text);
+}
+body.light .option-row label {
+    border-color: 1px solid rgba(0,0,0,0.6);
+    color: var(--text);
+}
+
+.option-row input[type="radio"],
+.option-row input[type="checkbox"] {
+    position: absolute !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    pointer-events: none;
+}
+
+.price-badge {
+    margin-left: auto;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 3px 6px;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text);
+}
+
+.option-row input[type="radio"],
+.option-row input[type="checkbox"] {
+    accent-color: #2e8b57;
+}
+
+.small-note { font-size: 13px; color: var(--secondary-text); margin-top: 8px; }
+
+.option-row label:focus-within {
+    outline: 3px solid rgba(46,139,87,0.14);
+    outline-offset: 3px;
+}
+
+.option-row label.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.options-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.options-container::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+}
+
+.options-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+.options-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+body.light .options-container::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+body.light .options-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.options-container {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+body.light .options-container {
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.specs-list {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: var(--card-bg);
+    border-radius: 8px;
+}
+
+.specs-list ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.specs-list li {
+    padding: 0.75rem 0;
+    border-bottom: 1px dashed rgba(255,255,255,0.1);
+    font-size: 15px;
+}
+
+.specs-list li.spec-category {
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--accent);
+    padding-top: 1.5rem;
+    border-bottom: none;
+}
+
+.specs-list li.spec-category:first-child {
+    padding-top: 0;
+}
+
+.specs-list li.spec-divider {
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding: 0.25rem 0;
+}
+
+body.light .specs-list li {
+    border-bottom: 1px dashed rgba(0,0,0,0.1);
+}
+
+body.light .specs-list li.spec-category {
+    color: var(--primary);
+}
+
+body.light .specs-list li.spec-divider {
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+    </style>
 </head>
-<body>
-  <header>
-    <h1 id="headerTitle">Buy BoibyPhone 11</h1>
-  </header>
 
-  <main>
-    <div class="models" id="models">
-      <!-- Single card for BoibyPhone 11 -->
-      <div class="card">
-        <div class="card-content">
-          <div class="card-image">
-            <img src="BoibyPhone11Blue.png" alt="BoibyPhone 11" id="card-image-BoibyPhone11">
-          </div>
-          <div class="card-details">
-            <h2>BoibyPhone 11</h2>
-            <p class="price">From A$1,399</p>
-            <ul>
-              <li>6.3-inch 2340x1080 OLED display</li>
-              <li>120Hz Adaptive refresh rate (LTPO3 1-120Hz)</li>
-              <li>3000 nits peak brightness</li>
-              <li>Boiby C11 chip with 6-core CPU and 7-core GPU</li>
-              <li>4861 mAh Li-ion battery</li>
-              <li>Aluminium frame with Boiby Glass front and back</li>
-              <li>12 GB of memory</li>
-              <li>Dual camera system with 48MP Wide and 48MP Ultrawide</li>
-              <li>LiDAR scanner + Dual LED flash</li>
-              <li>45 W fast charging + 15 W Qi2 Wireless charging</li>
-              <li>USB-C + Headphone Jack</li>
-              <li>WiFi 7 + Bluetooth 6</li>
-            </ul>
-          </div>
-        </div>
-        <button class="select-btn" data-model="BoibyPhone11">Select</button>
-      </div>
-    </div>
+<body class="dark">
+    <header>
+        <img src="boiby.png" class="favicon" alt="Boiby">
+        <a href="#" class="hamburger">☰</a>
+        <nav>
+            <a href="/index" class="link active">Home</a>
+            <a href="/about" class="link">About</a>
+            <a href="/projects" class="link">Projects</a>
+            <a href="/extras" class="link">Extras</a>
+            <a href="/contact" class="link">Contact</a>
+        </nav>
+        <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
+        <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
+    </header>
 
-    <div class="configurator" id="configurator" style="display:none;">
-      <button class="back-btn" id="backBtn">← Back</button>
-      <div class="hero">
-        <h2 class="hero-title" id="heroTitle"></h2>
-        <div class="hero-content">
-          <div class="hero-image" id="heroImage"></div>
-          <ul class="hero-list" id="heroList"></ul>
-        </div>
-      </div>
-      <div id="options"></div>
-    </div>
-
-    <div class="confirmation" id="confirmation">
-      <h2 class="confirmation-title">Order Confirmed</h2>
-      <div class="confirmation-image" id="confirmationImage"></div>
-      <h3 class="confirmation-model" id="confirmationModel"></h3>
-      <div class="confirmation-details">
-        <h4>Order Summary:</h4>
-        <ul class="confirmation-list" id="confirmationList"></ul>
-        <div class="confirmation-total" id="confirmationTotal"></div>
-      </div>
-      <button class="back-btn" id="confirmationBackBtn" style="margin-top: 30px;">Back to Store</button>
-    </div>
-  </main>
-
-  <section class="learn-more" style="display: none;">
-    <!-- Learn more content can be added here later -->
-  </section>
-
-  <div class="checkout" id="checkout">
-    <div class="total" id="finalPrice">Total: A$0</div>
-    <button class="add-to-bag" id="addToBagBtn">Add to Bag</button>
-  </div>
-
-  <script>
-    (function () {
-      const colors = ['Black', 'Silver', 'Blue', 'Teal', 'Pink', 'Orange'];
-      let selectedColor = 'Black';
-
-      const template = {
-        "BoibyPhone11": {
-          price: 1399,
-          display: "6.3-inch 2340x1080 OLED display with 120Hz Adaptive refresh rate (LTPO3 1-120Hz) and 3000 nits peak brightness",
-          specs: [
-            "Boiby C11 chip with 6-core CPU and 7-core GPU",
-            "Aluminium frame with Boiby Glass front and back",
-            "12 GB of memory",
-            "4861 mAh Li-ion battery",
-            "USB-C (USB 3 10Gbps) port + Headphone Jack",,
-            "Dual camera system: 48MP Wide Lens (10x digital zoom) + 48MP Ultrawide Lens",
-            "LiDAR scanner + Dual LED flash",
-            "18MP front camera with adaptive sensor",
-            "45 W fast charging + 15 W Qi2 Wireless charging",
-            "WiFi 7 + Bluetooth 6"
-          ],
-          upgrades: {
-            color: ["Black (base)", "Silver (base)", "Blue (base)", "Teal (base)", "Pink (base)", "Orange (base)"],
-            storage: ["256 GB storage (base)", "512 GB storage (+A$100)", "1 TB storage (+A$300)"]
-          },
-          included: [
-            "BoibyPhone 11",
-            "USB-C to USB-C 1m braided charging cable",
-            "45 W USB-C power adapter",
-            "SIM ejector tool",
-            "Documentation & Boiby Stickers",
-          ]
-        }
-      };
-
-      const baseConfigs = JSON.parse(JSON.stringify(template));
-
-      let selectedModel = null;
-      let selectedOptions = {};
-
-      const $ = q => document.querySelector(q);
-      const $$ = q => Array.from(document.querySelectorAll(q));
-      const cleanLabel = opt => (opt||'').split("(")[0].trim();
-      const priceDelta = opt => {
-        if (!opt) return 0;
-        const m = opt.match(/\+A\$(\d+)/);
-        return m ? parseInt(m[1],10) : 0;
-      };
-      const formatPrice = n => `A$${n.toLocaleString('en-AU')}`;
-
-      function findGroupByName(name) {
-        const groups = $$('#options .group');
-        return groups.find(g => g.querySelector('h3') && g.querySelector('h3').innerText.toLowerCase() === name.toLowerCase());
-      }
-
-      function initPage() {
-        // Add event listener to select button
-        const selectBtn = $('.select-btn');
-        if (selectBtn) {
-          selectBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            selectedModel = e.target.getAttribute('data-model');
+    <main>
+        <section class="config-panel" aria-labelledby="config-title" style="margin-bottom:1.5rem;">
+            <h2 id="config-title" style="margin:0 0 8px 0">BoibyPhone 11</h2>
+            <p style="margin:0 0 1.5rem 0; color: var(--secondary-text); font-size: 18px;">A compact, powerful, open, and repairable smartphone. Unlockable bootloader and native loading of apps outside App Stores, and industry-leading security and privacy features built-in. Plus a headphone jack.</p>
             
-            const modelsEl = $('#models');
-            if (modelsEl) modelsEl.style.display = 'none';
-            $('#configurator').style.display = 'block';
-            showConfigurator();
-          });
-        }
-      }
+            <div class="config-container" role="region" aria-label="BoibyPhone 11 configurator">
+                <!-- Left Column: Image and Summary -->
+                <div class="left-column">
+                    <div class="product-image-container">
+                        <div class="product-image">
+                            <img src="BP11Blue.png" alt="BoibyPhone 11 in Blue" id="color-image">
+                        </div>
+                    </div>
+                    
+                    
+                </div>
 
-      function showConfigurator() {
-        const cfg = baseConfigs[selectedModel];
-        const optionsDiv = $('#options');
-        optionsDiv.innerHTML = '';
-        selectedOptions = {};
+                <!-- Right Column: Options -->
+                <div class="options-container">
+                    <div class="option-group" id="opt-colour">
+                        <h4>Colour</h4>
+                        <div class="option-row" role="radiogroup">
+                            <label class="selected" tabindex="0">
+                                <input type="radio" name="colour" value="blue" checked="">
+                                <span>Blue</span>
+                                <span class="price-badge"></span>
+                            </label>
 
-        $('#heroTitle').innerText = `Customise your BoibyPhone 11`;
-        const heroImage = $('#heroImage');
-        heroImage.innerHTML = `<img src="BoibyPhone11${selectedColor}.png" alt="${selectedModel} ${selectedColor}" style="width: 100%;">`;
+                            <label tabindex="0">
+                                <input type="radio" name="colour" value="mint">
+                                <span>Mint</span>
+                                <span class="price-badge"></span>
+                            </label>
 
-        // Color selection in the configurator
-        const colorGroup = document.createElement('div');
-        colorGroup.className = 'group';
-        const colorTitle = document.createElement('h3');
-        colorTitle.innerText = 'Colour';
-        colorGroup.appendChild(colorTitle);
+                            <label tabindex="0">
+                                <input type="radio" name="colour" value="orange">
+                                <span>Orange</span>
+                                <span class="price-badge"></span>
+                            </label>
+
+                            <label tabindex="0">
+                                <input type="radio" name="colour" value="pink">
+                                <span>Pink</span>
+                                <span class="price-badge"></span>
+                            </label>
+
+                            <label tabindex="0">
+                                <input type="radio" name="colour" value="black">
+                                <span>Black</span>
+                                <span class="price-badge"></span>
+                            </label>
+
+                            <label tabindex="0">
+                                <input type="radio" name="colour" value="silver">
+                                <span>Silver</span>
+                                <span class="price-badge"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group" id="opt-storage">
+                        <h4>Storage</h4>
+                        <div class="option-row" role="radiogroup">
+                            <label class="selected" tabindex="0">
+                                <input type="radio" name="storage" value="256" checked="">
+                                <span>256 GB storage | 12 GB RAM</span>
+                                <span class="price-badge"></span>
+                            </label>
+
+                            <label tabindex="0">
+                                <input type="radio" name="storage" value="512">
+                                <span>512 GB storage | 12 GB RAM</span>
+                                <span class="price-badge">+A$80</span>
+                            </label>
+
+                            <label tabindex="0">
+                                <input type="radio" name="storage" value="1tb">
+                                <span>1 TB storage | 12 GB RAM</span>
+                                <span class="price-badge">+A$240</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="small-note">All prices are in Australian dollars (A$). Taxes and shipping calculated at checkout.</div>
+                </div>
+            <aside class="image-summary mobile-moved" aria-label="Price summary">
+                        <h3>Order Summary</h3>
+
+                        <div class="summary-line">
+                            <div>Base price</div>
+                            <div id="base-price">$1,349</div>
+                        </div>
+
+                        <div id="breakdown"><div class="summary-line">No upgrades selected</div></div>
+
+                        <div class="summary-line total">
+                            <div>Total</div>
+                            <div id="total-price">$1,349</div>
+                        </div>
+
+                        <div style="margin-top:12px;">
+                            <button id="add-to-cart" class="primary-blue">Add to Cart</button>
+                            <button id="reset-config" class="secondary">Reset Configuration</button>
+                        </div>
+
+                        <div class="small-note" id="dimensions-note" style="margin-top:10px;">
+                            Size: 180 grams, 7.7mm thickness
+                        </div>
+                    </aside></div>
+
+            <div class="specs-list">
+    <ul>
+        <li class="spec-category">Performance</li>
+        <li>Qualcomm Snapdragon 8 Elite Gen 5 SoC</li>
+        <li>Qualcomm Adreno 840 GPU</li>
+        <li>12 GB of LPDDR5X RAM</li>
+        <li>Up to 1 TB of UFS 4.1 storage</li>
         
-        const colorSelector = document.createElement('div');
-        colorSelector.className = 'color-selector';
+        <li class="spec-category">Display</li>
+        <li>6.3-inch Super OLED display</li>
+        <li>3000 nits peak brightness</li>
+        <li>Adaptive 1-120Hz refresh rate</li>
+        <li>2600x1200 display resolution</li>
         
-        colors.forEach(color => {
-          const colorPill = document.createElement('div');
-          colorPill.className = `color-pill ${color === selectedColor ? 'selected' : ''}`;
-          colorPill.dataset.color = color;
-          colorPill.innerText = color;
-          
-          colorPill.addEventListener('click', () => {
-            colorSelector.querySelectorAll('.color-pill').forEach(p => p.classList.remove('selected'));    
-            colorPill.classList.add('selected');
-            selectedColor = color;
+        <li class="spec-category">Design &amp; Build</li>
+        <li>Aluminium frame</li>
+        <li>Boiby Ceramic Glass Front &amp; Back</li>
+        <li>180 grams weight</li>
+        <li>7.7mm thickness</li>
+        
+        <li class="spec-category">Battery &amp; Charging</li>
+        <li>6300 mAh battery</li>
+        <li>90 W wired charging</li>
+        <li>25 W wireless Qi2 charging</li>
+        
+        <li class="spec-category">Connectivity</li>
+        <li>USB-C (USB 3.2 Gen 2 - 10Gbps)</li>
+        <li>3.5mm headphone jack</li>
+        <li>microSD card slot</li>
+        <li>SIM card slot (nanoSIM)</li>
+        
+        <li class="spec-category">Rear Camera System</li>
+        <li>48MP main camera lens</li>
+        <li>48MP ultrawide camera lens</li>
+        <li>Up to 4K @ 120 FPS, or 8K @ 30 FPS recording</li>
+        
+        <li class="spec-category">Front Camera</li>
+        <li>Holepunch front camera</li>
+        <li>24MP square-sensor front camera lens</li>
+        
+        <li class="spec-category">Security</li>
+        <li>Under-display ultrasonic fingerprint sensor</li>
+        <li>Face unlock</li>
+        
+        <li class="spec-category">In the Box</li>
+        <li>Included 90W USB-C charger</li>
+        <li>Included 2m USB-C to USB-C cable</li>
+        <li>Included SIM card removal tool</li>
+        <li>Included Boiby stickers &amp; Documentation</li>
+        
+        <li class="spec-category">Software &amp; Security</li>
+        <li>boibyOS Mobile 11 (based on Android 16)</li>
+        <li>Built-in robust content/ad blocker</li>
+        <li>Unlockable bootloader</li>
+        <li>Boiby Security &amp; Privacy Features</li>
+        <li>FedBeGone technology</li>
+    </ul>
+</div>
+        </section>
+    </main>
+    
+    <footer>
+        <hr>
+        <p>© Boiby 2025</p>
+    </footer>
 
-            const heroImg = heroImage.querySelector('img');
-            heroImg.style.opacity = 0;
-            
-            setTimeout(() => {
-              heroImg.src = `BoibyPhone11${selectedColor}.png`;
-              heroImg.alt = `BoibyPhone 11 ${selectedColor}`;
-              heroImg.style.opacity = 1;
-            }, 150);
-            
-            const mainImage = document.querySelector('#heroImage img');
-            if (mainImage) {
-              mainImage.style.opacity = 0;
-              setTimeout(() => {
-                mainImage.src = `BoibyPhone11${selectedColor}.png`;
-                mainImage.alt = `BoibyPhone 11 ${selectedColor}`;
-                mainImage.style.opacity = 1;
-              }, 150);
+    <div id="cart-modal" class="modal" onclick="closeModal('cart-modal')" aria-hidden="true" style="display: none;">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <p class="modal-header-text">Added to Cart</p>
+            </div>
+            <div class="modal-body">
+                <p>Your BoibyPhone 11 configuration has been added to your cart!</p>
+                <div id="modal-config-details" style="margin-top: 1rem; padding: 1rem; background: var(--card-bg); border-radius: 6px; font-size: 14px;">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="secondary" onclick="closeModal('cart-modal')">Okay</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const basePrice = 1349;
+
+            const prices = {
+                'blue': 0,
+                'mint': 0,
+                'orange': 0,
+                'pink': 0,
+                'black': 0,
+                'silver': 0,
+                '256': 0,
+                '512': 100,
+                '1tb': 300
+            };
+
+            const defaults = {
+                colour: 'blue',
+                storage: '256'
+            };
+
+            function fmt(aud) {
+                return aud.toLocaleString('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 });
             }
-            renderHeroSummary();
-          });
-          
-          colorSelector.appendChild(colorPill);
-        });
-        
-        colorGroup.appendChild(colorSelector);
-        optionsDiv.appendChild(colorGroup);
 
-        // Storage options
-        const storageGroup = document.createElement('div');
-        storageGroup.className = 'group';
-        const storageTitle = document.createElement('h3');
-        storageTitle.innerText = 'Storage';
-        storageGroup.appendChild(storageTitle);
+            const optionNames = ['colour', 'storage'];
 
-        cfg.upgrades.storage.forEach((opt, idx) => {
-          const pill = document.createElement('div');
-          pill.className = 'pill';
-          pill.dataset.cat = 'storage';
-          pill.dataset.value = opt;
-          pill.innerHTML = `<span class="label">${cleanLabel(opt)}</span><span class="price-right">${priceDelta(opt) ? ('+A$' + priceDelta(opt)) : ''}</span>`;
+            const formInputs = document.querySelectorAll('.options-container input[type="radio"]');
+            const basePriceEl = document.getElementById('base-price');
+            const totalPriceEl = document.getElementById('total-price');
+            const breakdownEl = document.getElementById('breakdown');
+            const colorImage = document.getElementById('color-image');
 
-          pill.addEventListener('click', () => {
-            Array.from(storageGroup.querySelectorAll('.pill')).forEach(s => s.classList.remove('selected'));
-            pill.classList.add('selected');
-            selectedOptions.storage = pill.dataset.value;
-            renderHeroSummary();
-            updatePrice();
-          });
+            basePriceEl.textContent = fmt(basePrice);
 
-          // Default selection logic
-          if (idx === 0) {
-            pill.classList.add('selected');
-            selectedOptions.storage = pill.dataset.value;
-          }
+            function updateSelectedVisuals() {
+                document.querySelectorAll('.option-group').forEach(group => {
+                    const radios = group.querySelectorAll('input[type="radio"]');
+                    radios.forEach(r => {
+                        const label = r.closest('label');
+                        if (!label) return;
+                        if (r.checked) {
+                            label.classList.add('selected');
+                        } else {
+                            label.classList.remove('selected');
+                        }
+                    });
+                });
+            }
 
-          storageGroup.appendChild(pill);
-        });
+            function getCurrentConfig() {
+                const cfg = {};
+                optionNames.forEach(name => {
+                    const el = document.querySelector(`input[name="${name}"]:checked`);
+                    cfg[name] = el ? el.value : defaults[name];
+                });
+                return cfg;
+            }
 
-        optionsDiv.appendChild(storageGroup);
+            function getConfigDisplayName(config) {
+                const displayNames = {
+                    colour: {
+                        'blue': 'Blue',
+                        'mint': 'Mint',
+                        'orange': 'Orange',
+                        'pink': 'Pink',
+                        'black': 'Black',
+                        'silver': 'Silver'
+                    },
+                    storage: {
+                        '256': '256 GB Storage',
+                        '512': '512 GB Storage',
+                        '1tb': '1 TB Storage'
+                    }
+                };
+                
+                return Object.entries(config).map(([key, value]) => {
+                    return `${displayNames[key]?.[value] || value}`;
+                }).join('<br>');
+            }
 
-        renderHeroSummary();
-        updatePrice();
-      }
+            function recalc() {
+                const cfg = getCurrentConfig();
+                const lines = [];
+                let total = basePrice;
 
-      function renderHeroSummary() {
-        const list = $('#heroList');
-        if (!list) return;
-        list.innerHTML = '';
-        const cfg = baseConfigs[selectedModel];
-        
-        list.appendChild(li(`BoibyPhone 11 — ${cfg.display}`));
-        list.appendChild(li(`Colour: ${selectedColor}`));
-        
-        // Add specifications
-        cfg.specs.forEach(spec => {
-          list.appendChild(li(spec));
-        });
-        
-        // Add storage information
-        if (selectedOptions.storage) {
-          list.appendChild(li(cleanLabel(selectedOptions.storage)));
+                Object.entries(cfg).forEach(([k, v]) => {
+                    const delta = prices[v] ?? 0;
+                    if (delta === 0) return; 
+                    total += delta;
+                    const labelMap = {
+                        colour: 'Colour',
+                        storage: 'Storage'
+                    };
+                    let pretty = labelMap[k] || k;
+                    const selInput = document.querySelector(`[name="${k}"][value="${v}"]`);
+                    let detail = '';
+                    if (selInput) {
+                        const lab = selInput.closest('label');
+                        if (lab) {
+                            detail = lab.cloneNode(true).textContent.replace(/\s*A\$?\-?\d+[\d,]*\s*$/, '').trim();
+                        } else {
+                            detail = v;
+                        }
+                    } else {
+                        detail = v;
+                    }
+
+                    lines.push({ key: pretty, detail: detail, amount: delta });
+                });
+
+                breakdownEl.innerHTML = '';
+                if (lines.length === 0) {
+                    const el = document.createElement('div');
+                    el.className = 'summary-line';
+                    el.textContent = 'No upgrades selected';
+                    breakdownEl.appendChild(el);
+                } else {
+                    lines.forEach(item => {
+                        const el = document.createElement('div');
+                        el.className = 'summary-line';
+                        el.innerHTML = '<div style="max-width:65%"><strong>' + item.key + '</strong><div style="font-size:13px;color:var(--secondary-text)">' + item.detail + '</div></div><div>' + (item.amount >= 0 ? fmt(item.amount) : '-' + fmt(Math.abs(item.amount))) + '</div>';
+                        breakdownEl.appendChild(el);
+                    });
+                }
+
+                totalPriceEl.textContent = fmt(total);
+
+                updateSelectedVisuals();
+                
+                // Update phone image based on color
+                if (cfg.colour) {
+                    colorImage.src = `BP11${cfg.colour.charAt(0).toUpperCase() + cfg.colour.slice(1)}.png`;
+                    colorImage.alt = `BoibyPhone 11 in ${cfg.colour.charAt(0).toUpperCase() + cfg.colour.slice(1)}`;
+                }
+            }
+
+            recalc();
+
+            formInputs.forEach(inp => {
+                inp.removeEventListener('change', recalc);
+                inp.addEventListener('change', recalc);
+            });
+
+            document.getElementById('reset-config').addEventListener('click', function () {
+                Object.entries(defaults).forEach(([k, v]) => {
+                    const el = document.querySelector(`[name="${k}"][value="${v}"]`);
+                    if (el) el.checked = true;
+                });
+                recalc();
+            });
+
+            document.getElementById('add-to-cart').addEventListener('click', function () {
+                const cfg = getCurrentConfig();
+                const total = totalPriceEl.textContent;
+                const configDetails = getConfigDisplayName(cfg);
+                
+                document.getElementById('modal-config-details').innerHTML = 
+                    `<strong>Configuration:</strong><br>${configDetails}<br><br><strong>Total: ${total}</strong>`;
+                
+                openModal('cart-modal');
+            });
+
+            document.querySelectorAll('.option-row label').forEach(label => {
+                label.addEventListener('click', function (e) {
+                    e.preventDefault(); 
+                    if (label.classList.contains('disabled')) return;
+                    const inp = label.querySelector('input[type="radio"], input[type="checkbox"]');
+                    if (inp) {
+                        inp.checked = true;
+                        const ev = new Event('change', { bubbles: true });
+                        inp.dispatchEvent(ev);
+                    }
+                    recalc();
+                });
+            });
+
+            document.querySelectorAll('.option-row label').forEach(label => {
+                label.setAttribute('tabindex', '0');
+                label.addEventListener('keydown', function (e) {
+                    if (e.key === ' ' || e.key === 'Enter') {
+                        e.preventDefault();
+                        if (label.classList.contains('disabled')) return;
+                        const inp = label.querySelector('input[type="radio"], input[type="checkbox"]');
+                        if (inp) {
+                            inp.checked = true;
+                            const ev = new Event('change', { bubbles: true });
+                            inp.dispatchEvent(ev);
+                        }
+                        recalc();
+                    }
+                });
+            });
+
+            updateSelectedVisuals();
+        })();
+        function updateMobileSummary() {
+            if (window.innerWidth <= 980) {
+                const configContainer = document.querySelector('.config-container');
+                const imageSummary = document.querySelector('.image-summary');
+                if (configContainer && imageSummary && !imageSummary.classList.contains('mobile-moved')) {
+                    configContainer.appendChild(imageSummary);
+                    imageSummary.classList.add('mobile-moved');
+                }
+            }
         }
-        
-        // Add included items
-        list.appendChild(li("Included in the box:"));
-        cfg.included.forEach(item => {
-          list.appendChild(li(`• ${item}`));
-        });
-      }
+        updateMobileSummary();
+        window.addEventListener('resize', updateMobileSummary);
+    </script>
 
-      function updatePrice() {
-        const cfg = baseConfigs[selectedModel];
-        let price = cfg.price;
-        
-        Object.keys(selectedOptions).forEach(cat => {
-          price += priceDelta(selectedOptions[cat]);
-        });
-        
-        $('#finalPrice').innerText = `Total: ${formatPrice(price)}`;
-      }
-
-      function showConfirmation() {
-        const cfg = baseConfigs[selectedModel];
-        let price = cfg.price;
-        
-        $('#configurator').style.display = 'none';
-        $('#checkout').style.display = 'none';
-        $('#confirmation').style.display = 'block';
-        
-        $('#confirmationImage').innerHTML = `<img src="BoibyPhone11${selectedColor}.png" alt="${selectedModel} ${selectedColor}">`;
-        
-        const storageOption = selectedOptions.storage || cfg.upgrades.storage[0];
-        const storageSize = storageOption.includes('256') ? '256GB' : '512GB';
-        
-        $('#confirmationModel').textContent = `BoibyPhone 11 ${storageSize} ${selectedColor}`;
-        
-        const list = $('#confirmationList');
-        list.innerHTML = '';
-        
-        list.appendChild(li(`BoibyPhone 11`));
-        list.appendChild(li(`${selectedColor}`));
-        list.appendChild(li(cleanLabel(storageOption)));
-        
-        list.appendChild(li(""));
-        list.appendChild(li("Included in the box:"));
-        cfg.included.forEach(item => {
-          list.appendChild(li(`• ${item}`));
-        });
-        
-        Object.keys(selectedOptions).forEach(cat => {
-          price += priceDelta(selectedOptions[cat]);
-        });
-        
-        $('#confirmationTotal').textContent = `Total: ${formatPrice(price)}`;
-      }
-
-      function li(text) { 
-        const el = document.createElement('li'); 
-        el.textContent = text; 
-        return el; 
-      }
-
-      const backBtn = $('#backBtn');
-      if (backBtn) backBtn.addEventListener('click', () => {
-        $('#configurator').style.display = 'none';
-        $('#models').style.display = 'block';
-      });
-
-      const confirmationBackBtn = $('#confirmationBackBtn');
-      if (confirmationBackBtn) confirmationBackBtn.addEventListener('click', () => {
-        $('#confirmation').style.display = 'none';
-        $('#models').style.display = 'block';
-        $('#checkout').style.display = 'flex';
-      });
-
-      const addToBagBtn = $('#addToBagBtn');
-      if (addToBagBtn) addToBagBtn.addEventListener('click', showConfirmation);
-
-      document.addEventListener('DOMContentLoaded', () => {
-        initPage();
-      });
-    })();
-  </script>
-</body>
-</html>
+</body></html>
