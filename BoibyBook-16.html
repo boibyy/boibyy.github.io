@@ -233,6 +233,14 @@ body.light .options-container::-webkit-scrollbar-thumb:hover {
 body.light .options-container {
     scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
 }
+
+/* Additional style for GPU subtext */
+.gpu-subtext {
+    font-size: 14px;
+    color: var(--secondary-text);
+    margin-top: 4px;
+    display: block;
+}
     </style>
 </head>
 
@@ -307,15 +315,17 @@ body.light .options-container {
                         <h4>Processor</h4>
                         <div class="option-row" role="radiogroup">
                             <label class="selected" tabindex="0">
-                                <input type="radio" name="cpu" value="b1ultra" checked="">
-                                <span>Boiby B1 Ultra X14-50 (14 cores, up to 5.0 GHz)</span>
+                                <input type="radio" name="cpu" value="b1max" checked="">
+                                <span>Boiby B1 Max X14-50 (14 cores, up to 5.0 GHz)</span>
+                                <span class="gpu-subtext">30 GPU cores, 11.5 TFLOPs</span>
                                 <span class="price-badge"></span>
                             </label>
 
                             <label tabindex="0">
-                                <input type="radio" name="cpu" value="b1ultraneo">
-                                <span>Boiby B1 Extreme X18-52 (18 cores, up to 5.2 GHz)</span>
-                                <span class="price-badge">+A$300</span>
+                                <input type="radio" name="cpu" value="b1maxplus">
+                                <span>Boiby B1 Max Neo X18-52 (18 cores, up to 5.2 GHz)</span>
+                                <span class="gpu-subtext">40 GPU cores, 16 TFLOPs</span>
+                                <span class="price-badge">+A$400</span>
                             </label>
                         </div>
                     </div>
@@ -345,29 +355,6 @@ body.light .options-container {
                                 <input type="radio" name="ram" value="192">
                                 <span>192 GB RAM - LPDDR5X-9600 (modular)</span>
                                 <span class="price-badge">+A$1500</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="option-group" id="opt-gpu">
-                        <h4>Graphics</h4>
-                        <div class="option-row" role="radiogroup">
-                            <label class="selected" tabindex="0">
-                                <input type="radio" name="gpu" value="rx7700s" checked="">
-                                <span>AMD Radeon RX 7700S - 8GB</span>
-                                <span class="price-badge"></span>
-                            </label>
-
-                            <label tabindex="0">
-                                <input type="radio" name="gpu" value="rtx5070ti">
-                                <span>NVIDIA GeForce RTX 5070 Ti - 12GB</span>
-                                <span class="price-badge">+A$400</span>
-                            </label>
-
-                            <label tabindex="0">
-                                <input type="radio" name="gpu" value="rtxpro4000">
-                                <span>NVIDIA RTX PRO 5000 Blackwell - 24GB</span>
-                                <span class="price-badge">+A$1100</span>
                             </label>
                         </div>
                     </div>
@@ -435,9 +422,8 @@ body.light .options-container {
                         </div>
 
                         <div id="breakdown"><div class="summary-line"><div style="max-width:65%"><strong>Display</strong><div style="font-size:13px;color:var(--secondary-text)">2.8K IPS display - 2880x1920 120Hz (16.2-inch)
-                                +</div></div><div>$0</div></div><div class="summary-line"><div style="max-width:65%"><strong>Processor</strong><div style="font-size:13px;color:var(--secondary-text)">Boiby B1 Ultra X14-50 (14 cores, up to 5.0 GHz)
+                                +</div></div><div>$0</div></div><div class="summary-line"><div style="max-width:65%"><strong>Processor</strong><div style="font-size:13px;color:var(--secondary-text)">Boiby B1 Max X14-50 (14 cores, up to 5.0 GHz)
                                 +</div></div><div>$0</div></div><div class="summary-line"><div style="max-width:65%"><strong>Memory</strong><div style="font-size:13px;color:var(--secondary-text)">32 GB RAM - LPDDR5X-9600 (modular)
-                                +</div></div><div>$0</div></div><div class="summary-line"><div style="max-width:65%"><strong>Graphics</strong><div style="font-size:13px;color:var(--secondary-text)">AMD Radeon RX 7700S - 8GB
                                 +</div></div><div>$0</div></div><div class="summary-line"><div style="max-width:65%"><strong>Storage</strong><div style="font-size:13px;color:var(--secondary-text)">1TB SSD - PCIe Gen4 NVMe
                                 +</div></div><div>$0</div></div><div class="summary-line"><div style="max-width:65%"><strong>Secondary Storage</strong><div style="font-size:13px;color:var(--secondary-text)">No secondary storage
                                 +</div></div><div>$0</div></div></div>
@@ -489,14 +475,11 @@ body.light .options-container {
                 'darkgrey': 0,
                 '2.8k': 0,
                 '4k': 400,
-                'b1ultra': 0,
-                'b1ultraneo': 300,
+                'b1max': 0,
+                'b1maxplus': 400,
                 '32': 0,
                 '64': 300,
                 '128': 900,
-                'rx7700s': 0,
-                'rtx5070ti': 400,
-                'rtxpro4000': 700,
                 '1tb': 0,
                 '2tb': 200,
                 '4tb': 500,
@@ -509,9 +492,8 @@ body.light .options-container {
             const defaults = {
                 colour: 'darkgrey',
                 display: '2.8k',
-                cpu: 'b1ultra',
+                cpu: 'b1max',
                 ram: '32',
-                gpu: 'rx7700s',
                 ssd: '1tb',
                 'secondary-ssd': 'none'
             };
@@ -520,7 +502,7 @@ body.light .options-container {
                 return aud.toLocaleString('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 });
             }
 
-            const optionNames = ['colour', 'display', 'cpu', 'ram', 'gpu', 'ssd', 'secondary-ssd'];
+            const optionNames = ['colour', 'display', 'cpu', 'ram', 'ssd', 'secondary-ssd'];
 
             const formInputs = document.querySelectorAll('.options-container input[type="radio"]');
             const basePriceEl = document.getElementById('base-price');
@@ -565,19 +547,14 @@ body.light .options-container {
                         '4k': '4K OLED Display'
                     },
                     cpu: {
-                        'b1ultra': 'Boiby B1 Ultra X14-50',
-                        'b1ultraneo': 'Boiby B1 Extreme X18-52'
+                        'b1max': 'Boiby B1 Max X14-50',
+                        'b1maxplus': 'Boiby B1 Max Plus X18-52'
                     },
                     ram: {
                         '32': '32 GB RAM',
                         '64': '64 GB RAM', 
                         '128': '128 GB RAM',
                         '192': '192 GB RAM'
-                    },
-                    gpu: {
-                        'rx7700s': 'AMD Radeon RX 7700S - 8GB',
-                        'rtx5070ti': 'NVIDIA GeForce RTX 5070 Ti - 12GB',
-                        'rtxpro4000': 'NVIDIA RTX PRO 4000 Blackwell - 16GB'
                     },
                     ssd: {
                         '1tb': '1 TB SSD',
@@ -615,7 +592,6 @@ body.light .options-container {
                         display: 'Display',
                         cpu: 'Processor',
                         ram: 'Memory',
-                        gpu: 'Graphics',
                         ssd: 'Storage',
                         'secondary-ssd': 'Secondary Storage'
                     };
