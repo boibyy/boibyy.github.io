@@ -1,345 +1,770 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BoibyPhone 21</title>
-<link rel="stylesheet" href="main.css">
-<link rel="stylesheet" href="bouncy.css">
-<script src="modal.js"></script>
-<script src="theme.js"></script>
-<script src="nav.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>BoibyPhone 21</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="bouncy.css">
+    <script src="modal.js"></script>
+    <script src="theme.js"></script>
+    <script src="nav.js"></script>
+    
+    <style>
+        .config-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
 
-<style>
-.config-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin: 2rem 0;
-}
+        @media (max-width: 980px) {
+            .config-container {
+                grid-template-columns: 1fr;
+                display: block;
+                padding-bottom: 120px; /* Space for sticky summary */
+            }
+            
+            .product-image-container {
+                position: relative !important;
+                top: auto !important;
+                margin-bottom: 2rem;
+            }
+            
+            .options-container {
+                max-height: none!important;
+                overflow-y: none!important;
+                padding-right: 0;
+            }
+            
+            .image-summary {
+                margin-top: 2rem;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: var(--primary)!important;
+                border-top: 1px solid rgba(255,255,255,0.1)!important;
+                padding: 1rem;
+                z-index: 100;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            }
+            
+            .image-summary #breakdown {
+                display: none;
+            }
+            
+            .product-image {
+                width: 100%;
+            }
+            
+            .color-options {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
 
-@media (max-width: 980px) {
-    .config-container {
-        grid-template-columns: 1fr;
-        display: block;
-        padding-bottom: 120px;
-    }
-    .product-image-container { position: relative !important; margin-bottom: 2rem; }
-    .options-container { max-height: none!important; overflow-y: none!important; padding-right: 0; }
-    .image-summary {
-        margin-top: 2rem;
-        position: fixed;
-        bottom: 0; left: 0; right: 0;
-        background-color: var(--primary)!important;
-        border-top: 1px solid rgba(255,255,255,0.1)!important;
-        padding: 1rem; z-index: 100;
-        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-    }
-    .image-summary #breakdown { display: none; }
-    .product-image { width: 100%; }
-}
+        .config-panel {
+            background: transparent;
+            padding: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
 
-.config-panel {
-    background: transparent;
-    padding: 1rem 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
+        .product-image-container {
+            top: 80px;
+            height: fit-content;
+        }
 
-.product-image-container { top: 80px; height: fit-content; }
-.product-image { width: 100%; height: auto; aspect-ratio: 3/2; border-radius: 8px; overflow: hidden; }
-.product-image img { width: 100%; height: 100%; object-fit: cover; }
+        .product-image {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 3/2;
+            border-radius: 8px;
+            background: none;
+            border: none;
+            overflow: hidden;
+        }
 
-.image-summary {
-    margin-top: 1.5rem;
-    background: var(--card-bg);
-    padding: 1.5rem;
-}
-.image-summary h3 { margin: 0 0 12px 0; }
-.image-summary .summary-line {
-    display: flex; justify-content: space-between;
-    padding: 8px 0;
-    border-bottom: 1px dashed rgba(255,255,255,0.06);
-    font-size: 15px;
-}
-.image-summary .summary-line.total {
-    border-top: 1px solid rgba(255,255,255,0.06);
-    font-size: 20px; font-weight: 700;
-    padding-top: 12px;
-}
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-.options-container {
-    max-height: calc(100vh - 160px);
-    overflow-y: auto;
-    padding-right: 10px;
-}
+        .image-summary {
+            margin-top: 1.5rem;
+            background: var(--card-bg);
+            padding: 1.5rem;
+        }
 
-/* --- COLOUR OPTION CIRCLES --- */
-#opt-colour .option-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-#opt-colour label {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    cursor: pointer;
-    transition: transform 0.12s ease, border 0.12s ease;
-    position: relative;
-}
-#opt-colour label.selected {
-    border: 3px solid #2e8b57;
-    transform: scale(1.1);
-}
-#opt-colour input { display: none; }
+        .image-summary h3 { margin: 0 0 12px 0; }
+        .image-summary .summary-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(255,255,255,0.06);
+            font-size: 15px;
+        }
+        .image-summary .summary-line.total {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            font-size: 20px;
+            font-weight: 700;
+            padding-top: 12px;
+        }
 
-/* Define colours */
-label[data-colour="green"] { background-color: #2ecc71; }
-label[data-colour="blue"]  { background-color: #3498db; }
-label[data-colour="pink"]  { background-color: #ff7eb9; }
-label[data-colour="white"] { background-color: #f5f5f5; border: 1px solid #ccc; }
-label[data-colour="black"] { background-color: #111; }
+        .options-container {
+            max-height: calc(100vh - 160px);
+            overflow-y: auto;
+            padding-right: 10px;
+        }
 
-.option-group h4 {
-    margin: 0 0 6px 0;
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--text);
-}
+        .option-group {
+            margin-bottom: 1rem!important;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
 
-.option-row label:not(#opt-colour label) {
-    border: 1px solid rgba(0,0,0,0.6);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    background: transparent;
-    transition: border-color 0.12s ease, background 0.12s ease;
-    font-size: 17px;
-    justify-content: flex-start;
-    color: var(--text);
-}
+        .option-group h4 {
+            margin: 0 0 6px 0;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .color-options {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 1rem;
+        }
+        
+        .color-option {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .color-option.selected {
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 2px #2e8b57;
+        }
+        
+        .color-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .color-option-label {
+            position: absolute;
+            bottom: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            white-space: nowrap;
+            color: var(--text);
+        }
+        
+        .color-option.green { background-color: #4CAF50; }
+        .color-option.blue { background-color: #2196F3; }
+        .color-option.pink { background-color: #E91E63; }
+        .color-option.white { background-color: #FFFFFF; border: 1px solid #ddd; }
+        .color-option.black { background-color: #212121; }
 
-.option-row label.selected:not(#opt-colour label) {
-    border: 2px solid #2e8b57;
-    background: transparent;
-}
+        .option-row label {
+            border: 1px solid rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            user-select: none;
+            background: transparent;
+            transition: border-color 0.12s ease, background 0.12s ease;
+            font-size: 17px;
+            justify-content: flex-start;
+            color: var(--text);
+            margin-bottom: 0.66rem !important;
+        }
 
-.small-note { font-size: 13px; color: var(--secondary-text); margin-top: 8px; }
+        .option-row label.selected {
+            border: 2px solid #2e8b57;
+            background: transparent;
+        }
+        
+        body.dark .option-row label.selected {
+            border: 2px solid #2e8b57;
+            background: transparent;
+        }
 
-.specs-list { margin-top: 3rem; padding: 2rem; background: var(--card-bg); border-radius: 8px; }
-.specs-list ul { list-style: none; margin: 0; padding: 0; }
-.specs-list li { padding: 0.75rem 0; border-bottom: 1px dashed rgba(255,255,255,0.1); font-size: 15px; }
-.specs-list li.spec-category { font-weight: 600; font-size: 16px; color: var(--accent); padding-top: 1.5rem; border-bottom: none; }
-</style>
+        body.dark .option-row label {
+            border: 1px solid rgba(255,255,255,0.6);
+            color: var(--text);
+        }
+        
+        body.light .option-row label {
+            border-color: 1px solid rgba(0,0,0,0.6);
+            color: var(--text);
+        }
+
+        .option-row input[type="radio"], .option-row input[type="checkbox"] {
+            position: absolute !important;
+            opacity: 0 !important;
+            width: 0 !important;
+            height: 0 !important;
+            pointer-events: none;
+        }
+
+        .price-badge {
+            margin-left: auto;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 3px 6px;
+            border-radius: 6px;
+            background: transparent;
+            color: var(--text);
+        }
+
+        .option-row input[type="radio"], .option-row input[type="checkbox"] {
+            accent-color: #2e8b57;
+        }
+
+        .small-note { font-size: 13px; color: var(--secondary-text); margin-top: 8px; }
+
+        .option-row label:focus-within {
+            outline: 3px solid rgba(46,139,87,0.14);
+            outline-offset: 3px;
+        }
+
+        .option-row label.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .options-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .options-container::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 4px;
+        }
+
+        .options-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            transition: background 0.2s ease;
+        }
+
+        .options-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        body.light .options-container::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        body.light .options-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .options-container {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+        }
+
+        body.light .options-container {
+            scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+        }
+
+        .specs-list {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 8px;
+        }
+
+        .specs-list ul {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .specs-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            font-size: 15px;
+        }
+
+        .specs-list li.spec-category {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--accent);
+            padding-top: 1.5rem;
+            border-bottom: none;
+        }
+
+        .specs-list li.spec-category:first-child {
+            padding-top: 0;
+        }
+
+        .specs-list li.spec-divider {
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding: 0.25rem 0;
+        }
+
+        body.light .specs-list li {
+            border-bottom: 1px dashed rgba(0,0,0,0.1);
+        }
+
+        body.light .specs-list li.spec-category {
+            color: var(--primary);
+        }
+
+        body.light .specs-list li.spec-divider {
+            border-bottom: 1px solid rgba(0,0,0,0.2);
+        }
+    </style>
 </head>
 
 <body class="dark">
-<header>
-    <img src="boiby.png" class="favicon" alt="Boiby">
-    <a href="#" class="hamburger">☰</a>
-    <nav>
-        <a href="/index" class="link active">Home</a>
-        <a href="/about" class="link">About</a>
-        <a href="/projects" class="link">Projects</a>
-        <a href="/extras" class="link">Extras</a>
-        <a href="/contact" class="link">Contact</a>
-    </nav>
-    <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
-    <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
-</header>
+    <header>
+        <img src="boiby.png" class="favicon" alt="Boiby">
+        <a href="#" class="hamburger">☰</a>
+        <nav>
+            <a href="/index" class="link active">Home</a>
+            <a href="/about" class="link">About</a>
+            <a href="/projects" class="link">Projects</a>
+            <a href="/extras" class="link">Extras</a>
+            <a href="/contact" class="link">Contact</a>
+        </nav>
+        <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
+        <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
+    </header>
 
-<main>
-<section class="config-panel" aria-labelledby="config-title" style="margin-bottom:1.5rem;">
-    <h2 id="config-title" style="margin:0 0 8px 0">BoibyPhone 21</h2>
-    <p style="margin:0 0 1.5rem 0; color: var(--secondary-text); font-size: 18px;">
-        A compact, powerful, open, and repairable smartphone. Unlockable bootloader and native loading of apps outside App Stores, and industry-leading security and privacy features built-in. Plus a headphone jack.
-    </p>
-
-    <div class="config-container" role="region" aria-label="BoibyPhone 21 configurator">
-        <!-- Left -->
-        <div class="left-column">
-            <div class="product-image-container">
-                <div class="product-image">
-                    <img src="21Green.png" alt="BoibyPhone 21 in Green" id="color-image">
+    <main>
+        <section class="config-panel" aria-labelledby="config-title" style="margin-bottom:1.5rem;">
+            <h2 id="config-title" style="margin:0 0 8px 0">BoibyPhone 21</h2>
+            <p style="margin:0 0 1.5rem 0; color: var(--secondary-text); font-size: 18px;">A compact, powerful, open, and repairable smartphone. Unlockable bootloader and native loading of apps outside App Stores, and industry-leading security and privacy features built-in. Plus a headphone jack.</p>
+            
+            <div class="config-container" role="region" aria-label="BoibyPhone 21 configurator">
+                <!-- Left Column: Image and Summary -->
+                <div class="left-column">
+                    <div class="product-image-container">
+                        <div class="product-image">
+                            <img src="21Green.png" alt="BoibyPhone 21 in Green" id="color-image">
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Right Column: Options -->
+                <div class="options-container">
+                    <div class="option-group" id="opt-colour">
+                        <h4>Colour</h4>
+                        <div class="color-options" role="radiogroup">
+                            <div class="color-option green selected" tabindex="0">
+                                <input type="radio" name="colour" value="green" checked>
+                                <span class="color-option-label">Green</span>
+                            </div>
+                            <div class="color-option blue" tabindex="0">
+                                <input type="radio" name="colour" value="blue">
+                                <span class="color-option-label">Blue</span>
+                            </div>
+                            <div class="color-option pink" tabindex="0">
+                                <input type="radio" name="colour" value="pink">
+                                <span class="color-option-label">Pink</span>
+                            </div>
+                            <div class="color-option white" tabindex="0">
+                                <input type="radio" name="colour" value="white">
+                                <span class="color-option-label">White</span>
+                            </div>
+                            <div class="color-option black" tabindex="0">
+                                <input type="radio" name="colour" value="black">
+                                <span class="color-option-label">Black</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group" id="opt-storage">
+                        <h4>Storage and RAM</h4>
+                        <div class="option-row" role="radiogroup">
+                            <label class="selected" tabindex="0">
+                                <input type="radio" name="storage" value="256" checked>
+                                <span>256 GB storage | 12 GB RAM</span>
+                                <span class="price-badge">A$1,399</span>
+                            </label>
+                            
+                            <label tabindex="0">
+                                <input type="radio" name="storage" value="512">
+                                <span>512 GB storage | 12 GB RAM</span>
+                                <span class="price-badge">A$1,599</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="small-note">All prices are in Australian dollars (A$). Taxes and shipping calculated at checkout.</div>
+                </div>
+                
+                <aside class="image-summary mobile-moved" aria-label="Price summary">
+                    <h3>Order Summary</h3>
+                    
+                    <div class="summary-line">
+                        <div>Base price</div>
+                        <div id="base-price">$1,399</div>
+                    </div>
+                    
+                    <div id="breakdown"><div class="summary-line">No upgrades selected</div></div>
+                    
+                    <div class="summary-line total">
+                        <div>Total</div>
+                        <div id="total-price">$1,399</div>
+                    </div>
+                    
+                    <div style="margin-top:12px;">
+                        <button id="add-to-cart" class="primary-blue">Add to Cart</button>
+                        <button id="reset-config" class="secondary">Reset Configuration</button>
+                    </div>
+                    
+                    <div class="small-note" id="dimensions-note" style="margin-top:10px;">
+                        Size: 180 grams, 7.7mm thickness
+                    </div>
+                </aside>
+            </div>
+            
+            <div class="specs-list">
+                <ul>
+                    <li class="spec-category">Performance</li>
+                    <li>Qualcomm Snapdragon 8 Elite Gen 5 SoC</li>
+                    <li>Qualcomm Adreno 840 GPU</li>
+                    <li>12 GB of LPDDR5X RAM</li>
+                    <li>Up to 1 TB of UFS 4.1 storage</li>
+                    
+                    <li class="spec-category">Display</li>
+                    <li>6.3-inch Super OLED display</li>
+                    <li>3000 nits peak brightness</li>
+                    <li>Adaptive 1-120Hz refresh rate</li>
+                    <li>2600x1200 display resolution</li>
+                    
+                    <li class="spec-category">Design &amp; Build</li>
+                    <li>Aluminium frame</li>
+                    <li>Boiby Ceramic Glass Front &amp; Back</li>
+                    <li>180 grams weight</li>
+                    <li>7.7mm thickness</li>
+                    
+                    <li class="spec-category">Battery &amp; Charging</li>
+                    <li>6300 mAh battery</li>
+                    <li>90 W wired charging</li>
+                    <li>25 W wireless Qi2 charging</li>
+                    
+                    <li class="spec-category">Connectivity</li>
+                    <li>USB-C (USB 3.2 Gen 2 - 10Gbps)</li>
+                    <li>3.5mm headphone jack</li>
+                    <li>microSD card slot</li>
+                    <li>SIM card slot (nanoSIM)</li>
+                    
+                    <li class="spec-category">Rear Camera System</li>
+                    <li>48MP main camera lens</li>
+                    <li>48MP ultrawide camera lens</li>
+                    <li>Up to 4K @ 120 FPS, or 8K @ 30 FPS recording</li>
+                    
+                    <li class="spec-category">Front Camera</li>
+                    <li>Holepunch front camera</li>
+                    <li>24MP square-sensor front camera lens</li>
+                    
+                    <li class="spec-category">Security</li>
+                    <li>Under-display ultrasonic fingerprint sensor</li>
+                    <li>Face unlock</li>
+                    
+                    <li class="spec-category">Connectivity</li>
+                    <li>WiFi 7 802.11be + Bluetooth 5.4 LE</li>
+                    <li></li>
+                    
+                    <li class="spec-category">In the Box</li>
+                    <li>Included 90W USB-C charger</li>
+                    <li>Included 2m USB-C to USB-C cable</li>
+                    <li>Included SIM card removal tool</li>
+                    <li>Included Boiby stickers &amp; Documentation</li>
+                    
+                    <li class="spec-category">Software &amp; Security</li>
+                    <li>boibyOS Mobile 11 (based on Android 16)</li>
+                    <li>Built-in robust content/ad blocker</li>
+                    <li>Unlockable bootloader</li>
+                    <li>Boiby Security &amp; Privacy Features</li>
+                    <li>FedBeGone technology</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <hr>
+        <p>© Boiby 2025</p>
+    </footer>
+
+    <div id="cart-modal" class="modal" onclick="closeModal('cart-modal')" aria-hidden="true" style="display: none;">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <p class="modal-header-text">Added to Cart</p>
+            </div>
+            <div class="modal-body">
+                <p>Your BoibyPhone 21 configuration has been added to your cart!</p>
+                <div id="modal-config-details" style="margin-top: 1rem; padding: 1rem; background: var(--card-bg); border-radius: 6px; font-size: 14px;">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="secondary" onclick="closeModal('cart-modal')">Okay</button>
             </div>
         </div>
-
-        <!-- Right -->
-        <div class="options-container">
-            <div class="option-group" id="opt-colour">
-                <h4>Colour</h4>
-                <div class="option-row" role="radiogroup">
-                    <label data-colour="green" class="selected">
-                        <input type="radio" name="colour" value="green" checked>
-                    </label>
-                    <label data-colour="blue">
-                        <input type="radio" name="colour" value="blue">
-                    </label>
-                    <label data-colour="pink">
-                        <input type="radio" name="colour" value="pink">
-                    </label>
-                    <label data-colour="white">
-                        <input type="radio" name="colour" value="white">
-                    </label>
-                    <label data-colour="black">
-                        <input type="radio" name="colour" value="black">
-                    </label>
-                </div>
-            </div>
-
-            <div class="option-group" id="opt-storage">
-                <h4>Storage and RAM</h4>
-                <div class="option-row" role="radiogroup">
-                    <label class="selected">
-                        <input type="radio" name="storage" value="256" checked>
-                        <span>256 GB storage | 12 GB RAM</span>
-                        <span class="price-badge">$1,399</span>
-                    </label>
-                    <label>
-                        <input type="radio" name="storage" value="512">
-                        <span>512 GB storage | 12 GB RAM</span>
-                        <span class="price-badge">$1,599</span>
-                    </label>
-                </div>
-            </div>
-
-            <div class="small-note">All prices are in Australian dollars (A$). Taxes and shipping calculated at checkout.</div>
-        </div>
-
-        <aside class="image-summary mobile-moved" aria-label="Price summary">
-            <h3>Order Summary</h3>
-            <div class="summary-line"><div>Base price</div><div id="base-price">$1,399</div></div>
-            <div id="breakdown"><div class="summary-line">No upgrades selected</div></div>
-            <div class="summary-line total"><div>Total</div><div id="total-price">$1,399</div></div>
-            <div style="margin-top:12px;">
-                <button id="add-to-cart" class="primary-blue">Add to Cart</button>
-                <button id="reset-config" class="secondary">Reset Configuration</button>
-            </div>
-            <div class="small-note" id="dimensions-note" style="margin-top:10px;">Size: 180 grams, 7.7mm thickness</div>
-        </aside>
     </div>
 
-    <div class="specs-list">
-        <ul>
-            <li class="spec-category">Performance</li>
-            <li>Qualcomm Snapdragon 8 Elite Gen 5 SoC</li>
-            <li>Qualcomm Adreno 840 GPU</li>
-            <li>12 GB of LPDDR5X RAM</li>
-            <li>Up to 512 GB of UFS 4.1 storage</li>
-            <li class="spec-category">Display</li>
-            <li>6.3-inch Super OLED display</li>
-            <li>3000 nits peak brightness</li>
-            <li>Adaptive 1-120Hz refresh rate</li>
-            <li>2600x1200 display resolution</li>
-            <li class="spec-category">Design & Build</li>
-            <li>Aluminium frame</li>
-            <li>Boiby Ceramic Glass Front & Back</li>
-            <li>180 grams weight</li>
-            <li>7.7mm thickness</li>
-            <li class="spec-category">Battery & Charging</li>
-            <li>6300 mAh battery</li>
-            <li>90 W wired charging</li>
-            <li>25 W wireless Qi2 charging</li>
-            <li class="spec-category">Connectivity</li>
-            <li>USB-C (USB 3.2 Gen 2 - 10Gbps)</li>
-            <li>3.5mm headphone jack</li>
-            <li>microSD card slot</li>
-            <li>SIM card slot (nanoSIM)</li>
-            <li class="spec-category">Rear Camera System</li>
-            <li>48MP main camera lens</li>
-            <li>48MP ultrawide camera lens</li>
-            <li>Up to 4K @ 120 FPS, or 8K @ 30 FPS recording</li>
-            <li class="spec-category">Front Camera</li>
-            <li>Holepunch front camera</li>
-            <li>24MP square-sensor front camera lens</li>
-            <li class="spec-category">Security</li>
-            <li>Under-display ultrasonic fingerprint sensor</li>
-            <li>Face unlock</li>
-            <li class="spec-category">Connectivity</li>
-            <li>WiFi 7 802.11be + Bluetooth 5.4 LE</li>
-            <li class="spec-category">In the Box</li>
-            <li>Included 90W USB-C charger</li>
-            <li>Included 2m USB-C to USB-C cable</li>
-            <li>Included SIM card removal tool</li>
-            <li>Included Boiby stickers & Documentation</li>
-            <li class="spec-category">Software & Security</li>
-            <li>boibyOS Mobile 11 (based on Android 16)</li>
-            <li>Built-in robust content/ad blocker</li>
-            <li>Unlockable bootloader</li>
-            <li>Boiby Security & Privacy Features</li>
-            <li>FedBeGone technology</li>
-        </ul>
-    </div>
-</section>
-</main>
-
-<footer><hr><p>© Boiby 2025</p></footer>
-
-<script>
-(function(){
-    const basePrice = 1399;
-    const prices = { green:0, blue:0, pink:0, white:0, black:0, '256':0, '512':200 };
-    const defaults = { colour:'green', storage:'256' };
-
-    const fmt = a => a.toLocaleString('en-AU', { style:'currency', currency:'AUD', maximumFractionDigits:0 });
-
-    const formInputs = document.querySelectorAll('.options-container input[type="radio"]');
-    const totalPriceEl = document.getElementById('total-price');
-    const basePriceEl = document.getElementById('base-price');
-    const breakdownEl = document.getElementById('breakdown');
-    const colorImage = document.getElementById('color-image');
-    basePriceEl.textContent = fmt(basePrice);
-
-    function updateVisuals(){
-        document.querySelectorAll('.option-group').forEach(g=>{
-            g.querySelectorAll('label').forEach(l=>{
-                const r=l.querySelector('input');
-                l.classList.toggle('selected',r&&r.checked);
+    <script>
+        (function () {
+            const basePrice = 1399;
+            
+            const prices = {
+                'green': 0,
+                'blue': 0,
+                'pink': 0,
+                'white': 0,
+                'black': 0,
+                '256': 0,
+                '512': 200
+            };
+            
+            const defaults = {
+                colour: 'green',
+                storage: '256'
+            };
+            
+            function fmt(aud) {
+                return aud.toLocaleString('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 });
+            }
+            
+            const optionNames = ['colour', 'storage'];
+            
+            const formInputs = document.querySelectorAll('.options-container input[type="radio"]');
+            const basePriceEl = document.getElementById('base-price');
+            const totalPriceEl = document.getElementById('total-price');
+            const breakdownEl = document.getElementById('breakdown');
+            const colorImage = document.getElementById('color-image');
+            
+            basePriceEl.textContent = fmt(basePrice);
+            
+            function updateSelectedVisuals() {
+                // Update color options
+                document.querySelectorAll('.color-option').forEach(option => {
+                    const radio = option.querySelector('input[type="radio"]');
+                    if (radio && radio.checked) {
+                        option.classList.add('selected');
+                    } else {
+                        option.classList.remove('selected');
+                    }
+                });
+                
+                // Update storage options
+                document.querySelectorAll('.option-row label').forEach(label => {
+                    const radio = label.querySelector('input[type="radio"]');
+                    if (radio && radio.checked) {
+                        label.classList.add('selected');
+                    } else {
+                        label.classList.remove('selected');
+                    }
+                });
+            }
+            
+            function getCurrentConfig() {
+                const cfg = {};
+                optionNames.forEach(name => {
+                    const el = document.querySelector(`input[name="${name}"]:checked`);
+                    cfg[name] = el ? el.value : defaults[name];
+                });
+                return cfg;
+            }
+            
+            function getConfigDisplayName(config) {
+                const displayNames = {
+                    colour: {
+                        'green': 'Green',
+                        'blue': 'Blue',
+                        'pink': 'Pink',
+                        'white': 'White',
+                        'black': 'Black'
+                    },
+                    storage: {
+                        '256': '256 GB Storage',
+                        '512': '512 GB Storage'
+                    }
+                };
+                
+                return Object.entries(config).map(([key, value]) => {
+                    return `${displayNames[key]?.[value] || value}`;
+                }).join('<br>');
+            }
+            
+            function recalc() {
+                const cfg = getCurrentConfig();
+                const lines = [];
+                let total = basePrice;
+                
+                Object.entries(cfg).forEach(([k, v]) => {
+                    const delta = prices[v] ?? 0;
+                    if (delta === 0) return;
+                    
+                    total += delta;
+                    const labelMap = {
+                        colour: 'Colour',
+                        storage: 'Storage'
+                    };
+                    let pretty = labelMap[k] || k;
+                    const selInput = document.querySelector(`[name="${k}"][value="${v}"]`);
+                    let detail = '';
+                    if (selInput) {
+                        const lab = selInput.closest('label') || selInput.closest('.color-option');
+                        if (lab) {
+                            detail = lab.textContent.trim();
+                        } else {
+                            detail = v;
+                        }
+                    } else {
+                        detail = v;
+                    }
+                    
+                    lines.push({ key: pretty, detail: detail, amount: delta });
+                });
+                
+                breakdownEl.innerHTML = '';
+                if (lines.length === 0) {
+                    const el = document.createElement('div');
+                    el.className = 'summary-line';
+                    el.textContent = 'No upgrades selected';
+                    breakdownEl.appendChild(el);
+                } else {
+                    lines.forEach(item => {
+                        const el = document.createElement('div');
+                        el.className = 'summary-line';
+                        el.innerHTML = '<div style="max-width:65%"><strong>' + item.key + '</strong><div style="font-size:13px;color:var(--secondary-text)">' + item.detail + '</div></div><div>' + (item.amount >= 0 ? fmt(item.amount) : '-' + fmt(Math.abs(item.amount))) + '</div>';
+                        breakdownEl.appendChild(el);
+                    });
+                }
+                
+                totalPriceEl.textContent = fmt(total);
+                
+                updateSelectedVisuals();
+                
+                // Update phone image based on color
+                if (cfg.colour) {
+                    colorImage.src = `21${cfg.colour.charAt(0).toUpperCase() + cfg.colour.slice(1)}.png`;
+                    colorImage.alt = `BoibyPhone 21 in ${cfg.colour.charAt(0).toUpperCase() + cfg.colour.slice(1)}`;
+                }
+            }
+            
+            recalc();
+            
+            formInputs.forEach(inp => {
+                inp.removeEventListener('change', recalc);
+                inp.addEventListener('change', recalc);
             });
-        });
-    }
-
-    function getConfig(){
-        return {
-            colour: document.querySelector('input[name="colour"]:checked').value,
-            storage: document.querySelector('input[name="storage"]:checked').value
-        };
-    }
-
-    function recalc(){
-        const cfg=getConfig();
-        let total=basePrice+ (prices[cfg.storage]||0);
-        totalPriceEl.textContent=fmt(total);
-        updateVisuals();
-        colorImage.src=`21${cfg.colour.charAt(0).toUpperCase()+cfg.colour.slice(1)}.png`;
-        colorImage.alt=`BoibyPhone 21 in ${cfg.colour}`;
-    }
-
-    formInputs.forEach(inp=>inp.addEventListener('change',recalc));
-    document.getElementById('reset-config').addEventListener('click',()=>{
-        Object.entries(defaults).forEach(([k,v])=>{
-            document.querySelector(`[name="${k}"][value="${v}"]`).checked=true;
-        });
-        recalc();
-    });
-
-    document.getElementById('add-to-cart').addEventListener('click',()=>{
-        const cfg=getConfig();
-        const total=totalPriceEl.textContent;
-        document.getElementById('modal-config-details').innerHTML =
-            `<strong>Configuration:</strong><br>${cfg.colour.charAt(0).toUpperCase()+cfg.colour.slice(1)}<br>${cfg.storage} GB<br><br><strong>Total: ${total}</strong>`;
-        openModal('cart-modal');
-    });
-
-    recalc();
-})();
-</script>
-</body>
+            
+            document.getElementById('reset-config').addEventListener('click', function () {
+                Object.entries(defaults).forEach(([k, v]) => {
+                    const el = document.querySelector(`[name="${k}"][value="${v}"]`);
+                    if (el) el.checked = true;
+                });
+                recalc();
+            });
+            
+            document.getElementById('add-to-cart').addEventListener('click', function () {
+                const cfg = getCurrentConfig();
+                const total = totalPriceEl.textContent;
+                const configDetails = getConfigDisplayName(cfg);
+                
+                document.getElementById('modal-config-details').innerHTML = 
+                    `<strong>Configuration:</strong><br>${configDetails}<br><br><strong>Total: ${total}</strong>`;
+                
+                openModal('cart-modal');
+            });
+            
+            // Color option click handlers
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const inp = option.querySelector('input[type="radio"]');
+                    if (inp) {
+                        inp.checked = true;
+                        const ev = new Event('change', { bubbles: true });
+                        inp.dispatchEvent(ev);
+                    }
+                    recalc();
+                });
+                
+                option.addEventListener('keydown', function (e) {
+                    if (e.key === ' ' || e.key === 'Enter') {
+                        e.preventDefault();
+                        const inp = option.querySelector('input[type="radio"]');
+                        if (inp) {
+                            inp.checked = true;
+                            const ev = new Event('change', { bubbles: true });
+                            inp.dispatchEvent(ev);
+                        }
+                        recalc();
+                    }
+                });
+            });
+            
+            // Storage option click handlers
+            document.querySelectorAll('.option-row label').forEach(label => {
+                label.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const inp = label.querySelector('input[type="radio"]');
+                    if (inp) {
+                        inp.checked = true;
+                        const ev = new Event('change', { bubbles: true });
+                        inp.dispatchEvent(ev);
+                    }
+                    recalc();
+                });
+                
+                label.addEventListener('keydown', function (e) {
+                    if (e.key === ' ' || e.key === 'Enter') {
+                        e.preventDefault();
+                        const inp = label.querySelector('input[type="radio"]');
+                        if (inp) {
+                            inp.checked = true;
+                            const ev = new Event('change', { bubbles: true });
+                            inp.dispatchEvent(ev);
+                        }
+                        recalc();
+                    }
+                });
+            });
+            
+            updateSelectedVisuals();
+        })();
+        
+        function updateMobileSummary() {
+            if (window.innerWidth <= 980) {
+                const configContainer = document.querySelector('.config-container');
+                const imageSummary = document.querySelector('.image-summary');
+                if (configContainer && imageSummary && !imageSummary.classList.contains('mobile-moved')) {
+                    configContainer.appendChild(imageSummary);
+                    imageSummary.classList.add('mobile-moved');
+                }
+            }
+        }
+        
+        updateMobileSummary();
+        window.addEventListener('resize', updateMobileSummary);
+    </script>
+    </body>
 </html>
