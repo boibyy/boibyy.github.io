@@ -410,12 +410,12 @@
                                 <input type="radio" name="colour" value="silver">
                                 <span class="color-option-label">Silver</span>
                             </div>
-                            <div class="color-option pacific-blue" tabindex="0">
-                                <input type="radio" name="colour" value="pacific-blue">
+                            <div class="color-option pacificBlue" tabindex="0">
+                                <input type="radio" name="colour" value="pacificBlue">
                                 <span class="color-option-label">Pacific Blue</span>
                             </div>
-                            <div class="color-option deep-red" tabindex="0">
-                                <input type="radio" name="colour" value="deep-red">
+                            <div class="color-option deepRed" tabindex="0">
+                                <input type="radio" name="colour" value="deepRed">
                                 <span class="color-option-label">Deep Red</span>
                             </div>
                         </div>
@@ -584,8 +584,8 @@
             const prices = {
                 'obsidian': 0,
                 'silver': 0,
-                'pacific-blue': 0,
-                'deep-red': 0,
+                'pacificBlue': 0,
+                'deepRed': 0,
                 '256': 0,
                 '512': 200,
                 '1tb': 400,
@@ -723,7 +723,7 @@
                 
                 // Update phone image based on color
                 if (cfg.colour) {
-                    colorImage.src = `21${cfg.colour.charAt(0).toUpperCase() + cfg.colour.slice(1)}.png`;
+                    colorImage.src = `21Pro${cfg.colour.charAt(0).toUpperCase() + cfg.colour.slice(1)}.png`;
                     colorImage.alt = `BoibyPhone 21 Pro in ${cfg.colour.charAt(0).toUpperCase() + cfg.colour.slice(1)}`;
                 }
                 
