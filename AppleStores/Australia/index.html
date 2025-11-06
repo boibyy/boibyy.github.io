@@ -39,8 +39,9 @@
     }
 
     .card{background:var(--c-panel);border:1px solid var(--c-border);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-height:var(--card-min-height);box-shadow:0 6px 20px rgba(11,18,32,0.06);width:100%;max-width:var(--card-width)}
-    .card .img{width:100%;height:220px;background:#f0f0f0;display:flex;align-items:center;justify-content:center}
+    .card .img{width:100%;height:220px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;position:relative}
     .card .img img{width:100%;height:100%;object-fit:cover;display:block}
+    .card .img .placeholder{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--c-muted);font-size:14px;background:var(--c-bg)}
     .card .content{padding:14px;flex:1;display:flex;flex-direction:column}
     .title{font-size:16px;margin:0 0 6px;color:var(--c-contrast);font-weight:600}
     .meta{color:var(--c-muted);font-size:13px;margin-bottom:8px}
@@ -97,7 +98,7 @@
 
   <main>
     <div class="grid" id="grid"></div>
-    <div class="footer">Reference date: October 2, 2025.</div>
+    <div class="footer">Reference date: November 6, 2025.</div>
   </main>
 
   <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
@@ -135,12 +136,16 @@
       {"name":"Perth City","code":"R386","state":"WA","design":"Modern (Vintage E)","timeline":[{"date":"2010-06-26","label":"Opened"},{"date":"2025-06-27","label":"Moved & Reopened","note":"Modern Vintage E; Historic Building"}]}
     ];
 
-    function primaryImagePath(code){return `${code}.jpg`;}
-    function oldImagePath(code, idx){ // idx: 1 -> _old.jpg, 2 -> _old2.jpg, etc
+    function primaryImagePath(code) {
+      return `https://rtlimages.apple.com/cmc/dieter/store/16_9/${code}.png?resize=1440:806`;
+    }
+    
+    function oldImagePath(code, idx) {
+      // Keep old images local only
       return `${code}_old${idx===1?'':idx}.jpg`;
     }
 
-    const REF = new Date('2025-10-30T12:00:00Z');
+    const REF = new Date('2025-11-06T12:00:00Z');
     function parseDate(d){return d?new Date(d+'T00:00:00Z'):null}
     function timeAgoDisplay(d){
       if(!d) return '';
@@ -185,13 +190,25 @@
       list.forEach(store=>{
         const card=document.createElement('article'); card.className='card';
         const imgWrap=document.createElement('div'); imgWrap.className='img';
-        const imgPath = primaryImagePath(store.code);
-        const img = document.createElement('img'); img.alt = store.name;
-        let appendPrimary=false;
-        img.onload = ()=>{ if(!appendPrimary){appendPrimary=true; imgWrap.appendChild(img);} };
-        img.onerror = ()=>{ /* don't show */ };
-        img.src = imgPath;
-        setTimeout(()=>{ if(!appendPrimary && !img.complete){ /* keep awaiting load */ } },300);
+        
+        const placeholder = document.createElement('div');
+        placeholder.className = 'placeholder';
+        placeholder.textContent = store.code;
+        imgWrap.appendChild(placeholder);
+        
+        const img = document.createElement('img');
+        img.alt = store.name;
+        img.onload = () => {
+          if (placeholder.parentNode) {
+            placeholder.remove();
+          }
+          imgWrap.appendChild(img);
+        };
+        img.onerror = () => {
+          // If image fails to load, keep placeholder but update text
+          placeholder.textContent = `${store.code}`;
+        };
+        img.src = primaryImagePath(store.code);
 
         const content=document.createElement('div'); content.className='content';
         const tagsDiv=document.createElement('div'); tagsDiv.className='tags';
@@ -217,12 +234,6 @@
         content.appendChild(tagsDiv); content.appendChild(title); content.appendChild(meta); content.appendChild(actions);
         card.appendChild(imgWrap); card.appendChild(content);
 
-        setTimeout(()=>{
-          if(!imgWrap.querySelector('img')){
-            imgWrap.textContent = store.code;
-          }
-        },800);
-
         grid.appendChild(card);
       });
     }
@@ -240,21 +251,26 @@
         const ev = entries[i];
         const item = document.createElement('div'); item.className='timeline-item';
 
-        // determine image for this entry
         let imgCandidate = null;
-        if(i === n-1){ imgCandidate = primaryImagePath(store.code); }
+        if(i === n-1){ 
+          imgCandidate = primaryImagePath(store.code); 
+        }
         else {
           const offset = (n-1) - i; // 1 -> n-2, 2 -> n-3
-          const path = oldImagePath(store.code, offset);
-          imgCandidate = path;
+          imgCandidate = oldImagePath(store.code, offset);
         }
 
         if(imgCandidate){
           const im = document.createElement('img');
-          let appended = false;
-          im.onload = ()=>{ if(!appended){ item.insertBefore(im, item.firstChild); appended = true; } };
-          im.onerror = ()=>{ /* don't append */ };
+          im.alt = `${store.name} - ${ev.label}`;
+          im.onload = () => {
+          };
+          im.onerror = () => {
+            // If image fails to load, we'll just not show it
+            im.style.display = 'none';
+          };
           im.src = imgCandidate;
+          item.insertBefore(im, item.firstChild);
         }
 
         const labelEl = document.createElement('div'); labelEl.className='label'; labelEl.textContent = ev.label;
