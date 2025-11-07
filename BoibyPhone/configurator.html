@@ -4,181 +4,235 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BoibyPhone Configurator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="main.css">
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      margin: 0; padding: 2rem;
-      background: #fafafa;
+      background: #fff;
       color: #111;
+      margin: 0;
+      padding: 2rem;
+      text-align: center;
     }
-    h1 { font-weight: 600; margin-bottom: 1rem; }
-    .configurator {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      align-items: flex-start;
+
+    h1 { font-weight: 600; }
+    img { max-width: 300px; margin: 1rem auto; display: block; }
+
+    select, button, input {
+      font-family: inherit;
+      padding: 0.6rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin: 0.5rem;
+      font-size: 1rem;
     }
-    .preview img {
-      width: 300px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+
+    button {
+      cursor: pointer;
+      background: #111;
+      color: white;
+      transition: background 0.2s;
     }
-    .options { max-width: 300px; }
-    select, button {
-      width: 100%; padding: 0.6rem; margin-top: 0.5rem;
-      border: 1px solid #ccc; border-radius: 8px; font-family: inherit;
+    button:hover { background: #333; }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
     }
-    .price { font-size: 1.2rem; margin-top: 1rem; font-weight: 600; }
+
     .modal {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
-      justify-content: center; align-items: center;
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      justify-content: center;
+      align-items: center;
     }
+
     .modal-content {
-      background: white; padding: 1.5rem; border-radius: 12px;
-      width: 90%; max-width: 400px; box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      max-width: 420px;
+      width: 90%;
+      text-align: left;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.1);
     }
-    .modal-header { font-weight: 600; margin-bottom: 1rem; font-size: 1.2rem; }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .close {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #555;
+    }
+
+    .note {
+      font-size: 0.9rem;
+      color: #555;
+      margin-top: 0.5rem;
+    }
+
+    #storeResults {
+      margin-top: 1rem;
+    }
+
     .store {
-      margin-top: 0.75rem; padding: 0.75rem;
-      border: 1px solid #ddd; border-radius: 8px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      text-align: left;
     }
-    .green { color: green; font-weight: 600; }
-    .close-btn {
-      float: right; background: none; border: none;
-      font-size: 1.2rem; cursor: pointer;
+
+    .store h3 {
+      margin: 0 0 0.3rem;
     }
+
+    .availability {
+      color: green;
+      font-weight: 600;
+    }
+
+    #showAllStores {
+      display: none;
+      margin-top: 1rem;
+      background: #007aff;
+      color: white;
+    }
+
   </style>
 </head>
 <body>
-  <h1>BoibyPhone Configurator</h1>
+  <div class="container">
+    <h1>BoibyPhone Configurator</h1>
+    <img id="phonePreview" src="images/21Black.png" alt="BoibyPhone">
 
-  <div class="configurator">
-    <div class="preview">
-      <img id="phoneImage" src="images/21Black.png" alt="BoibyPhone">
-    </div>
-
-    <div class="options">
-      <label for="modelSelect">Model:</label>
+    <div id="configOptions">
       <select id="modelSelect">
         <option value="21">BoibyPhone 21</option>
         <option value="21Pro">BoibyPhone 21 Pro</option>
         <option value="21ProMax">BoibyPhone 21 Pro Max</option>
       </select>
 
-      <label for="colorSelect">Color:</label>
       <select id="colorSelect"></select>
 
-      <label for="storageSelect">Storage:</label>
       <select id="storageSelect"></select>
 
-      <div class="price" id="priceDisplay">A$1399</div>
-
-      <button id="addToCart">Add to Cart</button>
-      <button id="pickupDelivery">Pickup and Delivery</button>
+      <div>
+        <button id="addToCart">Add to Cart</button>
+        <button id="pickupDeliveryBtn">Pickup and Delivery</button>
+      </div>
     </div>
   </div>
 
-  <!-- Modal -->
-  <div id="locationModal" class="modal">
+  <div id="pickupModal" class="modal">
     <div class="modal-content">
-      <button class="close-btn" id="closeModal">&times;</button>
-      <div class="modal-header">Pickup and Delivery</div>
-      <label for="country">Country:</label>
-      <select id="country">
+      <div class="modal-header">
+        <h2>Pickup and Delivery</h2>
+        <button class="close" id="closeModal">&times;</button>
+      </div>
+
+      <label>Country:</label>
+      <select id="countrySelect">
         <option value="Australia">Australia</option>
         <option value="United States">United States</option>
         <option value="United Kingdom">United Kingdom</option>
       </select>
 
-      <label for="postcode">Postcode:</label>
-      <input type="text" id="postcode" placeholder="Enter postcode">
+      <label>Postcode:</label>
+      <input type="text" id="postcodeInput" placeholder="Enter postcode">
 
-      <p style="font-size: 0.8rem; color:#666;">This information is only stored locally and processed locally. You only need to use your approximate location.</p>
+      <p class="note">
+        This information is only stored locally and processed locally. You only need to use your approximate location.
+      </p>
 
-      <button id="checkDelivery">Check Delivery</button>
-      <button id="checkPickup">Check Pickup</button>
+      <div style="margin-top:1rem;">
+        <button id="deliveryBtn">Delivery</button>
+        <button id="pickupBtn">Pickup</button>
+      </div>
 
-      <div id="results" style="margin-top:1rem;"></div>
+      <button id="showAllStores">Show All Stores</button>
+
+      <div id="storeResults"></div>
     </div>
   </div>
 
   <script src="location.js"></script>
   <script>
-    // Config data
-    const configs = {
-      "21": {
-        colors: ["Black", "White", "Green", "Blue", "Pink"],
-        storage: { "256GB": "A$1399 / US$799 / UK£799", "512GB": "A$1599 / US$899 / UK£899" },
-        baseImage: "21"
-      },
-      "21Pro": {
-        colors: ["PacificBlue", "DeepRed", "Obsidian", "Silver"],
-        storage: {
-          "512GB": "A$1999 / US$1199",
-          "1TB": "A$2199 / US$1399",
-          "2TB": "A$2799 / US$1799"
-        },
-        baseImage: "21Pro"
-      },
-      "21ProMax": {
-        colors: ["PacificBlue", "DeepRed", "Obsidian", "Silver"],
-        storage: {
-          "512GB": "A$2199 / US$1299",
-          "1TB": "A$2399 / US$1499",
-          "2TB": "A$2999 / US$1899"
-        },
-        baseImage: "21Pro"
-      }
+    const colors = {
+      "21": ["Black", "White", "Green", "Blue", "Pink"],
+      "21Pro": ["PacificBlue", "DeepRed", "Obsidian", "Silver"],
+      "21ProMax": ["PacificBlue", "DeepRed", "Obsidian", "Silver"]
+    };
+
+    const storageOptions = {
+      "21": [
+        { size: "256GB", price: "A$1399 / US$799" },
+        { size: "512GB", price: "A$1599 / US$899" }
+      ],
+      "21Pro": [
+        { size: "512GB", price: "A$1999 / US$1199" },
+        { size: "1TB", price: "A$2199 / US$1399" },
+        { size: "2TB", price: "A$2799 / US$1799" }
+      ],
+      "21ProMax": [
+        { size: "512GB", price: "A$2199 / US$1299" },
+        { size: "1TB", price: "A$2399 / US$1499" },
+        { size: "2TB", price: "A$2999 / US$1899" }
+      ]
     };
 
     const modelSelect = document.getElementById("modelSelect");
     const colorSelect = document.getElementById("colorSelect");
     const storageSelect = document.getElementById("storageSelect");
-    const priceDisplay = document.getElementById("priceDisplay");
-    const phoneImage = document.getElementById("phoneImage");
+    const preview = document.getElementById("phonePreview");
 
     function updateOptions() {
       const model = modelSelect.value;
-      const conf = configs[model];
       colorSelect.innerHTML = "";
-      conf.colors.forEach(c => {
+      colors[model].forEach(c => {
         const opt = document.createElement("option");
         opt.value = c;
-        opt.textContent = c.replace(/([A-Z])/g, ' $1').trim();
+        opt.textContent = c;
         colorSelect.appendChild(opt);
       });
-      storageSelect.innerHTML = "";
-      for (const [size, price] of Object.entries(conf.storage)) {
-        const opt = document.createElement("option");
-        opt.value = size;
-        opt.textContent = `${size} – ${price}`;
-        storageSelect.appendChild(opt);
-      }
-      updatePreview();
+      updateStorage();
+      updateImage();
     }
 
-    function updatePreview() {
+    function updateStorage() {
       const model = modelSelect.value;
-      const color = colorSelect.value || configs[model].colors[0];
-      const conf = configs[model];
-      phoneImage.src = `images/${conf.baseImage}${color}.png`;
-      const selectedStorage = storageSelect.value || Object.keys(conf.storage)[0];
-      priceDisplay.textContent = conf.storage[selectedStorage].split("/")[0].trim();
+      storageSelect.innerHTML = "";
+      storageOptions[model].forEach(s => {
+        const opt = document.createElement("option");
+        opt.value = s.size;
+        opt.textContent = `${s.size} (${s.price})`;
+        storageSelect.appendChild(opt);
+      });
+    }
+
+    function updateImage() {
+      const model = modelSelect.value;
+      const color = colorSelect.value;
+      const imageName = model === "21" ? `21${color}.png` : `21Pro${color}.png`;
+      preview.src = `images/${imageName}`;
     }
 
     modelSelect.addEventListener("change", updateOptions);
-    colorSelect.addEventListener("change", updatePreview);
-    storageSelect.addEventListener("change", updatePreview);
+    colorSelect.addEventListener("change", updateImage);
     updateOptions();
-
-    // Modal open/close
-    document.getElementById("pickupDelivery").onclick = () => {
-      document.getElementById("locationModal").style.display = "flex";
-    };
-    document.getElementById("closeModal").onclick = () => {
-      document.getElementById("locationModal").style.display = "none";
-    };
   </script>
 </body>
 </html>
