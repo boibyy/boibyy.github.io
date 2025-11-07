@@ -1,0 +1,84 @@
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 2rem;
+  color: #222;
+  background: #fff;
+}
+
+.card-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 250px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.configurator {
+  display: flex;
+  gap: 2rem;
+}
+
+.preview img {
+  width: 250px;
+  border-radius: 20px;
+}
+
+.buttons {
+  margin-top: 1rem;
+}
+
+button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  background: #222;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #444;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background: white;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 12px;
+  width: 400px;
+}
+
+.close {
+  float: right;
+  cursor: pointer;
+}
+
+.note {
+  font-size: 0.8em;
+  color: #555;
+}
+
+.available {
+  color: green;
+  font-weight: bold;
+}
