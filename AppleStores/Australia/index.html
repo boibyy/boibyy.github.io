@@ -539,26 +539,26 @@
       modalBody.innerHTML = '';
       const timelineList = document.createElement('div'); 
       timelineList.className='timeline-list';
-
+    
       const entries = store.timeline.slice(); 
       const n = entries.length;
-      
-      for(let i=0;i<n;i++){
-        const ev = entries[i];
-        const item = document.createElement('div'); 
-        item.className='timeline-item';
-
-        // Calculate the correct image index for timeline display
-        // The current state (last event) uses primary image
-        // Previous states use _old, _old2, _old3, etc.
-        // Skip renovation closure events in the image count
-        const nonClosureEvents = store.timeline.filter(event => 
-          !(event.label.toLowerCase().includes('closed for renovation') || 
-            (event.label.toLowerCase().includes('closed') && event.note && event.note.toLowerCase().includes('renovation')))
-        );
+      const allNonClosureEvents = store.timeline.filter(event => 
+      !(event.label.toLowerCase().includes('closed for renovation') || 
+        (event.label.toLowerCase().includes('closed') && event.note && event.note.toLowerCase().includes('renovation')))
+    );
+    
+    for(let i=0;i<n;i++){
+      const ev = entries[i];
+      const item = document.createElement('div'); 
+      item.className='timeline-item';
+  
+      // Skip images for renovation closure events
+      if (!ev.label.toLowerCase().includes('closed for renovation') && 
+          !(ev.label.toLowerCase().includes('closed') && ev.note && ev.note.toLowerCase().includes('renovation'))) {
         
-        const eventIndexInNonClosure = nonClosureEvents.indexOf(ev);
-        const imageIndex = nonClosureEvents.length - 1 - eventIndexInNonClosure;
+        // FIXED: Calculate image index using all non-closure events
+        const eventIndexInNonClosure = allNonClosureEvents.indexOf(ev);
+        const imageIndex = allNonClosureEvents.length - 1 - eventIndexInNonClosure;
         
         let imgCandidate;
         
@@ -567,47 +567,44 @@
         } else {
           imgCandidate = oldImagePath(store.code, imageIndex);
         }
-
-        // Don't show images for renovation closure events
-        if (!ev.label.toLowerCase().includes('closed for renovation') && 
-            !(ev.label.toLowerCase().includes('closed') && ev.note && ev.note.toLowerCase().includes('renovation'))) {
-          if(imgCandidate){
-            const im = document.createElement('img');
-            im.alt = `${store.name} - ${ev.label}`;
-            im.onerror = () => {
-              im.style.display = 'none';
-            };
-            im.src = imgCandidate;
-            item.insertBefore(im, item.firstChild);
-          }
+  
+        if(imgCandidate){
+          const im = document.createElement('img');
+          im.alt = `${store.name} - ${ev.label}`;
+          im.onerror = () => {
+            im.style.display = 'none';
+          };
+          im.src = imgCandidate;
+          item.insertBefore(im, item.firstChild);
         }
-
-        const labelEl = document.createElement('div'); 
-        labelEl.className='label'; 
-        labelEl.textContent = ev.label;
-        
-        const d = ev.date ? parseDate(ev.date) : null;
-        const dateText = ev.date ? new Date(ev.date+'T00:00:00Z').toLocaleDateString('en-GB',{year:'numeric',month:'long',day:'numeric'}) + (d?` (${timeAgoDisplay(d)})`:'') : '';
-        
-        const dateEl = document.createElement('div'); 
-        dateEl.className='date'; 
-        dateEl.textContent = dateText;
-        
-        const noteEl = document.createElement('div'); 
-        noteEl.className='note'; 
-        noteEl.textContent = ev.note || '';
-
-        item.appendChild(labelEl);
-        if(dateText) item.appendChild(dateEl);
-        if(ev.note) item.appendChild(noteEl);
-        timelineList.appendChild(item);
       }
-
-      modalBody.appendChild(timelineList);
-      modal.classList.add('open'); 
-      modal.setAttribute('aria-hidden','false');
-      modalClose.focus();
+  
+      const labelEl = document.createElement('div'); 
+      labelEl.className='label'; 
+      labelEl.textContent = ev.label;
+      
+      const d = ev.date ? parseDate(ev.date) : null;
+      const dateText = ev.date ? new Date(ev.date+'T00:00:00Z').toLocaleDateString('en-GB',{year:'numeric',month:'long',day:'numeric'}) + (d?` (${timeAgoDisplay(d)})`:'') : '';
+      
+      const dateEl = document.createElement('div'); 
+      dateEl.className='date'; 
+      dateEl.textContent = dateText;
+      
+      const noteEl = document.createElement('div'); 
+      noteEl.className='note'; 
+      noteEl.textContent = ev.note || '';
+  
+      item.appendChild(labelEl);
+      if(dateText) item.appendChild(dateEl);
+      if(ev.note) item.appendChild(noteEl);
+      timelineList.appendChild(item);
     }
+  
+    modalBody.appendChild(timelineList);
+    modal.classList.add('open'); 
+    modal.setAttribute('aria-hidden','false');
+    modalClose.focus();
+  }
     
     // Time Travel functionality
     timeTravelBtn.addEventListener('click', () => {
