@@ -272,13 +272,17 @@
           timeline: store.timeline.filter(event => 
             event.date && parseDate(event.date) <= targetDate
           ),
-          imagePath: primaryImagePath(store.code) // Use Apple CDN even for closed stores
+          // No image for closed stores
+          imagePath: null
         };
       }
       
       // Filter timeline to events that happened on or before target date
+      // Exclude renovation closure events from the timeline for display purposes
       const relevantEvents = store.timeline.filter(event => 
-        event.date && parseDate(event.date) <= targetDate
+        event.date && parseDate(event.date) <= targetDate &&
+        !(event.label.toLowerCase().includes('closed for renovation') || 
+          (event.label.toLowerCase().includes('closed') && event.note && event.note.toLowerCase().includes('renovation')))
       );
       
       if (relevantEvents.length === 0) {
@@ -293,9 +297,14 @@
       let design = lastEvent.design || store.design;
       
       // Calculate the correct image index
-      // The current state is always index 0 (primary image)
-      // Each previous state gets an incrementing index: _old, _old2, _old3, etc.
-      const imageIndex = store.timeline.length - 1 - eventIndex;
+      // Count only non-closure events for image indexing
+      const nonClosureEvents = store.timeline.filter(event => 
+        !(event.label.toLowerCase().includes('closed for renovation') || 
+          (event.label.toLowerCase().includes('closed') && event.note && event.note.toLowerCase().includes('renovation')))
+      );
+      
+      const nonClosureIndex = nonClosureEvents.indexOf(lastEvent);
+      const imageIndex = nonClosureEvents.length - 1 - nonClosureIndex;
       let imagePath;
       
       if (imageIndex === 0) {
@@ -348,6 +357,14 @@
       if (isTimeTravelMode) {
         list = list.map(store => getStoreAtDate(store, currentDate))
                    .filter(store => store !== null); // Remove stores that didn't exist yet
+        
+        // Remove permanently closed stores from count after their closure date
+        list = list.filter(store => {
+          if (store.isClosed && store.closureType === 'permanent') {
+            return false; // Don't count permanently closed stores
+          }
+          return true;
+        });
       }
       
       // Apply other filters
@@ -396,24 +413,20 @@
         
         imgWrap.appendChild(placeholder);
         
-        const img = document.createElement('img');
-        img.alt = storeData.name;
-        img.onload = () => {
-          if (placeholder.parentNode) {
-            placeholder.remove();
-          }
-          imgWrap.appendChild(img);
-        };
-        img.onerror = () => {
-          // Keep placeholder with appropriate text
-        };
-        
-        // Use appropriate image based on time travel mode and closure status
-        if (storeData.isClosed) {
-          // For closed stores, we'll use the Apple CDN image but show placeholder text
-          img.src = primaryImagePath(storeData.code);
-        } else {
-          img.src = isTimeTravelMode ? storeData.imagePath : primaryImagePath(storeData.code);
+        // Only create image if store is not closed
+        if (!storeData.isClosed && storeData.imagePath) {
+          const img = document.createElement('img');
+          img.alt = storeData.name;
+          img.onload = () => {
+            if (placeholder.parentNode) {
+              placeholder.remove();
+            }
+            imgWrap.appendChild(img);
+          };
+          img.onerror = () => {
+            // Keep placeholder with appropriate text
+          };
+          img.src = storeData.imagePath;
         }
 
         const content=document.createElement('div'); 
@@ -538,7 +551,15 @@
         // Calculate the correct image index for timeline display
         // The current state (last event) uses primary image
         // Previous states use _old, _old2, _old3, etc.
-        const imageIndex = n - 1 - i;
+        // Skip renovation closure events in the image count
+        const nonClosureEvents = store.timeline.filter(event => 
+          !(event.label.toLowerCase().includes('closed for renovation') || 
+            (event.label.toLowerCase().includes('closed') && event.note && event.note.toLowerCase().includes('renovation')))
+        );
+        
+        const eventIndexInNonClosure = nonClosureEvents.indexOf(ev);
+        const imageIndex = nonClosureEvents.length - 1 - eventIndexInNonClosure;
+        
         let imgCandidate;
         
         if (imageIndex === 0) {
@@ -547,14 +568,18 @@
           imgCandidate = oldImagePath(store.code, imageIndex);
         }
 
-        if(imgCandidate){
-          const im = document.createElement('img');
-          im.alt = `${store.name} - ${ev.label}`;
-          im.onerror = () => {
-            im.style.display = 'none';
-          };
-          im.src = imgCandidate;
-          item.insertBefore(im, item.firstChild);
+        // Don't show images for renovation closure events
+        if (!ev.label.toLowerCase().includes('closed for renovation') && 
+            !(ev.label.toLowerCase().includes('closed') && ev.note && ev.note.toLowerCase().includes('renovation'))) {
+          if(imgCandidate){
+            const im = document.createElement('img');
+            im.alt = `${store.name} - ${ev.label}`;
+            im.onerror = () => {
+              im.style.display = 'none';
+            };
+            im.src = imgCandidate;
+            item.insertBefore(im, item.firstChild);
+          }
         }
 
         const labelEl = document.createElement('div'); 
