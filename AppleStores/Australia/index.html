@@ -61,6 +61,8 @@
     .tag.historic{background:#7f8c8d}
     .tag.temp{background:var(--c-red)}
     .tag.closing{background:var(--c-orange)}
+    .tag.closed-renovation{background:var(--c-red)}
+    .tag.closed-permanent{background:var(--c-red)}
     .actions{margin-top:auto;display:flex;gap:8px;align-items:center}
     .actions button{padding:8px 10px;border-radius:8px;border:none;cursor:pointer}
     .button-primary{background:var(--c-blue);color:#fff}
@@ -125,7 +127,12 @@
 
   <script>
     const STORES = [
-      {"name":"Chatswood Chase","code":"R253","state":"NSW","design":"Modern (Vintage E)","timeline":[{"date":"2008-08-09","label":"Opened"},{"date":"2013-02-23","label":"Resized / Reopened"},{"date":"2025-10-30","label":"Reopened","note":"Video Wall, Pickup Counter, Alcoves; Modern Vintage E"}]},
+      {"name":"Chatswood Chase","code":"R253","state":"NSW","design":"Modern (Vintage E)","timeline":[
+        {"date":"2008-08-09","label":"Opened", "design": "Classic"},
+        {"date":"2013-02-23","label":"Resized / Reopened", "design": "Classic"},
+        {"date":"2024-07-08","label":"Closed for Renovation","note":"Closed for renovation until October 2025"},
+        {"date":"2025-10-30","label":"Reopened","note":"Video Wall, Pickup Counter, Alcoves; Modern Vintage E", "design": "Modern (Vintage E)"}
+      ]},
       {"name":"Doncaster","code":"R342","state":"QLD","design":"Classic","timeline":[{"date":"2009-05-23","label":"Opened"}]},
       {"name":"Chermside","code":"R384","state":"QLD","design":"Classic","timeline":[{"date":"2009-11-14","label":"Opened"}]},
       {"name":"Castle Towers","code":"R344","state":"NSW","design":"Classic","timeline":[{"date":"2010-08-19","label":"Opened"}]},
@@ -136,18 +143,57 @@
       {"name":"Booragoon","code":"R508","state":"WA","design":"Classic","timeline":[{"date":"2012-09-08","label":"Opened"}]},
       {"name":"Brisbane City","code":"R466","state":"QLD","design":"Classic","timeline":[{"date":"2014-01-17","label":"Opened","note":"Historic Building"}]},
 
-      {"name":"Sydney","code":"R238","state":"NSW","design":"Upgraded Classic","timeline":[{"date":"2008-06-19","label":"Opened"},{"date":"2020-05-28","label":"Reopened","note":"Video Wall, New Ceilings, Forum Installed"}]},
-      {"name":"Bondi","code":"R254","state":"NSW","design":"Upgraded Classic","timeline":[{"date":"2010-05-28","label":"Opened"},{"date":"2019-06-29","label":"Reopened","note":"Video Wall, Green Wall, Forum Installed"}]},
-      {"name":"Broadway","code":"R523","state":"NSW","design":"Upgraded Classic","timeline":[{"date":"2012-06-30","label":"Opened"},{"date":"2019-05-01","label":"Reopened","note":"Video Wall + Forum Installed"}]},
-      {"name":"Carindale","code":"R509","state":"QLD","design":"Upgraded Classic","timeline":[{"date":"2012-08-25","label":"Opened"},{"date":"2019-07-01","label":"Reopened","note":"Video Wall + Forum Installed"}]},
-      {"name":"Fountain Gate","code":"R530","state":"QLD","design":"Upgraded Classic","timeline":[{"date":"2012-12-15","label":"Opened"},{"date":"2019-10-23","label":"Reopened","note":"Video Wall + Forum Installed"}]},
-      {"name":"Rundle Place","code":"R405","state":"SA","design":"Upgraded Classic","timeline":[{"date":"2013-05-25","label":"Opened"},{"date":"2018-11-07","label":"Reopened","note":"Video Wall + Forum Installed"}]},
-      {"name":"Miranda","code":"R606","state":"NSW","design":"Upgraded Classic","timeline":[{"date":"2015-07-25","label":"Opened"},{"date":"2019-08-08","label":"Reopened","note":"Video Wall + Forum Installed"}]},
-      {"name":"Highpoint","code":"R504","state":"VIC","design":"Upgraded Classic","timeline":[{"date":"2013-04-27","label":"Opened"},{"date":"2019-04-01","label":"Reopened","note":"Video Wall + Forum Installed"}]},
+      {"name":"Sydney","code":"R238","state":"NSW","design":"Upgraded Classic","timeline":[
+        {"date":"2008-06-19","label":"Opened", "design": "Classic"},
+        {"date":"2020-01-05","label":"Closed for Renovation","note":"Closed for renovation until May 2020"},
+        {"date":"2020-05-28","label":"Reopened","note":"Video Wall, New Ceilings, Forum Installed", "design": "Upgraded Classic"}
+      ]},
+      {"name":"Bondi","code":"R254","state":"NSW","design":"Upgraded Classic","timeline":[
+        {"date":"2010-05-28","label":"Opened", "design": "Classic"},
+        {"date":"2019-03-01","label":"Closed for Renovation","note":"Closed for renovation until June 2019"},
+        {"date":"2019-06-29","label":"Reopened","note":"Video Wall, Green Wall, Forum Installed", "design": "Upgraded Classic"}
+      ]},
+      {"name":"Broadway","code":"R523","state":"NSW","design":"Upgraded Classic","timeline":[
+        {"date":"2012-06-30","label":"Opened", "design": "Classic"},
+        {"date":"2019-05-01","label":"Reopened","note":"Video Wall + Forum Installed", "design": "Upgraded Classic"}
+      ]},
+      {"name":"Carindale","code":"R509","state":"QLD","design":"Upgraded Classic","timeline":[
+        {"date":"2012-08-25","label":"Opened", "design": "Classic"},
+        {"date":"2019-07-01","label":"Reopened","note":"Video Wall + Forum Installed", "design": "Upgraded Classic"}
+      ]},
+      {"name":"Fountain Gate","code":"R530","state":"QLD","design":"Upgraded Classic","timeline":[
+        {"date":"2012-12-15","label":"Opened", "design": "Classic"},
+        {"date":"2019-10-23","label":"Reopened","note":"Video Wall + Forum Installed", "design": "Upgraded Classic"}
+      ]},
+      {"name":"Rundle Place","code":"R405","state":"SA","design":"Upgraded Classic","timeline":[
+        {"date":"2013-05-25","label":"Opened", "design": "Classic"},
+        {"date":"2018-11-07","label":"Reopened","note":"Video Wall + Forum Installed", "design": "Upgraded Classic"}
+      ]},
+      {"name":"Miranda","code":"R606","state":"NSW","design":"Upgraded Classic","timeline":[
+        {"date":"2015-07-25","label":"Opened", "design": "Classic"},
+        {"date":"2019-08-08","label":"Reopened","note":"Video Wall + Forum Installed", "design": "Upgraded Classic"}
+      ]},
+      {"name":"Highpoint","code":"R504","state":"VIC","design":"Upgraded Classic","timeline":[
+        {"date":"2013-04-27","label":"Opened", "design": "Classic"},
+        {"date":"2019-04-01","label":"Reopened","note":"Video Wall + Forum Installed", "design": "Upgraded Classic"}
+      ]},
 
-      {"name":"Chadstone","code":"R180","state":"VIC","design":"Modern (Vintage D)","timeline":[{"date":"2008-09-13","label":"Opened"},{"date":"2017-11-24","label":"Moved & Reopened","note":"Modern Vintage D"}]},
-      {"name":"Robina","code":"R351","state":"QLD","design":"Modern (Vintage D)","timeline":[{"date":"2009-05-09","label":"Opened"},{"date":"2018-09-29","label":"Moved & Reopened","note":"Modern Vintage D"}]},
-      {"name":"Perth City","code":"R386","state":"WA","design":"Modern (Vintage E)","timeline":[{"date":"2010-06-26","label":"Opened"},{"date":"2025-06-27","label":"Moved & Reopened","note":"Modern Vintage E; Historic Building"}]}
+      {"name":"Chadstone","code":"R180","state":"VIC","design":"Modern (Vintage D)","timeline":[
+        {"date":"2008-09-13","label":"Opened", "design": "Classic"},
+        {"date":"2017-11-24","label":"Moved & Reopened","note":"Modern Vintage D", "design": "Modern (Vintage D)"}
+      ]},
+      {"name":"Robina","code":"R351","state":"QLD","design":"Modern (Vintage D)","timeline":[
+        {"date":"2009-05-09","label":"Opened", "design": "Classic"},
+        {"date":"2018-09-29","label":"Moved & Reopened","note":"Modern Vintage D", "design": "Modern (Vintage D)"}
+      ]},
+      {"name":"Perth City","code":"R386","state":"WA","design":"Modern (Vintage E)","timeline":[
+        {"date":"2010-06-26","label":"Opened", "design": "Classic"},
+        {"date":"2025-06-27","label":"Moved & Reopened","note":"Modern Vintage E; Historic Building", "design": "Modern (Vintage E)"}
+      ]},
+      {"name":"Hornsby","code":"R458","state":"NSW","design":"Classic","timeline":[
+        {"date":"2011-09-24","label":"Opened"},
+        {"date":"2025-10-04","label":"Closed","note":"Closed on Oct 4, 2025"}
+      ]}
     ];
 
     // Global variables
@@ -176,8 +222,60 @@
       return delta>0 ? `in ${abs} day${abs>1?'s':''}` : `${abs} day${abs>1?'s':''} ago`;
     }
 
+    // Check if store is closed at a specific date
+    function isStoreClosed(store, targetDate) {
+      // Check for permanent closure
+      const permanentClosure = store.timeline.find(event => 
+        event.label.toLowerCase().includes('closed') && 
+        !event.label.toLowerCase().includes('renovation') &&
+        event.date && parseDate(event.date) <= targetDate
+      );
+      
+      if (permanentClosure) {
+        return { type: 'permanent', date: parseDate(permanentClosure.date) };
+      }
+      
+      // Check for renovation closure
+      const renovationClosures = store.timeline.filter(event => 
+        (event.label.toLowerCase().includes('closed for renovation') || 
+         (event.label.toLowerCase().includes('closed') && event.note && event.note.toLowerCase().includes('renovation'))) &&
+        event.date && parseDate(event.date) <= targetDate
+      );
+      
+      if (renovationClosures.length > 0) {
+        // Find the most recent renovation closure that hasn't been reopened yet
+        for (let i = renovationClosures.length - 1; i >= 0; i--) {
+          const closure = renovationClosures[i];
+          const closureIndex = store.timeline.indexOf(closure);
+          const nextEvent = store.timeline[closureIndex + 1];
+          
+          // If there's no next event or the next event is after target date, store is still closed
+          if (!nextEvent || (nextEvent.date && parseDate(nextEvent.date) > targetDate)) {
+            return { type: 'renovation', date: parseDate(closure.date) };
+          }
+        }
+      }
+      
+      return null;
+    }
+
     // Get store state at a specific date
     function getStoreAtDate(store, targetDate) {
+      // Check if store is closed
+      const closureInfo = isStoreClosed(store, targetDate);
+      if (closureInfo) {
+        return {
+          ...store,
+          isClosed: true,
+          closureType: closureInfo.type,
+          closureDate: closureInfo.date,
+          timeline: store.timeline.filter(event => 
+            event.date && parseDate(event.date) <= targetDate
+          ),
+          imagePath: primaryImagePath(store.code) // Use Apple CDN even for closed stores
+        };
+      }
+      
       // Filter timeline to events that happened on or before target date
       const relevantEvents = store.timeline.filter(event => 
         event.date && parseDate(event.date) <= targetDate
@@ -191,23 +289,21 @@
       const lastEvent = relevantEvents[relevantEvents.length - 1];
       const eventIndex = store.timeline.indexOf(lastEvent);
       
-      // Determine design based on the last event
-      let design = store.design;
-      let imagePath = primaryImagePath(store.code);
+      // Determine design based on the last event's design property, or fall back to store design
+      let design = lastEvent.design || store.design;
       
-      // If we're not at the latest event, use old image
-      if (eventIndex < store.timeline.length - 1) {
-        const offset = store.timeline.length - 1 - eventIndex;
-        imagePath = oldImagePath(store.code, offset);
-        
-        // Update design based on historical state
-        if (store.design.includes("Upgraded Classic") && 
-            store.timeline.some(e => e.label.includes("Reopened") && parseDate(e.date) > targetDate)) {
-          design = "Classic";
-        } else if (store.design.includes("Modern (Vintage") && 
-                   store.timeline.some(e => e.label.includes("Moved") && parseDate(e.date) > targetDate)) {
-          design = "Classic";
-        }
+      // Calculate the correct image index
+      // The current state is always index 0 (primary image)
+      // Each previous state gets an incrementing index: _old, _old2, _old3, etc.
+      const imageIndex = store.timeline.length - 1 - eventIndex;
+      let imagePath;
+      
+      if (imageIndex === 0) {
+        // Current state - use Apple CDN
+        imagePath = primaryImagePath(store.code);
+      } else {
+        // Historical state - use local old images
+        imagePath = oldImagePath(store.code, imageIndex);
       }
       
       return {
@@ -215,7 +311,9 @@
         timeline: relevantEvents,
         design: design,
         imagePath: imagePath,
-        lastEventDate: parseDate(lastEvent.date)
+        lastEventDate: parseDate(lastEvent.date),
+        isClosed: false,
+        eventIndex: eventIndex
       };
     }
 
@@ -284,7 +382,18 @@
         
         const placeholder = document.createElement('div');
         placeholder.className = 'placeholder';
-        placeholder.textContent = storeData.code;
+        
+        // Set appropriate placeholder text based on closure status
+        if (storeData.isClosed) {
+          if (storeData.closureType === 'permanent') {
+            placeholder.textContent = 'Closed Permanently';
+          } else {
+            placeholder.textContent = 'Closed for Renovation';
+          }
+        } else {
+          placeholder.textContent = storeData.code;
+        }
+        
         imgWrap.appendChild(placeholder);
         
         const img = document.createElement('img');
@@ -296,11 +405,16 @@
           imgWrap.appendChild(img);
         };
         img.onerror = () => {
-          placeholder.textContent = `${storeData.code}`;
+          // Keep placeholder with appropriate text
         };
         
-        // Use appropriate image based on time travel mode
-        img.src = isTimeTravelMode ? storeData.imagePath : primaryImagePath(storeData.code);
+        // Use appropriate image based on time travel mode and closure status
+        if (storeData.isClosed) {
+          // For closed stores, we'll use the Apple CDN image but show placeholder text
+          img.src = primaryImagePath(storeData.code);
+        } else {
+          img.src = isTimeTravelMode ? storeData.imagePath : primaryImagePath(storeData.code);
+        }
 
         const content=document.createElement('div'); 
         content.className='content';
@@ -308,19 +422,36 @@
         const tagsDiv=document.createElement('div'); 
         tagsDiv.className='tags';
         
-        const dtag=designTagFor(storeData.design); 
-        const dt=document.createElement('div'); 
-        dt.className='tag '+dtag.class; 
-        dt.textContent=dtag.label; 
-        tagsDiv.appendChild(dt);
-        
-        const status=statusTagsFor(storeData); 
-        status.forEach(s=>{ 
-          const el=document.createElement('div'); 
-          el.className='tag '+s.class; 
-          el.textContent=s.label; 
-          tagsDiv.appendChild(el)
-        });
+        // Handle tags based on closure status
+        if (storeData.isClosed) {
+          if (storeData.closureType === 'permanent') {
+            const closedTag = document.createElement('div');
+            closedTag.className = 'tag closed-permanent';
+            closedTag.textContent = 'Closed';
+            tagsDiv.appendChild(closedTag);
+          } else {
+            const renovationTag = document.createElement('div');
+            renovationTag.className = 'tag closed-renovation';
+            renovationTag.textContent = 'Closed for Renovation';
+            tagsDiv.appendChild(renovationTag);
+          }
+        } else {
+          // Show normal design tag if not closed
+          const dtag=designTagFor(storeData.design); 
+          const dt=document.createElement('div'); 
+          dt.className='tag '+dtag.class; 
+          dt.textContent=dtag.label; 
+          tagsDiv.appendChild(dt);
+          
+          // Show other status tags
+          const status=statusTagsFor(storeData); 
+          status.forEach(s=>{ 
+            const el=document.createElement('div'); 
+            el.className='tag '+s.class; 
+            el.textContent=s.label; 
+            tagsDiv.appendChild(el)
+          });
+        }
 
         const title=document.createElement('h3'); 
         title.className='title'; 
@@ -334,13 +465,28 @@
         const lastRen = latestRenovation(storeData);
         const lastRenText = lastRen ? lastRen.toLocaleDateString('en-GB',{year:'numeric',month:'long',day:'numeric'}) : '-';
         
-        meta.innerHTML = `${storeData.state} • ${storeData.design} <br>Opened ${opened? opened.toLocaleDateString('en-GB',{year:'numeric',month:'long',day:'numeric'}) : '—'} ${opened?`(${timeAgoDisplay(opened)})`:''}`;
+        // Handle meta information based on closure status
+        if (storeData.isClosed) {
+          if (storeData.closureType === 'permanent') {
+            meta.innerHTML = `${storeData.state} • Closed Permanently <br>Opened ${opened? opened.toLocaleDateString('en-GB',{year:'numeric',month:'long',day:'numeric'}) : '—'} ${opened?`(${timeAgoDisplay(opened)})`:''}`;
+          } else {
+            meta.innerHTML = `${storeData.state} • Closed for Renovation <br>Opened ${opened? opened.toLocaleDateString('en-GB',{year:'numeric',month:'long',day:'numeric'}) : '—'} ${opened?`(${timeAgoDisplay(opened)})`:''}`;
+          }
+        } else {
+          meta.innerHTML = `${storeData.state} • ${storeData.design} <br>Opened ${opened? opened.toLocaleDateString('en-GB',{year:'numeric',month:'long',day:'numeric'}) : '—'} ${opened?`(${timeAgoDisplay(opened)})`:''}`;
+        }
         
         const small = document.createElement('span'); 
         small.className='small'; 
         
-        // Show appropriate message based on time travel mode
-        if (isTimeTravelMode) {
+        // Show appropriate message based on time travel mode and closure status
+        if (storeData.isClosed) {
+          if (storeData.closureType === 'permanent') {
+            small.textContent = `Closed on ${storeData.closureDate.toLocaleDateString('en-GB', {year: 'numeric', month: 'long', day: 'numeric'})}`;
+          } else {
+            small.textContent = `Closed for renovation since ${storeData.closureDate.toLocaleDateString('en-GB', {year: 'numeric', month: 'long', day: 'numeric'})}`;
+          }
+        } else if (isTimeTravelMode) {
           small.textContent = `Last change before ${currentDate.toLocaleDateString('en-GB', {month: 'long', year: 'numeric'})}: ${lastRenText}`;
         } else {
           small.textContent = `Last major change: ${lastRenText}`;
@@ -389,13 +535,16 @@
         const item = document.createElement('div'); 
         item.className='timeline-item';
 
-        let imgCandidate = null;
-        if(i === n-1){ 
-          imgCandidate = primaryImagePath(store.code); 
-        }
-        else {
-          const offset = (n-1) - i;
-          imgCandidate = oldImagePath(store.code, offset);
+        // Calculate the correct image index for timeline display
+        // The current state (last event) uses primary image
+        // Previous states use _old, _old2, _old3, etc.
+        const imageIndex = n - 1 - i;
+        let imgCandidate;
+        
+        if (imageIndex === 0) {
+          imgCandidate = primaryImagePath(store.code);
+        } else {
+          imgCandidate = oldImagePath(store.code, imageIndex);
         }
 
         if(imgCandidate){
