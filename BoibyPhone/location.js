@@ -49,7 +49,7 @@ async function handlePickup() {
   resultsDiv.innerHTML = "Finding nearby stores...";
   const data = await fetchCoordinates(country, postcode);
   if (!data) {
-    resultsDiv.innerHTML = "❌ Postcode not found.";
+    resultsDiv.innerHTML = "Postcode not found.";
     return;
   }
   const lat = parseFloat(data.lat);
