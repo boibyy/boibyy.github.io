@@ -1,72 +1,94 @@
-async function fetchCoordinates(country, postcode) {
-  const url = `https://nominatim.openstreetmap.org/search?country=${encodeURIComponent(country)}&postalcode=${encodeURIComponent(postcode)}&format=json`;
-  const res = await fetch(url);
-  const data = await res.json();
-  return data.length ? data[0] : null;
+async function getPostcodeCoords(postcode, country) {
+  const url = `https://nominatim.openstreetmap.org/search?postalcode=${encodeURIComponent(postcode)}&country=${encodeURIComponent(country)}&format=jsonv2&addressdetails=1&limit=1`;
+  const response = await fetch(url, {
+    headers: { 'User-Agent': 'BoibyPhoneSite/1.0 (contact@boiby.dev)' }
+  });
+  const data = await response.json();
+  if (!data.length) return null;
+
+  const { lat, lon, address } = data[0];
+  return {
+    lat: parseFloat(lat),
+    lon: parseFloat(lon),
+    city: address.city || address.town || address.village || null,
+    state: address.state || address.region || null
+  };
 }
 
-function haversine(lat1, lon1, lat2, lon2) {
+function distance(lat1, lon1, lat2, lon2) {
   const R = 6371;
   const dLat = (lat2 - lat1) * Math.PI / 180;
   const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = Math.sin(dLat/2)**2 +
-            Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) *
-            Math.sin(dLon/2)**2;
-  return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-async function findNearbyStores(lat, lon, country) {
-  const res = await fetch("https://boiby.dev/BoibyPhone/stores.json");
+async function findNearbyStores(userLat, userLon, userCountry, maxDistanceKm = 300) {
+  const res = await fetch("stores.json");
   const { stores } = await res.json();
-  const results = stores
-    .filter(s => s.country === country)
-    .map(s => ({
-      ...s,
-      distance: haversine(lat, lon, s.latitude, s.longitude)
+  return stores
+    .filter(store => store.country === userCountry)
+    .map(store => ({
+      ...store,
+      distance: distance(userLat, userLon, store.latitude, store.longitude)
     }))
-    .filter(s => s.distance <= 300)
-    .sort((a,b) => a.distance - b.distance);
-  return results;
+    .filter(s => s.distance <= maxDistanceKm)
+    .sort((a, b) => a.distance - b.distance);
 }
+
+const modal = document.getElementById("pickupModal");
+document.getElementById("pickupDeliveryBtn").onclick = () => modal.style.display = "flex";
+document.getElementById("closeModal").onclick = () => modal.style.display = "none";
+
+window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
+
+const showAllBtn = document.getElementById("showAllStores");
+const results = document.getElementById("storeResults");
 
 async function handleDelivery() {
-  const country = document.getElementById("country").value;
-  const postcode = document.getElementById("postcode").value.trim();
-  const resultsDiv = document.getElementById("results");
-  resultsDiv.innerHTML = "";
-  const data = await fetchCoordinates(country, postcode);
-  if (!data) {
-    resultsDiv.innerHTML = "Postcode not found.";
-    return;
-  }
-  resultsDiv.innerHTML = "<p>This item is available for delivery within 2 weeks.</p>";
+  results.innerHTML = "<p>This item is available for delivery within 2 weeks.</p>";
 }
 
 async function handlePickup() {
-  const country = document.getElementById("country").value;
-  const postcode = document.getElementById("postcode").value.trim();
-  const resultsDiv = document.getElementById("results");
-  resultsDiv.innerHTML = "Finding nearby stores...";
-  const data = await fetchCoordinates(country, postcode);
-  if (!data) {
-    resultsDiv.innerHTML = "Postcode not found.";
-    return;
+  const postcode = document.getElementById("postcodeInput").value.trim();
+  const country = document.getElementById("countrySelect").value;
+  if (!postcode) return alert("Please enter a postcode.");
+
+  const coords = await getPostcodeCoords(postcode, country);
+  if (!coords) return alert("Postcode not found.");
+
+  const nearby = await findNearbyStores(coords.lat, coords.lon, country);
+  if (!nearby.length) {
+    results.innerHTML = "<p>There are no available stores in your area, sorry.</p>";
+    showAllBtn.style.display = "block";
+    showAllBtn.onclick = showAllStores;
+  } else {
+    showAllBtn.style.display = "block";
+    showAllBtn.onclick = showAllStores;
+    renderStores(nearby);
   }
-  const lat = parseFloat(data.lat);
-  const lon = parseFloat(data.lon);
-  const stores = await findNearbyStores(lat, lon, country);
-  if (!stores.length) {
-    resultsDiv.innerHTML = "There are no available stores in your area, sorry.";
-    return;
-  }
-  resultsDiv.innerHTML = stores.map(s => `
-    <div class="store">
-      <div><strong>${s.name}</strong> (${s.distance.toFixed(1)} km)</div>
-      <div>${s.city} ${s.postcode}, ${s.state}</div>
-      <div class="green">${s.availability}</div>
-    </div>
-  `).join("");
 }
 
-document.getElementById("checkDelivery").addEventListener("click", handleDelivery);
-document.getElementById("checkPickup").addEventListener("click", handlePickup);
+async function showAllStores() {
+  const res = await fetch("stores.json");
+  const { stores } = await res.json();
+  renderStores(stores);
+}
+
+function renderStores(stores) {
+  results.innerHTML = "";
+  stores.forEach(store => {
+    const div = document.createElement("div");
+    div.className = "store";
+    div.innerHTML = `
+      <h3>${store.name}</h3>
+      <p>${store.city} ${store.postcode}, ${store.state}</p>
+      ${store.distance ? `<p>${store.distance.toFixed(1)} km away</p>` : ""}
+      <p class="availability">${store.availability}</p>
+    `;
+    results.appendChild(div);
+  });
+}
+
+document.getElementById("deliveryBtn").onclick = handleDelivery;
+document.getElementById("pickupBtn").onclick = handlePickup;
