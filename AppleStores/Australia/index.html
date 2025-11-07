@@ -640,5 +640,39 @@
     [filterType,filterState,sortBy,search].forEach(el=>el.addEventListener('input',render));
     window.addEventListener('keydown',e=>{ if(e.key==='/'&&document.activeElement.tagName!=='INPUT') { e.preventDefault(); search.focus(); } });
   </script>
+<script>
+  // Auto-set time travel to current month
+function autoSetCurrentMonth() {
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = String(now.getMonth() + 1).padStart(2, '0');
+  const currentDateString = `${currentYear}-${currentMonth}`;
+  
+  // Set the time travel input to current month
+  const timeTravelDate = document.getElementById('timeTravelDate');
+  if (timeTravelDate) {
+    timeTravelDate.value = currentDateString;
+  }
+  
+  // If we're in time travel mode, trigger the time travel
+  const timeTravelBtn = document.getElementById('timeTravelBtn');
+  if (timeTravelBtn) {
+    timeTravelBtn.click();
+  }
+}
+
+// Run when page loads
+document.addEventListener('DOMContentLoaded', function() {
+  // Auto-set to current month after a brief delay to ensure everything is loaded
+  setTimeout(autoSetCurrentMonth, 100);
+});
+
+// Also run if the reset button is clicked to go back to current time
+document.addEventListener('click', function(e) {
+  if (e.target && e.target.id === 'resetTimeTravel') {
+    setTimeout(autoSetCurrentMonth, 100);
+  }
+});
+</script>
 </body>
 </html>
