@@ -1,24 +1,396 @@
 {
   "stores": [
+  {
+    "name": "Boiby American Dream",
+    "country": "United States",
+    "state": "New Jersey",
+    "city": "East Rutherford",
+    "postcode": "07073",
+    "address": "Level 2, American Dream, 1 American Dream Way, East Rutherford, NJ 07073",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Bal Harbour Shops",
+    "country": "United States",
+    "state": "Florida",
+    "city": "Bal Harbour",
+    "postcode": "33154",
+    "address": "Level 1, Bal Harbour Shops, 9700 Collins Avenue, Bal Harbour, FL 33154",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Sawgrass Mills",
+    "country": "United States",
+    "state": "Florida",
+    "city": "Sunrise",
+    "postcode": "33323",
+    "address": "Level 1, Sawgrass Mills, Sunrise, FL 33323",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Beverly Center",
+    "country": "United States",
+    "state": "California",
+    "city": "Los Angeles",
+    "postcode": "90048",
+    "address": "Level 2, Beverly Center, 8500 Beverly Boulevard, Los Angeles, CA 90048",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Stanford Shopping Center",
+    "country": "United States",
+    "state": "California",
+    "city": "Palo Alto",
+    "postcode": "94304",
+    "address": "Level 1, Stanford Shopping Center, Palo Alto, CA 94304",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby The Grove",
+    "country": "United States",
+    "state": "California",
+    "city": "Los Angeles",
+    "postcode": "90036",
+    "address": "Level 1, The Grove, 189 The Grove Drive, Los Angeles, CA 90036",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Union Square",
+    "country": "United States",
+    "state": "California",
+    "city": "San Francisco",
+    "postcode": "94108",
+    "address": "333 Post Street, San Francisco, CA 94108",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Haywood Mall",
+    "country": "United States",
+    "state": "South Carolina",
+    "city": "Greenville",
+    "postcode": "29607",
+    "address": "Level 1, Haywood Mall, Greenville, SC 29607",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby King of Prussia",
+    "country": "United States",
+    "state": "Pennsylvania",
+    "city": "King of Prussia",
+    "postcode": "19406",
+    "address": "Level 1, King of Prussia Mall, 160 North Gulph Road, King of Prussia, PA 19406",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Lenox Square",
+    "country": "United States",
+    "state": "Georgia",
+    "city": "Atlanta",
+    "postcode": "30326",
+    "address": "Level 2, Lenox Square, Atlanta, GA 30326",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Madison Avenue",
+    "country": "United States",
+    "state": "New York",
+    "city": "New York",
+    "postcode": "10022",
+    "address": "625 Madison Avenue, New York, NY 10022",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Mall of America",
+    "country": "United States",
+    "state": "Minnesota",
+    "city": "Bloomington",
+    "postcode": "55425",
+    "address": "Level 1, East Broadway, Bloomington, MN 55425",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Michigan Avenue",
+    "country": "United States",
+    "state": "Illinois",
+    "city": "Chicago",
+    "postcode": "60611",
+    "address": "600 North Michigan Avenue, Chicago, IL 60611",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Barangaroo",
+    "country": "Australia",
+    "state": "New South Wales",
+    "city": "Barangaroo",
+    "postcode": "2000",
+    "address": "23 Barangaroo Ave, Barangaroo 2000 NSW",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Bondi Junction",
+    "country": "Australia",
+    "state": "New South Wales",
+    "city": "Bondi Junction",
+    "postcode": "2022",
+    "address": "Level 4, Westfield Bondi Junction, 500 Oxford St, Bondi Junction 2022, NSW",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Castle Towers",
+    "country": "Australia",
+    "state": "New South Wales",
+    "city": "Castle Hill",
+    "postcode": "2154",
+    "address": "Level 3, Castle Towers Shopping Centre, Castle St, Castle Hill 2154, NSW",
+    "lat": 0.0,
+    "lon": 0.0
+  },
     {
-      "name": "Boiby Sydney",
-      "city": "Sydney",
-      "postcode": "2000",
-      "state": "New South Wales",
-      "country": "Australia",
-      "latitude": -33.870098,
-      "longitude": 151.208817,
-      "availability": "Available for Pickup Today"
-    },
-    {
-      "name": "Boiby Chatswood Chase",
-      "city": "Chatswood",
-      "postcode": "2067",
-      "state": "New South Wales",
-      "country": "Australia",
-      "latitude": -33.794180,
-      "longitude": 151.186019,
-      "availability": "Available for Pickup Today"
-    }
+    "name": "Boiby Westfield Sydney",
+    "address": "Level 5, Westfield Sydney, Cnr Pitt St Mall and Market St",
+    "city": "Sydney",
+    "postcode": "2000",
+    "state": "New South Wales",
+    "country": "Australia",
+    "lat": -33.870098,
+    "lon": 151.208817
+  },
+  {
+    "name": "Boiby Chatswood Chase",
+    "address": "Level 2, Chatswood Chase, 345 Victoria Avenue",
+    "city": "Chatswood",
+    "postcode": "2067",
+    "state": "New South Wales",
+    "country": "Australia",
+    "lat": -33.794180,
+    "lon": 151.186019
+  },
+  {
+    "name": "Boiby Macquarie Centre",
+    "country": "Australia",
+    "state": "New South Wales",
+    "city": "Macquarie Park",
+    "postcode": "2113",
+    "address": "Level 3, Macquarie Centre, Cnr Herring Rd & Waterloo Rd, Macquarie Park 2113, NSW",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Miranda",
+    "country": "Australia",
+    "state": "New South Wales",
+    "city": "Miranda",
+    "postcode": "2228",
+    "address": "Level 3, Westfield Miranda, 600 Kingsway, Miranda 2228, NSW",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Warringah Mall",
+    "country": "Australia",
+    "state": "New South Wales",
+    "city": "Brookvale",
+    "postcode": "2100",
+    "address": "Level 1, Westfield Warringah Mall, Pittwater Rd, Brookvale 2100, NSW",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Brisbane",
+    "country": "Australia",
+    "state": "Queensland",
+    "city": "Brisbane",
+    "postcode": "4000",
+    "address": "Queen Street, Brisbane, QLD 4000",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Chermside",
+    "country": "Australia",
+    "state": "Queensland",
+    "city": "Chermside",
+    "postcode": "4032",
+    "address": "Level 2, Westfield Chermside, Gympie Road, Chermside, QLD 4032",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Pacific Fair",
+    "country": "Australia",
+    "state": "Queensland",
+    "city": "Broadbeach",
+    "postcode": "4218",
+    "address": "Ground Level, Pacific Fair, Broadbeach, QLD 4218",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Chadstone",
+    "country": "Australia",
+    "state": "Victoria",
+    "city": "Chadstone",
+    "postcode": "3148",
+    "address": "Ground Floor, Chadstone Shopping Centre, Chadstone, VIC 3148",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Melbourne",
+    "country": "Australia",
+    "state": "Victoria",
+    "city": "Melbourne",
+    "postcode": "3000",
+    "address": "250 Bourke Street, Melbourne, VIC 3000",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Perth",
+    "country": "Australia",
+    "state": "Western Australia",
+    "city": "Perth",
+    "postcode": "6000",
+    "address": "150 Murray Street, Perth, WA 6000",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Belfast",
+    "country": "United Kingdom",
+    "state": "Northern Ireland",
+    "city": "Belfast",
+    "postcode": "BT1 4QG",
+    "address": "Level 1, Victoria Square Shopping Centre, 1 Victoria Square, Belfast BT1 4QG",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Bluewater",
+    "country": "United Kingdom",
+    "state": "England",
+    "city": "Greenhithe",
+    "postcode": "DA9 9ST",
+    "address": "Upper Mall, Bluewater Shopping Centre, Bluewater Parkway, Greenhithe DA9 9ST",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby London",
+    "country": "United Kingdom",
+    "state": "England",
+    "city": "London",
+    "postcode": "W1C 1JH",
+    "address": "200 Oxford Street, London W1C 1JH",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Manchester Arndale",
+    "country": "United Kingdom",
+    "state": "England",
+    "city": "Manchester",
+    "postcode": "M4 3AQ",
+    "address": "Ground Floor, Manchester Arndale, High Street, Manchester M4 3AQ",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Milton Keynes",
+    "country": "United Kingdom",
+    "state": "England",
+    "city": "Milton Keynes",
+    "postcode": "MK9 3ES",
+    "address": "Centre:MK, Milton Keynes MK9 3ES",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby The Glades",
+    "country": "United Kingdom",
+    "state": "England",
+    "city": "Bromley",
+    "postcode": "BR1 1DN",
+    "address": "Upper Mall, The Glades, High Street, Bromley BR1 1DN",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Trafford Centre",
+    "country": "United Kingdom",
+    "state": "England",
+    "city": "Manchester",
+    "postcode": "M17 8AA",
+    "address": "Ground Floor, Trafford Centre, Manchester M17 8AA",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Westquay",
+    "country": "United Kingdom",
+    "state": "England",
+    "city": "Southampton",
+    "postcode": "SO15 1QF",
+    "address": "Level 3, Westquay Shopping Centre, Southampton SO15 1QF",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby White City",
+    "country": "United Kingdom",
+    "state": "England",
+    "city": "London",
+    "postcode": "W12 7GF",
+    "address": "Level 1, Westfield London, Ariel Way, White City, London W12 7GF",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Glasgow",
+    "country": "United Kingdom",
+    "state": "Scotland",
+    "city": "Glasgow",
+    "postcode": "G1 4BW",
+    "address": "Level 2, St. Enoch Centre, St. Enoch Square, Glasgow G1 4BW",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Toronto",
+    "country": "Canada",
+    "state": "Ontario",
+    "city": "Toronto",
+    "postcode": "M6A 2T9",
+    "address": "Level 1, Yorkdale Shopping Centre, Toronto, ON M6A 2T9",
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  {
+    "name": "Boiby Vancouver",
+    "country": "Canada",
+    "state": "British Columbia",
+    "city": "Vancouver",
+    "postcode": "V7Y 1G5",
+    "address": "Level 2, Pacific Centre, 701 West Georgia Street, Vancouver, BC V7Y 1G5",
+    "lat": 0.0,
+    "lon": 0.0
+  }
   ]
 }
+
+
