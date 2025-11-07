@@ -28,11 +28,18 @@ body {
 .configurator {
   display: flex;
   gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .preview img {
   width: 250px;
   border-radius: 20px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .buttons {
@@ -46,6 +53,8 @@ button {
   background: #222;
   color: #fff;
   cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
 }
 
 button:hover {
@@ -58,27 +67,80 @@ button:hover {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal.show {
+  display: flex;
 }
 
 .modal-content {
   background: white;
-  margin: 10% auto;
+  margin: 0 1rem;
   padding: 20px;
   border-radius: 12px;
   width: 400px;
+  max-width: 95%;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .close {
-  float: right;
   cursor: pointer;
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.close:hover {
+  background: #e0e0e0;
+}
+
+select, input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 1rem;
 }
 
 .note {
   font-size: 0.8em;
   color: #555;
+  margin-top: 0.5rem;
+}
+
+.store {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 0.5rem 0;
+}
+
+.store h3 {
+  margin: 0 0 0.3rem;
 }
 
 .available {
   color: green;
   font-weight: bold;
+}
+
+#showAllStores {
+  display: none;
+  margin-top: 1rem;
+  background: #007aff;
+  color: white;
 }
