@@ -1,0 +1,24 @@
+{
+  "stores": [
+    {
+      "name": "Boiby Sydney",
+      "city": "Sydney",
+      "postcode": "2000",
+      "state": "New South Wales",
+      "country": "Australia",
+      "latitude": -33.870098,
+      "longitude": 151.208817,
+      "availability": "Available for Pickup Today"
+    },
+    {
+      "name": "Boiby Chatswood Chase",
+      "city": "Chatswood",
+      "postcode": "2067",
+      "state": "New South Wales",
+      "country": "Australia",
+      "latitude": -33.794180,
+      "longitude": 151.186019,
+      "availability": "Available for Pickup Today"
+    }
+  ]
+}
