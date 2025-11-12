@@ -27,8 +27,9 @@
     header h1 {
       font-family: 'Playfair Display', serif;
       font-weight: 600;
-      letter-spacing: 3px;
+      letter-spacing: 0px;
       margin: 0.3rem 0;
+      margin-bottom: 12px;
       font-size: 1.8rem;
     }
 
@@ -53,8 +54,8 @@
 
     .banner {
       position: relative;
-      background: url('boiby.jpg') center/cover no-repeat;
-      height: 280px;
+      background: url('/images/boiby.JPG') center/cover no-repeat;
+      height: 300px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -68,7 +69,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      backdrop-filter: blur(6px) brightness(0.5);
+      backdrop-filter: blur(32px) brightness(0.8);
       z-index: 0;
     }
 
@@ -163,6 +164,9 @@
       justify-content: center;
       text-align: center;
     }
+    .bannerbit {
+      font-weight: 400;
+    }
 
     .card img {
       width: 60px;
@@ -192,7 +196,7 @@
 </head>
 <body>
   <header>
-    <h1>Boiby Square</h1>
+    <h1>BOIBY SQUARE</h1>
     <nav>
       <a href="#" onclick="showPage('home')">Home</a>
       <a href="#" onclick="showPage('directory')">Directory</a>
@@ -203,14 +207,19 @@
   </header>
 
   <div class="banner">
-    <h2>Boiby Market opens soon</h2>
-    <p>Opening November 12</p>
+    <h2 class="bannerbit">DISCOVER LUXURY REDEFINED</h2>
+    <p>A new era begins November 15.</p>
   </div>
 
   <main>
     <section id="home" class="active">
       <h2>Welcome to Boiby Square</h2>
-      <p>Boiby Square is a refined retail and dining destination, bringing together luxury brands, local boutiques, and fine dining experiences in an elegant and spacious setting. Discover returning retailers and new arrivals.</p>
+      <p>Boiby Square is a premium retail and dining destination, bringing together luxury brands, local retailers, and fine dining experiences in an elegant and spacious setting.</p><p>Discover beloved local retailers and exciting new global arrivals.</p>
+      <h2>A new era begins</h2>
+      <p>On November 16, we are delighted to welcome you to a new destination with new retailers across Lower Ground, Ground, and Level 2. Our vision is to create a modern, iconic shopping experience for Lichwarmer; blending luxury retail, fresh dining, and more, all under one roof.</p>
+      <p>With a spacious interior and natural tones, soaring skylit atria, and ambient lighting, Boiby Square has been designed to delight. Alongside much-loved local retailers, you will also discover exciting new arrivals.</p>
+      <p>The Lower Ground level unveils our new food market, a premium food hall experience anchored by Lichwarmer Market. Explore a collection of refined casual dining options within our new market.</p>
+      <p>And this is just the beginning; Level 1 will be revealed in early 2026, featuring an expanded luxury retail precinct and elevated lifestyle experiences.</p>
     </section>
 
     <section id="directory">
@@ -218,7 +227,7 @@
       <div class="directory-floor">
         <h3>Lower Ground</h3>
         <div class="directory-cards">
-          <div class="card opening-soon">Boiby Market<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Lichwarmer Market<div class="tag">Opening Soon</div></div>
           <div class="card opening-soon">Qmart<div class="tag">Opening Soon</div></div>
           <div class="card opening-soon">Hungry John's<div class="tag">Opening Soon</div></div>
           <div class="card opening-soon">Nacho King<div class="tag">Opening Soon</div></div>
@@ -227,6 +236,40 @@
           <div class="card opening-soon">LFC<div class="tag">Opening Soon</div></div>
           <div class="card opening-soon">Arc Nachos<div class="tag">Opening Soon</div></div>
           <div class="card opening-soon">Tim's Diner<div class="tag">Opening Soon</div></div>
+        </div>
+        <h3>Ground</h3>
+        <div class="directory-cards">
+          <div class="card opening-soon">DJX Apparel<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">South End<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Rocca<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">L'oiby<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">City Road<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Aureus<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Roblex<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">SPG<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Zike<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">B&M<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Solimano<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Shoe Locker<div class="tag">Opening Soon</div></div>
+        </div>
+        <h3>Level 1</h3>
+        <div class="directory-cards">
+          <p>Level 1 opens in 2026</p>
+        </div>
+        <h3>Level 2</h3>
+        <div class="directory-cards">
+          <div class="card opening-soon">Boiby<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Records<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Onar<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Bed Bath 'N Chair<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Lumen Decor<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Big Box<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Ruta & Co<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Aesoq<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">MJ Richards<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Cartera<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Pendorae<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Gormael<div class="tag">Opening Soon</div></div>
         </div>
       </div>
     </section>
@@ -244,16 +287,17 @@
     </section>
 
     <section id="development">
-      <h2>Boiby Square is transforming</h2>
-
-      <h3>Boiby Market</h3>
-      <p>Opening November 12, the Lower Ground level unveils Boiby Market, a premium food hall experience anchored by Lichwarmer Supermarket. Explore a collection of refined casual dining options within our new market.</p>
+      <h2>Development</h2>
 
       <h3>A new era begins</h3>
-      <p>On November 16, we are delighted to welcome you to a transformed destination with new and returning retailers across Ground and Level 2. With reimagined spaces, new skylit atria, ambient lighting, and completely redesigned entrances, the new Boiby Square has been designed to delight. Alongside much-loved previous retailers, you will also discover exciting new arrivals. And this is just the beginning; Level 1 opens next year.</p>
+      <p>On November 16, we are delighted to welcome you to a brand new destination with new retailers across Lower Ground, Ground, and Level 2. Our vision is to create a modern, iconic shopping experience for Lichwarmer; blending luxury retail, fresh dining, and more, all under one roof.</p>
+      <p>With a spacious interior and natural tones, soaring skylit atria, and ambient lighting, Boiby Square has been designed to delight. Alongside much-loved local retailers, you will also discover exciting new arrivals.</p>
+      <p>The Lower Ground level unveils our new food market, a premium food hall experience anchored by Lichwarmer Market. Explore a collection of refined casual dining options within our new market.</p>
+      <p>And this is just the beginning; Level 1 will be revealed in early 2026, featuring an expanded luxury retail precinct and elevated lifestyle experiences.</p>
+      <p>We can't wait to reveal it all to you.</p>
 
-      <h3>Floor Renumbering Update</h3>
-      <p>As part of the transformation, our floor levels have been changed. Level 1 is now Lower Ground, Level 2 is now Ground, Level 3 is now Level 1, and Level 4 is now Level 2.</p>
+      <h3>Construction updates</h3>
+      <p>We have been hard at work to deliver the new Boiby Square. For more construction updates, check communication channels or this page.</p>
     </section>
   </main>
 
