@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boiby Square</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Playfair+Display:wght@600&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #fafafa;
+      color: #222;
+    }
+
+    header {
+      text-align: center;
+      padding: 0.8rem 1rem 0.5rem 1rem;
+      border-bottom: 1px solid #e0e0e0;
+      background-color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      letter-spacing: 3px;
+      margin: 0.3rem 0;
+      font-size: 1.8rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 0.4rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #444;
+      font-weight: 500;
+      transition: color 0.2s;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    nav a:hover {
+      color: #000;
+    }
+
+    .banner {
+      position: relative;
+      background: url('boiby.jpg') center/cover no-repeat;
+      height: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      backdrop-filter: blur(6px) brightness(0.5);
+      z-index: 0;
+    }
+
+    .banner h2, .banner p {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+    }
+
+    .banner h2 {
+      font-size: 2.2rem;
+      letter-spacing: 1px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .banner p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-top: 0.5rem;
+      font-weight: 300;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+      line-height: 1.7;
+    }
+
+    section {
+      display: none;
+    }
+
+    section.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #666;
+      border-top: 1px solid #ddd;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 28px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 8px;
+    }
+
+    h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 22px;
+      margin-top: 25px;
+      color: #444;
+    }
+
+    .directory-floor {
+      margin-top: 1.5rem;
+    }
+
+    .directory-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .card {
+      flex: 1 1 200px;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: relative;
+      transition: transform 0.2s, opacity 0.3s;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .card img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 0.5rem;
+      object-fit: contain;
+      border-radius: 4px;
+      background-color: #fff;
+    }
+
+    .card.opening-soon {
+      opacity: 0.6;
+    }
+
+    .card .tag {
+      position: relative;
+      margin-top: 0.5rem;
+      background: #ff595e;
+      color: white;
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Boiby Square</h1>
+    <nav>
+      <a href="#" onclick="showPage('home')">Home</a>
+      <a href="#" onclick="showPage('directory')">Directory</a>
+      <a href="#" onclick="showPage('map')">Centre Map</a>
+      <a href="#" onclick="showPage('visit')">Plan My Visit</a>
+      <a href="#" onclick="showPage('development')">Development</a>
+    </nav>
+  </header>
+
+  <div class="banner">
+    <h2>Boiby Market opens soon</h2>
+    <p>Opening November 12</p>
+  </div>
+
+  <main>
+    <section id="home" class="active">
+      <h2>Welcome to Boiby Square</h2>
+      <p>Boiby Square is a refined retail and dining destination, bringing together luxury brands, local boutiques, and fine dining experiences in an elegant and spacious setting. Discover returning retailers and new arrivals.</p>
+    </section>
+
+    <section id="directory">
+      <h2>Directory</h2>
+      <div class="directory-floor">
+        <h3>Lower Ground</h3>
+        <div class="directory-cards">
+          <div class="card opening-soon">Boiby Market<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Qmart<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Hungry John's<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Nacho King<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Burger in Vegas<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Soob Sushi<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">LFC<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Arc Nachos<div class="tag">Opening Soon</div></div>
+          <div class="card opening-soon">Tim's Diner<div class="tag">Opening Soon</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="map">
+      <h2>Centre Map</h2>
+      <p>The Boiby Square map will guide you through every level. Coming soon.</p>
+    </section>
+
+    <section id="visit">
+      <h2>Plan My Visit</h2>
+      <p><strong>Amenities:</strong> Accessible restrooms and facilities are available on Lower Ground (LG), Ground (G), and Level 2.</p>
+      <p><strong>Lift Access:</strong> Lift access from LG-2 is located in the middle of the centre near Rocca, and from G-2 near the main entrance near South End and Onar.</p>
+      <p><strong>Opening Hours:</strong> Tuesday - Sunday: 9AM - 9PM, Monday: 9AM - 6PM.</p>
+    </section>
+
+    <section id="development">
+      <h2>Boiby Square is transforming</h2>
+
+      <h3>Boiby Market</h3>
+      <p>Opening November 12, the Lower Ground level unveils Boiby Market, a premium food hall experience anchored by Lichwarmer Supermarket. Explore a collection of refined casual dining options within our new market.</p>
+
+      <h3>A new era begins</h3>
+      <p>On November 16, we are delighted to welcome you to a transformed destination with new and returning retailers across Ground and Level 2. With reimagined spaces, new skylit atria, ambient lighting, and completely redesigned entrances, the new Boiby Square has been designed to delight. Alongside much-loved previous retailers, you will also discover exciting new arrivals. And this is just the beginning; Level 1 opens next year.</p>
+
+      <h3>Floor Renumbering Update</h3>
+      <p>As part of the transformation, our floor levels have been changed. Level 1 is now Lower Ground, Level 2 is now Ground, Level 3 is now Level 1, and Level 4 is now Level 2.</p>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Boiby Square. All rights reserved.
+  </footer>
+
+  <script>
+    function showPage(pageId) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+    }
+  </script>
+</body>
+</html>
