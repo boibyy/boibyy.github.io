@@ -1,330 +1,81 @@
-<head>
-  <meta charset="utf-8">
-  <title>Boiby CPUs</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <style>
-    body {
-      background: #000;
-      color: #fff;
-      font-family: system-ui, sans-serif;
-      margin: 0;
-      padding: 20px;
-    }
-    table {
-      width: 100%;
-      max-width: 1440px;
-      margin: 0 auto;
-      border-collapse: collapse;
-      border: 1px solid #fff;
-    }
-    th, td {
-      border: 1px solid #fff;
-      padding: 10px;
-      vertical-align: top;
-    }
-    th {
-      text-align: center;
-      font-size: 1.1rem;
-    }
-    td:first-child {
-      font-weight: bold;
-      width: 200px;
-    }
-    ul {
-      margin: 0;
-      padding-left: 1.2rem;
-    }
-    li {
-      margin: 5px 0;
-      list-style: disc;
-    }
-  </style>
-</head>
-<body class="dark">
-  <table>
-    <tbody>
-      <p>Important: Some features may be limited by motherboard or chipset.</p>
-      <tr>
-        <th></th>
-        <th>Neo 5 150K</th>
-        <th>Neo 7 170K</th>
-        <th>Neo 9 190K</th>
-        <th>Neo X 195K</th>
-      </tr>
+<html><head><style>
+  table { border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; }
+  table, th, td { border: 1px solid #000; }
+  th, td { padding: 8px; text-align: left; }
+  td.category { font-weight: bold; width: 200px; }
+</style>
+</head><body><table>
+  <tbody><tr><td class="category">SoC</td><td>Boiby B1 Neo X14-52</td><td>Boiby B1 Neo X14-49</td><td>Boiby B1 Plus X12-46</td></tr>
+  <tr><td class="category">Abbreviated Model Number</td><td>B1N-X14-52</td><td>B1N-X14-49</td><td>B1P-X12-46</td></tr>
+  <tr><td class="category">CPU Cores</td><td>14</td><td>14</td><td>12</td></tr>
+  <tr><td class="category">Max Dual-Core Frequency</td><td>5.2 GHz</td><td>4.9 GHz</td><td>4.6 GHz</td></tr>
+  <tr><td class="category">Max All-Core Frequency</td><td>3.5 GHz</td><td>3.3 GHz</td><td>3.0 GHz</td></tr>
+  <tr><td class="category">GPU Cores</td><td>14</td><td>14</td><td>12</td></tr>
+  <tr><td class="category">GPU Shaders</td><td>1792</td><td>1792</td><td>1536</td></tr>
+  <tr><td class="category">GPU FP32 Performance</td><td>6.4 TFLOPs</td><td>6.0 TFLOPs</td><td>5.1 TFLOPs</td></tr>
+  <tr><td class="category">VRAM</td><td>Dynamic</td><td>Dynamic</td><td>Dynamic</td></tr>
+  <tr><td class="category">NPU</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+  <tr><td class="category">NPU Cores</td><td>14</td><td>12</td><td>12</td></tr>
+  <tr><td class="category">NPU Performance</td><td>60 TOPs</td><td>60 TOPs</td><td>60 TOPs</td></tr>
+  <tr><td class="category">Total SoC Cache</td><td>72 MB</td><td>72 MB</td><td>64 MB</td></tr>
+  <tr><td class="category">Standard TDP</td><td>23 W</td><td>23 W</td><td>23 W</td></tr>
+  <tr><td class="category">Boost TDP</td><td>35 W</td><td>35 W</td><td>35 W</td></tr>
+  <tr><td class="category">Max Memory Capacity</td><td>128 GB</td><td>128 GB</td><td>128 GB</td></tr>
+  <tr><td class="category">Memory Specification</td><td>Up to LPDDR5X-9600</td><td>Up to LPDDR5X-9600</td><td>Up to LPDDR5X-9600</td></tr>
+  <tr><td class="category">Memory Channels</td><td>2</td><td>2</td><td>2</td></tr>
+  <tr><td class="category">Memory Bus</td><td>128-bit</td><td>128-bit</td><td>128-bit</td></tr>
+  <tr><td class="category">Max Memory Bandwidth</td><td>153.6 GB/s</td><td>153.6 GB/s</td><td>153.6 GB/s</td></tr>
+  <tr><td class="category">Architecture</td><td>ARM64</td><td>ARM64</td><td>ARM64</td></tr>
+  <tr><td class="category">Lithography</td><td>Boiby 2nm (1st generation)</td><td>Boiby 2nm (1st generation)</td><td>Boiby 2nm (1st generation)</td></tr>
+  <tr><td class="category">USB Support</td><td>Up to 2x USB4 40Gbps<br>Up to 2x USB 3.2 Gen 2x2 20Gbps</td><td>Up to 2x USB4 40Gbps<br>Up to 2x USB 3.2 Gen 2x2 20Gbps</td><td>Up to 2x USB4 40Gbps<br>Up to 2x USB 3.2 Gen 2x2 20Gbps</td></tr>
+  <tr><td class="category">Hardware Encode/Decode</td><td>AV1, H.265 (HEVC), H.264<br>Up to dual 8K @ 60FPS</td><td>AV1, H.265 (HEVC), H.264<br>Up to dual 8K @ 60FPS</td><td>AV1, H.265 (HEVC), H.264<br>Up to dual 8K @ 60FPS</td></tr>
+  <tr><td class="category">PCIe Revision</td><td>PCIe Gen5</td><td>PCIe Gen5</td><td>PCIe Gen5</td></tr>
+  <tr><td class="category">PCIe Lanes</td><td>16 lanes</td><td>16 lanes</td><td>16 lanes</td></tr>
+  <tr><td class="category">Wireless</td><td>Bluetooth 5.4 LE<br>WiFi 7 (802.11be) 2x2</td><td>Bluetooth 5.4 LE<br>WiFi 7 (802.11be) 2x2</td><td>Bluetooth 5.4 LE<br>WiFi 7 (802.11be) 2x2</td></tr>
+  <tr><td class="category">HDMI</td><td>HDMI 2.1</td><td>HDMI 2.1</td><td>HDMI 2.1</td></tr>
+  <tr><td class="category">DisplayPort</td><td>DisplayPort 2.0</td><td>DisplayPort 2.0</td><td>DisplayPort 2.0</td></tr>
+  <tr><td class="category">Max Integrated Display Resolution</td><td>3840x2400 @ 165 Hz</td><td>3840x2400 @ 165 Hz</td><td>3840x2400 @ 165 Hz</td></tr>
+  <tr><td class="category">Max External Display Resolution</td><td>7680x4320 @ 60 Hz<br>3840x2160 @ 240 Hz</td><td>7680x4320 @ 60 Hz<br>3840x2160 @ 240 Hz</td><td>7680x4320 @ 60 Hz<br>3840x2160 @ 240 Hz</td></tr>
+<tr><td class="category">Max Temperature</td><td>105 C</td><td>105 C</td><td>105 C</td></tr></tbody></table>
+<div style="font-family: Arial, sans-serif; margin-top: 30px;">
+  <h2>Requirements and Guidelines for Manufacturers</h2>
+  <ul>
+    <li><strong>Memory:</strong> 16 GB LPDDR5X (LPCAMM2 advised, but can be soldered for thin-and-light laptops). 32 GB or more strongly recommended for higher-end devices. Minimum of LPDDR5X-7466. Maximum speed possible for SoC variant is recommended. Up to 128 GB supported.</li>
+    
+    <li><strong>Minimum Storage:</strong> PCIe Gen4 SSD, 256 GB, must not be soldered or proprietary</li>
+    <li><strong>Recommended Storage:</strong> PCIe Gen4 SSD, 512 GB or higher, must not be soldered or proprietary. 1TB or more recommended for higher-end devices.</li>
+    <li><strong>Laptop Display:</strong> 1920x1080 IPS panel or higher. An 2560x1600 or higher IPS or OLED panel is recommended for higher-end devices. 16:10 or 3:2 aspect ratio advised, including resolutions such as 1920x1200, 2880x1800 (16:10), and 1920x1280, 2506x1504, 2880x1920 (3:2). 120Hz refresh rate or higher recommended for upper mid-range or higher-end devices, with support for variable refresh rate (VRR). A minimum of 400 nits of maximum brightness is required. Display must support full sRGB colour gamnut. Support for full DCI-P3 colour gamnut and HDR recommended for higher-end devices.</li>
+    
+    <li style="
+    margin-top: 12px;
+"><strong>Cooling:</strong> Active cooling required (fans, vapor chamber, or equivalent). Must be capable of maintaining stable temperatures under load without nearing throttling (105 C), and must not exceed 75 C under general usage. The SoC cannot be throttled to maintain consistent performance. Liquid metal cannot be used.</li>
+    <li><strong>Minimum Wireless:</strong> Must support WiFi 6E (802.11ax, 6GHz band required) and Bluetooth 5.2 or higher. For higher-end devices, WiFi 7 and Bluetooth 5.4 LE is recommended. </li>
+    <li><strong>USB Requirements:</strong> At least 2 USB Type-C ports, each supporting minimum USB 3.2 Gen 2 (10 Gbps) or higher. At least one USB4 port recommended for upper mid-range and higher-end devices.</li>
+    <li><strong>Branding &amp; Disclosure:</strong> Must follow all branding/advertising guidelines and disclose exact SoC model to the consumer.</li>
+  </ul>
 
-      <tr>
-        <td>USD price</td>
-        <td>
-          <ul>
-            <li>$279</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>$399</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>$549</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>$749</li>
-          </ul>
-        </td>
-      </tr>
+  <h3>License Compliance</h3>
+  <p>System integrators must agree to all license terms, which may be modified or updated. Compliance is mandatory for all devices using Boiby SoCs.</p>
 
-      <tr>
-        <td>AUD price</td>
-        <td>
-          <ul>
-            <li>A$429</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>A$649</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>A$899</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>A$1249</li>
-          </ul>
-        </td>
-      </tr>
+  <h3>Operating Systems</h3>
+  <p>Officially supported operating systems are Linux and Windows. Devices must fully support both platforms.</p>
 
-      <tr>
-        <td>CPU</td>
-        <td>
-          <ul>
-            <li>6 cores / 12 threads</li>
-            <li>Base: 4.3 GHz</li>
-            <li>Boost: 5.8 GHz</li>
-            <li>L3 Cache: 36 MB</li>
-            <li>L2 Cache: 6 MB</li>
-            <li>L1 Cache: 480 KB</li>
-            <li>TDP: 65 W*</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>8 cores / 16 threads</li>
-            <li>Base: 4.4 GHz</li>
-            <li>Boost: 6.1 GHz</li>
-            <li>L3 Cache: 48 MB</li>
-            <li>L2 Cache: 8 MB</li>
-            <li>L1 Cache: 640 KB</li>
-            <li>TDP: 95 W*</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>12 cores / 24 threads</li>
-            <li>Base: 4.6 GHz</li>
-            <li>Boost: 6.3 GHz</li>
-            <li>L3 Cache: 72 MB</li>
-            <li>L2 Cache: 12 MB</li>
-            <li>L1 Cache: 960 KB</li>
-            <li>TDP: 125 W*</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>16 cores / 32 threads</li>
-            <li>Base: 4.7 GHz</li>
-            <li>Boost: 6.6 GHz</li>
-            <li>L3 Cache: 96 MB</li>
-            <li>L2 Cache: 16 MB</li>
-            <li>L1 Cache: 1280 KB</li>
-            <li>TDP: 170 W*</li>
-          </ul>
-        </td>
-      </tr>
+  <h3>Drivers</h3>
+  <p>All drivers must be open-source and fully available. Any manufacturer-supplied drivers must fully support both Linux and Windows.</p>
 
-      <tr>
-        <td>iGPU</td>
-        <td>
-          <ul>
-            <li>4-core Boiby iGPU</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>4-core Boiby iGPU</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>4-core Boiby iGPU</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>4-core Boiby iGPU</li>
-          </ul>
-        </td>
-      </tr>
+  <h3>UEFI Interface</h3>
+  <p>The UEFI interface may be customized for background color, model information, branding, and device-specific functions/controls. Features cannot be locked down from default stock UEFI except for CPU and RAM overclocking settings.</p>
 
-      <tr>
-        <td>PCIe</td>
-        <td>
-          <ul>
-            <li>28 lanes PCIe 5.0</li>
-            <li>24 useable</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>28 lanes PCIe 5.0</li>
-            <li>24 useable</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>28 lanes PCIe 5.0</li>
-            <li>24 lanes useable</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>36 lanes PCIe 5.0</li>
-            <li>32 lanes useable</li>
-          </ul>
-        </td>
-      </tr>
+  <h3>Design Approval</h3>
+  <p>All device designs using Boiby SoCs must be approved by Boiby before being revealed or sold to consumers.</p>
 
-      <tr>
-        <td>Memory</td>
-        <td>
-          <ul>
-            <li>Up to DDR5-9200 (DIMM)*</li>
-            <li>Up to DDR5-11600 (CAMM2)</li>
-            <li>Up to 256 GB</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>Up to DDR5-9200 (DIMM)*</li>
-            <li>Up to DDR5-11600 (CAMM2)</li>
-            <li>Up to 256 GB</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>Up to DDR5-9200 (DIMM)*</li>
-            <li>Up to DDR5-11600 (CAMM2)</li>
-            <li>Up to 256 GB</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>Up to DDR5-9200 (DIMM)*</li>
-            <li>Up to DDR5-11600 (CAMM2)</li>
-            <li>Up to 256 GB</li>
-          </ul>
-        </td>
-      </tr>
+  <h3>General Information</h3>
+  <p>
+    These SoCs are designed for laptops, mini PCs, and embedded systems.
+    System integrators should ensure proper thermal design, power delivery, wireless performance, and compliance with all manufacturer licensing and driver requirements.
+    The SoCs support a wide range of displays, memory configurations, and storage solutions, enabling flexible design for various consumer and commercial devices.
+  </p>
+</div>
 
-      <tr>
-        <td>USB</td>
-        <td>
-          <ul>
-            <li>3 × USB 4 (40 Gbps)</li>
-            <li>2 × USB 3.2 Gen 2x2 (20 Gbps)</li>
-            <li>Additional USB 2.0/3.0/3.1</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>4 × USB 4 (40 Gbps)</li>
-            <li>2 × USB 3.2 Gen 2x2 (20 Gbps)</li>
-            <li>Additional USB 2.0/3.0/3.1</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>4 × USB 4 (40 Gbps)</li>
-            <li>2 × USB 3.2 Gen 2x2 (20 Gbps)</li>
-            <li>Additional USB 2.0/3.0/3.1</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>4 × USB 4 (40 Gbps)</li>
-            <li>2 × USB 3.2 Gen 2x2 (20 Gbps)</li>
-            <li>Additional USB 2.0/3.0/3.1</li>
-          </ul>
-        </td>
-      </tr>
 
-      <tr>
-        <td>Wi-Fi / Bluetooth</td>
-        <td>
-          <ul>
-            <li>Wi-Fi 7</li>
-            <li>Bluetooth 6</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>Wi-Fi 7</li>
-            <li>Bluetooth 6</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>Wi-Fi 7</li>
-            <li>Bluetooth 6</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>Wi-Fi 7</li>
-            <li>Bluetooth 6</li>
-          </ul>
-        </td>
-      </tr>
-
-      <tr>
-        <td>Connectivity</td>
-        <td>
-          <ul>
-            <li>HDMI 2.1</li>
-            <li>DisplayPort 2.0</li>
-            <li>Thunderbolt 5</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>HDMI 2.1</li>
-            <li>DisplayPort 2.0</li>
-            <li>Thunderbolt 5</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>HDMI 2.1</li>
-            <li>DisplayPort 2.0</li>
-            <li>Thunderbolt 5</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>HDMI 2.1</li>
-            <li>DisplayPort 2.0</li>
-            <li>Thunderbolt 5</li>
-          </ul>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <p>1: Instability issues may arise at speeds above ~8000 MT/s. Memory configurations with 4 DIMMs inserted will generally be limited to 6400 MT/s. Default fallback speed is 4800 MT/s. CAMM2 modules require a compatible motherboard.</p>
-  <p>2: CPU may exceed TDP under continuous load or while turbo boost is active on multiple cores.</p>
-</body>
+</body></html>
