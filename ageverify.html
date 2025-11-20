@@ -9,10 +9,16 @@
 <body>
   <!-- START PAGE -->
   <section id="age-start" class="page active">
-    <h1>Solve a problem so we can estimate your age.</h1>
-    <p>This will take less than a minute.</p>
-    <p>Make sure you stay on this page.</p>
-    <button id="start-btn" class="btn-primary">Continue</button>
+    <h1>Enter your age.</h1>
+    <p>This will be used to guide verification leniency.</p>
+    <input id="age-input" type="number" min="1" max="100" placeholder="Your age" />
+    <button id="age-continue" class="btn-primary">Continue</button>
+  </section>
+
+  <section id="result-under13" class="page">
+    <h1>You are not old enough to use this site.</h1>
+    <p>Users under 13 cannot access this website.</p>
+    <button id="under13-back" class="btn-secondary">I understand</button>
   </section>
 
   <!-- PROBLEM PAGE -->
@@ -39,8 +45,8 @@
 
   <!-- RESULT PASS PAGE (13+) -->
   <section id="result-pass" class="page">
-    <h1>We estimated your age to be 13+</h1>
-    <p>You are able to access this website and all of its features except for chat.</p>
+    <h1>We estimated your age to be</h1>
+    <p>You are able to access this website and all of its features.</p>You are able to access this website and all of its features except for chat.</p>
     <button id="continue-pass" class="btn-primary">Continue</button>
     <button id="retry-pass" class="btn-secondary">Try again</button>
   </section>
@@ -51,6 +57,7 @@ let problemTimeout;
 let leaveTimer;
 let correctAnswer;
 let bodmasAnswer;
+let enteredAge = null;
 
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -62,9 +69,8 @@ function generateProblem() {
   let b = Math.floor(Math.random() * 9) + 1;
   let c = Math.floor(Math.random() * 9) + 1;
 
-  // Expression: a + b × c
-  correctAnswer = a + b * c; // Correct BODMAS
-  bodmasAnswer = (a + b) * c; // WRONG order but common mistake
+  correctAnswer = a + b * c;
+  bodmasAnswer = (a + b) * c;
 
   document.getElementById('problem-text').textContent = `${a} + ${b} × ${c}`;
 }
@@ -79,7 +85,17 @@ window.addEventListener('focus', () => {
   clearTimeout(leaveTimer);
 });
 
-start-btn.onclick = () => {
+age-continue.onclick = () => {
+  const ageVal = parseInt(document.getElementById('age-input').value, 10);
+  if (!ageVal || ageVal < 1 || ageVal > 100) return;
+
+  enteredAge = ageVal;
+
+  if (ageVal < 13) {
+    showPage('result-under13');
+    return;
+  }
+
   generateProblem();
   showPage('problem-page');
   timerStart = performance.now();
@@ -98,16 +114,21 @@ submit-answer.onclick = () => {
   setTimeout(() => {
     if (isNaN(userAnswer)) return showPage('result-fail');
 
-    if (userAnswer === correctAnswer && time < 15) {
-      return showPage('result-pass');
+    let passed = false;
+    if (userAnswer === correctAnswer || userAnswer === bodmasAnswer) {
+      if (enteredAge >= 18 && time < 15) passed = true;
+      else if (enteredAge >= 16 && time < 20) passed = true;
+      else if (enteredAge >= 13 && time < 25) passed = true;
     }
 
-    if (userAnswer === bodmasAnswer && time < 15) {
-      return showPage('result-pass');
-    }
+    if (!passed) return showPage('result-fail');
 
-    return showPage('result-fail');
+    let ageCategory = "13+";
+    if (enteredAge >= 18) ageCategory = "18+";
+    else if (enteredAge >= 16) ageCategory = "16+";
 
+    document.querySelector('#result-pass h1').textContent = `We estimated your age to be ${ageCategory}`;
+    showPage('result-pass');
   }, 5000 + Math.random() * 5000);
 };
 </script>
