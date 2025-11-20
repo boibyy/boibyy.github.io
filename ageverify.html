@@ -1,105 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Age Verification</title>
-<link rel="stylesheet" href="main.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Age Verification</title>
+  <link rel="stylesheet" href="main.css" />
 </head>
 <body>
+  <!-- START PAGE: Enter Age -->
+  <section id="age-start" class="page active">
+    <h1>Enter your age</h1>
+    <p>Please enter your age between 1 and 100.</p>
+    <input id="age-input" type="number" min="1" max="100" placeholder="Your age" />
+    <button id="age-submit" class="btn-primary">Continue</button>
+  </section>
 
-<!-- STEP 0: Enter Age -->
-<section id="age-input-page" class="page active">
-  <h1>Enter your age</h1>
-  <p>Between 1 and 100</p>
-  <input id="user-age" type="number" min="1" max="100" placeholder="Your age" />
-  <button id="age-submit" class="btn-primary">Continue</button>
-</section>
+  <!-- PROBLEM PAGE -->
+  <section id="problem-page" class="page">
+    <h1>Solve the following problem:</h1>
+    <p id="problem-text"></p>
+    <input id="answer-input" type="number" placeholder="Your answer" />
+    <button id="submit-answer" class="btn-primary">Continue</button>
+  </section>
 
-<!-- START PAGE -->
-<section id="age-start" class="page">
-  <h1>Solve a problem so we can estimate your age.</h1>
-  <p>This will take less than a minute.</p>
-  <p>Make sure you stay on this page.</p>
-  <button id="start-btn" class="btn-primary">Continue</button>
-</section>
+  <!-- LOADING PAGE -->
+  <section id="loading-page" class="page">
+    <h1>Checking your response...</h1>
+    <p>Please wait.</p>
+  </section>
 
-<!-- PROBLEM PAGE -->
-<section id="problem-page" class="page">
-  <h1>Solve the following problem:</h1>
-  <p id="problem-text"></p>
-  <input id="answer-input" type="number" placeholder="Your answer" />
-  <button id="submit-answer" class="btn-primary">Continue</button>
-</section>
+  <!-- RESULT FAIL PAGE -->
+  <section id="result-fail" class="page">
+    <h1>We couldn't verify you're old enough.</h1>
+    <p>If you think this was a mistake, you can try again. Until you verify again, you will not be able to use some features on this site.</p>
+    <button id="retry-fail" class="btn-secondary">Try again</button>
+    <button id="understand-fail" class="btn-secondary">I understand</button>
+  </section>
 
-<!-- LOADING PAGE -->
-<section id="loading-page" class="page">
-  <h1>Checking your response...</h1>
-  <p>Please wait.</p>
-</section>
-
-<!-- RESULT FAIL PAGE -->
-<section id="result-fail" class="page">
-  <h1>We couldn't verify you're old enough.</h1>
-  <p>If you think this was a mistake, you can try again. Until you verify again, you will not be able to use some features on this site.</p>
-  <button id="retry-fail" class="btn-secondary">Try again</button>
-  <button id="understand-fail" class="btn-secondary">I understand</button>
-</section>
-
-<!-- RESULT PASS PAGE -->
-<section id="result-pass" class="page">
-  <h1 id="result-title"></h1>
-  <p id="result-text"></p>
-  <button id="continue-pass" class="btn-primary">Continue</button>
-  <button id="retry-pass" class="btn-secondary">Try again</button>
-</section>
+  <!-- RESULT PASS PAGE -->
+  <section id="result-pass" class="page">
+    <h1 id="pass-title"></h1>
+    <p id="pass-text">You are able to access this website and all of its features except for chat.</p>
+    <button id="continue-pass" class="btn-primary">Continue</button>
+    <button id="retry-pass" class="btn-secondary">Try again</button>
+  </section>
 
 <script>
-let timerStart;
-let problemTimeout;
-let leaveTimer;
-let correctAnswer;
-let bodmasAnswer;
-let enteredAge = 0;
+let timerStart, problemTimeout, leaveTimer;
+let correctAnswer, bodmasAnswer;
+let userAge;
 
+// Show a page and hide others
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-// Generate problem
+// Generate a math problem
 function generateProblem() {
-  let a = Math.floor(Math.random() * 9) + 1;
-  let b = Math.floor(Math.random() * 9) + 1;
-  let c = Math.floor(Math.random() * 9) + 1;
+  const a = Math.floor(Math.random() * 9) + 1;
+  const b = Math.floor(Math.random() * 9) + 1;
+  const c = Math.floor(Math.random() * 9) + 1;
 
-  correctAnswer = a + b * c;   // BODMAS correct
-  bodmasAnswer = (a + b) * c;  // common mistake
+  correctAnswer = a + b * c; // BODMAS correct
+  bodmasAnswer = (a + b) * c; // Slight mistake
 
   document.getElementById('problem-text').textContent = `${a} + ${b} × ${c}`;
 }
 
-// User leaves tab
+// Step-through fail handler
+function showFail() {
+  showPage('result-fail');
+}
+
+// Step-through pass handler
+function showPass(ageEstimate) {
+  const title = document.getElementById('pass-title');
+  if (ageEstimate >= 18) {
+    title.textContent = "We estimated your age to be 18+";
+  } else if (ageEstimate >= 16) {
+    title.textContent = "We estimated your age to be 16+";
+  } else {
+    title.textContent = "We estimated your age to be 13+";
+  }
+  showPage('result-pass');
+}
+
+// Timer and leave handling
 window.addEventListener('blur', () => {
   leaveTimer = setTimeout(() => showPage('age-start'), 5000);
 });
 window.addEventListener('focus', () => clearTimeout(leaveTimer));
 
-// STEP 0: Age input
+// AGE INPUT STEP
 document.getElementById('age-submit').onclick = () => {
-  const ageVal = parseInt(document.getElementById('user-age').value, 10);
-  if (isNaN(ageVal) || ageVal < 1 || ageVal > 100) return alert("Enter a valid age 1-100");
-  enteredAge = ageVal;
+  const val = parseInt(document.getElementById('age-input').value, 10);
+  if (isNaN(val) || val < 1 || val > 100) return alert('Enter a valid age 1-100');
+  userAge = val;
 
-  if (enteredAge < 13) {
-    showPage('result-fail');
-  } else {
-    showPage('age-start');
+  if (userAge < 13) {
+    showFail();
+    return;
   }
-};
 
-// STEP 1: Start problem
-document.getElementById('start-btn').onclick = () => {
   generateProblem();
   showPage('problem-page');
   timerStart = performance.now();
@@ -107,53 +110,38 @@ document.getElementById('start-btn').onclick = () => {
   problemTimeout = setTimeout(() => showPage('age-start'), 60000);
 };
 
-// STEP 2: Submit answer
+// PROBLEM ANSWER STEP
 document.getElementById('submit-answer').onclick = () => {
-  const time = (performance.now() - timerStart) / 1000;
+  const timeTaken = (performance.now() - timerStart) / 1000;
   const userAnswer = parseInt(document.getElementById('answer-input').value, 10);
 
   showPage('loading-page');
 
   setTimeout(() => {
-    let result = 'fail';
+    if (isNaN(userAnswer)) return showFail();
 
-    if (!isNaN(userAnswer)) {
-      if (userAnswer === correctAnswer || userAnswer === bodmasAnswer) {
-        if (enteredAge >= 18 || time < 8) result = '18+';
-        else if (enteredAge >= 16 || time < 10) result = '16+';
-        else result = '13+';
-      }
-    }
+    let passed = false;
 
-    const title = document.getElementById('result-title');
-    const text = document.getElementById('result-text');
+    if (userAnswer === correctAnswer && timeTaken <= 15) passed = true;
+    else if (userAnswer === bodmasAnswer && timeTaken <= 15 && userAge >= 13) passed = true;
 
-    if (result === 'fail') {
-      showPage('result-fail');
-    } else {
-      if (result === '18+') {
-        title.textContent = 'We estimated your age to be 18+';
-        text.textContent = 'You are able to access this website and all of its features.';
-      } else if (result === '16+') {
-        title.textContent = 'We estimated your age to be 16+';
-        text.textContent = `We estimated your age to be around ${enteredAge}. You are able to access this website and most features.`;
-      } else if (result === '13+') {
-        title.textContent = 'We estimated your age to be 13+';
-        text.textContent = `We estimated your age to be around ${enteredAge}. You are able to access this website and most features except for chat.`;
-      }
-      showPage('result-pass');
-    }
+    if (!passed || userAge < 13 || timeTaken > 15) return showFail();
 
+    // Estimate age based on speed (simplified)
+    let estimatedAge;
+    if (timeTaken < 8) estimatedAge = 18;
+    else if (timeTaken < 12) estimatedAge = Math.min(userAge + 3, 17);
+    else estimatedAge = Math.min(userAge, 16);
+
+    showPass(estimatedAge);
   }, 5000 + Math.random() * 5000);
 };
 
-// Retry buttons
-document.getElementById('retry-fail').onclick = () => showPage('age-input-page');
-document.getElementById('retry-pass').onclick = () => showPage('age-input-page');
-document.getElementById('continue-pass').onclick = () => alert("Continue to site");
-
-// Optional: "I understand" on fail
-document.getElementById('understand-fail').onclick = () => showPage('age-input-page');
+// RETRY / CONTINUE BUTTONS
+document.getElementById('retry-fail').onclick = () => showPage('age-start');
+document.getElementById('understand-fail').onclick = () => showPage('age-start');
+document.getElementById('retry-pass').onclick = () => showPage('age-start');
+document.getElementById('continue-pass').onclick = () => alert('Access granted!');
 
 </script>
 </body>
