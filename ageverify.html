@@ -1,206 +1,115 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify Your Age</title>
-    <link rel="stylesheet" href="main.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Age Verification</title>
+  <link rel="stylesheet" href="main.css" />
 </head>
-
 <body>
+  <!-- START PAGE -->
+  <section id="age-start" class="page active">
+    <h1>Solve a problem so we can estimate your age.</h1>
+    <p>This will take less than a minute.</p>
+    <p>Make sure you stay on this page.</p>
+    <button id="start-btn" class="btn-primary">Continue</button>
+  </section>
 
-<main class="wrap-sm">
+  <!-- PROBLEM PAGE -->
+  <section id="problem-page" class="page">
+    <h1>Solve the following problem:</h1>
+    <p id="problem-text"></p>
+    <input id="answer-input" type="number" placeholder="Your answer" />
+    <button id="submit-answer" class="btn-primary">Continue</button>
+  </section>
 
-    <!-- STEP 1 — Start Page -->
-    <section id="step-start">
-        <h1>Solve a problem so we can estimate your age.</h1>
-        <p>- This will take less than a minute<br>- Make sure you stay on this page</p>
+  <!-- LOADING PAGE -->
+  <section id="loading-page" class="page">
+    <h1>Checking your response...</h1>
+    <p>Please wait.</p>
+  </section>
 
-        <button id="start-btn" class="primary-blue">Continue</button>
-    </section>
+  <!-- RESULT FAIL PAGE -->
+  <section id="result-fail" class="page">
+    <h1>We couldn't verify you're old enough.</h1>
+    <p>If you think this was a mistake, you can try again. Until you verify again, you will not be able to use some features on this site.</p>
+    <button id="retry-fail" class="btn-secondary">Try again</button>
+    <button id="understand-fail" class="btn-secondary">I understand</button>
+  </section>
 
-
-    <!-- STEP 2 — Problem Page -->
-    <section id="step-problem" class="dn">
-        <h1>Solve the following problem:</h1>
-        <p id="problem-text">2 x 4 + 7 + 3</p>
-
-        <input id="answer-input" type="number" placeholder="Enter your answer…" style="width:100%;padding:12px;font-size:18px;margin:20px 0;">
-
-        <button id="submit-answer" class="primary-blue">Continue</button>
-    </section>
-
-
-    <!-- STEP 3 — Loading Page -->
-    <section id="step-loading" class="dn">
-        <h1>Verifying…</h1>
-        <p>Please wait a moment.</p>
-    </section>
-
-
-    <!-- STEP 4 — Failure -->
-    <section id="step-fail" class="dn">
-        <h1>We couldn't verify you're old enough.</h1>
-        <p>We estimated your age to be <span id="fail-age"></span> years old.</p>
-        <p>If you think this was a mistake, you can try again. Until you verify again, you will not be able to use some features on this site.</p>
-
-        <button id="retry-fail" class="secondary">Try again</button>
-        <button class="secondary">I understand</button>
-    </section>
-
-
-    <!-- STEP 5 — 13–17 Page -->
-    <section id="step-13-17" class="dn">
-        <h1>We estimated your age to be 13+</h1>
-        <p>You are able to access this website and all of its features except for chat.</p>
-        <p>Your estimated age: <span id="age-teen"></span> years old.</p>
-
-        <button class="primary-blue">Continue</button>
-        <button id="retry-teen" class="secondary">Try again</button>
-    </section>
-
-
-    <!-- STEP 6 — 18+ Page -->
-    <section id="step-18" class="dn">
-        <h1>We estimated your age to be 18+</h1>
-        <p>You are able to access this website and all of its features.</p>
-
-        <button class="primary-blue">Continue</button>
-        <button id="retry-18" class="secondary">Try again</button>
-    </section>
-
-</main>
-
+  <!-- RESULT PASS PAGE (13+) -->
+  <section id="result-pass" class="page">
+    <h1>We estimated your age to be 13+</h1>
+    <p>You are able to access this website and all of its features.</p>
+    <button id="continue-pass" class="btn-primary">Continue</button>
+    <button id="retry-pass" class="btn-secondary">Try again</button>
+  </section>
 
 <script>
-/* ============================================================
-   VARIABLES
-============================================================ */
-let startTime = 0;
-let problem = "2 x 4 + 7 + 3";
-let correctAnswer = 2 * 4 + 7 + 3;
+let timerStart;
+let problemTimeout;
+let leaveTimer;
+let correctAnswer;
+let bodmasAnswer;
 
-let timeLimit = 15 * 1000;  // 15 seconds for solving
-let absoluteTimeout = 60 * 1000; // forced reset after 60s
-let leaveTimer = null;
-
-
-/* ============================================================
-   STEP NAVIGATION
-============================================================ */
-function show(stepId) {
-    document.querySelectorAll("main section").forEach(sec => sec.classList.add("dn"));
-    document.getElementById(stepId).classList.remove("dn");
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
+function generateProblem() {
+  let a = Math.floor(Math.random() * 9) + 1;
+  let b = Math.floor(Math.random() * 9) + 1;
+  let c = Math.floor(Math.random() * 9) + 1;
 
-/* ============================================================
-   LEAVE PAGE DETECTION (5 seconds)
-============================================================ */
-document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-        leaveTimer = setTimeout(() => {
-            resetToStart();
-        }, 5000);
-    } else {
-        clearTimeout(leaveTimer);
-    }
+  // Expression: a + b × c
+  correctAnswer = a + b * c; // Correct BODMAS
+  bodmasAnswer = (a + b) * c; // WRONG order but common mistake
+
+  document.getElementById('problem-text').textContent = `${a} + ${b} × ${c}`;
+}
+
+window.addEventListener('blur', () => {
+  leaveTimer = setTimeout(() => {
+    showPage('age-start');
+  }, 5000);
 });
 
+window.addEventListener('focus', () => {
+  clearTimeout(leaveTimer);
+});
 
-/* ============================================================
-   START BUTTON
-============================================================ */
-document.getElementById("start-btn").onclick = () => {
-    startTime = Date.now();
+start-btn.onclick = () => {
+  generateProblem();
+  showPage('problem-page');
+  timerStart = performance.now();
 
-    // Auto timeout after 60s → reset
-    setTimeout(() => {
-        resetToStart();
-    }, absoluteTimeout);
-
-    show("step-problem");
+  problemTimeout = setTimeout(() => {
+    showPage('age-start');
+  }, 60000);
 };
 
+submit-answer.onclick = () => {
+  const time = (performance.now() - timerStart) / 1000;
+  const userAnswer = parseInt(document.getElementById('answer-input').value, 10);
 
-/* ============================================================
-   SUBMIT ANSWER
-============================================================ */
-document.getElementById("submit-answer").onclick = () => {
-    const answer = Number(document.getElementById("answer-input").value);
-    const timeTaken = Date.now() - startTime;
+  showPage('loading-page');
 
-    show("step-loading");
+  setTimeout(() => {
+    if (isNaN(userAnswer)) return showPage('result-fail');
 
-    setTimeout(() => {
-        evaluate(ageEstimate(timeTaken, answer), timeTaken, answer);
-    }, 5000 + Math.random() * 5000); // 5–10s random loading
+    if (userAnswer === correctAnswer && time < 15) {
+      return showPage('result-pass');
+    }
+
+    if (userAnswer === bodmasAnswer && time < 15) {
+      return showPage('result-pass');
+    }
+
+    return showPage('result-fail');
+
+  }, 5000 + Math.random() * 5000);
 };
-
-
-/* ============================================================
-   AGE CALCULATION
-============================================================ */
-function ageEstimate(time, answer) {
-    let age = 0;
-
-    let wrongBy = Math.abs(answer - correctAnswer);
-
-    // Big penalty for wrong answers
-    if (wrongBy > 0) {
-        age = 8 + Math.floor(10 - wrongBy);
-        return Math.max(5, age);
-    }
-
-    // Speed-based estimation
-    if (time < 8000) {
-        age = 18 + Math.floor((8000 - time) / 1000);
-    } else if (time <= 15000) {
-        age = 13 + Math.floor((15000 - time) / 2000);
-    } else {
-        age = 10 + Math.floor((20000 - time) / 2000);
-    }
-
-    return Math.max(8, Math.min(age, 30));
-}
-
-
-/* ============================================================
-   EVALUATION / OUTCOMES
-============================================================ */
-function evaluate(age, timeTaken, answer) {
-    const wrong = answer !== correctAnswer;
-    const slow = timeTaken > timeLimit;
-
-    if (wrong || slow) {
-        document.getElementById("fail-age").textContent = age;
-        show("step-fail");
-        return;
-    }
-
-    if (timeTaken < 8000) {
-        // 18+
-        show("step-18");
-    } else {
-        // 13–17
-        document.getElementById("age-teen").textContent = age;
-        show("step-13-17");
-    }
-}
-
-
-/* ============================================================
-   RESET
-============================================================ */
-function resetToStart() {
-    show("step-start");
-    document.getElementById("answer-input").value = "";
-}
-
-document.getElementById("retry-fail").onclick =
-document.getElementById("retry-teen").onclick =
-document.getElementById("retry-18").onclick = resetToStart;
 </script>
-
 </body>
 </html>
