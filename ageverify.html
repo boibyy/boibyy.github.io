@@ -1,55 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Age Verification</title>
-  <link rel="stylesheet" href="main.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Age Verification</title>
+<link rel="stylesheet" href="main.css" />
 </head>
 <body>
-  <!-- START PAGE -->
-  <section id="age-start" class="page active">
-    <h1>Enter your age.</h1>
-    <p>This will be used to guide verification leniency.</p>
-    <input id="age-input" type="number" min="1" max="100" placeholder="Your age" />
-    <button id="age-continue" class="btn-primary">Continue</button>
-  </section>
 
-  <section id="result-under13" class="page">
-    <h1>You are not old enough to use this site.</h1>
-    <p>Users under 13 cannot access this website.</p>
-    <button id="under13-back" class="btn-secondary">I understand</button>
-  </section>
+<!-- STEP 0: Enter Age -->
+<section id="age-input-page" class="page active">
+  <h1>Enter your age</h1>
+  <p>Between 1 and 100</p>
+  <input id="user-age" type="number" min="1" max="100" placeholder="Your age" />
+  <button id="age-submit" class="btn-primary">Continue</button>
+</section>
 
-  <!-- PROBLEM PAGE -->
-  <section id="problem-page" class="page">
-    <h1>Solve the following problem:</h1>
-    <p id="problem-text"></p>
-    <input id="answer-input" type="number" placeholder="Your answer" />
-    <button id="submit-answer" class="btn-primary">Continue</button>
-  </section>
+<!-- START PAGE -->
+<section id="age-start" class="page">
+  <h1>Solve a problem so we can estimate your age.</h1>
+  <p>This will take less than a minute.</p>
+  <p>Make sure you stay on this page.</p>
+  <button id="start-btn" class="btn-primary">Continue</button>
+</section>
 
-  <!-- LOADING PAGE -->
-  <section id="loading-page" class="page">
-    <h1>Checking your response...</h1>
-    <p>Please wait.</p>
-  </section>
+<!-- PROBLEM PAGE -->
+<section id="problem-page" class="page">
+  <h1>Solve the following problem:</h1>
+  <p id="problem-text"></p>
+  <input id="answer-input" type="number" placeholder="Your answer" />
+  <button id="submit-answer" class="btn-primary">Continue</button>
+</section>
 
-  <!-- RESULT FAIL PAGE -->
-  <section id="result-fail" class="page">
-    <h1>We couldn't verify you're old enough.</h1>
-    <p>If you think this was a mistake, you can try again. Until you verify again, you will not be able to use some features on this site.</p>
-    <button id="retry-fail" class="btn-secondary">Try again</button>
-    <button id="understand-fail" class="btn-secondary">I understand</button>
-  </section>
+<!-- LOADING PAGE -->
+<section id="loading-page" class="page">
+  <h1>Checking your response...</h1>
+  <p>Please wait.</p>
+</section>
 
-  <!-- RESULT PASS PAGE (13+) -->
-  <section id="result-pass" class="page">
-    <h1>We estimated your age to be</h1>
-    <p>You are able to access this website and all of its features.</p>You are able to access this website and all of its features except for chat.</p>
-    <button id="continue-pass" class="btn-primary">Continue</button>
-    <button id="retry-pass" class="btn-secondary">Try again</button>
-  </section>
+<!-- RESULT FAIL PAGE -->
+<section id="result-fail" class="page">
+  <h1>We couldn't verify you're old enough.</h1>
+  <p>If you think this was a mistake, you can try again. Until you verify again, you will not be able to use some features on this site.</p>
+  <button id="retry-fail" class="btn-secondary">Try again</button>
+  <button id="understand-fail" class="btn-secondary">I understand</button>
+</section>
+
+<!-- RESULT PASS PAGE -->
+<section id="result-pass" class="page">
+  <h1 id="result-title"></h1>
+  <p id="result-text"></p>
+  <button id="continue-pass" class="btn-primary">Continue</button>
+  <button id="retry-pass" class="btn-secondary">Try again</button>
+</section>
 
 <script>
 let timerStart;
@@ -57,80 +60,101 @@ let problemTimeout;
 let leaveTimer;
 let correctAnswer;
 let bodmasAnswer;
-let enteredAge = null;
+let enteredAge = 0;
 
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
+// Generate problem
 function generateProblem() {
   let a = Math.floor(Math.random() * 9) + 1;
   let b = Math.floor(Math.random() * 9) + 1;
   let c = Math.floor(Math.random() * 9) + 1;
 
-  correctAnswer = a + b * c;
-  bodmasAnswer = (a + b) * c;
+  correctAnswer = a + b * c;   // BODMAS correct
+  bodmasAnswer = (a + b) * c;  // common mistake
 
   document.getElementById('problem-text').textContent = `${a} + ${b} × ${c}`;
 }
 
+// User leaves tab
 window.addEventListener('blur', () => {
-  leaveTimer = setTimeout(() => {
-    showPage('age-start');
-  }, 5000);
+  leaveTimer = setTimeout(() => showPage('age-start'), 5000);
 });
+window.addEventListener('focus', () => clearTimeout(leaveTimer));
 
-window.addEventListener('focus', () => {
-  clearTimeout(leaveTimer);
-});
-
-age-continue.onclick = () => {
-  const ageVal = parseInt(document.getElementById('age-input').value, 10);
-  if (!ageVal || ageVal < 1 || ageVal > 100) return;
-
+// STEP 0: Age input
+document.getElementById('age-submit').onclick = () => {
+  const ageVal = parseInt(document.getElementById('user-age').value, 10);
+  if (isNaN(ageVal) || ageVal < 1 || ageVal > 100) return alert("Enter a valid age 1-100");
   enteredAge = ageVal;
 
-  if (ageVal < 13) {
-    showPage('result-under13');
-    return;
+  if (enteredAge < 13) {
+    showPage('result-fail');
+  } else {
+    showPage('age-start');
   }
+};
 
+// STEP 1: Start problem
+document.getElementById('start-btn').onclick = () => {
   generateProblem();
   showPage('problem-page');
   timerStart = performance.now();
 
-  problemTimeout = setTimeout(() => {
-    showPage('age-start');
-  }, 60000);
+  problemTimeout = setTimeout(() => showPage('age-start'), 60000);
 };
 
-submit-answer.onclick = () => {
+// STEP 2: Submit answer
+document.getElementById('submit-answer').onclick = () => {
   const time = (performance.now() - timerStart) / 1000;
   const userAnswer = parseInt(document.getElementById('answer-input').value, 10);
 
   showPage('loading-page');
 
   setTimeout(() => {
-    if (isNaN(userAnswer)) return showPage('result-fail');
+    let result = 'fail';
 
-    let passed = false;
-    if (userAnswer === correctAnswer || userAnswer === bodmasAnswer) {
-      if (enteredAge >= 18 && time < 15) passed = true;
-      else if (enteredAge >= 16 && time < 20) passed = true;
-      else if (enteredAge >= 13 && time < 25) passed = true;
+    if (!isNaN(userAnswer)) {
+      if (userAnswer === correctAnswer || userAnswer === bodmasAnswer) {
+        if (enteredAge >= 18 || time < 8) result = '18+';
+        else if (enteredAge >= 16 || time < 10) result = '16+';
+        else result = '13+';
+      }
     }
 
-    if (!passed) return showPage('result-fail');
+    const title = document.getElementById('result-title');
+    const text = document.getElementById('result-text');
 
-    let ageCategory = "13+";
-    if (enteredAge >= 18) ageCategory = "18+";
-    else if (enteredAge >= 16) ageCategory = "16+";
+    if (result === 'fail') {
+      showPage('result-fail');
+    } else {
+      if (result === '18+') {
+        title.textContent = 'We estimated your age to be 18+';
+        text.textContent = 'You are able to access this website and all of its features.';
+      } else if (result === '16+') {
+        title.textContent = 'We estimated your age to be 16+';
+        text.textContent = `We estimated your age to be around ${enteredAge}. You are able to access this website and most features.`;
+      } else if (result === '13+') {
+        title.textContent = 'We estimated your age to be 13+';
+        text.textContent = `We estimated your age to be around ${enteredAge}. You are able to access this website and most features except for chat.`;
+      }
+      showPage('result-pass');
+    }
 
-    document.querySelector('#result-pass h1').textContent = `We estimated your age to be ${ageCategory}`;
-    showPage('result-pass');
   }, 5000 + Math.random() * 5000);
 };
+
+// Retry buttons
+document.getElementById('retry-fail').onclick = () => showPage('age-input-page');
+document.getElementById('retry-pass').onclick = () => showPage('age-input-page');
+document.getElementById('continue-pass').onclick = () => alert("Continue to site");
+
+// Optional: "I understand" on fail
+document.getElementById('understand-fail').onclick = () => showPage('age-input-page');
+
 </script>
 </body>
 </html>
