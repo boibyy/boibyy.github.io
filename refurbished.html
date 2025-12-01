@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boiby Refurbished iPhones</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --blue:#1e90ff;
+  --muted:#6b7280;
+  --card-bg:#fff;
+  --page-pad:36px;
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  margin:0;
+  background:#f3f4f6;
+  color:#0f172a;
+}
+
+#priceDisplay {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+header{
+  background:#0b1220;
+  color:#fff;
+  padding:16px var(--page-pad);
+  text-align:left;
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+header h1{
+  font-size:22px;
+  margin:0;
+  font-weight:600;
+}
+
+main{padding:28px var(--page-pad); max-width:1200px; margin:0 auto;}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+  align-items:stretch;
+}
+
+.card{
+  background:var(--card-bg);
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 8px 24px rgba(2,6,23,0.06);
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+.card img{ width:140px; height:140px; object-fit:contain; margin-bottom:14px; }
+.card h3{ margin:0; font-size:18px; font-weight:600; }
+.card .start{ margin-top:8px; color:var(--muted); font-size:14px; }
+
+.subpage{
+  display:none;
+  max-width:900px;
+  margin:0 auto;
+  padding-top:18px;
+}
+.sub-inner{
+  background:var(--card-bg);
+  border-radius:14px;
+  padding:26px;
+  box-shadow:0 10px 30px rgba(2,6,23,0.06);
+}
+.backbtn{
+  display:inline-block;
+  margin-bottom:18px;
+  color:var(--blue);
+  cursor:pointer;
+  font-weight:600;
+  font-size:14px;
+}
+
+.model-top{ display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap; }
+.model-art{ width:320px; max-width:38%; min-width:210px; }
+.model-art img{ width:100%; border-radius:10px; object-fit:cover; }
+.model-info{ flex:1; min-width:220px; }
+.model-info h2{ margin:0; font-size:26px; font-weight:700; }
+
+.options-row{ margin-top:18px; }
+.options-row label{ display:block; font-weight:600; margin-bottom:10px; font-size:15px; }
+.options-container{
+  display:flex; 
+  gap:12px; 
+  flex-wrap:wrap; 
+  align-items:center;
+}
+.option-card{
+  padding:10px 14px;
+  border-radius:12px;
+  border:2px solid rgba(15,23,42,0.06);
+  background:#fff;
+  cursor:pointer;
+  user-select:none;
+  font-weight:500;
+  font-size:15px;
+  min-width:96px;
+  text-align:center;
+}
+.option-card.selected{
+  border-color:var(--blue);
+  background:#eaf3ff;
+}
+.option-card.disabled{
+  opacity:0.45;
+  cursor:not-allowed;
+  transform:none;
+}
+
+@media (max-width:880px){
+  .model-top{ flex-direction:column; }
+  .model-art{ width:100%; max-width:100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Boiby — Refurbished iPhones</h1>
+</header>
+
+<main>
+  <h2 style="margin-bottom:16px; font-weight:600;">Current Models</h2>
+  <div id="grid" class="grid"></div>
+
+  <h2 style="margin:32px 0 16px; font-weight:600;">Legacy Models</h2>
+  <div id="legacyGrid" class="grid"></div>
+
+  <section id="subpage" class="subpage">
+    <div class="sub-inner" id="subinner"></div>
+  </section>
+</main>
+
+<script>
+const PRODUCTS = [
+  // Current Models
+  { name:"iPhone 12", variants:[{cap:"128GB",price:349},{cap:"256GB",price:429}], colors:[{name:"White",extra:0},{name:"Black",extra:0},{name:"PRODUCT(RED)",extra:10},{name:"Blue",extra:0},{name:"Green",extra:0},{name:"Purple",extra:10}] },
+  { name:"iPhone 12 Pro", variants:[{cap:"128GB",price:459},{cap:"256GB",price:539},{cap:"512GB",price:619}], colors:[{name:"Graphite",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Pacific Blue",extra:0}] },
+  { name:"iPhone 12 Pro Max", variants:[{cap:"128GB",price:539},{cap:"256GB",price:619},{cap:"512GB",price:689}], colors:[{name:"Graphite",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Pacific Blue",extra:0}] },
+  { name:"iPhone 13 mini", variants:[{cap:"128GB",price:419},{cap:"256GB",price:489},{cap:"512GB",price:579}], colors:[{name:"Starlight",extra:0},{name:"Midnight",extra:0},{name:"PRODUCT(RED)",extra:20},{name:"Blue",extra:0},{name:"Pink",extra:0},{name:"Green",extra:20}] },
+  { name:"iPhone 13", variants:[{cap:"128GB",price:469},{cap:"256GB",price:529},{cap:"512GB",price:619}], colors:[{name:"Starlight",extra:0},{name:"Midnight",extra:0},{name:"PRODUCT(RED)",extra:20},{name:"Blue",extra:0},{name:"Pink",extra:0},{name:"Green",extra:20}] },
+  { name:"iPhone 13 Pro", variants:[{cap:"128GB",price:579},{cap:"256GB",price:649},{cap:"512GB",price:729},{cap:"1TB",price:849}], colors:[{name:"Graphite",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Sierra Blue",extra:0},{name:"Alpine Green",extra:20}] },
+  { name:"iPhone 13 Pro Max", variants:[{cap:"128GB",price:629},{cap:"256GB",price:699},{cap:"512GB",price:779},{cap:"1TB",price:899}], colors:[{name:"Graphite",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Sierra Blue",extra:0},{name:"Alpine Green",extra:20}] },
+  { name:"iPhone 14 Pro", variants:[{cap:"128GB",price:699},{cap:"256GB",price:779},{cap:"512GB",price:879},{cap:"1TB",price:979}], colors:[{name:"Space Black",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:20},{name:"Deep Purple",extra:20}] },
+  { name:"iPhone 14 Pro Max", variants:[{cap:"128GB",price:769},{cap:"256GB",price:849},{cap:"512GB",price:949},{cap:"1TB",price:1049}], colors:[{name:"Space Black",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:20},{name:"Deep Purple",extra:20}] },
+  { name:"iPhone 15", variants:[{cap:"128GB",price:699},{cap:"256GB",price:829},{cap:"512GB",price:null}], colors:[{name:"Black",extra:0},{name:"Blue",extra:0},{name:"Green",extra:0},{name:"Pink",extra:0},{name:"Yellow",extra:0}] },
+  { name:"iPhone 15 Plus", variants:[{cap:"128GB",price:799},{cap:"256GB",price:939},{cap:"512GB",price:1059}], colors:[{name:"Black",extra:0},{name:"Blue",extra:0},{name:"Green",extra:0},{name:"Pink",extra:0},{name:"Yellow",extra:0}] },
+  { name:"iPhone 15 Pro", variants:[{cap:"128GB",price:909},{cap:"256GB",price:999},{cap:"512GB",price:1169},{cap:"1TB",price:1359}], colors:[{name:"Black Titanium",extra:0},{name:"White Titanium",extra:0},{name:"Natural Titanium",extra:20},{name:"Blue Titanium",extra:20}] },
+  { name:"iPhone 15 Pro Max", variants:[{cap:"256GB",price:1079},{cap:"512GB",price:1269},{cap:"1TB",price:1489}], colors:[{name:"Black Titanium",extra:0},{name:"White Titanium",extra:0},{name:"Natural Titanium",extra:20},{name:"Blue Titanium",extra:20}] },
+  { name:"iPhone 16", variants:[{cap:"128GB",price:929},{cap:"256GB",price:1029},{cap:"512GB",price:1269}], colors:[{name:"Black",extra:0},{name:"White",extra:0},{name:"Ultramarine",extra:0},{name:"Teal",extra:0},{name:"Pink",extra:0}] },
+  { name:"iPhone 16 Plus", variants:[{cap:"128GB",price:1059},{cap:"256GB",price:1159},{cap:"512GB",price:null}], colors:[{name:"Black",extra:0},{name:"White",extra:0},{name:"Ultramarine",extra:0},{name:"Teal",extra:0},{name:"Pink",extra:0}] },
+  { name:"iPhone 16 Pro", variants:[{cap:"128GB",price:null},{cap:"256GB",price:1249},{cap:"512GB",price:1389},{cap:"1TB",price:1679}], colors:[{name:"Black Titanium",extra:0},{name:"White Titanium",extra:0},{name:"Natural Titanium",extra:0},{name:"Desert Titanium",extra:30}] },
+  { name:"iPhone 16 Pro Max", variants:[{cap:"256GB",price:1369},{cap:"512GB",price:1539},{cap:"1TB",price:1829}], colors:[{name:"Black Titanium",extra:0},{name:"White Titanium",extra:0},{name:"Natural Titanium",extra:0},{name:"Desert Titanium",extra:30}] },
+  { name:"iPhone 17", variants:[{cap:"256GB",price:1149},{cap:"512GB",price:1529}], colors:[{name:"Black",extra:0},{name:"White",extra:0},{name:"Mist Blue",extra:0},{name:"Sage",extra:0},{name:"Lavender",extra:0}] },
+  { name:"iPhone 17 Pro", variants:[{cap:"256GB",price:1699},{cap:"512GB",price:2099},{cap:"1TB",price:2499}], colors:[{name:"Silver",extra:0},{name:"Deep Blue",extra:0},{name:"Cosmic Orange",extra:0}] },
+  { name:"iPhone 17 Pro Max", variants:[{cap:"256GB",price:1899},{cap:"512GB",price:2299},{cap:"1TB",price:2699},{cap:"2TB",price:3399}], colors:[{name:"Silver",extra:0},{name:"Deep Blue",extra:0},{name:"Cosmic Orange",extra:0}] },
+{ name:"iPhone 7",           variants:[{cap:"32GB", price:99}, {cap:"128GB", price:129}],    colors:[{name:"Black",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Jet Black",extra:10}], legacy:true },
+{ name:"iPhone 7 Plus",      variants:[{cap:"32GB", price:119},{cap:"128GB", price:149}],    colors:[{name:"Black",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Jet Black",extra:10}], legacy:true },
+
+{ name:"iPhone 8",           variants:[{cap:"64GB", price:129},{cap:"128GB", price:159},{cap:"256GB", price:189}],    colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"PRODUCT(RED)",extra:0}], legacy:true },
+{ name:"iPhone 8 Plus",      variants:[{cap:"64GB", price:149},{cap:"128GB", price:179},{cap:"256GB", price:209}],    colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"PRODUCT(RED)",extra:0}], legacy:true },
+{ name:"iPhone X",           variants:[{cap:"64GB", price:219},{cap:"256GB", price:269}],                      colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0}],                        legacy:true },
+{ name:"iPhone XR",          variants:[{cap:"64GB", price:239},{cap:"128GB", price:249},{cap:"256GB", price:299}],   colors:[{name:"Black",extra:0},{name:"White",extra:0},{name:"Blue",extra:0},{name:"Coral",extra:0},{name:"Yellow",extra:0},{name:"PRODUCT(RED)",extra:0}], legacy:true },
+{ name:"iPhone XS",          variants:[{cap:"64GB", price:249},{cap:"256GB", price:319},{cap:"512GB", price:459}],   colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0}],                legacy:true },
+{ name:"iPhone XS Max",      variants:[{cap:"64GB", price:289},{cap:"256GB", price:349},{cap:"512GB", price:499}],   colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0}],                legacy:true },
+
+{ name:"iPhone SE 2",variants:[{cap:"64GB", price:189},{cap:"128GB", price:229},{cap:"256GB", price:289}],    colors:[{name:"Black",extra:0},{name:"White",extra:0},{name:"Red",extra:0}],                             legacy:true },
+  { name:"iPhone 11 Pro", variants:[{cap:"64GB",price:339},{cap:"256GB",price:389},{cap:"512GB",price:459}], colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Midnight Green",extra:0}], legacy:true },
+{ name:"iPhone 11 Pro Max", variants:[{cap:"64GB",price:399},{cap:"256GB",price:449},{cap:"512GB",price:519}], colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Midnight Green",extra:0}], legacy:true }
+];
+
+const grid = document.getElementById('grid');
+const legacyGrid = document.getElementById('legacyGrid');
+const subpage = document.getElementById('subpage');
+const subinner = document.getElementById('subinner');
+
+function createCard(p, idx){
+  const startPrice = Math.min(...p.variants.filter(v=>v.price).map(v=>v.price));
+  const card = document.createElement('div');
+  card.className='card';
+  const modelNum = p.name.replace('iPhone ','').replace(/\s+/g,''); 
+  const imgSrc = `iphone/${modelNum}.jpg`;
+  
+  card.innerHTML=`
+    <img src="${imgSrc}" alt="${p.name}">
+    <h3>${p.name}</h3>
+    <div class="start">Starting at $${startPrice} AUD</div>
+  `;
+  card.onclick=()=>openModel(idx);
+  return card;
+}
+
+
+// Build grids
+PRODUCTS.forEach((p,i)=>{
+  const container = p.legacy ? legacyGrid : grid;
+  container.appendChild(createCard(p,i));
+});
+
+
+
+function openModel(idx){
+  const p = PRODUCTS[idx];
+  grid.style.display='none';
+  legacyGrid.style.display='none';
+  subpage.style.display='block';
+
+  let capCards = p.variants.map((v,i)=>{
+    if(v.price===null) return `<div class="option-card disabled">${v.cap}<div style="font-size:12px;color:#9aa4b2;margin-top:6px">NO STOCK</div></div>`;
+    return `<div class="option-card" data-idx="${i}">${v.cap}</div>`;
+  }).join('');
+
+  let colorCards = p.colors.map((c,i)=>`<div class="option-card" data-idx="${i}">${c.name}</div>`).join('');
+
+  const firstColor = p.colors[0].name.replace(/\s+/g,'').replace(/[()]/g,'');
+  const modelNum = p.name.replace('iPhone ','').replace(/\s+/g,''); 
+  const imgSrc = `iphone/${modelNum}_${firstColor}.jpg`;
+
+  subinner.innerHTML=`
+    <div class="backbtn" id="backbtn">← Back to all models</div>
+    <div class="model-top">
+      <div class="model-art"><img src="${imgSrc}" alt="${p.name}"></div>
+      <div class="model-info">
+        <h2>${p.name}</h2>
+        <div class="options-row"><label>Capacity</label><div class="options-container" id="capContainer">${capCards}</div></div>
+        <div class="options-row"><label>Colour</label><div class="options-container" id="colContainer">${colorCards}</div></div>
+        <div class="options-row"><label>Total Price</label>
+          <div class="options-container" id="priceDisplay">$0 AUD</div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('backbtn').onclick = ()=>{
+    subpage.style.display='none'; 
+    grid.style.display='grid'; 
+    legacyGrid.style.display='grid';
+  };
+
+  const capContainer = document.getElementById('capContainer');
+  const colContainer = document.getElementById('colContainer');
+  const priceDisplay = document.getElementById('priceDisplay');
+
+  let selectedCap = Array.from(capContainer.children).find(c=>!c.classList.contains('disabled'));
+  if(selectedCap) selectedCap.classList.add('selected');
+  colContainer.children[0].classList.add('selected');
+
+  function markSelected(container,idx){
+    Array.from(container.children).forEach((el,i)=>{
+      el.classList.toggle('selected', i===idx && !el.classList.contains('disabled'));
+    });
+  }
+
+  function updatePrice(){
+    const capIdx = Array.from(capContainer.children).findIndex(c=>c.classList.contains('selected'));
+    const colIdx = Array.from(colContainer.children).findIndex(c=>c.classList.contains('selected'));
+    if(capIdx < 0 || colIdx < 0) return;
+    const base = p.variants[capIdx].price || 0;
+    const extra = p.colors[colIdx].extra || 0;
+    priceDisplay.textContent = `$${base + extra} AUD`;
+
+    const newColor = p.colors[colIdx].name.replace(/\s+/g,'').replace(/[()]/g,'');
+    const modelNum = p.name.replace('iPhone ','').replace(/\s+/g,''); 
+    const img = subinner.querySelector('.model-art img');
+    img.src = `iphone/${modelNum}_${newColor}.jpg`;
+  }
+
+  capContainer.addEventListener('click', e=>{
+    const card = e.target.closest('.option-card');
+    if(!card || card.classList.contains('disabled')) return;
+    markSelected(capContainer, Array.from(capContainer.children).indexOf(card));
+    updatePrice();
+  });
+
+  colContainer.addEventListener('click', e=>{
+    const card = e.target.closest('.option-card');
+    if(!card || card.classList.contains('disabled')) return;
+    markSelected(colContainer, Array.from(colContainer.children).indexOf(card));
+    updatePrice();
+  });
+
+  updatePrice();
+}
+const headings = document.querySelectorAll('main > h2');
+
+function updateHeadings() {
+  const subVisible = document.getElementById('subpage').style.display === 'block';
+  headings.forEach(h => h.style.display = subVisible ? 'none' : '');
+}
+
+updateHeadings();
+
+const observer = new MutationObserver(updateHeadings);
+observer.observe(document.getElementById('subpage'), { attributes: true, attributeFilter: ['style'] });
+
+</script>
+</body>
+</html>
