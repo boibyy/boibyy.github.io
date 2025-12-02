@@ -226,6 +226,9 @@ const PRODUCTS = [
   { name:"iPhone 17 Pro Max", variants:[{cap:"256GB",price:1899},{cap:"512GB",price:2299},{cap:"1TB",price:2699},{cap:"2TB",price:3399}], colors:[{name:"Silver",extra:0},{name:"Deep Blue",extra:0},{name:"Cosmic Orange",extra:0}], release: {month: 9, year: 2025} },
   
   // Legacy Models
+  { name:"iPhone 6s", variants:[{cap:"16GB", price:79}, {cap:"32GB", price:89},{cap:"64GB", price:99},{cap:"128GB", price:119}],colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Rose Gold",extra:0}], legacy:true, release: {month: 9, year: 2015} },
+  { name:"iPhone 6s Plus", variants:[{cap:"16GB", price:89}, {cap:"32GB", price:99},{cap:"64GB", price:109},{cap:"128GB", price:129}],colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Rose Gold",extra:0}], legacy:true, release: {month: 9, year: 2015} },
+  { name:"iPhone SE", variants:[{cap:"16GB", price:69}, {cap:"32GB", price:79},{cap:"64GB", price:89},{cap:"128GB", price:null}],colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Rose Gold",extra:0}], legacy:true, release: {month: 4, year: 2016} },
   { name:"iPhone 7", variants:[{cap:"32GB", price:99}, {cap:"128GB", price:129},{cap:"256GB", price:159}], colors:[{name:"Black",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Jet Black",extra:10},{name:"PRODUCT(RED)",extra:10}], legacy:true, release: {month: 9, year: 2016} },
   { name:"iPhone 7 Plus", variants:[{cap:"32GB", price:119},{cap:"128GB", price:149},{cap:"256GB", price:179}], colors:[{name:"Black",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Jet Black",extra:10},{name:"PRODUCT(RED)",extra:10}], legacy:true, release: {month: 9, year: 2016} },
   { name:"iPhone 8", variants:[{cap:"64GB", price:129},{cap:"128GB", price:159},{cap:"256GB", price:189}], colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"PRODUCT(RED)",extra:0}], legacy:true, release: {month: 9, year: 2017} },
@@ -1323,6 +1326,7 @@ observer.observe(document.getElementById('subpage'), { attributes: true, attribu
 </script>
 </body>
 </html>
+
 
 
 
