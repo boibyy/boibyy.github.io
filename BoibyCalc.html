@@ -1,0 +1,988 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>BoibyCalc — Configurator</title>
+
+<!-- Poppins -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg: #fff;
+    --muted: #6b6b6b;
+    --text: #0a0a0a;
+    --accent: #007aff;
+    --card-bg: #fff;
+    --edge: #e6e6e6;
+  }
+  .dark {
+    --bg: #0b0b0b;
+    --muted: #b8b8b8;
+    --text: #f6f6f6;
+    --accent: #4aa3ff;
+    --card-bg: #111216;
+    --edge: #222428;
+  }
+
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+    background:var(--bg);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    transition:background .25s,color .25s;
+  }
+
+  header{
+    height:72px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 36px;
+    border-bottom:1px solid var(--edge);
+  }
+  header .brand{
+    font-weight:600;
+    letter-spacing:.2px;
+    font-size:20px;
+  }
+  header .controls{
+    display:flex;
+    gap:12px;
+    align-items:center;
+  }
+  .mode-toggle{
+    border:1px solid var(--edge);
+    background:transparent;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    color:var(--text);
+    font-weight:500;
+  }
+
+  /* container */
+  .wrap{
+    max-width:1180px;
+    margin:36px auto;
+    padding:0 24px 80px;
+  }
+
+  .steps{
+    display:flex;
+    gap:18px;
+    justify-content:center;
+    margin-top:8px;
+    margin-bottom:28px;
+    font-size:14px;
+    color:var(--muted);
+  }
+  .steps button{
+    background:none;
+    border:none;
+    padding:8px 6px;
+    cursor:pointer;
+    color:inherit;
+    font-weight:500;
+    position:relative;
+  }
+  .steps button.active{
+    color:var(--text);
+  }
+  .steps button.active::after{
+    content:'';
+    height:2px;
+    width:100%;
+    background:var(--text);
+    position:absolute;
+    left:0;
+    bottom:-12px;
+    border-radius:2px;
+  }
+
+  /* slide area */
+  .stage{
+    position:relative;
+    min-height:420px;
+    overflow:visible;
+  }
+  .slide{
+    position:absolute;
+    left:0;right:0;top:0;
+    opacity:0;
+    pointer-events:none;
+    transform:translateY(6px);
+    transition:opacity .45s ease, transform .45s ease;
+    will-change: opacity, transform;
+  }
+  .slide.current{
+    opacity:1;
+    pointer-events:auto;
+    transform:translateY(0);
+    position:relative;
+  }
+
+  h1{
+    font-size:44px;
+    font-weight:600;
+    margin:18px 0 6px;
+    text-align:center;
+  }
+  .lead{
+    text-align:center;
+    color:var(--muted);
+    margin-bottom:28px;
+    font-size:15px;
+  }
+
+  /* option cards */
+  .option-row{
+    display:flex;
+    gap:40px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:26px;
+  }
+  .model-card{
+    width:320px;
+    background:var(--card-bg);
+    border:1px solid var(--edge);
+    border-radius:12px;
+    padding:26px;
+    text-align:left;
+    cursor:pointer;
+    transition:border-color .18s;
+  }
+  .model-card.selected{ border-color:var(--accent); }
+  .model-card .title{ font-size:20px; font-weight:600; margin-bottom:4px; }
+  .model-card .sub{ color:var(--muted); font-size:14px; margin-bottom:12px; }
+  .model-card .price{ font-weight:700; font-size:20px; color:var(--text); }
+
+  .colour-grid{
+    display:flex;
+    gap:26px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:28px;
+  }
+  .colour-tile{
+    width:180px;
+    background:transparent;
+    border-radius:14px;
+    border:1px solid var(--edge);
+    padding:14px;
+    text-align:center;
+    cursor:pointer;
+    transition:border-color .16s;
+  }
+  .colour-tile.selected{ border-color:var(--accent); }
+  .colour-tile img{
+    width:100%;
+    height:170px;
+    object-fit:cover;
+    border-radius:10px;
+    display:block;
+    margin-bottom:10px;
+    background:#f6f6f6;
+  }
+  .colour-tile .label{ font-weight:600; margin-bottom:4px; }
+  .colour-tile .device{ color:var(--muted); font-size:13px; }
+
+  /* capacity cards */
+  .capacity-grid{
+    display:flex;
+    gap:22px;
+    justify-content:center;
+    margin-top:26px;
+    flex-wrap:wrap;
+  }
+  .capacity-card{
+    width:220px;
+    background:var(--card-bg);
+    border-radius:8px;
+    border:1px solid var(--edge);
+    padding:18px;
+    text-align:center;
+    cursor:pointer;
+    transition:border-color .14s;
+  }
+  .capacity-card.selected{ border-color:var(--accent); }
+  .capacity-card .size{ font-size:36px; font-weight:600; letter-spacing:-1px; }
+  .capacity-card .price{ color:var(--muted); margin-top:8px; font-size:14px; }
+
+  /* connectivity options */
+  .connectivity-grid{
+    display:flex;
+    gap:22px;
+    justify-content:center;
+    margin-top:26px;
+    flex-wrap:wrap;
+  }
+  .connectivity-card{
+    width:320px;
+    background:var(--card-bg);
+    border-radius:8px;
+    border:1px solid var(--edge);
+    padding:22px;
+    text-align:center;
+    cursor:pointer;
+    transition:border-color .14s;
+  }
+  .connectivity-card.selected{ border-color:var(--accent); }
+  .connectivity-card .title{ font-size:24px; font-weight:600; margin-bottom:8px; }
+  .connectivity-card .desc{ color:var(--muted); font-size:14px; margin-bottom:12px; }
+  .connectivity-card .price{ font-weight:700; font-size:20px; color:var(--text); }
+
+  /* case options */
+  .case-grid{
+    display:flex;
+    gap:22px;
+    justify-content:center;
+    margin-top:26px;
+    flex-wrap:wrap;
+  }
+  .case-card{
+    width:280px;
+    background:var(--card-bg);
+    border-radius:8px;
+    border:1px solid var(--edge);
+    padding:22px;
+    text-align:center;
+    cursor:pointer;
+    transition:border-color .14s;
+  }
+  .case-card.selected{ border-color:var(--accent); }
+  .case-card .title{ font-size:20px; font-weight:600; margin-bottom:8px; }
+  .case-card .desc{ color:var(--muted); font-size:14px; margin-bottom:12px; }
+  .case-card .price{ font-weight:700; font-size:18px; color:var(--text); }
+
+  /* summary */
+  .summary-wrap{
+    text-align:center;
+    margin-top:18px;
+  }
+  .summary-price{ font-size:36px; font-weight:700; margin-top:6px; }
+  .cta{
+    margin-top:18px;
+    display:inline-block;
+    background:var(--accent);
+    color:#fff;
+    padding:12px 36px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:600;
+    border:none;
+    cursor:pointer;
+  }
+
+  /* configuration display */
+  .config-display{
+    background:var(--card-bg);
+    border:1px solid var(--edge);
+    border-radius:12px;
+    padding:28px;
+    max-width:600px;
+    margin:36px auto;
+    text-align:left;
+  }
+  .config-item{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid var(--edge);
+  }
+  .config-item:last-child{
+    border-bottom:none;
+    font-weight:600;
+    font-size:18px;
+  }
+
+  /* small responsive */
+  @media (max-width:880px){
+    .model-card, .connectivity-card{ width:100%; max-width:540px; }
+    .colour-tile{ width:44%; }
+    .capacity-card, .case-card{ width:45%; }
+  }
+  @media (max-width:520px){
+    .colour-tile, .capacity-card, .case-card{ width:100%; }
+    h1{ font-size:28px; }
+  }
+
+  /* tiny helper */
+  .muted{ color:var(--muted); font-size:13px; display:block; margin-top:8px; }
+  .spacer{ height:24px }
+  
+/* specs table - part of page content */
+.specs-section {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid var(--edge);
+}
+
+.specs-section h2 {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: var(--text);
+}
+
+.specs-table-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.specs-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border: 1px solid var(--edge);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.specs-table tr {
+  border-bottom: 1px solid var(--edge);
+}
+
+.specs-table tr:last-child {
+  border-bottom: none;
+}
+
+.specs-table td {
+  padding: 18px 24px;
+  vertical-align: top;
+}
+
+.specs-table td:first-child {
+  font-weight: 500;
+  color: var(--muted);
+  width: 40%;
+  border-right: 1px solid var(--edge);
+  background: rgba(0,0,0,0.02);
+}
+
+.dark .specs-table td:first-child {
+  background: rgba(255,255,255,0.03);
+}
+
+.specs-table td:last-child {
+  font-weight: 500;
+  color: var(--text);
+  width: 60%;
+}
+
+/* Responsive adjustments for specs table */
+@media (max-width: 768px) {
+  .specs-section {
+    margin-top: 40px;
+    padding-top: 30px;
+  }
+  
+  .specs-section h2 {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+  
+  .specs-table td {
+    padding: 14px 18px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .specs-table td {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+  
+  .specs-section h2 {
+    font-size: 22px;
+  }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">BoibyCalc</div>
+  <div class="controls">
+    <div class="muted" style="font-size:13px;margin-right:8px">Starting at A$399</div>
+    <button id="modeToggle" class="mode-toggle" aria-pressed="false">Dark mode</button>
+  </div>
+</header>
+
+<main class="wrap" id="app">
+
+  <!-- step tabs / breadcrumb -->
+  <nav class="steps" aria-label="Configurator steps">
+    <button class="step-btn active" data-step="1">Model</button>
+    <button class="step-btn" data-step="2">Finish</button>
+    <button class="step-btn" data-step="3">Connectivity</button>
+    <button class="step-btn" data-step="4">Capacity</button>
+    <button class="step-btn" data-step="5">Case</button>
+    <button class="step-btn" data-step="6">Summary</button>
+  </nav>
+
+  <section class="stage" aria-live="polite">
+    <!-- SLIDE 1: Model -->
+    <div id="slide-1" class="slide current">
+      <h1>BoibyCalc</h1>
+      <p class="lead">The ultimate calc (slang for calculator)</p>
+
+      <div class="option-row" role="list">
+        <div class="model-card" data-model="BoibyCalc" role="listitem" tabindex="0">
+          <div class="title">BoibyCalc</div>
+          <div class="sub">4.5-inch display</div>
+          <div class="price">From A$399</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: Finish -->
+    <div id="slide-2" class="slide" aria-hidden="true">
+      <h1>Choose your finish.</h1>
+      <p class="lead">Select the colour you want.</p>
+
+      <div class="colour-grid" role="list">
+        <div class="colour-tile" data-col="Black" tabindex="0">
+          <img src="" alt="Epstein" class="colour-image" />
+          <div class="label">Epstein Black</div>
+          <div class="device">BoibyCalc</div>
+        </div>
+
+        <div class="colour-tile" data-col="White" tabindex="0">
+          <img src="" alt="Einstein" class="colour-image" />
+          <div class="label">Einstein White</div>
+          <div class="device">BoibyCalc</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: Connectivity -->
+    <div id="slide-3" class="slide" aria-hidden="true">
+      <h1>Select connectivity.</h1>
+      <p class="lead">Choose how your BoibyCalc connects (didy)</p>
+
+      <div class="connectivity-grid" role="list">
+        <div class="connectivity-card" data-connectivity="wifi" tabindex="0">
+          <div class="title">WiFi</div>
+          <div class="desc">A$399</div>
+        </div>
+
+        <div class="connectivity-card" data-connectivity="5g" tabindex="0">
+          <div class="title">5G & WiFi</div>
+          <div class="desc">A$499</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Capacity -->
+    <div id="slide-4" class="slide" aria-hidden="true">
+      <h1>Choose your storage capacity.</h1>
+      <p class="lead">Select how much storage you need.</p>
+
+      <div class="capacity-grid" role="list" id="capacityGrid">
+        <!-- Will be populated by JS -->
+      </div>
+    </div>
+
+    <!-- SLIDE 5: Case -->
+    <div id="slide-5" class="slide" aria-hidden="true">
+      <h1>Add a protective case.</h1>
+      <p class="lead">Keep your BoibyCalc safe with a matching case.</p>
+
+      <div class="case-grid" role="list" id="caseGrid">
+        <!-- Will be populated by JS -->
+      </div>
+    </div>
+
+    <!-- SLIDE 6: Summary -->
+    <div id="slide-6" class="slide" aria-hidden="true">
+      <h1 id="summaryTitle">Your BoibyCalc is ready.</h1>
+      <p class="lead summary-sub" id="summaryBreadcrumb">—</p>
+
+      <div class="config-display">
+        <div class="config-item">
+          <span>BoibyCalc</span>
+          <span id="configBasePrice">A$399</span>
+        </div>
+        <div class="config-item" id="configColor">
+          <span>Finish</span>
+          <span>—</span>
+        </div>
+        <div class="config-item" id="configConnectivity">
+          <span>Connectivity</span>
+          <span>—</span>
+        </div>
+        <div class="config-item" id="configCapacity">
+          <span>Capacity</span>
+          <span>—</span>
+        </div>
+        <div class="config-item" id="configCase">
+          <span>Case</span>
+          <span>—</span>
+        </div>
+        <div class="config-item">
+          <span>Total</span>
+          <span id="finalPrice">A$0</span>
+        </div>
+      </div>
+
+      <div class="summary-wrap">
+        <button class="cta" id="addBag">Add to Cart</button>
+      </div>
+    </div>
+
+  <section class="specs-section">
+    <h2>Technical Specifications</h2>
+    <div class="specs-table-container">
+      <table class="specs-table">
+        <tbody>
+          <tr>
+            <td>Processor</td>
+            <td>MediaTek Dimensity 7050 (6nm)<br>2 performance cores and 6 efficiency cores<br>ARM64 architecture<br></td>
+          </tr>
+          <tr>
+            <td>GPU</td>
+            <td>Mali-G68 MP4<br>Up to 243.2 GFLOPs</td>
+          </tr>
+          <tr>
+            <td>RAM</td>
+            <td>4GB LPDDR5-4800 RAM</td>
+          </tr>
+          <tr>
+            <td>Storage</td>
+            <td>16GB UFS 2.2, 64 GB or 128 GB UFS 3.1</td>
+          </tr>
+          <tr>
+            <td>Display</td>
+            <td>1440x1080 4.5-inch IPS LCD display<br></td>
+          </tr>
+          <tr>
+            <td>Design</td>
+            <td>Durable Polycarbonate design</td>
+          </tr>
+          <tr>
+            <td>Buttons</td>
+            <td>Tactile Haptic Buttons</td>
+          </tr>
+          <tr>
+            <td>Connectivity</td>
+            <td>WiFi 6 (802.11ax)<br>5G (on 5G model only)</td>
+          </tr>
+          <tr>
+            <td>Functions</td>
+            <td>Scientific, graphing, statistical, programming<br>Web browser and applications</td>
+          </tr>
+          <tr>
+            <td>Battery</td>
+            <td>Up to 10 hours of continuous use<br>
+            5000 mAh lithium-ion battery<br>
+            Up to 40W wired charging</td>
+          </tr>
+          <tr>
+            <td>Ports</td>
+            <td>USB-C (USB 2)<br>3.5mm audio jack</td>
+          </tr>
+          <tr>
+            <td>Operating System</td>
+            <td>Custom Linux-based operating system</td>
+          </tr>
+          <tr>
+            <td>Dimensions</td>
+            <td>185 × 80 × 9.2 mm</td>
+          </tr>
+          <tr>
+            <td>Weight</td>
+            <td>198 grams</td>
+          </tr>
+          <tr>
+            <td>Warranty</td>
+            <td>2-year limited warranty</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+/* -------------------------
+   Data and initial state
+   ------------------------- */
+const state = {
+  model: 'BoibyCalc',
+  color: null,
+  connectivity: null,
+  capacity: null,
+  case: null,
+  basePrice: 399,
+  price: 399
+};
+
+const PRICES = {
+  base: 399,                // Base price for WiFi model
+  connectivity: {
+    'wifi': 0,              // WiFi only (no extra charge)
+    '5g': 100               // Additional $100 for 5G (399 + 100 = 499)
+  },
+  capacity: {
+    '16': 0,                // Base storage (no extra charge)
+    '64': 50,               // Additional $70 for 64GB
+    '128': 100                // Additional $70 for 64GB
+  },
+  case: {
+    'none': 0,              // No case
+    'matched': 30           // Additional $30 for case
+  }
+};
+
+/* -------------------------
+   Helpers: show slides
+   ------------------------- */
+const steps = Array.from(document.querySelectorAll('.step-btn'));
+function showStep(n){
+  // slides numbered 1..6
+  for(let i=1;i<=6;i++){
+    const s = document.getElementById('slide-'+i);
+    if(i===n){
+      s.classList.add('current');
+      s.setAttribute('aria-hidden','false');
+    } else {
+      s.classList.remove('current');
+      s.setAttribute('aria-hidden','true');
+    }
+  }
+  steps.forEach(btn=>btn.classList.toggle('active', Number(btn.dataset.step)===n));
+}
+
+/* -------------------------
+   Mode toggle
+   ------------------------- */
+const modeBtn = document.getElementById('modeToggle');
+modeBtn.addEventListener('click', ()=> {
+  document.documentElement.classList.toggle('dark');
+  const isDark = document.documentElement.classList.contains('dark');
+  modeBtn.textContent = isDark ? 'Light mode' : 'Dark mode';
+  modeBtn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+});
+
+/* -------------------------
+   model selection (single model auto-select)
+   ------------------------- */
+document.querySelectorAll('.model-card').forEach(el=>{
+  el.addEventListener('click', ()=>{
+    state.model = 'BoibyCalc';
+    el.classList.add('selected');
+    showStep(2);
+  });
+  el.addEventListener('keydown', (e)=>{
+    if(e.key==='Enter') {
+      state.model = 'BoibyCalc';
+      el.classList.add('selected');
+      showStep(2);
+    }
+  });
+});
+
+/* step buttons */
+document.querySelectorAll('.step-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=> showStep(Number(btn.dataset.step)));
+});
+
+/* -------------------------
+   Color selection
+   ------------------------- */
+document.querySelectorAll('.colour-tile').forEach(tile=>{
+  tile.addEventListener('click', ()=>{
+    document.querySelectorAll('.colour-tile').forEach(t=>t.classList.remove('selected'));
+    tile.classList.add('selected');
+    state.color = tile.dataset.col;
+    
+    // Update color images
+    updateColorImages();
+    showStep(3);
+  });
+  tile.addEventListener('keydown',(e)=>{ 
+    if(e.key==='Enter') {
+      tile.click();
+    }
+  });
+});
+
+function updateColorImages() {
+  document.querySelectorAll('.colour-tile').forEach(tile => {
+    const colorName = tile.dataset.col;
+    const imagePath = `/images/boibycalc_${colorName.toLowerCase()}.jpg`;
+    const img = tile.querySelector('.colour-image');
+    img.src = imagePath;
+    img.alt = `BoibyCalc — ${colorName}`;
+  });
+}
+
+/* -------------------------
+   Connectivity selection
+   ------------------------- */
+document.querySelectorAll('.connectivity-card').forEach(card=>{
+  card.addEventListener('click', ()=>{
+    document.querySelectorAll('.connectivity-card').forEach(c=>c.classList.remove('selected'));
+    card.classList.add('selected');
+    state.connectivity = card.dataset.connectivity;
+    
+    calculatePrice();
+    populateCapacities(); // Update capacity prices with new cn
+    showStep(4);
+  });
+  card.addEventListener('keydown',(e)=>{ 
+    if(e.key==='Enter') {
+      card.click();
+    }
+  });
+});
+
+/* -------------------------
+   Capacity options
+   ------------------------- */
+const capacityGrid = document.getElementById('capacityGrid');
+
+function populateCapacities(){
+  capacityGrid.innerHTML = '';
+  
+  const capacities = [
+    { size: '16GB', value: '16' },
+    { size: '64GB', value: '64' },
+    { size: '128GB', value: '128' }
+  ];
+  
+  capacities.forEach(cap => {
+    // Calculate base price based on connectivity selection
+    let basePrice = PRICES.base;
+    if (state.connectivity === '5g') {
+      basePrice = 499; // 5G price is $499 (as shown in HTML)
+    }
+    
+    // Add capacity price
+    const totalPrice = basePrice + PRICES.capacity[cap.value];
+    
+    const card = document.createElement('div');
+    card.className = 'capacity-card';
+    card.dataset.cap = cap.value;
+    card.tabIndex = 0;
+    
+    card.innerHTML = `
+      <div class="size">${cap.size}</div>
+      <div class="price">A$${totalPrice}</div>
+    `;
+    
+    card.addEventListener('click', () => {
+      selectCapacity(cap.value);
+    });
+    
+    card.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter') {
+        selectCapacity(cap.value);
+      }
+    });
+    
+    capacityGrid.appendChild(card);
+  });
+}
+
+function selectCapacity(cap){
+  document.querySelectorAll('.capacity-card').forEach(c=>c.classList.remove('selected'));
+  const selectedCard = document.querySelector(`[data-cap="${cap}"]`);
+  if (selectedCard) selectedCard.classList.add('selected');
+  
+  state.capacity = cap;
+  calculatePrice();
+  
+  // Update case options with new prices
+  populateCases();
+  showStep(5);
+}
+
+/* -------------------------
+   Case options
+   ------------------------- */
+const caseGrid = document.getElementById('caseGrid');
+
+function populateCases(){
+  caseGrid.innerHTML = '';
+  
+  const cases = [
+    { name: 'No Case', value: 'none' },
+    { name: 'Color-matched Hard Case', value: 'matched' }
+  ];
+  
+  cases.forEach(caseOption => {
+    // Calculate current price without case
+    let currentPrice = PRICES.base;
+    
+    // Add connectivity price
+    if (state.connectivity === '5g') {
+      currentPrice = 499; // 5G price
+    }
+    
+    // Add capacity price if selected
+    if (state.capacity) {
+      currentPrice += PRICES.capacity[state.capacity];
+    }
+    
+    // Add case price
+    const totalPrice = currentPrice + PRICES.case[caseOption.value];
+    
+    const card = document.createElement('div');
+    card.className = 'case-card';
+    card.dataset.case = caseOption.value;
+    card.tabIndex = 0;
+    
+    card.innerHTML = `
+      <div class="title">${caseOption.name}</div>
+      <div class="desc">A$${totalPrice}</div>
+    `;
+    
+    card.addEventListener('click', () => {
+      selectCase(caseOption.value);
+    });
+    
+    card.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter') {
+        selectCase(caseOption.value);
+      }
+    });
+    
+    caseGrid.appendChild(card);
+  });
+}
+
+function selectCase(caseOption){
+  document.querySelectorAll('.case-card').forEach(c=>c.classList.remove('selected'));
+  const selectedCard = document.querySelector(`[data-case="${caseOption}"]`);
+  if (selectedCard) selectedCard.classList.add('selected');
+  
+  state.case = caseOption;
+  calculatePrice();
+  updateSummary();
+  showStep(6);
+}
+
+/* -------------------------
+   Price calculation functions
+   ------------------------- */
+function calculatePrice() {
+  // Start with base price
+  let total = PRICES.base;
+  
+  // Add connectivity price if selected
+  if (state.connectivity === '5g') {
+    total = 499; // Set to 5G price ($499)
+  }
+  
+  // Add capacity price if selected
+  if (state.capacity) {
+    total += PRICES.capacity[state.capacity];
+  }
+  
+  // Add case price if selected
+  if (state.case) {
+    total += PRICES.case[state.case];
+  }
+  
+  state.price = total;
+  return total;
+}
+
+/* -------------------------
+   Update summary
+   ------------------------- */
+function updateSummary(){
+  // Calculate individual component prices for display
+  const connectivityPrice = state.connectivity === '5g' ? 100 : 0;
+  const capacityPrice = state.capacity ? PRICES.capacity[state.capacity] : 0;
+  const casePrice = state.case ? PRICES.case[state.case] : 0;
+  
+  // Update base price display
+  document.getElementById('configBasePrice').textContent = `A$${PRICES.base}`;
+  
+  // Update configuration display
+  document.getElementById('configColor').innerHTML = `
+    <span>Finish</span>
+    <span>${state.color || '—'}</span>
+  `;
+  
+  document.getElementById('configConnectivity').innerHTML = `
+    <span>Connectivity</span>
+    <span>${state.connectivity === '5g' ? '5G & WiFi' : state.connectivity === 'wifi' ? 'WiFi' : '—'}${connectivityPrice ? ` (+A$${connectivityPrice})` : ''}</span>
+  `;
+  
+  document.getElementById('configCapacity').innerHTML = `
+    <span>Capacity</span>
+    <span>${state.capacity ? state.capacity + 'GB' : '—'}${capacityPrice ? ` (+A$${capacityPrice})` : ''}</span>
+  `;
+  
+  document.getElementById('configCase').innerHTML = `
+    <span>Case</span>
+    <span>${state.case === 'matched' ? 'Color-matched Case' : state.case === 'none' ? 'No Case' : '—'}${casePrice ? ` (+A$${casePrice})` : ''}</span>
+  `;
+  
+  // Update final price
+  document.getElementById('finalPrice').textContent = `A$${state.price}`;
+  
+  // Update breadcrumb
+  const bread = [];
+  if(state.color) {
+    bread.push(state.color === 'Black' ? 'Epstein Black' : 'Einstein White');
+  }
+  if(state.connectivity) bread.push(state.connectivity === '5g' ? '5G' : 'WiFi');
+  if(state.capacity) bread.push(`${state.capacity}GB`);
+  if(state.case && state.case !== 'none') bread.push('Case');
+  
+  document.getElementById('summaryBreadcrumb').textContent = bread.join(' • ');
+}
+
+/* Add to cart button */
+document.getElementById('addBag').addEventListener('click', ()=>{
+  // Format color name for display
+  const colorDisplay = state.color === 'Black' ? 'Epstein Black' : 
+                       state.color === 'White' ? 'Einstein White' : '';
+  
+  alert(`Added to cart:\nBoibyCalc${colorDisplay ? ', ' + colorDisplay : ''}${state.connectivity ? ', ' + (state.connectivity === '5g' ? '5G & WiFi' : 'WiFi') : ''}${state.capacity ? ' • ' + state.capacity + 'GB' : ''}${state.case && state.case !== 'none' ? ', Color-matched Case' : ''}\nTotal: A$${state.price}`);
+});
+
+/* -------------------------
+   Initial setup
+   ------------------------- */
+(function init(){
+  // Initialize price calculation
+  calculatePrice();
+  
+  // Populate capacity and case options initially
+  populateCapacities();
+  populateCases();
+  
+  // Set up step navigation
+  steps.forEach(btn=>{
+    btn.addEventListener('click', ()=> {
+      // Only allow navigation to steps that make sense
+      const step = Number(btn.dataset.step);
+      if (step === 1 || 
+          (step === 2 && state.model) ||
+          (step === 3 && state.color) ||
+          (step === 4 && state.connectivity) ||
+          (step === 5 && state.capacity) ||
+          (step === 6 && state.case)) {
+        showStep(step);
+      }
+    });
+  });
+  
+  // Initialize summary
+  updateSummary();
+})();
+</script>
+</body>
+</html>
