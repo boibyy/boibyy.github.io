@@ -267,7 +267,7 @@ function openModel(idx){
     });
   }
 
-  unction updatePrice(){
+  function updatePrice(){
   const capIdx = Array.from(capContainer.children).findIndex(c=>c.classList.contains('selected'));
   const colIdx = Array.from(colContainer.children).findIndex(c=>c.classList.contains('selected'));
   if(capIdx < 0 || colIdx < 0) return;
@@ -340,5 +340,6 @@ observer.observe(document.getElementById('subpage'), { attributes: true, attribu
 </script>
 </body>
 </html>
+
 
 
