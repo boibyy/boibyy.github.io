@@ -554,7 +554,7 @@
           </tr>
           <tr>
             <td>Storage</td>
-            <td>16GB UFS 2.2, 64 GB or 128 GB UFS 3.1</td>
+            <td>32GB UFS 2.2 or 128 GB UFS 3.1</td>
           </tr>
           <tr>
             <td>Display</td>
@@ -629,9 +629,8 @@ const PRICES = {
     '5g': 100               // Additional $100 for 5G (399 + 100 = 499)
   },
   capacity: {
-    '16': 0,                // Base storage (no extra charge)
-    '64': 50,               // Additional $70 for 64GB
-    '128': 100                // Additional $70 for 64GB
+    '32': 0,                // Base storage (no extra charge)
+    '128': 70
   },
   case: {
     'none': 0,              // No case
@@ -751,9 +750,8 @@ function populateCapacities(){
   capacityGrid.innerHTML = '';
   
   const capacities = [
-    { size: '16GB', value: '16' },
-    { size: '64GB', value: '64' },
-    { size: '128GB', value: '128' }
+    { size: '32GB', value: '32' },
+    { size: '128GB', value: '128' },
   ];
   
   capacities.forEach(cap => {
