@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>BoibyPhone 23 — Configurator</title>
+
+<!-- Poppins -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg: #fff;
+    --muted: #6b6b6b;
+    --text: #0a0a0a;
+    --accent: #007aff;
+    --card-bg: #fff;
+    --edge: #e6e6e6;
+  }
+  .dark {
+    --bg: #0b0b0b;
+    --muted: #b8b8b8;
+    --text: #f6f6f6;
+    --accent: #4aa3ff;
+    --card-bg: #111216;
+    --edge: #222428;
+  }
+
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+    background:var(--bg);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    transition:background .25s,color .25s;
+  }
+
+  header{
+    height:72px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 36px;
+    border-bottom:1px solid var(--edge);
+  }
+  header .brand{
+    font-weight:600;
+    letter-spacing:.2px;
+    font-size:20px;
+  }
+  header .controls{
+    display:flex;
+    gap:12px;
+    align-items:center;
+  }
+  .mode-toggle{
+    border:1px solid var(--edge);
+    background:transparent;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    color:var(--text);
+    font-weight:500;
+  }
+
+  /* container */
+  .wrap{
+    max-width:1180px;
+    margin:36px auto;
+    padding:0 24px 80px;
+  }
+
+  /* breadcrumb / tabs */
+  .steps{
+    display:flex;
+    gap:18px;
+    justify-content:center;
+    margin-top:8px;
+    margin-bottom:28px;
+    font-size:14px;
+    color:var(--muted);
+  }
+  .steps button{
+    background:none;
+    border:none;
+    padding:8px 6px;
+    cursor:pointer;
+    color:inherit;
+    font-weight:500;
+    position:relative;
+  }
+  .steps button.active{
+    color:var(--text);
+  }
+  .steps button.active::after{
+    content:'';
+    height:2px;
+    width:100%;
+    background:var(--text);
+    position:absolute;
+    left:0;
+    bottom:-12px;
+    border-radius:2px;
+  }
+
+  /* slide area */
+  .stage{
+    position:relative;
+    min-height:420px;
+    overflow:visible;
+  }
+  .slide{
+    position:absolute;
+    left:0;right:0;top:0;
+    opacity:0;
+    pointer-events:none;
+    transform:translateY(6px);
+    transition:opacity .45s ease, transform .45s ease;
+    will-change: opacity, transform;
+  }
+  .slide.current{
+    opacity:1;
+    pointer-events:auto;
+    transform:translateY(0);
+    position:relative;
+  }
+
+  h1{
+    font-size:44px;
+    font-weight:600;
+    margin:18px 0 6px;
+    text-align:center;
+  }
+  .lead{
+    text-align:center;
+    color:var(--muted);
+    margin-bottom:28px;
+    font-size:15px;
+  }
+
+  /* option cards */
+  .option-row{
+    display:flex;
+    gap:40px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:26px;
+  }
+  .model-card{
+    width:320px;
+    background:var(--card-bg);
+    border:1px solid var(--edge);
+    border-radius:12px;
+    padding:26px;
+    text-align:left;
+    cursor:pointer;
+    transition:border-color .18s;
+  }
+  .model-card.selected{ border-color:var(--accent); }
+  .model-card .title{ font-size:20px; font-weight:600; margin-bottom:4px; }
+  .model-card .sub{ color:var(--muted); font-size:14px; margin-bottom:12px; }
+  .model-card .price{ font-weight:700; font-size:20px; color:var(--text); }
+
+  /* colour tiles (Apple-style) */
+  .colour-grid{
+    display:flex;
+    gap:26px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:28px;
+  }
+  .colour-tile{
+    width:180px;
+    background:transparent;
+    border-radius:14px;
+    border:1px solid var(--edge);
+    padding:14px;
+    text-align:center;
+    cursor:pointer;
+    transition:border-color .16s;
+  }
+  .colour-tile.selected{ border-color:var(--accent); }
+  .colour-tile img{
+    width:100%;
+    height:170px;
+    object-fit:cover;
+    border-radius:10px;
+    display:block;
+    margin-bottom:10px;
+    background:#f6f6f6;
+  }
+  .colour-tile .label{ font-weight:600; margin-bottom:4px; }
+  .colour-tile .device{ color:var(--muted); font-size:13px; }
+
+  /* capacity cards */
+  .capacity-grid{
+    display:flex;
+    gap:22px;
+    justify-content:center;
+    margin-top:26px;
+    flex-wrap:wrap;
+  }
+  .capacity-card{
+    width:220px;
+    background:var(--card-bg);
+    border-radius:8px;
+    border:1px solid var(--edge);
+    padding:18px;
+    text-align:center;
+    cursor:pointer;
+    transition:border-color .14s;
+  }
+  .capacity-card.selected{ border-color:var(--accent); }
+  .capacity-card .size{ font-size:36px; font-weight:600; letter-spacing:-1px; }
+  .capacity-card .price{ color:var(--muted); margin-top:8px; font-size:14px; }
+
+  /* summary */
+  .summary-wrap{
+    text-align:center;
+    margin-top:18px;
+  }
+  .summary-price{ font-size:36px; font-weight:700; margin-top:6px; }
+  .cta{
+    margin-top:18px;
+    display:inline-block;
+    background:var(--accent);
+    color:#fff;
+    padding:12px 36px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:600;
+    border:none;
+    cursor:pointer;
+  }
+
+  /* small responsive */
+  @media (max-width:880px){
+    .model-card{ width:100%; max-width:540px; }
+    .colour-tile{ width:44%; }
+    .capacity-card{ width:45%; }
+  }
+  @media (max-width:520px){
+    .colour-tile{ width:100%; }
+    .capacity-card{ width:100%; }
+    h1{ font-size:28px; }
+  }
+
+  /* tiny helper */
+  .muted{ color:var(--muted); font-size:13px; display:block; margin-top:8px; }
+  .spacer{ height:24px }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">BoibyPhone 23</div>
+  <div class="controls">
+    <div class="muted" style="font-size:13px;margin-right:8px">Starting at A$1349</div>
+    <button id="modeToggle" class="mode-toggle" aria-pressed="false">Dark mode</button>
+  </div>
+</header>
+
+<main class="wrap" id="app">
+
+  <!-- step tabs / breadcrumb -->
+  <nav class="steps" aria-label="Configurator steps">
+    <button class="step-btn active" data-step="1">Model</button>
+    <button class="step-btn" data-step="2">SIM</button>
+    <button class="step-btn" data-step="3">Finish</button>
+    <button class="step-btn" data-step="4">Capacity</button>
+    <button class="step-btn" data-step="5">Summary</button>
+  </nav>
+
+  <section class="stage" aria-live="polite">
+    <!-- SLIDE 1: Model -->
+    <div id="slide-1" class="slide current">
+      <h1>Choose a BoibyPhone model.</h1>
+      <p class="lead">Pick the size that fits you.</p>
+
+      <div class="option-row" role="list">
+        <div class="model-card" data-model="23" role="listitem" tabindex="0">
+          <div class="title">BoibyPhone 23</div>
+          <div class="sub">6.3-inch display</div>
+          <div class="price">From A$1349</div>
+        </div>
+
+        <div class="model-card" data-model="23 Max" role="listitem" tabindex="0">
+          <div class="title">BoibyPhone 23 Max</div>
+          <div class="sub">6.8-inch display</div>
+          <div class="price">From A$1599</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: SIM -->
+    <div id="slide-2" class="slide" aria-hidden="true">
+      <h1>Select your SIM preference.</h1>
+      <p class="lead">You can choose a physical SIM & eSIM, or eSIM only.</p>
+
+      <div class="option-row" style="max-width:720px;margin:22px auto 0;">
+        <div class="model-card sim-opt" data-sim="physical">
+          <div class="title">Physical SIM & eSIM</div>
+          <div class="sub">Unlocked. Connect with any carrier later.</div>
+        </div>
+
+        <div class="model-card sim-opt" data-sim="esim">
+          <div class="title">eSIM only</div>
+          <div class="sub">Unlocked. Connect with any carrier later.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: Finish / Colour -->
+    <div id="slide-3" class="slide" aria-hidden="true">
+      <h1>Choose your finish.</h1>
+
+      <div class="colour-grid" role="list">
+        <div class="colour-tile" data-col="Silver" tabindex="0">
+          <img src="" alt="BoibyPhone — Silver" class="colour-image" />
+          <div class="label">Silver</div>
+          <div class="device">BoibyPhone</div>
+        </div>
+
+        <div class="colour-tile" data-col="Blue" tabindex="0">
+          <img src="" alt="BoibyPhone — Blue" class="colour-image" />
+          <div class="label">Blue</div>
+          <div class="device">BoibyPhone</div>
+        </div>
+
+        <div class="colour-tile" data-col="Gold" tabindex="0">
+          <img src="" alt="BoibyPhone — Gold" class="colour-image" />
+          <div class="label">Gold</div>
+          <div class="device">BoibyPhone</div>
+        </div>
+
+        <div class="colour-tile" data-col="Black" tabindex="0">
+          <img src="" alt="BoibyPhone — Black" class="colour-image" />
+          <div class="label">Black</div>
+          <div class="device">BoibyPhone</div>
+        </div>
+
+        <div class="colour-tile" data-col="Jet Black" tabindex="0">
+          <img src="" alt="BoibyPhone — Jet Black" class="colour-image" />
+          <div class="label">Jet Black</div>
+          <div class="device">BoibyPhone</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Capacity -->
+    <div id="slide-4" class="slide" aria-hidden="true">
+      <h1>Now choose your capacity.</h1>
+      <p class="lead">Choose the amount of storage you will need.</p>
+
+      <div class="capacity-grid" role="list" id="capacityGrid">
+        <!-- Will be populated by JS -->
+      </div>
+    </div>
+
+    <!-- SLIDE 5: Summary -->
+    <div id="slide-5" class="slide" aria-hidden="true">
+      <h1 id="summaryTitle">Here's your new BoibyPhone.</h1>
+      <p class="lead summary-sub" id="summaryBreadcrumb">—</p>
+
+      <div class="summary-wrap">
+        <div class="summary-price" id="finalPrice">A$0</div>
+        <div class="muted" id="finalLock">Unlocked</div>
+
+        <div style="margin-top:18px">
+          <button class="cta" id="addBag">Add to Bag</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<script>
+/* -------------------------
+   Data and initial state
+   ------------------------- */
+const state = {
+  model: null,         // '23' or '23 Max'
+  sim: null,     // 'physical' or 'esim'
+  color: null,         // 'Blue', 'Jet Black', etc
+  capacity: null,      // 256 / 512 / 1024
+  price: 0
+};
+
+const PRICES = {
+  "23":  {256:1349, 512:1499, 1024:1649},
+  "23 Max": {256:1599, 512:1749, 1024:1899}
+};
+
+/* -------------------------
+   Helpers: show slide
+   ------------------------- */
+const steps = Array.from(document.querySelectorAll('.step-btn'));
+function showStep(n){
+  // slides numbered 1..5
+  for(let i=1;i<=5;i++){
+    const s = document.getElementById('slide-'+i);
+    if(i===n){
+      s.classList.add('current');
+      s.setAttribute('aria-hidden','false');
+    } else {
+      s.classList.remove('current');
+      s.setAttribute('aria-hidden','true');
+    }
+  }
+  steps.forEach(btn=>btn.classList.toggle('active', Number(btn.dataset.step)===n));
+}
+
+/* -------------------------
+   Mode toggle
+   ------------------------- */
+const modeBtn = document.getElementById('modeToggle');
+modeBtn.addEventListener('click', ()=> {
+  document.documentElement.classList.toggle('dark');
+  const isDark = document.documentElement.classList.contains('dark');
+  modeBtn.textContent = isDark ? 'Light mode' : 'Dark mode';
+  modeBtn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+});
+
+/* -------------------------
+   Model selection
+   ------------------------- */
+document.querySelectorAll('.model-card').forEach(el=>{
+  el.addEventListener('click', ()=>{
+    if (el.classList.contains('sim-opt')) return;
+    selectModel(el.dataset.model);
+    showStep(2);
+  });
+  el.addEventListener('keydown', (e)=>{
+    if(e.key==='Enter' && !el.classList.contains('sim-opt')) {
+      selectModel(el.dataset.model);
+      showStep(2);
+    }
+  });
+});
+
+function selectModel(m){
+  state.model = m;
+  // visual selection
+  document.querySelectorAll('.model-card').forEach(c=>{
+    if (!c.classList.contains('sim-opt')) {
+      c.classList.toggle('selected', c.dataset.model === m);
+    }
+  });
+
+  // Reset selections that depend on model
+  state.color = null;
+  state.capacity = null;
+  state.price = 0;
+  
+  // Update colour images for the selected model
+  updateColourImages();
+}
+
+/* step buttons */
+document.querySelectorAll('.step-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=> showStep(Number(btn.dataset.step)));
+});
+
+/* -------------------------
+   SIM options
+   ------------------------- */
+document.querySelectorAll('.sim-opt').forEach(opt=>{
+  opt.addEventListener('click', ()=>{
+    document.querySelectorAll('.sim-opt').forEach(o=>o.classList.remove('selected'));
+    opt.classList.add('selected');
+    state.sim = opt.dataset.sim;
+    showStep(3);
+  });
+});
+
+/* -------------------------
+   Finish (colour) tiles
+   ------------------------- */
+function updateColourImages() {
+  const colourTiles = document.querySelectorAll('.colour-tile');
+  colourTiles.forEach(tile => {
+    const colorName = tile.dataset.col.replace(/\s+/g, '');
+    const modelSuffix = state.model === '23 Max' ? 'Max' : '23';
+    const imagePath = `/images/${modelSuffix}_${colorName}.jpg`;
+    const img = tile.querySelector('.colour-image');
+    img.src = imagePath;
+    img.alt = `BoibyPhone ${state.model} — ${tile.dataset.col}`;
+    tile.querySelector('.device').textContent = `BoibyPhone ${state.model}`;
+  });
+}
+
+/* attach click handlers for colour tiles */
+document.querySelectorAll('.colour-tile').forEach(tile=>{
+  tile.addEventListener('click', ()=>{
+    // mark selected
+    document.querySelectorAll('.colour-tile').forEach(t=>t.classList.remove('selected'));
+    tile.classList.add('selected');
+
+    // set state color
+    state.color = tile.dataset.col;
+
+    // Populate capacities and go to next step
+    populateCapacities();
+    showStep(4);
+  });
+  tile.addEventListener('keydown',(e)=>{ 
+    if(e.key==='Enter') {
+      tile.click();
+    }
+  });
+});
+
+/* -------------------------
+   Capacity options
+   ------------------------- */
+const capacityGrid = document.getElementById('capacityGrid');
+
+function populateCapacities(){
+  capacityGrid.innerHTML = '';
+  if(!state.model || !state.color) return;
+  
+  const opts = [256, 512, 1024];
+  const filteredOpts = state.color === 'Jet Black' ? opts.filter(cap => cap !== 256) : opts;
+  
+  filteredOpts.forEach(cap => {
+    const price = PRICES[state.model][cap];
+    const card = document.createElement('div');
+    card.className = 'capacity-card';
+    card.dataset.cap = cap;
+    card.innerHTML = `<div class="size">${cap}GB</div><div class="price">A$${price.toLocaleString()}</div>`;
+    
+    card.addEventListener('click', () => {
+      selectCapacity(cap);
+      showStep(5);
+    });
+    
+    capacityGrid.appendChild(card);
+  });
+}
+
+function selectCapacity(cap){
+  // remove selected classes
+  document.querySelectorAll('.capacity-card').forEach(c=>c.classList.remove('selected'));
+  state.capacity = cap;
+  state.price = PRICES[state.model][cap];
+  
+  // Update summary immediately
+  updateSummary();
+}
+
+/* update summary */
+function updateSummary(){
+  // Update the title with model name
+  const summaryTitle = document.getElementById('summaryTitle');
+  summaryTitle.textContent = `Here's your new BoibyPhone ${state.model}.`;
+  
+  // Update the breadcrumb line
+  const bread = [];
+  if(state.capacity) bread.push(`${state.capacity}GB`);
+  if(state.sim) bread.push(state.sim === 'esim' ? 'eSIM' : 'Physical SIM');
+  if(state.color) bread.push(state.color);
+  document.getElementById('summaryBreadcrumb').textContent = bread.join(', ');
+
+  const priceEl = document.getElementById('finalPrice');
+  priceEl.textContent = `A$${state.price.toLocaleString()}`;
+}
+
+/* Add to bag button - simple demo behaviour */
+document.getElementById('addBag').addEventListener('click', ()=>{
+  alert(`Added to bag:\n${state.model || '—'} · ${state.color || '—'} · ${state.capacity || '—'}GB\nA$${state.price || 0}`);
+});
+
+/* -------------------------
+   Initial setup
+   ------------------------- */
+(function init(){
+  
+  // step buttons clickable
+  steps.forEach(btn=>{
+    btn.addEventListener('click', ()=> showStep(Number(btn.dataset.step)));
+  });
+})();
+</script>
+</body>
+</html>
