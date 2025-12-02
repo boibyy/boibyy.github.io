@@ -44,6 +44,29 @@ header h1{
 
 main{padding:28px var(--page-pad); max-width:1200px; margin:0 auto;}
 
+.filter-container {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-container label {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.filter-select {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 2px solid rgba(15,23,42,0.1);
+  background: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  min-width: 180px;
+}
+
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -123,9 +146,25 @@ main{padding:28px var(--page-pad); max-width:1200px; margin:0 auto;}
   transform:none;
 }
 
+.spec-section {
+  font-weight:500;
+  font-size: 20px;
+  margin-top: 12px;
+}
+
+.spec-item {
+  font-weight:500;
+  font-size: 15px;
+  margin-left: 8px;
+}
+
 @media (max-width:880px){
   .model-top{ flex-direction:column; }
   .model-art{ width:100%; max-width:100%; }
+  .filter-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 </style>
 </head>
@@ -136,6 +175,18 @@ main{padding:28px var(--page-pad); max-width:1200px; margin:0 auto;}
 </header>
 
 <main>
+  <!-- Filter Dropdown -->
+  <div class="filter-container">
+    <label for="modelFilter">Sort Models:</label>
+    <select id="modelFilter" class="filter-select">
+      <option value="default">Default (Current & Legacy)</option>
+      <option value="lowest">Lowest Price First</option>
+      <option value="highest">Highest Price First</option>
+      <option value="oldest">Oldest First</option>
+      <option value="newest">Newest First</option>
+    </select>
+  </div>
+
   <h2 style="margin-bottom:16px; font-weight:600;">Current Models</h2>
   <div id="grid" class="grid"></div>
 
@@ -148,48 +199,798 @@ main{padding:28px var(--page-pad); max-width:1200px; margin:0 auto;}
 </main>
 
 <script>
+// Product data with release dates (month/year format)
 const PRODUCTS = [
   // Current Models
-  { name:"iPhone 12", variants:[{cap:"128GB",price:349},{cap:"256GB",price:429}], colors:[{name:"White",extra:0},{name:"Black",extra:0},{name:"PRODUCT(RED)",extra:10},{name:"Blue",extra:0},{name:"Green",extra:0},{name:"Purple",extra:10}] },
-  { name:"iPhone 12 Pro", variants:[{cap:"128GB",price:459},{cap:"256GB",price:529},{cap:"512GB",price:629}], colors:[{name:"Graphite",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Pacific Blue",extra:0}] },
-  { name:"iPhone 12 Pro Max", variants:[{cap:"128GB",price:529},{cap:"256GB",price:609},{cap:"512GB",price:709}], colors:[{name:"Graphite",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Pacific Blue",extra:0}] },
-  { name:"iPhone SE 3",variants:[{cap:"128GB", price:269},{cap:"256GB", price:389}],    colors:[{name:"Midnight",extra:0},{name:"Starlight",extra:0},{name:"PRODUCT(RED)",extra:0}]},
-  { name:"iPhone 13 mini", variants:[{cap:"128GB",price:419},{cap:"256GB",price:489},{cap:"512GB",price:579}], colors:[{name:"Starlight",extra:0},{name:"Midnight",extra:0},{name:"PRODUCT(RED)",extra:20},{name:"Blue",extra:0},{name:"Pink",extra:0},{name:"Green",extra:20}] },
-  { name:"iPhone 13", variants:[{cap:"128GB",price:469},{cap:"256GB",price:529},{cap:"512GB",price:619}], colors:[{name:"Starlight",extra:0},{name:"Midnight",extra:0},{name:"PRODUCT(RED)",extra:20},{name:"Blue",extra:0},{name:"Pink",extra:0},{name:"Green",extra:20}] },
-  { name:"iPhone 13 Pro", variants:[{cap:"128GB",price:579},{cap:"256GB",price:649},{cap:"512GB",price:729},{cap:"1TB",price:849}], colors:[{name:"Graphite",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Sierra Blue",extra:0},{name:"Alpine Green",extra:20}] },
-  { name:"iPhone 13 Pro Max", variants:[{cap:"128GB",price:629},{cap:"256GB",price:699},{cap:"512GB",price:779},{cap:"1TB",price:899}], colors:[{name:"Graphite",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Sierra Blue",extra:0},{name:"Alpine Green",extra:20}] },
-  { name:"iPhone 14 Pro", variants:[{cap:"128GB",price:669},{cap:"256GB",price:759},{cap:"512GB",price:859},{cap:"1TB",price:979}], colors:[{name:"Space Black",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:20},{name:"Deep Purple",extra:20}] },
-  { name:"iPhone 14 Pro Max", variants:[{cap:"128GB",price:759},{cap:"256GB",price:839},{cap:"512GB",price:949},{cap:"1TB",price:1059}], colors:[{name:"Space Black",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:10},{name:"Deep Purple",extra:10}] },
-  { name:"iPhone 15", variants:[{cap:"128GB",price:689},{cap:"256GB",price:799},{cap:"512GB",price:null}], colors:[{name:"Black",extra:0},{name:"Blue",extra:0},{name:"Green",extra:0},{name:"Pink",extra:0},{name:"Yellow",extra:0}] },
-  { name:"iPhone 15 Plus", variants:[{cap:"128GB",price:779},{cap:"256GB",price:929},{cap:"512GB",price:1059}], colors:[{name:"Black",extra:0},{name:"Blue",extra:0},{name:"Green",extra:0},{name:"Pink",extra:0},{name:"Yellow",extra:0}] },
-  { name:"iPhone 15 Pro", variants:[{cap:"128GB",price:899},{cap:"256GB",price:999},{cap:"512GB",price:1169},{cap:"1TB",price:1359}], colors:[{name:"Black Titanium",extra:0},{name:"White Titanium",extra:0},{name:"Natural Titanium",extra:10},{name:"Blue Titanium",extra:20}] },
-  { name:"iPhone 15 Pro Max", variants:[{cap:"256GB",price:1079},{cap:"512GB",price:1269},{cap:"1TB",price:1489}], colors:[{name:"Black Titanium",extra:0},{name:"White Titanium",extra:0},{name:"Natural Titanium",extra:10},{name:"Blue Titanium",extra:20}] },
-  { name:"iPhone 16", variants:[{cap:"128GB",price:929},{cap:"256GB",price:1039},{cap:"512GB",price:1259}], colors:[{name:"Black",extra:0},{name:"White",extra:0},{name:"Ultramarine",extra:0},{name:"Teal",extra:0},{name:"Pink",extra:0}] },
-  { name:"iPhone 16 Plus", variants:[{cap:"128GB",price:1049},{cap:"256GB",price:1159},{cap:"512GB",price:1329}], colors:[{name:"Black",extra:0},{name:"White",extra:0},{name:"Ultramarine",extra:0},{name:"Teal",extra:0},{name:"Pink",extra:0}] },
-  { name:"iPhone 16 Pro", variants:[{cap:"128GB",price:null},{cap:"256GB",price:1249},{cap:"512GB",price:1389},{cap:"1TB",price:1679}], colors:[{name:"Black Titanium",extra:0},{name:"White Titanium",extra:0},{name:"Natural Titanium",extra:0},{name:"Desert Titanium",extra:20}] },
-  { name:"iPhone 16 Pro Max", variants:[{cap:"256GB",price:1369},{cap:"512GB",price:1539},{cap:"1TB",price:1829}], colors:[{name:"Black Titanium",extra:0},{name:"White Titanium",extra:0},{name:"Natural Titanium",extra:0},{name:"Desert Titanium",extra:20}] },
-  { name:"iPhone 17", variants:[{cap:"256GB",price:1149},{cap:"512GB",price:1519}], colors:[{name:"Black",extra:0},{name:"White",extra:0},{name:"Mist Blue",extra:0},{name:"Sage",extra:0},{name:"Lavender",extra:0}] },
-  { name:"iPhone Air", variants:[{cap:"256GB",price:1549},{cap:"512GB",price:1879},{cap:"1TB",price:2169}], colors:[{name:"Sky Blue",extra:0},{name:"Cloud White",extra:0},{name:"Sky Blue",extra:0},{name:"Space Black",extra:0}] },
-  { name:"iPhone 17 Pro", variants:[{cap:"256GB",price:1699},{cap:"512GB",price:2099},{cap:"1TB",price:2499}], colors:[{name:"Silver",extra:0},{name:"Deep Blue",extra:0},{name:"Cosmic Orange",extra:0}] },
-  { name:"iPhone 17 Pro Max", variants:[{cap:"256GB",price:1899},{cap:"512GB",price:2299},{cap:"1TB",price:2699},{cap:"2TB",price:3399}], colors:[{name:"Silver",extra:0},{name:"Deep Blue",extra:0},{name:"Cosmic Orange",extra:0}] },
-{ name:"iPhone 7",           variants:[{cap:"32GB", price:99}, {cap:"128GB", price:129},{cap:"256GB", price:159}],    colors:[{name:"Black",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Jet Black",extra:10},{name:"PRODUCT(RED)",extra:10}], legacy:true },
-{ name:"iPhone 7 Plus",      variants:[{cap:"32GB", price:119},{cap:"128GB", price:149},{cap:"256GB", price:179}],    colors:[{name:"Black",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Jet Black",extra:10},{name:"PRODUCT(RED)",extra:10}], legacy:true },
-
-{ name:"iPhone 8",           variants:[{cap:"64GB", price:129},{cap:"128GB", price:159},{cap:"256GB", price:189}],    colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"PRODUCT(RED)",extra:0}], legacy:true },
-{ name:"iPhone 8 Plus",      variants:[{cap:"64GB", price:149},{cap:"128GB", price:179},{cap:"256GB", price:209}],    colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"PRODUCT(RED)",extra:0}], legacy:true },
-{ name:"iPhone X",           variants:[{cap:"64GB", price:219},{cap:"256GB", price:269}],                      colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0}],                        legacy:true },
-{ name:"iPhone XR",          variants:[{cap:"64GB", price:239},{cap:"128GB", price:249},{cap:"256GB", price:299}],   colors:[{name:"Black",extra:0},{name:"White",extra:0},{name:"Blue",extra:0},{name:"Coral",extra:0},{name:"Yellow",extra:0},{name:"PRODUCT(RED)",extra:0}], legacy:true },
-{ name:"iPhone XS",          variants:[{cap:"64GB", price:259},{cap:"256GB", price:319},{cap:"512GB", price:469}],   colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0}],                legacy:true },
-{ name:"iPhone XS Max",      variants:[{cap:"64GB", price:289},{cap:"256GB", price:349},{cap:"512GB", price:499}],   colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0}],                legacy:true },
-{ name:"iPhone SE 2",variants:[{cap:"64GB", price:179},{cap:"128GB", price:229},{cap:"256GB", price:299}],    colors:[{name:"Black",extra:0},{name:"White",extra:0},{name:"PRODUCT(RED)",extra:0}],                             legacy:true },
-  { name:"iPhone 11 Pro", variants:[{cap:"64GB",price:339},{cap:"256GB",price:389},{cap:"512GB",price:459}], colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Midnight Green",extra:0}], legacy:true },
-{ name:"iPhone 11 Pro Max", variants:[{cap:"64GB",price:399},{cap:"256GB",price:449},{cap:"512GB",price:519}], colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Midnight Green",extra:0}], legacy:true }
+  { name:"iPhone 12", variants:[{cap:"128GB",price:349},{cap:"256GB",price:429}], colors:[{name:"White",extra:0},{name:"Black",extra:0},{name:"PRODUCT(RED)",extra:10},{name:"Blue",extra:0},{name:"Green",extra:0},{name:"Purple",extra:10}], release: {month: 10, year: 2020} },
+  { name:"iPhone 12 Pro", variants:[{cap:"128GB",price:459},{cap:"256GB",price:529},{cap:"512GB",price:629}], colors:[{name:"Graphite",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Pacific Blue",extra:0}], release: {month: 10, year: 2020} },
+  { name:"iPhone 12 Pro Max", variants:[{cap:"128GB",price:529},{cap:"256GB",price:609},{cap:"512GB",price:709}], colors:[{name:"Graphite",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Pacific Blue",extra:0}], release: {month: 10, year: 2020} },
+  { name:"iPhone SE 3", variants:[{cap:"128GB", price:269},{cap:"256GB", price:389}], colors:[{name:"Midnight",extra:0},{name:"Starlight",extra:0},{name:"PRODUCT(RED)",extra:0}], release: {month: 5, year: 2022} },
+  { name:"iPhone 13 mini", variants:[{cap:"128GB",price:419},{cap:"256GB",price:489},{cap:"512GB",price:579}], colors:[{name:"Starlight",extra:0},{name:"Midnight",extra:0},{name:"PRODUCT(RED)",extra:20},{name:"Blue",extra:0},{name:"Pink",extra:0},{name:"Green",extra:20}], release: {month: 9, year: 2021} },
+  { name:"iPhone 13", variants:[{cap:"128GB",price:469},{cap:"256GB",price:529},{cap:"512GB",price:619}], colors:[{name:"Starlight",extra:0},{name:"Midnight",extra:0},{name:"PRODUCT(RED)",extra:20},{name:"Blue",extra:0},{name:"Pink",extra:0},{name:"Green",extra:20}], release: {month: 9, year: 2021} },
+  { name:"iPhone 13 Pro", variants:[{cap:"128GB",price:579},{cap:"256GB",price:649},{cap:"512GB",price:729},{cap:"1TB",price:849}], colors:[{name:"Graphite",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Sierra Blue",extra:0},{name:"Alpine Green",extra:20}], release: {month: 9, year: 2021} },
+  { name:"iPhone 13 Pro Max", variants:[{cap:"128GB",price:629},{cap:"256GB",price:699},{cap:"512GB",price:779},{cap:"1TB",price:899}], colors:[{name:"Graphite",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Sierra Blue",extra:0},{name:"Alpine Green",extra:20}], release: {month: 9, year: 2021} },
+  { name:"iPhone 14 Pro", variants:[{cap:"128GB",price:669},{cap:"256GB",price:759},{cap:"512GB",price:859},{cap:"1TB",price:979}], colors:[{name:"Space Black",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:20},{name:"Deep Purple",extra:20}], release: {month: 9, year: 2022} },
+  { name:"iPhone 14 Pro Max", variants:[{cap:"128GB",price:759},{cap:"256GB",price:839},{cap:"512GB",price:949},{cap:"1TB",price:1059}], colors:[{name:"Space Black",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:10},{name:"Deep Purple",extra:10}], release: {month: 9, year: 2022} },
+  { name:"iPhone 15", variants:[{cap:"128GB",price:689},{cap:"256GB",price:799},{cap:"512GB",price:null}], colors:[{name:"Black",extra:0},{name:"Blue",extra:0},{name:"Green",extra:0},{name:"Pink",extra:0},{name:"Yellow",extra:0}], release: {month: 9, year: 2023} },
+  { name:"iPhone 15 Plus", variants:[{cap:"128GB",price:779},{cap:"256GB",price:929},{cap:"512GB",price:1059}], colors:[{name:"Black",extra:0},{name:"Blue",extra:0},{name:"Green",extra:0},{name:"Pink",extra:0},{name:"Yellow",extra:0}], release: {month: 9, year: 2023} },
+  { name:"iPhone 15 Pro", variants:[{cap:"128GB",price:899},{cap:"256GB",price:999},{cap:"512GB",price:1169},{cap:"1TB",price:1359}], colors:[{name:"Black Titanium",extra:0},{name:"White Titanium",extra:0},{name:"Natural Titanium",extra:10},{name:"Blue Titanium",extra:20}], release: {month: 9, year: 2023} },
+  { name:"iPhone 15 Pro Max", variants:[{cap:"256GB",price:1079},{cap:"512GB",price:1269},{cap:"1TB",price:1489}], colors:[{name:"Black Titanium",extra:0},{name:"White Titanium",extra:0},{name:"Natural Titanium",extra:10},{name:"Blue Titanium",extra:20}], release: {month: 9, year: 2023} },
+  { name:"iPhone 16", variants:[{cap:"128GB",price:929},{cap:"256GB",price:1039},{cap:"512GB",price:1259}], colors:[{name:"Black",extra:0},{name:"White",extra:0},{name:"Ultramarine",extra:0},{name:"Teal",extra:0},{name:"Pink",extra:0}], release: {month: 9, year: 2024} },
+  { name:"iPhone 16 Plus", variants:[{cap:"128GB",price:1049},{cap:"256GB",price:1159},{cap:"512GB",price:1329}], colors:[{name:"Black",extra:0},{name:"White",extra:0},{name:"Ultramarine",extra:0},{name:"Teal",extra:0},{name:"Pink",extra:0}], release: {month: 9, year: 2024} },
+  { name:"iPhone 16 Pro", variants:[{cap:"128GB",price:null},{cap:"256GB",price:1249},{cap:"512GB",price:1389},{cap:"1TB",price:1679}], colors:[{name:"Black Titanium",extra:0},{name:"White Titanium",extra:0},{name:"Natural Titanium",extra:0},{name:"Desert Titanium",extra:20}], release: {month: 9, year: 2024} },
+  { name:"iPhone 16 Pro Max", variants:[{cap:"256GB",price:1369},{cap:"512GB",price:1539},{cap:"1TB",price:1829}], colors:[{name:"Black Titanium",extra:0},{name:"White Titanium",extra:0},{name:"Natural Titanium",extra:0},{name:"Desert Titanium",extra:20}], release: {month: 9, year: 2024} },
+  { name:"iPhone 17", variants:[{cap:"256GB",price:1149},{cap:"512GB",price:1519}], colors:[{name:"Black",extra:0},{name:"White",extra:0},{name:"Mist Blue",extra:0},{name:"Sage",extra:0},{name:"Lavender",extra:0}], release: {month: 9, year: 2025} },
+  { name:"iPhone Air", variants:[{cap:"256GB",price:1549},{cap:"512GB",price:1879},{cap:"1TB",price:2169}], colors:[{name:"Sky Blue",extra:0},{name:"Cloud White",extra:0},{name:"Sky Blue",extra:0},{name:"Space Black",extra:0}], release: {month: 9, year: 2025} },
+  { name:"iPhone 17 Pro", variants:[{cap:"256GB",price:1699},{cap:"512GB",price:2099},{cap:"1TB",price:2499}], colors:[{name:"Silver",extra:0},{name:"Deep Blue",extra:0},{name:"Cosmic Orange",extra:0}], release: {month: 9, year: 2025} },
+  { name:"iPhone 17 Pro Max", variants:[{cap:"256GB",price:1899},{cap:"512GB",price:2299},{cap:"1TB",price:2699},{cap:"2TB",price:3399}], colors:[{name:"Silver",extra:0},{name:"Deep Blue",extra:0},{name:"Cosmic Orange",extra:0}], release: {month: 9, year: 2025} },
+  
+  // Legacy Models
+  { name:"iPhone 7", variants:[{cap:"32GB", price:99}, {cap:"128GB", price:129},{cap:"256GB", price:159}], colors:[{name:"Black",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Jet Black",extra:10},{name:"PRODUCT(RED)",extra:10}], legacy:true, release: {month: 9, year: 2016} },
+  { name:"iPhone 7 Plus", variants:[{cap:"32GB", price:119},{cap:"128GB", price:149},{cap:"256GB", price:179}], colors:[{name:"Black",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Jet Black",extra:10},{name:"PRODUCT(RED)",extra:10}], legacy:true, release: {month: 9, year: 2016} },
+  { name:"iPhone 8", variants:[{cap:"64GB", price:129},{cap:"128GB", price:159},{cap:"256GB", price:189}], colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"PRODUCT(RED)",extra:0}], legacy:true, release: {month: 9, year: 2017} },
+  { name:"iPhone 8 Plus", variants:[{cap:"64GB", price:149},{cap:"128GB", price:179},{cap:"256GB", price:209}], colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"PRODUCT(RED)",extra:0}], legacy:true, release: {month: 9, year: 2017} },
+  { name:"iPhone X", variants:[{cap:"64GB", price:219},{cap:"256GB", price:269}], colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0}], legacy:true, release: {month: 11, year: 2017} },
+  { name:"iPhone XR", variants:[{cap:"64GB", price:239},{cap:"128GB", price:249},{cap:"256GB", price:299}], colors:[{name:"Black",extra:0},{name:"White",extra:0},{name:"Blue",extra:0},{name:"Coral",extra:0},{name:"Yellow",extra:0},{name:"PRODUCT(RED)",extra:0}], legacy:true, release: {month: 10, year: 2018} },
+  { name:"iPhone XS", variants:[{cap:"64GB", price:259},{cap:"256GB", price:319},{cap:"512GB", price:469}], colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0}], legacy:true, release: {month: 9, year: 2018} },
+  { name:"iPhone XS Max", variants:[{cap:"64GB", price:289},{cap:"256GB", price:349},{cap:"512GB", price:499}], colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0}], legacy:true, release: {month: 9, year: 2018} },
+  { name:"iPhone SE 2", variants:[{cap:"64GB", price:179},{cap:"128GB", price:229},{cap:"256GB", price:299}], colors:[{name:"Black",extra:0},{name:"White",extra:0},{name:"PRODUCT(RED)",extra:0}], legacy:true, release: {month: 5, year: 2020} },
+  { name:"iPhone 11 Pro", variants:[{cap:"64GB",price:339},{cap:"256GB",price:389},{cap:"512GB",price:459}], colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Midnight Green",extra:0}], legacy:true, release: {month: 9, year: 2019} },
+  { name:"iPhone 11 Pro Max", variants:[{cap:"64GB",price:399},{cap:"256GB",price:449},{cap:"512GB",price:519}], colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Midnight Green",extra:0}], legacy:true, release: {month: 9, year: 2019} }
 ];
+
+// Specifications data
+const SPECIFICATIONS = {
+  "iPhone SE 2": [
+    { section: "Performance", items: [
+      "Apple A13 Bionic chip",
+      "6-core CPU and 4-core GPU",
+      "3 GB of RAM",
+      "NOTE: 4G only (NO 5G)"
+    ]},
+    { section: "Display", items: [
+      "4.7-inch Retina display (LCD)",
+      "60Hz refresh rate",
+      "Home button",
+      "625 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Aluminium Frame",
+      "Curved sides",
+      "Glass back",
+      "Ringer/Silent Switch",
+      "Classic design"
+    ]},
+    { section: "Cameras", items: [
+      "Single rear camera system",
+      "12MP Wide camera",
+      "12MP Front Camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "1821 mAh battery",
+      "Lighting port (USB 2)",
+      "Wireless Qi charging"
+    ]}
+  ],
+  "iPhone 12": [
+    { section: "Performance", items: [
+      "Apple A14 Bionic chip",
+      "6-core CPU and 4-core GPU",
+      "4 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "6.1-inch Super Retina XDR display (OLED)",
+      "Notch (1st generation)",
+      "60Hz refresh rate",
+      "1200 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Aluminum frame",
+      "Flat sides",
+      "Glass back",
+      "Ringer/Silent Switch"
+    ]},
+    { section: "Cameras", items: [
+      "Dual rear camera system",
+      "12MP Wide camera",
+      "12MP Ultra Wide camera",
+      "0.5x, 1x zoom options",
+      "12MP Front Camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "2815 mAh battery",
+      "Lighting port",
+      "Wireless Qi charging with MagSafe"
+    ]}
+  ],
+  "iPhone 12 Pro": [
+    { section: "Performance", items: [
+      "Apple A14 Bionic chip",
+      "6-core CPU and 4-core GPU",
+      "6 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "6.1-inch Super Retina XDR display (OLED)",
+      "Notch (1st generation)",
+      "60Hz refresh rate",
+      "1200 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Stainless Steel frame",
+      "Flat sides",
+      "Textured matte glass back",
+      "Ringer/Silent Switch"
+    ]},
+    { section: "Cameras", items: [
+      "Triple rear camera system",
+      "12MP Wide camera",
+      "12MP Ultra Wide camera",
+      "12MP 2x Telephoto camera",
+      "0.5x, 1x, 2x zoom options",
+      "LiDAR scanner",
+      "12MP Front Camera",
+    ]},
+    { section: "Battery & Power", items: [
+      "2815 mAh battery",
+      "Lighting port (USB 2)",
+      "Wireless Qi charging with MagSafe"
+    ]}
+  ],
+  "iPhone 12 Pro Max": [
+    { section: "Performance", items: [
+      "Apple A14 Bionic chip",
+      "6-core CPU and 4-core GPU",
+      "6 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "6.7-inch Super Retina XDR display (OLED)",
+      "Notch (1st generation)",
+      "60Hz refresh rate",
+      "1200 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Stainless Steel frame",
+      "Flat sides",
+      "Textured matte glass back",
+      "Ringer/Silent Switch"
+    ]},
+    { section: "Cameras", items: [
+      "Triple rear camera system",
+      "12MP Wide camera",
+      "12MP Ultra Wide camera",
+      "12MP 2x Telephoto camera",
+      "0.5x, 1x, 2x zoom options",
+      "LiDAR scanner",
+      "12MP Front Camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "3687 mAh battery",
+      "Lighting port (USB 2)",
+      "Wireless Qi charging with MagSafe"
+    ]}
+    ],
+  "iPhone 13 mini": [
+    { section: "Performance", items: [
+      "Apple A15 Bionic chip",
+      "6-core CPU and 4-core GPU",
+      "4 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "5.4-inch Super Retina XDR display (OLED)",
+      "60Hz refresh rate",
+      "Notch (2nd generation)",
+      "1200 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Aluminium Frame",
+      "Flat sides",
+      "Glass back",
+      "Ringer/Silent Switch"
+    ]},
+    { section: "Cameras", items: [
+      "Dual rear camera system",
+      "12MP Wide camera",
+      "12MP Ultra Wide camera",
+      "0.5x, 1x zoom options",
+      "12MP Front Camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "2438 mAh battery",
+      "Lighting port (USB 2)",
+      "Wireless Qi charging with MagSafe"
+    ]}
+  ],
+"iPhone 13": [
+    { section: "Performance", items: [
+      "Apple A15 Bionic chip",
+      "6-core CPU and 4-core GPU",
+      "4 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "6.1-inch Super Retina XDR display (OLED)",
+      "60Hz refresh rate",
+      "Notch (2nd generation)",
+      "1200 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Aluminium Frame",
+      "Flat sides",
+      "Glass back",
+      "Ringer/Silent Switch"
+    ]},
+    { section: "Cameras", items: [
+      "Dual rear camera system",
+      "12MP Wide camera",
+      "12MP Ultra Wide camera",
+      "0.5x, 1x zoom options",
+      "12MP Front Camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "3240 mAh battery",
+      "Lighting port (USB 2)",
+      "Wireless Qi charging with MagSafe"
+    ]}
+  ],
+"iPhone 13 Pro": [
+    { section: "Performance", items: [
+      "Apple A15 Bionic chip",
+      "6-core CPU and 5-core GPU",
+      "6 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "6.1-inch Super Retina XDR display (OLED)",
+      "ProMotion 1-120Hz refresh rate",
+      "Notch (2nd generation)",
+      "1200 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Stainless Steel Frame",
+      "Flat sides",
+      "Textured matte Glass back",
+      "Ringer/Silent Switch"
+    ]},
+    { section: "Cameras", items: [
+      "Triple rear camera system",
+      "12MP Wide camera",
+      "12MP Ultra Wide camera",
+      "12MP 3x Telephoto camera",
+      "0.5x, 1x, 3x zoom options",
+      "LiDAR scanner",
+      "12MP Front Camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "3095 mAh battery",
+      "Lighting port (USB 2)",
+      "Wireless Qi charging with MagSafe"
+    ]}
+  ],
+  "iPhone 13 Pro Max": [
+    { section: "Performance", items: [
+      "Apple A15 Bionic chip",
+      "6-core CPU and 5-core GPU",
+      "6 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "6.7-inch Super Retina XDR display (OLED)",
+      "ProMotion 1-120Hz refresh rate",
+      "Notch (2nd generation)",
+      "1200 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Stainless Steel Frame",
+      "Flat sides",
+      "Textured matte Glass back",
+      "Ringer/Silent Switch"
+    ]},
+    { section: "Cameras", items: [
+      "Triple rear camera system",
+      "12MP Wide camera",
+      "12MP Ultra Wide camera",
+      "12MP 3x Telephoto camera",
+      "0.5x, 1x, 3x zoom options",
+      "LiDAR scanner",
+      "12MP Front Camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "4352 mAh battery",
+      "Lighting port (USB 2)",
+      "Wireless Qi charging with MagSafe"
+    ]}
+  ],
+  "iPhone SE 3": [
+    { section: "Performance", items: [
+      "Apple A15 Bionic chip",
+      "6-core CPU and 4-core GPU",
+      "4 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "4.7-inch Retina display (LCD)",
+      "60Hz refresh rate",
+      "Home button",
+      "625 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Aluminium Frame",
+      "Curved sides",
+      "Glass back",
+      "Ringer/Silent Switch",
+      "Classic design"
+    ]},
+    { section: "Cameras", items: [
+      "Single rear camera system",
+      "12MP Wide camera",
+      "12MP Front Camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "2018 mAh battery",
+      "Lighting port (USB 2)",
+      "Wireless Qi charging"
+    ]}
+  ],
+  "iPhone 14 Pro": [
+    { section: "Performance", items: [
+      "Apple A16 Bionic chip",
+      "6-core CPU and 5-core GPU",
+      "6 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "6.1-inch Super Retina XDR display (OLED)",
+      "ProMotion 1-120Hz refresh rate",
+      "Dynamic Island",
+      "2000 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Stainless Steel Frame",
+      "Flat sides",
+      "Textured matte Glass back",
+      "Ringer/Silent Switch"
+    ]},
+    { section: "Cameras", items: [
+      "Triple rear camera system",
+      "48MP Fusion camera",
+      "12MP Ultra Wide camera",
+      "12MP 3x Telephoto camera",
+      "0.5x, 1x, 2x, 3x zoom options",
+      "LiDAR scanner",
+      "12MP Front Camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "3200 mAh battery",
+      "Lighting port (USB 2)",
+      "Wireless Qi charging with MagSafe"
+    ]}
+  ],
+  "iPhone 14 Pro Max": [
+    { section: "Performance", items: [
+      "Apple A16 Bionic chip",
+      "6-core CPU and 5-core GPU",
+      "6 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "6.7-inch Super Retina XDR display (OLED)",
+      "ProMotion 1-120Hz refresh rate",
+      "Dynamic Island",
+      "2000 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Stainless Steel Frame",
+      "Flat sides",
+      "Textured matte Glass back",
+      "Ringer/Silent Switch"
+    ]},
+    { section: "Cameras", items: [
+      "Triple rear camera system",
+      "48MP Fusion camera",
+      "12MP Ultra Wide camera",
+      "12MP 3x Telephoto camera",
+      "0.5x, 1x, 2x, 3x zoom options",
+      "LiDAR scanner",
+      "12MP Front Camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "4323 mAh battery",
+      "Lighting port (USB 2)",
+      "Wireless Qi charging with MagSafe"
+    ]}
+  ],
+  "iPhone 15": [
+    { section: "Performance", items: [
+      "Apple A16 Bionic chip",
+      "6-core CPU and 5-core GPU",
+      "6 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "6.1-inch Super Retina XDR display (OLED)",
+      "60Hz refresh rate",
+      "Dynamic Island",
+      "2000 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Aluminium Frame",
+      "Gently curved flat sides",
+      "Textured matte Glass back",
+      "Ringer/Silent Switch"
+    ]},
+    { section: "Cameras", items: [
+      "Dual rear camera system",
+      "48MP Fusion camera",
+      "12MP Ultra Wide camera",
+      "0.5x, 1x, 2x zoom options",
+      "12MP Front Camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "3349 mAh battery",
+      "USB-C port (USB 2)",
+      "Wireless Qi charging with MagSafe"
+    ]}
+  ],
+  "iPhone 15 Plus": [
+    { section: "Performance", items: [
+      "Apple A16 Bionic chip",
+      "6-core CPU and 5-core GPU",
+      "6 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "6.7-inch Super Retina XDR display (OLED)",
+      "60Hz refresh rate",
+      "Dynamic Island",
+      "2000 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Aluminium Frame",
+      "Gently curved flat sides",
+      "Textured matte Glass back",
+      "Ringer/Silent Switch"
+    ]},
+    { section: "Cameras", items: [
+      "Dual rear camera system",
+      "48MP Fusion camera",
+      "12MP Ultra Wide camera",
+      "0.5x, 1x, 2x zoom options",
+      "12MP Front Camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "4383 mAh battery",
+      "USB-C port (USB 2)",
+      "Wireless Qi charging with MagSafe"
+    ]}
+  ],
+  "iPhone 15 Pro": [
+    { section: "Performance", items: [
+      "Apple A17 Pro chip",
+      "6-core CPU and 6-core GPU",
+      "8 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "6.1-inch Super Retina XDR display (OLED)",
+      "ProMotion 1-120Hz refresh rate",
+      "Dynamic Island",
+      "2000 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Brushed Titanium Frame",
+      "Gently curved flat sides",
+      "Textured matte Glass back",
+      "Action button"
+    ]},
+    { section: "Cameras", items: [
+      "Triple rear camera system",
+      "48MP Fusion camera",
+      "12MP Ultra Wide camera",
+      "12MP 3x Telephoto camera",
+      "0.5x, 1x, 2x, 3x zoom options",
+      "LiDAR scanner",
+      "12MP Front Camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "3274 mAh battery",
+      "USB-C port (USB 3)",
+      "Wireless Qi charging with MagSafe"
+    ]}
+  ],
+  "iPhone 15 Pro Max": [
+    { section: "Performance", items: [
+      "Apple A17 Pro chip",
+      "6-core CPU and 6-core GPU",
+      "8 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "6.7-inch Super Retina XDR display (OLED)",
+      "ProMotion 1-120Hz refresh rate",
+      "Dynamic Island",
+      "2000 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Brushed Titanium Frame",
+      "Gently curved flat sides",
+      "Textured matte Glass back",
+      "Action button"
+    ]},
+    { section: "Cameras", items: [
+      "Triple rear camera system",
+      "48MP Fusion camera",
+      "12MP Ultra Wide camera",
+      "12MP 5x Telephoto camera",
+      "0.5x, 1x, 2x, 5x zoom options",
+      "LiDAR scanner",
+      "12MP Front Camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "4422 mAh battery",
+      "USB-C port (USB 3)",
+      "Wireless Qi charging with MagSafe"
+    ]}
+  ],
+  "iPhone 16": [
+    { section: "Performance", items: [
+      "Apple A18 chip",
+      "6-core CPU and 5-core GPU",
+      "8 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "6.1-inch Super Retina XDR display (OLED)",
+      "60Hz refresh rate",
+      "Dynamic Island",
+      "2000 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Aluminium Frame",
+      "Gently curved flat sides",
+      "Textured matte Glass back",
+      "Action & Camera buttons",
+    ]},
+    { section: "Cameras", items: [
+      "Dual rear camera system",
+      "48MP Fusion camera",
+      "12MP Ultra Wide camera",
+      "0.5x, 1x, 2x zoom options",
+      "12MP Front Camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "3561 mAh battery",
+      "USB-C port (USB 2)",
+      "Wireless Qi charging with MagSafe"
+    ]}
+  ],
+  "iPhone 16 Plus": [
+    { section: "Performance", items: [
+      "Apple A18 chip",
+      "6-core CPU and 5-core GPU",
+      "8 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "6.7-inch Super Retina XDR display (OLED)",
+      "60Hz refresh rate",
+      "Dynamic Island",
+      "2000 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Aluminium Frame",
+      "Gently curved flat sides",
+      "Textured matte Glass back",
+      "Action & Camera buttons",
+    ]},
+    { section: "Cameras", items: [
+      "Dual rear camera system",
+      "48MP Fusion camera",
+      "12MP Ultra Wide camera",
+      "0.5x, 1x, 2x zoom options",
+      "12MP Front Camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "4674 mAh battery",
+      "USB-C port (USB 2)",
+      "Wireless Qi charging with MagSafe"
+    ]}
+  ],
+  "iPhone 16 Pro": [
+    { section: "Performance", items: [
+      "Apple A18 Pro chip",
+      "6-core CPU and 6-core GPU",
+      "8 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "6.3-inch Super Retina XDR display (OLED)",
+      "ProMotion 1-120Hz refresh rate",
+      "Dynamic Island",
+      "2000 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Polished Titanium Frame",
+      "Gently curved flat sides",
+      "Textured matte Glass back",
+      "Action & Camera buttons"
+    ]},
+    { section: "Cameras", items: [
+      "Triple rear camera system",
+      "48MP Fusion camera",
+      "48MP Ultra Wide camera",
+      "12MP 5x Telephoto camera",
+      "0.5x, 1x, 2x, 5x zoom options",
+      "LiDAR scanner",
+      "12MP Front Camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "3582 mAh battery",
+      "USB-C port (USB 3)",
+      "Wireless Qi charging with MagSafe"
+    ]}
+  ],
+  "iPhone 16 Pro Max": [
+    { section: "Performance", items: [
+      "Apple A18 Pro chip",
+      "6-core CPU and 6-core GPU",
+      "8 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "6.9-inch Super Retina XDR display (OLED)",
+      "ProMotion 1-120Hz refresh rate",
+      "Dynamic Island",
+      "2000 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Polished Titanium Frame",
+      "Gently curved flat sides",
+      "Textured matte Glass back",
+      "Action & Camera buttons"
+    ]},
+    { section: "Cameras", items: [
+      "Triple rear camera system",
+      "48MP Fusion camera",
+      "48MP Ultra Wide camera",
+      "12MP 5x Telephoto camera",
+      "0.5x, 1x, 2x, 5x zoom options",
+      "LiDAR scanner",
+      "12MP Front Camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "4685 mAh battery",
+      "USB-C port (USB 3)",
+      "Wireless Qi charging with MagSafe"
+    ]}
+  ],
+  "iPhone 17": [
+    { section: "Performance", items: [
+      "Apple A19 chip",
+      "6-core CPU and 5-core GPU",
+      "8 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "6.3-inch Super Retina XDR display (OLED)",
+      "ProMotion 1-120Hz refresh rate",
+      "Dynamic Island",
+      "3000 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Aluminium Frame",
+      "Gently curved flat sides",
+      "Textured matte Glass back",
+      "Action & Camera buttons",
+    ]},
+    { section: "Cameras", items: [
+      "Dual rear camera system",
+      "48MP Fusion camera",
+      "48MP Ultra Wide camera",
+      "0.5x, 1x, 2x zoom options",
+      "18MP Centre Stage front camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "3692 mAh battery",
+      "USB-C port (USB 2)",
+      "Wireless Qi charging with MagSafe",
+      "40-watt fast charging"
+    ]}
+  ],
+  "iPhone Air": [
+    { section: "Performance", items: [
+      "Apple A19 Pro chip",
+      "6-core CPU and 5-core GPU",
+      "12 GB of RAM"
+    ]},
+    { section: "Display", items: [
+      "6.5-inch Super Retina XDR display (OLED)",
+      "ProMotion 1-120Hz refresh rate",
+      "Dynamic Island",
+      "3000 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Polished Titanium Frame",
+      "Camera Plateau",
+      "Thinnest iPhone ever",
+      "Gently curved flat sides",
+      "Textured matte Glass back",
+      "Action & Camera buttons",
+    ]},
+    { section: "Cameras", items: [
+      "Single rear camera system",
+      "48MP Fusion camera",
+      "1x, 2x zoom options",
+      "18MP Centre Stage front camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "3149 mAh battery",
+      "USB-C port (USB 2)",
+      "Wireless Qi charging with MagSafe",
+      "40-watt fast charging"
+    ]}
+  ],
+  "iPhone 17 Pro": [
+    { section: "Performance", items: [
+      "Apple A19 Pro chip",
+      "6-core CPU and 6-core GPU",
+      "12 GB of RAM",
+      "Vapour Chamber cooling"
+    ]},
+    { section: "Display", items: [
+      "6.3-inch Super Retina XDR display (OLED)",
+      "ProMotion 1-120Hz refresh rate",
+      "Dynamic Island",
+      "3000 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Aluminium Unibody frame",
+      "Camera Plateau",
+      "Gently curved flat sides",
+      "Textured matte Glass back part",
+      "Action & Camera buttons",
+    ]},
+    { section: "Cameras", items: [
+      "Triple rear camera system",
+      "48MP Fusion camera",
+      "48MP Ultra Wide camera",
+      "48MP 4x Telephoto camera",
+      "0.5x, 1x, 2x, 4x, 8x zoom options",
+      "18MP Centre Stage front camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "3988 mAh battery",
+      "USB-C port (USB 3)",
+      "Wireless Qi charging with MagSafe",
+      "40-watt fast charging"
+    ]}
+  ],
+  "iPhone 17 Pro Max": [
+    { section: "Performance", items: [
+      "Apple A19 Pro chip",
+      "6-core CPU and 6-core GPU",
+      "12 GB of RAM",
+      "Vapour Chamber cooling"
+    ]},
+    { section: "Display", items: [
+      "6.9-inch Super Retina XDR display (OLED)",
+      "ProMotion 1-120Hz refresh rate",
+      "Dynamic Island",
+      "3000 nits peak brightness"
+    ]},
+    { section: "Design", items: [
+      "Aluminium Unibody frame",
+      "Camera Plateau",
+      "Gently curved flat sides",
+      "Textured matte Glass back part",
+      "Action & Camera buttons",
+    ]},
+    { section: "Cameras", items: [
+      "Triple rear camera system",
+      "48MP Fusion camera",
+      "48MP Ultra Wide camera",
+      "48MP 4x Telephoto camera",
+      "0.5x, 1x, 2x, 4x, 8x zoom options",
+      "18MP Centre Stage front camera"
+    ]},
+    { section: "Battery & Power", items: [
+      "4832 mAh battery",
+      "USB-C port (USB 3)",
+      "Wireless Qi charging with MagSafe",
+      "40-watt fast charging"
+    ]}
+  ],
+};
 
 const grid = document.getElementById('grid');
 const legacyGrid = document.getElementById('legacyGrid');
 const subpage = document.getElementById('subpage');
 const subinner = document.getElementById('subinner');
+const modelFilter = document.getElementById('modelFilter');
 
 function createCard(p, idx){
   const startPrice = Math.min(...p.variants.filter(v=>v.price).map(v=>v.price));
@@ -207,14 +1008,97 @@ function createCard(p, idx){
   return card;
 }
 
+// Helper function to get starting price for sorting
+function getStartingPrice(product) {
+  const validPrices = product.variants.filter(v => v.price !== null).map(v => v.price);
+  return validPrices.length > 0 ? Math.min(...validPrices) : Infinity;
+}
 
-// Build grids
-PRODUCTS.forEach((p,i)=>{
-  const container = p.legacy ? legacyGrid : grid;
-  container.appendChild(createCard(p,i));
-});
+// Helper function to get release date for sorting (convert to sortable number)
+function getReleaseDateValue(product) {
+  if (!product.release) return Infinity; // Fallback for products without date
+  // Convert to YYYYMM format for proper sorting (e.g., Sept 2025 = 202509)
+  return product.release.year * 100 + product.release.month;
+}
 
+// Helper function to generate specs HTML
+function generateSpecsHTML(modelName) {
+  const specs = SPECIFICATIONS[modelName];
+  if (!specs) return '<div class="spec-item">Specifications coming soon</div>';
+  
+  let html = '';
+  specs.forEach(specSection => {
+    html += `<div class="spec-section">${specSection.section}</div>`;
+    specSection.items.forEach(item => {
+      html += `<div class="spec-item">- ${item}</div>`;
+    });
+  });
+  return html;
+}
 
+// Sort functions for different filter options
+function sortProducts(products, filterType) {
+  const sorted = [...products];
+  
+  switch(filterType) {
+    case 'lowest':
+      return sorted.sort((a, b) => getStartingPrice(a) - getStartingPrice(b));
+    
+    case 'highest':
+      return sorted.sort((a, b) => getStartingPrice(b) - getStartingPrice(a));
+    
+    case 'oldest':
+      return sorted.sort((a, b) => getReleaseDateValue(a) - getReleaseDateValue(b));
+    
+    case 'newest':
+      return sorted.sort((a, b) => getReleaseDateValue(b) - getReleaseDateValue(a));
+    
+    case 'default':
+    default:
+      // For default, we maintain the original order as defined in PRODUCTS
+      return sorted.sort((a, b) => {
+        // Find original indices
+        const indexA = PRODUCTS.findIndex(p => p.name === a.name);
+        const indexB = PRODUCTS.findIndex(p => p.name === b.name);
+        return indexA - indexB;
+      });
+  }
+}
+
+// Function to rebuild grids with sorted products
+function rebuildGrids() {
+  const filterType = modelFilter.value;
+  
+  // Clear current grids
+  grid.innerHTML = '';
+  legacyGrid.innerHTML = '';
+  
+  // Separate current and legacy models
+  const currentModels = PRODUCTS.filter(p => !p.legacy);
+  const legacyModels = PRODUCTS.filter(p => p.legacy);
+  
+  // Sort each category separately
+  const sortedCurrent = sortProducts(currentModels, filterType);
+  const sortedLegacy = sortProducts(legacyModels, filterType);
+  
+  // Build current models grid
+  sortedCurrent.forEach((p, i) => {
+    const originalIndex = PRODUCTS.findIndex(product => product.name === p.name);
+    grid.appendChild(createCard(p, originalIndex));
+  });
+  
+  // Build legacy models grid
+  sortedLegacy.forEach((p, i) => {
+    const originalIndex = PRODUCTS.findIndex(product => product.name === p.name);
+    legacyGrid.appendChild(createCard(p, originalIndex));
+  });
+}
+
+// Initial grid setup
+rebuildGrids();
+
+// Event listener for filter change
+modelFilter.addEventListener('change', rebuildGrids);
 
 function openModel(idx){
   const p = PRODUCTS[idx];
@@ -233,6 +1117,9 @@ function openModel(idx){
   const modelNum = p.name.replace('iPhone ','').replace(/\s+/g,''); 
   const imgSrc = `iphone/${modelNum}_${firstColor}.jpg`;
 
+  // Generate specs HTML
+  const specsHTML = generateSpecsHTML(p.name);
+
   subinner.innerHTML=`
     <div class="backbtn" id="backbtn">← Back to all models</div>
     <div class="model-top">
@@ -243,6 +1130,9 @@ function openModel(idx){
         <div class="options-row"><label>Colour</label><div class="options-container" id="colContainer">${colorCards}</div></div>
         <div class="options-row"><label>Total Price</label>
           <div class="options-container" id="priceDisplay">$0 AUD</div>
+        </div>
+        <div class="options-row"><label>Quick Specs</label>
+          ${specsHTML}
         </div>
       </div>
     </div>
@@ -341,13 +1231,3 @@ observer.observe(document.getElementById('subpage'), { attributes: true, attribu
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
