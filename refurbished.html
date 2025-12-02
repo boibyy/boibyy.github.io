@@ -170,8 +170,8 @@ const PRODUCTS = [
   { name:"iPhone 17", variants:[{cap:"256GB",price:1149},{cap:"512GB",price:1529}], colors:[{name:"Black",extra:0},{name:"White",extra:0},{name:"Mist Blue",extra:0},{name:"Sage",extra:0},{name:"Lavender",extra:0}] },
   { name:"iPhone 17 Pro", variants:[{cap:"256GB",price:1699},{cap:"512GB",price:2099},{cap:"1TB",price:2499}], colors:[{name:"Silver",extra:0},{name:"Deep Blue",extra:0},{name:"Cosmic Orange",extra:0}] },
   { name:"iPhone 17 Pro Max", variants:[{cap:"256GB",price:1899},{cap:"512GB",price:2299},{cap:"1TB",price:2699},{cap:"2TB",price:3399}], colors:[{name:"Silver",extra:0},{name:"Deep Blue",extra:0},{name:"Cosmic Orange",extra:0}] },
-{ name:"iPhone 7",           variants:[{cap:"32GB", price:99}, {cap:"128GB", price:129}],    colors:[{name:"Black",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Jet Black",extra:10}], legacy:true },
-{ name:"iPhone 7 Plus",      variants:[{cap:"32GB", price:119},{cap:"128GB", price:149}],    colors:[{name:"Black",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Jet Black",extra:10}], legacy:true },
+{ name:"iPhone 7",           variants:[{cap:"32GB", price:99}, {cap:"128GB", price:129}],    colors:[{name:"Black",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Jet Black",extra:10},{name:"PRODUCT(RED)",extra:20}], legacy:true },
+{ name:"iPhone 7 Plus",      variants:[{cap:"32GB", price:119},{cap:"128GB", price:149}],    colors:[{name:"Black",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"Jet Black",extra:10},{name:"PRODUCT(RED)",extra:20}], legacy:true },
 
 { name:"iPhone 8",           variants:[{cap:"64GB", price:129},{cap:"128GB", price:159},{cap:"256GB", price:189}],    colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"PRODUCT(RED)",extra:0}], legacy:true },
 { name:"iPhone 8 Plus",      variants:[{cap:"64GB", price:149},{cap:"128GB", price:179},{cap:"256GB", price:209}],    colors:[{name:"Space Gray",extra:0},{name:"Silver",extra:0},{name:"Gold",extra:0},{name:"PRODUCT(RED)",extra:0}], legacy:true },
@@ -267,19 +267,47 @@ function openModel(idx){
     });
   }
 
-  function updatePrice(){
-    const capIdx = Array.from(capContainer.children).findIndex(c=>c.classList.contains('selected'));
-    const colIdx = Array.from(colContainer.children).findIndex(c=>c.classList.contains('selected'));
-    if(capIdx < 0 || colIdx < 0) return;
-    const base = p.variants[capIdx].price || 0;
-    const extra = p.colors[colIdx].extra || 0;
-    priceDisplay.textContent = `$${base + extra} AUD`;
+  unction updatePrice(){
+  const capIdx = Array.from(capContainer.children).findIndex(c=>c.classList.contains('selected'));
+  const colIdx = Array.from(colContainer.children).findIndex(c=>c.classList.contains('selected'));
+  if(capIdx < 0 || colIdx < 0) return;
 
-    const newColor = p.colors[colIdx].name.replace(/\s+/g,'').replace(/[()]/g,'');
-    const modelNum = p.name.replace('iPhone ','').replace(/\s+/g,''); 
-    const img = subinner.querySelector('.model-art img');
-    img.src = `iphone/${modelNum}_${newColor}.jpg`;
+  const is7Series = (p.name === "iPhone 7" || p.name === "iPhone 7 Plus");
+  const selectedColor = p.colors[colIdx].name;
+
+  if (is7Series) {
+    const isRestrictedColor = (selectedColor === "Jet Black" || selectedColor === "PRODUCT(RED)");
+
+    const capCards = Array.from(capContainer.children);
+    const cap32 = capCards[0];
+
+    // Disable 32GB for Jet Black / PRODUCT(RED)
+    if (isRestrictedColor) {
+      cap32.classList.add("disabled");
+
+      // If 32GB was selected, jump to 128GB
+      if (cap32.classList.contains("selected")) {
+        cap32.classList.remove("selected");
+        capCards[1].classList.add("selected"); // 128GB
+      }
+    } 
+    else {
+      // Re-enable 32GB for other colours
+      cap32.classList.remove("disabled");
+    }
   }
+
+  const newCapIdx = Array.from(capContainer.children).findIndex(c=>c.classList.contains('selected'));
+
+  const base = p.variants[newCapIdx].price || 0;
+  const extra = p.colors[colIdx].extra || 0;
+  priceDisplay.textContent = `$${base + extra} AUD`;
+
+  const newColor = p.colors[colIdx].name.replace(/\s+/g,'').replace(/[()]/g,'');
+  const modelNum = p.name.replace('iPhone ','').replace(/\s+/g,''); 
+  const img = subinner.querySelector('.model-art img');
+  img.src = `iphone/${modelNum}_${newColor}.jpg`;
+}
 
   capContainer.addEventListener('click', e=>{
     const card = e.target.closest('.option-card');
@@ -312,3 +340,4 @@ observer.observe(document.getElementById('subpage'), { attributes: true, attribu
 </script>
 </body>
 </html>
+
