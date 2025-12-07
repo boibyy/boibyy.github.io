@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mall Map Comparison</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+
+    button {
+      padding: 8px 20px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #333;
+      color: white;
+    }
+
+    button.active {
+      background: #007bff;
+    }
+
+    select {
+      padding: 8px 12px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .image-container {
+      width: 1400px;
+      height: 1200px;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mall Map Layout Comparison</h1>
+
+  <div class="controls">
+    <button id="oldBtn" class="active">Old</button>
+    <button id="newBtn">New</button>
+
+    <select id="floorSelect">
+      <option value="LG">LG</option>
+      <option value="G">G</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+    </select>
+  </div>
+
+  <div class="image-container">
+    <img id="mapImage" src="LG-2009.png" alt="Mall Map" />
+  </div>
+
+  <script>
+    const oldBtn = document.getElementById('oldBtn');
+    const newBtn = document.getElementById('newBtn');
+    const floorSelect = document.getElementById('floorSelect');
+    const mapImage = document.getElementById('mapImage');
+
+    let mode = 'old'; // 'old' or 'new'
+
+    function updateImage() {
+      const floor = floorSelect.value;
+      const year = mode === 'old' ? '2009' : '2025';
+      mapImage.src = `${floor}-${year}.png`;
+    }
+
+    oldBtn.addEventListener('click', () => {
+      mode = 'old';
+      oldBtn.classList.add('active');
+      newBtn.classList.remove('active');
+      updateImage();
+    });
+
+    newBtn.addEventListener('click', () => {
+      mode = 'new';
+      newBtn.classList.add('active');
+      oldBtn.classList.remove('active');
+      updateImage();
+    });
+
+    floorSelect.addEventListener('change', updateImage);
+  </script>
+</body>
+</html>
