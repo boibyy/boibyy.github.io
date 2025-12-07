@@ -71,8 +71,10 @@
   <h1>Chatswood Chase Comparison</h1>
 
   <div class="controls">
-    <button id="oldBtn" class="active">Old</button>
-    <button id="newBtn">New</button>
+    <button id="oldBtn" class="active">Old (2009)</button>
+    <button id="newBtn">New (2025)</button>
+    <button id="scrappedBtn">Scrapped 2018</button>
+    <button id="old96Btn">Old 1996</button>
 
     <select id="floorSelect">
       <option value="LG">LG</option>
@@ -84,21 +86,30 @@
   </div>
 
   <div class="image-container">
-    <img id="mapImage" src=\"mall/$0 alt="Mall Map" />
+    <img id="mapImage" src="mall/LG-2009.png" alt="Mall Map" />
   </div>
 
   <script>
     const oldBtn = document.getElementById('oldBtn');
     const newBtn = document.getElementById('newBtn');
+    const scrappedBtn = document.getElementById('scrappedBtn');
+    const old96Btn = document.getElementById('old96Btn');
+
     const floorSelect = document.getElementById('floorSelect');
     const mapImage = document.getElementById('mapImage');
 
     const floors = ['LG', 'G', '1', '2', '3'];
-    const years = ['2009', '2025'];
 
-    // Preload
-    floors.forEach(floor => {
-      years.forEach(year => {
+    const modes = {
+      old: '2009',
+      new: '2025',
+      scrapped: '2018',
+      old96: '1996'
+    };
+
+    // Preload all images
+    Object.values(modes).forEach(year => {
+      floors.forEach(floor => {
         const img = new Image();
         img.src = `mall/${floor}-${year}.png`;
       });
@@ -108,21 +119,36 @@
 
     function updateImage() {
       const floor = floorSelect.value;
-      const year = mode === 'old' ? '2009' : '2025';
+      const year = modes[mode];
       mapImage.src = `mall/${floor}-${year}.png`;
+    }
+
+    function setActive(button) {
+      [oldBtn, newBtn, scrappedBtn, old96Btn].forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
     }
 
     oldBtn.addEventListener('click', () => {
       mode = 'old';
-      oldBtn.classList.add('active');
-      newBtn.classList.remove('active');
+      setActive(oldBtn);
       updateImage();
     });
 
     newBtn.addEventListener('click', () => {
       mode = 'new';
-      newBtn.classList.add('active');
-      oldBtn.classList.remove('active');
+      setActive(newBtn);
+      updateImage();
+    });
+
+    scrappedBtn.addEventListener('click', () => {
+      mode = 'scrapped';
+      setActive(scrappedBtn);
+      updateImage();
+    });
+
+    old96Btn.addEventListener('click', () => {
+      mode = 'old96';
+      setActive(old96Btn);
       updateImage();
     });
 
