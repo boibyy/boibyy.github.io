@@ -84,7 +84,7 @@
   </div>
 
   <div class="image-container">
-    <img id="mapImage" src="LG-2009.png" alt="Mall Map" />
+    <img id="mapImage" src=\"mall/LG-2009.png"" alt="Mall Map" />
   </div>
 
   <script>
@@ -98,7 +98,49 @@
     function updateImage() {
       const floor = floorSelect.value;
       const year = mode === 'old' ? '2009' : '2025';
-      mapImage.src = `${floor}-${year}.png`;
+      mapImage.src = `mall/${floor}-${year}.png`;
+    }
+
+    oldBtn.addEventListener('click', () => {
+      mode = 'old';
+      oldBtn.classList.add('active');
+      newBtn.classList.remove('active');
+      updateImage();
+    });
+
+    newBtn.addEventListener('click', () => {
+      mode = 'new';
+      newBtn.classList.add('active');
+      oldBtn.classList.remove('active');
+      updateImage();
+    });
+
+    floorSelect.addEventListener('change', updateImage);
+    <script>
+    const oldBtn = document.getElementById('oldBtn');
+    const newBtn = document.getElementById('newBtn');
+    const floorSelect = document.getElementById('floorSelect');
+    const mapImage = document.getElementById('mapImage');
+
+    const floors = ['LG', 'G', '1', '2', '3'];
+    const years = ['2009', '2025'];
+
+    // Preload all images
+    const preloadedImages = [];
+    floors.forEach(floor => {
+      years.forEach(year => {
+        const img = new Image();
+        img.src = `mall/${floor}-${year}.png`;
+        preloadedImages.push(img);
+      });
+    });
+
+    let mode = 'old'; // 'old' or 'new'
+
+    function updateImage() {
+      const floor = floorSelect.value;
+      const year = mode === 'old' ? '2009' : '2025';
+      mapImage.src = `mall/${floor}-${year}.png`;
     }
 
     oldBtn.addEventListener('click', () => {
