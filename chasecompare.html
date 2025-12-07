@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chase Comparison</title>
+  <title>Mall Map Comparison</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     body {
@@ -93,49 +93,18 @@
     const floorSelect = document.getElementById('floorSelect');
     const mapImage = document.getElementById('mapImage');
 
-    let mode = 'old'; // 'old' or 'new'
-
-    function updateImage() {
-      const floor = floorSelect.value;
-      const year = mode === 'old' ? '2009' : '2025';
-      mapImage.src = `mall/${floor}-${year}.png`;
-    }
-
-    oldBtn.addEventListener('click', () => {
-      mode = 'old';
-      oldBtn.classList.add('active');
-      newBtn.classList.remove('active');
-      updateImage();
-    });
-
-    newBtn.addEventListener('click', () => {
-      mode = 'new';
-      newBtn.classList.add('active');
-      oldBtn.classList.remove('active');
-      updateImage();
-    });
-
-    floorSelect.addEventListener('change', updateImage);
-    <script>
-    const oldBtn = document.getElementById('oldBtn');
-    const newBtn = document.getElementById('newBtn');
-    const floorSelect = document.getElementById('floorSelect');
-    const mapImage = document.getElementById('mapImage');
-
     const floors = ['LG', 'G', '1', '2', '3'];
     const years = ['2009', '2025'];
 
-    // Preload all images
-    const preloadedImages = [];
+    // Preload
     floors.forEach(floor => {
       years.forEach(year => {
         const img = new Image();
         img.src = `mall/${floor}-${year}.png`;
-        preloadedImages.push(img);
       });
     });
 
-    let mode = 'old'; // 'old' or 'new'
+    let mode = 'old';
 
     function updateImage() {
       const floor = floorSelect.value;
