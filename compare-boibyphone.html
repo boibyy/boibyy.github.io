@@ -35,7 +35,7 @@
         }
         
         .container {
-            max-width: 1500px;
+            max-width: 1600px;
             margin: 0 auto;
         }
         
@@ -142,7 +142,7 @@
         td:first-child {
             font-weight: 600;
             background-color: var(--light-gray);
-            width: 15%;
+            width: 10%;
             min-width: 200px;
             padding-left: 25px;
             position: sticky;
@@ -151,7 +151,7 @@
         }
         
         td:not(:first-child) {
-            width: 25%;
+            width: 20%;
         }
         
         .spec-category {
@@ -278,6 +278,11 @@
                     <tr>
                         <th>Specifications</th>
                         <th class="model-header">
+                            <div class="model-name">BoibyPhone 13a</div>
+                            <div class="price price-usd">$499 USD</div>
+                            <div class="price price-aud">$849 AUD</div>
+                        </th>
+                        <th class="model-header">
                             <div class="model-name">BoibyPhone 13</div>
                             <div class="price price-usd">$799 USD</div>
                             <div class="price price-aud">$1399 AUD</div>
@@ -298,16 +303,13 @@
                     <!-- Colours -->
                     <tr class="spec-category">
                         <td>Colours</td>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>
                             <div class="spec-item"><span class="model-color" style="background-color: #ffffff;"></span> White</div>
                             <div class="spec-item"><span class="model-color" style="background-color: #000000;"></span> Black</div>
-                            <div class="spec-item"><span class="model-color" style="background-color: #4285f4;"></span> Blue</div>
-                            <div class="spec-item"><span class="model-color" style="background-color: #ff9800;"></span> Orange</div>
-                            <div class="spec-item"><span class="model-color" style="background-color: #9c27b0;"></span> Purple</div>
                         </td>
                         <td>
                             <div class="spec-item"><span class="model-color" style="background-color: #5f6368;"></span> Graphite</div>
@@ -326,34 +328,50 @@
                     <!-- Storage -->
                     <tr class="spec-category">
                         <td>Storage</td>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>
+                            <div class="spec-item">128 GB or 256 GB</div>
+                            <div class="spec-item">NVMe storage</div>
+                            <div class="spec-item">1700 MB/s speeds</div>
+                        </td>
+                        <td>
                             <div class="spec-item">256 GB or 512 GB</div>
-                            <div class="spec-item">NVMe storage (PCIe-based)</div>
+                            <div class="spec-item">NVMe storage</div>
                             <div class="spec-item">2600 MB/s speeds</div>
                         </td>
                         <td>
                             <div class="spec-item">256 GB, 512 GB, 1 TB, or 2 TB</div>
-                            <div class="spec-item">NVMe storage (PCIe-based)</div>
-                            <div class="spec-item">3500 MB/s speeds</div>
+                            <div class="spec-item">NVMe storage</div>
+                            <div class="spec-item">3800 MB/s speeds</div>
                         </td>
                         <td>
                             <div class="spec-item">256 GB, 512 GB, 1 TB, or 2 TB</div>
-                            <div class="spec-item">NVMe storage (PCIe-based)</div>
-                            <div class="spec-item">3500 MB/s speeds</div>
+                            <div class="spec-item">NVMe storage</div>
+                            <div class="spec-item">3800 MB/s speeds</div>
                         </td>
                     </tr>
                     
                     <!-- Display -->
                     <tr class="spec-category">
                         <td>Display</td>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
                         <td></td>
+                        <td>
+                            <div class="spec-item">6.1-inch OLED display</div>
+                            <div class="spec-item">60/120Hz refresh rate</div>
+                            <div class="spec-item">2340x1080 display resolution</div>
+                            <div class="spec-item">1000 nits typical brightness</div>
+                            <div class="spec-item">2000 nits peak brightness</div>
+                            <div class="spec-item dash">-</div>
+                            <div class="spec-item">2.15mm bezel thickness</div>
+                            <div class="spec-item">Holepunch front camera cutout</div>
+                            <div class="spec-item">Anti-glare coating</div>
+                        </td>
                         <td>
                             <div class="spec-item">6.3-inch OLED display</div>
                             <div class="spec-item">1-120Hz adaptive refresh rate (LTPO)</div>
@@ -392,14 +410,25 @@
                     <!-- Performance -->
                     <tr class="spec-category">
                         <td>Performance</td>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>
                             <div class="spec-item">Boiby B13 chip</div>
                             <div class="spec-item">8-core CPU (2P+4E+2L)</div>
-                            <div class="spec-item">7-core GPU (3.6 TFLOPs)</div>
+                            <div class="spec-item">6-core GPU (2.95 TFLOPs)</div>
+                            <div class="spec-item">12-core NPU</div>
+                            <div class="spec-item">2nm process node</div>
+                            <div class="spec-item">8 GB of RAM</div>
+                            <div class="spec-item">68.3 GB/s memory bandwidth</div>
+                            <div class="spec-item">LPDDR5X 8533 MT/s memory</div>
+                            <div class="spec-item dash">-</div>
+                        </td>
+                        <td>
+                            <div class="spec-item">Boiby B13 chip</div>
+                            <div class="spec-item">8-core CPU (2P+4E+2L)</div>
+                            <div class="spec-item">7-core GPU (3.65 TFLOPs)</div>
                             <div class="spec-item">12-core NPU</div>
                             <div class="spec-item">2nm process node</div>
                             <div class="spec-item">12 GB of RAM</div>
@@ -410,7 +439,7 @@
                         <td>
                             <div class="spec-item">Boiby B13 Pro chip</div>
                             <div class="spec-item">8-core CPU (2P+4E+2L)</div>
-                            <div class="spec-item">8-core GPU (4.3 TFLOPs)</div>
+                            <div class="spec-item">8-core GPU (4.33 TFLOPs)</div>
                             <div class="spec-item">12-core NPU</div>
                             <div class="spec-item">2nm process node</div>
                             <div class="spec-item">16 GB of RAM</div>
@@ -421,7 +450,7 @@
                         <td>
                             <div class="spec-item">Boiby B13 Pro chip</div>
                             <div class="spec-item">8-core CPU (2P+4E+2L)</div>
-                            <div class="spec-item">8-core GPU (4.3 TFLOPs)</div>
+                            <div class="spec-item">8-core GPU (4.33 TFLOPs)</div>
                             <div class="spec-item">12-core NPU</div>
                             <div class="spec-item">2nm process node</div>
                             <div class="spec-item">16 GB of RAM</div>
@@ -434,10 +463,21 @@
                     <!-- Design -->
                     <tr class="spec-category">
                         <td>Design</td>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
                         <td></td>
+                        <td>
+                            <div class="spec-item">Aluminium frame</div>
+                            <div class="spec-item">Matte glass back</div>
+                            <div class="spec-item dash">-</div>
+                            <div class="spec-item">Flat-edge design with gentle curves</div>
+                            <div class="spec-item">Repairable design</div>
+                            <div class="spec-item">170.8 grams weight</div>
+                            <div class="spec-item">149.5 x 71.5 x 7.7 mm dimensions</div>
+                            <div class="spec-item">IP68-certified water & dust resistance</div>
+
+                        </td>
                         <td>
                             <div class="spec-item">Aluminium frame</div>
                             <div class="spec-item">Matte glass back</div>
@@ -476,10 +516,20 @@
                     <!-- Battery & Charging -->
                     <tr class="spec-category">
                         <td>Battery & Charging</td>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
                         <td></td>
+                        <td>
+                            <div class="spec-item">4872 mAh Lithium-ion battery</div>
+                            <div class="spec-item">Up to 24 hours audio playback</div>
+                            <div class="spec-item">Up to 11 hours screen-on time</div>
+                            <div class="spec-item">30-watt wired charging</div>
+                            <div class="spec-item">0-50% battery in 30 minutes wired</div>
+                            <div class="spec-item">12-watt wireless charging</div>
+                            <div class="spec-item">0-50% battery in 75 minutes wireless</div>
+                            <div class="spec-item">Magnetic alignment</div>
+                        </td>
                         <td>
                             <div class="spec-item">5032 mAh Lithium-ion battery</div>
                             <div class="spec-item">Up to 25 hours audio playback</div>
@@ -487,7 +537,7 @@
                             <div class="spec-item">40-watt wired charging</div>
                             <div class="spec-item">0-50% battery in 20 minutes wired</div>
                             <div class="spec-item">15-watt wireless charging</div>
-                            <div class="spec-item">0-50% battery in 1 hour wireless</div>
+                            <div class="spec-item">0-50% battery in 60 minutes wireless</div>
                             <div class="spec-item">Magnetic alignment</div>
                         </td>
                         <td>
@@ -515,10 +565,31 @@
                     <!-- Rear Camera -->
                     <tr class="spec-category">
                         <td>Rear Camera</td>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
                         <td></td>
+                        <td>
+                            <div class="spec-item">Dual camera system</div>
+                            <div class="spec-item">48MP main camera lens</div>
+                            <div class="spec-item">12MP ultrawide camera lens</div>
+                            <div class="spec-item dash">-</div>
+                            <div class="spec-item dash">-</div>
+                            <div class="spec-item dash">-</div>
+                            <div class="spec-item">Flash (dual LED)</div>
+                            <div class="spec-item">0.5x, 1x, 2x zoom options</div>
+                            <div class="spec-item">Up to 20x digital zoom</div>
+                            <div class="spec-item dash">-</div>
+                            <div class="spec-item">HDR capture</div>
+                            <div class="spec-item dash">-</div>
+                            <div class="spec-item">Video recording up to 4K @ 60FPS</div>
+                            <div class="spec-item">Optical Image Stabilization</div>
+                            <div class="spec-item dash">-</div>
+                            <div class="spec-item">Advanced Image Processing</div>
+                            <div class="spec-item dash">-</div>
+                            <div class="spec-item dash">-</div>
+
+                        </td>
                         <td>
                             <div class="spec-item">Dual camera system</div>
                             <div class="spec-item">108MP main camera lens</div>
@@ -585,10 +656,17 @@
                     <!-- Front Camera -->
                     <tr class="spec-category">
                         <td>Front Camera</td>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
                         <td></td>
+                        <td>
+                            <div class="spec-item">18MP front camera</div>
+                            <div class="spec-item dash">-</div>
+                            <div class="spec-item">0.5x, 1x zoom options</div>
+                            <div class="spec-item dash">-</div>
+                            <div class="spec-item">Video recording up to 4K @ 60FPS or 1080p @ 120FPS</div>
+                        </td>
                         <td>
                             <div class="spec-item">24MP square sensor front camera</div>
                             <div class="spec-item">18MP vertical or horizontal crop option</div>
@@ -615,10 +693,16 @@
                     <!-- Connectivity -->
                     <tr class="spec-category">
                         <td>Connectivity</td>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
                         <td></td>
+                        <td>
+                            <div class="spec-item">WiFi 6E (802.11ax)</div>
+                            <div class="spec-item">Bluetooth 5.3 LE</div>
+                            <div class="spec-item">Boiby C3 chip (5G mmWave)</div>
+                            <div class="spec-item">Boiby U1 chip (ultra-wideband)</div>
+                        </td>
                         <td>
                             <div class="spec-item">WiFi 7 (802.11be)</div>
                             <div class="spec-item">Bluetooth 6 LE</div>
@@ -642,10 +726,15 @@
                     <!-- Audio -->
                     <tr class="spec-category">
                         <td>Audio</td>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
                         <td></td>
+                        <td>
+                            <div class="spec-item">Stereo speakers</div>
+                            <div class="spec-item">Support for Dolby Audio and Spatial Audio</div>
+                            <div class="spec-item">Dual microphone array with advanced noise control</div>
+                        </td>
                         <td>
                             <div class="spec-item">Stereo speakers</div>
                             <div class="spec-item">Support for Dolby Audio and Spatial Audio</div>
@@ -666,31 +755,40 @@
                     <!-- Biometrics -->
                     <tr class="spec-category">
                         <td>Biometrics</td>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>
                             <div class="spec-item">Face unlock</div>
-                            <div class="spec-item">Touch unlock (ultrasonic fingerprint scanner)</div>
+                            <div class="spec-item">Touch unlock (fingerprint scanner)</div>
                         </td>
                         <td>
                             <div class="spec-item">Face unlock</div>
-                            <div class="spec-item">Touch unlock (ultrasonic fingerprint scanner)</div>
+                            <div class="spec-item">Touch unlock (fast fingerprint scanner)</div>
                         </td>
                         <td>
                             <div class="spec-item">Face unlock</div>
-                            <div class="spec-item">Touch unlock (ultrasonic fingerprint scanner)</div>
+                            <div class="spec-item">Touch unlock (fast fingerprint scanner)</div>
+                        </td>
+                        <td>
+                            <div class="spec-item">Face unlock</div>
+                            <div class="spec-item">Touch unlock (fast fingerprint scanner)</div>
                         </td>
                     </tr>
                     
                     <!-- Ports/slots -->
                     <tr class="spec-category">
                         <td>Ports/slots</td>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
                         <td></td>
+                        <td>
+                            <div class="spec-item">USB-C port (USB 3 5Gbps)</div>
+                            <div class="spec-item">3.5mm audio jack</div>
+                            <div class="spec-item">SIM card slot</div>
+                        </td>
                         <td>
                             <div class="spec-item">USB-C port (USB 3 10Gbps)</div>
                             <div class="spec-item">3.5mm audio jack</div>
@@ -711,10 +809,16 @@
                     <!-- Buttons -->
                     <tr class="spec-category">
                         <td>Buttons</td>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
                         <td></td>
+                        <td>
+                            <div class="spec-item">Power button</div>
+                            <div class="spec-item">Volume up/down buttons</div>
+                            <div class="spec-item">Boiby button</div>
+                            <div class="spec-item">Silent/Ringer switch</div>
+                        </td>
                         <td>
                             <div class="spec-item">Haptic power button</div>
                             <div class="spec-item">Haptic volume up/down buttons</div>
@@ -738,10 +842,16 @@
                     <!-- Software -->
                     <tr class="spec-category">
                         <td>Software</td>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
                         <td></td>
+                        <td>
+                            <div class="spec-item">boibyOS 14</div>
+                            <div class="spec-item">Full support for Android applications</div>
+                            <div class="spec-item">Unlockable bootloader</div>
+                            <div class="spec-item">Open-source firmware and software</div>
+                        </td>
                         <td>
                             <div class="spec-item">boibyOS 14</div>
                             <div class="spec-item">Full support for Android applications</div>
@@ -765,10 +875,14 @@
                     <!-- Security -->
                     <tr class="spec-category">
                         <td>Security</td>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
                         <td></td>
+                        <td>
+                            <div class="spec-item">Device encryption</div>
+                            <div class="spec-item">Anti-fed mode with duress PIN and automatic encryption key clearing</div>
+                        </td>
                         <td>
                             <div class="spec-item">Device encryption</div>
                             <div class="spec-item">Anti-fed mode with duress PIN and automatic encryption key clearing</div>
@@ -786,10 +900,18 @@
                     <!-- In the box -->
                     <tr class="spec-category">
                         <td>In the box</td>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
                         <td></td>
+                        <td>
+                            <div class="spec-item">BoibyPhone 13a</div>
+                            <div class="spec-item">30-watt USB-C power adapter</div>
+                            <div class="spec-item">USB-C to USB-C cable</div>
+                            <div class="spec-item">SIM ejector tool</div>
+                            <div class="spec-item">Documentation</div>
+                            <div class="spec-item">Boiby stickers</div>
+                        </td>
                         <td>
                             <div class="spec-item">BoibyPhone 13</div>
                             <div class="spec-item">40-watt USB-C power adapter</div>
