@@ -571,7 +571,7 @@
       const colourTiles = document.querySelectorAll('.colour-tile');
       colourTiles.forEach(tile => {
         const colorName = tile.dataset.col.replace(/\s+/g, '');
-        const imagePath = `/images/13_${colorName}.jpg`;
+        const imagePath = `/images/13_${colorName}.png`;
         const img = tile.querySelector('.colour-image');
         img.src = imagePath;
         img.alt = `BoibyPhone 13 — ${tile.dataset.col}`;
