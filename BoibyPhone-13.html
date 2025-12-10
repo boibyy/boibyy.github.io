@@ -207,11 +207,11 @@
     }
     
     .colour-tile {
-      width: 180px;
+      width: 220px;
       background: transparent;
       border-radius: 14px;
       border: 1px solid var(--edge);
-      padding: 14px;
+      padding: 18px;
       text-align: center;
       cursor: pointer;
       transition: border-color .16s;
@@ -223,17 +223,19 @@
     
     .colour-tile img {
       width: 100%;
-      height: 170px;
-      object-fit: cover;
+      height: 200px;
+      object-fit: contain;
       border-radius: 10px;
       display: block;
-      margin-bottom: 10px;
-      background: #f6f6f6;
+      margin-bottom: 12px;
+      background: #ffffff;
+      border: 1px solid #f0f0f0;
     }
     
     .colour-tile .label {
       font-weight: 600;
       margin-bottom: 4px;
+      font-size: 16px;
     }
     
     .colour-tile .device {
@@ -289,6 +291,25 @@
       margin-top: 6px;
     }
     
+    .summary-image-container {
+      width: 40%;
+      max-width: 300px;
+      margin: 0 auto 30px auto;
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      height: 150px;
+    }
+    
+    .summary-image {
+      width: 100%;
+      height: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+    }
+    
     .cta {
       margin-top: 18px;
       display: inline-block;
@@ -316,6 +337,10 @@
       .capacity-card {
         width: 45%;
       }
+      
+      .summary-image-container {
+        width: 60%;
+      }
     }
     
     @media (max-width: 520px) {
@@ -329,6 +354,10 @@
       
       h1 {
         font-size: 28px;
+      }
+      
+      .summary-image-container {
+        width: 80%;
       }
     }
     
@@ -358,10 +387,9 @@
     <!-- step tabs / breadcrumb -->
     <nav class="steps" aria-label="Configurator steps">
       <button class="step-btn active" data-step="1">Model</button>
-      <button class="step-btn" data-step="2">SIM</button>
-      <button class="step-btn" data-step="3">Finish</button>
-      <button class="step-btn" data-step="4">Capacity</button>
-      <button class="step-btn" data-step="5">Summary</button>
+      <button class="step-btn" data-step="2">Finish</button>
+      <button class="step-btn" data-step="3">Capacity</button>
+      <button class="step-btn" data-step="4">Summary</button>
     </nav>
     
     <section class="stage" aria-live="polite">
@@ -378,26 +406,8 @@
         </div>
       </div>
       
-      <!-- SLIDE 2: SIM -->
+      <!-- SLIDE 2: Finish / Colour -->
       <div id="slide-2" class="slide" aria-hidden="true">
-        <h1>Select your SIM preference.</h1>
-        <p class="lead">You can choose a physical SIM & eSIM, or eSIM only.</p>
-        
-        <div class="option-row" style="max-width:720px;margin:22px auto 0;">
-          <div class="model-card sim-opt" data-sim="physical">
-            <div class="title">Physical SIM & eSIM</div>
-            <div class="sub">Unlocked. Connect with any carrier later.</div>
-          </div>
-          
-          <div class="model-card sim-opt" data-sim="esim">
-            <div class="title">eSIM only</div>
-            <div class="sub">Unlocked. Connect with any carrier later.</div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- SLIDE 3: Finish / Colour -->
-      <div id="slide-3" class="slide" aria-hidden="true">
         <h1>Choose your finish.</h1>
         
         <div class="colour-grid" role="list">
@@ -433,8 +443,8 @@
         </div>
       </div>
       
-      <!-- SLIDE 4: Capacity -->
-      <div id="slide-4" class="slide" aria-hidden="true">
+      <!-- SLIDE 3: Capacity -->
+      <div id="slide-3" class="slide" aria-hidden="true">
         <h1>Now choose your capacity.</h1>
         <p class="lead">Choose the amount of storage you will need.</p>
         
@@ -443,12 +453,17 @@
         </div>
       </div>
       
-      <!-- SLIDE 5: Summary -->
-      <div id="slide-5" class="slide" aria-hidden="true">
+      <!-- SLIDE 4: Summary -->
+      <div id="slide-4" class="slide" aria-hidden="true">
         <h1 id="summaryTitle">Here's your new BoibyPhone.</h1>
         <p class="lead summary-sub" id="summaryBreadcrumb">—</p>
         
         <div class="summary-wrap">
+          <!-- Phone image showing only top 30% -->
+          <div class="summary-image-container">
+            <img src="" alt="" class="summary-image" id="summaryPhoneImage" />
+          </div>
+          
           <div class="summary-price" id="finalPrice">A$0</div>
           <div class="muted" id="finalLock">Unlocked</div>
           
@@ -482,8 +497,8 @@
     const steps = Array.from(document.querySelectorAll('.step-btn'));
     
     function showStep(n) {
-      // slides numbered 1..5
-      for(let i = 1; i <= 5; i++) {
+      // slides numbered 1..4 now (removed SIM step)
+      for(let i = 1; i <= 4; i++) {
         const s = document.getElementById('slide-' + i);
         if(i === n) {
           s.classList.add('current');
@@ -516,13 +531,13 @@
       el.addEventListener('click', () => {
         if (el.classList.contains('sim-opt')) return;
         selectModel(el.dataset.model);
-        showStep(2);
+        showStep(2); // Go directly to finish/color step
       });
       
       el.addEventListener('keydown', (e) => {
         if(e.key === 'Enter' && !el.classList.contains('sim-opt')) {
           selectModel(el.dataset.model);
-          showStep(2);
+          showStep(2); // Go directly to finish/color step
         }
       });
     });
@@ -552,18 +567,6 @@
     });
     
     /* -------------------------
-       SIM options
-       ------------------------- */
-    document.querySelectorAll('.sim-opt').forEach(opt => {
-      opt.addEventListener('click', () => {
-        document.querySelectorAll('.sim-opt').forEach(o => o.classList.remove('selected'));
-        opt.classList.add('selected');
-        state.sim = opt.dataset.sim;
-        showStep(3);
-      });
-    });
-    
-    /* -------------------------
        Finish (colour) tiles
        ------------------------- */
     function updateColourImages() {
@@ -574,6 +577,7 @@
         const img = tile.querySelector('.colour-image');
         img.src = imagePath;
         img.alt = `BoibyPhone 13 — ${tile.dataset.col}`;
+        img.style.backgroundColor = '#ffffff';
         tile.querySelector('.device').textContent = `BoibyPhone 13`;
       });
     }
@@ -588,9 +592,12 @@
         // set state color
         state.color = tile.dataset.col;
         
+        // Update summary image with the selected color
+        updateSummaryImage();
+        
         // Populate capacities and go to next step
         populateCapacities();
-        showStep(4);
+        showStep(3);
       });
       
       tile.addEventListener('keydown', (e) => {
@@ -599,6 +606,20 @@
         }
       });
     });
+    
+    /* -------------------------
+       Update summary image
+       ------------------------- */
+    function updateSummaryImage() {
+      if (state.color) {
+        const colorName = state.color.replace(/\s+/g, '');
+        const imagePath = `/images/13_${colorName}.png`;
+        const summaryImage = document.getElementById('summaryPhoneImage');
+        summaryImage.src = imagePath;
+        summaryImage.alt = `BoibyPhone 13 — ${state.color}`;
+        summaryImage.style.backgroundColor = '#ffffff';
+      }
+    }
     
     /* -------------------------
        Capacity options
@@ -622,7 +643,7 @@
         
         card.addEventListener('click', () => {
           selectCapacity(cap);
-          showStep(5);
+          showStep(4);
         });
         
         capacityGrid.appendChild(card);
@@ -648,7 +669,6 @@
       // Update the breadcrumb line
       const bread = [];
       if(state.capacity) bread.push(`${state.capacity}GB`);
-      if(state.sim) bread.push(state.sim === 'esim' ? 'eSIM' : 'Physical SIM');
       if(state.color) bread.push(state.color);
       document.getElementById('summaryBreadcrumb').textContent = bread.join(', ');
       
@@ -669,6 +689,12 @@
       steps.forEach(btn => {
         btn.addEventListener('click', () => showStep(Number(btn.dataset.step)));
       });
+      
+      // Auto-select the model since there's only one option
+      const modelCard = document.querySelector('.model-card[data-model="13"]');
+      if (modelCard) {
+        selectModel('13');
+      }
     })();
   </script>
 </body>
