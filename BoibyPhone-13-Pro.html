@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BoibyPhone 13 Pro Configurator</title>
+  
+  <!-- Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #fff;
+      --muted: #6b6b6b;
+      --text: #0a0a0a;
+      --accent: #007aff;
+      --card-bg: #fff;
+      --edge: #e6e6e6;
+    }
+    
+    .dark {
+      --bg: #0b0b0b;
+      --muted: #b8b8b8;
+      --text: #f6f6f6;
+      --accent: #4aa3ff;
+      --card-bg: #111216;
+      --edge: #222428;
+    }
+    
+    html, body {
+      height: 100%;
+    }
+    
+    body {
+      margin: 0;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background .25s, color .25s;
+    }
+    
+    header {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+      border-bottom: 1px solid var(--edge);
+    }
+    
+    header .brand {
+      font-weight: 600;
+      letter-spacing: .2px;
+      font-size: 20px;
+    }
+    
+    header .controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    
+    .mode-toggle {
+      border: 1px solid var(--edge);
+      background: transparent;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--text);
+      font-weight: 500;
+    }
+    
+    /* container */
+    .wrap {
+      max-width: 1180px;
+      margin: 36px auto;
+      padding: 0 24px 80px;
+    }
+    
+    /* breadcrumb / tabs */
+    .steps {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      margin-top: 8px;
+      margin-bottom: 28px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    
+    .steps button {
+      background: none;
+      border: none;
+      padding: 8px 6px;
+      cursor: pointer;
+      color: inherit;
+      font-weight: 500;
+      position: relative;
+    }
+    
+    .steps button.active {
+      color: var(--text);
+    }
+    
+    .steps button.active::after {
+      content: '';
+      height: 2px;
+      width: 100%;
+      background: var(--text);
+      position: absolute;
+      left: 0;
+      bottom: -12px;
+      border-radius: 2px;
+    }
+    
+    /* slide area */
+    .stage {
+      position: relative;
+      min-height: 420px;
+      overflow: visible;
+    }
+    
+    .slide {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(6px);
+      transition: opacity .45s ease, transform .45s ease;
+      will-change: opacity, transform;
+    }
+    
+    .slide.current {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+      position: relative;
+    }
+    
+    h1 {
+      font-size: 44px;
+      font-weight: 600;
+      margin: 18px 0 6px;
+      text-align: center;
+    }
+    
+    .lead {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 28px;
+      font-size: 15px;
+    }
+    
+    /* option cards */
+    .option-row {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+    
+    .model-card {
+      width: 320px;
+      background: var(--card-bg);
+      border: 1px solid var(--edge);
+      border-radius: 12px;
+      padding: 26px;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color .18s;
+    }
+    
+    .model-card.selected {
+      border-color: var(--accent);
+    }
+    
+    .model-card .title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .model-card .sub {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    
+    .model-card .price {
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--text);
+    }
+    
+    /* colour tiles (Apple-style) */
+    .colour-grid {
+      display: flex;
+      gap: 26px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+    
+    .colour-tile {
+      width: 220px;
+      background: transparent;
+      border-radius: 14px;
+      border: 1px solid var(--edge);
+      padding: 18px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .16s;
+    }
+    
+    .colour-tile.selected {
+      border-color: var(--accent);
+    }
+    
+    .colour-tile img {
+      width: 100%;
+      height: 450px;
+      object-fit: contain;
+      border-radius: 10px;
+      display: block;
+      margin-bottom: 12px;
+      background: #ffffff;
+      border: 1px solid #f0f0f0;
+    }
+    
+    .colour-tile .label {
+      font-weight: 600;
+      margin-bottom: 4px;
+      font-size: 16px;
+    }
+    
+    .colour-tile .device {
+      color: var(--muted);
+      font-size: 13px;
+    }
+    
+    /* capacity cards */
+    .capacity-grid {
+      display: flex;
+      gap: 22px;
+      justify-content: center;
+      margin-top: 26px;
+      flex-wrap: wrap;
+    }
+    
+    .capacity-card {
+      width: 200px;
+      background: var(--card-bg);
+      border-radius: 8px;
+      border: 1px solid var(--edge);
+      padding: 18px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .14s;
+    }
+    
+    .capacity-card.selected {
+      border-color: var(--accent);
+    }
+    
+    .capacity-card .size {
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: -1px;
+    }
+    
+    .capacity-card .price {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+    }
+    
+    /* summary */
+    .summary-wrap {
+      text-align: center;
+      margin-top: 18px;
+    }
+    
+    .summary-price {
+      font-size: 36px;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+    
+    .summary-image-container {
+      width: 40%;
+      max-width: 300px;
+      margin: 0 auto 30px auto;
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      height: 200px;
+    }
+    
+    .summary-image {
+      width: 100%;
+      height: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+    }
+    
+    .cta {
+      margin-top: 18px;
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 12px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+    }
+    
+    /* small responsive */
+    @media (max-width: 880px) {
+      .model-card {
+        width: 100%;
+        max-width: 540px;
+      }
+      
+      .colour-tile {
+        width: 44%;
+      }
+      
+      .capacity-card {
+        width: 45%;
+      }
+      
+      .summary-image-container {
+        width: 60%;
+      }
+    }
+    
+    @media (max-width: 520px) {
+      .colour-tile {
+        width: 100%;
+      }
+      
+      .capacity-card {
+        width: 100%;
+      }
+      
+      h1 {
+        font-size: 28px;
+      }
+      
+      .summary-image-container {
+        width: 80%;
+        height: 180px;
+      }
+    }
+    
+    /* tiny helper */
+    .muted {
+      color: var(--muted);
+      font-size: 13px;
+      display: block;
+      margin-top: 8px;
+    }
+    
+    .spacer {
+      height: 24px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">BoibyPhone 13 Pro</div>
+    <div class="controls">
+      <div class="muted" style="font-size:13px;margin-right:8px">Starting at A$1899</div>
+      <button id="modeToggle" class="mode-toggle" aria-pressed="false">Dark mode</button>
+    </div>
+  </header>
+  
+  <main class="wrap" id="app">
+    <!-- step tabs / breadcrumb -->
+    <nav class="steps" aria-label="Configurator steps">
+      <button class="step-btn active" data-step="1">Model</button>
+      <button class="step-btn" data-step="2">Finish</button>
+      <button class="step-btn" data-step="3">Capacity</button>
+      <button class="step-btn" data-step="4">Summary</button>
+    </nav>
+    
+    <section class="stage" aria-live="polite">
+      <!-- SLIDE 1: Model -->
+      <div id="slide-1" class="slide current">
+        <h1>Choose your BoibyPhone 13 Pro.</h1>
+        
+        <div class="option-row" role="list">
+          <div class="model-card" data-model="13Pro" role="listitem" tabindex="0">
+            <div class="title">BoibyPhone 13 Pro</div>
+            <div class="sub">6.3-inch display</div>
+            <div class="price">From A$1899</div>
+          </div>
+          
+          <div class="model-card" data-model="13ProMax" role="listitem" tabindex="0">
+            <div class="title">BoibyPhone 13 Pro Max</div>
+            <div class="sub">6.9-inch display</div>
+            <div class="price">From A$2099</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- SLIDE 2: Finish / Colour -->
+      <div id="slide-2" class="slide" aria-hidden="true">
+        <h1>Choose your finish.</h1>
+        
+        <div class="colour-grid" role="list">
+          <div class="colour-tile" data-col="Silver Titanium" tabindex="0">
+            <img src="" alt="" class="colour-image" />
+            <div class="label">Silver Titanium</div>
+            <div class="device">BoibyPhone 13 Pro</div>
+          </div>
+          
+          <div class="colour-tile" data-col="Black Titanium" tabindex="0">
+            <img src="" alt="" class="colour-image" />
+            <div class="label">Black Titanium</div>
+            <div class="device">BoibyPhone 13 Pro</div>
+          </div>
+          
+          <div class="colour-tile" data-col="Red Titanium" tabindex="0">
+            <img src="" alt="" class="colour-image" />
+            <div class="label">Red Titanium</div>
+            <div class="device">BoibyPhone 13 Pro</div>
+          </div>
+          
+          <div class="colour-tile" data-col="Blue Titanium" tabindex="0">
+            <img src="" alt="" class="colour-image" />
+            <div class="label">Blue Titanium</div>
+            <div class="device">BoibyPhone 13 Pro</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- SLIDE 3: Capacity -->
+      <div id="slide-3" class="slide" aria-hidden="true">
+        <h1>Now choose your capacity.</h1>
+        <p class="lead">Choose the amount of storage you will need.</p>
+        
+        <div class="capacity-grid" role="list" id="capacityGrid">
+          <!-- Will be populated by JS -->
+        </div>
+      </div>
+      
+      <!-- SLIDE 4: Summary -->
+      <div id="slide-4" class="slide" aria-hidden="true">
+        <h1 id="summaryTitle">Here's your new BoibyPhone.</h1>
+        <p class="lead summary-sub" id="summaryBreadcrumb">—</p>
+        
+        <div class="summary-wrap">
+          <!-- Phone image showing only top 40% -->
+          <div class="summary-image-container">
+            <img src="" alt="" class="summary-image" id="summaryPhoneImage" />
+          </div>
+          
+          <div class="summary-price" id="finalPrice">A$0</div>
+          <div class="muted" id="finalLock">Unlocked</div>
+          
+          <div style="margin-top:18px">
+            <button class="cta" id="addBag">Add to Bag</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <script>
+    /* -------------------------
+       Data and initial state
+       ------------------------- */
+    const state = {
+      model: null,      // '13Pro' or '13ProMax'
+      color: null,      // 'Silver Titanium', 'Black Titanium', etc
+      capacity: null,   // 256, 512, 1024, or 2048
+      price: 0
+    };
+    
+    const PRICES = {
+      "13Pro": {256: 1899, 512: 2099, 1024: 2299, 2048: 2699},
+      "13ProMax": {256: 2099, 512: 2299, 1024: 2499, 2048: 2899}
+    };
+    
+    /* -------------------------
+       Helpers: show slide
+       ------------------------- */
+    const steps = Array.from(document.querySelectorAll('.step-btn'));
+    
+    function showStep(n) {
+      // slides numbered 1..4
+      for(let i = 1; i <= 4; i++) {
+        const s = document.getElementById('slide-' + i);
+        if(i === n) {
+          s.classList.add('current');
+          s.setAttribute('aria-hidden', 'false');
+        } else {
+          s.classList.remove('current');
+          s.setAttribute('aria-hidden', 'true');
+        }
+      }
+      
+      steps.forEach(btn => btn.classList.toggle('active', Number(btn.dataset.step) === n));
+    }
+    
+    /* -------------------------
+       Mode toggle
+       ------------------------- */
+    const modeBtn = document.getElementById('modeToggle');
+    
+    modeBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      modeBtn.textContent = isDark ? 'Light mode' : 'Dark mode';
+      modeBtn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    });
+    
+    /* -------------------------
+       Model selection
+       ------------------------- */
+    document.querySelectorAll('.model-card').forEach(el => {
+      el.addEventListener('click', () => {
+        selectModel(el.dataset.model);
+        showStep(2); // Go to finish/color step
+      });
+      
+      el.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter') {
+          selectModel(el.dataset.model);
+          showStep(2); // Go to finish/color step
+        }
+      });
+    });
+    
+    function selectModel(m) {
+      state.model = m;
+      
+      // visual selection
+      document.querySelectorAll('.model-card').forEach(c => {
+        c.classList.toggle('selected', c.dataset.model === m);
+      });
+      
+      // Reset selections that depend on model
+      state.color = null;
+      state.capacity = null;
+      state.price = 0;
+      
+      // Update colour images for the selected model
+      updateColourImages();
+      
+      // Update header starting price
+      const headerPrice = document.querySelector('.controls .muted');
+      const basePrice = PRICES[m][256];
+      headerPrice.textContent = `Starting at A$${basePrice.toLocaleString()}`;
+    }
+    
+    /* step buttons */
+    document.querySelectorAll('.step-btn').forEach(btn => {
+      btn.addEventListener('click', () => showStep(Number(btn.dataset.step)));
+    });
+    
+    /* -------------------------
+       Finish (colour) tiles
+       ------------------------- */
+    function updateColourImages() {
+      const colourTiles = document.querySelectorAll('.colour-tile');
+      colourTiles.forEach(tile => {
+        const colorName = tile.dataset.col.replace(/\s+/g, '');
+        const imagePath = `/images/13Pro_${colorName}.png`;
+        const img = tile.querySelector('.colour-image');
+        img.src = imagePath;
+        img.alt = `BoibyPhone 13 Pro — ${tile.dataset.col}`;
+        img.style.backgroundColor = '#ffffff';
+        tile.querySelector('.device').textContent = `BoibyPhone ${state.model === '13ProMax' ? '13 Pro Max' : '13 Pro'}`;
+      });
+    }
+    
+    /* attach click handlers for colour tiles */
+    document.querySelectorAll('.colour-tile').forEach(tile => {
+      tile.addEventListener('click', () => {
+        // mark selected
+        document.querySelectorAll('.colour-tile').forEach(t => t.classList.remove('selected'));
+        tile.classList.add('selected');
+        
+        // set state color
+        state.color = tile.dataset.col;
+        
+        // Update summary image with the selected color
+        updateSummaryImage();
+        
+        // Populate capacities and go to next step
+        populateCapacities();
+        showStep(3);
+      });
+      
+      tile.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter') {
+          tile.click();
+        }
+      });
+    });
+    
+    /* -------------------------
+       Update summary image
+       ------------------------- */
+    function updateSummaryImage() {
+      if (state.color) {
+        const colorName = state.color.replace(/\s+/g, '');
+        const imagePath = `/images/13Pro_${colorName}.png`;
+        const summaryImage = document.getElementById('summaryPhoneImage');
+        summaryImage.src = imagePath;
+        summaryImage.alt = `BoibyPhone ${state.model === '13ProMax' ? '13 Pro Max' : '13 Pro'} — ${state.color}`;
+        summaryImage.style.backgroundColor = '#ffffff';
+      }
+    }
+    
+    /* -------------------------
+       Capacity options
+       ------------------------- */
+    const capacityGrid = document.getElementById('capacityGrid');
+    
+    function populateCapacities() {
+      capacityGrid.innerHTML = '';
+      if(!state.model || !state.color) return;
+      
+      // Storage options: 256GB, 512GB, 1TB, 2TB
+      const opts = [256, 512, 1024, 2048];
+      
+      opts.forEach(cap => {
+        const price = PRICES[state.model][cap];
+        const displaySize = cap >= 1024 ? `${cap/1024}TB` : `${cap}GB`;
+        const card = document.createElement('div');
+        card.className = 'capacity-card';
+        card.dataset.cap = cap;
+        card.innerHTML = `<div class="size">${displaySize}</div><div class="price">A$${price.toLocaleString()}</div>`;
+        
+        card.addEventListener('click', () => {
+          selectCapacity(cap);
+          showStep(4);
+        });
+        
+        capacityGrid.appendChild(card);
+      });
+    }
+    
+    function selectCapacity(cap) {
+      // remove selected classes
+      document.querySelectorAll('.capacity-card').forEach(c => c.classList.remove('selected'));
+      state.capacity = cap;
+      state.price = PRICES[state.model][cap];
+      
+      // Update summary immediately
+      updateSummary();
+    }
+    
+    /* update summary */
+    function updateSummary() {
+      // Update the title with model name
+      const summaryTitle = document.getElementById('summaryTitle');
+      const modelName = state.model === '13ProMax' ? '13 Pro Max' : '13 Pro';
+      summaryTitle.textContent = `Here's your new BoibyPhone ${modelName}.`;
+      
+      // Update the breadcrumb line
+      const bread = [];
+      if(state.capacity) {
+        const displaySize = state.capacity >= 1024 ? `${state.capacity/1024}TB` : `${state.capacity}GB`;
+        bread.push(displaySize);
+      }
+      if(state.color) bread.push(state.color);
+      document.getElementById('summaryBreadcrumb').textContent = bread.join(', ');
+      
+      const priceEl = document.getElementById('finalPrice');
+      priceEl.textContent = `A$${state.price.toLocaleString()}`;
+    }
+    
+    /* Add to bag button - simple demo behaviour */
+    document.getElementById('addBag').addEventListener('click', () => {
+      const modelName = state.model === '13ProMax' ? '13 Pro Max' : '13 Pro';
+      const displaySize = state.capacity >= 1024 ? `${state.capacity/1024}TB` : `${state.capacity}GB`;
+      alert(`Added to bag:\nBoibyPhone ${modelName} · ${state.color || '—'} · ${displaySize}\nA$${state.price || 0}`);
+    });
+    
+    /* -------------------------
+       Initial setup
+       ------------------------- */
+    (function init() {
+      // step buttons clickable
+      steps.forEach(btn => {
+        btn.addEventListener('click', () => showStep(Number(btn.dataset.step)));
+      });
+    })();
+  </script>
+</body>
+</html>
