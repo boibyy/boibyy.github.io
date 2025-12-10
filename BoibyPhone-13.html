@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BoibyPhone 23 — Configurator</title>
+  <title>BoibyPhone 13 Configurator</title>
   
   <!-- Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -347,7 +347,7 @@
 </head>
 <body>
   <header>
-    <div class="brand">BoibyPhone 23</div>
+    <div class="brand">BoibyPhone 13</div>
     <div class="controls">
       <div class="muted" style="font-size:13px;margin-right:8px">Starting at A$1399</div>
       <button id="modeToggle" class="mode-toggle" aria-pressed="false">Dark mode</button>
@@ -368,11 +368,11 @@
       <!-- SLIDE 1: Model -->
       <div id="slide-1" class="slide current">
         <h1>Choose your BoibyPhone.</h1>
-        <p class="lead">The all-new BoibyPhone 23 with advanced features.</p>
+        <p class="lead">The all-new BoibyPhone 13 with advanced features.</p>
         
         <div class="option-row" role="list">
-          <div class="model-card" data-model="23" role="listitem" tabindex="0">
-            <div class="title">BoibyPhone 23</div>
+          <div class="model-card" data-model="13" role="listitem" tabindex="0">
+            <div class="title">BoibyPhone 13</div>
             <div class="sub">6.3-inch Super Retina display</div>
             <div class="price">From A$1399</div>
           </div>
@@ -405,31 +405,31 @@
           <div class="colour-tile" data-col="White" tabindex="0">
             <img src="" alt="" class="colour-image" />
             <div class="label">White</div>
-            <div class="device">BoibyPhone 23</div>
+            <div class="device">BoibyPhone 13</div>
           </div>
           
           <div class="colour-tile" data-col="Black" tabindex="0">
             <img src="" alt="" class="colour-image" />
             <div class="label">Black</div>
-            <div class="device">BoibyPhone 23</div>
+            <div class="device">BoibyPhone 13</div>
           </div>
           
           <div class="colour-tile" data-col="Orange" tabindex="0">
             <img src="" alt="" class="colour-image" />
             <div class="label">Orange</div>
-            <div class="device">BoibyPhone 23</div>
+            <div class="device">BoibyPhone 13</div>
           </div>
           
           <div class="colour-tile" data-col="Aqua" tabindex="0">
             <img src="" alt="" class="colour-image" />
             <div class="label">Aqua</div>
-            <div class="device">BoibyPhone 23</div>
+            <div class="device">BoibyPhone 13</div>
           </div>
           
           <div class="colour-tile" data-col="Purple" tabindex="0">
             <img src="" alt="" class="colour-image" />
             <div class="label">Purple</div>
-            <div class="device">BoibyPhone 23</div>
+            <div class="device">BoibyPhone 13</div>
           </div>
         </div>
       </div>
@@ -466,7 +466,7 @@
        Data and initial state
        ------------------------- */
     const state = {
-      model: null,      // '23' (only option now)
+      model: null,      // '13' (only option now)
       sim: null,        // 'physical' or 'esim'
       color: null,      // 'White', 'Black', etc
       capacity: null,   // 256 or 512
@@ -474,7 +474,7 @@
     };
     
     const PRICES = {
-      "23": {256: 1399, 512: 1599}
+      "13": {256: 1399, 512: 1599}
     };
     
     /* -------------------------
@@ -571,11 +571,11 @@
       const colourTiles = document.querySelectorAll('.colour-tile');
       colourTiles.forEach(tile => {
         const colorName = tile.dataset.col.replace(/\s+/g, '');
-        const imagePath = `/images/23_${colorName}.jpg`;
+        const imagePath = `/images/13_${colorName}.jpg`;
         const img = tile.querySelector('.colour-image');
         img.src = imagePath;
-        img.alt = `BoibyPhone 23 — ${tile.dataset.col}`;
-        tile.querySelector('.device').textContent = `BoibyPhone 23`;
+        img.alt = `BoibyPhone 13 — ${tile.dataset.col}`;
+        tile.querySelector('.device').textContent = `BoibyPhone 13`;
       });
     }
     
@@ -644,7 +644,7 @@
     function updateSummary() {
       // Update the title with model name
       const summaryTitle = document.getElementById('summaryTitle');
-      summaryTitle.textContent = `Here's your new BoibyPhone 23.`;
+      summaryTitle.textContent = `Here's your new BoibyPhone 13.`;
       
       // Update the breadcrumb line
       const bread = [];
@@ -659,7 +659,7 @@
     
     /* Add to bag button - simple demo behaviour */
     document.getElementById('addBag').addEventListener('click', () => {
-      alert(`Added to bag:\nBoibyPhone 23 · ${state.color || '—'} · ${state.capacity || '—'}GB\nA$${state.price || 0}`);
+      alert(`Added to bag:\nBoibyPhone 13 · ${state.color || '—'} · ${state.capacity || '—'}GB\nA$${state.price || 0}`);
     });
     
     /* -------------------------
