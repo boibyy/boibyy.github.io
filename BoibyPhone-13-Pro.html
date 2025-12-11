@@ -680,7 +680,7 @@
       if (state.boibycare === 'none') {
         step4Value.textContent = 'None';
       } else if (state.boibycare === 'one_year') {
-        step4Value.textContent = '1 Year';
+        step4Value.textContent = '2 Years';
       } else {
         step4Value.textContent = '—';
       }
@@ -873,7 +873,7 @@
         },
         {
           id: 'one_year',
-          title: 'BoibyCare+ for 1 year',
+          title: 'BoibyCare+ for 2 Years',
           desc: 'Accidental damage coverage for your device',
           price: 150
         }
@@ -947,7 +947,7 @@
         bread.push(displaySize);
       }
       if(state.color) bread.push(state.color);
-      if(state.boibycare === 'one_year') bread.push('BoibyCare+ 1 Year');
+      if(state.boibycare === 'one_year') bread.push('BoibyCare+ 2 Years');
       document.getElementById('summaryBreadcrumb').textContent = bread.join(', ');
       
       const priceEl = document.getElementById('finalPrice');
@@ -958,7 +958,7 @@
     document.getElementById('addBag').addEventListener('click', () => {
       const modelName = state.model === '13ProMax' ? '13 Pro Max' : '13 Pro';
       const displaySize = state.capacity >= 1024 ? `${state.capacity/1024}TB` : `${state.capacity}GB`;
-      const boibycareText = state.boibycare === 'one_year' ? '· BoibyCare+ 1 Year' : '';
+      const boibycareText = state.boibycare === 'one_year' ? '· BoibyCare+ 2 Years' : '';
       alert(`Added to bag:\nBoibyPhone ${modelName} · ${state.color || '—'} · ${displaySize} ${boibycareText}\nA$${state.price || 0}`);
     });
     
