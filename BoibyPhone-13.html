@@ -88,6 +88,7 @@
       margin-bottom: 28px;
       font-size: 14px;
       color: var(--muted);
+      flex-wrap: wrap;
     }
     
     .steps button {
@@ -98,6 +99,8 @@
       color: inherit;
       font-weight: 500;
       position: relative;
+      text-align: center;
+      min-width: 100px;
     }
     
     .steps button.active {
@@ -113,6 +116,23 @@
       left: 0;
       bottom: -12px;
       border-radius: 2px;
+    }
+    
+    .step-label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    
+    .step-value {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 120px;
     }
     
     /* slide area */
@@ -279,6 +299,62 @@
       font-size: 14px;
     }
     
+    /* boibycare cards */
+    .boibycare-grid {
+      display: flex;
+      gap: 22px;
+      justify-content: center;
+      margin-top: 26px;
+      flex-wrap: wrap;
+    }
+    
+    .boibycare-card {
+      width: 320px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--edge);
+      padding: 26px;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color .18s;
+      position: relative;
+    }
+    
+    .boibycare-card.selected {
+      border-color: var(--accent);
+    }
+    
+    .boibycare-card .title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .boibycare-card .desc {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    
+    .boibycare-card .price {
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text);
+    }
+    
+    .boibycare-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--accent);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
     /* summary */
     .summary-wrap {
       text-align: center;
@@ -338,8 +414,21 @@
         width: 45%;
       }
       
+      .boibycare-card {
+        width: 100%;
+        max-width: 540px;
+      }
+      
       .summary-image-container {
         width: 60%;
+      }
+      
+      .steps button {
+        min-width: 80px;
+      }
+      
+      .step-value {
+        max-width: 80px;
       }
     }
     
@@ -352,12 +441,29 @@
         width: 100%;
       }
       
+      .boibycare-card {
+        width: 100%;
+      }
+      
       h1 {
         font-size: 28px;
       }
       
       .summary-image-container {
         width: 80%;
+      }
+      
+      .steps {
+        gap: 8px;
+      }
+      
+      .steps button {
+        min-width: 70px;
+        padding: 6px 4px;
+      }
+      
+      .step-value {
+        max-width: 70px;
       }
     }
     
@@ -386,10 +492,26 @@
   <main class="wrap" id="app">
     <!-- step tabs / breadcrumb -->
     <nav class="steps" aria-label="Configurator steps">
-      <button class="step-btn active" data-step="1">Model</button>
-      <button class="step-btn" data-step="2">Finish</button>
-      <button class="step-btn" data-step="3">Capacity</button>
-      <button class="step-btn" data-step="4">Summary</button>
+      <button class="step-btn active" data-step="1">
+        <span class="step-label">Model</span>
+        <span class="step-value" id="step1-value">—</span>
+      </button>
+      <button class="step-btn" data-step="2">
+        <span class="step-label">Finish</span>
+        <span class="step-value" id="step2-value">—</span>
+      </button>
+      <button class="step-btn" data-step="3">
+        <span class="step-label">Capacity</span>
+        <span class="step-value" id="step3-value">—</span>
+      </button>
+      <button class="step-btn" data-step="4">
+        <span class="step-label">BoibyCare+</span>
+        <span class="step-value" id="step4-value">—</span>
+      </button>
+      <button class="step-btn" data-step="5">
+        <span class="step-label">Summary</span>
+        <span class="step-value">—</span>
+      </button>
     </nav>
     
     <section class="stage" aria-live="polite">
@@ -453,8 +575,18 @@
         </div>
       </div>
       
-      <!-- SLIDE 4: Summary -->
+      <!-- SLIDE 4: BoibyCare+ -->
       <div id="slide-4" class="slide" aria-hidden="true">
+        <h1>Add BoibyCare+.</h1>
+        <p class="lead">Accidental damage coverage</p>
+        
+        <div class="boibycare-grid" role="list" id="boibycareGrid">
+          <!-- Will be populated by JS -->
+        </div>
+      </div>
+      
+      <!-- SLIDE 5: Summary -->
+      <div id="slide-5" class="slide" aria-hidden="true">
         <h1 id="summaryTitle">Here's your new BoibyPhone.</h1>
         <p class="lead summary-sub" id="summaryBreadcrumb">—</p>
         
@@ -484,11 +616,18 @@
       sim: null,        // 'physical' or 'esim'
       color: null,      // 'White', 'Black', etc
       capacity: null,   // 256 or 512
-      price: 0
+      boibycare: null,  // 'none' or 'one_year'
+      price: 0,
+      basePrice: 0
     };
     
     const PRICES = {
       "13": {256: 1399, 512: 1599}
+    };
+    
+    const BOIBYCARE_PRICES = {
+      "none": 0,
+      "one_year": 150
     };
     
     /* -------------------------
@@ -497,8 +636,8 @@
     const steps = Array.from(document.querySelectorAll('.step-btn'));
     
     function showStep(n) {
-      // slides numbered 1..4 now (removed SIM step)
-      for(let i = 1; i <= 4; i++) {
+      // slides numbered 1..5 now
+      for(let i = 1; i <= 5; i++) {
         const s = document.getElementById('slide-' + i);
         if(i === n) {
           s.classList.add('current');
@@ -510,6 +649,33 @@
       }
       
       steps.forEach(btn => btn.classList.toggle('active', Number(btn.dataset.step) === n));
+    }
+    
+    /* -------------------------
+       Update step values
+       ------------------------- */
+    function updateStepValues() {
+      // Step 1: Model
+      const step1Value = document.getElementById('step1-value');
+      step1Value.textContent = state.model ? `BoibyPhone ${state.model}` : '—';
+      
+      // Step 2: Finish
+      const step2Value = document.getElementById('step2-value');
+      step2Value.textContent = state.color || '—';
+      
+      // Step 3: Capacity
+      const step3Value = document.getElementById('step3-value');
+      step3Value.textContent = state.capacity ? `${state.capacity}GB` : '—';
+      
+      // Step 4: BoibyCare+
+      const step4Value = document.getElementById('step4-value');
+      if (state.boibycare === 'none') {
+        step4Value.textContent = 'None';
+      } else if (state.boibycare === 'one_year') {
+        step4Value.textContent = '1 Year';
+      } else {
+        step4Value.textContent = '—';
+      }
     }
     
     /* -------------------------
@@ -555,10 +721,15 @@
       // Reset selections that depend on model
       state.color = null;
       state.capacity = null;
+      state.boibycare = null;
       state.price = 0;
+      state.basePrice = 0;
       
       // Update colour images for the selected model
       updateColourImages();
+      
+      // Update step values
+      updateStepValues();
     }
     
     /* step buttons */
@@ -591,6 +762,9 @@
         
         // set state color
         state.color = tile.dataset.col;
+        
+        // Update step values
+        updateStepValues();
         
         // Update summary image with the selected color
         updateSummaryImage();
@@ -653,10 +827,99 @@
     function selectCapacity(cap) {
       // remove selected classes
       document.querySelectorAll('.capacity-card').forEach(c => c.classList.remove('selected'));
-      state.capacity = cap;
-      state.price = PRICES[state.model][cap];
       
-      // Update summary immediately
+      // mark selected
+      const selectedCard = document.querySelector(`.capacity-card[data-cap="${cap}"]`);
+      if (selectedCard) {
+        selectedCard.classList.add('selected');
+      }
+      
+      state.capacity = cap;
+      state.basePrice = PRICES[state.model][cap];
+      state.price = state.basePrice + BOIBYCARE_PRICES[state.boibycare || 'none'];
+      
+      // Update step values
+      updateStepValues();
+      
+      // Populate BoibyCare+ options
+      populateBoibycareOptions();
+    }
+    
+    /* -------------------------
+       BoibyCare+ options
+       ------------------------- */
+    const boibycareGrid = document.getElementById('boibycareGrid');
+    
+    function populateBoibycareOptions() {
+      boibycareGrid.innerHTML = '';
+      if(!state.model || !state.capacity) return;
+      
+      const options = [
+        {
+          id: 'none',
+          title: 'No BoibyCare+',
+          desc: 'Standard 1‑year limited warranty',
+          price: 0
+        },
+        {
+          id: 'one_year',
+          title: 'BoibyCare+ for 1 year',
+          desc: 'Accidental damage coverage',
+          price: 150
+        }
+      ];
+      
+      options.forEach(opt => {
+        const card = document.createElement('div');
+        card.className = 'boibycare-card';
+        card.dataset.boibycare = opt.id;
+        
+        let badge = '';
+        if (opt.price > 0) {
+          badge = `<div class="boibycare-badge">+A$${opt.price}</div>`;
+        }
+        
+        card.innerHTML = `
+          ${badge}
+          <div class="title">${opt.title}</div>
+          <div class="desc">${opt.desc}</div>
+          <div class="price">+A$${opt.price.toLocaleString()}</div>
+        `;
+        
+        card.addEventListener('click', () => {
+          selectBoibycare(opt.id);
+          showStep(5);
+        });
+        
+        boibycareGrid.appendChild(card);
+      });
+      
+      // Mark current selection if any
+      if (state.boibycare) {
+        const selectedCard = document.querySelector(`.boibycare-card[data-boibycare="${state.boibycare}"]`);
+        if (selectedCard) {
+          selectedCard.classList.add('selected');
+        }
+      }
+    }
+    
+    function selectBoibycare(id) {
+      // remove selected classes
+      document.querySelectorAll('.boibycare-card').forEach(c => c.classList.remove('selected'));
+      
+      // mark selected
+      const selectedCard = document.querySelector(`.boibycare-card[data-boibycare="${id}"]`);
+      if (selectedCard) {
+        selectedCard.classList.add('selected');
+      }
+      
+      state.boibycare = id;
+      state.price = state.basePrice + BOIBYCARE_PRICES[id];
+      
+      // Update step values
+      updateStepValues();
+      
+      // Update summary
       updateSummary();
     }
     
@@ -670,6 +933,7 @@
       const bread = [];
       if(state.capacity) bread.push(`${state.capacity}GB`);
       if(state.color) bread.push(state.color);
+      if(state.boibycare === 'one_year') bread.push('BoibyCare+ 1 Year');
       document.getElementById('summaryBreadcrumb').textContent = bread.join(', ');
       
       const priceEl = document.getElementById('finalPrice');
@@ -678,7 +942,8 @@
     
     /* Add to bag button - simple demo behaviour */
     document.getElementById('addBag').addEventListener('click', () => {
-      alert(`Added to bag:\nBoibyPhone 13 · ${state.color || '—'} · ${state.capacity || '—'}GB\nA$${state.price || 0}`);
+      const boibycareText = state.boibycare === 'one_year' ? '· BoibyCare+ 1 Year' : '';
+      alert(`Added to bag:\nBoibyPhone 13 · ${state.color || '—'} · ${state.capacity || '—'}GB ${boibycareText}\nA$${state.price || 0}`);
     });
     
     /* -------------------------
@@ -695,6 +960,9 @@
       if (modelCard) {
         selectModel('13');
       }
+      
+      // Initialize step values
+      updateStepValues();
     })();
   </script>
 </body>
