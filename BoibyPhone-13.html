@@ -551,7 +551,7 @@
     <span class="step-value" id="step3-value">Capacity</span>
   </button>
   <button class="step-btn" data-step="4">
-    <span class="step-value" id="step4-value">BoibyCare+</span>
+    <span class="step-value" id="step4-value">Services</span>
   </button>
 </nav>
     
@@ -653,7 +653,6 @@
         
         <div class="summary-wrap">
           <div class="summary-price" id="finalPrice">A$0</div>
-          <div class="muted" id="finalLock">Unlocked</div>
           
           <div class="summary-images-container">
             <div class="summary-image-wrapper">
@@ -1116,7 +1115,7 @@ function setupColourTileHover() {
       const bread = [];
       if(state.capacity) bread.push(`${state.capacity}GB`);
       if(state.color) bread.push(state.color);
-      if(state.boibycare === 'one_year') bread.push('BoibyCare+ 2 Years');
+      if(state.boibycare === 'one_year') bread.push('BoibyCare+');
       document.getElementById('summaryBreadcrumb').textContent = bread.join(', ');
       
       const priceEl = document.getElementById('finalPrice');
