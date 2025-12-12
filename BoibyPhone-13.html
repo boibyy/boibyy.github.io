@@ -1375,11 +1375,11 @@ function updateSummary() {
   }
   if(state.color) bread.push(state.color);
   if(state.boibycare === 'one_year') {
-    bread.push('BoibyCare+ 2 Years');
+    bread.push('BoibyCare+');
   } else if (state.boibycare === 'none') {
   }
   
-  const breadcrumbText = bread.join(' · ');
+  const breadcrumbText = bread.join(', ');
   document.getElementById('summaryBreadcrumb').textContent = breadcrumbText;
   
   const priceEl = document.getElementById('finalPrice');
