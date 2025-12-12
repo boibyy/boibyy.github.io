@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Age App</title>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f2f2f7;
+      color: #000;
+      min-height: 100vh;
+      padding: 20px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-top: 10px;
+    }
+    
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .subtitle {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .age-section {
+      margin: 30px 0;
+    }
+    
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    
+    .age-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    
+    .age-btn {
+      background: white;
+      border: 1px solid #c7c7cc;
+      border-radius: 10px;
+      padding: 20px 12px;
+      text-align: center;
+      cursor: pointer;
+    }
+    
+    .age-btn:active {
+      background: #f2f2f7;
+    }
+    
+    .age-btn.selected {
+      border-color: #007aff;
+      background: #e6f2ff;
+    }
+
+    .age-label {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    .response-section {
+      margin-top: 30px;
+      text-align: center;
+    }
+    
+    .response-label {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 12px;
+    }
+    
+    .response-code {
+      font-family: monospace;
+      font-size: 20px;
+      letter-spacing: 2px;
+      background: white;
+      padding: 16px;
+      border-radius: 12px;
+      border: 2px solid #c7c7cc;
+      margin: 12px 0;
+      text-align: center;
+      cursor: pointer;
+    }
+    
+    .response-code:active {
+      border-color: #007aff;
+    }
+    
+    .regenerate-btn {
+      width: 100%;
+      padding: 14px;
+      margin-top: 16px;
+      background: white;
+      border: 1px solid #c7c7cc;
+      color: #000;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    
+    .regenerate-btn:active {
+      border-color: #007aff;
+    }
+    
+    .age-info {
+      margin-top: 20px;
+      padding: 12px;
+      background: #e6f2ff;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 14px;
+      color: #007aff;
+    }
+    
+    @media (max-width: 520px) {
+      body {
+        padding: 16px;
+      }
+      
+      .age-buttons {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="title">Age App</div>
+    <div class="subtitle">Select your age group</div>
+  </div>
+  
+  <div class="age-section">
+    <div class="section-title">Select your age:</div>
+    <div class="age-buttons">
+      <button class="age-btn selected" data-age="A" onclick="selectAge('A')">
+        <div class="age-label">Under 13</div>
+      </button>
+      <button class="age-btn" data-age="B" onclick="selectAge('B')">
+        <div class="age-label">13-15</div>
+      </button>
+      <button class="age-btn" data-age="C" onclick="selectAge('C')">
+        <div class="age-label">16-17</div>
+      </button>
+      <button class="age-btn" data-age="D" onclick="selectAge('D')">
+        <div class="age-label">18-20</div>
+      </button>
+      <button class="age-btn" data-age="E" onclick="selectAge('E')">
+        <div class="age-label">21+</div>
+      </button>
+    </div>
+  </div>
+  
+  <div class="response-section" id="responseSection">
+    <div class="response-label">Verification code:</div>
+    <div class="response-code" id="responseCodeDisplay" onclick="copyCode()">-----</div>
+    <button class="regenerate-btn" onclick="regenerateCode()">↻ New Code</button>
+    
+    <div class="age-info" id="ageInfo"></div>
+  </div>
+
+  <script>
+    // Shared code system
+    const CODE_SYSTEM = {
+      // Under 13 - will be denied
+      "A": [
+        "X9P3-M2R8-K5", "L4F7-J1Q9-N3", "T8V2-H6W4-B7",
+        "Q3N5-P8M1-R9", "K7J2-G4H8-L3", "S1D6-F9C2-P5"
+      ],
+      // 13-15 - will be approved
+      "B": [
+        "Z2X7-V5C9-Q8", "M8P4-N1J6-K3", "R9T2-F7B5-H4",
+        "L3W6-S8D1-M9", "Q5J4-H2V8-N7", "P1M9-C6X3-R2"
+      ],
+      // 16-17 - will be approved
+      "C": [
+        "Y7M2-Q9P5-X4", "J3K8-B1N6-V2", "W4T9-R5H8-L7",
+        "F6M1-D9C3-P8", "N2X7-V4Q1-J9", "S8P3-M5R6-K2"
+      ],
+      // 18-20 - will be approved
+      "D": [
+        "V9P2-M4X7-K3", "B8J5-F1T6-R4", "N3W7-C9M2-H8",
+        "Q6L1-P5R9-D4", "S2F8-V3J7-M6", "K4T9-B1N5-R8"
+      ],
+      // 21+ - will be approved
+      "E": [
+        "F9X3-P7K2-V5", "M4R8-J1B6-Q9", "T2W7-H5N3-L8",
+        "D6P1-K8M4-R3", "S9J2-C4V7-B5", "N3Q8-F1X6-M2"
+      ]
+    };
+    
+    // Age labels
+    const AGE_LABELS = {
+      'A': 'Under 13',
+      'B': '13-15 years',
+      'C': '16-17 years', 
+      'D': '18-20 years',
+      'E': '21+ years'
+    };
+    
+    // App state
+    let selectedAge = 'A'; // Default to Under 13
+    let currentCode = null;
+    let usedCodes = new Set();
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Generate initial code
+      generateResponseCode();
+    });
+    
+    // Select age group
+    function selectAge(age) {
+      // Deselect all
+      document.querySelectorAll('.age-btn').forEach(btn => {
+        btn.classList.remove('selected');
+      });
+      
+      // Select clicked
+      document.querySelector(`.age-btn[data-age="${age}"]`).classList.add('selected');
+      selectedAge = age;
+      
+      // Generate new code for selected age
+      generateResponseCode();
+    }
+    
+    // Generate response code
+    function generateResponseCode() {
+      if (!selectedAge) return;
+      
+      const availableCodes = CODE_SYSTEM[selectedAge].filter(
+        code => !usedCodes.has(code)
+      );
+      
+      if (availableCodes.length === 0) {
+        // Reset used codes if all are used
+        usedCodes.clear();
+        availableCodes.push(...CODE_SYSTEM[selectedAge]);
+      }
+      
+      // Pick random code
+      const randomCode = availableCodes[Math.floor(Math.random() * availableCodes.length)];
+      currentCode = randomCode;
+      usedCodes.add(randomCode);
+      
+      // Display code
+      document.getElementById('responseCodeDisplay').textContent = randomCode;
+      
+      // Show age info
+      document.getElementById('ageInfo').textContent = 
+        `Age group: ${AGE_LABELS[selectedAge]}`;
+    }
+    
+    // Copy code
+    function copyCode() {
+      if (currentCode) {
+        navigator.clipboard.writeText(currentCode);
+        const original = document.getElementById('responseCodeDisplay').textContent;
+        document.getElementById('responseCodeDisplay').textContent = 'Copied!';
+        setTimeout(() => {
+          document.getElementById('responseCodeDisplay').textContent = original;
+        }, 1000);
+      }
+    }
+    
+    // Regenerate code
+    function regenerateCode() {
+      generateResponseCode();
+    }
+  </script>
+</body>
+</html>
