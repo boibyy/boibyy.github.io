@@ -604,6 +604,12 @@
     let rawInput = document.getElementById('responseInput').value;
     rawInput = rawInput.replace(/\u200B/g,'').trim(); // remove zero-width spaces
     const input = rawInput.toUpperCase();
+    
+    // Check for easter egg first (before any other processing)
+    if (checkEasterEgg(input)) {
+        // Easter egg triggered, don't continue with normal verification
+        return;
+    }
 
     console.clear();
     console.log("=== AGE VERIFICATION DEBUG START ===");
@@ -657,9 +663,122 @@
     }, 800);
   }
 
-  function completeVerification() {
+// Add the easter egg function
+function checkEasterEgg(code) {
+    // Clean the code (remove hyphens, trim, uppercase)
+    const cleanCode = code.replace(/-/g, '').trim().toUpperCase();
+    
+    console.log("Easter egg check for:", cleanCode);
+    
+    // Define easter egg codes and their media files
+    const easterEggs = {
+        '41': '41.mp4',
+        '42': '42.mov', 
+        '67': '67.gif'
+    };
+    
+    // Check if the code matches any easter egg
+    if (easterEggs[cleanCode]) {
+        console.log("🎉 EASTER EGG TRIGGERED! 🎉");
+        const mediaFile = easterEggs[cleanCode];
+        const extension = mediaFile.split('.').pop();
+        
+        // Create new window with media player
+        const easterEggWindow = window.open('', '_blank', 'width=600,height=400,menubar=no,toolbar=no,location=no');
+        
+        // HTML for the media player
+        easterEggWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Easter Egg!</title>
+                <style>
+                    body {
+                        margin: 0;
+                        padding: 20px;
+                        background: #000;
+                        color: #fff;
+                        font-family: system-ui, sans-serif;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        min-height: 100vh;
+                    }
+                    h1 {
+                        color: #ff6b6b;
+                        margin-bottom: 20px;
+                        text-align: center;
+                    }
+                    .media-container {
+                        max-width: 100%;
+                        margin: 20px 0;
+                    }
+                    video, img {
+                        max-width: 100%;
+                        max-height: 70vh;
+                        border: 2px solid #ff6b6b;
+                        border-radius: 10px;
+                    }
+                    .close-btn {
+                        margin-top: 20px;
+                        padding: 10px 20px;
+                        background: #ff6b6b;
+                        color: white;
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        font-size: 16px;
+                    }
+                </style>
+            </head>
+            <body>
+                <h1>🎉 Easter Egg Found! 🎉</h1>
+                <div class="media-container">
+                    ${extension === 'gif' 
+                        ? `<img src="${mediaFile}" alt="Easter egg GIF" autoplay loop>`
+                        : `<video controls autoplay muted>
+                            <source src="${mediaFile}" type="video/${extension === 'mp4' ? 'mp4' : 'quicktime'}">
+                            Your browser does not support the video tag.
+                        </video>`
+                    }
+                </div>
+                <button class="close-btn" onclick="window.close()">Close</button>
+            </body>
+            </html>
+        `);
+        easterEggWindow.document.close();
+        
+        return true; // Easter egg triggered
+    }
+    
+    console.log("No easter egg found for this code");
+    return false; // No easter egg
+}
+
+function completeVerification() {
     alert('yes');
+}
+
+// easter egg check
+function checkEasterEgg(code) {
+  const cleanCode = code.replace(/-/g, '').toUpperCase();
+  
+  if (cleanCode === '41') {
+    window.open('41.mp4', '_blank');
+    return true;
   }
+  if (cleanCode === '42') {
+    window.open('42.mov', '_blank');
+    return true;
+  }
+  if (cleanCode === '67') {
+    window.open('67.gif', '_blank');
+    return true;
+  }
+  
+  return false;
+}
 </script>
 
 </body>
