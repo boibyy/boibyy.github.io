@@ -684,7 +684,7 @@
     };
     
     const PRICES = {
-      "13": {256: 1399, 512: 1599}
+      "13": {256: 1399, 512: 1599, 1024: 1999} // Added 1024GB (1TB)
     };
     
     const BOIBYCARE_PRICES = {
@@ -767,7 +767,9 @@ function updateStepValues() {
   // Step 3: Capacity
   const step3Value = document.getElementById('step3-value');
   if (state.capacity) {
-    step3Value.textContent = `${state.capacity}GB`;
+    // Display 1TB instead of 1024GB
+    const displayCapacity = state.capacity === 1024 ? '1TB' : `${state.capacity}GB`;
+    step3Value.textContent = displayCapacity;
     step3Value.style.color = 'var(--accent)';
   } else {
     step3Value.textContent = 'Capacity';
@@ -984,16 +986,18 @@ function setupColourTileHover() {
       capacityGrid.innerHTML = '';
       if(!state.model || !state.color) return;
       
-      // Only 256GB and 512GB options now
-      const opts = [256, 512];
+      // Now including 1TB (1024GB) option
+      const opts = [256, 512, 1024]; // Added 1024GB
       const filteredOpts = state.color === 'Jet Black' ? opts.filter(cap => cap !== 256) : opts;
       
       filteredOpts.forEach(cap => {
         const price = PRICES[state.model][cap];
+        // Format display text: show TB for 1024GB
+        const displayText = cap === 1024 ? '1TB' : `${cap}GB`;
         const card = document.createElement('div');
         card.className = 'capacity-card';
         card.dataset.cap = cap;
-        card.innerHTML = `<div class="size">${cap}GB</div><div class="price">A$${price.toLocaleString()}</div>`;
+        card.innerHTML = `<div class="size">${displayText}</div><div class="price">A$${price.toLocaleString()}</div>`;
         
         card.addEventListener('click', () => {
           selectCapacity(cap);
