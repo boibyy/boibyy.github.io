@@ -580,7 +580,7 @@
     font-size: 13px;
   }
 
-  /* What's in the box section */
+ /* What's in the box section */
 .whats-in-box {
   max-width: 800px;
   margin: 50px auto 0;
@@ -595,26 +595,38 @@
 }
 
 .box-items-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  display: flex;
+  justify-content: center;
   margin-top: 16px;
+  border: 1px solid var(--edge);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--card-bg);
 }
 
 .box-item {
-  background: transparent;
-  border-radius: 8px;
-  padding: 16px;
-  text-align: center;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-right: 1px solid var(--edge);
+  box-sizing: border-box;
+}
+
+.box-item:last-child {
+  border-right: none;
 }
 
 .box-item-image {
   width: 100%;
-  height: 120px;
+  height: 140px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .box-item-image img {
@@ -624,42 +636,59 @@
 }
 
 .box-item-title {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text);
-  margin-bottom: 4px;
+  text-align: center;
+  line-height: 1.3;
 }
 
+/* Remove subtitles since not needed */
 .box-item-subtitle {
-  font-size: 12px;
-  color: var(--muted);
+  display: none;
 }
 
 /* Responsive adjustments for box items */
 @media (max-width: 880px) {
   .box-items-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    flex-wrap: wrap;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
   }
   
-  .box-item-image {
-    height: 100px;
+  .box-item {
+    width: 50%;
+    height: 200px;
+    border-right: 1px solid var(--edge);
+    border-bottom: 1px solid var(--edge);
   }
   
-  .whats-in-box {
-    margin: 40px 20px 0;
-    width: calc(100% - 40px);
+  .box-item:nth-child(2n) {
+    border-right: none;
+  }
+  
+  .box-item:nth-child(3),
+  .box-item:nth-child(4) {
+    border-bottom: none;
   }
 }
 
 @media (max-width: 520px) {
   .box-items-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    flex-direction: column;
+    max-width: 200px;
   }
   
-  .box-item-image {
-    height: 90px;
+  .box-item {
+    width: 100%;
+    height: 200px;
+    border-right: none;
+    border-bottom: 1px solid var(--edge);
+  }
+  
+  .box-item:last-child {
+    border-bottom: none;
   }
   
   .whats-in-box {
@@ -671,7 +700,6 @@
     font-size: 18px;
     margin-bottom: 20px;
   }
-}
 }
   </style>
 </head>
@@ -1270,7 +1298,7 @@ function setupColourTileHover() {
       updateSummary();
     }
     
-    /* -------------------------
+/* -------------------------
    What's in the box items
    ------------------------- */
 function populateBoxItems() {
@@ -1284,31 +1312,22 @@ function populateBoxItems() {
     {
       id: 'phone',
       title: 'BoibyPhone 13',
-      subtitle: state.color ? `${state.color} finish` : '—',
       imageSrc: state.color ? `/images/13_${state.color.replace(/\s+/g, '')}_Back.png` : ''
     },
     {
       id: 'cable',
       title: 'Braided USB-C to USB-C cable',
-      subtitle: '1 meter',
       imageSrc: '/images/cable.png'
     },
     {
       id: 'adapter',
       title: '45W USB-C Power Adapter',
-      subtitle: 'Fast charging',
       imageSrc: '/images/brick.png'
-    },
-    {
-      id: 'sim',
-      title: 'SIM card ejector tool',
-      subtitle: '',
-      imageSrc: '/images/sim.png'
     }
   ];
   
   // Create and append box items
-  boxItems.forEach(item => {
+  boxItems.forEach((item, index) => {
     const boxItem = document.createElement('div');
     boxItem.className = 'box-item';
     
@@ -1321,7 +1340,6 @@ function populateBoxItems() {
         ${imageHtml}
       </div>
       <div class="box-item-title">${item.title}</div>
-      ${item.subtitle ? `<div class="box-item-subtitle">${item.subtitle}</div>` : ''}
     `;
     
     boxItemsGrid.appendChild(boxItem);
