@@ -527,6 +527,152 @@
     .spacer {
       height: 24px;
     }
+
+    /* Storage advice section */
+.storage-advice {
+  max-width: 600px;
+  margin: 40px auto 0;
+  padding: 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--edge);
+  border-radius: 12px;
+  text-align: left;
+}
+
+.storage-advice h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: var(--text);
+}
+
+.storage-advice p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0 0 12px 0;
+}
+
+.storage-advice p:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive adjustments for storage advice */
+@media (max-width: 880px) {
+  .storage-advice {
+    margin: 30px 20px 0;
+    width: calc(100% - 40px);
+  }
+}
+
+@media (max-width: 520px) {
+  .storage-advice {
+    margin: 25px 16px 0;
+    width: calc(100% - 32px);
+    padding: 16px;
+  }
+  
+  .storage-advice h3 {
+    font-size: 16px;
+  }
+  
+  .storage-advice p {
+    font-size: 13px;
+  }
+
+  /* What's in the box section */
+.whats-in-box {
+  max-width: 800px;
+  margin: 50px auto 0;
+  text-align: center;
+}
+
+.whats-in-box h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 24px 0;
+  color: var(--text);
+}
+
+.box-items-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 16px;
+}
+
+.box-item {
+  background: transparent;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+.box-item-image {
+  width: 100%;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.box-item-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.box-item-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.box-item-subtitle {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Responsive adjustments for box items */
+@media (max-width: 880px) {
+  .box-items-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  .box-item-image {
+    height: 100px;
+  }
+  
+  .whats-in-box {
+    margin: 40px 20px 0;
+    width: calc(100% - 40px);
+  }
+}
+
+@media (max-width: 520px) {
+  .box-items-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .box-item-image {
+    height: 90px;
+  }
+  
+  .whats-in-box {
+    margin: 30px 16px 0;
+    width: calc(100% - 32px);
+  }
+  
+  .whats-in-box h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+}
+}
   </style>
 </head>
 <body>
@@ -626,7 +772,7 @@
         </div>
       </div>
       
-      <!-- SLIDE 3: Capacity -->
+            <!-- SLIDE 3: Capacity -->
       <div id="slide-3" class="slide" aria-hidden="true">
         <h1>Now choose your capacity.</h1>
         <p class="lead">Choose the amount of storage you will need.</p>
@@ -634,12 +780,18 @@
         <div class="capacity-grid" role="list" id="capacityGrid">
           <!-- Will be populated by JS -->
         </div>
+        
+        <div class="storage-advice">
+          <h3>How much storage do I need?</h3>
+          <p>For most people, 256GB of storage will be enough. However, if you take lots of photos, record video often, or plan to keep your phone for a long time, consider opting for 512GB or more storage.</p>
+          <p>If your current phone's storage is filling up, it's a good idea to get at least double what your current phone has.</p>
+        </div>
       </div>
       
       <!-- SLIDE 4: BoibyCare+ -->
       <div id="slide-4" class="slide" aria-hidden="true">
         <h1>Add BoibyCare+.</h1>
-        <p class="lead">Accidental damage coverage</p>
+        <p class="lead">Accidental damage coverage with theft and loss protection.</p>
         
         <div class="boibycare-grid" role="list" id="boibycareGrid">
           <!-- Will be populated by JS -->
@@ -660,6 +812,13 @@
             </div>
             <div class="summary-image-wrapper">
               <img src="" alt="Back view" class="summary-image" id="summaryPhoneBack" />
+            </div>
+          </div>
+          
+          <div class="whats-in-box">
+            <h3>What's in the box</h3>
+            <div class="box-items-grid">
+              <!-- Items will be populated by JavaScript -->
             </div>
           </div>
         </div>
@@ -976,6 +1135,8 @@ function setupColourTileHover() {
         summaryBack.alt = `BoibyPhone 13 — ${state.color} — Back`;
       }
     }
+
+    
     
     /* -------------------------
        Capacity options
@@ -1049,7 +1210,7 @@ function setupColourTileHover() {
         {
           id: 'one_year',
           title: 'BoibyCare+ for 2 years',
-          desc: 'Accidental damage coverage',
+          desc: 'Accidental damage coverage with theft and loss protection',
           price: 150
         }
       ];
@@ -1109,22 +1270,99 @@ function setupColourTileHover() {
       updateSummary();
     }
     
-    /* update summary */
-    function updateSummary() {
-      // Update the title with model name
-      const summaryTitle = document.getElementById('summaryTitle');
-      summaryTitle.textContent = `Here's your new BoibyPhone 13.`;
-      
-      // Update the breadcrumb line
-      const bread = [];
-      if(state.capacity) bread.push(`${state.capacity}GB`);
-      if(state.color) bread.push(state.color);
-      if(state.boibycare === 'one_year') bread.push('BoibyCare+');
-      document.getElementById('summaryBreadcrumb').textContent = bread.join(', ');
-      
-      const priceEl = document.getElementById('finalPrice');
-      priceEl.textContent = `A$${state.price.toLocaleString()}`;
+    /* -------------------------
+   What's in the box items
+   ------------------------- */
+function populateBoxItems() {
+  const boxItemsGrid = document.querySelector('.box-items-grid');
+  if (!boxItemsGrid) return;
+  
+  boxItemsGrid.innerHTML = '';
+  
+  // Define box items
+  const boxItems = [
+    {
+      id: 'phone',
+      title: 'BoibyPhone 13',
+      subtitle: state.color ? `${state.color} finish` : '—',
+      imageSrc: state.color ? `/images/13_${state.color.replace(/\s+/g, '')}_Back.png` : ''
+    },
+    {
+      id: 'cable',
+      title: 'Braided USB-C to USB-C cable',
+      subtitle: '1 meter',
+      imageSrc: '/images/cable.png'
+    },
+    {
+      id: 'adapter',
+      title: '45W USB-C Power Adapter',
+      subtitle: 'Fast charging',
+      imageSrc: '/images/brick.png'
+    },
+    {
+      id: 'sim',
+      title: 'SIM card ejector tool',
+      subtitle: '',
+      imageSrc: '/images/sim.png'
     }
+  ];
+  
+  // Create and append box items
+  boxItems.forEach(item => {
+    const boxItem = document.createElement('div');
+    boxItem.className = 'box-item';
+    
+    const imageHtml = item.imageSrc 
+      ? `<img src="${item.imageSrc}" alt="${item.title}" />`
+      : '<div class="placeholder"></div>';
+    
+    boxItem.innerHTML = `
+      <div class="box-item-image">
+        ${imageHtml}
+      </div>
+      <div class="box-item-title">${item.title}</div>
+      ${item.subtitle ? `<div class="box-item-subtitle">${item.subtitle}</div>` : ''}
+    `;
+    
+    boxItemsGrid.appendChild(boxItem);
+  });
+}
+
+/* update summary */
+function updateSummary() {
+  // Update the title with model name
+  const summaryTitle = document.getElementById('summaryTitle');
+  summaryTitle.textContent = `Here's your new BoibyPhone 13.`;
+  
+  const bread = [];
+  if(state.capacity) {
+    let capacityDisplay;
+    if (state.capacity === 1024) {
+      capacityDisplay = '1TB';
+    } else if (state.capacity === 512) {
+      capacityDisplay = '512GB';
+    } else if (state.capacity === 256) {
+      capacityDisplay = '256GB';
+    } else {
+      capacityDisplay = `${state.capacity}GB`;
+    }
+    bread.push(capacityDisplay);
+  }
+  if(state.color) bread.push(state.color);
+  if(state.boibycare === 'one_year') {
+    bread.push('BoibyCare+ 2 Years');
+  } else if (state.boibycare === 'none') {
+  }
+  
+  const breadcrumbText = bread.join(' · ');
+  document.getElementById('summaryBreadcrumb').textContent = breadcrumbText;
+  
+  const priceEl = document.getElementById('finalPrice');
+  priceEl.textContent = `A$${state.price.toLocaleString()}`;
+  
+  // Populate box items
+  populateBoxItems();
+}
     
     /* -------------------------
        Initial setup
