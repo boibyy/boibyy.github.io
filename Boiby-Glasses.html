@@ -1,0 +1,1052 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Boiby Glasses Configurator</title>
+  
+  <!-- Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #fff;
+      --muted: #6b6b6b;
+      --text: #0a0a0a;
+      --accent: #007aff;
+      --card-bg: #fff;
+      --edge: #e6e6e6;
+    }
+    
+    .dark {
+      --bg: #0b0b0b;
+      --muted: #b8b8b8;
+      --text: #f6f6f6;
+      --accent: #4aa3ff;
+      --card-bg: #111216;
+      --edge: #222428;
+    }
+    
+    html, body {
+      height: 100%;
+    }
+    
+    body {
+      margin: 0;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background .25s, color .25s;
+    }
+
+    * {
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    header {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+      border-bottom: 1px solid var(--edge);
+    }
+    
+    header .brand {
+      font-weight: 600;
+      letter-spacing: .2px;
+      font-size: 20px;
+    }
+    
+    header .controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    
+    .mode-toggle {
+      border: 1px solid var(--edge);
+      background: transparent;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--text);
+      font-weight: 500;
+    }
+    
+    /* container */
+    .wrap {
+      max-width: 1600px;
+      margin: 36px auto;
+      padding: 0 24px 80px;
+    }
+    
+    /* breadcrumb / tabs */
+    .steps {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 8px;
+      margin-bottom: 24px;
+      font-size: 16px;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+
+    .steps button {
+      background: none;
+      border: none;
+      padding: 12px 8px;
+      cursor: pointer;
+      color: inherit;
+      font-weight: 500;
+      position: relative;
+      text-align: center;
+      min-width: 100px;
+      transition: color 0.2s;
+    }
+
+    .steps button.active {
+      color: var(--accent);
+    }
+
+    .step-value {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 120px;
+    }
+    
+    /* slide area */
+    .stage {
+      position: relative;
+      min-height: 420px;
+      overflow: visible;
+    }
+    
+    .slide {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(6px);
+      transition: opacity .45s ease, transform .45s ease;
+      will-change: opacity, transform;
+    }
+    
+    .slide.current {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+      position: relative;
+    }
+    
+    h1 {
+      font-size: 44px;
+      font-weight: 600;
+      margin: 18px 0 6px;
+      text-align: center;
+    }
+    
+    .lead {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 28px;
+      font-size: 15px;
+    }
+    
+    /* frame cards */
+    .option-row {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+    
+    .frame-card {
+      width: 320px;
+      background: var(--card-bg);
+      border: 1px solid var(--edge);
+      border-radius: 12px;
+      padding: 26px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .18s, transform .18s;
+    }
+    
+    .frame-card:hover {
+      transform: translateY(-4px);
+    }
+    
+    .frame-card.selected {
+      border-color: var(--accent);
+      box-shadow: 0 8px 20px rgba(0, 122, 255, 0.1);
+    }
+    
+    .frame-image-container {
+      width: 100%;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    
+    .frame-image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    
+    .frame-card .title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .frame-card .sub {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    
+    .frame-card .price {
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--text);
+    }
+    
+    /* lenses selection */
+    .lenses-grid {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+    
+    .lens-card {
+      width: 280px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--edge);
+      padding: 26px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .18s, transform .18s;
+      position: relative;
+    }
+    
+    .lens-card:hover {
+      transform: translateY(-4px);
+    }
+    
+    .lens-card.selected {
+      border-color: var(--accent);
+      box-shadow: 0 8px 20px rgba(0, 122, 255, 0.1);
+    }
+    
+    .lens-image-container {
+      width: 100%;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    
+    .lens-image {
+      max-width: 80%;
+      max-height: 80%;
+      object-fit: contain;
+    }
+    
+    .lens-card .title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .lens-card .sub {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    
+    .lens-card .price {
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text);
+    }
+    
+    .lens-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--accent);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    /* capacity cards */
+    .capacity-grid {
+      display: flex;
+      gap: 22px;
+      justify-content: center;
+      margin-top: 26px;
+      flex-wrap: wrap;
+    }
+    
+    .capacity-card {
+      width: 220px;
+      background: var(--card-bg);
+      border-radius: 8px;
+      border: 1px solid var(--edge);
+      padding: 18px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .14s, transform .14s;
+    }
+    
+    .capacity-card:hover {
+      transform: translateY(-2px);
+    }
+    
+    .capacity-card.selected {
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(0, 122, 255, 0.1);
+    }
+    
+    .capacity-card .size {
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: -1px;
+    }
+    
+    .capacity-card .price {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+    }
+    
+    /* summary */
+    .summary-wrap {
+      text-align: center;
+      margin-top: 18px;
+    }
+    
+    .summary-price {
+      font-size: 36px;
+      font-weight: 700;
+      margin-top: 6px;
+      margin-bottom: 30px;
+    }
+    
+    .summary-images-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 0 auto 40px;
+      max-width: 800px;
+    }
+    
+    .summary-image-wrapper {
+      width: 48%;
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--edge);
+      background: var(--card-bg);
+      padding: 20px;
+    }
+    
+    .summary-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    .summary-specs {
+      max-width: 600px;
+      margin: 0 auto 40px;
+      text-align: left;
+    }
+    
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    
+    .spec-item {
+      padding: 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--edge);
+      border-radius: 8px;
+    }
+    
+    .spec-label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    
+    .spec-value {
+      font-size: 16px;
+      font-weight: 500;
+    }
+    
+    .cta {
+      margin-top: 18px;
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 16px 48px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background .2s;
+    }
+    
+    .cta:hover {
+      background: #0056cc;
+    }
+    
+    /* small responsive */
+    @media (max-width: 880px) {
+      .frame-card, .lens-card {
+        width: 100%;
+        max-width: 540px;
+      }
+      
+      .capacity-card {
+        width: 100%;
+        max-width: 400px;
+      }
+      
+      .summary-images-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      
+      .summary-image-wrapper {
+        width: 90%;
+      }
+      
+      .specs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 520px) {
+      .frame-card, .lens-card {
+        width: 100%;
+      }
+      
+      .capacity-card {
+        width: 100%;
+      }
+      
+      h1 {
+        font-size: 28px;
+      }
+      
+      .summary-images-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+      }
+      
+      .summary-image-wrapper {
+        width: 100%;
+      }
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 880px) {
+      .steps button {
+        min-width: 80px;
+        padding: 10px 6px;
+      }
+      
+      .step-value {
+        max-width: 80px;
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .steps {
+        gap: 8px;
+      }
+      
+      .steps button {
+        min-width: 70px;
+        padding: 8px 4px;
+      }
+      
+      .step-value {
+        max-width: 70px;
+        font-size: 12px;
+      }
+    }
+    
+    /* tiny helper */
+    .muted {
+      color: var(--muted);
+      font-size: 13px;
+      display: block;
+      margin-top: 8px;
+    }
+    
+    .spacer {
+      height: 24px;
+    }
+
+    /* Storage advice section */
+    .storage-advice {
+      max-width: 780px;
+      margin: 60px auto 0;
+      padding: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--edge);
+      border-radius: 12px;
+      text-align: left;
+    }
+
+    .storage-advice h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 12px 0;
+      color: var(--text);
+    }
+
+    .storage-advice p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--muted);
+      margin: 0 0 12px 0;
+    }
+
+    .storage-advice p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Responsive adjustments for storage advice */
+    @media (max-width: 880px) {
+      .storage-advice {
+        margin: 30px 20px 0;
+        width: calc(100% - 40px);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .storage-advice {
+        margin: 25px 16px 0;
+        width: calc(100% - 32px);
+        padding: 16px;
+      }
+      
+      .storage-advice h3 {
+        font-size: 16px;
+      }
+      
+      .storage-advice p {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">Boiby Glasses</div>
+    <div class="controls">
+      <div class="muted" style="font-size:13px;margin-right:8px">Starting at A$599</div>
+      <button id="modeToggle" class="mode-toggle" aria-pressed="false">Dark mode</button>
+    </div>
+  </header>
+  
+  <main class="wrap" id="app">
+    <!-- step tabs / breadcrumb -->
+    <nav class="steps" aria-label="Configurator steps">
+      <button class="step-btn active" data-step="1">
+        <span class="step-value" id="step1-value">Frame</span>
+      </button>
+      <button class="step-btn" data-step="2">
+        <span class="step-value" id="step2-value">Lenses</span>
+      </button>
+      <button class="step-btn" data-step="3">
+        <span class="step-value" id="step3-value">Storage</span>
+      </button>
+    </nav>
+    
+    <section class="stage" aria-live="polite">
+      <!-- SLIDE 1: Frame -->
+      <div id="slide-1" class="slide current">
+        <h1>Choose your Boiby Glasses frame.</h1>
+        <p class="lead">Select between Matte Black or Jet Black frames.</p>
+        
+        <div class="option-row" role="list">
+          <div class="frame-card" data-frame="matte" role="listitem" tabindex="0">
+            <div class="frame-image-container">
+              <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Matte Black Glasses" class="frame-image" />
+            </div>
+            <div class="title">Matte Black</div>
+            <div class="sub">Classic matte finish</div>
+            <div class="price">A$599</div>
+          </div>
+          
+          <div class="frame-card" data-frame="jet" role="listitem" tabindex="0">
+            <div class="frame-image-container">
+              <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Jet Black Glasses" class="frame-image" />
+            </div>
+            <div class="title">Jet Black</div>
+            <div class="sub">Shiny premium finish</div>
+            <div class="price">A$599</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- SLIDE 2: Lenses -->
+      <div id="slide-2" class="slide" aria-hidden="true">
+        <h1>Choose your lenses.</h1>
+        <p class="lead">Select Clear base lenses or upgrade to Graphite tint.</p>
+        
+        <div class="lenses-grid" role="list">
+          <div class="lens-card" data-lens="clear" tabindex="0">
+            <div class="lens-image-container">
+              <img src="https://images.unsplash.com/photo-1556306535-0f09a537f0a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Clear Lenses" class="lens-image" />
+            </div>
+            <div class="title">Clear</div>
+            <div class="sub">Base lenses</div>
+            <div class="price">A$0</div>
+          </div>
+          
+          <div class="lens-card" data-lens="graphite" tabindex="0">
+            <div class="lens-image-container">
+              <img src="https://images.unsplash.com/photo-1556306535-38febf678080?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Graphite Lenses" class="lens-image" />
+            </div>
+            <div class="title">Graphite</div>
+            <div class="sub">Tinted lenses</div>
+            <div class="price">+A$50</div>
+            <div class="lens-badge">Upgrade</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- SLIDE 3: Storage -->
+      <div id="slide-3" class="slide" aria-hidden="true">
+        <h1>Choose your storage capacity.</h1>
+        <p class="lead">Select how much storage you need for apps, photos, and music.</p>
+        
+        <div class="capacity-grid" role="list" id="capacityGrid">
+          <!-- Will be populated by JS -->
+        </div>
+        
+        <div class="storage-advice">
+          <h3>How much storage do I need?</h3>
+          <p>32GB is suitable for basic use - storing contacts, some photos, and essential apps. 128GB is recommended for most users who take photos, download music, and use multiple apps. 256GB is ideal for those who record lots of video, download media for offline use, or plan to keep their glasses for several years.</p>
+        </div>
+      </div>
+      
+      <!-- SLIDE 4: Summary -->
+      <div id="slide-4" class="slide" aria-hidden="true">
+        <h1>Your Boiby Glasses are ready.</h1>
+        <p class="lead summary-sub" id="summaryBreadcrumb">—</p>
+        
+        <div class="summary-wrap">
+          <div class="summary-price" id="finalPrice">A$0</div>
+          
+          <div class="summary-images-container">
+            <div class="summary-image-wrapper">
+              <img src="" alt="Front view" class="summary-image" id="summaryGlassesFront" />
+            </div>
+            <div class="summary-image-wrapper">
+              <img src="" alt="Side view" class="summary-image" id="summaryGlassesSide" />
+            </div>
+          </div>
+          
+          <div class="summary-specs">
+            <div class="specs-grid">
+              <div class="spec-item">
+                <div class="spec-label">Frame</div>
+                <div class="spec-value" id="spec-frame">—</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Lenses</div>
+                <div class="spec-value" id="spec-lenses">—</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Storage</div>
+                <div class="spec-value" id="spec-storage">—</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Battery Life</div>
+                <div class="spec-value">Up to 8 hours</div>
+              </div>
+            </div>
+          </div>
+          
+          <button class="cta" id="addToCart">Add to Bag</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <script>
+    /* -------------------------
+       Data and initial state
+       ------------------------- */
+    const state = {
+      frame: null,       // 'matte' or 'jet'
+      lenses: null,      // 'clear' or 'graphite'
+      storage: null,     // 32, 128, or 256
+      price: 599,
+      basePrice: 599,
+      currentStep: 1
+    };
+    
+    const PRICES = {
+      frame: {
+        matte: 599,
+        jet: 599
+      },
+      lenses: {
+        clear: 0,
+        graphite: 50
+      },
+      storage: {
+        32: 0,
+        128: 100,
+        256: 200
+      }
+    };
+    
+    /* -------------------------
+       Helpers: show slide
+       ------------------------- */
+    const steps = Array.from(document.querySelectorAll('.step-btn'));
+    
+    function showStep(n) {
+      // Only allow going to step if all previous steps are completed
+      if (n > state.currentStep) {
+        // Check if current step is completed
+        if (!isStepCompleted(state.currentStep)) {
+          return; // Don't allow skipping ahead
+        }
+      }
+      
+      state.currentStep = n;
+      
+      // slides numbered 1..4 now
+      for(let i = 1; i <= 4; i++) {
+        const s = document.getElementById('slide-' + i);
+        if(i === n) {
+          s.classList.add('current');
+          s.setAttribute('aria-hidden', 'false');
+        } else {
+          s.classList.remove('current');
+          s.setAttribute('aria-hidden', 'true');
+        }
+      }
+      
+      // Update step buttons
+      steps.forEach(btn => {
+        const stepNum = Number(btn.dataset.step);
+        btn.classList.toggle('active', stepNum === n);
+      });
+    }
+    
+    function isStepCompleted(step) {
+      switch(step) {
+        case 1: return state.frame !== null;
+        case 2: return state.lenses !== null;
+        case 3: return state.storage !== null;
+        default: return true;
+      }
+    }
+    
+    /* -------------------------
+       Update step values
+       ------------------------- */
+    function updateStepValues() {
+      // Step 1: Frame
+      const step1Value = document.getElementById('step1-value');
+      if (state.frame) {
+        const frameName = state.frame === 'matte' ? 'Matte Black' : 'Jet Black';
+        step1Value.textContent = frameName;
+        step1Value.style.color = 'var(--accent)';
+      } else {
+        step1Value.textContent = 'Frame';
+        step1Value.style.color = '';
+      }
+      
+      // Step 2: Lenses
+      const step2Value = document.getElementById('step2-value');
+      if (state.lenses) {
+        const lensName = state.lenses === 'clear' ? 'Clear' : 'Graphite';
+        step2Value.textContent = lensName;
+        step2Value.style.color = 'var(--accent)';
+      } else {
+        step2Value.textContent = 'Lenses';
+        step2Value.style.color = '';
+      }
+      
+      // Step 3: Storage
+      const step3Value = document.getElementById('step3-value');
+      if (state.storage) {
+        const storageDisplay = state.storage === 256 ? '256GB' : `${state.storage}GB`;
+        step3Value.textContent = storageDisplay;
+        step3Value.style.color = 'var(--accent)';
+      } else {
+        step3Value.textContent = 'Storage';
+        step3Value.style.color = '';
+      }
+    }
+    
+    /* -------------------------
+       Mode toggle
+       ------------------------- */
+    const modeBtn = document.getElementById('modeToggle');
+    
+    modeBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      modeBtn.textContent = isDark ? 'Light mode' : 'Dark mode';
+      modeBtn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    });
+    
+    /* -------------------------
+       Frame selection
+       ------------------------- */
+    document.querySelectorAll('.frame-card').forEach(el => {
+      el.addEventListener('click', () => {
+        selectFrame(el.dataset.frame);
+        showStep(2);
+      });
+      
+      el.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter') {
+          selectFrame(el.dataset.frame);
+          showStep(2);
+        }
+      });
+    });
+    
+    function selectFrame(frameType) {
+      state.frame = frameType;
+      state.currentStep = 2;
+      
+      // visual selection
+      document.querySelectorAll('.frame-card').forEach(c => {
+        c.classList.toggle('selected', c.dataset.frame === frameType);
+      });
+      
+      // Reset selections that depend on frame
+      state.lenses = null;
+      state.storage = null;
+      state.basePrice = PRICES.frame[frameType];
+      state.price = state.basePrice;
+      
+      // Update step values
+      updateStepValues();
+      
+      // Update summary images
+      updateSummaryImages();
+    }
+    
+    /* step buttons */
+    document.querySelectorAll('.step-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const stepNum = Number(btn.dataset.step);
+        // Allow going back even if current step not completed
+        if (stepNum <= state.currentStep) {
+          showStep(stepNum);
+        }
+      });
+    });
+    
+    /* -------------------------
+       Lenses selection
+       ------------------------- */
+    document.querySelectorAll('.lens-card').forEach(el => {
+      el.addEventListener('click', () => {
+        selectLenses(el.dataset.lens);
+        showStep(3);
+      });
+      
+      el.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter') {
+          selectLenses(el.dataset.lens);
+          showStep(3);
+        }
+      });
+    });
+    
+    function selectLenses(lensType) {
+      state.lenses = lensType;
+      state.currentStep = 3;
+      
+      // visual selection
+      document.querySelectorAll('.lens-card').forEach(c => {
+        c.classList.toggle('selected', c.dataset.lens === lensType);
+      });
+      
+      // Reset storage selection
+      state.storage = null;
+      state.price = state.basePrice + PRICES.lenses[lensType];
+      
+      // Update step values
+      updateStepValues();
+      
+      // Populate storage options
+      populateStorageOptions();
+    }
+    
+    /* -------------------------
+       Update summary images
+       ------------------------- */
+    function updateSummaryImages() {
+      if (state.frame) {
+        // Different image URLs based on frame type
+        const frontImageUrl = state.frame === 'matte' 
+          ? 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+          : 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
+        
+        const sideImageUrl = state.frame === 'matte'
+          ? 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+          : 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
+        
+        const summaryFront = document.getElementById('summaryGlassesFront');
+        const summarySide = document.getElementById('summaryGlassesSide');
+        
+        summaryFront.src = frontImageUrl;
+        summaryFront.alt = `Boiby Glasses ${state.frame === 'matte' ? 'Matte Black' : 'Jet Black'} - Front view`;
+        
+        summarySide.src = sideImageUrl;
+        summarySide.alt = `Boiby Glasses ${state.frame === 'matte' ? 'Matte Black' : 'Jet Black'} - Side view`;
+      }
+    }
+    
+    /* -------------------------
+       Storage options
+       ------------------------- */
+    const capacityGrid = document.getElementById('capacityGrid');
+    
+    function populateStorageOptions() {
+      capacityGrid.innerHTML = '';
+      if(!state.frame || !state.lenses) return;
+      
+      const opts = [32, 128, 256];
+      
+      opts.forEach(cap => {
+        const price = PRICES.storage[cap];
+        const displayText = `${cap}GB`;
+        const card = document.createElement('div');
+        card.className = 'capacity-card';
+        card.dataset.cap = cap;
+        card.innerHTML = `<div class="size">${displayText}</div><div class="price">${price > 0 ? `+A$${price.toLocaleString()}` : 'Base'}</div>`;
+        
+        card.addEventListener('click', () => {
+          selectStorage(cap);
+          showStep(4);
+        });
+        
+        capacityGrid.appendChild(card);
+      });
+    }
+    
+    function selectStorage(cap) {
+      // remove selected classes
+      document.querySelectorAll('.capacity-card').forEach(c => c.classList.remove('selected'));
+      
+      // mark selected
+      const selectedCard = document.querySelector(`.capacity-card[data-cap="${cap}"]`);
+      if (selectedCard) {
+        selectedCard.classList.add('selected');
+      }
+      
+      state.storage = cap;
+      state.currentStep = 4;
+      state.price = state.basePrice + PRICES.lenses[state.lenses] + PRICES.storage[cap];
+      
+      // Update step values
+      updateStepValues();
+      
+      // Update summary
+      updateSummary();
+    }
+    
+    /* -------------------------
+       Update summary
+       ------------------------- */
+    function updateSummary() {
+      // Build breadcrumb text
+      const bread = [];
+      if(state.frame) {
+        bread.push(state.frame === 'matte' ? 'Matte Black' : 'Jet Black');
+      }
+      if(state.lenses) {
+        bread.push(state.lenses === 'clear' ? 'Clear Lenses' : 'Graphite Lenses');
+      }
+      if(state.storage) {
+        bread.push(`${state.storage}GB`);
+      }
+      
+      const breadcrumbText = bread.join(', ');
+      document.getElementById('summaryBreadcrumb').textContent = breadcrumbText;
+      
+      // Update price
+      const priceEl = document.getElementById('finalPrice');
+      priceEl.textContent = `A$${state.price.toLocaleString()}`;
+      
+      // Update specs
+      document.getElementById('spec-frame').textContent = state.frame === 'matte' ? 'Matte Black' : 'Jet Black';
+      document.getElementById('spec-lenses').textContent = state.lenses === 'clear' ? 'Clear' : 'Graphite';
+      document.getElementById('spec-storage').textContent = `${state.storage}GB`;
+    }
+    
+    /* -------------------------
+       Add to cart button
+       ------------------------- */
+    document.getElementById('addToCart').addEventListener('click', () => {
+      alert(`Added to cart!\n\nYour Boiby Glasses:\n- Frame: ${state.frame === 'matte' ? 'Matte Black' : 'Jet Black'}\n- Lenses: ${state.lenses === 'clear' ? 'Clear' : 'Graphite'}\n- Storage: ${state.storage}GB\n- Total: A$${state.price}`);
+    });
+    
+    /* -------------------------
+       Initial setup
+       ------------------------- */
+    (function init() {
+      // step buttons clickable
+      steps.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const stepNum = Number(btn.dataset.step);
+          if (stepNum <= state.currentStep) {
+            showStep(stepNum);
+          }
+        });
+      });
+      
+      // Initialize step values
+      updateStepValues();
+    })();
+  </script>
+</body>
+</html>
