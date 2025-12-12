@@ -74,7 +74,7 @@
     
     /* container */
     .wrap {
-      max-width: 1400px;
+      max-width: 1600px;
       margin: 36px auto;
       padding: 0 24px 80px;
     }
@@ -200,58 +200,58 @@
       color: var(--text);
     }
     
-    /* colour tiles (Apple-style) */
-    .colour-grid {
-      display: flex;
-      gap: 40px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 28px;
-    }
-    
-    .colour-tile {
-      width: 220px;
-      background: transparent;
-      border-radius: 14px;
-      border: none;
-      padding: 18px;
-      text-align: center;
-      cursor: pointer;
-      position: relative;
-    }
-    
-    .colour-tile.selected {
-      border-color: var(--accent);
-    }
-    
-    .image-container {
-      width: 100%;
-      height: 450px;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 20px;
-    }
-    
-    .colour-tile img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      position: absolute;
-      top: 0;
-      left: 0;
-      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .colour-tile .label {
-      font-weight: 600;
-      margin-bottom: 4px;
-      font-size: 16px;
-    }
-    
-    .colour-tile .device {
-      color: var(--muted);
-      font-size: 13px;
-    }
+    /* colour tiles */
+.colour-grid {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.colour-tile {
+  width: 350px;
+  background: transparent;
+  border-radius: 14px;
+  border: none;
+  padding: 18px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.colour-tile.selected {
+  border-color: var(--accent);
+}
+
+.image-container {
+  width: 100%;
+  height: 350px; /* Changed from 450px to 350px */
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.colour-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.colour-tile .label {
+  font-weight: 600;
+  margin-bottom: 4px;
+  font-size: 16px;
+}
+
+.colour-tile .device {
+  color: var(--muted);
+  font-size: 13px;
+}
     
     /* View toggle buttons */
     .view-toggle {
@@ -424,15 +424,16 @@
         max-width: 540px;
       }
       
-      .colour-tile {
-        width: 44%;
-      }
-      
-      .capacity-card {
-        width: 45%;
-      }
-      
-      .boibycare-card {
+        .colour-tile {
+    width: 44%;
+    max-width: 350px;
+  }
+  
+  .image-container {
+    height: auto;
+    aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
+  }
+ .boibycare-card {
         width: 100%;
         max-width: 540px;
       }
@@ -443,6 +444,11 @@
     }
     
     @media (max-width: 520px) {
+      .colour-tile {
+        width: 100%;
+        max-width: 350px;
+      }
+      
       .colour-tile {
         width: 100%;
       }
@@ -471,6 +477,7 @@
     }
     /* Responsive adjustments */
 @media (max-width: 880px) {
+  
   .steps button {
     min-width: 80px;
     padding: 10px 6px;
@@ -874,29 +881,24 @@ function updateStepValues() {
     }
     
     // Setup hover effects for colour tiles
-    function setupColourTileHover() {
-      const colourTiles = document.querySelectorAll('.colour-tile');
-      
-      colourTiles.forEach(tile => {
-        const frontImg = tile.querySelector('.colour-image-front');
-        const backImg = tile.querySelector('.colour-image-back');
-        
-        tile.addEventListener('mouseenter', () => {
-          if (state.viewMode === 'back') {
-            frontImg.style.transform = 'translateX(25%)';
-            backImg.style.transform = 'translateX(-25%)';
-          } else {
-            frontImg.style.transform = 'translateX(25%)';
-            backImg.style.transform = 'translateX(-25%)';
-          }
-        });
-        
-        tile.addEventListener('mouseleave', () => {
-          frontImg.style.transform = 'translateX(0)';
-          backImg.style.transform = 'translateX(0)';
-        });
-      });
-    }
+function setupColourTileHover() {
+  const colourTiles = document.querySelectorAll('.colour-tile');
+  
+  colourTiles.forEach(tile => {
+    const frontImg = tile.querySelector('.colour-image-front');
+    const backImg = tile.querySelector('.colour-image-back');
+    
+    tile.addEventListener('mouseenter', () => {
+      frontImg.style.transform = 'translateX(25%)';
+      backImg.style.transform = 'translateX(-25%)';
+    });
+    
+    tile.addEventListener('mouseleave', () => {
+      frontImg.style.transform = 'translateX(0)';
+      backImg.style.transform = 'translateX(0)';
+    });
+  });
+}
     
     // View toggle functionality
     document.querySelector('.view-back').addEventListener('click', () => {
