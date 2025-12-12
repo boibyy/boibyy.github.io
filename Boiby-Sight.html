@@ -1,0 +1,1138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Boiby Sight Configurator</title>
+  
+  <!-- Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #fff;
+      --muted: #6b6b6b;
+      --text: #0a0a0a;
+      --accent: #007aff;
+      --card-bg: #fff;
+      --edge: #e6e6e6;
+    }
+    
+    .dark {
+      --bg: #0b0b0b;
+      --muted: #b8b8b8;
+      --text: #f6f6f6;
+      --accent: #4aa3ff;
+      --card-bg: #111216;
+      --edge: #222428;
+    }
+    
+    html, body {
+      height: 100%;
+    }
+    
+    body {
+      margin: 0;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background .25s, color .25s;
+    }
+
+    * {
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    header {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+      border-bottom: 1px solid var(--edge);
+    }
+    
+    header .brand {
+      font-weight: 600;
+      letter-spacing: .2px;
+      font-size: 20px;
+    }
+    
+    header .controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    
+    .mode-toggle {
+      border: 1px solid var(--edge);
+      background: transparent;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--text);
+      font-weight: 500;
+    }
+    
+    /* container */
+    .wrap {
+      max-width: 1600px;
+      margin: 36px auto;
+      padding: 0 24px 80px;
+    }
+    
+    /* breadcrumb / tabs */
+    .steps {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 8px;
+      margin-bottom: 24px;
+      font-size: 16px;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+
+    .steps button {
+      background: none;
+      border: none;
+      padding: 12px 8px;
+      cursor: pointer;
+      color: inherit;
+      font-weight: 500;
+      position: relative;
+      text-align: center;
+      min-width: 100px;
+      transition: color 0.2s;
+    }
+
+    .steps button.active {
+      color: var(--accent);
+    }
+
+    .step-value {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 120px;
+    }
+    
+    /* slide area */
+    .stage {
+      position: relative;
+      min-height: 420px;
+      overflow: visible;
+    }
+    
+    .slide {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(6px);
+      transition: opacity .45s ease, transform .45s ease;
+      will-change: opacity, transform;
+    }
+    
+    .slide.current {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+      position: relative;
+    }
+    
+    h1 {
+      font-size: 44px;
+      font-weight: 600;
+      margin: 18px 0 6px;
+      text-align: center;
+    }
+    
+    .lead {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 28px;
+      font-size: 15px;
+    }
+    
+    /* colour selection */
+    .colour-grid {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+    
+    .colour-card {
+      width: 280px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--edge);
+      padding: 26px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .18s, transform .18s;
+      position: relative;
+    }
+    
+    .colour-card:hover {
+      transform: translateY(-4px);
+    }
+    
+    .colour-card.selected {
+      border-color: var(--accent);
+      box-shadow: 0 8px 20px rgba(0, 122, 255, 0.1);
+    }
+    
+    .colour-image-container {
+      width: 100%;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      background: #f5f5f5;
+      border-radius: 8px;
+    }
+    
+    .dark .colour-image-container {
+      background: #2a2a2a;
+    }
+    
+    .colour-image-placeholder {
+      width: 160px;
+      height: 100px;
+      background: #ddd;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 14px;
+    }
+    
+    .dark .colour-image-placeholder {
+      background: #444;
+      color: #777;
+    }
+    
+    .colour-card .title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .colour-card .sub {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    
+    .colour-card .price {
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text);
+    }
+    
+    /* storage cards */
+    .storage-grid {
+      display: flex;
+      gap: 22px;
+      justify-content: center;
+      margin-top: 26px;
+      flex-wrap: wrap;
+    }
+    
+    .storage-card {
+      width: 240px;
+      background: var(--card-bg);
+      border-radius: 8px;
+      border: 1px solid var(--edge);
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .14s, transform .14s;
+    }
+    
+    .storage-card:hover {
+      transform: translateY(-2px);
+    }
+    
+    .storage-card.selected {
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(0, 122, 255, 0.1);
+    }
+    
+    .storage-card .size {
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: -1px;
+    }
+    
+    .storage-card .price {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+    }
+    
+    /* lenses selection */
+    .lenses-grid {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+    
+    .lens-option-card {
+      width: 280px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--edge);
+      padding: 26px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .18s, transform .18s;
+      position: relative;
+    }
+    
+    .lens-option-card:hover {
+      transform: translateY(-4px);
+    }
+    
+    .lens-option-card.selected {
+      border-color: var(--accent);
+      box-shadow: 0 8px 20px rgba(0, 122, 255, 0.1);
+    }
+    
+    .lens-image-container {
+      width: 100%;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      background: #f5f5f5;
+      border-radius: 8px;
+    }
+    
+    .dark .lens-image-container {
+      background: #2a2a2a;
+    }
+    
+    .lens-image-placeholder {
+      width: 120px;
+      height: 80px;
+      background: #ddd;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 14px;
+    }
+    
+    .dark .lens-image-placeholder {
+      background: #444;
+      color: #777;
+    }
+    
+    .lens-option-card .title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .lens-option-card .sub {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    
+    .lens-option-card .price {
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text);
+    }
+    
+    .lens-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--accent);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    /* summary */
+    .summary-wrap {
+      text-align: center;
+      margin-top: 18px;
+    }
+    
+    .summary-price {
+      font-size: 36px;
+      font-weight: 700;
+      margin-top: 6px;
+      margin-bottom: 30px;
+    }
+    
+    .summary-images-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 0 auto 40px;
+      max-width: 800px;
+    }
+    
+    .summary-image-wrapper {
+      width: 48%;
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--edge);
+      background: var(--card-bg);
+      padding: 20px;
+    }
+    
+    .summary-image-placeholder {
+      width: 100%;
+      height: 200px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 14px;
+    }
+    
+    .dark .summary-image-placeholder {
+      background: #2a2a2a;
+      color: #777;
+    }
+    
+    .summary-specs {
+      max-width: 600px;
+      margin: 0 auto 40px;
+      text-align: left;
+    }
+    
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    
+    .spec-item {
+      padding: 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--edge);
+      border-radius: 8px;
+    }
+    
+    .spec-label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    
+    .spec-value {
+      font-size: 16px;
+      font-weight: 500;
+    }
+    
+    .cta {
+      margin-top: 18px;
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 16px 48px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background .2s;
+    }
+    
+    .cta:hover {
+      background: #0056cc;
+    }
+    
+    /* storage advice */
+    .storage-advice {
+      max-width: 780px;
+      margin: 60px auto 0;
+      padding: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--edge);
+      border-radius: 12px;
+      text-align: left;
+    }
+
+    .storage-advice h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 12px 0;
+      color: var(--text);
+    }
+
+    .storage-advice p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--muted);
+      margin: 0 0 12px 0;
+    }
+
+    .storage-advice p:last-child {
+      margin-bottom: 0;
+    }
+    
+    /* small responsive */
+    @media (max-width: 880px) {
+      .colour-card, .lens-option-card {
+        width: 100%;
+        max-width: 540px;
+      }
+      
+      .storage-card {
+        width: 100%;
+        max-width: 400px;
+      }
+      
+      .summary-images-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      
+      .summary-image-wrapper {
+        width: 90%;
+      }
+      
+      .specs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 520px) {
+      .colour-card, .lens-option-card {
+        width: 100%;
+      }
+      
+      .storage-card {
+        width: 100%;
+      }
+      
+      h1 {
+        font-size: 28px;
+      }
+      
+      .summary-images-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+      }
+      
+      .summary-image-wrapper {
+        width: 100%;
+      }
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 880px) {
+      .steps button {
+        min-width: 80px;
+        padding: 10px 6px;
+      }
+      
+      .step-value {
+        max-width: 80px;
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .steps {
+        gap: 8px;
+      }
+      
+      .steps button {
+        min-width: 70px;
+        padding: 8px 4px;
+      }
+      
+      .step-value {
+        max-width: 70px;
+        font-size: 12px;
+      }
+    }
+    
+    /* tiny helper */
+    .muted {
+      color: var(--muted);
+      font-size: 13px;
+      display: block;
+      margin-top: 8px;
+    }
+    
+    .spacer {
+      height: 24px;
+    }
+
+    /* Responsive adjustments for storage advice */
+    @media (max-width: 880px) {
+      .storage-advice {
+        margin: 30px 20px 0;
+        width: calc(100% - 40px);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .storage-advice {
+        margin: 25px 16px 0;
+        width: calc(100% - 32px);
+        padding: 16px;
+      }
+      
+      .storage-advice h3 {
+        font-size: 16px;
+      }
+      
+      .storage-advice p {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">Boiby Sight</div>
+    <div class="controls">
+      <div class="muted" style="font-size:13px;margin-right:8px">Starting at A$999</div>
+      <button id="modeToggle" class="mode-toggle" aria-pressed="false">Dark mode</button>
+    </div>
+  </header>
+  
+  <main class="wrap" id="app">
+    <!-- step tabs / breadcrumb -->
+    <nav class="steps" aria-label="Configurator steps">
+      <button class="step-btn active" data-step="1">
+        <span class="step-value" id="step1-value">Colour</span>
+      </button>
+      <button class="step-btn" data-step="2">
+        <span class="step-value" id="step2-value">Storage</span>
+      </button>
+      <button class="step-btn" data-step="3">
+        <span class="step-value" id="step3-value">Lenses</span>
+      </button>
+    </nav>
+    
+    <section class="stage" aria-live="polite">
+      <!-- SLIDE 1: Colour -->
+      <div id="slide-1" class="slide current">
+        <h1>Choose your Boiby Sight colour.</h1>
+        <p class="lead">Select between Black or Silver finishes.</p>
+        
+        <div class="colour-grid" role="list">
+          <div class="colour-card" data-colour="black" role="listitem" tabindex="0">
+            <div class="colour-image-container">
+              <div class="colour-image-placeholder">Black Boiby Sight</div>
+            </div>
+            <div class="title">Black</div>
+            <div class="price">A$999</div>
+          </div>
+          
+          <div class="colour-card" data-colour="silver" role="listitem" tabindex="0">
+            <div class="colour-image-container">
+              <div class="colour-image-placeholder">Silver Boiby Sight</div>
+            </div>
+            <div class="title">Silver</div>
+            <div class="price">A$999</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- SLIDE 2: Storage -->
+      <div id="slide-2" class="slide" aria-hidden="true">
+        <h1>Choose your storage capacity.</h1>
+        <p class="lead">Select how much storage you need for VR games and apps.</p>
+        
+        <div class="storage-grid" role="list" id="storageGrid">
+          <!-- Will be populated by JS -->
+        </div>
+        
+        <div class="storage-advice">
+          <h3>How much storage do I need?</h3>
+          <p>128GB is suitable for standard VR experiences and a few games, or users who will only be using PCVR. 512GB is recommended for users who want to download multiple games and experiences. 1TB is ideal for enthusiasts who plan to build a large library of games and content.</p>
+        </div>
+      </div>
+      
+      <!-- SLIDE 3: Lenses -->
+      <div id="slide-3" class="slide" aria-hidden="true">
+        <h1>Choose your lenses.</h1>
+        <p class="lead">Select standard lenses or choose prescription lenses if you need them.</p>
+        
+        <div class="lenses-grid" role="list" id="lensesGrid">
+          <!-- Will be populated by JS -->
+        </div>
+      </div>
+      
+      <!-- SLIDE 4: Summary -->
+      <div id="slide-4" class="slide" aria-hidden="true">
+        <h1>Your Boiby Sight is ready.</h1>
+        <p class="lead summary-sub" id="summaryBreadcrumb">—</p>
+        
+        <div class="summary-wrap">
+          <div class="summary-price" id="finalPrice">A$0</div>
+          
+          <div class="summary-images-container">
+            <div class="summary-image-wrapper">
+              <div class="summary-image-placeholder" id="summaryFrontPlaceholder">Front View</div>
+            </div>
+            <div class="summary-image-wrapper">
+              <div class="summary-image-placeholder" id="summarySidePlaceholder">Side View</div>
+            </div>
+          </div>
+          
+          <div class="summary-specs">
+            <div class="specs-grid">
+              <div class="spec-item">
+                <div class="spec-label">Colour</div>
+                <div class="spec-value" id="spec-colour">—</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Storage</div>
+                <div class="spec-value" id="spec-storage">—</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Lenses</div>
+                <div class="spec-value" id="spec-lenses">—</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Display</div>
+                <div class="spec-value">OLED - 2160x2160 per eye</div>
+              </div>
+            </div>
+          </div>
+          
+          <button class="cta" id="addToCart">Add to Bag</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <script>
+    /* -------------------------
+       Data and initial state
+       ------------------------- */
+    const state = {
+      colour: null,       // 'black' or 'silver'
+      storage: null,      // 128, 512, or 1024 (1TB)
+      lenses: null,       // 'standard' or 'prescription'
+      price: 999,
+      basePrice: 999,
+      currentStep: 1
+    };
+    
+    const PRICES = {
+      colour: {
+        black: 999,
+        silver: 999
+      },
+      storage: {
+        128: 0,
+        512: 200,
+        1024: 400
+      },
+      lenses: {
+        standard: 0,
+        prescription: 50
+      }
+    };
+    
+    /* -------------------------
+       Helpers: show slide
+       ------------------------- */
+    const steps = Array.from(document.querySelectorAll('.step-btn'));
+    
+    function showStep(n) {
+      // Only allow going to step if all previous steps are completed
+      if (n > state.currentStep) {
+        // Check if current step is completed
+        if (!isStepCompleted(state.currentStep)) {
+          return; // Don't allow skipping ahead
+        }
+      }
+      
+      state.currentStep = n;
+      
+      // slides numbered 1..4 now
+      for(let i = 1; i <= 4; i++) {
+        const s = document.getElementById('slide-' + i);
+        if(i === n) {
+          s.classList.add('current');
+          s.setAttribute('aria-hidden', 'false');
+        } else {
+          s.classList.remove('current');
+          s.setAttribute('aria-hidden', 'true');
+        }
+      }
+      
+      // Update step buttons
+      steps.forEach(btn => {
+        const stepNum = Number(btn.dataset.step);
+        btn.classList.toggle('active', stepNum === n);
+      });
+    }
+    
+    function isStepCompleted(step) {
+      switch(step) {
+        case 1: return state.colour !== null;
+        case 2: return state.storage !== null;
+        case 3: return state.lenses !== null;
+        default: return true;
+      }
+    }
+    
+    /* -------------------------
+       Update step values
+       ------------------------- */
+    function updateStepValues() {
+      // Step 1: Colour
+      const step1Value = document.getElementById('step1-value');
+      if (state.colour) {
+        const colourName = state.colour === 'black' ? 'Black' : 'Silver';
+        step1Value.textContent = colourName;
+        step1Value.style.color = 'var(--accent)';
+      } else {
+        step1Value.textContent = 'Colour';
+        step1Value.style.color = '';
+      }
+      
+      // Step 2: Storage
+      const step2Value = document.getElementById('step2-value');
+      if (state.storage) {
+        let storageDisplay;
+        if (state.storage === 1024) {
+          storageDisplay = '1TB';
+        } else if (state.storage === 512) {
+          storageDisplay = '512GB';
+        } else {
+          storageDisplay = `${state.storage}GB`;
+        }
+        step2Value.textContent = storageDisplay;
+        step2Value.style.color = 'var(--accent)';
+      } else {
+        step2Value.textContent = 'Storage';
+        step2Value.style.color = '';
+      }
+      
+      // Step 3: Lenses
+      const step3Value = document.getElementById('step3-value');
+      if (state.lenses) {
+        const lensName = state.lenses === 'standard' ? 'Standard' : 'Prescription';
+        step3Value.textContent = lensName;
+        step3Value.style.color = 'var(--accent)';
+      } else {
+        step3Value.textContent = 'Lenses';
+        step3Value.style.color = '';
+      }
+    }
+    
+    /* -------------------------
+       Mode toggle
+       ------------------------- */
+    const modeBtn = document.getElementById('modeToggle');
+    
+    modeBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      modeBtn.textContent = isDark ? 'Light mode' : 'Dark mode';
+      modeBtn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    });
+    
+    /* -------------------------
+       Colour selection
+       ------------------------- */
+    document.querySelectorAll('.colour-card').forEach(el => {
+      el.addEventListener('click', () => {
+        selectColour(el.dataset.colour);
+        showStep(2);
+      });
+      
+      el.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter') {
+          selectColour(el.dataset.colour);
+          showStep(2);
+        }
+      });
+    });
+    
+    function selectColour(colourType) {
+      state.colour = colourType;
+      state.currentStep = 2;
+      
+      // visual selection
+      document.querySelectorAll('.colour-card').forEach(c => {
+        c.classList.toggle('selected', c.dataset.colour === colourType);
+      });
+      
+      // Reset selections that depend on colour
+      state.storage = null;
+      state.lenses = null;
+      state.basePrice = PRICES.colour[colourType];
+      state.price = state.basePrice;
+      
+      // Update step values
+      updateStepValues();
+      
+      // Populate storage options
+      populateStorageOptions();
+    }
+    
+    /* step buttons */
+    document.querySelectorAll('.step-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const stepNum = Number(btn.dataset.step);
+        // Allow going back even if current step not completed
+        if (stepNum <= state.currentStep) {
+          showStep(stepNum);
+        }
+      });
+    });
+    
+    /* -------------------------
+       Storage options
+       ------------------------- */
+    const storageGrid = document.getElementById('storageGrid');
+    
+    function populateStorageOptions() {
+      storageGrid.innerHTML = '';
+      if(!state.colour) return;
+      
+      const opts = [128, 512, 1024];
+      
+      opts.forEach(cap => {
+        const price = PRICES.storage[cap];
+        // Format display text: show TB for 1024GB
+        const displayText = cap === 1024 ? '1TB' : `${cap}GB`;
+        const card = document.createElement('div');
+        card.className = 'storage-card';
+        card.dataset.cap = cap;
+        card.innerHTML = `<div class="size">${displayText}</div><div class="price">${price > 0 ? `+A$${price.toLocaleString()}` : 'Base'}</div>`;
+        
+        card.addEventListener('click', () => {
+          selectStorage(cap);
+          showStep(3);
+        });
+        
+        storageGrid.appendChild(card);
+      });
+    }
+    
+    function selectStorage(cap) {
+      // remove selected classes
+      document.querySelectorAll('.storage-card').forEach(c => c.classList.remove('selected'));
+      
+      // mark selected
+      const selectedCard = document.querySelector(`.storage-card[data-cap="${cap}"]`);
+      if (selectedCard) {
+        selectedCard.classList.add('selected');
+      }
+      
+      state.storage = cap;
+      state.currentStep = 3;
+      state.price = state.basePrice + PRICES.storage[cap];
+      
+      // Update step values
+      updateStepValues();
+      
+      // Populate lenses options
+      populateLensesOptions();
+    }
+    
+    /* -------------------------
+       Lenses options
+       ------------------------- */
+    const lensesGrid = document.getElementById('lensesGrid');
+    
+    function populateLensesOptions() {
+      lensesGrid.innerHTML = '';
+      if(!state.colour || !state.storage) return;
+      
+      const options = [
+        {
+          id: 'standard',
+          title: 'Standard Lenses',
+          desc: 'For users without vision correction needs',
+          price: 0
+        },
+        {
+          id: 'prescription',
+          title: 'Prescription Lenses',
+          desc: 'Custom lenses for your vision correction',
+          price: 50
+        }
+      ];
+      
+      options.forEach(opt => {
+        const card = document.createElement('div');
+        card.className = 'lens-option-card';
+        card.dataset.lenses = opt.id;
+        
+        let badge = '';
+        if (opt.price > 0) {
+          badge = `<div class="lens-badge">+A$${opt.price}</div>`;
+        }
+        
+        card.innerHTML = `
+          <div class="lens-image-container">
+            <div class="lens-image-placeholder">${opt.title}</div>
+          </div>
+          ${badge}
+          <div class="title">${opt.title}</div>
+          <div class="sub">${opt.desc}</div>
+          <div class="price">${opt.price > 0 ? `+A$${opt.price.toLocaleString()}` : 'Base'}</div>
+        `;
+        
+        card.addEventListener('click', () => {
+          selectLenses(opt.id);
+          showStep(4);
+        });
+        
+        lensesGrid.appendChild(card);
+      });
+      
+      // Mark current selection if any
+      if (state.lenses) {
+        const selectedCard = document.querySelector(`.lens-option-card[data-lenses="${state.lenses}"]`);
+        if (selectedCard) {
+          selectedCard.classList.add('selected');
+        }
+      }
+    }
+    
+    function selectLenses(id) {
+      // remove selected classes
+      document.querySelectorAll('.lens-option-card').forEach(c => c.classList.remove('selected'));
+      
+      // mark selected
+      const selectedCard = document.querySelector(`.lens-option-card[data-lenses="${id}"]`);
+      if (selectedCard) {
+        selectedCard.classList.add('selected');
+      }
+      
+      state.lenses = id;
+      state.currentStep = 4;
+      state.price = state.basePrice + PRICES.storage[state.storage] + PRICES.lenses[id];
+      
+      // Update step values
+      updateStepValues();
+      
+      // Update summary
+      updateSummary();
+    }
+    
+    /* -------------------------
+       Update summary
+       ------------------------- */
+    function updateSummary() {
+      // Build breadcrumb text
+      const bread = [];
+      if(state.colour) {
+        bread.push(state.colour === 'black' ? 'Black' : 'Silver');
+      }
+      if(state.storage) {
+        let storageDisplay;
+        if (state.storage === 1024) {
+          storageDisplay = '1TB';
+        } else if (state.storage === 512) {
+          storageDisplay = '512GB';
+        } else {
+          storageDisplay = `${state.storage}GB`;
+        }
+        bread.push(storageDisplay);
+      }
+      if(state.lenses) {
+        bread.push(state.lenses === 'standard' ? 'Standard Lenses' : 'Prescription Lenses');
+      }
+      
+      const breadcrumbText = bread.join(', ');
+      document.getElementById('summaryBreadcrumb').textContent = breadcrumbText;
+      
+      // Update price
+      const priceEl = document.getElementById('finalPrice');
+      priceEl.textContent = `A$${state.price.toLocaleString()}`;
+      
+      // Update summary image placeholders
+      document.getElementById('summaryFrontPlaceholder').textContent = state.colour === 'black' ? 'Black Boiby Sight - Front' : 'Silver Boiby Sight - Front';
+      document.getElementById('summarySidePlaceholder').textContent = state.colour === 'black' ? 'Black Boiby Sight - Side' : 'Silver Boiby Sight - Side';
+      
+      // Update specs
+      document.getElementById('spec-colour').textContent = state.colour === 'black' ? 'Black' : 'Silver';
+      
+      let storageDisplay;
+      if (state.storage === 1024) {
+        storageDisplay = '1TB';
+      } else if (state.storage === 512) {
+        storageDisplay = '512GB';
+      } else {
+        storageDisplay = `${state.storage}GB`;
+      }
+      document.getElementById('spec-storage').textContent = storageDisplay;
+      
+      document.getElementById('spec-lenses').textContent = state.lenses === 'standard' ? 'Standard' : 'Prescription';
+    }
+    
+    /* -------------------------
+       Add to cart button
+       ------------------------- */
+    document.getElementById('addToCart').addEventListener('click', () => {
+      let storageDisplay;
+      if (state.storage === 1024) {
+        storageDisplay = '1TB';
+      } else if (state.storage === 512) {
+        storageDisplay = '512GB';
+      } else {
+        storageDisplay = `${state.storage}GB`;
+      }
+      
+      alert(`Added to cart!\n\nYour Boiby Sight:\n- Colour: ${state.colour === 'black' ? 'Black' : 'Silver'}\n- Storage: ${storageDisplay}\n- Lenses: ${state.lenses === 'standard' ? 'Standard' : 'Prescription'}\n- Total: A$${state.price}`);
+    });
+    
+    /* -------------------------
+       Initial setup
+       ------------------------- */
+    (function init() {
+      // step buttons clickable
+      steps.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const stepNum = Number(btn.dataset.step);
+          if (stepNum <= state.currentStep) {
+            showStep(stepNum);
+          }
+        });
+      });
+      
+      // Initialize step values
+      updateStepValues();
+    })();
+  </script>
+</body>
+</html>
