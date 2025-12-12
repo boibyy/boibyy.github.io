@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BoibyBook Pro 14‑inch Configurator</title>
+  
+  <!-- Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #fff;
+      --muted: #6b6b6b;
+      --text: #0a0a0a;
+      --accent: #007aff;
+      --card-bg: #fff;
+      --edge: #e6e6e6;
+    }
+    
+    .dark {
+      --bg: #0b0b0b;
+      --muted: #b8b8b8;
+      --text: #f6f6f6;
+      --accent: #4aa3ff;
+      --card-bg: #111216;
+      --edge: #222428;
+    }
+    
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    
+    body {
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background .25s, color .25s;
+    }
+
+    * {
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      box-sizing: border-box;
+    }
+    
+    header {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+      border-bottom: 1px solid var(--edge);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg);
+      z-index: 100;
+    }
+    
+    header .brand {
+      font-weight: 600;
+      letter-spacing: .2px;
+      font-size: 20px;
+    }
+    
+    header .controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    
+    .mode-toggle {
+      border: 1px solid var(--edge);
+      background: transparent;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--text);
+      font-weight: 500;
+    }
+    
+    /* Main container */
+    .main-container {
+      display: flex;
+      min-height: calc(100vh - 72px);
+      margin-top: 72px;
+    }
+    
+    /* Product image side */
+    .product-side {
+      width: 50%;
+      position: fixed;
+      left: 0;
+      top: 72px;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      background: var(--bg);
+      z-index: 1;
+    }
+    
+    .product-image-container {
+      max-width: 100%;
+      max-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .product-image {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      transition: opacity 0.3s ease;
+    }
+    
+    /* Configuration side */
+    .config-side {
+      width: 50%;
+      margin-left: 50%;
+      padding: 60px 40px 40px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .config-section {
+      margin-bottom: 100px;
+      opacity: 0.3;
+      transition: opacity 0.3s ease;
+      min-height: 60vh;
+    }
+    
+    .config-section.active {
+      opacity: 1;
+    }
+    
+    .section-header {
+      margin-bottom: 30px;
+    }
+    
+    .section-title {
+      font-size: 32px;
+      font-weight: 600;
+      margin: 0 0 8px 0;
+    }
+    
+    .section-subtitle {
+      color: var(--muted);
+      font-size: 15px;
+      margin: 0;
+    }
+    
+    /* Option cards */
+    .option-card {
+      background: var(--card-bg);
+      border: 1px solid var(--edge);
+      border-radius: 12px;
+      padding: 24px;
+      cursor: pointer;
+      transition: border-color .18s;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    
+    .option-card.selected {
+      border-color: var(--accent);
+    }
+    
+    .option-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+    
+    .option-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0;
+    }
+    
+    .option-price {
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    
+    .option-desc {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+      margin: 0;
+    }
+    
+    .chip-specs {
+      color: var(--accent);
+      font-size: 14px;
+      margin: 4px 0 0 0;
+      font-weight: 500;
+    }
+    
+    /* Summary section */
+    .summary-section {
+      background: var(--card-bg);
+      border: 1px solid var(--edge);
+      border-radius: 12px;
+      padding: 32px;
+    }
+    
+    .summary-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 20px 0;
+    }
+    
+    .summary-item {
+      margin-bottom: 12px;
+      line-height: 1.4;
+      font-size: 15px;
+    }
+    
+    .summary-price {
+      font-size: 36px;
+      font-weight: 700;
+      margin: 30px 0 0 0;
+      padding-top: 30px;
+      border-top: 1px solid var(--edge);
+    }
+    
+    .buy-button {
+      display: block;
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      padding: 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      text-align: center;
+      margin-top: 24px;
+      transition: opacity 0.2s;
+    }
+    
+    .buy-button:hover {
+      opacity: 0.9;
+    }
+    
+    /* Progress indicator */
+    .progress-indicator {
+      position: fixed;
+      right: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 100;
+    }
+    
+    .progress-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--edge);
+      transition: background 0.3s;
+    }
+    
+    .progress-dot.active {
+      background: var(--accent);
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .main-container {
+        flex-direction: column;
+      }
+      
+      .product-side {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        top: 0;
+        padding: 20px;
+      }
+      
+      .config-side {
+        width: 100%;
+        margin-left: 0;
+        padding: 40px 20px;
+      }
+      
+      .progress-indicator {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      header {
+        padding: 0 20px;
+      }
+      
+      .section-title {
+        font-size: 28px;
+      }
+      
+      .config-side {
+        padding: 30px 20px;
+      }
+      
+      .config-section {
+        margin-bottom: 60px;
+        min-height: 50vh;
+      }
+      
+      .option-card {
+        padding: 20px;
+      }
+      
+      .option-title {
+        font-size: 16px;
+      }
+      
+      .option-price {
+        font-size: 16px;
+      }
+      
+      .summary-price {
+        font-size: 32px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      header {
+        height: 60px;
+        padding: 0 16px;
+      }
+      
+      .main-container {
+        margin-top: 60px;
+        min-height: calc(100vh - 60px);
+      }
+      
+      .product-side {
+        height: 300px;
+        top: 60px;
+      }
+      
+      .section-title {
+        font-size: 24px;
+      }
+      
+      .section-subtitle {
+        font-size: 14px;
+      }
+      
+      .config-section {
+        min-height: 40vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">BoibyBook Pro 14‑inch</div>
+    <div class="controls">
+      <div class="muted" style="font-size:13px;margin-right:8px">Starting at A$2399</div>
+      <button id="modeToggle" class="mode-toggle" aria-pressed="false">Dark mode</button>
+    </div>
+  </header>
+  
+  <!-- Progress indicator -->
+  <div class="progress-indicator">
+    <div class="progress-dot active" data-section="colour"></div>
+    <div class="progress-dot" data-section="chip"></div>
+    <div class="progress-dot" data-section="memory"></div>
+    <div class="progress-dot" data-section="storage"></div>
+    <div class="progress-dot" data-section="summary"></div>
+  </div>
+  
+  <div class="main-container">
+    <!-- Product image side -->
+    <div class="product-side">
+      <div class="product-image-container">
+        <img src="" alt="BoibyBook Pro 14‑inch" class="product-image" id="productImage" />
+      </div>
+    </div>
+    
+    <!-- Configuration side -->
+    <div class="config-side">
+      <!-- Colour Section -->
+      <section id="colour-section" class="config-section active">
+        <div class="section-header">
+          <h2 class="section-title">Choose your finish.</h2>
+          <p class="section-subtitle">Select the colour for your BoibyBook Pro.</p>
+        </div>
+        
+        <div class="option-card" data-colour="silver">
+          <div class="option-header">
+            <h3 class="option-title">Silver</h3>
+            <div class="option-price">Included</div>
+          </div>
+          <p class="option-desc">Classic silver aluminium finish</p>
+        </div>
+        
+        <div class="option-card" data-colour="slate">
+          <div class="option-header">
+            <h3 class="option-title">Slate</h3>
+            <div class="option-price">Included</div>
+          </div>
+          <p class="option-desc">Deep dark aluminium finish</p>
+        </div>
+      </section>
+      
+      <!-- Chip Section -->
+      <section id="chip-section" class="config-section">
+        <div class="section-header">
+          <h2 class="section-title">Choose your chip.</h2>
+          <p class="section-subtitle">Select the processor for ultimate performance.</p>
+        </div>
+        
+        <div class="option-card" data-chip="x7">
+          <div class="option-header">
+            <h3 class="option-title">Boiby X7</h3>
+            <div class="option-price">From A$2399</div>
+          </div>
+          <p class="chip-specs">12-core CPU and 12-core GPU</p>
+          <p class="option-desc">Advanced performance for pro workflows</p>
+        </div>
+        
+        <div class="option-card" data-chip="x7pro">
+          <div class="option-header">
+            <h3 class="option-title">Boiby X7 Pro</h3>
+            <div class="option-price">From A$3199</div>
+          </div>
+          <p class="chip-specs">16-core CPU and 24-core GPU</p>
+          <p class="option-desc">Extreme performance for demanding tasks</p>
+        </div>
+        
+        <div class="option-card" data-chip="x7max">
+          <div class="option-header">
+            <h3 class="option-title">Boiby X7 Max</h3>
+            <div class="option-price">From A$4699</div>
+          </div>
+          <p class="chip-specs">18-core CPU and 48-core GPU</p>
+          <p class="option-desc">Maximum performance for professional creators</p>
+        </div>
+      </section>
+      
+      <!-- Memory Section -->
+      <section id="memory-section" class="config-section">
+        <div class="section-header">
+          <h2 class="section-title">Memory</h2>
+          <p class="section-subtitle" id="memory-subtitle">Choose unified memory for your workflow.</p>
+        </div>
+        
+        <div class="memory-options" id="memoryOptions">
+          <!-- Will be populated by JS based on chip selection -->
+        </div>
+      </section>
+      
+      <!-- Storage Section -->
+      <section id="storage-section" class="config-section">
+        <div class="section-header">
+          <h2 class="section-title">Storage</h2>
+          <p class="section-subtitle">Choose SSD storage for your files and projects.</p>
+        </div>
+        
+        <div class="storage-options" id="storageOptions">
+          <!-- Will be populated by JS based on chip selection -->
+        </div>
+      </section>
+      
+      <!-- Summary Section -->
+      <section id="summary-section" class="config-section">
+        <div class="section-header">
+          <h2 class="section-title">Review your order.</h2>
+          <p class="section-subtitle">Here's your configured BoibyBook Pro.</p>
+        </div>
+        
+        <div class="summary-section">
+          <h3 class="summary-title">Order Summary</h3>
+          
+          <div class="summary-item" id="summary-colour">
+            <strong>14‑inch BoibyBook Pro — </strong><span id="colour-text">Silver</span>
+          </div>
+          
+          <div class="summary-item" id="summary-chip">
+            <strong>Chip:</strong> <span id="chip-text">Boiby X7 with 12-core CPU and 12-core GPU</span>
+          </div>
+          
+          <div class="summary-item" id="summary-memory">
+            <strong>Memory:</strong> <span id="memory-text">24GB unified memory</span>
+          </div>
+          
+          <div class="summary-item" id="summary-storage">
+            <strong>Storage:</strong> <span id="storage-text">1TB SSD storage</span>
+          </div>
+          
+          <div class="summary-price" id="final-price">A$2399</div>
+          
+          <button class="buy-button">Add to Bag</button>
+        </div>
+      </section>
+    </div>
+  </div>
+  
+  <script>
+    /* -------------------------
+       Data and initial state
+       ------------------------- */
+    const state = {
+      colour: 'silver',      // 'silver' or 'slate'
+      chip: null,            // 'x7', 'x7pro', 'x7max'
+      memory: null,          // depends on chip
+      storage: null,         // depends on chip
+      price: 2399,
+      basePrice: 2399
+    };
+    
+    const CHIP_PRICES = {
+      'x7': 2399,
+      'x7pro': 3199,
+      'x7max': 4699
+    };
+    
+    const CHIP_SPECS = {
+      'x7': '12-core CPU and 12-core GPU',
+      'x7pro': '16-core CPU and 24-core GPU',
+      'x7max': '18-core CPU and 48-core GPU'
+    };
+    
+    const CHIP_NAMES = {
+      'x7': 'Boiby X7',
+      'x7pro': 'Boiby X7 Pro',
+      'x7max': 'Boiby X7 Max'
+    };
+    
+    const MEMORY_PRICES = {
+      'x7': {
+        '24': 0,
+        '32': 150,
+        '48': 450
+      },
+      'x7pro': {
+        '32': 0,
+        '48': 300,
+        '64': 600
+      },
+      'x7max': {
+        '48': 0,
+        '64': 300,
+        '128': 1500
+      }
+    };
+    
+    const STORAGE_PRICES = {
+      'x7': {
+        '1024': 0,
+        '2048': 150,
+        '4096': 450
+      },
+      'x7pro': {
+        '1024': 0,
+        '2048': 150,
+        '4096': 450
+      },
+      'x7max': {
+        '1024': 0,
+        '2048': 150,
+        '4096': 450,
+        '8192': 900  // 8TB option for X7 Max
+      }
+    };
+    
+    const STORAGE_LABELS = {
+      '1024': '1TB SSD storage',
+      '2048': '2TB SSD storage',
+      '4096': '4TB SSD storage',
+      '8192': '8TB SSD storage'
+    };
+    
+    const COLOUR_IMAGES = {
+      'silver': '/images/boibybook_silver.png',
+      'slate': '/images/boibybook_slate.png'
+    };
+    
+    /* -------------------------
+       DOM Elements
+       ------------------------- */
+    const sections = {
+      colour: document.getElementById('colour-section'),
+      chip: document.getElementById('chip-section'),
+      memory: document.getElementById('memory-section'),
+      storage: document.getElementById('storage-section'),
+      summary: document.getElementById('summary-section')
+    };
+    
+    const progressDots = document.querySelectorAll('.progress-dot');
+    const productImage = document.getElementById('productImage');
+    const memoryOptions = document.getElementById('memoryOptions');
+    const storageOptions = document.getElementById('storageOptions');
+    
+    let currentActiveSection = 'colour';
+    
+    /* -------------------------
+       Initialize
+       ------------------------- */
+    function init() {
+      updateProductImage();
+      
+      // Colour selection
+      document.querySelectorAll('[data-colour]').forEach(card => {
+        card.addEventListener('click', () => {
+          selectColour(card.dataset.colour);
+        });
+      });
+      
+      // Chip selection
+      document.querySelectorAll('[data-chip]').forEach(card => {
+        card.addEventListener('click', () => {
+          selectChip(card.dataset.chip);
+        });
+      });
+      
+      // Dark mode toggle
+      const modeBtn = document.getElementById('modeToggle');
+      modeBtn.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+        const isDark = document.documentElement.classList.contains('dark');
+        modeBtn.textContent = isDark ? 'Light mode' : 'Dark mode';
+        modeBtn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+      });
+      
+      updateSelections();
+      updateSummary();
+      setupScrollDetection();
+      window.scrollTo(0, 0);
+      setActiveSection('colour');
+    }
+    
+    /* -------------------------
+       Selection functions with auto-scroll
+       ------------------------- */
+    function selectColour(colour) {
+      state.colour = colour;
+      updateSelections();
+      updateProductImage();
+      updateSummary();
+      setTimeout(() => scrollToSection('chip'), 100);
+    }
+    
+    function selectChip(chip) {
+      state.chip = chip;
+      state.basePrice = CHIP_PRICES[chip];
+      state.price = state.basePrice;
+      state.memory = null;
+      state.storage = null;
+      
+      updateSelections();
+      populateMemoryOptions();
+      populateStorageOptions();
+      updateSummary();
+      setTimeout(() => scrollToSection('memory'), 100);
+    }
+    
+    function selectMemory(memory) {
+      state.memory = memory;
+      updateSelections();
+      updateSummary();
+      setTimeout(() => scrollToSection('storage'), 100);
+    }
+    
+    function selectStorage(storage) {
+      state.storage = storage;
+      updateSelections();
+      updateSummary();
+      setTimeout(() => scrollToSection('summary'), 100);
+    }
+    
+    /* -------------------------
+       Update UI functions
+       ------------------------- */
+    function updateSelections() {
+      // Update colour cards
+      document.querySelectorAll('[data-colour]').forEach(card => {
+        card.classList.toggle('selected', card.dataset.colour === state.colour);
+      });
+      
+      // Update chip cards
+      document.querySelectorAll('[data-chip]').forEach(card => {
+        card.classList.toggle('selected', card.dataset.chip === state.chip);
+      });
+      
+      // Update memory cards
+      document.querySelectorAll('[data-memory]').forEach(card => {
+        card.classList.toggle('selected', card.dataset.memory === state.memory);
+      });
+      
+      // Update storage cards
+      document.querySelectorAll('[data-storage]').forEach(card => {
+        card.classList.toggle('selected', card.dataset.storage === state.storage);
+      });
+    }
+    
+    function updateProductImage() {
+      const imagePath = COLOUR_IMAGES[state.colour] || COLOUR_IMAGES.silver;
+      productImage.src = imagePath;
+      productImage.alt = `BoibyBook Pro 14‑inch — ${state.colour.charAt(0).toUpperCase() + state.colour.slice(1)}`;
+    }
+    
+    function populateMemoryOptions() {
+      if (!state.chip) return;
+      
+      memoryOptions.innerHTML = '';
+      const memoryConfig = MEMORY_PRICES[state.chip];
+      
+      Object.keys(memoryConfig).forEach(memory => {
+        const price = memoryConfig[memory];
+        const card = document.createElement('div');
+        card.className = 'option-card';
+        card.dataset.memory = memory;
+        
+        const priceText = price === 0 ? 'Included' : `+A$${price}`;
+        
+        card.innerHTML = `
+          <div class="option-header">
+            <h3 class="option-title">${memory}GB unified memory</h3>
+            <div class="option-price">${priceText}</div>
+          </div>
+          <p class="option-desc">For ${memory === '128' ? 'extreme' : 'professional'} workflows</p>
+        `;
+        
+        card.addEventListener('click', () => {
+          selectMemory(memory);
+        });
+        
+        memoryOptions.appendChild(card);
+      });
+      
+      // Select first option by default
+      const firstMemory = Object.keys(memoryConfig)[0];
+      state.memory = firstMemory;
+      updateSelections();
+    }
+    
+    function populateStorageOptions() {
+      if (!state.chip) return;
+      
+      storageOptions.innerHTML = '';
+      const storageConfig = STORAGE_PRICES[state.chip];
+      
+      Object.keys(storageConfig).forEach(storage => {
+        const price = storageConfig[storage];
+        const label = STORAGE_LABELS[storage];
+        const card = document.createElement('div');
+        card.className = 'option-card';
+        card.dataset.storage = storage;
+        
+        const priceText = price === 0 ? 'Included' : `+A$${price}`;
+        
+        card.innerHTML = `
+          <div class="option-header">
+            <h3 class="option-title">${label}</h3>
+            <div class="option-price">${priceText}</div>
+          </div>
+          <p class="option-desc">For ${parseInt(storage) >= 4096 ? 'massive' : 'large'} media libraries</p>
+        `;
+        
+        card.addEventListener('click', () => {
+          selectStorage(storage);
+        });
+        
+        storageOptions.appendChild(card);
+      });
+      
+      // Select first option by default
+      const firstStorage = Object.keys(storageConfig)[0];
+      state.storage = firstStorage;
+      updateSelections();
+    }
+    
+    function updateSummary() {
+      if (!state.chip) return;
+      
+      // Calculate total price
+      const memoryPrice = MEMORY_PRICES[state.chip][state.memory] || 0;
+      const storagePrice = STORAGE_PRICES[state.chip][state.storage] || 0;
+      state.price = state.basePrice + memoryPrice + storagePrice;
+      
+      // Update summary text
+      document.getElementById('colour-text').textContent = 
+        state.colour.charAt(0).toUpperCase() + state.colour.slice(1);
+      
+      document.getElementById('chip-text').textContent = 
+        `${CHIP_NAMES[state.chip]} with ${CHIP_SPECS[state.chip]}`;
+      
+      document.getElementById('memory-text').textContent = 
+        `${state.memory}GB unified memory`;
+      
+      document.getElementById('storage-text').textContent = 
+        STORAGE_LABELS[state.storage] || '1TB SSD storage';
+      
+      document.getElementById('final-price').textContent = `A$${state.price}`;
+    }
+    
+    /* -------------------------
+       Scroll functions
+       ------------------------- */
+    function scrollToSection(sectionId) {
+      const section = sections[sectionId];
+      if (section) {
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        const headerOffset = 80;
+        
+        window.scrollTo({
+          top: sectionTop - headerOffset,
+          behavior: 'smooth'
+        });
+        
+        setActiveSection(sectionId);
+      }
+    }
+    
+    function setActiveSection(sectionId) {
+      currentActiveSection = sectionId;
+      
+      Object.keys(sections).forEach(sectionKey => {
+        sections[sectionKey].classList.toggle('active', sectionKey === sectionId);
+      });
+      
+      progressDots.forEach(dot => {
+        dot.classList.toggle('active', dot.dataset.section === sectionId);
+      });
+    }
+    
+    function setupScrollDetection() {
+      let ticking = false;
+      let lastScrollPosition = window.scrollY;
+      
+      window.addEventListener('scroll', () => {
+        const currentScrollPosition = window.scrollY;
+        
+        if (Math.abs(currentScrollPosition - lastScrollPosition) < 50) {
+          return;
+        }
+        
+        lastScrollPosition = currentScrollPosition;
+        
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            updateActiveSectionBasedOnScroll();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+    }
+    
+    function updateActiveSectionBasedOnScroll() {
+      const scrollPosition = window.scrollY + window.innerHeight * 0.4;
+      let activeSection = 'colour';
+      let minDistance = Infinity;
+      
+      Object.keys(sections).forEach(sectionKey => {
+        const section = sections[sectionKey];
+        const rect = section.getBoundingClientRect();
+        const offsetTop = rect.top + window.scrollY;
+        const distance = Math.abs(scrollPosition - offsetTop);
+        
+        if (distance < minDistance) {
+          minDistance = distance;
+          activeSection = sectionKey;
+        }
+      });
+      
+      if (activeSection !== currentActiveSection) {
+        setActiveSection(activeSection);
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
