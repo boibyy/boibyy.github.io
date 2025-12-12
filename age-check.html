@@ -674,14 +674,14 @@ function checkEasterEgg(code) {
     const easterEggs = {
         '41': '41.mp4',
         '42': '42.mov', 
-        '67': '67.mp4',
+        '67': 'https://www.youtube.com/watch?v=BK0Lv6bWgI4',
         'mario': 'mario.mov',
         'funny': 'funny.mp4'
     };
     
     // Check if the code matches any easter egg
     if (easterEggs[cleanCode]) {
-        console.log("🎉 EASTER EGG TRIGGERED! 🎉");
+        console.log("EASTER EGG TRIGGERED");
         const mediaFile = easterEggs[cleanCode];
         const extension = mediaFile.split('.').pop();
         
@@ -735,7 +735,7 @@ function checkEasterEgg(code) {
                 </style>
             </head>
             <body>
-                <h1>🎉 Easter Egg Found! 🎉</h1>
+                <h1>egg</h1>
                 <div class="media-container">
                     ${extension === 'gif' 
                         ? `<img src="${mediaFile}" alt="Easter egg GIF" autoplay loop>`
@@ -775,7 +775,7 @@ function checkEasterEgg(code) {
     return true;
   }
   if (cleanCode === '67') {
-    window.open('67.gif', '_blank');
+    window.open('https://www.youtube.com/watch?v=BK0Lv6bWgI4', '_blank');
     return true;
   }
   
