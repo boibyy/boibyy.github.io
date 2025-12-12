@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Age Verification Required</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  
+  <style>
+    :root {
+      --bg: #fff;
+      --muted: #6b6b6b;
+      --text: #0a0a0a;
+      --accent: #007aff;
+      --card-bg: #fff;
+      --edge: #e6e6e6;
+      --success: #34c759;
+      --error: #ff3b30;
+    }
+    
+    .dark {
+      --bg: #0b0b0b;
+      --muted: #b8b8b8;
+      --text: #f6f6f6;
+      --accent: #4aa3ff;
+      --card-bg: #111216;
+      --edge: #222428;
+      --success: #30d158;
+      --error: #ff453a;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial
+    }
+    
+    body {
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      transition: background .25s, color .25s;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+    
+    .corner-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      border: 1px solid var(--edge);
+      padding: 8px 16px;
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      z-index: 1000;
+    }
+    
+    .corner-toggle:hover {
+      border-color: var(--accent);
+    }
+    
+    .verification-modal {
+      width: 100%;
+      max-width: 500px;
+      background: var(--card-bg);
+      border-radius: 20px;
+      border: 1px solid var(--edge);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+    }
+    
+    .modal-content {
+      padding: 40px 32px 32px;
+    }
+    
+    .step-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 32px;
+      justify-content: center;
+    }
+    
+    .step-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--edge);
+      transition: all 0.3s;
+    }
+    
+    .step-dot.active {
+      background: var(--accent);
+      transform: scale(1.4);
+    }
+    
+    .step-dot.completed {
+      background: var(--success);
+    }
+    
+    .slide-container {
+      position: relative;
+      min-height: 380px;
+    }
+    
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      opacity: 0;
+      transform: translateX(20px);
+      pointer-events: none;
+      transition: all 0.4s;
+    }
+    
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: all;
+      position: relative;
+    }
+    
+    .slide-title {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    
+    .slide-title-2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    
+    .slide-subtitle {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 32px;
+      text-align: center;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .slide-subtitle-2 {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 12px;
+      text-align: center;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .qr-container {
+      text-align: center;
+      margin: 24px 0;
+      aspect-ratio: 1/1
+    }
+    
+    #qrCodeCanvas {
+      aspect-ratio: 1/1;
+      display: block;
+      border: 1px solid var(--edge);
+      border-radius: 12px;
+      background: white;
+      width: 100%; height: 100%
+    }
+    
+    .code-display {
+      font-family: monospace;
+      font-size: 20px;
+      letter-spacing: 2px;
+      background: var(--bg);
+      padding: 16px 24px;
+      border-radius: 12px;
+      border: 2px solid var(--edge);
+      margin: 20px 0;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+    
+    .code-display:hover {
+      border-color: var(--accent);
+    }
+    
+    .copy-hint {
+      position: absolute;
+      top: -8px;
+      right: 12px;
+      background: var(--accent);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      opacity: 0;
+      transition: all 0.2s;
+    }
+    
+    .code-display:hover .copy-hint {
+      opacity: 1;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .btn {
+      flex: 1;
+      padding: 16px;
+      border-radius: 12px;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+    
+    .btn-primary:hover:not(:disabled) {
+      opacity: 0.9;
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--edge);
+      color: var(--text);
+    }
+    
+    .btn-secondary:hover {
+      border-color: var(--accent);
+    }
+    
+    .code-input {
+      width: 100%;
+      padding: 16px 20px;
+      font-size: 18px;
+      letter-spacing: 3px;
+      text-align: center;
+      font-family: monospace;
+      border: 2px solid var(--edge);
+      border-radius: 12px;
+      background: var(--bg);
+      color: var(--text);
+    }
+    
+    .code-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    
+    .loading-container {
+      text-align: center;
+      padding: 60px 0;
+    }
+    
+    .loading-spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid var(--edge);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .result-container {
+      text-align: center;
+      padding: 40px 0;
+    }
+    
+    .result-title {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    
+    .result-message {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    
+    .privacy-note {
+      background: rgba(var(--accent-rgb), 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+      border-left: 3px solid var(--accent);
+    }
+    
+    @media (max-width: 520px) {
+      .verification-modal {
+        border-radius: 16px;
+      }
+      
+      .modal-content {
+        padding: 32px 20px 20px;
+      }
+      
+      .slide-title {
+        font-size: 24px;
+      }
+      
+      .result-title {
+        font-size: 24px;
+      }
+      
+      .button-group {
+        flex-direction: column;
+      }
+      
+      .corner-toggle {
+        top: 12px;
+        right: 12px;
+        padding: 6px 12px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="corner-toggle" id="modeToggle">Dark mode</button>
+  
+  <div class="verification-modal">
+    <div class="modal-content">
+      <div class="step-indicator">
+        <div class="step-dot active" id="step1"></div>
+        <div class="step-dot" id="step2"></div>
+        <div class="step-dot" id="step3"></div>
+        <div class="step-dot" id="step4"></div>
+      </div>
+      
+      <div class="slide-container">
+        <!-- Slide 1: Welcome -->
+        <div class="slide active" id="slide1">
+          <h2 class="slide-title">Let's do a quick age check</h2>
+          <p class="slide-subtitle">
+            
+            Boiby needs to verify your age for you to be able to use some features on this website due to local laws.
+          
+          </p>
+          
+          <h3 class="slide-title-2">
+            Boiby respects your privacy:
+          </h3>
+          
+          <p class="slide-subtitle-2">
+            We never see your ID.
+          </p>
+          
+          <p class="slide-subtitle-2">
+            The government doesn't see anything.
+          </p>
+          
+          <p class="slide-subtitle-2">
+            We only see your age.
+          </p>
+          
+          <div class="button-group">
+            <button class="btn btn-primary" onclick="goToStep(2)">Continue</button>
+          </div>
+        </div>
+        
+        <!-- Slide 2: Get Code -->
+        <div class="slide" id="slide2">
+          <h2 class="slide-title">Get your verification code</h2>
+          <p class="slide-subtitle">
+            Scan this QR code with your phone, or use the text code below.
+          </p>
+          
+          <div class="qr-container">
+            <canvas id="qrCodeCanvas"></canvas>
+          </div>
+          
+          <div class="code-display" id="textCode"><span class="copy-hint">Click to copy</span>WPW-LXG-GNW</div>
+          
+          <div class="button-group">
+            <button class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
+            <button class="btn btn-primary" onclick="goToStep(3)">I've scanned it</button>
+          </div>
+        </div>
+        
+        <!-- Slide 3: Enter Response -->
+        <div class="slide" id="slide3">
+          <h2 class="slide-title">Enter response code</h2>
+          <p class="slide-subtitle">
+            Your phone should show a verification code. Enter it here:
+          </p>
+          
+          <div style="margin: 32px 0;">
+            <input type="text" class="code-input" id="responseInput" placeholder="e.g., A4F7-9B2C-A1" maxlength="12">
+          </div>
+          
+          <div class="button-group">
+            <button class="btn btn-secondary" onclick="goToStep(2)">← Back</button>
+            <button class="btn btn-primary" onclick="submitResponse()">Verify</button>
+          </div>
+        </div>
+        
+        <!-- Slide 4: Loading -->
+        <div class="slide" id="slide4">
+          <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <h2 class="slide-title">Verifying...</h2>
+            <p class="slide-subtitle">
+              Checking your verification code.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Slide 5: Success -->
+        <div class="slide" id="slide5">
+          <div class="result-container">
+            <h2 class="result-title">Your age is 13-15 years old.</h2>
+            <p class="result-message">
+              You're all set to access the site.
+            </p>
+            <p class="result-message">
+              We've changed some of your privacy settings. Anything you set yourself has not been adjusted.
+            </p>
+            <p class="result-message">
+              No personal information was shared with Boiby. Your ID and name were not shared. We only know your age.
+            </p>
+            
+            <div class="button-group">
+              <button class="btn btn-primary" onclick="completeVerification()">Continue</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Slide 6: Denied -->
+        <div class="slide" id="slide6">
+          <div class="result-container">
+            <h2 class="result-title">Sorry, you're not old enough.</h2>
+            <p class="result-message">
+              Access to most features of this site are only available to users aged 13 and above.
+            </p>
+            
+            <p class="result-message">
+              Boiby only knows you're under 13. No exact age was shared. Your data is not stored.
+            </p>
+            
+            <div class="button-group">
+              <button class="btn btn-secondary" onclick="goToStep(1)">Try Again</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Slide 7: Invalid Code -->
+        <div class="slide" id="slide7">
+          <div class="result-container">
+            <h2 class="result-title">Invalid verification code</h2>
+            <p class="result-message">
+              The code you entered is not valid.
+            </p>
+            <p class="result-message">
+              Please double-check the code and try again.
+            </p>
+            <p class="result-message">
+              Make sure you entered it exactly as shown in the Age app.
+            </p>
+
+            <div class="button-group">
+              <button class="btn btn-secondary" onclick="goToStep(3)">Try Again</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  // Shared code system
+  const CODE_SYSTEM = {
+    "A": ["X9P3-M2R8-K5", "L4F7-J1Q9-N3", "T8V2-H6W4-B7", "Q3N5-P8M1-R9", "K7J2-G4H8-L3", "S1D6-F9C2-P5"],
+    "B": ["Z2X7-V5C9-Q8", "M8P4-N1J6-K3", "R9T2-F7B5-H4", "L3W6-S8D1-M9", "Q5J4-H2V8-N7", "P1M9-C6X3-R2"],
+    "C": ["Y7M2-Q9P5-X4", "J3K8-B1N6-V2", "W4T9-R5H8-L7", "F6M1-D9C3-P8", "N2X7-V4Q1-J9", "S8P3-M5R6-K2"],
+    "D": ["V9P2-M4X7-K3", "B8J5-F1T6-R4", "N3W7-C9M2-H8", "Q6L1-P5R9-D4", "S2F8-V3J7-M6", "K4T9-B1N5-R8"],
+    "E": ["F9X3-P7K2-V5", "M4R8-J1B6-Q9", "T2W7-H5N3-L8", "D6P1-K8M4-R3", "S9J2-C4V7-B5", "N3Q8-F1X6-M2"]
+  };
+
+  const AGE_DISPLAY = {
+    'A': 'under 13',
+    'B': '13-15 years old',
+    'C': '16-17 years old', 
+    'D': '18-20 years old',
+    'E': '21+ years old'
+  };
+
+  let currentStep = 1;
+  let sessionCode = 'WPW-LXG-GNW';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.documentElement.style.setProperty('--accent-rgb', '0, 122, 255');
+
+    document.getElementById('modeToggle').addEventListener('click', () => {
+      const isDark = !document.documentElement.classList.contains('dark');
+      document.documentElement.classList.toggle('dark');
+      document.getElementById('modeToggle').textContent = isDark ? 'Light mode' : 'Dark mode';
+    });
+
+    QRCode.toCanvas(
+      document.getElementById('qrCodeCanvas'),
+      `verify:${sessionCode}`,
+      { width: 200, margin: 2, color: { dark: '#000000', light: '#FFFFFF' } }
+    );
+
+    const codeDisplay = document.getElementById('textCode');
+    codeDisplay.addEventListener('click', function() {
+      const codeText = this.textContent.replace('Click to copy', '').trim();
+      navigator.clipboard.writeText(codeText).then(() => {
+        const original = this.innerHTML;
+        this.innerHTML = '<span class="copy-hint">Copied!</span>' + codeText;
+        setTimeout(() => this.innerHTML = original, 1000);
+      });
+    });
+
+    document.getElementById('responseInput').addEventListener('keypress', e => {
+      if (e.key === 'Enter') submitResponse();
+    });
+  });
+
+  function goToStep(step) {
+    document.querySelectorAll('.slide').forEach(slide =>
+      slide.classList.remove('active')
+    );
+    document.getElementById('slide' + step).classList.add('active');
+    currentStep = step;
+    updateStepIndicators();
+
+    if (step === 2) generateSessionCode();
+    if (step === 3)
+      setTimeout(() => document.getElementById('responseInput').focus(), 100);
+  }
+
+  function updateStepIndicators() {
+    for (let i = 1; i <= 4; i++) {
+      const dot = document.getElementById('step' + i);
+      dot.classList.remove('active', 'completed');
+
+      if (i < currentStep) dot.classList.add('completed');
+      else if (i === currentStep && currentStep <= 4) dot.classList.add('active');
+      else if (currentStep > 4) dot.classList.add('completed');
+    }
+  }
+
+  function generateSessionCode() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let code = '';
+    for (let i = 0; i < 9; i++) {
+      if (i > 0 && i % 3 === 0) code += '-';
+      code += chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    sessionCode = code;
+    document.getElementById('textCode').innerHTML =
+      '<span class="copy-hint">Click to copy</span>' + code;
+
+    const canvas = document.getElementById('qrCodeCanvas');
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+
+    QRCode.toCanvas(canvas, `verify:${code}`, { width: 200, margin: 2 });
+  }
+
+  function submitResponse() {
+    let rawInput = document.getElementById('responseInput').value;
+    rawInput = rawInput.replace(/\u200B/g,'').trim(); // remove zero-width spaces
+    const input = rawInput.toUpperCase();
+
+    console.clear();
+    console.log("=== AGE VERIFICATION DEBUG START ===");
+    console.log("Raw input:", JSON.stringify(rawInput));
+    console.log("Trimmed + uppercase:", input);
+
+    if (!input) {
+      alert('Please enter the response code from your Age app');
+      return;
+    }
+
+    goToStep(4);
+
+    setTimeout(() => {
+      let ageGroup = null;
+
+      console.log("\nComparing against stored codes:");
+      for (const [group, codes] of Object.entries(CODE_SYSTEM)) {
+        console.log(`Group ${group}:`, codes);
+
+        for (const code of codes) {
+          // Hyphen-tolerant comparison
+          const codeClean = code.toUpperCase().replace(/-/g,'');
+          const inputClean = input.replace(/-/g,'');
+          if (input === code.toUpperCase().trim() || inputClean === codeClean) {
+            console.log(" >>> MATCH FOUND:", code, "in group", group);
+            ageGroup = group;
+            break;
+          }
+        }
+        if (ageGroup) break;
+      }
+
+      console.log("Detected age group:", ageGroup);
+      console.log("=== AGE VERIFICATION DEBUG END ===\n");
+
+      if (!ageGroup) {
+        goToStep(7); // invalid code
+        return;
+      }
+
+      if (ageGroup === 'A') {
+        goToStep(6); // denied
+        return;
+      }
+
+      const title = document.querySelector('#slide5 .result-title');
+      if (title) title.textContent = `Your age is ${AGE_DISPLAY[ageGroup]}.`;
+      goToStep(5);
+
+    }, 800);
+  }
+
+  function completeVerification() {
+    alert('yes');
+  }
+</script>
+
+
+</body>
+</html>
