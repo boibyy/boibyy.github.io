@@ -80,50 +80,43 @@
     }
     
     /* breadcrumb / tabs */
-    .steps {
-      display: flex;
-      gap: 18px;
-      justify-content: center;
-      margin-top: 8px;
-      margin-bottom: 28px;
-      font-size: 14px;
-      color: var(--muted);
-      flex-wrap: wrap;
-    }
-    
-    .steps button {
-      background: none;
-      border: none;
-      padding: 8px 6px;
-      cursor: pointer;
-      color: inherit;
-      font-weight: 500;
-      position: relative;
-      text-align: center;
-      min-width: 100px;
-      transition: color 0.2s;
-    }
-    
-    .steps button.active {
-      color: var(--accent);
-    }
-    
-    .step-label {
-      display: block;
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 4px;
-    }
-    
-    .step-value {
-      display: block;
-      font-size: 14px;
-      font-weight: 500;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 120px;
-    }
+.steps {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin-top: 8px;
+  margin-bottom: 28px;
+  font-size: 14px;
+  color: var(--muted);
+  flex-wrap: wrap;
+}
+
+.steps button {
+  background: none;
+  border: none;
+  padding: 12px 8px;
+  cursor: pointer;
+  color: inherit;
+  font-weight: 500;
+  position: relative;
+  text-align: center;
+  min-width: 100px;
+  transition: color 0.2s;
+}
+
+.steps button.active {
+  color: var(--accent);
+}
+
+.step-value {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
     
     /* slide area */
     .stage {
@@ -447,14 +440,6 @@
       .summary-images-container {
         width: 90%;
       }
-      
-      .steps button {
-        min-width: 80px;
-      }
-      
-      .step-value {
-        max-width: 80px;
-      }
     }
     
     @media (max-width: 520px) {
@@ -483,20 +468,35 @@
       .summary-image-wrapper {
         width: 80%;
       }
-      
-      .steps {
-        gap: 8px;
-      }
-      
-      .steps button {
-        min-width: 70px;
-        padding: 6px 4px;
-      }
-      
-      .step-value {
-        max-width: 70px;
-      }
     }
+    /* Responsive adjustments */
+@media (max-width: 880px) {
+  .steps button {
+    min-width: 80px;
+    padding: 10px 6px;
+  }
+  
+  .step-value {
+    max-width: 80px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 520px) {
+  .steps {
+    gap: 8px;
+  }
+  
+  .steps button {
+    min-width: 70px;
+    padding: 8px 4px;
+  }
+  
+  .step-value {
+    max-width: 70px;
+    font-size: 12px;
+  }
+}
     
     /* tiny helper */
     .muted {
@@ -522,24 +522,20 @@
   
   <main class="wrap" id="app">
     <!-- step tabs / breadcrumb -->
-    <nav class="steps" aria-label="Configurator steps">
-      <button class="step-btn active" data-step="1">
-        <span class="step-label">Model</span>
-        <span class="step-value" id="step1-value">—</span>
-      </button>
-      <button class="step-btn" data-step="2">
-        <span class="step-label" id="step2-label">Finish</span>
-        <span class="step-value" id="step2-value">—</span>
-      </button>
-      <button class="step-btn" data-step="3">
-        <span class="step-label">Capacity</span>
-        <span class="step-value" id="step3-value">—</span>
-      </button>
-      <button class="step-btn" data-step="4">
-        <span class="step-label">BoibyCare+</span>
-        <span class="step-value" id="step4-value">—</span>
-      </button>
-    </nav>
+<nav class="steps" aria-label="Configurator steps">
+  <button class="step-btn active" data-step="1">
+    <span class="step-value" id="step1-value">Model</span>
+  </button>
+  <button class="step-btn" data-step="2">
+    <span class="step-value" id="step2-value">Finish</span>
+  </button>
+  <button class="step-btn" data-step="3">
+    <span class="step-value" id="step3-value">Capacity</span>
+  </button>
+  <button class="step-btn" data-step="4">
+    <span class="step-value" id="step4-value">BoibyCare+</span>
+  </button>
+</nav>
     
     <section class="stage" aria-live="polite">
       <!-- SLIDE 1: Model -->
@@ -727,38 +723,53 @@
     /* -------------------------
        Update step values
        ------------------------- */
-    function updateStepValues() {
-      // Step 1: Model
-      const step1Value = document.getElementById('step1-value');
-      step1Value.textContent = state.model ? `BoibyPhone ${state.model}` : '—';
-      
-      // Step 2: Finish - Update label with color if selected
-      const step2Label = document.getElementById('step2-label');
-      const step2Value = document.getElementById('step2-value');
-      if (state.color) {
-        step2Label.textContent = state.color;
-        step2Label.style.color = 'var(--accent)';
-        step2Value.textContent = '';
-      } else {
-        step2Label.textContent = 'Finish';
-        step2Label.style.color = '';
-        step2Value.textContent = '—';
-      }
-      
-      // Step 3: Capacity
-      const step3Value = document.getElementById('step3-value');
-      step3Value.textContent = state.capacity ? `${state.capacity}GB` : '—';
-      
-      // Step 4: BoibyCare+
-      const step4Value = document.getElementById('step4-value');
-      if (state.boibycare === 'none') {
-        step4Value.textContent = 'None';
-      } else if (state.boibycare === 'one_year') {
-        step4Value.textContent = '2 Year';
-      } else {
-        step4Value.textContent = '—';
-      }
-    }
+    /* -------------------------
+   Update step values
+   ------------------------- */
+function updateStepValues() {
+  // Step 1: Model
+  const step1Value = document.getElementById('step1-value');
+  if (state.model) {
+    step1Value.textContent = `BoibyPhone ${state.model}`;
+    step1Value.style.color = 'var(--accent)';
+  } else {
+    step1Value.textContent = 'Model';
+    step1Value.style.color = '';
+  }
+  
+  // Step 2: Finish
+  const step2Value = document.getElementById('step2-value');
+  if (state.color) {
+    step2Value.textContent = state.color;
+    step2Value.style.color = 'var(--accent)';
+  } else {
+    step2Value.textContent = 'Finish';
+    step2Value.style.color = '';
+  }
+  
+  // Step 3: Capacity
+  const step3Value = document.getElementById('step3-value');
+  if (state.capacity) {
+    step3Value.textContent = `${state.capacity}GB`;
+    step3Value.style.color = 'var(--accent)';
+  } else {
+    step3Value.textContent = 'Capacity';
+    step3Value.style.color = '';
+  }
+  
+  // Step 4: BoibyCare+
+  const step4Value = document.getElementById('step4-value');
+  if (state.boibycare === 'none') {
+    step4Value.textContent = 'No Care+';
+    step4Value.style.color = 'var(--accent)';
+  } else if (state.boibycare === 'one_year') {
+    step4Value.textContent = 'Care+ 2Y';
+    step4Value.style.color = 'var(--accent)';
+  } else {
+    step4Value.textContent = 'BoibyCare+';
+    step4Value.style.color = '';
+  }
+}
     
     /* -------------------------
        Mode toggle
