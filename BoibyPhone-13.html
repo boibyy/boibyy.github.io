@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BoibyPhone 13 – Learn more</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #ffffff;
+  --text: #0a0a0a;
+  --muted: #6b6b6b;
+  --accent: #007aff;
+  --edge: #e6e6e6;
+  --card-bg: #fafafa;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+}
+
+.section {
+  margin-top: 160px!important;
+}
+
+/* ---------- Header ---------- */
+header {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  padding: 0 36px;
+  border-bottom: 1px solid var(--edge);
+}
+header .brand {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  max-width: 900px;
+  margin: 110px auto 80px;
+  padding: 0 24px;
+  text-align: center;
+}
+.hero h1 {
+  font-size: 56px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.hero p {
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+/* ---------- Sections ---------- */
+.section {
+  max-width: 1200px;
+  margin: 100px auto;
+  padding: 0 24px;
+}
+.section h2 {
+  font-size: 42px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.section h3 {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+
+/* ---------- Paragraphs ---------- */
+.section p {
+  font-size: 16px;
+  line-height: 1.75;
+  margin-bottom: 24px;
+}
+.hero h2 { font-size: 32px; }
+.hero h3 { font-size: 24px; font-weight: 500; margin-bottom: 16px; }
+
+
+/* ---------- Grid Layout ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 64px;
+  align-items: start;
+}
+.grid.single {
+  grid-template-columns: 1fr;
+}
+.grid img {
+  width: 100%;
+  border-radius: 20px;
+}
+
+/* ---------- Cards ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 28px;
+  margin-top: 24px;
+}
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--edge);
+  border-radius: 20px;
+  padding: 30px;
+}
+.card h4 {
+  margin-top: 2px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.card p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  text-align: center;
+  padding: 90px 24px;
+  border-top: 1px solid var(--edge);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .cards {
+    grid-template-columns: 1fr;
+  }
+  .section {
+    margin: 80px auto;
+  }
+  .hero h1 { font-size: 44px; }
+  .hero h2 { font-size: 32px; }
+  
+  .section h2 { font-size: 32px; }
+}
+
+@media (max-width: 520px) {
+  .section p { max-width: 100%; }
+  .hero h1 { font-size: 36px; }
+  .section h2 { font-size: 28px; }
+}
+
+/* ---------- Buy Buttons ---------- */
+.buy-button {
+  display: inline-block;
+  color: #fff;
+  font-weight: 600;
+  padding: 16px 40px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.buy-button:hover {
+  filter: brightness(0.9);
+}
+
+/* ---------- Top Sticky Buttons ---------- */
+.buy-top {
+  position: sticky;
+  top: 16px;
+  margin-top: 40px!important;
+  text-align: center;
+  z-index: 1000;
+  margin: 24px 0;
+}
+
+/* Base model top button */
+.buy-top.base .buy-button {
+  background-color: #007aff; /* Base accent */
+}
+
+.buy-top.base .buy-button:hover {
+  background-color: #005ecb;
+}
+
+/* Pro/Pro Max top button */
+.buy-top.pro .buy-button {
+  background-color: #ff9500; /* Pro accent */
+}
+
+.buy-top.pro .buy-button:hover {
+  background-color: #cc7a00;
+}
+
+/* ---------- Bottom Buy Sections ---------- */
+.buy-bottom {
+  text-align: center;
+  padding: 60px 24px;
+}
+
+.buy-bottom h2 {
+  font-size: 32px;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+/* Base model bottom section */
+.buy-bottom.base {
+  background: #f2f2f2;
+  color: #0a0a0a;
+}
+
+.buy-bottom.base .buy-button {
+  background-color: #007aff;
+  font-size: 20px;
+  padding: 18px 48px;
+}
+
+.buy-bottom.base .buy-button:hover {
+  background-color: #005ecb;
+}
+
+/* Pro/Pro Max bottom section */
+.buy-bottom.pro {
+  background: #1c1c1c;
+  color: #fff;
+}
+
+.buy-bottom.pro .buy-button {
+  background-color: #007aff;
+  font-size: 20px;
+  padding: 18px 48px;
+}
+
+.buy-bottom.pro .buy-button:hover {
+  background-color: #005ecb;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">Boiby</div>
+</header>
+
+<section class="hero">
+  <h2>BoibyPhone 13</h2>
+  <h1>Powerful, durable, beautiful.</h1>
+  <h3>Starting at A$1399.</h3>
+  <div class="buy-top base">
+  	<a href="https://boiby.dev/Buy-BoibyPhone-13" class="buy-button">Buy</a>
+  </div>
+</section>
+
+<!-- Design -->
+<section class="section">
+  <h2>Meet BoibyPhone 13. </h2>
+  <h3>Designed with flat aluminium edges, gentle curves, and durable materials, it’s built to feel comfortable in your hand and dependable every day. The aluminium frame and matte glass back are paired with IP68 water and dust resistance, so it looks good; and stays that way.</h3>
+  <div class="grid">
+    <img src="https://boiby.dev/images/13_Green_Back.png" alt="BoibyPhone 13 design" style="max-width:350px;">
+    <div>
+      <div class="cards">
+      	<div class="card"><h4>Choose from six finishes</h4><p>Black, White, Green, Blue, Pink, and Coral.<p></div>
+        <div class="card"><h4>Aluminium frame</h4><p>Lightweight, comfortable, and rigid. Aerospace-grade 7000 series aluminium for structural rigidity and durability.</p></div>
+        <div class="card"><h4>Matte glass back</h4><p>Soft to the touch, resistant to fingerprints, and easy to grip. Ceramic-infused glass on both front and back.</p></div>
+        <div class="card"><h4>Comfort-first shape</h4><p>Flat edges with gentle curves feel natural in the hand.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Durability -->
+<section class="section">
+<h3>Durability.</h3>
+  <h2>Durable and dependent.</h2>
+  <h3>Built for everything life throws at it, with IP68 water & dust resistance, ceramic-infused glass on both the front and back. BoibyPhone 13 has a repairable, modular, yet highly durable design.</h3>
+  <div class="grid">
+    <img src="https://boiby.dev/images/13_Coral_Back.png" alt="BoibyPhone 13 design" style="max-width:350px;">
+    <div>
+      <div class="cards">
+      <div class="card"><h4>Aerospace-grade Aluminium</h4><p>Aerospace-grade 7000 series aluminium for structural rigidity and durability.</p></div>
+        <div class="card"><h4>IP68 protection</h4><p>Fully certified to be resistant to water and dust for everyday accidents and weather.</p></div>
+        <div class="card"><h4>Ceramic-infused glass</h4><p>Designed to resist scratches and drops. The most durable glass ever on a phone. Scratches at a Level 9, not a level 7.</p></div>
+        <div class="card"><h4>Repairable design</h4><p>Built to be serviced and kept running longer.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Display -->
+<section class="section">
+	<h3>Display</h3>
+  <h2>Silky smooth, beautiful, and accurate.</h2>
+  <h3>The 6.3-inch OLED display adapts from 1 to 120Hz, delivering smooth motion when you need it and efficiency when you don’t. With up to 3000 nits of peak brightness and a 1-nit minimum, it stays readable outdoors and comfortable at night.</h3>
+  <div class="grid">
+    <img src="https://boiby.dev/images/13_Blue_Front.png" alt="BoibyPhone 13 design" style="max-width:350px;">
+    <div>
+      <div class="cards">
+        <div class="card"><h4>LTPO OLED</h4><p>Adaptive refresh rate from 1–120Hz.</p></div>
+        <div class="card"><h4>High brightness</h4><p>Up to 3000 nits peak brightness.</p></div>
+        <div class="card"><h4>Perfect blacks, vibrant colours</h4><p>A highly accurate display with a wide colour gamut.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Performance -->
+<section class="section">
+	<h3>Performance</h3>
+  <h2>Fast. Efficient. Future-proof.</h2>
+  <h3>BoibyPhone 13 is powered by the Boiby B13 chip, built on a first-generation 2nm process. It’s designed to feel fast across everything you do; opening apps, switching tasks, gaming, and using on-device machine learning, while staying cool thanks to vapour chamber cooling and great efficiency.</h3>
+  <div class="grid">
+    <img src="https://boiby.dev/images/B13.png" alt="Boiby B13 chip" style="max-width:480px;">
+    <div>
+      <p></p>
+      <div class="cards">
+        <div class="card"><h4>Boiby B13 chip</h4><p>CPU up to 40% faster than competitors, GPU  up to 30% faster than competitiors.</p></div>
+        <div class="card"><h4>12GB RAM</h4><p>High-speed LPDDR5X 9600 MT/s memory with 76.8 GB/s bandwidth for smooth multitasking.</p></div>
+        <div class="card"><h4>Vapour chamber cooling</h4><p>Maintains peak performance for longer without overheating.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cameras -->
+<section class="section">
+  <h3>Cameras</h3>
+  <h2>Pro-level Camera System</h2>
+      <h3>The dual rear cameras include a 108MP main sensor and a 48MP ultra-wide sensor. Crop into optical-quality 3× zoom without a telephoto lens, capturing sharp, detailed photos in all lighting conditions.</h3>
+
+  <!-- Rear Camera -->
+  <div class="grid">
+    <img src="https://boiby.dev/images/13_Black_Back.png" alt="BoibyPhone 13 design" style="max-width:350px;">
+    <div>
+      
+      <div class="cards">
+        <div class="card"><h4>108MP main</h4><p>High-resolution sensor for crisp, detailed photos.</p></div>
+        <div class="card"><h4>48MP ultra-wide</h4><p>Capture more of the scene with natural perspective.</p></div>
+        <div class="card"><h4>Video & zoom</h4><p>0.5x, 1x, 3x optical-quality zoom, up to 25x digital zoom, advanced OIS, Dolby Vision HDR, 4K 60FPS video.</p></div>
+      </div>
+    </div>
+  </div>
+  </section>
+  
+<section class="section">
+  <h3>Main Camera</h3>
+  <h2>108MP High-Resolution.</h2>
+  <h3>Capture every little detail. The new high-resolution 108MP sensor captures sharp, high-detail images in any lighting condition, with rich colours and depth.</h3>
+  <div class="grid">
+    <img src="https://boiby.dev/images/13_MainCamera.png" alt="BoibyPhone 13 main camera" style="max-width:350px;">
+    <div class="cards">
+      <div class="card"><h4>High-Resolution Sensor</h4><p>3x the resolution of BoibyPhone 12</p></div>
+      <div class="card"><h4>Low-Light Brilliance</h4><p>Great clarity in dim environments</p></div>
+      <div class="card"><h4>3x Optical-quality Zoom</h4><p>3x optical quality zoom at 12MP, without the need for a dedicated lens.</p></div>
+    </div>
+  </div>
+</section>
+  
+  <!-- Ultrawide Camera (48MP) -->
+<section class="section">
+  <h3>Ultra-Wide Camera</h3>
+  <h2>48MP Ultra-Wide Lens. An expansive view.</h2>
+  <h3>Expand your perspective. Capture wide landscapes, architecture, and group photos with incredible clarity. Perfect for wide compositions to get more into the frame.</h3>
+  <div class="grid">
+    <img src="https://boiby.dev/images/13_UltraWideCamera.png" alt="BoibyPhone 13 ultrawide camera" style="max-width:350px;">
+    <div class="cards">
+    	<div class="card"><h4>48MP resolution</h4><p>4 times the resolution of BoibyPhone 11's ultrawide lens.</p></div>
+      <div class="card"><h4>Full-Scene Capture</h4><p>Wide, true-to-life photos that fit more into every shot.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+<h3>Front Camera</h3>
+<h2>Intelligent Front Camera</h2>
+      <h3>The new 24MP front camera uses a square sensor, allowing horizontal and vertical selfies without rotating the phone. Automatic situational zoom adjusts framing depending on who's in the shot.</h3>
+  <!-- Front Camera -->
+  <div class="grid" style="margin-top: 64px;">
+    <img src="https://boiby.dev/images/13_FrontCamera.png" alt="BoibyPhone 13 front camera" style="max-width:350px;">
+    <div>     
+      <div class="cards">
+        <div class="card"><h4>Square sensor</h4><p>Flexible horizontal and vertical framing without moving the phone.</p></div>
+        <div class="card"><h4>Auto zoom</h4><p>Automatically adjusts to include everyone in the shot.</p></div>
+        <div class="card"><h4>Video</h4><p>4K at 60FPS or 1080p at 120FPS for smooth, high-quality capture.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Battery & Charging -->
+<section class="section">
+  <h3>Battery & Charging.</h3>
+  <h2>All day battery. Fast top-ups.</h2>
+  <h3>A 5300 mAh battery brings all-day battery life. 45W wired charging reaches 50% in 20 minutes. Faster wireless charging allows for fast and convenient top-ups.</h3>
+  <div class="grid">
+    <div class="cards">
+        <div class="card"><h4>Longer battery life</h4><p>Up to 3 hours longer video playback time compared to BoibyPhone 12.</p></div>
+        <div class="card"><h4>Efficiency</h4><p>Longer battery life per mAh than competing devices.</p></div>
+      </div>
+  </div>
+</section>
+
+<!-- Connectivity & Audio -->
+<section class="section">
+  <h3>Connectivity</h3>
+  <h2>Supports the latest connectivity. And a headphone jack.</h2>
+  <h3>WiFi 7, Bluetooth 6 LE, 5G mmWave cellular, and ultra-wideband support. Stereo speakers with Dolby Audio and Spatial Audio. Dual microphones with advanced noise control for crystal-clear calls. And it has a headphone jack.</h3>
+  <div class="grid">
+    <div>
+      
+      <div class="cards">
+        <div class="card"><h4>High-Speed Connectivity</h4><p>WiFi 7, Bluetooth 6 LE, 5G with mmWave with sub-6GHz support, and Ultra Wideband for fast, reliable connections everywhere.</p></div></div>
+         <div class="card"><h4>Stereo Audio & Recording</h4><p>Dolby Audio and Spatial Audio, and high-fidelity mics for clear calls and recordings.</p></div>
+
+        <div class="card"><h4>Headphone Jack</h4><p>It's here.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Storage Section -->
+<section class="section">
+  <h3>Storage</h3>
+  <h2>Up to 1TB of storage.</h2>
+  <h3>BoibyPhone 13 can be configured with up to 1TB of fast UFS 4.0 storage. This capacity was previously only avaliable on the BoibyPhone Pro models. Large amounts of space for all your photos, videos, and apps. And BoibyPhone 13's starting storage is 256GB.</h3>
+  
+  <div class="grid">
+    <div>
+      <div class="cards">
+        <div class="card">
+          <h4>From 256GB to 1TB of storage</h4>
+          <p>Store thousands of photos, videos, and apps without running out of space.</p>
+        </div>
+        <div class="card">
+          <h4>UFS 4.0 speeds</h4>
+          <p>Fast read and write speeds ensure apps launch instantly and large files transfer quickly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Software -->
+<section class="section">
+  <h3>boibyOS</h3>
+  <h2>Open, Secure, and Long-Lasting.</h2>
+  <h3>boibyOS 14 supports all Android apps, an unlockable bootloader, and open-source firmware, with the freedom to sideload whatever you want. Full encryption, anti-fed mode, and advanced security protect your data. Plus, receive 7 years of software updates for longevity.</h3>
+  <div class="grid">
+  </div>
+</section>
+
+<section class="buy-bottom base">
+  <h2>Buy BoibyPhone 13</h2>
+      <h3>Starting at A$1399.</h3>
+  	<a href="https://boiby.dev/Buy-BoibyPhone-13" class="buy-button">Buy</a>
+</section>
+
+<section class="buy-bottom pro">
+  <h2>BoibyPhone 13 Pro</h2>
+    <h3>Built to outperform.</h3>
+  	<a href="https://boiby.dev/BoibyPhone-13-Pro" class="buy-button">Learn more</a>
+</section>
+
+
+<!-- Footer -->
+<footer>
+  © Boiby. All rights reserved.
+</footer>
+
+</body>
+</html>
