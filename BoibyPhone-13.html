@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BoibyPhone 13 Pro – Learn more</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0a0a0a;
+  --text: #f5f5f5;
+  --muted: #b0b0b0;
+  --edge: #303030;
+  --card-bg: #1a1a1a;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+}
+
+.hero h2 { font-size: 32px; }
+.section { margin-top: 160px!important; }
+header {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  padding: 0 36px;
+  border-bottom: 1px solid var(--edge);
+}
+header .brand { font-size: 20px; font-weight: 600; }
+
+.hero { max-width: 900px; margin: 110px auto 80px; padding: 0 24px; text-align: center; }
+.hero h1 { font-size: 56px; font-weight: 600; margin-bottom: 16px; }
+.hero h3 { font-size: 24px; font-weight: 500; margin-bottom: 16px; }
+.hero p { color: var(--muted); font-size: 18px; line-height: 1.65; }
+
+.section { max-width: 1200px; margin: 100px auto; padding: 0 24px; }
+.section h2 { font-size: 42px; font-weight: 600; margin-bottom: 8px; }
+.section h3 { font-size: 22px; font-weight: 500; color: var(--muted); margin-bottom: 32px; }
+.section p { font-size: 16px; line-height: 1.75; margin-bottom: 24px; }
+
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 64px; align-items: start; }
+.grid.single { grid-template-columns: 1fr; }
+.grid img { width: 100%; border-radius: 20px; }
+
+.cards { display: grid; grid-template-columns: repeat(1, 1fr); gap: 28px; margin-top: 24px; }
+.card { background: var(--card-bg); border: 1px solid var(--edge); border-radius: 20px; padding: 30px; }
+.card h4 { margin-top: 2px; font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+.card p { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 0; }
+
+footer { text-align: center; padding: 90px 24px; border-top: 1px solid var(--edge); color: var(--muted); font-size: 14px; }
+
+@media (max-width: 980px) { .grid { grid-template-columns: 1fr; gap: 48px; } .cards { grid-template-columns: 1fr; } .section { margin: 80px auto; } .hero h1 { font-size: 44px; } .section h2 { font-size: 32px; } }
+@media (max-width: 520px) { .section p { max-width: 100%; } .hero h1 { font-size: 36px; } .section h2 { font-size: 28px; } }
+
+/* ---------- Buy Buttons ---------- */
+.buy-button {
+  display: inline-block;
+  color: #fff;
+  font-weight: 600;
+  padding: 16px 40px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.buy-button:hover {
+  filter: brightness(0.9);
+}
+
+/* ---------- Top Sticky Buttons ---------- */
+.buy-top {
+  position: sticky;
+  top: 16px;
+  margin-top: 40px!important;
+  text-align: center;
+  z-index: 1000;
+  margin: 24px 0;
+}
+
+/* Base model top button */
+.buy-top.base .buy-button {
+  background-color: #007aff; /* Base accent */
+}
+
+.buy-top.base .buy-button:hover {
+  background-color: #005ecb;
+}
+
+/* Pro/Pro Max top button */
+.buy-top.pro .buy-button {
+  background-color: #007aff; /* Pro accent */
+}
+
+.buy-top.pro .buy-button:hover {
+  background-color: #005ecb;
+}
+
+/* ---------- Bottom Buy Sections ---------- */
+.buy-bottom {
+  text-align: center;
+  padding: 60px 24px;
+}
+
+.buy-bottom h2 {
+  font-size: 32px;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+/* Base model bottom section */
+.buy-bottom.base {
+  background: #f2f2f2;
+  color: #0a0a0a;
+}
+
+.buy-bottom.base .buy-button {
+  background-color: #007aff;
+  font-size: 20px;
+  padding: 18px 48px;
+}
+
+.buy-bottom.base .buy-button:hover {
+  background-color: #005ecb;
+}
+
+/* Pro/Pro Max bottom section */
+.buy-bottom.pro {
+  background: #1c1c1c;
+  color: #fff;
+}
+
+.buy-bottom.pro .buy-button {
+  background-color: #007aff;
+  font-size: 20px;
+  padding: 18px 48px;
+}
+
+.buy-bottom.pro .buy-button:hover {
+  background-color: #005ecb;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">Boiby</div>
+</header>
+
+<section class="hero">
+  <h2>BoibyPhone 13 Pro</h2>
+  <h1>Built to outperform.</h1>
+  <h3>Starting at A$1899.</h3>
+  <div class="buy-top base">
+  	<a href="https://boiby.dev/Buy-BoibyPhone-13-Pro" class="buy-button">Buy</a>
+  </div>
+</section>
+
+<!-- Design -->
+<section class="section">
+  <h2>Meet BoibyPhone 13 Pro.</h2>
+  <h3>A striking new design. Durable yet premium, with a polished grade 5 titanium frame with ceramic-infused glass. IP69K water and dust resistance and ceramic-infused glass for incredible durability. Every detail is refined for performance, durability, comfort, and elegance.</h3>
+  
+  <div class="grid">
+    <img src="https://boiby.dev/images/13Pro_WhiteTitanium_Back.png" alt="BoibyPhone 13 Pro design" style="max-width:350px;">
+    <div>
+      <div class="cards">
+              <div class="card"><h4>Choose from four finishes</h4><p>Black, White, Natural, and Blue Titanium.</p></div>
+        <div class="card"><h4>Polished Titanium Frame</h4><p>Durable, lightweight, and elegant.</p></div>
+         <div class="card"><h4>Matte textured ceramic-coated glass</h4><p>Durable glass, on the front and back, with a ceramic coating for durability. Soft to the touch, resistant to fingerprints, and easy to grip.</p></div>
+<div class="card"><h4>Comfort-first shape</h4><p>Flat edges with gentle curves feel natural in the hand.</p></div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Durability -->
+<section class="section">
+<h3>Durability</h3>
+  <h2>Durable and dependent.</h2>
+  <h3>Built for everything life throws at it, and more, with IP69K certified water & dust resistance for extreme conditions, with ceramic-infused glass on both the front and back. BoibyPhone 13 Pro has an elegant, modular, yet highly durable design.</h3>
+  <div class="grid">
+    <img src="https://boiby.dev/images/13Pro_BlueTitanium_Back.png" alt="BoibyPhone 13 Pro design" style="max-width:350px;">
+    <div>
+      <div class="cards">
+      <div class="card"><h4>Polished Titanium Frame</h4><p>Lighter and more durable than stainless steel. Built to withstand daily wear without compromise.</p></div>
+        <div class="card"><h4>IP69K protection</h4><p>Fully certified to be resistant to extreme water and dust conditions for anything thrown at it.</p></div>
+        <div class="card"><h4>Ceramic-infused glass</h4><p>Designed to resist scratches and drops. The most durable glass ever on a phone. Scratches at a Level 9, not a level 7.</p></div>
+        <div class="card"><h4>Repairable design</h4><p>Built to be serviced and kept running longer.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Display -->
+<section class="section">
+<h3>Display</h3>
+  <h2>Uninterrupted Immersive Display</h2>
+  <h3>BoibyPhone 13 Pro and BoibyPhone 13 Pro Max feature immersive edge-to-edge 6.3-inch and 6.9-inch Ultra OLED displays with no notch or holepunch. The under-display 36MP front camera preserves the screen’s purity, making every image, video, and game more immersive than ever.</h3>
+  <div class="grid">
+    <img src="https://boiby.dev/images/13Pro_BlueTitanium_Front.png" alt="BoibyPhone 13 Pro display" style="max-width:350px;">
+    <div>
+      <div class="cards">
+        <div class="card"><h4>Under-Display Front Camera</h4><p>High-resolution selfies and video calls, without interrupting the viewing experience.</p></div>
+        <div class="card"><h4>Boiby Ultra OLED</h4><p>Vibrant colors, deep inky blacks, and contrast that make HDR content come alive.</p></div>
+        <div class="card"><h4>Adaptive 1–180Hz Refresh Rate</h4><p>Smooth scrolling and motion clarity with power efficiency tuned for long-lasting battery life, and silky-smooth responsiveness for gaming.</p></div>
+        <div class="card"><h4>Size Options</h4><p>6.3-inch for BoibyPhone 13 Pro and 6.9-inch for BoibyPhone 13 Pro Max.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Performance -->
+<section class="section">
+<h3>Performance</h3>
+  <h2>The most powerful, advanced smartphone ever.</h2>
+  <h3>Powered by the Boiby B13 Pro chip, 16GB of ultra high-speed LPDDR5X RAM, BoibyPhone 13 Pro delivers uncompromised speed and unmatched performance for gaming, multitasking, and machine learning. Dual-layer vapour chamber cooling ensures sustained peak performance without overheating.</h3>
+  <div class="grid">
+    <img src="https://boiby.dev/images/B13-Pro.png" alt="Boiby B13 Pro chip" style="max-width:480px;">
+    <div>
+      <div class="cards">
+        <div class="card"><h4>Industry-leading performance</h4><p>The fastest chip ever in a smartphone. 50% faster CPU, GPU, and NPU compared to competition. Incredible performance now and for years to come.</p></div>
+        <div class="card"><h4>16GB RAM</h4><p>High-speed LPDDR5X 10700 MT/s memory with 85.6 GB/s bandwidth for smooth multitasking and rapid app switching for professional workflows and gaming.</p></div>
+        <div class="card"><h4>Dual-Layer Vapour Chamber</h4><p>Maintains consistent speed under heavy loads without thermal throttling.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Rear Camera -->
+<section class="section">
+<h3>Cameras</h3>
+  <h2>A true professional camera system.</h2>
+  <h3>BoibyPhone 13 Pro series delivers photography and videography at a professional level. With a 216MP main camera, 48MP ultrawide, 6x 48MP periscope telephoto lens, and thermal imaging, it's the most advanced camera system in any smartphone. LiDAR scanning, stabilization, and advanced processing elevate your photos and videos to cinematic quality.</h3>
+  <div class="grid">
+    <img src="https://boiby.dev/images/13Pro_NaturalTitanium_Back.png" alt="BoibyPhone 13 Pro cameras" style="max-width:350px;">
+    <div>
+      <div class="cards">
+        <div class="card"><h4>216MP Wide</h4><p>Capture crisp, highly detailed images under any light condition.</p></div>
+        <div class="card"><h4>48MP Ultrawide</h4><p>Expand your perspective to fit more of the scene without distortion.</p></div>
+        <div class="card"><h4>48MP 6x Periscope Telephoto</h4><p>Zoom in on distant subjects with optical clarity.</p></div>
+        <div class="card"><h4>Pro Video</h4><p>8K 60FPS, 4K 120FPS, Dolby Vision HDR, BoibyRAW, and Genlock support for studio-level footage.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Camera (200MP) -->
+<section class="section">
+  <h3>Main Camera</h3>
+  <h2>216MP Ultra-High Resolution. Incredible detail.</h2>
+  <h3>Every detail comes to life. The ultra-high-resolution 216MP sensor captures professional-grade images in any lighting condition. LiDAR and quad-LED flash support advanced photography and augmented reality experiences, giving you unparalleled creative control.</h3>
+  <div class="grid">
+    <img src="https://boiby.dev/images/13Pro_MainCamera.png" alt="BoibyPhone 13 Pro main camera" style="max-width:350px;">
+    <div class="cards">
+      <div class="card"><h4>High-Resolution Sensor</h4><p>Capture minute details for large prints and professional editing.</p></div>
+      <div class="card"><h4>Low-Light Brilliance</h4><p>Exceptional clarity in dim environments thanks to sensor optimization and LiDAR-assisted focusing. Need flash? Use the bright quad-LED flash.</p></div>
+      <div class="card"><h4>Dolby Vision HDR & OIS</h4><p>Record cinematic videos with advanced stabilization and HDR color accuracy.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Ultrawide Camera (48MP) -->
+<section class="section">
+  <h3>Ultra-Wide Camera</h3>
+  <h2>48MP Ultra-Wide Lens. An expansive view.</h2>
+  <h3>Expand your perspective. Capture wide landscapes, architecture, and group photos with incredible clarity. Perfect for wide compositions.</h3>
+  <div class="grid">
+    <img src="https://boiby.dev/images/13Pro_UltraWideCamera.png" alt="BoibyPhone 13 Pro ultrawide camera" style="max-width:350px;">
+    <div class="cards">
+      <div class="card"><h4>Full-Scene Capture</h4><p>Wide, true-to-life photos that fit more into every shot.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Periscope Telephoto Camera (48MP) -->
+<section class="section">
+  <h3>Periscope Telephoto Camera</h3>
+  <h2>6x Optical Zoom. Capture from far, far away.</h2>
+  <h3>Get closer without moving. The new 48MP periscope lens allows for up to 6x optical zoom, keeping subjects sharp and detailed at distance. Ideal for wildlife, sports, or candid photography.</h3>
+  <div class="grid">
+    <img src="https://boiby.dev/images/13Pro_TelephotoCamera.png" alt="BoibyPhone 13 Pro telephoto camera" style="max-width:350px;">
+    <div class="cards">
+      <div class="card"><h4>6x Optical Zoom</h4><p>Zoom in with perfect clarity.</p></div>
+      <div class="card"><h4>12x Optical-Quality Zoom</h4></div>
+      <div class="card"><h4>120x Digital Zoom</h4><p>Far zoom. Capture from miles away.</p></div>
+      <div class="card"><h4>Macro & Portrait Mode</h4><p>Capture fine textures and portraits from any range.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Thermal Camera -->
+<section class="section">
+  <h3>Thermal Camera</h3>
+  <h2>See Beyond Light</h2>
+  <h3>The all-new thermal camera allows you to visualize heat, detect temperature changes, and explore environments invisible to the human eye.</h3>
+  <div class="grid">
+    <img src="https://boiby.dev/images/13Pro_ThermalCamera.png" alt="BoibyPhone 13 Pro thermal camera" style="max-width:350px;">
+    <div class="cards">
+      <div class="card"><h4>Heat Mapping</h4><p>Visualize heat patterns and temperature differences in real time.</p></div>
+      <div class="card"><h4>Professional Insight</h4><p>Monitor equipment or perform inspections.</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Front Camera -->
+<section class="section">
+<h3>Front Camera</h3>
+  <h2>Intelligent Front Camera</h2>
+  <h3>Hidden under the display, the new 36MP front camera's square sensor allows for both horizontal and vertical framing without rotating the phone. Auto situational zoom keeps perfect framing whether you’re alone or in a group.</h3>
+  <div class="grid">
+    <img src="https://boiby.dev/images/13Pro_FrontCamera.png" alt="BoibyPhone 13 Pro front camera" style="max-width:350px;">
+    <div>
+      <div class="cards">
+        <div class="card"><h4>Under-Display Sensor</h4><p>High-quality selfies and video calls without interrupting the immersive display.</p></div>
+        <div class="card"><h4>Auto Situational Zoom</h4><p>Frames every shot perfectly, adapting to the number of people in view.</p></div>
+        <div class="card"><h4>4K Video Recording</h4><p>Capture high-fidelity video with clarity and smoothness for professional content creation.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Battery & Charging -->
+<section class="section">
+<h3>Battery & Charging</h3>
+  <h2>All-Day Battery Life. Twice over.</h2>
+  <h3>BoibyPhone 13 Pro (7000 mAh) and Pro Max (8300 mAh) deliver unmatched battery performance for 2 days of battery life using Silicon-Carbon batteries. Rapid 120-watt wired charging reaches 50% in under 10 minutes, while fast wireless charging ensures convenience without compromising speed.</h3>
+  <div class="grid">
+    <div>
+      <div class="cards">
+        <div class="card"><h4>Long Battery Life</h4><p>Up to 19 hours of heavy screen-on usage for the BoibyPhone 13 Pro Max.</p></div>
+        <div class="card"><h4>Efficiency</h4><p>Longer battery life per mAh than competing devices.</p></div>
+        <div class="card"><h4>Fast Wired Charging</h4><p>0–50% in 7–10 minutes depending on model.</p></div>
+        <div class="card"><h4>Wireless Charging</h4><p>25W fast wireless top-ups with magnetic alignment for convenience.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Connectivity & Audio -->
+<section class="section">
+<h3>Connectivity</h3>
+  <h2>Supports the latest connectivity. And a headphone jack.</h2>
+  <h3>With WiFi 7, Bluetooth 6 LE, 5G mmWave with sub-6GHz band support, and ultra-wideband, BoibyPhone 13 Pro keeps you connected at maximum speed. Stereo speakers, Dolby Audio, Spatial Audio, and studio-quality quad microphones deliver pristine audio for games, calls, music, and media. And it has a headphone jack.</h3>
+  <div class="grid">
+    <div>
+      <div class="cards">
+        <div class="card"><h4>High-Speed Connectivity</h4><p>WiFi 7, Bluetooth 6 LE, 5G with mmWave with sub-6GHz support, and Ultra Wideband for fast, reliable connections everywhere.</p></div>
+        <div class="card"><h4>Stereo Audio & Recording</h4><p>Dolby Audio and Spatial Audio, plus quad mics for crystal-clear calls and recordings.</p></div>
+        <div class="card"><h4>Headphone Jack</h4><p>It's here.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Storage Section -->
+<section class="section">
+  <h3>Storage</h3>
+  <h2>Up to 2TB of storage. Store everything.</h2>
+  <h3>BoibyPhone 13 Pro can be configured with an enormous 2TB of ultra-fast UFS 4.1 storage, giving you space for all your photos, videos, apps, and projects without compromise.</h3>
+  
+  <div class="grid">
+    <div>
+      <div class="cards">
+        <div class="card">
+          <h4>Up to 2TB of storage</h4>
+          <p>Store thousands of high-resolution photos, videos, and apps without running out of space.</p>
+        </div>
+        <div class="card">
+          <h4>Ultrafast UFS 4.1 speeds</h4>
+          <p>Extremely fast read and write speeds mean apps launch instantly and large files transfer in seconds.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Software & Security -->
+<section class="section">
+<h3>boibyOS</h3>
+  <h2>Open, Secure, and Long-Lasting.</h2>
+  <h3>boibyOS 14 supports all Android apps, an unlockable bootloader, and open-source firmware, with the freedom to sideload whatever you want. Full encryption, anti-fed mode, and advanced security protect your data. Plus, receive 7 years of software updates for longevity.</h3>
+  <div class="grid">
+  </div>
+</section>
+
+<section class="buy-bottom pro">
+  <h2>Buy BoibyPhone 13 Pro</h2>
+      <h3>Starting at A$1899.</h3>
+  	<a href="https://boiby.dev/Buy-BoibyPhone-13-Pro" class="buy-button">Buy</a>
+</section>
+
+<section class="buy-bottom base">
+  <h2>BoibyPhone 13</h2>
+    <h3>Powerful, durable, beautiful.</h3>
+  	<a href="https://boiby.dev/BoibyPhone-13" class="buy-button">Learn more</a>
+</section>
+
+<!-- Footer -->
+<footer>
+  © Boiby. All rights reserved.
+</footer>
+
+</body>
+</html>
