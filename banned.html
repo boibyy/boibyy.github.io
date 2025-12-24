@@ -1,64 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Account Status</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-base: #111114; --bg-modal: #191a1f; --bg-card: #272930;
             --btn-gray: #333640; --btn-gray-hover: #444757; --btn-blue: #5865f2; 
             --btn-blue-hover: #4752c4; --text-header: #f2f3f5; --text-normal: #dbdee1;
-            --text-muted: #949ba4; --text-trace: #5d6066; --danger: #da373c;
+            --text-muted: #949ba4; --text-trace: #828791; --danger: #da373c;
             --shadow-border: rgba(90, 90, 90, 0.33); --radius-modal: 16px;
-            --radius-card: 12px; --radius-btn: 8px; --panel-bg: #1e1f22;
+            --radius-card: 10px; --radius-btn: 8px; --panel-bg: #1e1f22;
         }
         body.light-mode {
-            --bg-base: #e5e5e5; --bg-modal: #ffffff; --bg-card: #f2f3f5;
-            --btn-gray: #e1e3e6; --btn-gray-hover: #d1d3d7; --text-header: #343434;
-            --text-normal: #343434; --text-muted: #4f5660; --text-trace: #b5bac1;
-            --shadow-border: rgba(0, 0, 0, 0.1); --panel-bg: #f9f9f9;
+            --bg-base: #e1e1e1; --bg-modal: #f7f7f8; --bg-card: #e9ebed;
+            --btn-gray: #d7d7db; --btn-gray-hover: #d1d3d7; --text-header: #343434;
+            --text-normal: #343434; --text-muted: #4f5660; --text-trace: #9598a0;
+            --shadow-border: rgba(200,200,200, 0.4); --panel-bg: #f9f9f9;
         }
-        body { margin: 0; background: var(--bg-base); color: var(--text-normal); font-family: 'gg sans', 'Roboto', 'Helvetica Neue', Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; transition: background 0.2s ease; overflow-x: hidden; }
+
+        body { margin: 0; background: var(--bg-base); color: var(--text-normal); font-family: 'gg sans', 'Roboto', 'Helvetica Neue', Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; transition: background 0.2s ease; overflow: hidden; }
+        
+        /* MODIFICATION: Hidden Settings on Mobile */
         .customizer-toggle { position: fixed; bottom: 20px; left: 20px; z-index: 1000; background: var(--btn-blue); color: white; border: none; padding: 10px 15px; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        
+        @media (max-width: 768px) {
+            .customizer-toggle {
+                opacity: 0;
+                width: 40px;
+                height: 40px;
+                padding: 0;
+                left: 5px;
+                bottom: 5px;
+            }
+            /* Hidden but accessible via long press or tapping the very corner */
+            .customizer-toggle:active, .customizer-toggle:focus {
+                opacity: 0.2;
+            }
+        }
+
         .panel { position: fixed; left: -320px; top: 0; width: 300px; height: 100%; background: var(--panel-bg); border-right: 1px solid var(--shadow-border); z-index: 999; padding: 20px; box-sizing: border-box; transition: left 0.3s ease; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
         .panel.open { left: 0; }
         .panel h3 { margin: 0; font-size: 18px; color: var(--text-header); }
         .panel label { display: block; font-size: 11px; font-weight: bold; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
         .panel select, .panel input, .panel textarea { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--shadow-border); background: var(--bg-card); color: var(--text-normal); font-family: inherit; margin-bottom: 10px; }
-        .container { width: 640px; min-height: 640px; background: var(--bg-modal); border-radius: var(--radius-modal); padding: 24px; box-sizing: border-box; display: flex; flex-direction: column; position: relative; box-shadow: 0 0 0 1px var(--shadow-border), 0 2px 18px rgba(0, 0, 0, 0.25); }
-        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+        
+        /* MODIFICATION: Sticky Layout */
+        .container { 
+            width: 640px; 
+            height: 700px;
+            max-height: 95vh;
+            background: var(--bg-modal); 
+            border-radius: var(--radius-modal); 
+            box-sizing: border-box; 
+            display: flex; 
+            flex-direction: column; 
+            position: relative; 
+            box-shadow: 0 0 0 1px var(--shadow-border), 0 3px 24px rgba(0, 0, 0, 0.25); 
+        }
+
+        .scrollable-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 20px 0 20px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--btn-gray) transparent;
+        }
+
+        body.light-mode .container {
+            box-shadow: 0 0 0 1px var(--shadow-border), 0 3px 24px rgba(200,200,200, 0.25); 
+        }
+
+        #main-view, #rules-view {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+        }
+
+        .footer { 
+            flex-shrink: 0;
+            display: flex; 
+            justify-content: flex-end; 
+            padding: 20px;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+            background: var(--bg-modal);
+            border-bottom-left-radius: var(--radius-modal);
+            border-bottom-right-radius: var(--radius-modal);
+        }
+
+        .btn-view-more, .btn-report-inner {
+            font-size: 13px !important;
+        }
+        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; margin-top: 1px}
         .title-group { display: flex; align-items: center; gap: 12px; }
-        .icon-container { width: 23px; height: 23px; position: relative; display: flex; align-items: center; justify-content: center; }
-        .ban-icon { width: 23px; height: 23px; border: 2px solid var(--danger); border-radius: 50%; box-sizing: border-box; position: relative; }
+        .icon-container { width: 22px; height: 22px; position: relative; display: flex; align-items: center; justify-content: center; }
+        .ban-icon { width: 22px; height: 22px; border: 2px solid var(--danger); border-radius: 50%; box-sizing: border-box; position: relative; }
         .ban-icon::after { content: ''; position: absolute; width: 2px; height: 100%; background: var(--danger); top: 0; left: 50%; transform: translateX(-50%) rotate(45deg); }
         .svg-icon { width: 26px; height: 26px; }
-        h1 { color: var(--text-header); font-size: 21px; font-weight: 700; margin: 0; line-height: 2.35; }
+        h1 { color: var(--text-header); font-size: 20px; font-weight: 700; margin: 0; line-height: 2.4; }
         .dots { color: var(--text-header); font-size: 20px; margin-right: 6px; cursor: pointer; line-height: 1; }
-        .description { font-size: 14px; color: var(--text-normal); margin: 0 0 22px 0; line-height: 1.4; }
-        h2 { font-size: 16px; font-weight: 700; color: var(--text-header); margin: 0 0 10px 0; }
-        .card { background: var(--bg-card); border-radius: var(--radius-card); padding: 16px; margin-bottom: 22px; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06); }
-        .field { margin-bottom: 12px; }
-        .card .field:last-child {
-    margin-bottom: 0; }
-        .label { display: block; font-weight: 700; font-size: 14px; color: var(--text-header); margin-bottom: 3px; }
-        .value { display: block; font-size: 14px; color: var(--text-normal); line-height: 1.4; }
-        .btn-view-more { display: block; width: 100%; background: var(--btn-gray); color: var(--text-header); border: none; padding: 9px 0; border-radius: var(--radius-btn); font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 8px; font-family: inherit; }
-        .trace-id { font-size: 13px; color: var(--text-trace); margin-top: -15px; font-weight: 600; }
-        .footer { margin-top: auto; display: flex; justify-content: flex-end; padding-bottom: 2px; }
-        .btn-report { background-color: #335fff75; color: #ffffff; border: none; padding: 0px 16px; height: 40px; border-radius: var(--radius-btn); font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; margin-top: 120px!important; }
+        .description { font-size: 14px; color: var(--text-normal); margin: 0 0 22px 0; line-height: 1.35; }
+        h2 { font-size: 15.5px; font-weight: 700; color: var(--text-header); margin: 0 0 9px 0; }
+        .card { background: var(--bg-card); border-radius: var(--radius-card); padding: 14px; margin-bottom: 20px; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08); }
+        .field { margin-bottom: 10px; }
+        .card .field:last-child { margin-bottom: 0; }
+        .label { display: block; font-weight: 700; font-size: 14px; color: var(--text-header); margin-bottom: 2px; }
+        .value { display: block; font-size: 14px; color: var(--text-normal); line-height: 1.35; }
+        .btn-view-more { display: block; width: 100%; background: var(--btn-gray); color: var(--text-header); border: none; padding: 8.5px 0; border-radius: var(--radius-btn); font-size: 13px; font-weight: 600; cursor: pointer; margin-top: 8px; font-family: inherit; }
+        .trace-id { font-size: 13px; color: var(--text-trace); margin-top: -13px; font-weight: 500; padding-bottom: 20px; }
+        .btn-report { background-color: #335fff75; color: #ffffff; border: none; padding: 0px 12px; height: 40px; border-radius: var(--radius-btn); font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; transition: opacity 0.2s; }
         body.light-mode .btn-report { background-color: #335fff; }
-        #evidence-overflow, #appeal-section { display: none; }
+        #evidence-overflow { display: none; }
     </style>
 </head>
-<body id="main-body">
+<body id="main-body" class="">
 
 <button class="customizer-toggle" onclick="document.getElementById('side-panel').classList.toggle('open')">Settings</button>
 
-<aside class="panel open" id="side-panel">
+<aside class="panel" id="side-panel">
     <h3>Edit</h3>
-    <div><label>Appearance</label><button class="btn-view-more" onclick="toggleMode()" id="toggle-btn"></button></div>
+    <div><label>Appearance</label><button class="btn-view-more" onclick="toggleMode()" id="toggle-btn">Switch to Light</button></div>
     <div><label>Action Duration</label>
         <select id="duration-select" onchange="updateContent()">
             <option value="Warning">Warning</option>
@@ -66,7 +129,7 @@
             <option value="Suspended3Days">Suspended for 3 days</option>
             <option value="Suspended7Days">Suspended for 7 days</option>
             <option value="Suspended14Days">Suspended for 14 days</option>
-            <option value="Banned" selected>Banned</option>
+            <option value="Banned" selected="">Banned</option>
         </select>
     </div>
     <div><label>Reason</label>
@@ -81,49 +144,70 @@
         <select id="evidence-type" onchange="handleTypeChange()">
             <option value="None">None</option><option value="Generic">Generic</option><option value="Video">Video</option><option value="Image">Image</option><option value="Post">Post</option><option value="Comment">Comment</option>
         </select>
-        <button id="add-btn" class="btn-view-more" onclick="addEvidenceItem()">+ Add Item</button>
+        <button id="add-btn" class="btn-view-more" onclick="addEvidenceItem()" style="display: none;">+ Add Item</button>
     </div>
     <div id="evidence-controls-container"></div>
 </aside>
 
 <div class="container">
-    <div id="main-view">
-        <div class="header">
-            <div class="title-group"><div class="icon-container" id="icon-holder"></div><h1 id="display-duration-title"></h1></div>
-            <div class="dots">⋮</div>
+    <div class="scrollable-body">
+        <div id="main-view">
+            <div class="header">
+                <div class="title-group"><div class="icon-container" id="icon-holder"><div class="ban-icon"></div></div><h1 id="display-duration-title">Banned</h1></div>
+                <div class="dots">⋮</div>
+            </div>
+            <p class="description" id="display-desc"></p>
+            <h2 id="txt-why">Why this happened</h2>
+            <div class="card">
+                <div class="field"><span class="label" id="lbl-reason-static">Reason:</span><span class="value" id="display-reason"></span></div>
+                <div class="field"><span class="label" id="lbl-details-static">Additional details:</span><span class="value" id="display-note"></span></div>
+            </div>
+            <h2 id="txt-activity">Recent activity we reviewed</h2>
+            <div class="card" id="evidence-card">
+                <div class="field"><span class="label" id="lbl-date-static">Review date:</span><span class="value" id="display-date"></span></div>
+                <div id="evidence-list-main"></div>
+                <div id="evidence-overflow"></div>
+                <button class="btn-view-more" style="margin-bottom:1px" id="view-more-btn" onclick="toggleEvidence()">View more</button>
+                
+                <div id="next-section-main">
+                    <div class="field" style="margin-top: 14px;"><span class="label lbl-mistake-static">Did we make a mistake?</span><span class="value txt-mistake-appeal">If you think that we’ve made a mistake, you can appeal this decision here:</span></div>
+                    <button class="btn-view-more btn-report-inner" style="margin-bottom:1px" onclick="handlePrimaryClick()">Report a mistake</button>
+                </div>
+            </div>
+            <div class="trace-id" id="display-trace"></div>
         </div>
-        <p class="description" id="display-desc"></p>
-        <h2 id="txt-why"></h2>
-        <div class="card">
-            <div class="field"><span class="label" id="lbl-reason-static"></span><span class="value" id="display-reason"></span></div>
-            <div class="field"><span class="label" id="lbl-details-static"></span><span class="value" id="display-note"></span></div>
-        </div>
-        <h2 id="txt-activity"></h2>
-        <div class="card" id="evidence-card">
-            <div class="field"><span class="label" id="lbl-date-static"></span><span class="value" id="display-date"></span></div>
-            <div id="evidence-list-main"></div>
-            <div id="evidence-overflow"></div>
-            <button class="btn-view-more" id="view-more-btn" onclick="toggleEvidence()"></button>
-            <div id="appeal-section">
-                <div class="field" style="margin-top: 12px;"><span class="label" id="lbl-mistake-static"></span><span class="value" id="txt-mistake-appeal"></span></div>
-                <button class="btn-view-more" id="btn-report-inner" onclick="handlePrimaryClick()"></button>
+
+        <div id="rules-view" style="display: none;">
+            <div id="rules-next-section" style="display: block;">
+                <h2 class="txt-next-header" style="margin-top: 12px;">What comes next</h2>
+                <div class="card">
+                    <div>
+                        <div class="field"><span class="label lbl-mistake-static">Did we make a mistake?</span><span class="value txt-mistake-appeal">If you think that we’ve made a mistake, you can appeal this decision here:</span></div>
+                        <button class="btn-view-more btn-report-inner" onclick="handlePrimaryClick()">Report a mistake</button>
+                    </div>
+                </div>
+                
+                <h2 id="txt-rules-header">Understand the rules</h2>
+                <div class="card">
+                    <div>
+                        <div class="field"><span class="label" id="lbl-follow-rules-static">Follow the rules</span><span class="value" id="txt-follow-rules">Make sure you know and follow the rules.</span></div>
+                        <div class="field"><span class="label" id="lbl-violations-static">Rule violations add up</span><span class="value" id="txt-violations-desc">We may give you a longer suspension - or ban your account - if you keep breaking the rules.</span></div>
+                        <button class="btn-view-more" id="btn-view-rules-inner" onclick="console.log('Rules viewed')">View rules</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="trace-id" id="display-trace"></div>
-        <div class="footer"><button class="btn-report" id="primary-action-btn" onclick="handlePrimaryClick()"></button></div>
     </div>
 
-    <div id="rules-view" style="display:none; height:100%; flex-direction:column;">
-        <div id="rules-content" style="margin-bottom: 20px;"></div>
-        <div style="margin-bottom:4px">
-            <h1 id="txt-violations-add-up"></h1>
-            <h2 id="txt-violations-footer" style="font-weight:400; font-size: 15px; margin-top: 2px"></h2>
+    <div class="footer">
+        <div id="footer-main-buttons" style="display: flex; justify-content: flex-end; width: 100%;">
+            <button class="btn-report" id="primary-action-btn" onclick="handlePrimaryClick()"></button>
         </div>
-        <div class="footer" style="display:flex; justify-content:space-between; align-items:center; width:100%;">
-            <button class="btn-report" id="btn-back" style="background-color: var(--btn-gray); color: var(--text-header); margin-top:150px!important;" onclick="toggleSubpage(false)"></button>
-            <div style="display:flex; align-items:center; gap:10px; margin-top:150px!important;">
-                <label style="display:flex; align-items:center; gap:5px; font-size:14px; cursor:pointer; color:var(--text-normal);"><input type="checkbox" id="agree-checkbox" onchange="toggleContinueBtn()"> <span id="lbl-agree"></span></label>
-                <button class="btn-report" id="final-continue-btn" disabled style="opacity:0.5; cursor:not-allowed; margin-top:0!important;"></button>
+        <div id="footer-rules-buttons" style="display: none; justify-content: space-between; align-items: center; width: 100%;">
+            <button class="btn-report" id="btn-back" style="background-color: var(--btn-gray); color: var(--text-header);" onclick="toggleSubpage(false)">Back</button>
+            <div style="display:flex; align-items:center; gap:10px;">
+                <label style="display:flex; align-items:center; gap:5px; font-size:14px; cursor:pointer; color:var(--text-normal);"><input type="checkbox" id="agree-checkbox" onchange="toggleContinueBtn()"> <span id="lbl-agree">I agree to know and follow the rules</span></label>
+                <button class="btn-report" id="final-continue-btn" disabled="" style="opacity:0.5; cursor:not-allowed;">Continue</button>
             </div>
         </div>
     </div>
@@ -188,7 +272,6 @@
         updateContent(); 
     }
 
-    // FIXED: Now preserves input values when adding new items
     function renderEvidenceControls() {
         const container = document.getElementById('evidence-controls-container'); 
         container.innerHTML = '';
@@ -197,16 +280,12 @@
             div.style.marginBottom = "10px";
             div.style.padding = "10px";
             div.style.border = "1px solid var(--shadow-border)";
-            
             let inputs = `<label>${item.type} Item</label>`;
-            
             if (item.type === 'Generic') {
                 const input = document.createElement('input');
-                input.placeholder = "Label";
-                input.value = item.val1; // Restore previous value
+                input.placeholder = "Label"; input.value = item.val1;
                 input.oninput = (e) => { evidenceItems[index].val1 = e.target.value; updateContent(); };
-                div.innerHTML = inputs;
-                div.appendChild(input);
+                div.innerHTML = inputs; div.appendChild(input);
             } else if (item.type === 'Video') {
                 div.innerHTML = inputs;
                 const i1 = document.createElement('input'); i1.placeholder = "Video Name"; i1.value = item.val1;
@@ -225,13 +304,10 @@
                 txt.oninput = (e) => { evidenceItems[index].val1 = e.target.value; updateContent(); };
                 div.appendChild(txt);
             }
-
             if (currentType === 'Generic') {
                 const btn = document.createElement('button');
-                btn.innerText = "Remove";
-                btn.style = "background:var(--danger);color:white;border:none;border-radius:4px;font-size:10px;cursor:pointer;padding:4px;";
-                btn.onclick = () => removeEvidence(item.id);
-                div.appendChild(btn);
+                btn.innerText = "Remove"; btn.style = "background:var(--danger);color:white;border:none;border-radius:4px;font-size:10px;cursor:pointer;padding:4px;";
+                btn.onclick = () => removeEvidence(item.id); div.appendChild(btn);
             }
             container.appendChild(div);
         });
@@ -241,8 +317,7 @@
         const currentTraceID = (self.crypto && self.crypto.randomUUID) ? 
             self.crypto.randomUUID() : 
             'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => { 
-                const r = Math.random() * 16 | 0; 
-                return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16); 
+                const r = Math.random() * 16 | 0; return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16); 
             });
 
         const dur = document.getElementById('duration-select').value;
@@ -263,15 +338,30 @@
         document.getElementById('toggle-btn').innerText = document.body.classList.contains('light-mode') ? t('Buttons.SwitchDark') : t('Buttons.SwitchLight');
         document.getElementById('txt-why').innerText = t('Heading.WhyThisHappened');
         document.getElementById('lbl-reason-static').innerText = t('Labels.Reason');
-        document.getElementById('lbl-details-static').innerText = t('Labels.Details');
+        document.getElementById('lbl-details-static').innerText = t('Labels.AdditionalDetails');
         document.getElementById('txt-activity').innerText = t('Heading.RecentActivity');
         document.getElementById('lbl-date-static').innerText = t('Labels.ReviewDate');
-        document.getElementById('lbl-mistake-static').innerText = t('Labels.DidWeMakeAMistake');
-        document.getElementById('txt-mistake-appeal').innerText = t('Descriptions.AppealV2');
-        document.getElementById('btn-report-inner').innerText = t('Buttons.ReportMistake');
         document.getElementById('view-more-btn').innerText = document.getElementById('evidence-overflow').style.display === 'block' ? t('Buttons.ViewLess') : t('Buttons.ViewMore');
-        document.getElementById('txt-violations-add-up').innerText = t('Heading.ViolationsAddUp');
-        document.getElementById('txt-violations-footer').innerText = t('Descriptions.Foreshadow');
+        
+        const nextHeaders = document.querySelectorAll('.txt-next-header');
+        nextHeaders.forEach(el => el.innerText = t('Heading.WhatComesNext'));
+        
+        const mistakeLabels = document.querySelectorAll('.lbl-mistake-static');
+        mistakeLabels.forEach(el => el.innerText = t('Labels.DidWeMakeAMistake'));
+        
+        const appealTexts = document.querySelectorAll('.txt-mistake-appeal');
+        appealTexts.forEach(el => el.innerText = t('Descriptions.AppealV2'));
+        
+        const reportBtns = document.querySelectorAll('.btn-report-inner');
+        reportBtns.forEach(el => el.innerText = t('Buttons.ReportMistake'));
+
+        document.getElementById('txt-rules-header').innerText = t('Heading.UnderstandRules');
+        document.getElementById('lbl-follow-rules-static').innerText = t('Heading.FollowTheRules');
+        document.getElementById('txt-follow-rules').innerText = t('Descriptions.FollowFuture');
+        document.getElementById('lbl-violations-static').innerText = t('Heading.ViolationsAddUp');
+        document.getElementById('txt-violations-desc').innerText = t('Descriptions.Foreshadow');
+        document.getElementById('btn-view-rules-inner').innerText = t('Buttons.ViewRules');
+
         document.getElementById('btn-back').innerText = t('Buttons.Back');
         document.getElementById('lbl-agree').innerText = t('Labels.AgreeToRulesV2');
         document.getElementById('final-continue-btn').innerText = t('Buttons.Continue');
@@ -279,36 +369,38 @@
         const iconHolder = document.getElementById('icon-holder');
         const descEl = document.getElementById('display-desc');
         const mainBtn = document.getElementById('primary-action-btn');
-        const appealSec = document.getElementById('appeal-section');
+        const nextSecMain = document.getElementById('next-section-main');
 
         if (dur === 'Banned') {
             iconHolder.innerHTML = '<div class="ban-icon"></div>';
-            descEl.innerText = t('Descriptions.BrokeRulesBannedV2');
+            descEl.innerText = t('Descriptions.BrokeRulesBannedV3');
             mainBtn.innerText = t('Buttons.ReportMistake');
-            appealSec.style.display = 'none';
+
+            if (document.body.classList.contains('light-mode')) {
+                mainBtn.style.color = "#111"; // Dark text for light mode
+            } else {
+                mainBtn.style.color = "#eee"; // White text for dark mode
+            }
+            
+            mainBtn.style.background = "#335fff4c"; 
+            mainBtn.style.opacity = "1";
+            mainBtn.style.border = "none";
+            
+            nextSecMain.style.display = 'none';
         } else {
             const isWarn = dur === 'Warning';
             const reasonText = t(`Reasons.${reason}`).toLowerCase();
-            const typeName = currentType.toLowerCase();
-
-            if (currentType === 'None' || currentType === 'Generic') {
-                descEl.innerText = (reason === 'Other') ? 
-                    t('Descriptions.GenericDescription') : 
-                    t('Descriptions.SpecificDescription', {reason: reasonText});
-            } else {
-                // We use the Plural keys because the sentence is "one of your..."
-                if (reason === 'Other') {
-                    descEl.innerText = t('Descriptions.GenericTypeDescriptionPlural', {type: typeName});
-                } else {
-                    descEl.innerText = t('Descriptions.SpecificTypeDescriptionPlural', {type: typeName, reason: reasonText});
-                }
-            }
-            
+            descEl.innerText = `Your recent behaviour broke Boiby's rules about: ${reasonText}.`;
             iconHolder.innerHTML = `<img src="https://www.svgrepo.com/show/455819/exclamation-triangle.svg" class="svg-icon" style="filter: ${isWarn ? 'invert(84%) sepia(89%) saturate(464%) hue-rotate(351deg) brightness(98%) contrast(93%)' : 'invert(31%) sepia(93%) saturate(1292%) hue-rotate(1deg) brightness(94%) contrast(92%)'}">`;
+            
             mainBtn.innerText = t('Buttons.Continue');
-            appealSec.style.display = 'block';
+            
+            mainBtn.style.background = "335fffBF";
+            mainBtn.style.opacity = "1";
+            mainBtn.style.border = "none";
+            
+            nextSecMain.style.display = 'block';
         }
-
         const mainList = document.getElementById('evidence-list-main');
         const overflowList = document.getElementById('evidence-overflow');
         mainList.innerHTML = ''; overflowList.innerHTML = '';
@@ -326,21 +418,27 @@
                 mainList.appendChild(d);
             });
         }
-
-        const rulesContent = document.getElementById('rules-content');
-        if (reason === 'Harassment' || reason === 'DiscriminationHate') {
-            rulesContent.innerHTML = `<h1>${t('Heading.FollowTheRules')}</h1><h2 style="margin-top: 12px">${t('Descriptions.BullyHeader')}</h2><h2 style="font-weight:400; font-size: 15px; margin-top: 2px">${t('Descriptions.BullyDetail')}</h2><h2 style="margin-top: 20px">${t('Descriptions.BullyMatter')}</h2><h2 style="font-weight:400; font-size: 15px; margin-top: 2px">${t('Descriptions.BullyImportance')}</h2>`;
-        } else {
-            rulesContent.innerHTML = `<h1>${t('Heading.FollowTheRules')}</h1><h2 style="font-weight:400; font-size: 15px; margin-top: 12px">${t('Descriptions.FollowFuture')}</h2>`;
-        }
     }
 
     function toggleEvidence() { const o = document.getElementById('evidence-overflow'); o.style.display = (o.style.display === 'block') ? 'none' : 'block'; updateContent(); }
-    function handlePrimaryClick() { if (document.getElementById('duration-select').value !== 'Banned') toggleSubpage(true); }
-    function toggleSubpage(show) { document.getElementById('main-view').style.display = show ? 'none' : 'block'; document.getElementById('rules-view').style.display = show ? 'flex' : 'none'; if(!show){ document.getElementById('agree-checkbox').checked = false; toggleContinueBtn(); } }
+    
+    function handlePrimaryClick() { 
+        if (document.getElementById('duration-select').value !== 'Banned') toggleSubpage(true); 
+    }
+    
+    function toggleSubpage(show) { 
+        document.getElementById('main-view').style.display = show ? 'none' : 'flex'; 
+        document.getElementById('rules-view').style.display = show ? 'flex' : 'none'; 
+        
+        document.getElementById('footer-main-buttons').style.display = show ? 'none' : 'flex';
+        document.getElementById('footer-rules-buttons').style.display = show ? 'flex' : 'none';
+        
+        if(!show){ document.getElementById('agree-checkbox').checked = false; toggleContinueBtn(); } 
+    }
+    
     function toggleContinueBtn() { const c = document.getElementById('agree-checkbox'); const b = document.getElementById('final-continue-btn'); b.disabled = !c.checked; b.style.opacity = c.checked ? "1" : "0.5"; b.style.cursor = c.checked ? "pointer" : "not-allowed"; }
 
     init();
 </script>
-</body>
-</html>
+
+</body></html>
