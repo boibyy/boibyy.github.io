@@ -3,7 +3,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
 </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Account Status</title>
+    <title>Boiby</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet">
     <style>
         :root {
@@ -199,7 +199,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
 
     .container {
         width: 100%;
-        height: 95vh;
+        height: 100vh;
         border-radius: 0; 
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
@@ -522,31 +522,53 @@ if (reportBtn) {
         const descEl = document.getElementById('display-desc');
         const mainBtn = document.getElementById('primary-action-btn');
         const nextSecMain = document.getElementById('next-section-main');
+        
+        // Target the logout button specifically by class to avoid ID conflicts
+        const logoutBtn = document.querySelector('.btn-logout');
 
         if (dur === 'Banned') {
             iconHolder.innerHTML = '<div class="ban-icon"></div>';
             descEl.innerText = t('Descriptions.BrokeRulesBannedV3');
-            mainBtn.innerText = t('Buttons.ReportMistake');
             
-            // Style for "Report Mistake" (Muted blue/gray)
-            mainBtn.style.background = "#335fff4c"; 
+            // Primary Button: Report Mistake Style
+            mainBtn.innerText = t('Buttons.ReportMistake');
+            mainBtn.style.background = "#3355ff4c"; 
             mainBtn.style.color = document.body.classList.contains('light-mode') ? "#111" : "#eee";
             
             nextSecMain.style.display = 'none';
+
+            // Show Logout only on Banned + Mobile
+            if (logoutBtn) {
+                logoutBtn.style.display = window.innerWidth < 550 ? 'block' : 'none';
+                // Reset inline styles so it uses the CSS .btn-logout colors (not blue)
+                logoutBtn.style.background = ""; 
+                logoutBtn.style.color = "";
+            }
         } else {
             const isWarn = dur === 'Warning';
-            const reasonText = t(`Reasons.${reason}`).toLowerCase();
+            const reasonText = (t(`Reasons.${reason}`) || reason).toLowerCase();
             descEl.innerText = `Your recent behaviour broke Boiby's rules about: ${reasonText}.`;
             iconHolder.innerHTML = `<img src="https://www.svgrepo.com/show/455819/exclamation-triangle.svg" class="svg-icon" style="filter: ${isWarn ? 'invert(84%) sepia(89%) saturate(464%) hue-rotate(351deg) brightness(98%) contrast(93%)' : 'invert(31%) sepia(93%) saturate(1292%) hue-rotate(1deg) brightness(94%) contrast(92%)'}">`;
             
+            // Primary Button: Continue Style (Blue)
             mainBtn.innerText = t('Buttons.Continue');
-            
-            // Style for "Continue" (Solid blue, white text)
-            mainBtn.style.background = "#5865f2"; // Fixed missing '#'
-            mainBtn.style.color = "#ffffff";     // Force white text for the primary action
+            mainBtn.style.background = "#3355ff"; 
+            mainBtn.style.color = "#ffffff";
             
             nextSecMain.style.display = 'block';
+
+            // HIDE logout button on first page for Warnings/Temp bans
+            if (logoutBtn) {
+                logoutBtn.style.display = 'none';
+            }
         }
+
+        // Maintain footer layout
+        const footerMain = document.getElementById('footer-main-buttons');
+        if (footerMain) {
+            footerMain.style.flexDirection = window.innerWidth < 640 ? 'column' : 'row';
+        }
+
         const mainList = document.getElementById('evidence-list-main');
         const overflowList = document.getElementById('evidence-overflow');
         mainList.innerHTML = ''; overflowList.innerHTML = '';
