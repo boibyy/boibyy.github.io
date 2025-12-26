@@ -1,4 +1,6 @@
-<html lang="en"><head>
+<html lang="en"><head><style>body {transition: opacity ease-in 0.2s; } 
+body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
+</style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Account Status</title>
@@ -170,7 +172,7 @@
         .dots { color: var(--text-header); font-size: 20px; margin-right: 6px; cursor: pointer; line-height: 1; }
         .description { font-size: 14px; color: var(--text-normal); margin: 0 0 22px 0; line-height: 1.35; }
         h2 { font-size: 15.5px; font-weight: 700; color: var(--text-header); margin: 0 0 9px 0; }
-        .card { background: var(--bg-card); border-radius: var(--radius-card); padding: 14px; margin-bottom: 20px; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08); }
+        .card { background: var(--bg-card); border-radius: var(--radius-card); padding: 14px; margin-bottom: 20px; border: 1px rgba(0, 0, 0, 0.03); }
         .field { margin-bottom: 10px; }
         .card .field:last-child { margin-bottom: 0; }
         .label { display: block; font-weight: 700; font-size: 14px; color: var(--text-header); margin-bottom: 2px; }
@@ -239,13 +241,13 @@ body.light-mode .btn-logout {
 
     </style>
 </head>
-<body id="main-body" class="">
+<body id="main-body" class="light-mode">
 
 <button class="customizer-toggle" onclick="document.getElementById('side-panel').classList.toggle('open')">Settings</button>
 
-<aside class="panel" id="side-panel">
+<aside class="panel open" id="side-panel">
     <h3>Edit</h3>
-    <div><label>Appearance</label><button class="btn-view-more" onclick="toggleMode()" id="toggle-btn">Switch to Light</button></div>
+    <div><label>Appearance</label><button class="btn-view-more" onclick="toggleMode()" id="toggle-btn">Switch to Dark</button></div>
     <div><label>Action Duration</label>
         <select id="duration-select" onchange="updateContent()">
             <option value="Warning">Warning</option>
@@ -280,25 +282,25 @@ body.light-mode .btn-logout {
                 <div class="title-group"><div class="icon-container" id="icon-holder"><div class="ban-icon"></div></div><h1 id="display-duration-title">Banned</h1></div>
                 <div class="dots">⋮</div>
             </div>
-            <p class="description" id="display-desc"></p>
+            <p class="description" id="display-desc">We permanently banned your account because of serious or repeated rule-breaking.</p>
             <h2 id="txt-why">Why this happened</h2>
             <div class="card">
-                <div class="field"><span class="label" id="lbl-reason-static">Reason:</span><span class="value" id="display-reason"></span></div>
-                <div class="field"><span class="label" id="lbl-details-static">Additional details:</span><span class="value" id="display-note"></span></div>
+                <div class="field"><span class="label" id="lbl-reason-static">Reason:</span><span class="value" id="display-reason">Ban Evasion</span></div>
+                <div class="field"><span class="label" id="lbl-details-static">Additional details:</span><span class="value" id="display-note">This account is linked to an account that was banned due to severe violations of our Community Standards.</span></div>
             </div>
             <h2 id="txt-activity">Recent activity we reviewed</h2>
             <div class="card" id="evidence-card">
-                <div class="field"><span class="label" id="lbl-date-static">Review date:</span><span class="value" id="display-date"></span></div>
+                <div class="field"><span class="label" id="lbl-date-static">Review date:</span><span class="value" id="display-date">December 26, 2025 at 12:00 PM</span></div>
                 <div id="evidence-list-main"></div>
                 <div id="evidence-overflow"></div>
                 <button class="btn-view-more" style="margin-bottom:1px" id="view-more-btn" onclick="toggleEvidence()">View more</button>
                 
-                <div id="next-section-main">
+                <div id="next-section-main" style="display: none;">
                     <div class="field" style="margin-top: 14px;"><span class="label lbl-mistake-static">Did we make a mistake?</span><span class="value txt-mistake-appeal">If you think that we’ve made a mistake, you can appeal this decision here:</span></div>
                     <button class="btn-view-more btn-report-inner" style="margin-bottom:1px" onclick="handlePrimaryClick()">Report a mistake</button>
                 </div>
             </div>
-            <div class="trace-id" id="display-trace"></div>
+            <div class="trace-id" id="display-trace"> 31c510a8-989e-42aa-a36a-9353be108dc3</div>
         </div>
 
         <div id="rules-view" style="display: none;">
@@ -314,8 +316,8 @@ body.light-mode .btn-logout {
                 <h2 id="txt-rules-header">Understand the rules</h2>
                 <div class="card">
                     <div>
-                        <div class="field"><span class="label" id="lbl-follow-rules-static">Follow the rules</span><span class="value" id="txt-follow-rules">Make sure you know and follow the rules.</span></div>
-                        <div class="field"><span class="label" id="lbl-violations-static">Rule violations add up</span><span class="value" id="txt-violations-desc">We may give you a longer suspension - or ban your account - if you keep breaking the rules.</span></div>
+                        <div class="field"><span class="label" id="lbl-follow-rules-static">Remember to follow the rules</span><span class="value" id="txt-follow-rules">Please follow the rules in the future.</span></div>
+                        <div class="field"><span class="label" id="lbl-violations-static">Rule violations add up</span><span class="value" id="txt-violations-desc">We may give you a longer suspension - or even ban your account - if you keep breaking the rules.</span></div>
                         <button class="btn-view-more" id="btn-view-rules-inner" onclick="console.log('Rules viewed')">View rules</button>
                     </div>
                 </div>
@@ -325,7 +327,7 @@ body.light-mode .btn-logout {
 
     <div class="footer">
         <div id="footer-main-buttons" style="display: flex; justify-content: flex-end; width: 100%;">
-            <button class="btn-report" id="primary-action-btn" onclick="handlePrimaryClick()"></button>
+            <button class="btn-report" id="primary-action-btn" onclick="handlePrimaryClick()" style="color: rgb(17, 17, 17); background: rgba(51, 95, 255, 0.298); opacity: 1; border: none;">Report a mistake</button><button class="btn-logout" id="primary-action-btn" onclick="handlePrimaryClick()" style="display: none;">Log out</button>
         </div>
         <div id="footer-rules-buttons" style="display: none; justify-content: space-between; align-items: center; width: 100%;">
             <button class="btn-report" id="btn-back" style="background-color: var(--btn-gray); color: var(--text-header);" onclick="toggleSubpage(false)">Back</button>
@@ -525,16 +527,10 @@ if (reportBtn) {
             iconHolder.innerHTML = '<div class="ban-icon"></div>';
             descEl.innerText = t('Descriptions.BrokeRulesBannedV3');
             mainBtn.innerText = t('Buttons.ReportMistake');
-
-            if (document.body.classList.contains('light-mode')) {
-                mainBtn.style.color = "#111"; // Dark text for light mode
-            } else {
-                mainBtn.style.color = "#eee"; // White text for dark mode
-            }
             
+            // Style for "Report Mistake" (Muted blue/gray)
             mainBtn.style.background = "#335fff4c"; 
-            mainBtn.style.opacity = "1";
-            mainBtn.style.border = "none";
+            mainBtn.style.color = document.body.classList.contains('light-mode') ? "#111" : "#eee";
             
             nextSecMain.style.display = 'none';
         } else {
@@ -545,9 +541,9 @@ if (reportBtn) {
             
             mainBtn.innerText = t('Buttons.Continue');
             
-            mainBtn.style.background = "335fffBF";
-            mainBtn.style.opacity = "1";
-            mainBtn.style.border = "none";
+            // Style for "Continue" (Solid blue, white text)
+            mainBtn.style.background = "#5865f2"; // Fixed missing '#'
+            mainBtn.style.color = "#ffffff";     // Force white text for the primary action
             
             nextSecMain.style.display = 'block';
         }
