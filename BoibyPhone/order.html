@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boiby Store</title>
+    <title>Order BoibyPhone</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -75,6 +75,49 @@
         .modal-content { background: white; padding: 40px; border-radius: 28px; max-width: 500px; width: 90%; text-align: center; }
         .order-id-box { background: var(--bg-gray); padding: 15px; border-radius: 12px; font-family: monospace; font-size: 18px; margin: 20px 0; border: 1px dashed var(--border-gray); user-select: all; word-break: break-all; }
         .copy-btn { background: white; color: var(--google-blue); border: 1px solid var(--google-blue); padding: 12px 30px; border-radius: 20px; cursor: pointer; font-weight: 500; }
+        
+        /* Responsive Media Queries */
+        @media (max-width: 1024px) {
+            .container { gap: 40px; }
+            .image-card { height: 500px; }
+        }
+
+        @media (max-width: 768px) {
+            /* Adjust Navigation & General Padding */
+            nav { padding: 15px 20px; }
+            #main-page { padding: 40px 20px; }
+            .hero-title { font-size: 32px; }
+
+            /* Stack the Configurator Layout */
+            .container { flex-direction: column; gap: 40px; }
+            
+            /* Adjust Product Visual for Mobile */
+            .product-visual { position: static; width: 100%; }
+            .image-card { height: 400px; }
+            #phone-img { max-height: 80%; }
+
+            h1 { font-size: 28px; }
+            .product-config { width: 100%; }
+
+            .color-grid { grid-template-columns: repeat(2, 1fr); }
+            
+            .modal-content { padding: 30px 20px; width: 95%; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title { font-size: 28px; }
+            .product-card { padding: 20px; }
+            .product-card img { height: 180px; }
+            
+            .storage-grid { grid-template-columns: 1fr; }
+            
+            .buy-action-area {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+            .add-btn { width: 100%; }
+        }
     </style>
 </head>
 <body>
@@ -154,11 +197,11 @@
 </div>
 
 <div id="order-modal"><div class="modal-content">
-    <h2>Order Ready!</h2>
+    <h2>Finish your order</h2>
     <div class="order-id-box" id="display-order-id"></div>
     <div style="display:flex; gap:10px; justify-content:center;">
-        <button class="copy-btn" id="copy-btn" onclick="copyOrderId()">Copy ID</button>
-        <button class="add-btn" onclick="document.getElementById('order-modal').style.display='none'">Got it</button>
+        <button class="copy-btn" id="copy-btn" onclick="copyOrderId()">Copy</button>
+        <button class="add-btn" onclick="document.getElementById('order-modal').style.display='none'">OK</button>
     </div>
 </div></div>
 
@@ -250,11 +293,14 @@
     }
 
     function updateImage() {
-        const p = products[activeModel];
-        const img = document.getElementById('phone-img');
-        img.src = `${p.imgPrefix}_${selectedColor}_${currentView}.png`;
-        document.getElementById('carousel-index').innerText = (currentView === "Front" ? "1 / 2" : "2 / 2");
-    }
+            const p = products[activeModel];
+            const img = document.getElementById('phone-img');
+            
+            let filename = `${p.imgPrefix}_${selectedColor}_${currentView}.png`;
+            img.src = filename.replace(/\s+/g, ''); 
+            
+            document.getElementById('carousel-index').innerText = (currentView === "Front" ? "1 / 2" : "2 / 2");
+        }
 
     function toggleView() {
         currentView = (currentView === "Front" ? "Back" : "Front");
@@ -277,7 +323,6 @@
         const cCode = p.colors.find(c => c.n === selectedColor).c;
         const sCode = p.storage.find(s => s.s === selectedStorage).c;
         
-        // Model logic for 142 vs 143
         let mCode = p.modelCode;
         if(p.hasSize) {
             const currentSizeObj = p.sizes.find(s => s.id === selectedSize);
