@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boiby Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --google-blue: #1a73e8; --bg-gray: #f8f9fa; --border-gray: #dadce0;
+            --text-dark: #202124; --text-secondary: #5f6368;
+            --mint: #d1f2e1; --frost: #f1f3f4; --blue-rich: #185abc; --black: #202124;
+            --mid-green: #4f6d5a; --pac-blue: #46638d; --pearl: #f0f0f0; --carbon: #323334;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        body { background-color: #ffffff; color: var(--text-dark); }
+        nav { padding: 20px 40px; display: flex; align-items: center; border-bottom: 1px solid var(--border-gray); background: white; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 600; font-size: 20px; color: var(--text-dark); text-decoration: none; margin-right: 40px; }
+
+        /* Main Page */
+        #main-page { padding: 60px 40px; max-width: 1200px; margin: 0 auto; }
+        .hero-title { font-size: 48px; font-weight: 600; margin-bottom: 40px; text-align: center; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .product-card { background: var(--bg-gray); border-radius: 28px; padding: 40px; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid transparent; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); border-color: var(--border-gray); }
+        .product-card img { width: 100%; height: 250px; object-fit: contain; margin-bottom: 24px; }
+        .card-price { font-size: 18px; font-weight: 500; margin: 12px 0; display: block; }
+
+        /* Configurator */
+        #product-page { display: none; padding-bottom: 80px; }
+        .back-btn { cursor: pointer; font-size: 24px; background: none; border: none; padding: 20px 40px; }
+        .container { display: flex; max-width: 1200px; margin: 0 auto; gap: 80px; padding: 0 20px; }
+        .product-visual { flex: 1.2; position: sticky; top: 100px; height: fit-content; }
+        .image-card { background-color: var(--bg-gray); border-radius: 28px; height: 620px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+        #phone-img { max-width: 80%; max-height: 70%; object-fit: contain; transition: opacity 0.2s; }
+        
+        .carousel-controls { position: absolute; bottom: 30px; display: flex; align-items: center; gap: 20px; background: white; padding: 8px 18px; border-radius: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .arrow { cursor: pointer; border: none; background: none; font-size: 16px; font-weight: 600; padding: 0 5px; }
+
+        .product-config { flex: 1; }
+        .new-tag { color: var(--google-blue); font-size: 14px; font-weight: 600; display: block; margin-bottom: 4px; }
+        h1 { font-size: 38px; font-weight: 600; margin-bottom: 4px; }
+        .starting-price { font-size: 19px; margin-bottom: 30px; }
+        .section-divider { height: 1px; background-color: var(--border-gray); margin: 32px 0; border: none; }
+        .section-title { font-size: 17px; font-weight: 500; margin-bottom: 20px; display: block; }
+
+        .size-card { border: 1px solid var(--border-gray); border-radius: 12px; padding: 20px; margin-bottom: 12px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .size-card.active { border: 2px solid var(--google-blue); background-color: #f1f7fe; padding: 19px; }
+        .size-card .info { display: flex; flex-direction: column; }
+        .size-card .name { font-weight: 600; font-size: 16px; }
+        .size-card .spec { font-size: 14px; color: var(--text-secondary); }
+
+        .color-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .color-card { border: 1px solid var(--border-gray); border-radius: 12px; padding: 18px 4px; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; transition: 0.2s; }
+        .color-card.active { border: 2px solid var(--google-blue); background-color: #f1f7fe; padding: 17px 3px; }
+        .color-circle { width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.05); }
+
+        .storage-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .storage-card { border: 1px solid var(--border-gray); border-radius: 12px; padding: 20px 10px; display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; }
+        .storage-card.active { border: 2px solid var(--google-blue); background-color: #f1f7fe; padding: 19px 9px; }
+        .storage-size { font-weight: 600; font-size: 20px; }
+
+        .buy-action-area { margin-top: 32px; display: flex; justify-content: space-between; align-items: center; }
+        .final-price-text { font-size: 26px; font-weight: 600; }
+        .add-btn { background-color: var(--google-blue); color: white; border: none; padding: 14px 36px; border-radius: 30px; font-weight: 500; cursor: pointer; }
+
+        .box-contents-area { margin-top: 40px; }
+        .box-contents-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; display: block; }
+        .box-list { list-style: none; }
+        .box-list li { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; padding-left: 20px; position: relative; }
+        .box-list li::before { content: "•"; position: absolute; left: 0; color: var(--border-gray); }
+
+        #order-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 40px; border-radius: 28px; max-width: 500px; width: 90%; text-align: center; }
+        .order-id-box { background: var(--bg-gray); padding: 15px; border-radius: 12px; font-family: monospace; font-size: 18px; margin: 20px 0; border: 1px dashed var(--border-gray); user-select: all; word-break: break-all; }
+        .copy-btn { background: white; color: var(--google-blue); border: 1px solid var(--google-blue); padding: 12px 30px; border-radius: 20px; cursor: pointer; font-weight: 500; }
+    </style>
+</head>
+<body>
+
+<nav><a href="#" class="logo" onclick="showMainPage()">Boiby Store</a></nav>
+
+<div id="main-page">
+    <h1 class="hero-title">Order your new BoibyPhone.</h1>
+    <div class="product-grid">
+        <div class="product-card" onclick="openConfig('14')">
+            <img src="14_Blue_Back.png" alt="BoibyPhone 14">
+            <span class="new-tag">New</span>
+            <h3>BoibyPhone 14</h3>
+            <span class="card-price">From A$1,199</span>
+        </div>
+        <div class="product-card" onclick="openConfig('14Pro')">
+            <img src="14Pro_Pacific_Blue_Back.png" alt="BoibyPhone 14 Pro & Pro Plus">
+            <span class="new-tag">New</span>
+            <h3>BoibyPhone 14 Pro & Pro Plus</h3>
+            <span class="card-price">From A$1,699</span>
+        </div>
+    </div>
+</div>
+
+<div id="product-page">
+    <button class="back-btn" onclick="showMainPage()">←</button>
+    <main class="container">
+        <div class="product-visual">
+            <div class="image-card">
+                <img id="phone-img" src="">
+                <div class="carousel-controls">
+                    <button class="arrow" onclick="toggleView()">❮</button>
+                    <span id="carousel-index">1 / 2</span>
+                    <button class="arrow" onclick="toggleView()">❯</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-config">
+            <span class="new-tag">New</span>
+            <h1 id="prod-name"></h1>
+            <p class="starting-price" id="display-price-top"></p>
+
+            <div id="size-section">
+                <hr class="section-divider">
+                <span class="section-title">Choose a size</span>
+                <div id="size-options"></div>
+            </div>
+
+            <hr class="section-divider">
+            <span class="section-title">Choose your colour</span>
+            <div class="color-grid" id="color-options"></div>
+
+            <hr class="section-divider">
+            <span class="section-title">Choose your storage size</span>
+            <div class="storage-grid" id="storage-options"></div>
+
+            <hr class="section-divider">
+            <div class="buy-action-area">
+                <div><span class="final-price-text" id="final-price"></span></div>
+                <button class="add-btn" onclick="generateOrder()">Add to basket</button>
+            </div>
+
+            <div class="box-contents-area">
+                <span class="box-contents-title">What's in the box</span>
+                <ul class="box-list">
+                    <li><span id="box-phone-name"></span></li>
+                    <li><span id="box-charger"></span></li>
+                    <li>1 metre charging cable (USB-C)</li>
+                    <li>SIM card ejector tool</li>
+                    <li>Instructions & Info</li>
+                    <li>Boiby Sticker</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div id="order-modal"><div class="modal-content">
+    <h2>Order Ready!</h2>
+    <div class="order-id-box" id="display-order-id"></div>
+    <div style="display:flex; gap:10px; justify-content:center;">
+        <button class="copy-btn" id="copy-btn" onclick="copyOrderId()">Copy ID</button>
+        <button class="add-btn" onclick="document.getElementById('order-modal').style.display='none'">Got it</button>
+    </div>
+</div></div>
+
+<script>
+    let activeModel = '14'; 
+    let selectedSize = 'Standard';
+    let selectedColor = '';
+    let selectedStorage = '';
+    let currentView = 'Front';
+
+    const products = {
+        '14': {
+            name: 'BoibyPhone 14', modelCode: '141', hasSize: false, charger: '50W',
+            colors: [{n:'Mint', c:'1', h:'--mint'}, {n:'Frost', c:'2', h:'--frost'}, {n:'Blue', c:'3', h:'--blue-rich'}, {n:'Black', c:'4', h:'--black'}],
+            storage: [{s:'256GB', p:1199, c:'A'}, {s:'512GB', p:1399, c:'B'}],
+            imgPrefix: '14'
+        },
+        '14Pro': {
+            name: 'BoibyPhone 14 Pro', modelCode: '142', hasSize: true, charger: '90W',
+            sizes: [
+                {n:'BoibyPhone 14 Pro', d:'6.3-inch display', p:1699, id:'Standard', code: '142'},
+                {n:'BoibyPhone 14 Pro Plus', d:'6.8-inch display', p:2099, id:'Plus', code: '143'}
+            ],
+            colors: [{n:'Midnight Green', c:'1', h:'--mid-green'}, {n:'Pacific Blue', c:'2', h:'--pac-blue'}, {n:'Pearl White', c:'3', h:'--pearl'}, {n:'Carbon Black', c:'4', h:'--carbon'}],
+            storage: [
+                {s:'256GB', p:{Standard:1699}, c:'A'},
+                {s:'512GB', p:{Standard:1899, Plus:2099}, c:'B'},
+                {s:'1TB', p:{Standard:2199, Plus:2399}, c:'C'},
+                {s:'2TB', p:{Standard:2799, Plus:2999}, c:'D'}
+            ],
+            imgPrefix: '14Pro'
+        }
+    };
+
+    function openConfig(key) {
+        activeModel = key;
+        const p = products[key];
+        selectedSize = 'Standard';
+        selectedColor = p.colors[0].n;
+        selectedStorage = p.storage[0].s;
+        currentView = 'Front';
+        document.getElementById('main-page').style.display = 'none';
+        document.getElementById('product-page').style.display = 'block';
+        window.scrollTo(0,0);
+        renderUI();
+    }
+
+    function renderUI() {
+        const p = products[activeModel];
+        const currentName = p.hasSize && selectedSize === 'Plus' ? p.sizes[1].n : p.name;
+        document.getElementById('prod-name').innerText = currentName;
+        document.getElementById('box-phone-name').innerText = currentName;
+        document.getElementById('box-charger').innerText = `${p.charger} USB-C power adapter`;
+        
+        const sizeSec = document.getElementById('size-section');
+        if(p.hasSize) {
+            sizeSec.style.display = 'block';
+            document.getElementById('size-options').innerHTML = p.sizes.map(s => `
+                <div class="size-card ${selectedSize === s.id ? 'active' : ''}" onclick="setSize('${s.id}')">
+                    <div class="info"><span class="name">${s.n}</span><span class="spec">${s.d}</span></div>
+                    <span class="price">A$${s.p.toLocaleString()}</span>
+                </div>`).join('');
+        } else { sizeSec.style.display = 'none'; }
+
+        document.getElementById('color-options').innerHTML = p.colors.map(c => `
+            <div class="color-card ${selectedColor === c.n ? 'active' : ''}" onclick="selectedColor='${c.n}'; renderUI()">
+                <div class="color-circle" style="background:var(${c.h})"></div>
+                <span style="font-size:11px; font-weight:500;">${c.n}</span>
+            </div>`).join('');
+
+        document.getElementById('storage-options').innerHTML = p.storage.filter(s => {
+            return !(p.hasSize && selectedSize === 'Plus' && s.s === '256GB');
+        }).map(s => {
+            const price = typeof s.p === 'number' ? s.p : s.p[selectedSize];
+            return `
+            <div class="storage-card ${selectedStorage === s.s ? 'active' : ''}" onclick="selectedStorage='${s.s}'; renderUI()">
+                <span class="storage-size">${s.s}</span>
+                <span style="font-size:13px; color:var(--text-secondary)">A$${price.toLocaleString()}</span>
+            </div>`;
+        }).join('');
+
+        const sObj = p.storage.find(s => s.s === selectedStorage);
+        const finalP = typeof sObj.p === 'number' ? sObj.p : sObj.p[selectedSize];
+        const formattedPrice = `A$${finalP.toLocaleString()}`;
+        document.getElementById('final-price').innerText = formattedPrice;
+        document.getElementById('display-price-top').innerText = formattedPrice;
+        
+        updateImage();
+    }
+
+    function updateImage() {
+        const p = products[activeModel];
+        const img = document.getElementById('phone-img');
+        img.src = `${p.imgPrefix}_${selectedColor}_${currentView}.png`;
+        document.getElementById('carousel-index').innerText = (currentView === "Front" ? "1 / 2" : "2 / 2");
+    }
+
+    function toggleView() {
+        currentView = (currentView === "Front" ? "Back" : "Front");
+        updateImage();
+    }
+
+    function setSize(id) {
+        selectedSize = id;
+        if(id === 'Plus' && selectedStorage === '256GB') selectedStorage = '512GB';
+        renderUI();
+    }
+
+    function showMainPage() { 
+        document.getElementById('product-page').style.display = 'none'; 
+        document.getElementById('main-page').style.display = 'block'; 
+    }
+
+    function generateOrder() {
+        const p = products[activeModel];
+        const cCode = p.colors.find(c => c.n === selectedColor).c;
+        const sCode = p.storage.find(s => s.s === selectedStorage).c;
+        
+        // Model logic for 142 vs 143
+        let mCode = p.modelCode;
+        if(p.hasSize) {
+            const currentSizeObj = p.sizes.find(s => s.id === selectedSize);
+            mCode = currentSizeObj.code;
+        }
+
+        const now = new Date();
+        const ts = now.getFullYear().toString().slice(-2) + (now.getMonth()+1).toString().padStart(2,'0') + now.getDate().toString().padStart(2,'0') + "-" + now.getHours().toString().padStart(2,'0') + now.getMinutes().toString().padStart(2,'0') + now.getSeconds().toString().padStart(2,'0');
+        const orderId = `${mCode}${cCode}${sCode}-${ts}-${Math.floor(1000 + Math.random() * 9000)}`;
+        document.getElementById('display-order-id').innerText = orderId;
+        document.getElementById('copy-btn').innerText = "Copy ID";
+        document.getElementById('order-modal').style.display = 'flex';
+    }
+
+    function copyOrderId() { 
+        navigator.clipboard.writeText(document.getElementById('display-order-id').innerText).then(() => {
+            document.getElementById('copy-btn').innerText = "Copied";
+        });
+    }
+</script>
+</body>
+</html>
