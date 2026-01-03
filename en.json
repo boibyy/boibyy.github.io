@@ -14,10 +14,14 @@
     "FollowTheRules": "Remember to follow the rules",
     "ViolationsAddUp": "Rule violations add up",
     "WhatComesNext": "What comes next",
-    "UnderstandRules": "Understand the rules"
+    "WhatComesNextV2": "What comes next?",
+    "UnderstandRules": "Understand the rules",
+    "ReviewPolicies": "Review our policies"
   },
   "Reasons": {
     "BanEvasion": "Ban Evasion",
+    "PrivacyGivingPII": "Privacy: Giving PII",
+    "PrivacyAskingPII": "Privacy: Asking for PII",
     "Other": "Other",
     "Harassment": "Harassment",
     "ExtortionThreats": "Extortion and Threats",
@@ -27,7 +31,7 @@
     "SexualAdult": "Sexual or Adult Content",
     "MisusingSystems": "Misusing Boiby Systems",
     "Copyright": "Copyright Violation",
-    "ChildSafety": "Child Safety",
+    "ChildSafety": "Child Endangerment",
     "ExtremistContent": "Extremist Content",
     "ViolentGore": "Violent Content and Gore",
     "UndisclosedAds": "Undisclosed Advertisement",
@@ -46,12 +50,18 @@
     "PoliticalMisinformation": "Political Misinformation"
   },
   "Presets": {
-    "BanEvasion": "This account is linked to an account that was banned due to severe violations of our Community Standards.",
+    "BanEvasion": "This account is linked to an account banned for a severe violation of our Community Standards. The violation can be appealed using the banned account.",
     "Harassment": "Boiby does not permit bullying or targeted harassment towards other users.",
     "Spam": "Boiby does not allow repetitive, unwanted, and/or automated high-volume messaging or posting.",
     "HateSpeech": "Any content or behaviour that promotes hate speech or discriminatory content is not permitted on Boiby.",
     "SexualContent": "Boiby prohibits users from uploading highly suggestive or sexually explicit content.",
-    "Scams": "Boiby prohibits any attempts to deceive users for financial gain or personal information."
+    "Scams": "Boiby prohibits any attempts to scam or deceive users for financial gain or personal information.",
+    "ChildEndangerment": "Your account has been permanently banned due to violating Boiby's Minor Safety policy. Our policies prohibit this sort of content and behavior. In circumstances where Boiby believes users may be in immediate danger, we may contact relevant authorities.","Copyright": "This content violates copyright policy by sharing or reposting copyrighted material without permission.",
+    "PII": "Boiby prohibits users to share or ask for personally identifiable information (PII). Protect user privacy by not sharing personal data and not asking others for it.",
+    "Chargebacks": "Your account has been suspended due to unauthorized or disputed charges.",
+    "PaymentAbuse": "Your account has been moderated for payment abuse such as fraudulent transactions or misuse of payment features.",
+    "MisusingBoibySystems": "Boiby does not permit any misuse of our platform's report tools or systems.",
+    "Botting": "This account appears to be bot-driven or using automated tools to perform actions at scale, which violates our platform rules."
   },
   "Descriptions": {
     "BrokeRulesBanned": "We banned your Boiby account because of serious or repeated rule-breaking.",
@@ -63,15 +73,50 @@
     "SpecificTypeDescription": "Your {{type}} broke Boiby's rules regarding: {{reason}}.",
     "GenericTypeDescription": "Your {{type}} broke Boiby's rules.",
     "GenericTypeDescriptionPlural": "One of your {{type}}s broke Boiby's rules.",
+    
     "Appeal": "You can request an appeal or ask us to review this decision here:",
     "AppealV2": "If you think that we’ve made a mistake, you can appeal this decision here:",
     "Foreshadow": "We may give you a longer suspension - or even ban your account - if you keep breaking the rules.",
     "FollowFuture": "Please follow the rules in the future.",
+    "FollowFutureV2": "To keep our community safe and fun for everyone, please follow the rules in the future.",
+
+    "At": "at",
+
+    "PolicyIntro": "To keep our community safe, all users are required to follow Boiby's Community Standards.",
+
     "BullyHeader": "No bullying or discrimination",
-    "BullyDetail": "Boiby does not allow harassment or bullying against other users.",
+    "BullyDetail": "It's against the rules to say mean things to someone or about another person. It’s also against the rules bully or exclude someone because of who they are or what they believe.",
     "BullyMatter": "Why does this matter?",
-    "BullyImportance": "To keep our community fun for everyone, don’t use words or actions that are intended to harm or bully others. Boiby is designed to be an inclusive community.",
-    "At": "at"
+    "BullyImportance": "To keep our community fun for everyone, don’t use words or actions that are intended to harm or bully others. Boiby is designed to be an inclusive community for users of all identities and backgrounds.",
+    "PIIHeader": "No sharing or requesting personal information",
+    "PIIDetail": "It is against the rules to share your personal information (like phone numbers, home addresses, or IDs) or to ask others to share their private personal data. That’s why we also never share passwords, as someone can steal your account.",
+    "PIIMatter": "Why does this matter?",
+    "PIIImportance": "Sharing or soliciting personally identifiable information (PII) can lead to harassment, identity theft, or real-world harm. Protect users' privacy by not sharing or requesting personal information.",
+
+    "SpamHeader": "No spamming",
+    "SpamDetail": "Spam involves repetitive, unwanted, or automated messages or posts that disrupt the community, and is against the rules.",
+    "SpamMatter": "Why does this matter?",
+    "SpamImportance": "Spamming harms the experience for others and makes it hard to follow conversations. Don't keep messaging the same words over and over again.",
+
+    "ExtortionHeader": "No threats or blackmail",
+    "ExtortionDetail": "Threatening or coercing others for money, favors, to gain something you want, is not allowed. Threatening to release private information is also not allowed.",
+    "ExtortionMatter": "Why does this matter?",
+    "ExtortionImportance": "Threats and extortion is not allowed because it threatens users' safety and privacy, and can put them at risk of real-world harm.",
+
+    "ViolentHeader": "No extreme violence",
+    "ViolentDetail": "Content that depicts or promotes serious physical harm, graphic violence, or gore is not allowed.",
+    "ViolentMatter": "Why does this matter?",
+    "ViolentImportance": "Graphic or violent content can be traumatic or upsetting, especially for users under 18. It’s against the rules to show realistic violence or any form of extreme gore.",
+
+    "DatingHeader": "No dating or romantic content",
+    "DatingDetail": "Romantic behaviors like kissing or dating are not allowed. It’s also important that profile pictures aren't too revealing or inappropriate.",
+    "DatingMatter": "Why does this matter?",
+    "DatingImportance": "Our community includes users under the age of 18. Solicitation and online dating puts these users at risk. Keep interactions respectful and consensual.",
+    
+    "HarmfulHeader": "No dangerous or harmful activities",
+    "HarmfulDetail": "Content that encourages, instructs, or praises dangerous activities or illegal acts that could lead to physical harm isn't allowed.",
+    "HarmfulMatter": "Why does this matter?",
+    "HarmfulImportance": "Encouraging or providing instructions for dangerous activities can cause real-world harm. To keep people safe, don’t promote, glorify, or explain how to do harmful actions."
   },
   "Labels": {
     "Reason": "Reason:",
@@ -87,11 +132,16 @@
     "VideoName": "Video name:",
     "VideoID": "Video ID:",
     "Timestamp": "Timestamp:",
+    "ChatEvidenceID": "Chat Evidence ID",
     "ImageName": "Image name:",
     "ImageID": "Image ID:",
     "PostID": "Post ID:",
     "Evidence": "Evidence:",
     "Trace": " ",
+    "Location": "Location",
+    "AboutThisPolicy": "About this policy",
+    "RuleMeaning": "What this means",
+    "RuleMeaningV2": "What does this mean?",
     "NoContent": "No content",
     "Untitled": "Untitled",
     "EntireVideo": "Entire video"
@@ -100,9 +150,12 @@
     "RequestAppeal": "Request an appeal",
     "ReportMistake": "Report a mistake",
     "Continue": "Continue",
+    "WaitSeconds": "Wait {{n}} seconds",
+    "WaitSecond": "Wait {{n}} second",
     "Back": "Back",
     "BackV2": "Go Back",
     "ViewMore": "View more",
+    "LearnMore": "Learn more",
     "ViewLess": "View less",
     "ViewRules": "View rules",
     "SwitchLight": "Switch to Light",
