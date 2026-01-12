@@ -1,10 +1,11 @@
-<html lang="en"><head><style>body {transition: opacity ease-in 0.2s; } 
-body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
+<!DOCTYPE html>
+<html lang="en"><head><style>
+body {transition: opacity ease-in 0.2s; } 
 </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Boiby</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         .lbl-mistake-static {
             display: none!important;
@@ -36,33 +37,24 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
             align-items: center; 
             min-height: 100vh; 
             transition: background 0.2s ease; 
-            /* Remove overflow: hidden from body to prevent layout locking */
         }
         
 .container { 
     width: 640px; 
-
     min-height: min(720px, 90vh); 
-
     height: auto;
-
     max-height: 90vh;
-
     background: var(--bg-modal); 
     border-radius: var(--radius-modal); 
     box-sizing: border-box; 
-    
     display: flex; 
     flex-direction: column; 
     justify-content: space-between;
-    
     position: relative; 
     box-shadow: 0 0 0 1px var(--shadow-border), 0 3px 24px rgba(0, 0, 0, 0.25); 
-    
     overflow-y: auto; 
 }
         
-        /* MODIFICATION: Hidden Settings on Mobile */
         .customizer-toggle { position: fixed; bottom: 20px; left: 20px; z-index: 1000; background: var(--btn-blue); color: white; border: none; padding: 10px 15px; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         
         @media (max-width: 768px) {
@@ -87,21 +79,16 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
 
     .header {
         display: block;
-        
         width: 100vw; 
-        
         position: relative;
         left: 50%;
         right: 50%;
         margin-left: -50vw;
         margin-right: -50vw;
-
         margin-bottom: 22px!important;
         border-bottom: 1px solid grey;
         box-sizing: border-box;
-        
         padding: 0 22px; 
-        
         text-align: center;
     }
 
@@ -117,12 +104,10 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
         display: block!important;
         text-align: center!important;
         line-height: 1!important;
-        
         margin-bottom: 16px!important;
         margin-top: 0!important;
     }
 }
-
 
         .panel { position: fixed; left: -320px; top: 0; width: 300px; height: 100%; background: var(--panel-bg); border-right: 1px solid var(--shadow-border); z-index: 999; padding: 20px; box-sizing: border-box; transition: left 0.3s ease; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
         .panel.open { left: 0; }
@@ -130,7 +115,6 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
         .panel label { display: block; font-size: 11px; font-weight: bold; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
         .panel select, .panel input, .panel textarea { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--shadow-border); background: var(--bg-card); color: var(--text-normal); font-family: inherit; margin-bottom: 10px; }
         
-
         .scrollable-body {
             flex: 1;
             overflow-y: auto;
@@ -185,67 +169,62 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
         .btn-report { background-color: #335fff75; color: #ffffff; border: none; padding: 0px 12px; height: 40px; border-radius: var(--radius-btn); font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; transition: opacity 0.2s; }
         body.light-mode .btn-report { background-color: #335fff; }
         #evidence-overflow { display: none; }
-          /* Make policy "Why does this matter?" card match the standard .card spacing
-             (use same padding/margins as other .card elements for visual consistency) */
-          #policy-why-card { padding: 14px; margin-top: 0px; margin-bottom: 10px; }
-          #policy-why-card .value { margin: 0; }
+        #policy-why-card { padding: 14px; margin-top: 0px; margin-bottom: 10px; }
+        #policy-why-card .value { margin: 0; }
 
-        /* Media query for mobile screens */
 /* Mobile-specific overrides */
 @media (max-width: 640px) {
+            .footer {
+                flex-direction: column; 
+                gap: 10px;
+            }
 
-    .footer {
-        flex-direction: column; 
-        gap: 10px;
-    }
+            #footer-main-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
 
-    #footer-main-buttons {
-        flex-direction: column;
-        width: 100%;
-    }
+            .container {
+                width: 100%;
+                height: 100vh;
+                border-radius: 0; 
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
 
-    .container {
-        width: 100%;
-        height: 100vh;
-        border-radius: 0; 
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-    }
+            .btn-report {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
 
-    .btn-report {
-        width: 100%;       /* Button goes full width */
-        box-sizing: border-box;
-    }
-}
+        .btn-logout {
+            background-color: var(--btn-gray2);
+            border: none;
+            margin-top: 8px;
+            cursor: pointer;
+            color: #eeeeee; border: none; padding: 0px 12px; height: 40px; border-radius: var(--radius-btn); font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; transition: opacity 0.2s;
+        }
 
-.btn-logout {
-    background-color: var(--btn-gray2);
-    border: none;
-    margin-top: 8px;
-    cursor: pointer;
-    color: #eeeeee; border: none; padding: 0px 12px; height: 40px; border-radius: var(--radius-btn); font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; transition: opacity 0.2s;
-}
+        body.light-mode .btn-logout {
+            background-color: var(--btn-gray2);
+            border: none;
+            margin-top: 8px;
+            cursor: pointer;
+            color: #111111; border: none; padding: 0px 12px; height: 40px; border-radius: var(--radius-btn); font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; transition: opacity 0.2s;
+        }
 
-body.light-mode .btn-logout {
-    background-color: var(--btn-gray2);
-    border: none;
-    margin-top: 8px;
-    cursor: pointer;
-    color: #111111; border: none; padding: 0px 12px; height: 40px; border-radius: var(--radius-btn); font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; transition: opacity 0.2s;
-}
+        .btn-logout:hover {
+            background-color: var(--btn-gray-hover2);
+        }
 
-.btn-logout:hover {
-    background-color: var(--btn-gray-hover2);
-}
-
-@media (max-width: 550px) {
-    .btn-logout {
-        display: block;
-        width: 100%;
-        box-sizing: border-box;
-    }
-}
-
+        @media (max-width: 550px) {
+            .btn-logout {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
     </style>
 </head>
 <body id="main-body" class="light-mode">
@@ -262,7 +241,7 @@ body.light-mode .btn-logout {
             <option value="Suspended3Days">Suspended for 3 days</option>
             <option value="Suspended7Days">Suspended for 7 days</option>
             <option value="Suspended14Days">Suspended for 14 days</option>
-            <option value="Banned" selected="">Banned</option>
+            <option value="Banned" selected>Banned</option>
         </select>
     </div>
     <div><label>Reason</label>
@@ -272,38 +251,63 @@ body.light-mode .btn-logout {
             <option value="Harassment">Harassment</option>
             <option value="ExtortionThreats">Extortion and Threats</option>
             <option value="Spam">Spam</option>
-            <option value="ScamsDeceptive">Scams and Deceptive Practices</option>
+            <option value="Scamming">Scamming</option>
             <option value="DiscriminationHate">Discrimination or Hate</option>
-            <option value="SexualAdult">Sexual or Adult Content</option>
+            <option value="SexualContent">Sexual Content</option>
             <option value="MisusingSystems">Misusing Boiby Systems</option>
             <option value="PrivacyGivingPII">Privacy: Giving PII</option>
             <option value="PrivacyAskingPII">Privacy: Asking for PII</option>
-            <option value="Copyright">Copyright Violation</option>
-            <option value="ChildSafety">Child Endangerment</option>
-            <option value="ExtremistContent">Extremist Content</option>
+            <option value="IPViolation">Intellectual Property Violation</option>
+            <option value="ChildEndangerment">Child Endangerment</option>
+            <option value="TerrorismExtremism">Terrorism and Violent Extremism</option>
             <option value="ViolentGore">Violent Content and Gore</option>
             <option value="UndisclosedAds">Undisclosed Advertisement</option>
             <option value="DisruptiveAudio">Disruptive Audio</option>
-            <option value="HarmfulDangerous">Harmful or Dangerous Activities</option>
+            <option value="DangerousActivities">Dangerous Activities</option>
             <option value="Misinformation">Misinformation</option>
-            <option value="Dating">Dating</option>
+            <option value="Dating.V2">Dating and Romantic Content</option>
             <option value="IllegalRegulated">Illegal or Regulated Content</option>
-            <option value="SensitiveEvents">Mocking Real-World Sensitive Events</option>
+            <option value="SensitiveEvents">Real-World Sensitive Events</option>
+            <option value="AccountTheft">Account Theft</option>
+            <option value="CompromisedAccount">Compromised Account</option>
+            <option value="RepeatedRefunds">Repeated Refund Requests</option>
+            <option value="Chargebacks">Chargebacks</option>
+            <option value="PaymentAbuse">Payment Abuse</option>
+            <option value="Impersonation">Impersonation</option>
+            <option value="PoliticalContent">Political Content</option>
         </select>
     </div>
     <div><label>Note Presets</label><select id="note-preset" onchange="applyPresetNote()"><option value="">-- Choose a Preset --</option>
-        <option value="Ban Evasion">Ban Evasion</option>
         <option value="Child Endangerment">Child Endangerment</option>
+        <option value="Ban Evasion">Ban Evasion</option>
         <option value="Harassment">Harassment</option>
         <option value="Spam">Spam</option>
-        <option value="Hate Speech">Hate Speech</option>
+        <option value="Dating">Dating</option>
+        <option value="Hate Speech">Discrimination or Hate Speech</option>
         <option value="Sexual Content">Sexual Content</option>
-        <option value="Scams">Scams</option>
-        <option value="PII">PII</option>
-        <option value="Chargebacks">Chargebacks</option>
+        <option value="Scamming">Scamming</option>
+        <option value="PoliticalContent">Political Content</option>
+        <option value="TerrorismExtremism">Terrorism/Extremism</option>
+        <option value="PII">Privacy/PII</option>
+        <option value="Impersonation">Impersonation</option>
+        <option value="Chargeback">Chargeback</option>
+        <option value="Copyright">Copyright Violation</option>
         <option value="Payment Abuse">Payment Abuse</option>
         <option value="Misusing Boiby Systems">Misusing Boiby Systems</option>
-        <option value="Botting">Botting</option>
+        <option value="AccountTheft">Account Theft</option>
+        <option value="CompromisedAccount">Compromised Account</option>
+        <option value="DangerousActivities">Dangerous Activities</option>
+        <option value="RepeatedRefunds">Repeated Refund Requests</option>
+        <option value="IllegalRegulated">Illegal or Regulated Content</option>
+        <option value="SensitiveEvents">Real-World Sensitive Events</option>
+        <option value="Misinformation">Misinformation</option>
+        <option value="DisruptiveAudio">Disruptive Audio</option>
+        <option value="UndisclosedAds">Undisclosed Advertisement</option>
+        <option value="GenericViolation">Generic Violation</option>
+        <option value="Username">Username</option>
+        <option value="DisplayName">Display Name</option>
+        <option value="OffPlatformBehaviour">Off-Platform Behaviour</option>
+        <option value="AccountForBreakingRules">Account for Breaking Rules</option>
     </select></div>
     <div><label>Custom Note</label><textarea id="note-input" rows="3" oninput="updateContent()"></textarea></div>
     <div><label>Review Date</label><input type="datetime-local" id="date-input" oninput="updateContent()"></div>
@@ -330,66 +334,57 @@ body.light-mode .btn-logout {
                 <div class="title-group"><div class="icon-container" id="icon-holder"><div class="ban-icon"></div></div><h1 id="display-duration-title">Banned</h1></div>
                 <div class="dots">⋮</div>
             </div>
-            <p class="description" id="display-desc">We permanently banned your account because of serious or repeated rule-breaking.</p>
-            <h2 id="txt-why">Why this happened</h2>
+            <p class="description" id="display-desc"></p>
+            <h2 id="txt-why"></h2>
             <div class="card">
-                <div class="field"><span class="label" id="lbl-reason-static">Reason:</span><span class="value" id="display-reason">Other</span></div>
-                <div class="field"><span class="label" id="lbl-details-static">Additional details:</span><span class="value" id="display-note"></span></div>
+                <div class="field"><span class="label" id="lbl-reason-static"></span><span class="value" id="display-reason">Other</span></div>
+                <div class="field"><span class="label" id="lbl-details-static"></span><span class="value" id="display-note"></span></div>
             </div>
-            <h2 id="txt-activity">Recent activity we reviewed</h2>
+            <h2 id="txt-activity"></h2>
             <div class="card" id="evidence-card">
                 <div id="evidence-list-main"></div>
                 <div id="evidence-divider" style="display:none; border-bottom: 1px solid var(--shadow-border); margin: 10px 0;"></div>
-                <div class="field"><span class="label" id="lbl-date-static">Review date:</span><span class="value" id="display-date">December 26, 2025 at 12:00 PM</span></div>
+                <div class="field"><span class="label" id="lbl-date-static"></span><span class="value" id="display-date"></span></div>
                 <div id="evidence-overflow"></div>
                 <button class="btn-view-more" style="margin-bottom:1px" id="view-more-btn" onclick="toggleEvidence()">View more</button>
                 
                 <div id="next-section-main" style="display: none;">
-                    <div class="field" style="margin-top: 14px;"><span class="label lbl-mistake-static">Did we make a mistake?</span><span class="value txt-mistake-appeal">If you think that we’ve made a mistake, you can appeal this decision here:</span></div>
+                    <div class="field" style="margin-top: 14px;"><span class="label lbl-mistake-static"></span><span class="value txt-mistake-appeal"></span></div>
                     <button class="btn-view-more btn-report-inner" style="margin-bottom:1px" onclick="reportMistakeClicked(event)">Report a mistake</button>
                 </div>
             </div>
-            <div class="trace-id" id="display-trace"> 31c510a8-989e-42aa-a36a-9353be108dc3</div>
+            <div class="trace-id" id="display-trace"></div>
         </div>
 
         <div id="policy-view" style="display: none; flex-direction: column;">
-            <h1 id="policy-header-title">Review our policies</h1>
-            <p class="description" id="policy-intro-text">To keep Boiby safe, we require all users to follow our Community Standards.</p>
+            <h1 id="policy-header-title"></h1>
+            <p class="description" id="policy-intro-text"></p>
             
-            <h2 style="margin-top: 2px;" id="policy-violated-header">About this policy</h2>
+            <h2 style="margin-top: 2px;" id="policy-violated-header"></h2>
             <div class="card">
                 <div class="field">
-                    <span class="label" id="display-policy-label" style="font-size: 1em; color: var(--text-header);"></span>
+                    <span class="label" id="display-policy-label" style="color: var(--text-header);"></span>
                     <span class="value" id="display-policy-description" style="margin-top: 0px; line-height: 1.35; white-space: pre-wrap;"></span>
                     <div style="margin-top:12px;"><button class="btn-view-more" id="policy-learn-more-btn" style="margin-bottom:1px">Learn more</button></div>
-                        <div style="display:none" id="policy-countdown" class="value" style="margin-top:8px; color: var(--text-muted);"></div>
                 </div>
             </div>
         
-            <h2 id="policy-why-header" style="display:none">Why does this matter?</h2>
             <div class="card" id="policy-why-card">
-                <p class="value" id="display-policy-importance"></p>
-                <div style="margin-top:12px;"><button class="btn-view-more" id="policy-why-learn-more-btn" style="margin-bottom:1px">Learn more</button></div>
+                <div class="field">
+                    <span class="label" id="policy-why-header" style="color: var(--text-header); display: block; margin-bottom: 8px;"></span>
+                    <p class="value" id="display-policy-importance"></p>
+                    <div style="margin-top:12px;"><button class="btn-view-more" id="policy-why-learn-more-btn" style="margin-bottom:1px">Learn more</button></div>
+                </div>
             </div>
         </div>
 
         <div id="rules-view" style="display: none;">
-            <div id="rules-next-section" style="display: block;">
-                <h2 class="txt-next-header" style="margin-top: 12px;">What comes next</h2>
-                <div class="card">
-                    <div>
-                        <div class="field"><span class="label lbl-mistake-static">Did we make a mistake?</span><span class="value txt-mistake-appeal">If you think that we’ve made a mistake, you can appeal this decision here:</span></div>
-                        <button class="btn-view-more btn-report-inner" onclick="reportMistakeClicked(event)">Report a mistake</button>
-                    </div>
-                </div>
-                
-                <h2 id="txt-rules-header">Understand the rules</h2>
-                <div class="card">
-                    <div>
-                        <div class="field"><span class="label" id="lbl-follow-rules-static">Remember to follow the rules</span><span class="value" id="txt-follow-rules">To keep our community safe and fun for everyone, please follow the rules in the future.</span></div>
-                        <div class="field"><span class="label" id="lbl-violations-static">Rule violations add up</span><span class="value" id="txt-violations-desc">We may give you a longer suspension - or even ban your account - if you keep breaking the rules.</span></div>
-                        <button class="btn-view-more" id="btn-view-rules-inner" onclick="console.log('Rules viewed')">View rules</button>
-                    </div>
+            <h2 id="txt-rules-header" style="margin-top: 12px;"></h2>
+            <div class="card">
+                <div>
+                    <div class="field"><span class="label" id="lbl-follow-rules-static"></span><span class="value" id="txt-follow-rules"></span></div>
+                    <div class="field"><span class="label" id="lbl-violations-static"></span><span class="value" id="txt-violations-desc"></span></div>
+                    <button class="btn-view-more" id="btn-view-rules-inner" onclick="console.log('Rules viewed')">View rules</button>
                 </div>
             </div>
         </div>
@@ -397,13 +392,17 @@ body.light-mode .btn-logout {
 
     <div class="footer">
         <div id="footer-main-buttons" style="display: flex; justify-content: flex-end; width: 100%;">
-            <button class="btn-report" id="primary-action-btn" onclick="handlePrimaryClick()" style="color: rgb(17, 17, 17); background: rgba(51, 95, 255, 0.298); opacity: 1; border: none;">Report a mistake</button><button class="btn-logout" id="primary-action-btn" onclick="handlePrimaryClick()" style="display: none;">Log out</button>
+            <button class="btn-report" id="primary-action-btn" onclick="handlePrimaryClick()" style="color: rgb(17, 17, 17); background: rgba(51, 95, 255, 0.298); opacity: 1; border: none;">Report a mistake</button>
+            <button class="btn-logout" id="logout-btn" onclick="handleLogout()" style="display: none;">Log out</button>
         </div>
         <div id="footer-rules-buttons" style="display: none; justify-content: space-between; align-items: center; width: 100%;">
             <button class="btn-report" id="btn-back" style="background-color: var(--btn-gray); color: var(--text-header);" onclick="toggleSubpage(false)">Back</button>
             <div style="display:flex; align-items:center; gap:10px;">
-                <label style="display:flex; align-items:center; gap:5px; font-size:14px; cursor:pointer; color:var(--text-normal);"><input type="checkbox" id="agree-checkbox" onchange="toggleContinueBtn()"> <span id="lbl-agree">I agree to know and follow the rules.</span></label>
-                <button class="btn-report" id="final-continue-btn" disabled="" style="opacity:0.5; cursor:not-allowed;">Continue</button>
+                <label style="display:flex; align-items:center; gap:5px; font-size:14px; cursor:pointer; color:var(--text-normal);">
+                    <input type="checkbox" id="agree-checkbox" onchange="toggleContinueBtn()"> 
+                    <span id="lbl-agree">I agree to know and follow the rules.</span>
+                </label>
+                <button class="btn-report" id="final-continue-btn" disabled style="opacity:0.5; cursor:not-allowed;">Continue</button>
             </div>
         </div>
     </div>
@@ -416,131 +415,80 @@ body.light-mode .btn-logout {
     let currentStep = 1; 
     // suspension interval id (so it can be cleared when navigating between pages)
     let suspensionIntervalId = null;
-    // preserve the policy agree checkbox state across navigations within the session
     let policyAgreeState = false;
-
-    // Persistent review/ban date for this page session. Set once and reused until refresh.
     let reviewDate = null;
-
-    // Small countdown state (kept to prevent ReferenceErrors if countdown code exists)
     let policyCountdownInterval = null;
     let policyCountdownRemaining = 0;
     const POLICY_COUNTDOWN_SECS = 5;
 
-    // Helper: update the visual style of the final Continue button based on enabled state
-    function updateFinalButtonStyle(btn, enabled) {
-        if (!btn) return;
-        try {
-            if (enabled) {
-                btn.disabled = false;
-                btn.style.background = 'var(--btn-blue)';
-                btn.style.border = 'none';
-                btn.style.color = 'white';
-                btn.style.cursor = 'pointer';
-                btn.style.pointerEvents = 'auto';
-                btn.style.opacity = '1';
-            } else {
-                btn.disabled = true;
-                btn.style.background = 'var(--btn-gray)';
-                btn.style.border = '1px solid var(--btn-gray)';
-                btn.style.color = 'var(--text-muted)';
-                btn.style.cursor = 'not-allowed';
-                btn.style.pointerEvents = 'none';
-                btn.style.opacity = '1';
-            }
-        } catch (e) { console.error('updateFinalButtonStyle error', e); }
-    }
-
-    function formatWaitText(n) {
-        try {
-            if (n === 1) return t('Buttons.WaitSecond', { n });
-            return t('Buttons.WaitSeconds', { n });
-        } catch (e) { return `Wait ${n} seconds`; }
-    }
-
-    function getFormattedDate() {
-        const now = reviewDate || new Date();
-        const options = { month: 'long', day: 'numeric', year: 'numeric' };
-        const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
-        return `${now.toLocaleDateString('en-US', options)} at ${now.toLocaleTimeString('en-US', timeOptions)}`;
-    }
-
-    function startPolicyCountdown(finalBtn, agree, initialRemaining) {
-        // Clear any existing policy countdown
-        if (policyCountdownInterval) { clearInterval(policyCountdownInterval); policyCountdownInterval = null; }
-        policyCountdownRemaining = (typeof initialRemaining === 'number' && initialRemaining > 0) ? initialRemaining : POLICY_COUNTDOWN_SECS;
-        if (!finalBtn) return;
-        console.log('startPolicyCountdown: initialRemaining=', initialRemaining);
-        // Disable and style as waiting
-        finalBtn.disabled = true;
-        finalBtn.style.background = 'transparent';
-        finalBtn.style.border = '1px solid var(--btn-gray)';
-        finalBtn.style.color = 'var(--text-muted)';
-        finalBtn.style.cursor = 'not-allowed';
-        finalBtn.style.opacity = '1';
-        finalBtn.style.pointerEvents = 'none';
-        finalBtn.innerText = formatWaitText(policyCountdownRemaining);
-        // Ensure visible
-        finalBtn.style.display = '';
-
-        const countdownEl = document.getElementById('policy-countdown');
-        if (countdownEl) countdownEl.innerText = formatWaitText(policyCountdownRemaining);
-        policyCountdownInterval = setInterval(() => {
-            policyCountdownRemaining -= 1;
-            console.log('policy tick ->', policyCountdownRemaining);
-            if (finalBtn) finalBtn.innerText = formatWaitText(policyCountdownRemaining);
-            if (countdownEl) countdownEl.innerText = formatWaitText(Math.max(policyCountdownRemaining, 0));
-
-            // If user checked the box during countdown, stop and remember
-            if (agree && agree.checked) {
-                try { sessionStorage.setItem('policyConfirmed','1'); sessionStorage.removeItem('policyCountdownStart'); } catch(e){}
-                clearInterval(policyCountdownInterval); policyCountdownInterval = null;
-                finalBtn.disabled = false;
-                finalBtn.innerText = t('Buttons.Continue');
-                finalBtn.style.background = '#3355ff'; finalBtn.style.border = 'none'; finalBtn.style.color = '#ffffff'; finalBtn.style.cursor = 'pointer'; finalBtn.style.pointerEvents = 'auto';
-                return;
-            }
-
-            if (policyCountdownRemaining <= 0) {
-                clearInterval(policyCountdownInterval); policyCountdownInterval = null;
-                try { sessionStorage.removeItem('policyCountdownStart'); } catch(e) {}
-                finalBtn.disabled = false;
-                finalBtn.innerText = t('Buttons.Continue');
-                finalBtn.style.background = '#3355ff'; finalBtn.style.border = 'none'; finalBtn.style.color = '#ffffff'; finalBtn.style.cursor = 'pointer'; finalBtn.style.pointerEvents = 'auto';
-            }
-        }, 1000);
-    }
-
     const policyMap = {
-        "Harassment": { header: "Descriptions.BullyHeader", detail: "Descriptions.BullyDetail", importanceLabel: "Descriptions.BullyMatter", importance: "Descriptions.BullyImportance" },
-        "DiscriminationHate": { header: "Descriptions.BullyHeader", detail: "Descriptions.BullyDetail", importanceLabel: "Descriptions.BullyMatter", importance: "Descriptions.BullyImportance" },
-        "Spam": { header: "Descriptions.SpamHeader", detail: "Descriptions.SpamDetail", importanceLabel: "Descriptions.SpamMatter", importance: "Descriptions.SpamImportance" },
-        "SexualAdult": { header: "Heading.RecentActivity", detail: "Presets.SexualContent", importanceLabel: "Descriptions.BullyMatter", importance: "Descriptions.BullyImportance" },
-        "ScamsDeceptive": { header: "Heading.RecentActivity", detail: "Presets.Scams", importanceLabel: "Descriptions.BullyMatter", importance: "Descriptions.BullyImportance" },
-        "ExtortionThreats": { header: "Descriptions.ExtortionHeader", detail: "Descriptions.ExtortionDetail", importanceLabel: "Descriptions.BullyMatter", importance: "Descriptions.ExtortionImportance" },
-        "ViolentGore": { header: "Descriptions.ViolentHeader", detail: "Descriptions.ViolentDetail", importanceLabel: "Descriptions.BullyMatter", importance: "Descriptions.ViolentImportance" },
-        "Dating": { header: "Descriptions.DatingHeader", detail: "Descriptions.DatingDetail", importanceLabel: "Descriptions.BullyMatter", importance: "Descriptions.DatingImportance" },
-        "HarmfulDangerous": { header: "Descriptions.HarmfulHeader", detail: "Descriptions.HarmfulDetail", importanceLabel: "Descriptions.HarmfulMatter", importance: "Descriptions.HarmfulImportance" },
+        "Harassment": { 
+            header: "Heading.RuleExplanation.BullyHeader", 
+            detail: "Description.BullyDetail", 
+            importanceLabel: "Label.RuleExplanation.WhyMatter", 
+            importance: "Description.BullyImportance" 
+        },
+        "DiscriminationHate": { 
+            header: "Heading.RuleExplanation.BullyHeader", 
+            detail: "Description.BullyDetail", 
+            importanceLabel: "Label.RuleExplanation.WhyMatter", 
+            importance: "Description.BullyImportance" 
+        },
+        "Spam": { 
+            header: "Heading.RuleExplanation.SpamHeader", 
+            detail: "Description.SpamDetail", 
+            importanceLabel: "Label.RuleExplanation.WhyMatter", 
+            importance: "Description.SpamImportance" 
+        },
+        "ExtortionThreats": { 
+            header: "Heading.RuleExplanation.ExtortionHeader", 
+            detail: "Description.ExtortionDetail", 
+            importanceLabel: "Label.RuleExplanation.WhyMatter", 
+            importance: "Description.ExtortionImportance" 
+        },
+        "ViolentGore": { 
+            header: "Heading.RuleExplanation.ViolentHeader", 
+            detail: "Description.ViolentDetail", 
+            importanceLabel: "Label.RuleExplanation.WhyMatter", 
+            importance: "Description.ViolentImportance" 
+        },
+        "Dating": { 
+            header: "Heading.RuleExplanation.DatingHeader", 
+            detail: "Description.DatingDetail", 
+            importanceLabel: "Label.RuleExplanation.WhyMatter", 
+            importance: "Description.DatingImportance" 
+        },
+        "Dating.V2": { 
+            header: "Heading.RuleExplanation.DatingHeader", 
+            detail: "Description.DatingDetail", 
+            importanceLabel: "Label.RuleExplanation.WhyMatter", 
+            importance: "Description.DatingImportance" 
+        },
+        "DangerousActivities": { 
+            header: "Heading.RuleExplanation.HarmfulHeader", 
+            detail: "Description.HarmfulDetail", 
+            importanceLabel: "Label.RuleExplanation.WhyMatter", 
+            importance: "Description.HarmfulImportance" 
+        },
     };
 
     async function init() {
         try { 
             const res = await fetch('en.json'); 
             translations = await res.json(); 
-        } catch (e) { console.error("Translation load failed."); }
+        } catch (e) { 
+            console.error("Translation load failed.");
+            translations = {}; // Empty object, will fallback to keys
+        }
         setupLogoutAndResize();
         updateContent();
         
-        // Ensure final button has a listener
         const finalBtn = document.getElementById('final-continue-btn');
         if (finalBtn) {
             finalBtn.onclick = () => {
                 if (!finalBtn.disabled) {
-                    // If we're on the policy step, advance to the rules step
                     if (currentStep === 2) goToRulesStep();
-                    // If already on rules step, perform confirmation action or proceed
                     else if (currentStep === 3) {
-                        // Keep behavior minimal: proceed to main or log action
                         console.log('Final continue confirmed on rules step');
                     } else {
                         // Default fallback: go to rules step
@@ -549,34 +497,31 @@ body.light-mode .btn-logout {
                 }
             };
         }
-        // Ensure agree checkbox is never auto-checked by the browser
-        const agree = document.getElementById('agree-checkbox');
+        // agree checkbox will never be auto-checked by the browser
+            const agree = document.getElementById('agree-checkbox');
         if (agree) {
             try { agree.checked = false; } catch (e) {}
             agree.setAttribute('autocomplete', 'off');
             agree.removeAttribute('checked');
-            // Remove name attribute to reduce browser form autofill persistence
             try { agree.removeAttribute('name'); } catch (e) {}
         }
     }
 
-    function t(path, vars = {}) {
-        if (!translations) return path;
-        let val = path.split('.').reduce((o, k) => o?.[k], translations);
-        if (val === undefined || val === null) return path;
-        for (const key in vars) val = val.replace(`{{${key}}}`, vars[key]);
-        return val;
-    }
+    function t(key, vars = {}) {
+    if (!translations) return key;
+    let val = translations[key];
+    if (val === undefined || val === null) return key;
+    for (const k in vars) val = val.replace(`{{${k}}}`, vars[k]);
+    return val;
+}
 
-    /** --- DATE LOGIC --- **/
     function getFormattedDate() {
-        const now = new Date();
+        const now = reviewDate || new Date();
         const options = { month: 'long', day: 'numeric', year: 'numeric' };
         const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
         return `${now.toLocaleDateString('en-US', options)} at ${now.toLocaleTimeString('en-US', timeOptions)}`;
     }
 
-    /** --- LOGOUT & RESIZE --- **/
     function setupLogoutAndResize() {
         const logoutBtn = document.querySelector('.btn-logout');
         const handleResize = () => {
@@ -587,8 +532,7 @@ body.light-mode .btn-logout {
         window.addEventListener('resize', handleResize);
         handleResize();
     }
-
-    // Toggle page light/dark mode and update the label on the toggle button
+    // Toggle page light/dark mode and update the label
     function toggleMode() {
         try {
             const body = document.getElementById('main-body') || document.body;
@@ -596,34 +540,31 @@ body.light-mode .btn-logout {
             const isLight = body.classList.contains('light-mode');
             if (isLight) {
                 body.classList.remove('light-mode');
-                if (btn) btn.innerText = t('Buttons.SwitchLight') || 'Switch to Light';
+                if (btn) btn.innerText = t('Action.Theme.SwitchLight') || 'Switch to Light';
             } else {
                 body.classList.add('light-mode');
-                if (btn) btn.innerText = t('Buttons.SwitchDark') || 'Switch to Dark';
+                if (btn) btn.innerText = t('Action.Theme.SwitchDark') || 'Switch to Dark';
             }
-            try { updateContent(); } catch (e) { /* ignore */ }
+            try { updateContent(); } catch (e) { } // ignore
         } catch (e) { console.error('toggleMode error', e); }
     }
 
-    /** --- EVIDENCE & OVERFLOW --- **/
     function toggleEvidence() {
         const overflow = document.getElementById('evidence-overflow');
         const btn = document.getElementById('view-more-btn');
         const total = evidenceItems.length;
         if (!overflow || !btn) return;
-        // Button stays visible but does nothing when there are 5 or fewer items
         if (total <= 5) return;
         const isOpen = overflow.style.display === 'block';
         if (isOpen) {
             overflow.style.display = 'none';
-            btn.innerText = t('Buttons.ViewMore');
+            btn.innerText = t('Action.ViewMore');
         } else {
             overflow.style.display = 'block';
-            btn.innerText = t('Buttons.ViewLess');
+            btn.innerText = t('Action.ViewLess');
         }
     }
 
-    // Render interactive evidence controls in the side panel
     function renderEvidenceControls() {
         const container = document.getElementById('evidence-controls-container');
         if (!container) return;
@@ -638,8 +579,8 @@ body.light-mode .btn-logout {
             const lbl = document.createElement('span');
             lbl.className = 'label';
             let labelText = item.type;
-            if (item.type === 'ChatEvidence') labelText = (t('Labels.ChatEvidenceID') || 'Chat Evidence ID');
-            else if (item.type === 'Location') labelText = (t('Labels.Location') || 'Location');
+            if (item.type === 'ChatEvidence') labelText = (t('Label.ChatEvidenceID') || 'Chat Evidence ID');
+            else if (item.type === 'Location') labelText = (t('Label.Location') || 'Location');
             else if (item.type === 'Generic') labelText = 'Offensive item';
             lbl.innerText = labelText;
             div.appendChild(lbl);
@@ -653,7 +594,6 @@ body.light-mode .btn-logout {
             } else {
                 const input = document.createElement('input');
                 input.value = item.val1 || '';
-                input.style.flex = '1';
                 input.oninput = (e) => { evidenceItems[index].val1 = e.target.value; updateContent(); };
                 div.appendChild(input);
             }
@@ -684,12 +624,10 @@ body.light-mode .btn-logout {
         let item = { 
             id: Date.now(), type: currentType, val1: '', 
             val2: Math.random().toString(36).substring(2, 12).toUpperCase(), 
-            val3: t('Labels.EntireVideo') 
+            val3: t('Label.EntireVideo') 
         };
 
         if (currentType === 'ChatEvidence') {
-            // Chat Evidence ID: timestamp 17 minutes before the ban + generated UUID
-            // Use the persistent reviewDate if available so the timestamp remains stable across navigation.
             const banTime = reviewDate || new Date();
             const chatTime = new Date(banTime.getTime() - 17 * 60 * 1000);
             const pad = (n) => n.toString().padStart(2, '0');
@@ -700,46 +638,14 @@ body.light-mode .btn-logout {
         evidenceItems.push(item); 
         renderEvidenceControls(); 
         updateContent();
-
-        // Ensure final button has a listener and starts disabled until checkbox is checked
-        const finalBtn = document.getElementById('final-continue-btn');
-        const agree = document.getElementById('agree-checkbox');
-        if (finalBtn) {
-            try {
-                // Start disabled by default on policy page flow and style it accordingly
-                updateFinalButtonStyle(finalBtn, false);
-                // Guard click: only allow when enabled
-                finalBtn.addEventListener('click', (ev) => {
-                    if (finalBtn.disabled) { ev.preventDefault(); ev.stopImmediatePropagation(); return; }
-                    // If currently on policy page, proceed to rules step
-                    if (currentStep === 2) {
-                        const a = document.getElementById('agree-checkbox');
-                        if (a && a.checked) goToRulesStep();
-                    }
-                });
-            } catch (e) { console.error('finalBtn init error', e); }
-        }
-        // Ensure checkbox is not auto-checked and toggles the final button
-        if (agree) {
-            try {
-                agree.checked = false;
-                agree.removeAttribute('name');
-                agree.autocomplete = 'off';
-                agree.addEventListener('change', () => {
-                    try { policyAgreeState = !!agree.checked; if (finalBtn) updateFinalButtonStyle(finalBtn, !!agree.checked); } catch(e){}
-                });
-            } catch (e) { console.error('agree init error', e); }
-        }
-        // Evidence controls are rendered by `renderEvidenceControls()`; no inline rendering here.
     }
 
-    /** --- MODERATOR NOTES & SYNC --- **/
     function applyPresetNote() { 
         const k = document.getElementById('note-preset')?.value; 
         if (k) {
             const cleanKey = k.replace(/\s+/g, ''); 
-            const presetText = t(`Presets.${cleanKey}`);
-            if (presetText !== `Presets.${cleanKey}`) {
+            const presetText = t(`Label.MessageToUser.${cleanKey}`);
+            if (presetText !== `Label.MessageToUser.${cleanKey}`) {
                 document.getElementById('note-input').value = presetText; 
                 updateContent(); 
             }
@@ -755,29 +661,31 @@ body.light-mode .btn-logout {
 
         const setTxt = (id, val) => { const el = document.getElementById(id); if(el) el.innerText = val; };
 
-        // Maintain a persistent review date for this session. If the user has provided
-        // a value in the `#date-input`, use that; otherwise initialize once and reuse.
         const dateInputVal = document.getElementById('date-input')?.value;
         if (dateInputVal) reviewDate = new Date(dateInputVal);
         else if (!reviewDate) reviewDate = new Date();
 
+        setTxt('lbl-reason-static', t('Label.Reason'));
+        setTxt('lbl-details-static', t('Label.ModeratorNote'));
         setTxt('display-note', note);
         setTxt('display-duration-title', t(`Heading.${dur}`));
-        setTxt('display-reason', t(`Reasons.${reason}`));
-        setTxt('display-trace', t('Labels.Trace') + traceID);
+        setTxt('display-reason', t(`Label.Reason.${reason}`));
+        setTxt('display-trace', traceID); // get trace id and display
         setTxt('display-date', getFormattedDate());
+        setTxt('txt-why', t('Heading.Subheading.WhyThisHappened'));
+        setTxt('txt-activity', t('Heading.Subheading.ActivityReviewed'));
+        setTxt('lbl-date-static', t('Label.ReviewDate'));
+        document.querySelector('.txt-mistake-appeal').innerText = t('Description.Mistake'); // Mistake.V2 to be added later
 
         const descEl = document.getElementById('display-desc');
         const mainBtn = document.getElementById('primary-action-btn');
         
         if (dur === 'Banned') {
             document.getElementById('icon-holder').innerHTML = '<div class="ban-icon"></div>';
-            if(descEl) descEl.innerText = t('Descriptions.BrokeRulesBannedV3');
+            if(descEl) descEl.innerText = t('Description.BrokeRulesBanned');
             if(mainBtn) {
-                // Render the report/appeal label but ensure it cannot navigate forward.
-                mainBtn.innerText = t('Buttons.ReportMistake');
+                mainBtn.innerText = t('Action.ReportMistake');
                 mainBtn.style = `color: ${isLight ? "#111" : "#eee"}; background: rgba(51, 95, 255, 0.298); border: none;`;
-                // Disable the primary report button to prevent accidental navigation.
                 try {
                     const disabledClone = mainBtn.cloneNode(true);
                     disabledClone.disabled = true;
@@ -786,10 +694,9 @@ body.light-mode .btn-logout {
                     mainBtn.parentNode.replaceChild(disabledClone, mainBtn);
                 } catch(e) { console.error('disable main report button error', e); }
             }
-            // Hide next navigation and disable any other 'Report a mistake' buttons on the page.
             document.getElementById('next-section-main').style.display = 'none';
             try {
-                const reportText = t('Buttons.ReportMistake') || t('Buttons.RequestAppeal');
+                const reportText = t('Action.ReportMistake') || t('Action.RequestAppeal');
                 const reportBtns = Array.from(document.querySelectorAll('button')).filter(b => b && b.innerText && b.innerText.trim() === reportText);
                 reportBtns.forEach(b => {
                     const clone = b.cloneNode(true);
@@ -798,11 +705,9 @@ body.light-mode .btn-logout {
                     clone.setAttribute('aria-disabled', 'true');
                     b.parentNode.replaceChild(clone, b);
                 });
-            } catch (e) { console.error('Error disabling report buttons', e); }
+            } catch (e) { console.error('Error disabling report button', e); }
         } else {
             const isWarn = dur === 'Warning';
-
-            // Determine evidence/violation types (exclude ChatEvidence from counting as a violation)
             const violations = evidenceItems.filter(e => e.type !== 'ChatEvidence');
             const hasViolations = violations.length > 0;
             const mediaTypes = ['Video','Comment','Image','Post'];
@@ -810,44 +715,37 @@ body.light-mode .btn-logout {
             const hasMedia = violations.some(e => mediaTypes.includes(e.type));
             const hasGeneric = violations.some(e => genericTypes.includes(e.type));
 
-            // Helper to get a type string for templates (singular, lowercase)
             const pickType = () => {
                 if (!hasViolations) return '';
                 const first = violations[0].type || '';
                 return first.toLowerCase();
             };
 
-            // Select description translation key based on rules provided
-            let descKey = 'Descriptions.GenericDescription';
+            let descKey = 'Description.GenericDescription';
             let descVars = {};
 
             if (!hasViolations) {
                 if (reason === 'Other') {
-                    descKey = 'Descriptions.GenericDescription';
+                    descKey = 'Description.GenericDescription';
                 } else {
-                    descKey = 'Descriptions.SpecificDescription';
-                    descVars = { reason: t(`Reasons.${reason}`).toLowerCase() };
+                    descKey = 'Description.SpecificDescription';
+                    descVars = { reason: t(`Label.Reason.${reason}`).toLowerCase() };
                 }
             } else {
-                // If any media-type evidence exists, treat as so
                 if (hasMedia) {
                     if (reason === 'Other') {
-                        descKey = 'Descriptions.GenericTypeDescriptionPlural';
+                        descKey = 'Description.GenericTypeDescriptionPlural';
                         descVars = { type: pickType() };
                     } else {
-                        descKey = 'Descriptions.SpecificTypeDescriptionPlural';
-                        descVars = { type: pickType(), reason: t(`Reasons.${reason}`).toLowerCase() };
+                        descKey = 'Description.SpecificTypeDescriptionPlural';
+                        descVars = { type: pickType(), reason: t(`Label.Reason.${reason}`).toLowerCase() };
                     }
                 } else {
-                    // Only generic/location evidence
                     if (reason === 'Other') {
-                        // When reason is 'Other' and only generic/location evidence exists,
-                        // use the generic overall description instead of a type-specific one.
-                        descKey = 'Descriptions.GenericDescription';
+                        descKey = 'Description.GenericDescription';
                     } else {
-                        // For non-Other with generic/location: use SpecificDescription
-                        descKey = 'Descriptions.SpecificDescription';
-                        descVars = { reason: t(`Reasons.${reason}`).toLowerCase() };
+                        descKey = 'Description.SpecificDescription';
+                        descVars = { reason: t(`Label.Reason.${reason}`).toLowerCase() };
                     }
                 }
             }
@@ -858,19 +756,17 @@ body.light-mode .btn-logout {
             }
             document.getElementById('icon-holder').innerHTML = `<img src="https://www.svgrepo.com/show/455819/exclamation-triangle.svg" class="svg-icon" style="filter: ${isWarn ? 'invert(84%) sepia(89%) saturate(464%) hue-rotate(351deg) brightness(98%) contrast(93%)' : 'invert(31%) sepia(93%) saturate(1292%) hue-rotate(1deg) brightness(94%) contrast(92%)'}">`;
             if(mainBtn) {
-                mainBtn.innerText = t('Buttons.Continue');
+                mainBtn.innerText = t('Action.Continue');
                 mainBtn.style = "background: #3355ff; color: #ffffff; border: none;";
                 try {
-                    // Ensure the primary action button is enabled and can be clicked after leaving a permanent ban state.
+                    // Ensure the primary action button is enabled and can be clicked after leaving a permanent ban state
                     mainBtn.disabled = false;
                     mainBtn.style.pointerEvents = 'auto';
                     mainBtn.removeAttribute('aria-disabled');
-                    // Reattach click handler to ensure navigation works even if button was previously replaced/disabled.
                     try { mainBtn.onclick = handlePrimaryClick; } catch(e) {}
                 } catch(e) { console.error('Failed to re-enable primary action button', e); }
                 try {
-                    // Re-enable any other report/appeal buttons that may have been disabled when switching to Banned.
-                    const reportText = t('Buttons.ReportMistake') || t('Buttons.RequestAppeal');
+                    const reportText = t('Action.ReportMistake') || t('Action.RequestAppeal');
                     Array.from(document.querySelectorAll('button')).forEach(b => {
                         try {
                             if (b && b.innerText && b.innerText.trim() === reportText) {
@@ -880,7 +776,7 @@ body.light-mode .btn-logout {
                             }
                         } catch (e) {}
                     });
-                } catch (e) { console.error('Error re-enabling report buttons', e); }
+                } catch (e) { console.error('Error re-enabling report button', e); }
             }
             document.getElementById('next-section-main').style.display = 'block';
         }
@@ -889,51 +785,38 @@ body.light-mode .btn-logout {
         if (list) {
             list.innerHTML = '';
 
-            // Group Generic items under single "Offensive item:" label
             const genericItems = evidenceItems.filter(i => i.type === 'Generic');
             if (genericItems.length > 0) {
                 const d = document.createElement('div'); d.className = 'field';
-                const valuesHtml = genericItems.map(g => `<div>${g.val1 || t('Labels.NoContent')}</div>`).join('');
+                const valuesHtml = genericItems.map(g => `<div>${g.val1 || t('Label.NoContent')}</div>`).join('');
                 d.innerHTML = `<span class="label">Offensive item:</span><span class="value">${valuesHtml}</span>`;
                 list.appendChild(d);
             }
 
-            // Render non-generic evidence items individually
             evidenceItems.filter(i => i.type !== 'Generic').forEach(i => {
                 const d = document.createElement('div'); d.className = 'field';
                 let label = i.type;
-                if (i.type === 'ChatEvidence') label = (t('Labels.ChatEvidenceID') || 'Chat Evidence ID');
-                else if (i.type === 'Location') label = (t('Labels.Location') || 'Location');
-                d.innerHTML = `<span class="label">${label}:</span><span class="value">${i.val1 || t('Labels.NoContent')}</span>`;
+                if (i.type === 'ChatEvidence') label = (t('Label.ChatEvidenceID') || 'Chat Evidence ID');
+                else if (i.type === 'Location') label = (t('Label.Location') || 'Location');
+                d.innerHTML = `<span class="label">${label}:</span><span class="value">${i.val1 || t('Label.NoContent')}</span>`;
                 list.appendChild(d);
             });
 
-            // show divider when there are evidence items
             const divider = document.getElementById('evidence-divider');
             if (divider) divider.style.display = evidenceItems.length > 0 ? 'block' : 'none';
         }
     }
 
-    /** --- NAVIGATION LOGIC --- **/
     function handlePrimaryClick() {
         console.log('handlePrimaryClick invoked');
         const dur = document.getElementById('duration-select')?.value;
         const reason = document.getElementById('reason-select')?.value;
         if (dur !== 'Banned') {
             if (policyMap[reason]) {
-                // Record when the user first pressed Continue so the 5s countdown
-                // begins from that moment even if navigation happens shortly after.
-                try {
-                    const confirmed = sessionStorage.getItem('policyConfirmed') === '1';
-                    if (!confirmed && !sessionStorage.getItem('policyCountdownStart')) {
-                        sessionStorage.setItem('policyCountdownStart', Date.now().toString());
-                        console.log('policyCountdownStart set at', Date.now());
-                    } else {
-                        console.log('policyConfirmed or start already set', confirmed, sessionStorage.getItem('policyCountdownStart'));
-                    }
-                } catch (e) {}
                 goToPolicyStep();
-            } else goToRulesStep();
+            } else {
+                goToRulesStep();
+            }
         }
     }
 
@@ -948,16 +831,60 @@ body.light-mode .btn-logout {
         else resetToMain();
     }
 
+    function formatWaitText(n) {
+        try {
+            if (n === 1) return t('Action.WaitSecond', { n });
+            return t('Action.WaitSeconds', { n });
+        } catch (e) { return `Wait ${n} seconds`; }
+    }
+
+    function startPolicyCountdown(finalBtn, agree) {
+        if (policyCountdownInterval) { clearInterval(policyCountdownInterval); policyCountdownInterval = null; }
+        policyCountdownRemaining = POLICY_COUNTDOWN_SECS;
+        if (!finalBtn) return;
+        
+        // Hide checkbox during countdown
+        const agreeWrap = document.getElementById('footer-rules-buttons')?.querySelector('label');
+        if (agreeWrap) agreeWrap.style.display = 'none';
+        
+        finalBtn.disabled = true;
+        finalBtn.style.background = 'transparent';
+        finalBtn.style.border = '1px solid var(--btn-gray)';
+        finalBtn.style.color = 'var(--text-muted)';
+        finalBtn.style.cursor = 'not-allowed';
+        finalBtn.style.opacity = '1';
+        finalBtn.style.pointerEvents = 'none';
+        finalBtn.innerText = formatWaitText(policyCountdownRemaining);
+        finalBtn.style.display = '';
+
+        policyCountdownInterval = setInterval(() => {
+            policyCountdownRemaining -= 1;
+            if (finalBtn) finalBtn.innerText = formatWaitText(policyCountdownRemaining);
+
+            if (policyCountdownRemaining <= 0) {
+                clearInterval(policyCountdownInterval); policyCountdownInterval = null;
+                
+                // Show checkbox after countdown completes
+                if (agreeWrap) agreeWrap.style.display = 'flex';
+                
+                // Button is enabled but requires checkbox
+                finalBtn.disabled = true;
+                finalBtn.innerText = t('Action.Continue');
+                finalBtn.style.background = '#3355ff'; 
+                finalBtn.style.border = 'none'; 
+                finalBtn.style.color = '#ffffff'; 
+                finalBtn.style.cursor = 'not-allowed'; 
+                finalBtn.style.opacity = '0.5';
+                finalBtn.style.pointerEvents = 'auto';
+            }
+        }, 1000);
+    }
+
     function goToPolicyStep() {
         currentStep = 2;
         const reason = document.getElementById('reason-select')?.value;
         const mapping = policyMap[reason];
-        // If there is no mapping or the translations are missing, skip the policy step.
         if (!mapping) { goToRulesStep(); return; }
-        const headerText = t(mapping.header);
-        const detailText = t(mapping.detail);
-        // If translations return the raw key (missing), skip policy step
-        if (headerText === mapping.header && detailText === mapping.detail) { goToRulesStep(); return; }
 
         document.getElementById('main-view').style.display = 'none';
         document.getElementById('rules-view').style.display = 'none';
@@ -965,162 +892,108 @@ body.light-mode .btn-logout {
         document.getElementById('footer-main-buttons').style.display = 'none';
         document.getElementById('footer-rules-buttons').style.display = 'flex';
 
+        const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+
+        setTxt('policy-intro-text', t('Description.PolicyIntro'));
+        setTxt('btn-back', t('Action.Back'));
+        setTxt('lbl-agree', t('Label.ConfirmUnderstanding'));
+
         document.getElementById('policy-header-title').innerText = t('Heading.ReviewPolicies');
 
-        // Swap the visible H2 header text and the label inside the policy card.
         const violHeaderEl = document.getElementById('policy-violated-header');
-        if (violHeaderEl) violHeaderEl.innerText = headerText;
+        if (violHeaderEl) violHeaderEl.innerText = t(mapping.header);
 
-        // Show a consistent "About this policy" label (localized) inside the card
-        document.getElementById('display-policy-label').innerHTML = `<span class="label" style="display:block; margin-bottom:8px;">${t('Labels.RuleMeaningV2')}</span>`;
-        document.getElementById('display-policy-description').innerText = detailText;
+        document.getElementById('display-policy-label').innerHTML = `<span class="label" style="display:block; margin-bottom:8px;">${t('Label.RuleExplanation.RuleMeaning')}</span>`;
+        document.getElementById('display-policy-description').innerText = t(mapping.detail);
 
-        document.getElementById('policy-why-header').innerText = t('Descriptions.BullyMatter') || 'Why does this matter?';
-        document.getElementById('display-policy-importance').innerHTML = `<span class="label" style="display:block; margin-bottom:8px;">${t(mapping.importanceLabel)}</span>${t(mapping.importance)}`;
+        document.getElementById('policy-why-header').innerText = t(mapping.importanceLabel);
+        document.getElementById('display-policy-importance').innerText = t(mapping.importance);
 
-        // Wire up the Learn more buttons
         const learnBtn = document.getElementById('policy-learn-more-btn');
-        if (learnBtn) { learnBtn.innerText = t('Buttons.LearnMore'); learnBtn.onclick = () => { console.log('Learn more clicked for reason', reason); }; }
+        if (learnBtn) { learnBtn.innerText = t('Action.LearnMore'); learnBtn.onclick = () => { console.log('Learn more clicked for reason', reason); }; }
         const learnBtn2 = document.getElementById('policy-why-learn-more-btn');
-        if (learnBtn2) { learnBtn2.innerText = t('Buttons.LearnMore'); learnBtn2.onclick = () => { console.log('Learn more (why) clicked for reason', reason); }; }
+        if (learnBtn2) { learnBtn2.innerText = t('Action.LearnMore'); learnBtn2.onclick = () => { console.log('Learn more (why) clicked for reason', reason); }; }
 
-        // Ensure any suspension timer from page 3 is not still running and updating this button
         try { if (suspensionIntervalId) { clearInterval(suspensionIntervalId); suspensionIntervalId = null; } } catch(e) {}
 
-        // 5-second countdown before allowing navigation to page 3 (unless user already confirmed)
         const finalBtn = document.getElementById('final-continue-btn');
         const agree = document.getElementById('agree-checkbox');
-        // Ensure the checkbox area is visible when viewing the policy page
-        try { const agreeWrap = document.getElementById('footer-rules-buttons')?.querySelector('label'); if (agreeWrap) agreeWrap.style.display = 'flex'; } catch(e) {}
-        // Reset final button styles to avoid leftovers from rules page
-        try {
-            if (finalBtn) {
-                finalBtn.style.background = '';
-                finalBtn.style.border = '';
-                finalBtn.style.color = '';
-                finalBtn.style.opacity = '';
-                finalBtn.style.cursor = '';
-                finalBtn.style.pointerEvents = '';
-                finalBtn.disabled = false;
-            }
-        } catch (e) {}
-        try {
-            const remembered = sessionStorage.getItem('policyConfirmed') === '1';
-            if (remembered || (agree && agree.checked)) {
-                // already allowed
-                console.log('policy already confirmed');
-                if (finalBtn) { finalBtn.disabled = false; finalBtn.innerText = t('Buttons.Continue'); finalBtn.style.opacity = '1'; finalBtn.style.cursor = 'pointer'; finalBtn.style.pointerEvents = 'auto'; }
-            } else {
-                // Start a dedicated policy countdown that won't be interfered with
-                let initialRemaining = POLICY_COUNTDOWN_SECS;
-                try {
-                    const start = parseInt(sessionStorage.getItem('policyCountdownStart') || '0', 10);
-                    console.log('policyCountdownStart read as', start);
-                    if (start > 0) {
-                        const elapsed = Math.floor((Date.now() - start) / 1000);
-                        initialRemaining = POLICY_COUNTDOWN_SECS - elapsed;
-                        console.log('elapsed since first continue:', elapsed, 'initialRemaining=', initialRemaining);
-                    }
-                } catch (e) { initialRemaining = POLICY_COUNTDOWN_SECS; }
-                if (initialRemaining > 0) {
-                    console.log('starting policy countdown with remaining', initialRemaining);
-                    startPolicyCountdown(finalBtn, agree, initialRemaining);
-                } else {
-                    console.log('policy countdown already elapsed, enabling continue');
-                    // If the stored start has already elapsed, clear it and enable immediately
-                    try { sessionStorage.removeItem('policyCountdownStart'); } catch (e) {}
-                    if (finalBtn) { finalBtn.disabled = false; finalBtn.innerText = t('Buttons.Continue'); finalBtn.style.background = '#3355ff'; finalBtn.style.border = 'none'; finalBtn.style.color = '#ffffff'; finalBtn.style.opacity = '1'; finalBtn.style.cursor = 'pointer'; finalBtn.style.pointerEvents = 'auto'; }
-                }
-            }
-        } catch (e) { console.error('policy countdown error', e); }
+        
+        // Reset checkbox
+        if (agree) agree.checked = false;
+        
+        startPolicyCountdown(finalBtn, agree);
     }
 
     function goToRulesStep() {
         currentStep = 3;
-        // FIX: Explicitly hide main-view so it doesn't stay visible
         document.getElementById('main-view').style.display = 'none';
         document.getElementById('policy-view').style.display = 'none';
         document.getElementById('rules-view').style.display = 'block';
         document.getElementById('footer-main-buttons').style.display = 'none';
         document.getElementById('footer-rules-buttons').style.display = 'flex';
 
-        // Populate third page texts from translations
         const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
-        setTxt('txt-next-header', t('Heading.WhatComesNext'));
-        setTxt('txt-rules-header', t('Heading.UnderstandRules'));
+        
+        setTxt('txt-rules-header', t('Heading.Subheading.WhatComesNext'));
+        setTxt('lbl-follow-rules-static', t('Heading.Subheading.FollowTheRules'));
+        setTxt('txt-follow-rules', t('Description.FollowFuture'));
+        setTxt('lbl-violations-static', t('Heading.Subheading.RuleViolationsAddUp'));
+        setTxt('txt-violations-desc', t('Description.Foreshadow'));
+        setTxt('lbl-agree', t('Label.AgreeToRules'));
+        setTxt('btn-back', t('Action.Back'));
 
-        // Follow the rules section
-        setTxt('lbl-follow-rules-static', t('Heading.FollowTheRules'));
-        // Use the V2 copy for follow-the-rules guidance
-        setTxt('txt-follow-rules', t('Descriptions.FollowFutureV2'));
-
-        // Violations section
-        setTxt('lbl-violations-static', t('Heading.ViolationsAddUp'));
-        setTxt('txt-violations-desc', t('Descriptions.Foreshadow'));
-
-        // View rules button label
         const viewRulesBtn = document.getElementById('btn-view-rules-inner');
-        if (viewRulesBtn) viewRulesBtn.innerText = t('Buttons.ViewRules');
+        if (viewRulesBtn) viewRulesBtn.innerText = t('Action.ViewRules');
 
-        // Suspension handling: if the action is a temporary suspension, calculate end date
         const dur = document.getElementById('duration-select')?.value || 'Warning';
         const finalBtn = document.getElementById('final-continue-btn');
         const agreeWrap = document.getElementById('footer-rules-buttons')?.querySelector('label');
-        // element used for showing policy countdown (may exist when policy was shown)
-        const countdownEl = document.getElementById('policy-countdown');
+        const agreeCheckbox = document.getElementById('agree-checkbox');
 
-        // Helper to normalize and compute remaining time in ms
         const suspensionDaysMap = { 'Suspended1Day': 1, 'Suspended3Days': 3, 'Suspended7Days': 7, 'Suspended14Days': 14 };
+        
         if (dur.startsWith('Suspended') && suspensionDaysMap[dur]) {
-            // Determine ban start date (use review date input if present, otherwise now)
             const dateInputVal = document.getElementById('date-input')?.value;
-            // Prefer explicit input, otherwise use the persistent reviewDate, otherwise now
             const startDate = dateInputVal ? new Date(dateInputVal) : (reviewDate || new Date());
             const days = suspensionDaysMap[dur];
             const endDate = new Date(startDate.getTime() + days * 24 * 60 * 60 * 1000);
 
-            // Periodically check remaining time and update the button state
             const updateSuspensionState = () => {
-                // Only update suspension UI when we're on the rules page (page 3).
                 if (currentStep !== 3) return false;
                 const now = new Date();
                 const remMs = endDate.getTime() - now.getTime();
+                
                 if (remMs <= 0) {
-                    // expired — show checkbox and regular continue button
                     if (agreeWrap) agreeWrap.style.display = 'flex';
                     if (finalBtn) {
                         finalBtn.disabled = true; // will be enabled by checkbox
                         finalBtn.style.background = '#3355ff';
                         finalBtn.style.color = '#ffffff';
                         finalBtn.style.border = 'none';
-                        finalBtn.innerText = t('Buttons.Continue');
+                        finalBtn.innerText = t('Action.Continue');
                         finalBtn.style.cursor = 'not-allowed';
                         finalBtn.style.opacity = '0.5';
                     }
                     return true;
                 } else {
-                    // still suspended — hide checkbox, disable/grey button and show remaining time
                     if (agreeWrap) agreeWrap.style.display = 'none';
                     if (finalBtn) {
-                        // keep disabled while suspension active
                         finalBtn.disabled = true;
-                        finalBtn.innerText = t('Buttons.Continue');
+                        finalBtn.innerText = t('Action.Continue');
                         finalBtn.style.background = 'transparent';
-                        if (countdownEl) countdownEl.innerText = '';
                         finalBtn.style.border = '1px solid var(--btn-gray)';
                         finalBtn.style.color = 'var(--text-muted)';
                         finalBtn.style.cursor = 'not-allowed';
                         finalBtn.style.opacity = '1';
-                        // format remaining
-                        const secs = Math.floor(remMs / 1000);
-                        const daysLeft = Math.floor(secs / 86400);
+                        const secs = Math.ceil(remMs / 1000);
+                        const daysLeft = Math.ceil(secs / 86400);
                         let label = '';
-                        if (countdownEl) countdownEl.innerText = '';
-                        if (daysLeft >= 1) label = `Suspension: ${daysLeft} day${daysLeft>1?'s':''}`;
+                        if (daysLeft >= 1) label = `${t('Label.Suspension')}: ${daysLeft} day${daysLeft>1?'s':''}`;
                         else {
                             const hh = String(Math.floor((secs % 86400) / 3600)).padStart(2,'0');
                             const mm = String(Math.floor((secs % 3600) / 60)).padStart(2,'0');
-                            label = `Suspension: ${hh}:${mm} hours`;
+                            label = `${t('Label.Suspension')}: ${hh}:${mm} hours`;
                         }
                         finalBtn.innerText = label;
                     }
@@ -1128,7 +1001,6 @@ body.light-mode .btn-logout {
                 }
             };
 
-            // Run initial update and set interval to watch for expiration
             const expiredNow = updateSuspensionState();
             if (!expiredNow) {
                 // clear any existing before starting
@@ -1139,14 +1011,13 @@ body.light-mode .btn-logout {
                 }, 1000);
             }
         } else {
-            // Not a temp suspension — ensure checkbox visible and continue button normal
             if (agreeWrap) agreeWrap.style.display = 'flex';
             if (finalBtn) {
-                finalBtn.disabled = true; // enable only via checkbox
+                finalBtn.disabled = true;
                 finalBtn.style.background = '#3355ff';
                 finalBtn.style.color = '#ffffff';
                 finalBtn.style.border = 'none';
-                finalBtn.innerText = t('Buttons.Continue');
+                finalBtn.innerText = t('Action.Continue');
                 finalBtn.style.opacity = '0.5';
                 finalBtn.style.cursor = 'not-allowed';
             }
@@ -1160,7 +1031,6 @@ body.light-mode .btn-logout {
         document.getElementById('main-view').style.display = 'block';
         document.getElementById('footer-main-buttons').style.display = 'flex';
         document.getElementById('footer-rules-buttons').style.display = 'none';
-        // Clear any running suspension interval when leaving rules/policy pages
         try { if (suspensionIntervalId) { clearInterval(suspensionIntervalId); suspensionIntervalId = null; } } catch (e) {}
     }
 
@@ -1171,90 +1041,15 @@ body.light-mode .btn-logout {
             b.disabled = !c.checked; 
             b.style.opacity = c.checked ? "1" : "0.5";
             b.style.cursor = c.checked ? "pointer" : "not-allowed";
-            // Remember that the user checked the policy so future navigation skips countdown
-            try {
-                if (c.checked) { sessionStorage.setItem('policyConfirmed', '1'); sessionStorage.removeItem('policyCountdownStart'); }
-            } catch (e) {}
         }
     }
 
-    // Ensure checkbox toggles the final continue button (no session persistence)
-    (function ensureToggle() {
-        try {
-            const agree = document.getElementById('agree-checkbox');
-            if (agree) agree.addEventListener('change', () => { const ev = new Event('agree-changed'); document.dispatchEvent(ev); });
-            document.addEventListener('agree-changed', () => { try { const c = document.getElementById('agree-checkbox'); const b = document.getElementById('final-continue-btn'); if (c && b) updateFinalButtonStyle(b, !!c.checked); } catch(e){} });
-        } catch(e){}
-    })();
-
-    // Override primary handler: navigate to policy step without starting any countdown or persisting session flags
-    function handlePrimaryClick() {
-        console.log('handlePrimaryClick invoked (override: no countdown)');
-        try { goToPolicyStep(); } catch (e) { console.error('handlePrimaryClick override error', e); }
+    function reportMistakeClicked(event) {
+        console.log('Report mistake clicked');
     }
 
-    // Override goToPolicyStep to remove any countdown/session storage checks and simply show the policy content.
-    function goToPolicyStep() {
-        currentStep = 2;
-        const reason = document.getElementById('reason-select')?.value;
-        const mapping = policyMap[reason];
-        if (!mapping) { goToRulesStep(); return; }
-        const headerText = t(mapping.header);
-        const detailText = t(mapping.detail);
-        if (headerText === mapping.header && detailText === mapping.detail) { goToRulesStep(); return; }
-
-        document.getElementById('main-view').style.display = 'none';
-        document.getElementById('rules-view').style.display = 'none';
-        document.getElementById('policy-view').style.display = 'flex';
-        document.getElementById('footer-main-buttons').style.display = 'none';
-        document.getElementById('footer-rules-buttons').style.display = 'flex';
-
-        document.getElementById('policy-header-title').innerText = t('Heading.ReviewPolicies');
-        const violHeaderEl = document.getElementById('policy-violated-header');
-        if (violHeaderEl) violHeaderEl.innerText = headerText;
-        document.getElementById('display-policy-label').innerHTML = `<span class="label" style="display:block; margin-bottom:8px;">${t('Labels.RuleMeaningV2')}</span>`;
-        document.getElementById('display-policy-description').innerText = detailText;
-        document.getElementById('policy-why-header').innerText = t('Descriptions.BullyMatter') || 'Why does this matter?';
-        document.getElementById('display-policy-importance').innerHTML = `<span class="label" style="display:block; margin-bottom:8px;">${t(mapping.importanceLabel)}</span>${t(mapping.importance)}`;
-
-        const learnBtn = document.getElementById('policy-learn-more-btn');
-        if (learnBtn) { learnBtn.innerText = t('Buttons.LearnMore'); learnBtn.onclick = () => { console.log('Learn more clicked for reason', reason); }; }
-        const learnBtn2 = document.getElementById('policy-why-learn-more-btn');
-        if (learnBtn2) { learnBtn2.innerText = t('Buttons.LearnMore'); learnBtn2.onclick = () => { console.log('Learn more (why) clicked for reason', reason); }; }
-
-        try { if (suspensionIntervalId) { clearInterval(suspensionIntervalId); suspensionIntervalId = null; } } catch(e) {}
-
-        // Ensure the final button reflects the checkbox state and no countdown is started.
-        const finalBtn = document.getElementById('final-continue-btn');
-        const agree = document.getElementById('agree-checkbox');
-        try { const agreeWrap = document.getElementById('footer-rules-buttons')?.querySelector('label'); if (agreeWrap) agreeWrap.style.display = 'flex'; } catch(e) {}
-        try {
-            if (agree) {
-                // restore previous agree state when coming back to policy
-                agree.checked = !!policyAgreeState;
-            }
-            if (finalBtn) { updateFinalButtonStyle(finalBtn, !!(agree && agree.checked)); finalBtn.innerText = t('Buttons.Continue'); }
-        } catch(e) {}
-    }
-
-    // Override toggleContinueBtn to remove sessionStorage side-effects and just enable the button based on checkbox.
-    function toggleContinueBtn() {
-        const c = document.getElementById('agree-checkbox');
-        const b = document.getElementById('final-continue-btn');
-        if (c && b) {
-            try { updateFinalButtonStyle(b, !!c.checked); } catch (e) { console.error('toggleContinueBtn override error', e); }
-        }
-    }
-
-    // Compatibility: remove countdown behavior when navigating policy -> rules.
-    function startPolicyCountdown(finalBtn, agree, initialRemaining) {
-        if (!finalBtn) return;
-        try {
-            updateFinalButtonStyle(finalBtn, !!(agree && agree.checked));
-            finalBtn.innerText = t('Buttons.Continue');
-            const countdownEl = document.getElementById('policy-countdown');
-            if (countdownEl) countdownEl.innerText = '';
-        } catch (e) { console.error('startPolicyCountdown override error', e); }
+    function handleLogout() {
+        console.log('Logout clicked');
     }
 
     init();
