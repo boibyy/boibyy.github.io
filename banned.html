@@ -55,6 +55,9 @@ body {transition: opacity ease-in 0.2s; }
     overflow-y: auto; 
 }
         
+#agree-checkbox {
+    background-color: var(--bg-card);
+}
         .customizer-toggle { position: fixed; bottom: 20px; left: 20px; z-index: 1000; background: var(--btn-blue); color: white; border: none; padding: 10px 15px; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         
         @media (max-width: 768px) {
@@ -112,8 +115,28 @@ body {transition: opacity ease-in 0.2s; }
         .panel { position: fixed; left: -320px; top: 0; width: 300px; height: 100%; background: var(--panel-bg); border-right: 1px solid var(--shadow-border); z-index: 999; padding: 20px; box-sizing: border-box; transition: left 0.3s ease; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
         .panel.open { left: 0; }
         .panel h3 { margin: 0; font-size: 18px; color: var(--text-header); }
-        .panel label { display: block; font-size: 11px; font-weight: bold; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
+        .panel label { display: block; font-size: 12px; font-weight: bold; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
         .panel select, .panel input, .panel textarea { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--shadow-border); background: var(--bg-card); color: var(--text-normal); font-family: inherit; margin-bottom: 10px; }
+        
+        .progress-bar-container {
+            width: 94%;
+            height: 5px;
+            background: var(--btn-gray);
+            position: relative;
+            margin-top: 36px;
+            margin-left: 3%;
+            display: none;
+            border-radius: 10px;
+            margin-bottom: -8px;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background: #3355ff;
+            transition: width 0.3s ease;
+            width: 0%;
+            border-radius: 10px;
+        }
         
         .scrollable-body {
             flex: 1;
@@ -127,7 +150,7 @@ body {transition: opacity ease-in 0.2s; }
             box-shadow: 0 0 0 1px var(--shadow-border), 0 3px 24px rgba(200,200,200, 0.25); 
         }
 
-        #main-view, #rules-view {
+        #main-view, #rules-view, #policy-view {
             display: flex;
             flex-direction: column;
             min-height: 100%;
@@ -155,12 +178,12 @@ body {transition: opacity ease-in 0.2s; }
         .ban-icon { width: 22px; height: 22px; border: 2px solid var(--danger); border-radius: 50%; box-sizing: border-box; position: relative; }
         .ban-icon::after { content: ''; position: absolute; width: 2px; height: 100%; background: var(--danger); top: 0; left: 50%; transform: translateX(-50%) rotate(45deg); }
         .svg-icon { width: 26px; height: 26px; }
-        h1 { color: var(--text-header); font-size: 20px; font-weight: 700; margin: 0; line-height: 2.4; }
+        h1 { color: var(--text-header); font-size: 21px; font-weight: 700; margin: 0; line-height: 2.4; }
         .dots { color: var(--text-header); font-size: 20px; margin-right: 6px; cursor: pointer; line-height: 1; }
         .description { font-size: 14px; color: var(--text-normal); margin: 0 0 22px 0; line-height: 1.35; }
-        h2 { font-size: 15.5px; font-weight: 700; color: var(--text-header); margin: 0 0 9px 0; }
-        .card { background: var(--bg-card); border-radius: var(--radius-card); padding: 14px; margin-bottom: 20px; border: 1px rgba(0, 0, 0, 0.03); }
-        .field { margin-bottom: 10px; }
+        h2 { font-size: 16px; font-weight: 700; color: var(--text-header); margin: 2px 0 12px 0; }
+        .card { background: var(--bg-card); border-radius: var(--radius-card); padding: 15px; margin-bottom: 22px; border: 1px rgba(0, 0, 0, 0.03); }
+        .field { margin-bottom: 12px; }
         .card .field:last-child { margin-bottom: 0; }
         .label { display: block; font-weight: 700; font-size: 14px; color: var(--text-header); margin-bottom: 2px; }
         .value { display: block; font-size: 14px; color: var(--text-normal); line-height: 1.35; }
@@ -171,6 +194,61 @@ body {transition: opacity ease-in 0.2s; }
         #evidence-overflow { display: none; }
         #policy-why-card { padding: 14px; margin-top: 0px; margin-bottom: 10px; }
         #policy-why-card .value { margin: 0; }
+
+        #policy-header-title-1, #policy-header-title-2, #rules-header-title {
+            font-size: 24px;
+        }
+
+        #policy-violated-header {
+            margin-top: 6px!important;
+            font-weight: 15px;
+        }
+
+        #display-policy-description, #rules-description, #display-policy-importance, #rules-mistake-text {
+            font-size: 15px!important;
+        }
+
+        input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            
+            width: 20px;
+            height: 20px;
+            background-color: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            
+            display: inline-grid;
+            place-content: center;
+            cursor: pointer;
+            transition: all 0.1s ease-in-out;
+        }
+
+        input[type="checkbox"]:hover {
+            border-color: rgb(17, 17, 17);
+            background-color: var(--bg-base);
+        }
+
+        input[type="checkbox"]:checked {
+            background-color: rgb(51, 85, 255)!important;
+            border-color: rgb(17, 17, 17)!important;
+        }
+
+        input[type="checkbox"]::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            transform: scale(0); /* hide */
+            transition: 120ms transform ease-in-out;
+            
+            background-color: var(--bg-modal);
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+
+        input[type="checkbox"]:checked::before {
+            transform: scale(1);
+        }
+        
 
 /* Mobile-specific overrides */
 @media (max-width: 640px) {
@@ -247,8 +325,7 @@ body {transition: opacity ease-in 0.2s; }
     <div><label>Reason</label>
         <select id="reason-select" onchange="updateContent()">
             <option value="Other">Other</option>
-            <option value="BanEvasion">Ban Evasion</option>
-            <option value="Harassment">Harassment</option>
+            <option value="Harassment.V2">Bullying and Harassment</option>
             <option value="ExtortionThreats">Extortion and Threats</option>
             <option value="Spam">Spam</option>
             <option value="Scamming">Scamming</option>
@@ -257,33 +334,31 @@ body {transition: opacity ease-in 0.2s; }
             <option value="MisusingSystems">Misusing Boiby Systems</option>
             <option value="PrivacyGivingPII">Privacy: Giving PII</option>
             <option value="PrivacyAskingPII">Privacy: Asking for PII</option>
-            <option value="IPViolation">Intellectual Property Violation</option>
-            <option value="ChildEndangerment">Child Endangerment</option>
-            <option value="TerrorismExtremism">Terrorism and Violent Extremism</option>
+            <option value="PoliticalContent">Political Content</option>
+            <option value="Impersonation">Impersonation</option>
             <option value="ViolentGore">Violent Content and Gore</option>
             <option value="UndisclosedAds">Undisclosed Advertisement</option>
             <option value="DisruptiveAudio">Disruptive Audio</option>
             <option value="DangerousActivities">Dangerous Activities</option>
             <option value="Misinformation">Misinformation</option>
             <option value="Dating.V2">Dating and Romantic Content</option>
-            <option value="IllegalRegulated">Illegal or Regulated Content</option>
             <option value="SensitiveEvents">Real-World Sensitive Events</option>
-            <option value="AccountTheft">Account Theft</option>
-            <option value="CompromisedAccount">Compromised Account</option>
+            <option value="IllegalRegulated">Illegal or Regulated Content</option>
             <option value="RepeatedRefunds">Repeated Refund Requests</option>
             <option value="Chargebacks">Chargebacks</option>
-            <option value="PaymentAbuse">Payment Abuse</option>
-            <option value="Impersonation">Impersonation</option>
-            <option value="PoliticalContent">Political Content</option>
+            <option value="IPViolation">Intellectual Property Violation</option>
+            <option value="TerrorismExtremism">Terrorism and Violent Extremism</option>
+            <option value="ChildEndangerment">Child Endangerment</option>
+            <option value="AccountTheft">Account Theft</option>
         </select>
     </div>
     <div><label>Note Presets</label><select id="note-preset" onchange="applyPresetNote()"><option value="">-- Choose a Preset --</option>
         <option value="Child Endangerment">Child Endangerment</option>
-        <option value="Ban Evasion">Ban Evasion</option>
+        <option value="AltConsequence.V2">Ban Evasion</option>
         <option value="Harassment">Harassment</option>
         <option value="Spam">Spam</option>
         <option value="Dating">Dating</option>
-        <option value="Hate Speech">Discrimination or Hate Speech</option>
+        <option value="DiscriminationHate">Discrimination or Hate Speech</option>
         <option value="Sexual Content">Sexual Content</option>
         <option value="Scamming">Scamming</option>
         <option value="PoliticalContent">Political Content</option>
@@ -308,6 +383,7 @@ body {transition: opacity ease-in 0.2s; }
         <option value="DisplayName">Display Name</option>
         <option value="OffPlatformBehaviour">Off-Platform Behaviour</option>
         <option value="AccountForBreakingRules">Account for Breaking Rules</option>
+        <option value="MultipleAccountsSevere">Multiple Account Violations</option>
     </select></div>
     <div><label>Custom Note</label><textarea id="note-input" rows="3" oninput="updateContent()"></textarea></div>
     <div><label>Review Date</label><input type="datetime-local" id="date-input" oninput="updateContent()"></div>
@@ -328,6 +404,10 @@ body {transition: opacity ease-in 0.2s; }
 </aside>
 
 <div class="container">
+    <div class="progress-bar-container" id="progress-bar-container">
+        <div class="progress-bar-fill" id="progress-bar-fill"></div>
+    </div>
+    
     <div class="scrollable-body">
         <div id="main-view">
             <div class="header">
@@ -356,37 +436,25 @@ body {transition: opacity ease-in 0.2s; }
             <div class="trace-id" id="display-trace"></div>
         </div>
 
-        <div id="policy-view" style="display: none; flex-direction: column;">
-            <h1 id="policy-header-title"></h1>
-            <p class="description" id="policy-intro-text"></p>
-            
+        <div id="policy-view-1" style="display: none; flex-direction: column;">
+            <h1 id="policy-header-title-1"></h1>
             <h2 style="margin-top: 2px;" id="policy-violated-header"></h2>
-            <div class="card">
-                <div class="field">
-                    <span class="label" id="display-policy-label" style="color: var(--text-header);"></span>
-                    <span class="value" id="display-policy-description" style="margin-top: 0px; line-height: 1.35; white-space: pre-wrap;"></span>
-                    <div style="margin-top:12px;"><button class="btn-view-more" id="policy-learn-more-btn" style="margin-bottom:1px">Learn more</button></div>
-                </div>
-            </div>
-        
-            <div class="card" id="policy-why-card">
-                <div class="field">
-                    <span class="label" id="policy-why-header" style="color: var(--text-header); display: block; margin-bottom: 8px;"></span>
-                    <p class="value" id="display-policy-importance"></p>
-                    <div style="margin-top:12px;"><button class="btn-view-more" id="policy-why-learn-more-btn" style="margin-bottom:1px">Learn more</button></div>
-                </div>
-            </div>
+            <span class="value" id="display-policy-description" style="margin-top: 0px; line-height: 1.35; white-space: pre-wrap;"></span>
+            <div style="margin-top:12px;"><button class="btn-view-more" id="policy-learn-more-btn-1" style="margin-bottom:1px">Learn more</button></div>
         </div>
 
-        <div id="rules-view" style="display: none;">
-            <h2 id="txt-rules-header" style="margin-top: 12px;"></h2>
-            <div class="card">
-                <div>
-                    <div class="field"><span class="label" id="lbl-follow-rules-static"></span><span class="value" id="txt-follow-rules"></span></div>
-                    <div class="field"><span class="label" id="lbl-violations-static"></span><span class="value" id="txt-violations-desc"></span></div>
-                    <button class="btn-view-more" id="btn-view-rules-inner" onclick="console.log('Rules viewed')">View rules</button>
-                </div>
-            </div>
+        <div id="policy-view-2" style="display: none; flex-direction: column;">
+            <h1 id="policy-header-title-2"></h1>
+            <span class="value" id="display-policy-importance" style="margin-top: 0px; line-height: 1.35; white-space: pre-wrap;"></span>
+            <div style="margin-top:12px;"><button class="btn-view-more" id="policy-learn-more-btn-2" style="margin-bottom:1px">Learn more</button></div>
+        </div>
+
+        <div id="rules-view" style="display: none; flex-direction: column;">
+            <h1 id="rules-header-title"></h1>
+            <span class="value" id="rules-description" style="margin-top: 0px; line-height: 1.35; white-space: pre-wrap;"></span>
+            <div style="margin-top:5px;"><button class="btn-view-more" id="btn-view-rules-inner" style="margin-bottom:1px">View rules</button></div>
+            <span class="value" id="rules-mistake-text" style="margin-top: 40px; line-height: 1.35; white-space: pre-wrap;"></span>
+            <div style="margin-top:5px;"><button class="btn-view-more" id="btn-report-mistake-rules" style="margin-bottom:1px">Report a mistake</button></div>
         </div>
     </div>
 
@@ -396,13 +464,13 @@ body {transition: opacity ease-in 0.2s; }
             <button class="btn-logout" id="logout-btn" onclick="handleLogout()" style="display: none;">Log out</button>
         </div>
         <div id="footer-rules-buttons" style="display: none; justify-content: space-between; align-items: center; width: 100%;">
-            <button class="btn-report" id="btn-back" style="background-color: var(--btn-gray); color: var(--text-header);" onclick="toggleSubpage(false)">Back</button>
+            <button class="btn-report" id="btn-back" style="background-color: var(--btn-gray); color: var(--text-header);" onclick="handleBackNavigation()">Back</button>
             <div style="display:flex; align-items:center; gap:10px;">
                 <label style="display:flex; align-items:center; gap:5px; font-size:14px; cursor:pointer; color:var(--text-normal);">
                     <input type="checkbox" id="agree-checkbox" onchange="toggleContinueBtn()"> 
-                    <span id="lbl-agree">I agree to know and follow the rules.</span>
+                    <span id="lbl-agree">Check to confirm you understand.</span>
                 </label>
-                <button class="btn-report" id="final-continue-btn" disabled style="opacity:0.5; cursor:not-allowed;">Continue</button>
+                <button class="btn-report" id="final-continue-btn" onclick="handleContinueClick()" disabled style="opacity:0.5; cursor:not-allowed;">Continue</button>
             </div>
         </div>
     </div>
@@ -413,63 +481,185 @@ body {transition: opacity ease-in 0.2s; }
     let evidenceItems = [];
     let currentType = 'None';
     let currentStep = 1; 
-    // suspension interval id (so it can be cleared when navigating between pages)
     let suspensionIntervalId = null;
-    let policyAgreeState = false;
     let reviewDate = null;
-    let policyCountdownInterval = null;
-    let policyCountdownRemaining = 0;
-    const POLICY_COUNTDOWN_SECS = 5;
 
     const policyMap = {
         "Harassment": { 
+            headerTop: "Heading.BullyHeaderTop",
             header: "Heading.RuleExplanation.BullyHeader", 
             detail: "Description.BullyDetail", 
-            importanceLabel: "Label.RuleExplanation.WhyMatter", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
+            importance: "Description.BullyImportance" 
+        },
+        "Harassment.V2": { 
+            headerTop: "Heading.BullyHeaderTop",
+            header: "Heading.RuleExplanation.BullyHeader", 
+            detail: "Description.BullyDetail", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
             importance: "Description.BullyImportance" 
         },
         "DiscriminationHate": { 
+            headerTop: "Heading.BullyHeaderTop",
             header: "Heading.RuleExplanation.BullyHeader", 
             detail: "Description.BullyDetail", 
-            importanceLabel: "Label.RuleExplanation.WhyMatter", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
             importance: "Description.BullyImportance" 
         },
         "Spam": { 
+            headerTop: "Heading.SpamHeaderTop",
             header: "Heading.RuleExplanation.SpamHeader", 
             detail: "Description.SpamDetail", 
-            importanceLabel: "Label.RuleExplanation.WhyMatter", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
             importance: "Description.SpamImportance" 
         },
         "ExtortionThreats": { 
+            headerTop: "Heading.ExtortionHeaderTop",
             header: "Heading.RuleExplanation.ExtortionHeader", 
             detail: "Description.ExtortionDetail", 
-            importanceLabel: "Label.RuleExplanation.WhyMatter", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
             importance: "Description.ExtortionImportance" 
         },
         "ViolentGore": { 
+            headerTop: "Heading.ViolentHeaderTop",
             header: "Heading.RuleExplanation.ViolentHeader", 
             detail: "Description.ViolentDetail", 
-            importanceLabel: "Label.RuleExplanation.WhyMatter", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
             importance: "Description.ViolentImportance" 
         },
         "Dating": { 
+            headerTop: "Heading.DatingHeaderTop",
             header: "Heading.RuleExplanation.DatingHeader", 
             detail: "Description.DatingDetail", 
-            importanceLabel: "Label.RuleExplanation.WhyMatter", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
             importance: "Description.DatingImportance" 
         },
         "Dating.V2": { 
+            headerTop: "Heading.DatingHeaderTop",
             header: "Heading.RuleExplanation.DatingHeader", 
             detail: "Description.DatingDetail", 
-            importanceLabel: "Label.RuleExplanation.WhyMatter", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
             importance: "Description.DatingImportance" 
         },
+        "MisusingSystems": { 
+            headerTop: "Heading.MisusingSystemsHeaderTop",
+            header: "Heading.RuleExplanation.MisusingSystemsHeader", 
+            detail: "Description.MisusingSystemsDetail", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
+            importance: "Description.MisusingSystemsImportance" 
+        },
         "DangerousActivities": { 
+            headerTop: "Heading.HarmfulHeaderTop",
             header: "Heading.RuleExplanation.HarmfulHeader", 
             detail: "Description.HarmfulDetail", 
-            importanceLabel: "Label.RuleExplanation.WhyMatter", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
             importance: "Description.HarmfulImportance" 
         },
+        "Misinformation": { 
+            headerTop: "Heading.MisinformationHeaderTop",
+            header: "Heading.RuleExplanation.MisinformationHeader", 
+            detail: "Description.MisinformationDetail", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
+            importance: "Description.MisinformationImportance" 
+        },
+        "UndisclosedAds": { 
+            headerTop: "Heading.UndisclosedAdsHeaderTop",
+            header: "Heading.RuleExplanation.UndisclosedAdsHeader", 
+            detail: "Description.UndisclosedAdsDetail", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
+            importance: "Description.UndisclosedAdsImportance" 
+        },
+        "SexualContent": { 
+            headerTop: "Heading.SexualHeaderTop",
+            header: "Heading.RuleExplanation.SexualHeader", 
+            detail: "Description.SexualDetail", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
+            importance: "Description.SexualImportance" 
+        },
+        "PoliticalContent": { 
+            headerTop: "Heading.PoliticalHeaderTop",
+            header: "Heading.RuleExplanation.PoliticalHeader", 
+            detail: "Description.PoliticalDetail", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
+            importance: "Description.PoliticalImportance"
+        },
+        "PoliticalContent.V2": { 
+            headerTop: "Heading.PoliticalHeaderTop",
+            header: "Heading.RuleExplanation.PoliticalHeader", 
+            detail: "Description.PoliticalDetail", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
+            importance: "Description.PoliticalImportance"
+        },
+        "PrivacyGivingPII": { 
+            headerTop: "Heading.PIIHeaderTop",
+            header: "Heading.RuleExplanation.PIIHeader", 
+            detail: "Description.PIIDetail", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
+            importance: "Description.PIIImportance"
+        },
+        "PrivacyAskingPII": { 
+            headerTop: "Heading.PIIHeaderTop",
+            header: "Heading.RuleExplanation.PIIHeader", 
+            detail: "Description.PIIDetail", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
+            importance: "Description.PIIImportance"
+        },
+        "Scamming": { 
+            headerTop: "Heading.ScammingHeaderTop",
+            header: "Heading.RuleExplanation.ScammingHeader", 
+            detail: "Description.ScammingDetail", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
+            importance: "Description.ScammingImportance"
+        },
+        "DisruptiveAudio": { 
+            headerTop: "Heading.DisruptiveAudioHeaderTop",
+            header: "Heading.RuleExplanation.DisruptiveAudioHeader", 
+            detail: "Description.DisruptiveAudioDetail", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
+            importance: "Description.DisruptiveAudioImportance"
+        },
+        "Impersonation": { 
+            headerTop: "Heading.ImpersonationHeaderTop",
+            header: "Heading.RuleExplanation.ImpersonationHeader", 
+            detail: "Description.ImpersonationDetail", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
+            importance: "Description.ImpersonationImportance"
+        },
+        "SensitiveEvents": { 
+            headerTop: "Heading.SensitiveEventsHeaderTop",
+            header: "Heading.RuleExplanation.SensitiveEventsHeader", 
+            detail: "Description.SensitiveEventsDetail", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
+            importance: "Description.SensitiveEventsImportance"
+        },
+        "RepeatedRefunds": { 
+            headerTop: "Heading.ChargebackHeaderTop",
+            header: "Heading.RuleExplanation.ChargebackHeader", 
+            detail: "Description.ChargebackDetail", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
+            importance: "Description.ChargebackImportance"
+        },
+        "Chargebacks": { 
+            headerTop: "Heading.ChargebackHeaderTop",
+            header: "Heading.RuleExplanation.ChargebackHeader", 
+            detail: "Description.ChargebackDetail", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
+            importance: "Description.ChargebackImportance"
+        },
+        "IllegalRegulated": { 
+            headerTop: "Heading.IllegalContentHeaderTop",
+            header: "Heading.RuleExplanation.IllegalContentHeader", 
+            detail: "Description.IllegalContentDetail", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
+            importance: "Description.IllegalContentImportance"
+        },
+        "IPViolation": { 
+            headerTop: "Heading.IPViolationHeaderTop",
+            header: "Heading.RuleExplanation.IPViolationHeader", 
+            detail: "Description.IPViolationDetail", 
+            importanceLabel: "Heading.WhyDoesThisMatter", 
+            importance: "Description.IPViolationImportance"
+        }
     };
 
     async function init() {
@@ -478,27 +668,17 @@ body {transition: opacity ease-in 0.2s; }
             translations = await res.json(); 
         } catch (e) { 
             console.error("Translation load failed.");
-            translations = {}; // Empty object, will fallback to keys
+            translations = {}; 
         }
         setupLogoutAndResize();
         updateContent();
         
         const finalBtn = document.getElementById('final-continue-btn');
         if (finalBtn) {
-            finalBtn.onclick = () => {
-                if (!finalBtn.disabled) {
-                    if (currentStep === 2) goToRulesStep();
-                    else if (currentStep === 3) {
-                        console.log('Final continue confirmed on rules step');
-                    } else {
-                        // Default fallback: go to rules step
-                        goToRulesStep();
-                    }
-                }
-            };
+            finalBtn.onclick = handleContinueClick;
         }
-        // agree checkbox will never be auto-checked by the browser
-            const agree = document.getElementById('agree-checkbox');
+        
+        const agree = document.getElementById('agree-checkbox');
         if (agree) {
             try { agree.checked = false; } catch (e) {}
             agree.setAttribute('autocomplete', 'off');
@@ -508,12 +688,12 @@ body {transition: opacity ease-in 0.2s; }
     }
 
     function t(key, vars = {}) {
-    if (!translations) return key;
-    let val = translations[key];
-    if (val === undefined || val === null) return key;
-    for (const k in vars) val = val.replace(`{{${k}}}`, vars[k]);
-    return val;
-}
+        if (!translations) return key;
+        let val = translations[key];
+        if (val === undefined || val === null) return key;
+        for (const k in vars) val = val.replace(`{{${k}}}`, vars[k]);
+        return val;
+    }
 
     function getFormattedDate() {
         const now = reviewDate || new Date();
@@ -532,7 +712,29 @@ body {transition: opacity ease-in 0.2s; }
         window.addEventListener('resize', handleResize);
         handleResize();
     }
-    // Toggle page light/dark mode and update the label
+
+    function updateProgressBar() {
+        const progressBar = document.getElementById('progress-bar-fill');
+        const progressContainer = document.getElementById('progress-bar-container');
+        const reason = document.getElementById('reason-select')?.value;
+        const hasPolicy = policyMap[reason];
+        
+        if (currentStep === 1 || !hasPolicy) {
+            progressContainer.style.display = 'none';
+            return;
+        }
+        
+        progressContainer.style.display = 'block';
+        
+        // Steps: 2 = policy page 1 (33%), 3 = policy page 2 (66%), 4 = rules (100%)
+        let progress = 0;
+        if (currentStep === 2) progress = 33.33;
+        else if (currentStep === 3) progress = 66.67;
+        else if (currentStep === 4) progress = 100;
+        
+        progressBar.style.width = progress + '%';
+    }
+    
     function toggleMode() {
         try {
             const body = document.getElementById('main-body') || document.body;
@@ -545,7 +747,7 @@ body {transition: opacity ease-in 0.2s; }
                 body.classList.add('light-mode');
                 if (btn) btn.innerText = t('Action.Theme.SwitchDark') || 'Switch to Dark';
             }
-            try { updateContent(); } catch (e) { } // ignore
+            try { updateContent(); } catch (e) { }
         } catch (e) { console.error('toggleMode error', e); }
     }
 
@@ -670,17 +872,18 @@ body {transition: opacity ease-in 0.2s; }
         setTxt('display-note', note);
         setTxt('display-duration-title', t(`Heading.${dur}`));
         setTxt('display-reason', t(`Label.Reason.${reason}`));
-        setTxt('display-trace', traceID); // get trace id and display
+        setTxt('display-trace', traceID);
         setTxt('display-date', getFormattedDate());
         setTxt('txt-why', t('Heading.Subheading.WhyThisHappened'));
         setTxt('txt-activity', t('Heading.Subheading.ActivityReviewed'));
         setTxt('lbl-date-static', t('Label.ReviewDate'));
-        document.querySelector('.txt-mistake-appeal').innerText = t('Description.Mistake'); // Mistake.V2 to be added later
+        document.getElementById('next-section-main').style.display = 'none';
 
         const descEl = document.getElementById('display-desc');
         const mainBtn = document.getElementById('primary-action-btn');
         
         if (dur === 'Banned') {
+            document.getElementById('next-section-main').style.display = 'none';
             document.getElementById('icon-holder').innerHTML = '<div class="ban-icon"></div>';
             if(descEl) descEl.innerText = t('Description.BrokeRulesBanned');
             if(mainBtn) {
@@ -694,7 +897,6 @@ body {transition: opacity ease-in 0.2s; }
                     mainBtn.parentNode.replaceChild(disabledClone, mainBtn);
                 } catch(e) { console.error('disable main report button error', e); }
             }
-            document.getElementById('next-section-main').style.display = 'none';
             try {
                 const reportText = t('Action.ReportMistake') || t('Action.RequestAppeal');
                 const reportBtns = Array.from(document.querySelectorAll('button')).filter(b => b && b.innerText && b.innerText.trim() === reportText);
@@ -707,6 +909,7 @@ body {transition: opacity ease-in 0.2s; }
                 });
             } catch (e) { console.error('Error disabling report button', e); }
         } else {
+            document.getElementById('next-section-main').style.display = 'none';
             const isWarn = dur === 'Warning';
             const violations = evidenceItems.filter(e => e.type !== 'ChatEvidence');
             const hasViolations = violations.length > 0;
@@ -754,12 +957,12 @@ body {transition: opacity ease-in 0.2s; }
                 const descText = t(descKey, descVars);
                 descEl.innerText = descText;
             }
-            document.getElementById('icon-holder').innerHTML = `<img src="https://www.svgrepo.com/show/455819/exclamation-triangle.svg" class="svg-icon" style="filter: ${isWarn ? 'invert(84%) sepia(89%) saturate(464%) hue-rotate(351deg) brightness(98%) contrast(93%)' : 'invert(31%) sepia(93%) saturate(1292%) hue-rotate(1deg) brightness(94%) contrast(92%)'}">`;
+            document.getElementById('icon-holder').innerHTML = `<img src="https://www.svgrepo.com/show/455819/exclamation-triangle.svg" class="svg-icon" style="filter: ${isWarn ? 'invert(80%) sepia(89%) saturate(300%) hue-rotate(351deg) brightness(69%) contrast(176%)' : 'invert(31%) sepia(93%) saturate(1292%) hue-rotate(1deg) brightness(94%) contrast(92%)'}">`;
             if(mainBtn) {
+                document.getElementById('next-section-main').style.display = 'none';
                 mainBtn.innerText = t('Action.Continue');
                 mainBtn.style = "background: #3355ff; color: #ffffff; border: none;";
                 try {
-                    // Ensure the primary action button is enabled and can be clicked after leaving a permanent ban state
                     mainBtn.disabled = false;
                     mainBtn.style.pointerEvents = 'auto';
                     mainBtn.removeAttribute('aria-disabled');
@@ -778,7 +981,6 @@ body {transition: opacity ease-in 0.2s; }
                     });
                 } catch (e) { console.error('Error re-enabling report button', e); }
             }
-            document.getElementById('next-section-main').style.display = 'block';
         }
 
         const list = document.getElementById('evidence-list-main');
@@ -813,138 +1015,167 @@ body {transition: opacity ease-in 0.2s; }
         const reason = document.getElementById('reason-select')?.value;
         if (dur !== 'Banned') {
             if (policyMap[reason]) {
-                goToPolicyStep();
+                goToPolicyStep1();
             } else {
                 goToRulesStep();
             }
         }
     }
 
-    function toggleSubpage(forward = true) {
-        if (!forward) { handleBackNavigation(); return; }
-        if (currentStep === 2) goToRulesStep();
-    }
-
     function handleBackNavigation() {
         const reason = document.getElementById('reason-select')?.value;
-        if (currentStep === 3 && policyMap[reason]) goToPolicyStep();
-        else resetToMain();
-    }
-
-    function formatWaitText(n) {
-        try {
-            if (n === 1) return t('Action.WaitSecond', { n });
-            return t('Action.WaitSeconds', { n });
-        } catch (e) { return `Wait ${n} seconds`; }
-    }
-
-    function startPolicyCountdown(finalBtn, agree) {
-        if (policyCountdownInterval) { clearInterval(policyCountdownInterval); policyCountdownInterval = null; }
-        policyCountdownRemaining = POLICY_COUNTDOWN_SECS;
-        if (!finalBtn) return;
+        const hasPolicy = policyMap[reason];
         
-        // Hide checkbox during countdown
-        const agreeWrap = document.getElementById('footer-rules-buttons')?.querySelector('label');
-        if (agreeWrap) agreeWrap.style.display = 'none';
-        
-        finalBtn.disabled = true;
-        finalBtn.style.background = 'transparent';
-        finalBtn.style.border = '1px solid var(--btn-gray)';
-        finalBtn.style.color = 'var(--text-muted)';
-        finalBtn.style.cursor = 'not-allowed';
-        finalBtn.style.opacity = '1';
-        finalBtn.style.pointerEvents = 'none';
-        finalBtn.innerText = formatWaitText(policyCountdownRemaining);
-        finalBtn.style.display = '';
-
-        policyCountdownInterval = setInterval(() => {
-            policyCountdownRemaining -= 1;
-            if (finalBtn) finalBtn.innerText = formatWaitText(policyCountdownRemaining);
-
-            if (policyCountdownRemaining <= 0) {
-                clearInterval(policyCountdownInterval); policyCountdownInterval = null;
-                
-                // Show checkbox after countdown completes
-                if (agreeWrap) agreeWrap.style.display = 'flex';
-                
-                // Button is enabled but requires checkbox
-                finalBtn.disabled = true;
-                finalBtn.innerText = t('Action.Continue');
-                finalBtn.style.background = '#3355ff'; 
-                finalBtn.style.border = 'none'; 
-                finalBtn.style.color = '#ffffff'; 
-                finalBtn.style.cursor = 'not-allowed'; 
-                finalBtn.style.opacity = '0.5';
-                finalBtn.style.pointerEvents = 'auto';
-            }
-        }, 1000);
+        if (currentStep === 4 && hasPolicy) {
+            goToPolicyStep2();
+        } else if (currentStep === 3 && hasPolicy) {
+            goToPolicyStep1();
+        } else {
+            resetToMain();
+        }
     }
 
-    function goToPolicyStep() {
+    function handleContinueClick() {
+        const finalBtn = document.getElementById('final-continue-btn');
+        if (finalBtn && finalBtn.disabled) return;
+        
+        const reason = document.getElementById('reason-select')?.value;
+        const hasPolicy = policyMap[reason];
+        
+        if (currentStep === 2 && hasPolicy) {
+            goToPolicyStep2();
+        } else if (currentStep === 3 && hasPolicy) {
+            goToRulesStep();
+        } else if (currentStep === 4) {
+            console.log('Final continue confirmed on rules step');
+        }
+    }
+
+    function goToPolicyStep1() {
         currentStep = 2;
         const reason = document.getElementById('reason-select')?.value;
         const mapping = policyMap[reason];
         if (!mapping) { goToRulesStep(); return; }
 
         document.getElementById('main-view').style.display = 'none';
+        document.getElementById('policy-view-2').style.display = 'none';
         document.getElementById('rules-view').style.display = 'none';
-        document.getElementById('policy-view').style.display = 'flex';
+        document.getElementById('policy-view-1').style.display = 'flex';
         document.getElementById('footer-main-buttons').style.display = 'none';
         document.getElementById('footer-rules-buttons').style.display = 'flex';
 
+        const agreeWrap = document.getElementById('footer-rules-buttons')?.querySelector('label');
+        if (agreeWrap) agreeWrap.style.display = 'none';
+
         const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
 
-        setTxt('policy-intro-text', t('Description.PolicyIntro'));
         setTxt('btn-back', t('Action.Back'));
-        setTxt('lbl-agree', t('Label.ConfirmUnderstanding'));
+        setTxt('policy-header-title-1', t(mapping.headerTop));
+        setTxt('policy-violated-header', t(mapping.header));
+        setTxt('display-policy-description', t(mapping.detail));
 
-        document.getElementById('policy-header-title').innerText = t('Heading.ReviewPolicies');
-
-        const violHeaderEl = document.getElementById('policy-violated-header');
-        if (violHeaderEl) violHeaderEl.innerText = t(mapping.header);
-
-        document.getElementById('display-policy-label').innerHTML = `<span class="label" style="display:block; margin-bottom:8px;">${t('Label.RuleExplanation.RuleMeaning')}</span>`;
-        document.getElementById('display-policy-description').innerText = t(mapping.detail);
-
-        document.getElementById('policy-why-header').innerText = t(mapping.importanceLabel);
-        document.getElementById('display-policy-importance').innerText = t(mapping.importance);
-
-        const learnBtn = document.getElementById('policy-learn-more-btn');
-        if (learnBtn) { learnBtn.innerText = t('Action.LearnMore'); learnBtn.onclick = () => { console.log('Learn more clicked for reason', reason); }; }
-        const learnBtn2 = document.getElementById('policy-why-learn-more-btn');
-        if (learnBtn2) { learnBtn2.innerText = t('Action.LearnMore'); learnBtn2.onclick = () => { console.log('Learn more (why) clicked for reason', reason); }; }
+        const learnBtn = document.getElementById('policy-learn-more-btn-1');
+        if (learnBtn) { 
+            learnBtn.innerText = t('Action.LearnMore'); 
+            learnBtn.onclick = () => { console.log('Learn more clicked for reason', reason); }; 
+        }
 
         try { if (suspensionIntervalId) { clearInterval(suspensionIntervalId); suspensionIntervalId = null; } } catch(e) {}
 
         const finalBtn = document.getElementById('final-continue-btn');
         const agree = document.getElementById('agree-checkbox');
         
-        // Reset checkbox
         if (agree) agree.checked = false;
         
-        startPolicyCountdown(finalBtn, agree);
+        if (finalBtn) {
+            finalBtn.disabled = false;
+            finalBtn.innerText = t('Action.Continue');
+            finalBtn.style.background = '#3355ff'; 
+            finalBtn.style.border = 'none'; 
+            finalBtn.style.color = '#ffffff'; 
+            finalBtn.style.cursor = 'pointer'; 
+            finalBtn.style.opacity = '1';
+            finalBtn.style.pointerEvents = 'auto';
+        }
+        
+        updateProgressBar();
+    }
+
+    function goToPolicyStep2() {
+        currentStep = 3;
+        const reason = document.getElementById('reason-select')?.value;
+        const mapping = policyMap[reason];
+        if (!mapping) { goToRulesStep(); return; }
+
+        document.getElementById('main-view').style.display = 'none';
+        document.getElementById('policy-view-1').style.display = 'none';
+        document.getElementById('rules-view').style.display = 'none';
+        document.getElementById('policy-view-2').style.display = 'flex';
+        document.getElementById('footer-main-buttons').style.display = 'none';
+        document.getElementById('footer-rules-buttons').style.display = 'flex';
+
+        const agreeWrap = document.getElementById('footer-rules-buttons')?.querySelector('label');
+        if (agreeWrap) agreeWrap.style.display = 'none';
+
+        const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+
+        setTxt('btn-back', t('Action.Back'));
+        setTxt('policy-header-title-2', t(mapping.importanceLabel));
+        setTxt('display-policy-importance', t(mapping.importance));
+
+        const learnBtn = document.getElementById('policy-learn-more-btn-2');
+        if (learnBtn) { 
+            learnBtn.innerText = t('Action.LearnMore'); 
+            learnBtn.onclick = () => { console.log('Learn more (why) clicked for reason', reason); }; 
+        }
+
+        const finalBtn = document.getElementById('final-continue-btn');
+        const agree = document.getElementById('agree-checkbox');
+        
+        if (agree) agree.checked = false;
+        
+        if (finalBtn) {
+            finalBtn.disabled = false;
+            finalBtn.innerText = t('Action.Continue');
+            finalBtn.style.background = '#3355ff'; 
+            finalBtn.style.border = 'none'; 
+            finalBtn.style.color = '#ffffff'; 
+            finalBtn.style.cursor = 'pointer'; 
+            finalBtn.style.opacity = '1';
+            finalBtn.style.pointerEvents = 'auto';
+        }
+        
+        updateProgressBar();
     }
 
     function goToRulesStep() {
-        currentStep = 3;
+        currentStep = 4;
         document.getElementById('main-view').style.display = 'none';
-        document.getElementById('policy-view').style.display = 'none';
-        document.getElementById('rules-view').style.display = 'block';
+        document.getElementById('policy-view-1').style.display = 'none';
+        document.getElementById('policy-view-2').style.display = 'none';
+        document.getElementById('rules-view').style.display = 'flex';
         document.getElementById('footer-main-buttons').style.display = 'none';
         document.getElementById('footer-rules-buttons').style.display = 'flex';
 
         const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
         
-        setTxt('txt-rules-header', t('Heading.Subheading.WhatComesNext'));
-        setTxt('lbl-follow-rules-static', t('Heading.Subheading.FollowTheRules'));
-        setTxt('txt-follow-rules', t('Description.FollowFuture'));
-        setTxt('lbl-violations-static', t('Heading.Subheading.RuleViolationsAddUp'));
-        setTxt('txt-violations-desc', t('Description.Foreshadow'));
-        setTxt('lbl-agree', t('Label.AgreeToRules'));
+        setTxt('rules-header-title', t('Heading.RuleViolationsAddUp'));
+        setTxt('rules-description', t('Description.Foreshadow.V2'));
+        setTxt('rules-mistake-text', t('Description.Mistake.V3'));
+        setTxt('lbl-agree', t('Label.AgreeToRules.V2'));
         setTxt('btn-back', t('Action.Back'));
 
         const viewRulesBtn = document.getElementById('btn-view-rules-inner');
-        if (viewRulesBtn) viewRulesBtn.innerText = t('Action.ViewRules');
+        if (viewRulesBtn) {
+            viewRulesBtn.innerText = t('Action.ViewRules');
+            viewRulesBtn.onclick = () => { console.log('View rules clicked'); };
+        }
+
+        const reportBtn = document.getElementById('btn-report-mistake-rules');
+        if (reportBtn) {
+            reportBtn.innerText = t('Action.SendAppeal');
+            reportBtn.onclick = () => { console.log('Appeal button clicked from rules'); };
+        }
 
         const dur = document.getElementById('duration-select')?.value || 'Warning';
         const finalBtn = document.getElementById('final-continue-btn');
@@ -960,14 +1191,14 @@ body {transition: opacity ease-in 0.2s; }
             const endDate = new Date(startDate.getTime() + days * 24 * 60 * 60 * 1000);
 
             const updateSuspensionState = () => {
-                if (currentStep !== 3) return false;
+                if (currentStep !== 4) return false;
                 const now = new Date();
                 const remMs = endDate.getTime() - now.getTime();
                 
                 if (remMs <= 0) {
                     if (agreeWrap) agreeWrap.style.display = 'flex';
                     if (finalBtn) {
-                        finalBtn.disabled = true; // will be enabled by checkbox
+                        finalBtn.disabled = true;
                         finalBtn.style.background = '#3355ff';
                         finalBtn.style.color = '#ffffff';
                         finalBtn.style.border = 'none';
@@ -1003,7 +1234,6 @@ body {transition: opacity ease-in 0.2s; }
 
             const expiredNow = updateSuspensionState();
             if (!expiredNow) {
-                // clear any existing before starting
                 try { if (suspensionIntervalId) { clearInterval(suspensionIntervalId); suspensionIntervalId = null; } } catch(e) {}
                 suspensionIntervalId = setInterval(() => {
                     const nowExpired = updateSuspensionState();
@@ -1022,16 +1252,20 @@ body {transition: opacity ease-in 0.2s; }
                 finalBtn.style.cursor = 'not-allowed';
             }
         }
+        
+        updateProgressBar();
     }
 
     function resetToMain() {
         currentStep = 1;
-        document.getElementById('policy-view').style.display = 'none';
+        document.getElementById('policy-view-1').style.display = 'none';
+        document.getElementById('policy-view-2').style.display = 'none';
         document.getElementById('rules-view').style.display = 'none';
         document.getElementById('main-view').style.display = 'block';
         document.getElementById('footer-main-buttons').style.display = 'flex';
         document.getElementById('footer-rules-buttons').style.display = 'none';
         try { if (suspensionIntervalId) { clearInterval(suspensionIntervalId); suspensionIntervalId = null; } } catch (e) {}
+        updateProgressBar();
     }
 
     function toggleContinueBtn() { 
