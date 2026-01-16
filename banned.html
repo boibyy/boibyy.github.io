@@ -80,7 +80,7 @@ body {transition: opacity ease-in 0.2s; }
         display: none !important;
     }
 
-    .header {
+    #main-view > .header {
         display: block;
         width: 100vw; 
         position: relative;
@@ -95,20 +95,39 @@ body {transition: opacity ease-in 0.2s; }
         text-align: center;
     }
 
+    .modal-content {
+        max-width: 85%!important;
+    }
+
     .title-group {
-        display: block;
         text-align: center;
         margin-top: -5px;
         margin-left: auto!important;
         margin-right: auto!important;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* This forces children to the center */
+    }
+
+    #btn-back {
+        margin-bottom: 8px;
+        min-width:100%;
+    }
+
+    #display-duration-title {
+        left: 50%;
+        right: 50%;
+        display: block!important;
+        text-align: center!important;
+        margin-bottom: 16px!important;
+        margin-top: 0!important;
+        line-height: 1!important;
     }
 
     h1 {
-        display: block!important;
-        text-align: center!important;
-        line-height: 1!important;
+        line-height: 1.35!important;
         margin-bottom: 16px!important;
-        margin-top: 0!important;
+        margin-top: 12px!important;
     }
 }
 
@@ -238,7 +257,7 @@ body {transition: opacity ease-in 0.2s; }
             content: "";
             width: 10px;
             height: 10px;
-            transform: scale(0); /* hide */
+            transform: scale(0);
             transition: 120ms transform ease-in-out;
             
             background-color: var(--bg-modal);
@@ -248,10 +267,107 @@ body {transition: opacity ease-in 0.2s; }
         input[type="checkbox"]:checked::before {
             transform: scale(1);
         }
-        
 
-/* Mobile-specific overrides */
-@media (max-width: 640px) {
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.67);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-modal);
+            border-radius: var(--radius-modal);
+            padding: 20px;
+            width: 90%;
+            max-width: 440px;
+            box-shadow: 0 0 0 1px var(--shadow-border), 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-header {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-header);
+            margin-bottom: 10px;
+        }
+
+        .modal-description {
+            font-size: 15px;
+            color: var(--text-normal);
+            line-height: 1.35;
+            margin-bottom: 15px;
+        }
+
+        .modal-textarea {
+            width: 100%;
+            min-height: 90px;
+            padding: 10px;
+            border-radius: var(--radius-btn);
+            border: 1px solid var(--shadow-border);
+            background: var(--bg-modal);
+            color: var(--text-normal);
+            font-family: inherit;
+            font-size: 15px;
+            resize: vertical;
+            box-sizing: border-box;
+            margin-bottom: 12px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .modal-button {
+            flex: 1;
+            height: 40px;
+            border: none;
+            border-radius: var(--radius-btn);
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            transition: opacity 0.2s;
+        }
+
+        .modal-button.cancel {
+            background: var(--btn-gray);
+            color: var(--text-header);
+        }
+
+        .modal-button.cancel:hover {
+            background: var(--btn-gray-hover);
+        }
+
+        .modal-button.send {
+            background: #3355ff;
+            color: #ffffff;
+        }
+
+        .modal-button.send:hover {
+            opacity: 0.9;
+        }
+
+        .modal-subtext {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted);
+            line-height: 1.3;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 640px) {
             .footer {
                 flex-direction: column; 
                 gap: 10px;
@@ -274,6 +390,23 @@ body {transition: opacity ease-in 0.2s; }
                 width: 100%;
                 box-sizing: border-box;
             }
+
+            #footer-rules-buttons {
+                flex-direction: column !important;
+                align-items: stretch !important;
+            }
+
+            #btn-back {
+                width: auto !important;
+                align-self: flex-start;
+            }
+
+            .agree-section {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
         }
 
         .btn-logout {
@@ -281,15 +414,19 @@ body {transition: opacity ease-in 0.2s; }
             border: none;
             margin-top: 8px;
             cursor: pointer;
-            color: #eeeeee; border: none; padding: 0px 12px; height: 40px; border-radius: var(--radius-btn); font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; transition: opacity 0.2s;
+            color: #eeeeee; 
+            padding: 0px 12px; 
+            height: 40px; 
+            border-radius: var(--radius-btn); 
+            font-size: 15px; 
+            font-weight: 500; 
+            font-family: inherit; 
+            transition: opacity 0.2s;
         }
 
         body.light-mode .btn-logout {
             background-color: var(--btn-gray2);
-            border: none;
-            margin-top: 8px;
-            cursor: pointer;
-            color: #111111; border: none; padding: 0px 12px; height: 40px; border-radius: var(--radius-btn); font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; transition: opacity 0.2s;
+            color: #111111;
         }
 
         .btn-logout:hover {
@@ -308,6 +445,28 @@ body {transition: opacity ease-in 0.2s; }
 <body id="main-body" class="light-mode">
 
 <button class="customizer-toggle" onclick="document.getElementById('side-panel').classList.toggle('open')">Settings</button>
+
+<div class="modal-overlay" id="appeal-modal">
+    <div class="modal-content">
+        <div id="modal-form-view">
+            <div class="modal-header" id="modal-header"></div>
+            <div class="modal-description" id="modal-description"></div>
+            <textarea class="modal-textarea" id="appeal-textarea" placeholder=""></textarea>
+            <div class="modal-buttons">
+                <button class="modal-button cancel" id="modal-cancel"></button>
+                <button class="modal-button send" id="modal-send"></button>
+            </div>
+            <div class="modal-subtext" id="modal-subtext"></div>
+        </div>
+        <div id="modal-success-view" style="display: none;">
+            <div class="modal-header" id="modal-success-header"></div>
+            <div class="modal-description" id="modal-success-description"></div>
+            <div class="modal-buttons">
+                <button class="modal-button send" style="width: 100%;" id="modal-got-it"></button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <aside class="panel open" id="side-panel">
     <h3>Edit</h3>
@@ -352,7 +511,7 @@ body {transition: opacity ease-in 0.2s; }
             <option value="AccountTheft">Account Theft</option>
         </select>
     </div>
-    <div><label>Note Presets</label><select id="note-preset" onchange="applyPresetNote()"><option value="">-- Choose a Preset --</option>
+    <div><label>Moderator Note Presets</label><select id="note-preset" onchange="applyPresetNote()"><option value="">-- Choose a Preset --</option>
         <option value="Child Endangerment">Child Endangerment</option>
         <option value="AltConsequence.V2">Ban Evasion</option>
         <option value="Harassment">Harassment</option>
@@ -465,7 +624,7 @@ body {transition: opacity ease-in 0.2s; }
         </div>
         <div id="footer-rules-buttons" style="display: none; justify-content: space-between; align-items: center; width: 100%;">
             <button class="btn-report" id="btn-back" style="background-color: var(--btn-gray); color: var(--text-header);" onclick="handleBackNavigation()">Back</button>
-            <div style="display:flex; align-items:center; gap:10px;">
+            <div class="agree-section" style="display:flex; align-items:center; gap:10px;">
                 <label style="display:flex; align-items:center; gap:5px; font-size:14px; cursor:pointer; color:var(--text-normal);">
                     <input type="checkbox" id="agree-checkbox" onchange="toggleContinueBtn()"> 
                     <span id="lbl-agree">Check to confirm you understand.</span>
@@ -485,181 +644,31 @@ body {transition: opacity ease-in 0.2s; }
     let reviewDate = null;
 
     const policyMap = {
-        "Harassment": { 
-            headerTop: "Heading.BullyHeaderTop",
-            header: "Heading.RuleExplanation.BullyHeader", 
-            detail: "Description.BullyDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.BullyImportance" 
-        },
-        "Harassment.V2": { 
-            headerTop: "Heading.BullyHeaderTop",
-            header: "Heading.RuleExplanation.BullyHeader", 
-            detail: "Description.BullyDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.BullyImportance" 
-        },
-        "DiscriminationHate": { 
-            headerTop: "Heading.BullyHeaderTop",
-            header: "Heading.RuleExplanation.BullyHeader", 
-            detail: "Description.BullyDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.BullyImportance" 
-        },
-        "Spam": { 
-            headerTop: "Heading.SpamHeaderTop",
-            header: "Heading.RuleExplanation.SpamHeader", 
-            detail: "Description.SpamDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.SpamImportance" 
-        },
-        "ExtortionThreats": { 
-            headerTop: "Heading.ExtortionHeaderTop",
-            header: "Heading.RuleExplanation.ExtortionHeader", 
-            detail: "Description.ExtortionDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.ExtortionImportance" 
-        },
-        "ViolentGore": { 
-            headerTop: "Heading.ViolentHeaderTop",
-            header: "Heading.RuleExplanation.ViolentHeader", 
-            detail: "Description.ViolentDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.ViolentImportance" 
-        },
-        "Dating": { 
-            headerTop: "Heading.DatingHeaderTop",
-            header: "Heading.RuleExplanation.DatingHeader", 
-            detail: "Description.DatingDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.DatingImportance" 
-        },
-        "Dating.V2": { 
-            headerTop: "Heading.DatingHeaderTop",
-            header: "Heading.RuleExplanation.DatingHeader", 
-            detail: "Description.DatingDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.DatingImportance" 
-        },
-        "MisusingSystems": { 
-            headerTop: "Heading.MisusingSystemsHeaderTop",
-            header: "Heading.RuleExplanation.MisusingSystemsHeader", 
-            detail: "Description.MisusingSystemsDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.MisusingSystemsImportance" 
-        },
-        "DangerousActivities": { 
-            headerTop: "Heading.HarmfulHeaderTop",
-            header: "Heading.RuleExplanation.HarmfulHeader", 
-            detail: "Description.HarmfulDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.HarmfulImportance" 
-        },
-        "Misinformation": { 
-            headerTop: "Heading.MisinformationHeaderTop",
-            header: "Heading.RuleExplanation.MisinformationHeader", 
-            detail: "Description.MisinformationDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.MisinformationImportance" 
-        },
-        "UndisclosedAds": { 
-            headerTop: "Heading.UndisclosedAdsHeaderTop",
-            header: "Heading.RuleExplanation.UndisclosedAdsHeader", 
-            detail: "Description.UndisclosedAdsDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.UndisclosedAdsImportance" 
-        },
-        "SexualContent": { 
-            headerTop: "Heading.SexualHeaderTop",
-            header: "Heading.RuleExplanation.SexualHeader", 
-            detail: "Description.SexualDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.SexualImportance" 
-        },
-        "PoliticalContent": { 
-            headerTop: "Heading.PoliticalHeaderTop",
-            header: "Heading.RuleExplanation.PoliticalHeader", 
-            detail: "Description.PoliticalDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.PoliticalImportance"
-        },
-        "PoliticalContent.V2": { 
-            headerTop: "Heading.PoliticalHeaderTop",
-            header: "Heading.RuleExplanation.PoliticalHeader", 
-            detail: "Description.PoliticalDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.PoliticalImportance"
-        },
-        "PrivacyGivingPII": { 
-            headerTop: "Heading.PIIHeaderTop",
-            header: "Heading.RuleExplanation.PIIHeader", 
-            detail: "Description.PIIDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.PIIImportance"
-        },
-        "PrivacyAskingPII": { 
-            headerTop: "Heading.PIIHeaderTop",
-            header: "Heading.RuleExplanation.PIIHeader", 
-            detail: "Description.PIIDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.PIIImportance"
-        },
-        "Scamming": { 
-            headerTop: "Heading.ScammingHeaderTop",
-            header: "Heading.RuleExplanation.ScammingHeader", 
-            detail: "Description.ScammingDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.ScammingImportance"
-        },
-        "DisruptiveAudio": { 
-            headerTop: "Heading.DisruptiveAudioHeaderTop",
-            header: "Heading.RuleExplanation.DisruptiveAudioHeader", 
-            detail: "Description.DisruptiveAudioDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.DisruptiveAudioImportance"
-        },
-        "Impersonation": { 
-            headerTop: "Heading.ImpersonationHeaderTop",
-            header: "Heading.RuleExplanation.ImpersonationHeader", 
-            detail: "Description.ImpersonationDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.ImpersonationImportance"
-        },
-        "SensitiveEvents": { 
-            headerTop: "Heading.SensitiveEventsHeaderTop",
-            header: "Heading.RuleExplanation.SensitiveEventsHeader", 
-            detail: "Description.SensitiveEventsDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.SensitiveEventsImportance"
-        },
-        "RepeatedRefunds": { 
-            headerTop: "Heading.ChargebackHeaderTop",
-            header: "Heading.RuleExplanation.ChargebackHeader", 
-            detail: "Description.ChargebackDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.ChargebackImportance"
-        },
-        "Chargebacks": { 
-            headerTop: "Heading.ChargebackHeaderTop",
-            header: "Heading.RuleExplanation.ChargebackHeader", 
-            detail: "Description.ChargebackDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.ChargebackImportance"
-        },
-        "IllegalRegulated": { 
-            headerTop: "Heading.IllegalContentHeaderTop",
-            header: "Heading.RuleExplanation.IllegalContentHeader", 
-            detail: "Description.IllegalContentDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.IllegalContentImportance"
-        },
-        "IPViolation": { 
-            headerTop: "Heading.IPViolationHeaderTop",
-            header: "Heading.RuleExplanation.IPViolationHeader", 
-            detail: "Description.IPViolationDetail", 
-            importanceLabel: "Heading.WhyDoesThisMatter", 
-            importance: "Description.IPViolationImportance"
-        }
+        "Harassment": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
+        "Harassment.V2": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
+        "DiscriminationHate": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
+        "Spam": { headerTop: "Heading.SpamHeaderTop", header: "Heading.RuleExplanation.SpamHeader", detail: "Description.SpamDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SpamImportance" },
+        "ExtortionThreats": { headerTop: "Heading.ExtortionHeaderTop", header: "Heading.RuleExplanation.ExtortionHeader", detail: "Description.ExtortionDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ExtortionImportance" },
+        "ViolentGore": { headerTop: "Heading.ViolentHeaderTop", header: "Heading.RuleExplanation.ViolentHeader", detail: "Description.ViolentDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ViolentImportance" },
+        "Dating": { headerTop: "Heading.DatingHeaderTop", header: "Heading.RuleExplanation.DatingHeader", detail: "Description.DatingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.DatingImportance" },
+        "Dating.V2": { headerTop: "Heading.DatingHeaderTop", header: "Heading.RuleExplanation.DatingHeader", detail: "Description.DatingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.DatingImportance" },
+        "MisusingSystems": { headerTop: "Heading.MisusingSystemsHeaderTop", header: "Heading.RuleExplanation.MisusingSystemsHeader", detail: "Description.MisusingSystemsDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.MisusingSystemsImportance" },
+        "DangerousActivities": { headerTop: "Heading.HarmfulHeaderTop", header: "Heading.RuleExplanation.HarmfulHeader", detail: "Description.HarmfulDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.HarmfulImportance" },
+        "Misinformation": { headerTop: "Heading.MisinformationHeaderTop", header: "Heading.RuleExplanation.MisinformationHeader", detail: "Description.MisinformationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.MisinformationImportance" },
+        "UndisclosedAds": { headerTop: "Heading.UndisclosedAdsHeaderTop", header: "Heading.RuleExplanation.UndisclosedAdsHeader", detail: "Description.UndisclosedAdsDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.UndisclosedAdsImportance" },
+        "SexualContent": { headerTop: "Heading.SexualHeaderTop", header: "Heading.RuleExplanation.SexualHeader", detail: "Description.SexualDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SexualImportance" },
+        "PoliticalContent": { headerTop: "Heading.PoliticalHeaderTop", header: "Heading.RuleExplanation.PoliticalHeader", detail: "Description.PoliticalDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PoliticalImportance"},
+        "PoliticalContent.V2": { headerTop: "Heading.PoliticalHeaderTop", header: "Heading.RuleExplanation.PoliticalHeader", detail: "Description.PoliticalDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PoliticalImportance"},
+        "PrivacyGivingPII": { headerTop: "Heading.PIIHeaderTop", header: "Heading.RuleExplanation.PIIHeader", detail: "Description.PIIDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PIIImportance"},
+        "PrivacyAskingPII": { headerTop: "Heading.PIIHeaderTop", header: "Heading.RuleExplanation.PIIHeader", detail: "Description.PIIDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PIIImportance"},
+        "Scamming": { headerTop: "Heading.ScammingHeaderTop", header: "Heading.RuleExplanation.ScammingHeader", detail: "Description.ScammingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ScammingImportance"},
+        "DisruptiveAudio": { headerTop: "Heading.DisruptiveAudioHeaderTop", header: "Heading.RuleExplanation.DisruptiveAudioHeader", detail: "Description.DisruptiveAudioDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.DisruptiveAudioImportance"},
+        "Impersonation": { headerTop: "Heading.ImpersonationHeaderTop", header: "Heading.RuleExplanation.ImpersonationHeader", detail: "Description.ImpersonationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ImpersonationImportance"},
+        "SensitiveEvents": { headerTop: "Heading.SensitiveEventsHeaderTop", header: "Heading.RuleExplanation.SensitiveEventsHeader", detail: "Description.SensitiveEventsDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SensitiveEventsImportance"},
+        "RepeatedRefunds": { headerTop: "Heading.ChargebackHeaderTop", header: "Heading.RuleExplanation.ChargebackHeader", detail: "Description.ChargebackDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ChargebackImportance"},
+        "Chargebacks": { headerTop: "Heading.ChargebackHeaderTop", header: "Heading.RuleExplanation.ChargebackHeader", detail: "Description.ChargebackDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ChargebackImportance"},
+        "IllegalRegulated": { headerTop: "Heading.IllegalContentHeaderTop", header: "Heading.RuleExplanation.IllegalContentHeader", detail: "Description.IllegalContentDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.IllegalContentImportance"},
+        "IPViolation": { headerTop: "Heading.IPViolationHeaderTop", header: "Heading.RuleExplanation.IPViolationHeader", detail: "Description.IPViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.IPViolationImportance"}
     };
 
     async function init() {
@@ -685,6 +694,10 @@ body {transition: opacity ease-in 0.2s; }
             agree.removeAttribute('checked');
             try { agree.removeAttribute('name'); } catch (e) {}
         }
+
+        document.getElementById('modal-cancel').onclick = closeAppealModal;
+        document.getElementById('modal-send').onclick = sendAppeal;
+        document.getElementById('modal-got-it').onclick = closeAppealModal;
     }
 
     function t(key, vars = {}) {
@@ -707,10 +720,17 @@ body {transition: opacity ease-in 0.2s; }
         const handleResize = () => {
             const isMobile = window.innerWidth < 640;
             const dur = document.getElementById('duration-select')?.value;
-            if (logoutBtn) logoutBtn.style.display = (isMobile && dur === 'Banned') ? 'block' : 'none';
+            if (logoutBtn) {
+                logoutBtn.style.display = (isMobile && dur === 'Banned') ? 'block' : 'none';
+            }
         };
         window.addEventListener('resize', handleResize);
         handleResize();
+        
+        const durSelect = document.getElementById('duration-select');
+        if (durSelect) {
+            durSelect.addEventListener('change', handleResize);
+        }
     }
 
     function updateProgressBar() {
@@ -726,7 +746,6 @@ body {transition: opacity ease-in 0.2s; }
         
         progressContainer.style.display = 'block';
         
-        // Steps: 2 = policy page 1 (33%), 3 = policy page 2 (66%), 4 = rules (100%)
         let progress = 0;
         if (currentStep === 2) progress = 33.33;
         else if (currentStep === 3) progress = 66.67;
@@ -882,32 +901,31 @@ body {transition: opacity ease-in 0.2s; }
         const descEl = document.getElementById('display-desc');
         const mainBtn = document.getElementById('primary-action-btn');
         
+        setupLogoutAndResize();
+        
         if (dur === 'Banned') {
             document.getElementById('next-section-main').style.display = 'none';
             document.getElementById('icon-holder').innerHTML = '<div class="ban-icon"></div>';
             if(descEl) descEl.innerText = t('Description.BrokeRulesBanned');
             if(mainBtn) {
                 mainBtn.innerText = t('Action.ReportMistake');
-                mainBtn.style = `color: ${isLight ? "#111" : "#eee"}; background: rgba(51, 95, 255, 0.298); border: none;`;
-                try {
-                    const disabledClone = mainBtn.cloneNode(true);
-                    disabledClone.disabled = true;
-                    disabledClone.style.pointerEvents = 'none';
-                    disabledClone.setAttribute('aria-disabled', 'true');
-                    mainBtn.parentNode.replaceChild(disabledClone, mainBtn);
-                } catch(e) { console.error('disable main report button error', e); }
+                mainBtn.style = `color: ${isLight ? "#111" : "#eee"}; background: rgba(51, 95, 255, 0.298); border: none; cursor: pointer;`;
+                mainBtn.disabled = false;
+                mainBtn.style.pointerEvents = 'auto';
+                mainBtn.removeAttribute('aria-disabled');
+                mainBtn.onclick = () => openAppealModal();
             }
-            try {
-                const reportText = t('Action.ReportMistake') || t('Action.RequestAppeal');
-                const reportBtns = Array.from(document.querySelectorAll('button')).filter(b => b && b.innerText && b.innerText.trim() === reportText);
-                reportBtns.forEach(b => {
-                    const clone = b.cloneNode(true);
-                    clone.disabled = true;
-                    clone.style.pointerEvents = 'none';
-                    clone.setAttribute('aria-disabled', 'true');
-                    b.parentNode.replaceChild(clone, b);
-                });
-            } catch (e) { console.error('Error disabling report button', e); }
+            // try {
+            //    const reportText = t('Action.ReportMistake') || t('Action.RequestAppeal');
+            //    const reportBtns = Array.from(document.querySelectorAll('button')).filter(b => b && b.innerText && b.innerText.trim() === reportText);
+            //    reportBtns.forEach(b => {
+            //        const clone = b.cloneNode(true);
+            //        clone.disabled = true;
+            //        clone.style.pointerEvents = 'none';
+            //        clone.setAttribute('aria-disabled', 'true');
+            //        b.parentNode.replaceChild(clone, b);
+            //    });
+            //} catch (e) { console.error('Error disabling report button', e); }
         } else {
             document.getElementById('next-section-main').style.display = 'none';
             const isWarn = dur === 'Warning';
@@ -1007,6 +1025,48 @@ body {transition: opacity ease-in 0.2s; }
             const divider = document.getElementById('evidence-divider');
             if (divider) divider.style.display = evidenceItems.length > 0 ? 'block' : 'none';
         }
+    }
+
+    function openAppealModal() {
+        const modal = document.getElementById('appeal-modal');
+        const formView = document.getElementById('modal-form-view');
+        const successView = document.getElementById('modal-success-view');
+        const textarea = document.getElementById('appeal-textarea');
+        
+        formView.style.display = 'block';
+        successView.style.display = 'none';
+        textarea.value = '';
+        
+        document.getElementById('modal-header').innerText = t('Heading.Appeals.SendAppeal');
+        document.getElementById('modal-description').innerText = t('Description.Appeals.ReviewsDetail');
+        textarea.placeholder = t('Label.Appeals.ReasonPlaceholder.V2');
+        document.getElementById('modal-cancel').innerText = t('Action.Appeals.Cancel');
+        document.getElementById('modal-send').innerText = t('Action.Appeals.Send');
+        document.getElementById('modal-subtext').innerText = t('Label.Appeals.SubtextNotice');
+        
+        modal.classList.add('active');
+    }
+
+    function closeAppealModal() {
+        const modal = document.getElementById('appeal-modal');
+        modal.classList.remove('active');
+    }
+
+    function sendAppeal() {
+        const textarea = document.getElementById('appeal-textarea');
+        const appealText = textarea.value.trim();
+        
+        const formView = document.getElementById('modal-form-view');
+        const successView = document.getElementById('modal-success-view');
+        
+        formView.style.display = 'none';
+        successView.style.display = 'block';
+        
+        document.getElementById('modal-success-header').innerText = t('Heading.Appeals.AppealReceived');
+        document.getElementById('modal-success-description').innerText = t('Description.Appeals.AppealReceived');
+        document.getElementById('modal-got-it').innerText = t('Action.Appeals.GotIt');
+        
+        console.log('Appeal sent:', appealText);
     }
 
     function handlePrimaryClick() {
@@ -1174,7 +1234,7 @@ body {transition: opacity ease-in 0.2s; }
         const reportBtn = document.getElementById('btn-report-mistake-rules');
         if (reportBtn) {
             reportBtn.innerText = t('Action.SendAppeal');
-            reportBtn.onclick = () => { console.log('Appeal button clicked from rules'); };
+            reportBtn.onclick = () => { openAppealModal(); };
         }
 
         const dur = document.getElementById('duration-select')?.value || 'Warning';
@@ -1279,7 +1339,8 @@ body {transition: opacity ease-in 0.2s; }
     }
 
     function reportMistakeClicked(event) {
-        console.log('Report mistake clicked');
+        console.log('Report mistake clicked from card');
+        openAppealModal();
     }
 
     function handleLogout() {
