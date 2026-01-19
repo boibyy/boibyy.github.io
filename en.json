@@ -84,8 +84,10 @@
   "Action.ViewRules": "View rules",
   "Action.LearnMore": "Learn more",
   "Action.RequestAppeal": "Request appeal",
+  "Action.RequestAnAppeal": "Request an appeal",
   "Action.ReportMistake": "Report a mistake",
   "Action.SendAppeal": "Send appeal",
+  "Action.SendAnAppeal": "Send an appeal",
   "Action.WaitSeconds": "Wait {{n}} seconds",
   "Action.WaitSecond": "Wait {{n}} second",
 
@@ -95,8 +97,8 @@
   "Label.CountdownSingleDay": "{{d}} day",
 
   "Heading.SecondChance.First": "Avoid a suspension this one time?",
-  "Heading.SecondChance.Second": "Go back to using Boiby",
-  "Heading.SecondChance.Second.V2": "Continue using Boiby",
+  "Heading.SecondChance.Second": "Continue using Boiby",
+  "Heading.SecondChance.Second.V2": "Go back to using Boiby",
   "Heading.Subheading.SecondChance": "Learn this rule to go back to using Boiby",
   "Heading.Subheading.SecondChance.V2": "Learn this rule to continue using Boiby",
   "Description.SecondChance.First": "Since you've behaved responsibly in the past, you can avoid a suspension this one time by learning this rule.",
@@ -274,7 +276,7 @@
   "Heading.DisruptiveAudioHeaderTop": "Use your voice to contribute, not disrupt",
   "Heading.RuleExplanation.DisruptiveAudioHeader": "No disruptive audio content",
   "Description.DisruptiveAudioDetail": "Audio content that is disruptive, overly loud, or harmful isn't allowed. This includes screaming and loud or annoying noises.",
-  "Description.DisruptiveAudioImportance": "Disruptive or loud audio can be painful or startling, and can ruin the experience for others.",
+  "Description.DisruptiveAudioImportance": "Disruptive or loud audio can be painful or startling, and can disrupt or ruin the experience for others.",
 
   "Heading.ChargebackHeaderTop": "Support Boiby through fair payments",
   "Heading.RuleExplanation.ChargebackHeader": "Don't abuse chargebacks or refunds",
@@ -284,10 +286,10 @@
   "Heading.IllegalContentHeaderTop": "Keep our community safe and compliant",
   "Heading.RuleExplanation.IllegalContentHeader": "No illegal or regulated content",
   "Description.IllegalContentDetail": "The promotion, sale, or discussion of illegal items, controlled substances, or regulated goods is prohibited on our platform.",
-  "Description.IllegalContentImportance": "Discussion of illegal or regulated goods or services puts our members at risk and threatens the safety of our community, especially those under 18.",
+  "Description.IllegalContentImportance": "Discussion of illegal or regulated goods or services puts our users at risk and threatens the safety of our community, especially those under 18.",
 
   "Heading.IPViolationHeaderTop": "Respect others' work and rights",
   "Heading.RuleExplanation.IPViolationHeader": "Follow copyright guidelines",
-  "Description.IPViolationDetail": "Uploading content that you do not own the rights to, including copyrighted music, videos, and art, is not allowed without permission.",
-  "Description.IPViolationImportance": "Protecting other users' intellectual property ensures that creators are fairly credited for their work."
+  "Description.IPViolationDetail": "Uploading content that you do not own the rights to, including copyrighted music, videos, and art, isn't allowed without permission.",
+  "Description.IPViolationImportance": "Protecting other users' intellectual property rights ensures that creators are fairly credited for their work."
 }
