@@ -13,6 +13,7 @@
  
   "Heading.Subheading.WhyThisHappened": "Why this happened",
   "Heading.Subheading.ActivityReviewed": "Activity we reviewed",
+  "Heading.Subheading.ActivityReviewed.V2": "Recent activity we reviewed",
 
   "Description.BrokeRulesBanned": "We permanently banned your account because of repeated or serious rule-breaking.",
   "Description.SpecificDescription": "Your behaviour broke Boiby's rules regarding: {{reason}}.",
@@ -167,12 +168,12 @@
   "Label.MessageToUser.DiscriminationHate": "Any content or behaviour that promotes hate speech or discriminatory content is not permitted on Boiby.",
   "Label.MessageToUser.SexualContent": "Boiby prohibits users from uploading or discussing highly suggestive or sexually explicit content.",
   "Label.MessageToUser.Scamming": "Boiby prohibits any attempts to scam or deceive users for financial gain or personal information through any means.",
-  "Label.MessageToUser.ChildEndangerment": "Your account has been permanently banned due to violating Boiby's Minor Safety policy. Our policies prohibit this sort of content and behaviour. In circumstances where we believe users may be in danger, we may report the activity to relevant authorities.",
-  "Label.MessageToUser.TerrorismExtremism": "Your account has been permanently banned due to violating Boiby's Terrorism & Violent Extremism policy. Our policies prohibit this sort of content and behaviour. In circumstances where we believe users may be in danger, we may report the activity to relevant authorities.",
+  "Label.MessageToUser.ChildEndangerment": "Your account has been permanently banned due to violating Boiby's Child Safety policy. This kind of content and behaviour is strictly prohibited. In circumstances where Boiby believes users may be in danger, Boiby may file a report with the relevant authorities.",
+  "Label.MessageToUser.TerrorismExtremism": "Your account has been permanently banned due to violating Boiby's Terrorism & Violent Extremism policy. Our policies prohibit this sort of content and behaviour. In circumstances where Boiby believes users may be in danger, Boiby may file a report with the relevant authorities.",
   "Label.MessageToUser.Copyright": "We received a copyright removal request for your content. After reviewing the request, our moderation team has removed this content. If this was a mistake, you can contest the removal request by submitting a counter-notice by following our guidelines.",
-  "Label.MessageToUser.PII": "Boiby prohibits users from sharing, or asking for, personally identifiable information (PII).",
+  "Label.MessageToUser.PII": "Boiby prohibits users from sharing, or asking for, personally identifiable information (PII). This includes phone numbers, email addresses, full names, off-platform accounts, and physical addresses.",
   "Label.MessageToUser.Chargebacks": "Your account has been suspended due to unauthorized or disputed charges.",
-  "Label.MessageToUser.PaymentAbuse": "Your account has been moderated for payment abuse such as fraudulent transactions or misuse of payment features.",
+  "Label.MessageToUser.PaymentAbuse": "Your account has been suspended for payment abuse.",
   "Label.MessageToUser.MisusingBoibySystems": "Boiby does not permit attempts to bypass our platform's report tools or systems that keep our community safe.",
   "Label.MessageToUser.DangerousActivities": "Boiby prohibits the encouragement of or participation in real-life dangerous activities among users.",
   "Label.MessageToUser.SuspiciousAccountPatterns": "Your account has been suspended due to suspicious account activity patterns.",
@@ -193,7 +194,7 @@
   "Label.MessageToUser.OffPlatformBehaviour": "Your account has been moderated for off-platform behaviour that violates our Terms of Use.",
   "Label.MessageToUser.AccountForBreakingRules": "Do not create accounts just for the purpose of breaking the rules or harassing others.",
   "Label.MessageToUser.AltConsequence": "You created or used an account to avoid an enforcement action taken against another account",
-  "Label.MessageToUser.AltConsequence.V2": "This account is linked to an account banned for a severe violation of our Community Standards. The violation can be appealed using the banned account.",
+  "Label.MessageToUser.AltConsequence.V2": "This account is linked to an account that was banned for severe or repeated violations of our Community Standards.",
   "Label.MessageToUser.MultipleAccountsSevere": "Your account has been permanently banned for repeatedly violating the Terms of Use on multiple accounts. This violation cannot be appealed.",
   "Label.MessageToUser.LegacyAccountErasure": "Your account has been deleted as per your request.",
   "Label.MessageToUser.Extortion": "Boiby does not permit attempts to threaten users in order to force them to do something they do not want to do.",
@@ -223,7 +224,7 @@
   "Description.ViolentDetail": "Content that depicts or promotes serious physical harm, graphic violence, or gore isn't allowed.",
   "Description.ViolentImportance": "Graphic or violent content can be traumatic or upsetting, especially for users under 18.",
 
-  "Heading.DatingHeaderTop": "Keep conversations friendly and safe",
+  "Heading.DatingHeaderTop": "Keep conversations friendly",
   "Heading.RuleExplanation.DatingHeader": "No dating or romantic content",
   "Description.DatingDetail": "Romantic behaviors like kissing, dating, or sexting are not allowed. Keep conversations friendly, not flirty.",
   "Description.DatingImportance": "Our community includes users under the age of 18. Online dating puts these users at risk.",
@@ -238,8 +239,8 @@
   "Description.SexualDetail": "Highly suggestive or sexual content isn't allowed. This includes profile pictures and usernames, too.",
   "Description.SexualImportance": "Sexual content is not appropriate for all audiences and can harm users or make them uncomfortable, especially younger users.",
   
-  "Heading.ImpersonationHeaderTop": "Respect others' identities",
-  "Heading.RuleExplanation.ImpersonationHeader": "Don't impersonate staff or users",
+  "Heading.ImpersonationHeaderTop": "Be yourself, don't impersonate",
+  "Heading.RuleExplanation.ImpersonationHeader": "Respect others' identities",
   "Description.ImpersonationDetail": "Pretending to be someone else or misrepresenting your identity isn't allowed. This includes impersonating Boiby staff members or administrators.",
   "Description.ImpersonationImportance": "Impersonation can mislead or confuse others, and may harm the reputation of the person being impersonated.",
 
@@ -273,23 +274,23 @@
   "Description.ScammingDetail": "Attempting to scam or deceive users for personal gain through any means isn't allowed. This includes phishing links or fake offers.",
   "Description.ScammingImportance": "Scamming and deception can cause financial loss or identity theft, harming users and damaging trust within the community.",
 
-  "Heading.DisruptiveAudioHeaderTop": "Use your voice to contribute, not disrupt",
+  "Heading.DisruptiveAudioHeaderTop": "Use your voice to contribute",
   "Heading.RuleExplanation.DisruptiveAudioHeader": "No disruptive audio content",
   "Description.DisruptiveAudioDetail": "Audio content that is disruptive, overly loud, or harmful isn't allowed. This includes screaming and loud or annoying noises.",
   "Description.DisruptiveAudioImportance": "Disruptive or loud audio can be painful or startling, and can disrupt or ruin the experience for others.",
 
-  "Heading.ChargebackHeaderTop": "Support Boiby through fair payments",
+  "Heading.ChargebackHeaderTop": "Support us through fair payments",
   "Heading.RuleExplanation.ChargebackHeader": "Don't abuse chargebacks or refunds",
   "Description.ChargebackDetail": "Submitting multiple refund requests or making chargebacks without a valid reason is not allowed. This includes disputing legitimate transactions through your bank.",
   "Description.ChargebackImportance": "Unfair chargebacks and refund abuse create financial problems and prevent us from providing a quality service to all users.",
 
-  "Heading.IllegalContentHeaderTop": "Keep our community safe and compliant",
+  "Heading.IllegalContentHeaderTop": "Keep our community safe",
   "Heading.RuleExplanation.IllegalContentHeader": "No illegal or regulated content",
   "Description.IllegalContentDetail": "The promotion, sale, or discussion of illegal items, controlled substances, or regulated goods is prohibited on our platform.",
   "Description.IllegalContentImportance": "Discussion of illegal or regulated goods or services puts our users at risk and threatens the safety of our community, especially those under 18.",
 
   "Heading.IPViolationHeaderTop": "Respect others' work and rights",
   "Heading.RuleExplanation.IPViolationHeader": "Follow copyright guidelines",
-  "Description.IPViolationDetail": "Uploading content that you do not own the rights to, including copyrighted music, videos, and art, isn't allowed without permission.",
-  "Description.IPViolationImportance": "Protecting other users' intellectual property rights ensures that creators are fairly credited for their work."
+  "Description.IPViolationDetail": "Uploading content that you do not own the rights to, including copyrighted music, videos, and art, isn't allowed without permission from the creator.",
+  "Description.IPViolationImportance": "Protecting other users' intellectual property rights ensures that creators are fairly credited for their hard work."
 }
