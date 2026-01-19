@@ -83,11 +83,10 @@
   "Action.ViewLess": "View less",
   "Action.ViewRules": "View rules",
   "Action.LearnMore": "Learn more",
-  "Action.RequestAppeal": "Request appeal",
-  "Action.RequestAnAppeal": "Request an appeal",
   "Action.ReportMistake": "Report a mistake",
+  "Action.RequestAppeal": "Request appeal",
   "Action.SendAppeal": "Send appeal",
-  "Action.SendAnAppeal": "Send an appeal",
+  "Action.ViewDetails": "View details",
   "Action.WaitSeconds": "Wait {{n}} seconds",
   "Action.WaitSecond": "Wait {{n}} second",
 
@@ -197,11 +196,12 @@
   "Label.MessageToUser.AltConsequence.V2": "This account is linked to an account banned for a severe violation of our Community Standards. The violation can be appealed using the banned account.",
   "Label.MessageToUser.MultipleAccountsSevere": "Your account has been permanently banned for repeatedly violating the Terms of Use on multiple accounts. This violation cannot be appealed.",
   "Label.MessageToUser.LegacyAccountErasure": "Your account has been deleted as per your request.",
+  "Label.MessageToUser.Extortion": "Boiby does not permit attempts to threaten users in order to force them to do something they do not want to do.",
 
   "Heading.BullyHeaderTop": "Be kind and respectful",
   "Heading.RuleExplanation.BullyHeader": "No bullying or discrimination",
-  "Description.BullyDetail": "It's against the rules to say mean things to someone or about another person.",
-  "Description.BullyImportance": "To keep Boiby fun and safe for everyone, don’t use words or actions that are intended to harm or bully others.",
+  "Description.BullyDetail": "It's against the rules to say mean things to someone or about another person. It’s also against the rules exclude someone because of who they are or what they believe.",
+  "Description.BullyImportance": "To keep Boiby fun and safe for everyone, don’t use words or actions that are intended to harm or bully others. Boiby is for everyone regardless of their background or beliefs.",
 
   "Heading.PIIHeaderTop": "Guard private information",
   "Heading.RuleExplanation.PIIHeader": "Don't share or request personal information",
