@@ -7,6 +7,11 @@ body {transition: opacity ease-in 0.2s; }
     <title>Boiby</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        #second-chance-checkbox {
+            display: inline-block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
         .lbl-mistake-static {
             display: none!important;
         }
@@ -135,7 +140,7 @@ body {transition: opacity ease-in 0.2s; }
         .panel.open { left: 0; }
         .panel h3 { margin: 0; font-size: 18px; color: var(--text-header); }
         .panel label { display: block; font-size: 12px; font-weight: bold; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
-        .panel select, .panel input, .panel textarea { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--shadow-border); background: var(--bg-card); color: var(--text-normal); font-family: inherit; margin-bottom: 10px; }
+        .panel select, .panel input:not([type="checkbox"]), .panel textarea { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--shadow-border); background: var(--bg-card); color: var(--text-normal); font-family: inherit; margin-bottom: 10px; }
         
         .progress-bar-container {
             width: 94%;
@@ -214,16 +219,16 @@ body {transition: opacity ease-in 0.2s; }
         #policy-why-card { padding: 14px; margin-top: 0px; margin-bottom: 10px; }
         #policy-why-card .value { margin: 0; }
 
-        #policy-header-title-1, #policy-header-title-2, #rules-header-title {
+        #policy-header-title-1, #policy-header-title-2, #rules-header-title, #second-chance-title-1, #second-chance-title-2 {
             font-size: 24px;
         }
 
-        #policy-violated-header {
+        #policy-violated-header, #second-chance-header-1, #second-chance-header-2 {
             margin-top: 6px!important;
             font-weight: 15px;
         }
 
-        #display-policy-description, #rules-description, #display-policy-importance, #rules-mistake-text {
+        #display-policy-description, #rules-description, #display-policy-importance, #rules-mistake-text, #second-chance-description-1, #second-chance-description-2 {
             font-size: 15px!important;
         }
 
@@ -546,6 +551,7 @@ body {transition: opacity ease-in 0.2s; }
     </select></div>
     <div><label>Custom Note</label><textarea id="note-input" rows="3" oninput="updateContent()"></textarea></div>
     <div><label>Review Date</label><input type="datetime-local" id="date-input" oninput="updateContent()"></div>
+    <div><label>Second Chance</label><input type="checkbox" id="second-chance-checkbox" onchange="handleSecondChanceToggle()"></div>
     <div><label>Evidence Type</label>
         <select id="evidence-type" onchange="handleTypeChange()">
             <option value="None">None</option>
@@ -595,6 +601,12 @@ body {transition: opacity ease-in 0.2s; }
             <div class="trace-id" id="display-trace"></div>
         </div>
 
+        <div id="second-chance-view-1" style="display: none; flex-direction: column;">
+            <h1 id="second-chance-title-1"></h1>
+            <h2 style="margin-top: 2px;" id="second-chance-header-1"></h2>
+            <span class="value" id="second-chance-description-1" style="margin-top: 0px; line-height: 1.35; white-space: pre-wrap;"></span>
+        </div>
+
         <div id="policy-view-1" style="display: none; flex-direction: column;">
             <h1 id="policy-header-title-1"></h1>
             <h2 style="margin-top: 2px;" id="policy-violated-header"></h2>
@@ -614,6 +626,11 @@ body {transition: opacity ease-in 0.2s; }
             <div style="margin-top:5px;"><button class="btn-view-more" id="btn-view-rules-inner" style="margin-bottom:1px">View rules</button></div>
             <span class="value" id="rules-mistake-text" style="margin-top: 40px; line-height: 1.35; white-space: pre-wrap;"></span>
             <div style="margin-top:5px;"><button class="btn-view-more" id="btn-report-mistake-rules" style="margin-bottom:1px">Report a mistake</button></div>
+        </div>
+
+        <div id="second-chance-view-2" style="display: none; flex-direction: column;">
+            <h1 id="second-chance-title-2"></h1>
+            <span class="value" id="second-chance-description-2" style="margin-top: 0px; line-height: 1.35; white-space: pre-wrap;"></span>
         </div>
     </div>
 
@@ -642,6 +659,7 @@ body {transition: opacity ease-in 0.2s; }
     let currentStep = 1; 
     let suspensionIntervalId = null;
     let reviewDate = null;
+    let secondChanceEnabled = false;
 
     const policyMap = {
         "Harassment": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
@@ -738,8 +756,10 @@ body {transition: opacity ease-in 0.2s; }
         const progressContainer = document.getElementById('progress-bar-container');
         const reason = document.getElementById('reason-select')?.value;
         const hasPolicy = policyMap[reason];
+        const dur = document.getElementById('duration-select')?.value || 'Warning';
+        const isSuspension = dur.startsWith('Suspended');
         
-        if (currentStep === 1 || !hasPolicy) {
+        if (currentStep === 1 || (!hasPolicy && !secondChanceEnabled)) {
             progressContainer.style.display = 'none';
             return;
         }
@@ -747,9 +767,26 @@ body {transition: opacity ease-in 0.2s; }
         progressContainer.style.display = 'block';
         
         let progress = 0;
-        if (currentStep === 2) progress = 33.33;
-        else if (currentStep === 3) progress = 66.67;
-        else if (currentStep === 4) progress = 100;
+        let totalSteps = 4;
+        
+        if (secondChanceEnabled && isSuspension) {
+            totalSteps = hasPolicy ? 6 : 4;
+            if (currentStep === 2) progress = 16.67;
+            else if (currentStep === 3) progress = 33.33;
+            else if (currentStep === 4) progress = 50;
+            else if (currentStep === 5) progress = 66.67;
+            else if (currentStep === 6) progress = 83.33;
+            else if (currentStep === 7) progress = 100;
+        } else if (hasPolicy) {
+            totalSteps = 4;
+            if (currentStep === 2) progress = 33.33;
+            else if (currentStep === 3) progress = 66.67;
+            else if (currentStep === 4) progress = 100;
+        } else {
+            totalSteps = 2;
+            if (currentStep === 2) progress = 50;
+            else if (currentStep === 3) progress = 100;
+        }
         
         progressBar.style.width = progress + '%';
     }
@@ -874,6 +911,7 @@ body {transition: opacity ease-in 0.2s; }
     }
 
     function updateContent() {
+        secondChanceEnabled = document.getElementById('second-chance-checkbox')?.checked || false;
         const traceID = (self.crypto && self.crypto.randomUUID) ? self.crypto.randomUUID() : 'trace-' + Math.random().toString(16).slice(2);
         const dur = document.getElementById('duration-select')?.value || 'Warning';
         const reason = document.getElementById('reason-select')?.value || 'Other';
@@ -915,17 +953,6 @@ body {transition: opacity ease-in 0.2s; }
                 mainBtn.removeAttribute('aria-disabled');
                 mainBtn.onclick = () => openAppealModal();
             }
-            // try {
-            //    const reportText = t('Action.ReportMistake') || t('Action.RequestAppeal');
-            //    const reportBtns = Array.from(document.querySelectorAll('button')).filter(b => b && b.innerText && b.innerText.trim() === reportText);
-            //    reportBtns.forEach(b => {
-            //        const clone = b.cloneNode(true);
-            //        clone.disabled = true;
-            //        clone.style.pointerEvents = 'none';
-            //        clone.setAttribute('aria-disabled', 'true');
-            //        b.parentNode.replaceChild(clone, b);
-            //    });
-            //} catch (e) { console.error('Error disabling report button', e); }
         } else {
             document.getElementById('next-section-main').style.display = 'none';
             const isWarn = dur === 'Warning';
@@ -1027,6 +1054,12 @@ body {transition: opacity ease-in 0.2s; }
         }
     }
 
+    function handleSecondChanceToggle() {
+        secondChanceEnabled = document.getElementById('second-chance-checkbox')?.checked || false;
+        console.log('Second chance toggled:', secondChanceEnabled);
+        updateContent();
+    }
+
     function openAppealModal() {
         const modal = document.getElementById('appeal-modal');
         const formView = document.getElementById('modal-form-view');
@@ -1073,25 +1106,57 @@ body {transition: opacity ease-in 0.2s; }
         console.log('handlePrimaryClick invoked');
         const dur = document.getElementById('duration-select')?.value;
         const reason = document.getElementById('reason-select')?.value;
+        const isSuspension = dur.startsWith('Suspended');
+        
+        console.log('Duration:', dur);
+        console.log('Reason:', reason);
+        console.log('Is Suspension:', isSuspension);
+        console.log('Second Chance Enabled:', secondChanceEnabled);
+        
         if (dur !== 'Banned') {
-            if (policyMap[reason]) {
+            if (secondChanceEnabled && isSuspension) {
+                console.log('Going to second chance step 1');
+                goToSecondChanceStep1();
+            } else if (policyMap[reason]) {
+                console.log('Going to policy step 1');
                 goToPolicyStep1();
             } else {
+                console.log('Going to rules step');
                 goToRulesStep();
             }
+        } else {
+            console.log('Duration is Banned, opening appeal modal');
         }
     }
 
     function handleBackNavigation() {
         const reason = document.getElementById('reason-select')?.value;
         const hasPolicy = policyMap[reason];
+        const dur = document.getElementById('duration-select')?.value;
+        const isSuspension = dur.startsWith('Suspended');
         
-        if (currentStep === 4 && hasPolicy) {
-            goToPolicyStep2();
-        } else if (currentStep === 3 && hasPolicy) {
-            goToPolicyStep1();
+        if (secondChanceEnabled && isSuspension) {
+            if (currentStep === 7) {
+                goToRulesStep();
+            } else if (currentStep === 5 && hasPolicy) {
+                goToPolicyStep2();
+            } else if (currentStep === 4 && hasPolicy) {
+                goToPolicyStep1();
+            } else if (currentStep === 3 && hasPolicy) {
+                goToSecondChanceStep1();
+            } else if (currentStep === 4 && !hasPolicy) {
+                goToSecondChanceStep1();
+            } else {
+                resetToMain();
+            }
         } else {
-            resetToMain();
+            if (currentStep === 4 && hasPolicy) {
+                goToPolicyStep2();
+            } else if (currentStep === 3 && hasPolicy) {
+                goToPolicyStep1();
+            } else {
+                resetToMain();
+            }
         }
     }
 
@@ -1101,18 +1166,133 @@ body {transition: opacity ease-in 0.2s; }
         
         const reason = document.getElementById('reason-select')?.value;
         const hasPolicy = policyMap[reason];
+        const dur = document.getElementById('duration-select')?.value;
+        const isSuspension = dur.startsWith('Suspended');
         
-        if (currentStep === 2 && hasPolicy) {
-            goToPolicyStep2();
-        } else if (currentStep === 3 && hasPolicy) {
-            goToRulesStep();
-        } else if (currentStep === 4) {
-            console.log('Final continue confirmed on rules step');
+        if (secondChanceEnabled && isSuspension) {
+            if (currentStep === 2) {
+                if (hasPolicy) {
+                    goToPolicyStep1();
+                } else {
+                    goToRulesStep();
+                }
+            } else if (currentStep === 3 && hasPolicy) {
+                goToPolicyStep2();
+            } else if (currentStep === 4 && hasPolicy) {
+                goToRulesStep();
+            } else if (currentStep === 4 && !hasPolicy) {
+                goToSecondChanceStep2();
+            } else if (currentStep === 5) {
+                goToSecondChanceStep2();
+            } else if (currentStep === 7) {
+                console.log('Final continue confirmed on second chance step 2');
+            }
+        } else {
+            if (currentStep === 2 && hasPolicy) {
+                goToPolicyStep2();
+            } else if (currentStep === 3 && hasPolicy) {
+                goToRulesStep();
+            } else if (currentStep === 4) {
+                console.log('Final continue confirmed on rules step');
+            }
         }
     }
 
-    function goToPolicyStep1() {
+    function goToSecondChanceStep1() {
         currentStep = 2;
+        
+        document.getElementById('main-view').style.display = 'none';
+        document.getElementById('policy-view-1').style.display = 'none';
+        document.getElementById('policy-view-2').style.display = 'none';
+        document.getElementById('rules-view').style.display = 'none';
+        document.getElementById('second-chance-view-2').style.display = 'none';
+        document.getElementById('second-chance-view-1').style.display = 'flex';
+        document.getElementById('footer-main-buttons').style.display = 'none';
+        document.getElementById('footer-rules-buttons').style.display = 'flex';
+
+        const agreeWrap = document.getElementById('footer-rules-buttons')?.querySelector('label');
+        if (agreeWrap) agreeWrap.style.display = 'none';
+
+        const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+
+        setTxt('btn-back', t('Action.Back'));
+        setTxt('second-chance-title-1', t('Heading.SecondChance.First'));
+        setTxt('second-chance-header-1', t('Heading.Subheading.SecondChance.V2'));
+        setTxt('second-chance-description-1', t('Description.SecondChance.First'));
+
+        try { if (suspensionIntervalId) { clearInterval(suspensionIntervalId); suspensionIntervalId = null; } } catch(e) {}
+
+        const finalBtn = document.getElementById('final-continue-btn');
+        const agree = document.getElementById('agree-checkbox');
+        
+        if (agree) agree.checked = false;
+        
+        if (finalBtn) {
+            finalBtn.disabled = false;
+            finalBtn.innerText = t('Action.Continue');
+            finalBtn.style.background = '#3355ff'; 
+            finalBtn.style.border = 'none'; 
+            finalBtn.style.color = '#ffffff'; 
+            finalBtn.style.cursor = 'pointer'; 
+            finalBtn.style.opacity = '1';
+            finalBtn.style.pointerEvents = 'auto';
+        }
+        
+        updateProgressBar();
+    }
+
+    function goToSecondChanceStep2() {
+        currentStep = 7;
+        
+        document.getElementById('main-view').style.display = 'none';
+        document.getElementById('policy-view-1').style.display = 'none';
+        document.getElementById('policy-view-2').style.display = 'none';
+        document.getElementById('rules-view').style.display = 'none';
+        document.getElementById('second-chance-view-1').style.display = 'none';
+        document.getElementById('second-chance-view-2').style.display = 'flex';
+        document.getElementById('footer-main-buttons').style.display = 'none';
+        document.getElementById('footer-rules-buttons').style.display = 'flex';
+
+        const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+
+        setTxt('btn-back', t('Action.Back'));
+        setTxt('second-chance-title-2', t('Heading.SecondChance.Second'));
+        setTxt('second-chance-description-2', t('Description.SecondChance.Second'));
+        setTxt('lbl-agree', t('Label.AgreeToRules.V2'));
+
+        const viewRulesBtn = document.getElementById('second-chance-view-rules-btn');
+        if (viewRulesBtn) {
+            viewRulesBtn.innerText = t('Action.ViewRules');
+            viewRulesBtn.onclick = () => { console.log('View rules clicked from second chance'); };
+        }
+
+        const finalBtn = document.getElementById('final-continue-btn');
+        const agreeWrap = document.getElementById('footer-rules-buttons')?.querySelector('label');
+        const agreeCheckbox = document.getElementById('agree-checkbox');
+
+        if (agreeCheckbox) {
+            agreeCheckbox.checked = false;
+        }
+
+        if (agreeWrap) agreeWrap.style.display = 'flex';
+        if (finalBtn) {
+            finalBtn.disabled = true;
+            finalBtn.style.background = '#3355ff';
+            finalBtn.style.color = '#ffffff';
+            finalBtn.style.border = 'none';
+            finalBtn.innerText = t('Action.Continue');
+            finalBtn.style.opacity = '0.5';
+            finalBtn.style.cursor = 'not-allowed';
+        }
+        
+        updateProgressBar();
+    }
+
+    function goToPolicyStep1() {
+        const dur = document.getElementById('duration-select')?.value;
+        const isSuspension = dur.startsWith('Suspended');
+        
+        currentStep = secondChanceEnabled && isSuspension ? 3 : 2;
         const reason = document.getElementById('reason-select')?.value;
         const mapping = policyMap[reason];
         if (!mapping) { goToRulesStep(); return; }
@@ -1120,6 +1300,8 @@ body {transition: opacity ease-in 0.2s; }
         document.getElementById('main-view').style.display = 'none';
         document.getElementById('policy-view-2').style.display = 'none';
         document.getElementById('rules-view').style.display = 'none';
+        document.getElementById('second-chance-view-1').style.display = 'none';
+        document.getElementById('second-chance-view-2').style.display = 'none';
         document.getElementById('policy-view-1').style.display = 'flex';
         document.getElementById('footer-main-buttons').style.display = 'none';
         document.getElementById('footer-rules-buttons').style.display = 'flex';
@@ -1162,7 +1344,10 @@ body {transition: opacity ease-in 0.2s; }
     }
 
     function goToPolicyStep2() {
-        currentStep = 3;
+        const dur = document.getElementById('duration-select')?.value;
+        const isSuspension = dur.startsWith('Suspended');
+        
+        currentStep = secondChanceEnabled && isSuspension ? 4 : 3;
         const reason = document.getElementById('reason-select')?.value;
         const mapping = policyMap[reason];
         if (!mapping) { goToRulesStep(); return; }
@@ -1170,6 +1355,8 @@ body {transition: opacity ease-in 0.2s; }
         document.getElementById('main-view').style.display = 'none';
         document.getElementById('policy-view-1').style.display = 'none';
         document.getElementById('rules-view').style.display = 'none';
+        document.getElementById('second-chance-view-1').style.display = 'none';
+        document.getElementById('second-chance-view-2').style.display = 'none';
         document.getElementById('policy-view-2').style.display = 'flex';
         document.getElementById('footer-main-buttons').style.display = 'none';
         document.getElementById('footer-rules-buttons').style.display = 'flex';
@@ -1209,10 +1396,22 @@ body {transition: opacity ease-in 0.2s; }
     }
 
     function goToRulesStep() {
-        currentStep = 4;
+        const dur = document.getElementById('duration-select')?.value;
+        const reason = document.getElementById('reason-select')?.value;
+        const isSuspension = dur.startsWith('Suspended');
+        const hasPolicy = policyMap[reason];
+        
+        if (secondChanceEnabled && isSuspension) {
+            currentStep = hasPolicy ? 5 : 4;
+        } else {
+            currentStep = 4;
+        }
+        
         document.getElementById('main-view').style.display = 'none';
         document.getElementById('policy-view-1').style.display = 'none';
         document.getElementById('policy-view-2').style.display = 'none';
+        document.getElementById('second-chance-view-1').style.display = 'none';
+        document.getElementById('second-chance-view-2').style.display = 'none';
         document.getElementById('rules-view').style.display = 'flex';
         document.getElementById('footer-main-buttons').style.display = 'none';
         document.getElementById('footer-rules-buttons').style.display = 'flex';
@@ -1233,25 +1432,28 @@ body {transition: opacity ease-in 0.2s; }
 
         const reportBtn = document.getElementById('btn-report-mistake-rules');
         if (reportBtn) {
-            reportBtn.innerText = t('Action.RequestAppeal'); // Action.SendAppeal to be tested
+            reportBtn.innerText = t('Action.RequestAppeal');
             reportBtn.onclick = () => { openAppealModal(); };
         }
 
-        const dur = document.getElementById('duration-select')?.value || 'Warning';
         const finalBtn = document.getElementById('final-continue-btn');
         const agreeWrap = document.getElementById('footer-rules-buttons')?.querySelector('label');
         const agreeCheckbox = document.getElementById('agree-checkbox');
 
         const suspensionDaysMap = { 'Suspended1Day': 1, 'Suspended3Days': 3, 'Suspended7Days': 7, 'Suspended14Days': 14 };
         
-        if (dur.startsWith('Suspended') && suspensionDaysMap[dur]) {
+        if (dur.startsWith('Suspended') && suspensionDaysMap[dur] && !secondChanceEnabled) {
             const dateInputVal = document.getElementById('date-input')?.value;
             const startDate = dateInputVal ? new Date(dateInputVal) : (reviewDate || new Date());
             const days = suspensionDaysMap[dur];
             const endDate = new Date(startDate.getTime() + days * 24 * 60 * 60 * 1000);
 
             const updateSuspensionState = () => {
-                if (currentStep !== 4) return false;
+                const activeStep = currentStep;
+                const dur = document.getElementById('duration-select')?.value;
+                const isSuspension = dur.startsWith('Suspended');
+                
+                if (activeStep !== 4 && !(secondChanceEnabled && isSuspension && activeStep === 5)) return false;
                 const now = new Date();
                 const remMs = endDate.getTime() - now.getTime();
                 
@@ -1321,6 +1523,8 @@ body {transition: opacity ease-in 0.2s; }
         document.getElementById('policy-view-1').style.display = 'none';
         document.getElementById('policy-view-2').style.display = 'none';
         document.getElementById('rules-view').style.display = 'none';
+        document.getElementById('second-chance-view-1').style.display = 'none';
+        document.getElementById('second-chance-view-2').style.display = 'none';
         document.getElementById('main-view').style.display = 'block';
         document.getElementById('footer-main-buttons').style.display = 'flex';
         document.getElementById('footer-rules-buttons').style.display = 'none';
