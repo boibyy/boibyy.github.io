@@ -16,20 +16,22 @@ body {transition: opacity ease-in 0.2s; }
             display: none!important;
         }
         :root {
-            --bg-base: #111114; --bg-modal: #191a1f; --bg-card: #272930;
+            --bg-base: #101013; --bg-modal: #191a1f; --bg-card: #272930;
             --btn-gray: #333640; --btn-gray-hover: #444757; --btn-blue: #5865f2; 
             --btn-blue-hover: #4752c4; --text-header: #f2f3f5; --text-normal: #dbdee1;
             --text-muted: #949ba4; --text-trace: #828791; --danger: #da373c;
             --shadow-border: rgba(90, 90, 90, 0.33); --radius-modal: 16px;
             --radius-card: 10px; --radius-btn: 8px; --panel-bg: #1e1f22;
-            --btn-gray2: #33364029; --btn-gray-hover2: #44475741
+            --btn-gray2: #33364029; --btn-gray-hover2: #44475741;
+            --warning-orange: #f0b232;
         }
         body.light-mode {
             --bg-base: #e1e1e1; --bg-modal: #f7f7f8; --bg-card: #e9ebed;
             --btn-gray: #d7d7db; --btn-gray-hover: #d1d3d7; --text-header: #343434;
             --text-normal: #343434; --text-muted: #4f5660; --text-trace: #9598a0;
             --shadow-border: rgba(200,200,200, 0.4); --panel-bg: #f9f9f9;
-            --btn-gray2: #d7d7db4d; --btn-gray-hover2: #d1d3d74d
+            --btn-gray2: #d7d7db4d; --btn-gray-hover2: #d1d3d74d;
+            --warning-orange: #d49a1f;
         }
 
         body { 
@@ -46,7 +48,7 @@ body {transition: opacity ease-in 0.2s; }
         
 .container { 
     width: 640px; 
-    min-height: min(720px, 90vh); 
+    min-height: min(750px, 90vh); 
     height: auto;
     max-height: 90vh;
     background: var(--bg-modal); 
@@ -80,53 +82,21 @@ body {transition: opacity ease-in 0.2s; }
         }
 
         @media (max-width: 550px) {
-    #icon-holder, 
-    .dots {
-        display: none !important;
-    }
 
-    #main-view > .header {
-        display: block;
-        width: 100vw; 
-        position: relative;
-        left: 50%;
-        right: 50%;
-        margin-left: -50vw;
-        margin-right: -50vw;
-        margin-bottom: 22px!important;
-        border-bottom: 1px solid grey;
-        box-sizing: border-box;
-        padding: 0 22px; 
-        text-align: center;
-    }
-
+            .agree-section {
+                flex-direction: column!important;
+                align-items: flex-start!important;
+                margin-bottom: 12px;
+                font-size: 15px;
+            }
     .modal-content {
         max-width: 85%!important;
     }
 
-    .title-group {
-        text-align: center;
-        margin-top: -5px;
-        margin-left: auto!important;
-        margin-right: auto!important;
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* This forces children to the center */
-    }
-
-    #btn-back {
-        margin-bottom: 8px;
-        min-width:100%;
-    }
-
     #display-duration-title {
-        left: 50%;
-        right: 50%;
-        display: block!important;
-        text-align: center!important;
-        margin-bottom: 16px!important;
-        margin-top: 0!important;
-        line-height: 1!important;
+        line-height: 1.2!important;
+        margin-bottom: 14px!important;
+        margin-top: 12px!important;
     }
 
     h1 {
@@ -147,11 +117,11 @@ body {transition: opacity ease-in 0.2s; }
             height: 5px;
             background: var(--btn-gray);
             position: relative;
-            margin-top: 36px;
             margin-left: 3%;
             display: none;
             border-radius: 10px;
             margin-bottom: -8px;
+            margin-top: 64px;
         }
         
         .progress-bar-fill {
@@ -196,16 +166,16 @@ body {transition: opacity ease-in 0.2s; }
         .btn-view-more, .btn-report-inner {
             font-size: 13px !important;
         }
-        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; margin-top: 1px}
+        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; margin-top: 2px}
         .title-group { display: flex; align-items: center; gap: 12px; }
         .icon-container { width: 22px; height: 22px; position: relative; display: flex; align-items: center; justify-content: center; }
         .ban-icon { width: 22px; height: 22px; border: 2px solid var(--danger); border-radius: 50%; box-sizing: border-box; position: relative; }
         .ban-icon::after { content: ''; position: absolute; width: 2px; height: 100%; background: var(--danger); top: 0; left: 50%; transform: translateX(-50%) rotate(45deg); }
         .svg-icon { width: 26px; height: 26px; }
         h1 { color: var(--text-header); font-size: 21px; font-weight: 700; margin: 0; line-height: 2.4; }
-        .dots { color: var(--text-header); font-size: 20px; margin-right: 6px; cursor: pointer; line-height: 1; }
+        .dots { color: var(--text-header); font-size: 20px; margin-right: 6px; cursor: pointer; line-height: 1; position: relative; }
         .description { font-size: 14px; color: var(--text-normal); margin: 0 0 22px 0; line-height: 1.35; }
-        h2 { font-size: 16px; font-weight: 700; color: var(--text-header); margin: 2px 0 12px 0; }
+        h2 { font-size: 16px; font-weight: 700; color: var(--text-header); margin: 3px 0 12px 0; }
         .card { background: var(--bg-card); border-radius: var(--radius-card); padding: 15px; margin-bottom: 22px; border: 1px rgba(0, 0, 0, 0.03); }
         .field { margin-bottom: 12px; }
         .card .field:last-child { margin-bottom: 0; }
@@ -437,12 +407,125 @@ body {transition: opacity ease-in 0.2s; }
         .btn-logout:hover {
             background-color: var(--btn-gray-hover2);
         }
+        
+        #lbl-agree {
+            font-weight: 500!important;
+        }
 
-        @media (max-width: 550px) {
-            .btn-logout {
-                display: block;
+        .dots-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background: var(--bg-modal);
+            border: 1px solid var(--shadow-border);
+            border-radius: var(--radius-card);
+            box-shadow: 0 4px 12px rgba(10, 10, 10, 0.33);
+            display: none;
+            z-index: 100;
+        }
+
+        .dots-menu.active {
+            display: block;
+        }
+
+        .dots-menu-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 425;
+            color: var(--text-normal);
+            transition: background 0.25s;
+        }
+
+        .dots-menu-item:hover {
+            background: var(--btn-gray);
+        }
+
+        .dots-menu-item:first-child {
+            border-top-left-radius: var(--radius-btn);
+            border-top-right-radius: var(--radius-btn);
+        }
+
+        .dots-menu-item:last-child {
+            border-bottom-left-radius: var(--radius-btn);
+            border-bottom-right-radius: var(--radius-btn);
+        }
+
+        .btn-back-arrow {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: var(--text-header);
+            font-size: 24px;
+            margin-bottom: 20px!important;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s;
+            z-index: 10;
+        }
+
+        .btn-back-arrow:hover {
+            background: var(--btn-gray2);
+        }
+
+        .btn-back-arrow.active {
+            display: flex;
+        }
+
+        .suspension-countdown {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 12px;
+            height: 40px;
+            background: transparent;
+            border: 2px solid var(--btn-gray);
+            border-radius: var(--radius-btn);
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-normal);
+            box-sizing: border-box;
+        }
+
+        .suspension-icon {
+            width: 16px;
+            height: 16px;
+            opacity: 0.7;
+            flex-shrink: 0;
+        }
+        .suspension-label {
+            font-weight: 700;
+        }
+
+        .continue-disabled-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            width: 100%;
+            justify-content: flex-end;
+        }
+
+        @media (max-width: 640px) {
+            .continue-disabled-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .continue-disabled-wrapper .btn-report {
+                width: 100% !important;
+            }
+            
+            .suspension-countdown {
                 width: 100%;
-                box-sizing: border-box;
+                justify-content: center;
             }
         }
     </style>
@@ -518,8 +601,8 @@ body {transition: opacity ease-in 0.2s; }
     </div>
     <div><label>Moderator Note Presets</label><select id="note-preset" onchange="applyPresetNote()"><option value="">-- Choose a Preset --</option>
         <option value="Child Endangerment">Child Endangerment</option>
-        <option value="AltConsequence.V2">Ban Evasion</option>
-        <option value="Harassment">Harassment</option>
+        <option value="AltConsequence.V2">Enforcement/Ban Evasion</option>
+        <option value="Harassment">Bullying and Harassment</option>
         <option value="Spam">Spam</option>
         <option value="Dating">Dating</option>
         <option value="DiscriminationHate">Discrimination or Hate Speech</option>
@@ -533,6 +616,7 @@ body {transition: opacity ease-in 0.2s; }
         <option value="Copyright">Copyright Violation</option>
         <option value="Payment Abuse">Payment Abuse</option>
         <option value="Misusing Boiby Systems">Misusing Boiby Systems</option>
+        <option value="Extortion">Extortion and Threats</option>
         <option value="AccountTheft">Account Theft</option>
         <option value="CompromisedAccount">Compromised Account</option>
         <option value="DangerousActivities">Dangerous Activities</option>
@@ -551,7 +635,7 @@ body {transition: opacity ease-in 0.2s; }
     </select></div>
     <div><label>Custom Note</label><textarea id="note-input" rows="3" oninput="updateContent()"></textarea></div>
     <div><label>Review Date</label><input type="datetime-local" id="date-input" oninput="updateContent()"></div>
-    <div><label>Second Chance</label><input type="checkbox" id="second-chance-checkbox" onchange="handleSecondChanceToggle()"></div>
+    <div id="second-chance-container"><label>Second Chance</label><input type="checkbox" id="second-chance-checkbox" onchange="handleSecondChanceToggle()"></div>
     <div><label>Evidence Type</label>
         <select id="evidence-type" onchange="handleTypeChange()">
             <option value="None">None</option>
@@ -569,6 +653,7 @@ body {transition: opacity ease-in 0.2s; }
 </aside>
 
 <div class="container">
+    <button class="btn-back-arrow" style="margin-bottom:40px!important" id="btn-back-arrow" onclick="handleBackNavigation()">‹</button>
     <div class="progress-bar-container" id="progress-bar-container">
         <div class="progress-bar-fill" id="progress-bar-fill"></div>
     </div>
@@ -577,7 +662,11 @@ body {transition: opacity ease-in 0.2s; }
         <div id="main-view">
             <div class="header">
                 <div class="title-group"><div class="icon-container" id="icon-holder"><div class="ban-icon"></div></div><h1 id="display-duration-title">Banned</h1></div>
-                <div class="dots">⋮</div>
+                <div class="dots" id="dots-trigger">⋮
+                    <div class="dots-menu" id="dots-menu">
+                        <div class="dots-menu-item" id="logout-menu-item">Log out</div>
+                    </div>
+                </div>
             </div>
             <p class="description" id="display-desc"></p>
             <h2 id="txt-why"></h2>
@@ -591,7 +680,7 @@ body {transition: opacity ease-in 0.2s; }
                 <div id="evidence-divider" style="display:none; border-bottom: 1px solid var(--shadow-border); margin: 10px 0;"></div>
                 <div class="field"><span class="label" id="lbl-date-static"></span><span class="value" id="display-date"></span></div>
                 <div id="evidence-overflow"></div>
-                <button class="btn-view-more" style="margin-bottom:1px" id="view-more-btn" onclick="toggleEvidence()">View more</button>
+                <button class="btn-view-more" style="margin-bottom:1px" id="view-more-btn" onclick="toggleEvidence()">View details</button>
                 
                 <div id="next-section-main" style="display: none;">
                     <div class="field" style="margin-top: 14px;"><span class="label lbl-mistake-static"></span><span class="value txt-mistake-appeal"></span></div>
@@ -617,7 +706,6 @@ body {transition: opacity ease-in 0.2s; }
         <div id="policy-view-2" style="display: none; flex-direction: column;">
             <h1 id="policy-header-title-2"></h1>
             <span class="value" id="display-policy-importance" style="margin-top: 0px; line-height: 1.35; white-space: pre-wrap;"></span>
-            <div style="margin-top:12px;"><button class="btn-view-more" id="policy-learn-more-btn-2" style="margin-bottom:1px">Learn more</button></div>
         </div>
 
         <div id="rules-view" style="display: none; flex-direction: column;">
@@ -637,17 +725,15 @@ body {transition: opacity ease-in 0.2s; }
     <div class="footer">
         <div id="footer-main-buttons" style="display: flex; justify-content: flex-end; width: 100%;">
             <button class="btn-report" id="primary-action-btn" onclick="handlePrimaryClick()" style="color: rgb(17, 17, 17); background: rgba(51, 95, 255, 0.298); opacity: 1; border: none;">Report a mistake</button>
-            <button class="btn-logout" id="logout-btn" onclick="handleLogout()" style="display: none;">Log out</button>
         </div>
         <div id="footer-rules-buttons" style="display: none; justify-content: space-between; align-items: center; width: 100%;">
-            <button class="btn-report" id="btn-back" style="background-color: var(--btn-gray); color: var(--text-header);" onclick="handleBackNavigation()">Back</button>
-            <div class="agree-section" style="display:flex; align-items:center; gap:10px;">
+            <div class="agree-section" style="display:flex; align-items:center; gap:10px; flex: 1;">
                 <label style="display:flex; align-items:center; gap:5px; font-size:14px; cursor:pointer; color:var(--text-normal);">
                     <input type="checkbox" id="agree-checkbox" onchange="toggleContinueBtn()"> 
                     <span id="lbl-agree">Check to confirm you understand.</span>
                 </label>
-                <button class="btn-report" id="final-continue-btn" onclick="handleContinueClick()" disabled style="opacity:0.5; cursor:not-allowed;">Continue</button>
             </div>
+            <button class="btn-report" id="final-continue-btn" onclick="handleContinueClick()" disabled style="opacity:0.5; cursor:not-allowed;">Continue</button>
         </div>
     </div>
 </div>
@@ -697,7 +783,7 @@ body {transition: opacity ease-in 0.2s; }
             console.error("Translation load failed.");
             translations = {}; 
         }
-        setupLogoutAndResize();
+        
         updateContent();
         
         const finalBtn = document.getElementById('final-continue-btn');
@@ -716,6 +802,28 @@ body {transition: opacity ease-in 0.2s; }
         document.getElementById('modal-cancel').onclick = closeAppealModal;
         document.getElementById('modal-send').onclick = sendAppeal;
         document.getElementById('modal-got-it').onclick = closeAppealModal;
+
+        const dotsTrigger = document.getElementById('dots-trigger');
+        const dotsMenu = document.getElementById('dots-menu');
+        const logoutMenuItem = document.getElementById('logout-menu-item');
+
+        dotsTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dotsMenu.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!dotsTrigger.contains(e.target)) {
+                dotsMenu.classList.remove('active');
+            }
+        });
+
+        logoutMenuItem.addEventListener('click', () => {
+            handleLogout();
+            dotsMenu.classList.remove('active');
+        });
+
+        logoutMenuItem.innerText = t('Action.Logout') || 'Log out';
     }
 
     function t(key, vars = {}) {
@@ -733,59 +841,48 @@ body {transition: opacity ease-in 0.2s; }
         return `${now.toLocaleDateString('en-US', options)} at ${now.toLocaleTimeString('en-US', timeOptions)}`;
     }
 
-    function setupLogoutAndResize() {
-        const logoutBtn = document.querySelector('.btn-logout');
-        const handleResize = () => {
-            const isMobile = window.innerWidth < 640;
-            const dur = document.getElementById('duration-select')?.value;
-            if (logoutBtn) {
-                logoutBtn.style.display = (isMobile && dur === 'Banned') ? 'block' : 'none';
-            }
-        };
-        window.addEventListener('resize', handleResize);
-        handleResize();
-        
-        const durSelect = document.getElementById('duration-select');
-        if (durSelect) {
-            durSelect.addEventListener('change', handleResize);
-        }
-    }
-
     function updateProgressBar() {
         const progressBar = document.getElementById('progress-bar-fill');
         const progressContainer = document.getElementById('progress-bar-container');
+        const backArrow = document.getElementById('btn-back-arrow');
         const reason = document.getElementById('reason-select')?.value;
         const hasPolicy = policyMap[reason];
         const dur = document.getElementById('duration-select')?.value || 'Warning';
         const isSuspension = dur.startsWith('Suspended');
         
-        if (currentStep === 1 || (!hasPolicy && !secondChanceEnabled)) {
+        if (currentStep === 1) {
             progressContainer.style.display = 'none';
+            backArrow.classList.remove('active');
             return;
         }
         
+        backArrow.classList.add('active');
         progressContainer.style.display = 'block';
         
         let progress = 0;
-        let totalSteps = 4;
         
         if (secondChanceEnabled && isSuspension) {
-            totalSteps = hasPolicy ? 6 : 4;
-            if (currentStep === 2) progress = 16.67;
-            else if (currentStep === 3) progress = 33.33;
-            else if (currentStep === 4) progress = 50;
-            else if (currentStep === 5) progress = 66.67;
-            else if (currentStep === 6) progress = 83.33;
-            else if (currentStep === 7) progress = 100;
+            // Flow: main -> second chance 1 (step 2) -> policy 1 (step 3) -> policy 2 (step 4) -> rules (step 5) -> second chance 2 (step 7)
+            // Or if no policy: main -> second chance 1 (step 2) -> rules (step 4) -> second chance 2 (step 7)
+            if (hasPolicy) {
+                // 5 steps total (excluding main and final)
+                if (currentStep === 2) progress = 20;      // second chance 1
+                else if (currentStep === 3) progress = 40; // policy 1
+                else if (currentStep === 4) progress = 60; // policy 2
+                else if (currentStep === 5) progress = 80; // rules
+                else if (currentStep === 7) progress = 100; // second chance 2
+            } else {
+                // 3 steps total (excluding main and final)
+                if (currentStep === 2) progress = 33.33;    // second chance 1
+                else if (currentStep === 4) progress = 66.67; // rules
+                else if (currentStep === 7) progress = 100;   // second chance 2
+            }
         } else if (hasPolicy) {
-            totalSteps = 4;
             if (currentStep === 2) progress = 33.33;
             else if (currentStep === 3) progress = 66.67;
             else if (currentStep === 4) progress = 100;
         } else {
-            totalSteps = 2;
-            if (currentStep === 2) progress = 50;
-            else if (currentStep === 3) progress = 100;
+            if (currentStep === 4) progress = 100;
         }
         
         progressBar.style.width = progress + '%';
@@ -816,7 +913,7 @@ body {transition: opacity ease-in 0.2s; }
         const isOpen = overflow.style.display === 'block';
         if (isOpen) {
             overflow.style.display = 'none';
-            btn.innerText = t('Action.ViewMore');
+            btn.innerText = t('Action.ViewDetails');
         } else {
             overflow.style.display = 'block';
             btn.innerText = t('Action.ViewLess');
@@ -912,8 +1009,18 @@ body {transition: opacity ease-in 0.2s; }
 
     function updateContent() {
         secondChanceEnabled = document.getElementById('second-chance-checkbox')?.checked || false;
-        const traceID = (self.crypto && self.crypto.randomUUID) ? self.crypto.randomUUID() : 'trace-' + Math.random().toString(16).slice(2);
         const dur = document.getElementById('duration-select')?.value || 'Warning';
+        
+        const secondChanceContainer = document.getElementById('second-chance-container');
+        if (secondChanceContainer) {
+            if (dur === 'Banned' || dur === 'Warning') {
+                secondChanceContainer.style.display = 'none';
+            } else {
+                secondChanceContainer.style.display = 'block';
+            }
+        }
+        
+        const traceID = (self.crypto && self.crypto.randomUUID) ? self.crypto.randomUUID() : 'trace-' + Math.random().toString(16).slice(2);
         const reason = document.getElementById('reason-select')?.value || 'Other';
         const note = document.getElementById('note-input')?.value || '';
         const isLight = document.body.classList.contains('light-mode');
@@ -938,8 +1045,6 @@ body {transition: opacity ease-in 0.2s; }
 
         const descEl = document.getElementById('display-desc');
         const mainBtn = document.getElementById('primary-action-btn');
-        
-        setupLogoutAndResize();
         
         if (dur === 'Banned') {
             document.getElementById('next-section-main').style.display = 'none';
@@ -1002,7 +1107,11 @@ body {transition: opacity ease-in 0.2s; }
                 const descText = t(descKey, descVars);
                 descEl.innerText = descText;
             }
-            document.getElementById('icon-holder').innerHTML = `<img src="https://www.svgrepo.com/show/455819/exclamation-triangle.svg" class="svg-icon" style="filter: ${isWarn ? 'invert(80%) sepia(89%) saturate(300%) hue-rotate(351deg) brightness(69%) contrast(176%)' : 'invert(31%) sepia(93%) saturate(1292%) hue-rotate(1deg) brightness(94%) contrast(92%)'}">`;
+            
+            const warningFilter = 'invert(70%) sepia(65%) saturate(600%) hue-rotate(351deg) brightness(95%) contrast(90%)';
+            const suspensionFilter = 'invert(31%) sepia(93%) saturate(1292%) hue-rotate(1deg) brightness(94%) contrast(92%)';
+            
+            document.getElementById('icon-holder').innerHTML = `<img src="https://www.svgrepo.com/show/455819/exclamation-triangle.svg" class="svg-icon" style="filter: ${isWarn ? warningFilter : suspensionFilter}">`;
             if(mainBtn) {
                 document.getElementById('next-section-main').style.display = 'none';
                 mainBtn.innerText = t('Action.Continue');
@@ -1215,7 +1324,6 @@ body {transition: opacity ease-in 0.2s; }
 
         const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
 
-        setTxt('btn-back', t('Action.Back'));
         setTxt('second-chance-title-1', t('Heading.SecondChance.First'));
         setTxt('second-chance-header-1', t('Heading.Subheading.SecondChance.V2'));
         setTxt('second-chance-description-1', t('Description.SecondChance.First'));
@@ -1237,6 +1345,10 @@ body {transition: opacity ease-in 0.2s; }
             finalBtn.style.opacity = '1';
             finalBtn.style.pointerEvents = 'auto';
         }
+
+        const wrapper = document.getElementById('continue-disabled-wrapper');
+        if (wrapper) wrapper.remove();
+        if (finalBtn) finalBtn.style.display = 'block';
         
         updateProgressBar();
     }
@@ -1255,7 +1367,6 @@ body {transition: opacity ease-in 0.2s; }
 
         const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
 
-        setTxt('btn-back', t('Action.Back'));
         setTxt('second-chance-title-2', t('Heading.SecondChance.Second'));
         setTxt('second-chance-description-2', t('Description.SecondChance.Second'));
         setTxt('lbl-agree', t('Label.AgreeToRules.V2'));
@@ -1284,6 +1395,9 @@ body {transition: opacity ease-in 0.2s; }
             finalBtn.style.opacity = '0.5';
             finalBtn.style.cursor = 'not-allowed';
         }
+
+        const wrapper = document.getElementById('continue-disabled-wrapper');
+        if (wrapper) wrapper.remove();
         
         updateProgressBar();
     }
@@ -1311,7 +1425,6 @@ body {transition: opacity ease-in 0.2s; }
 
         const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
 
-        setTxt('btn-back', t('Action.Back'));
         setTxt('policy-header-title-1', t(mapping.headerTop));
         setTxt('policy-violated-header', t(mapping.header));
         setTxt('display-policy-description', t(mapping.detail));
@@ -1339,6 +1452,10 @@ body {transition: opacity ease-in 0.2s; }
             finalBtn.style.opacity = '1';
             finalBtn.style.pointerEvents = 'auto';
         }
+
+        const wrapper = document.getElementById('continue-disabled-wrapper');
+        if (wrapper) wrapper.remove();
+        if (finalBtn) finalBtn.style.display = 'block';
         
         updateProgressBar();
     }
@@ -1366,7 +1483,6 @@ body {transition: opacity ease-in 0.2s; }
 
         const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
 
-        setTxt('btn-back', t('Action.Back'));
         setTxt('policy-header-title-2', t(mapping.importanceLabel));
         setTxt('display-policy-importance', t(mapping.importance));
 
@@ -1391,6 +1507,10 @@ body {transition: opacity ease-in 0.2s; }
             finalBtn.style.opacity = '1';
             finalBtn.style.pointerEvents = 'auto';
         }
+
+        const wrapper = document.getElementById('continue-disabled-wrapper');
+        if (wrapper) wrapper.remove();
+        if (finalBtn) finalBtn.style.display = 'block';
         
         updateProgressBar();
     }
@@ -1422,7 +1542,6 @@ body {transition: opacity ease-in 0.2s; }
         setTxt('rules-description', t('Description.Foreshadow.V2'));
         setTxt('rules-mistake-text', t('Description.Mistake.V3'));
         setTxt('lbl-agree', t('Label.AgreeToRules.V2'));
-        setTxt('btn-back', t('Action.Back'));
 
         const viewRulesBtn = document.getElementById('btn-view-rules-inner');
         if (viewRulesBtn) {
@@ -1442,7 +1561,7 @@ body {transition: opacity ease-in 0.2s; }
 
         const suspensionDaysMap = { 'Suspended1Day': 1, 'Suspended3Days': 3, 'Suspended7Days': 7, 'Suspended14Days': 14 };
         
-        if (dur.startsWith('Suspended') && suspensionDaysMap[dur] && !secondChanceEnabled) {
+        if (dur.startsWith('Suspended') && !secondChanceEnabled && suspensionDaysMap[dur]) {
             const dateInputVal = document.getElementById('date-input')?.value;
             const startDate = dateInputVal ? new Date(dateInputVal) : (reviewDate || new Date());
             const days = suspensionDaysMap[dur];
@@ -1470,25 +1589,109 @@ body {transition: opacity ease-in 0.2s; }
                     }
                     return true;
                 } else {
-                    if (agreeWrap) agreeWrap.style.display = 'none';
-                    if (finalBtn) {
-                        finalBtn.disabled = true;
-                        finalBtn.innerText = t('Action.Continue');
-                        finalBtn.style.background = 'transparent';
-                        finalBtn.style.border = '1px solid var(--btn-gray)';
-                        finalBtn.style.color = 'var(--text-muted)';
-                        finalBtn.style.cursor = 'not-allowed';
-                        finalBtn.style.opacity = '1';
-                        const secs = Math.ceil(remMs / 1000);
-                        const daysLeft = Math.ceil(secs / 86400);
-                        let label = '';
-                        if (daysLeft >= 1) label = `${t('Label.Suspension')}: ${daysLeft} day${daysLeft>1?'s':''}`;
-                        else {
-                            const hh = String(Math.floor((secs % 86400) / 3600)).padStart(2,'0');
-                            const mm = String(Math.floor((secs % 3600) / 60)).padStart(2,'0');
-                            label = `${t('Label.Suspension')}: ${hh}:${mm} hours`;
+                    const secs = Math.ceil(remMs / 1000);
+                    const totalDays = remMs / (1000 * 60 * 60 * 24);
+                    const daysLeft = Math.ceil(totalDays);
+                    const hoursLeft = Math.floor((remMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutesLeft = Math.floor((remMs % (1000 * 60 * 60)) / (1000 * 60));
+                    const secondsLeft = Math.floor((remMs % (1000 * 60)) / 1000);
+                    
+                    let label = '';
+                    const suspensionLabel = t('Label.Suspension') || 'Suspension';
+                    
+                    if (totalDays >= 1) {
+                        const roundedDays = (totalDays % 1 >= 0.5) ? Math.ceil(totalDays) : Math.floor(totalDays);
+                        if (roundedDays === 1) {
+                            label = t('Label.CountdownSingleDay', { d: roundedDays }) || `${roundedDays} day`;
+                        } else {
+                            label = t('Label.CountdownMultipleDays', { d: roundedDays }) || `${roundedDays} days`;
                         }
-                        finalBtn.innerText = label;
+                    } else if (hoursLeft >= 1) {
+                        const hh = String(hoursLeft).padStart(2, '0');
+                        const mm = String(minutesLeft).padStart(2, '0');
+                        label = t('Label.CountdownHoursMinutes', { h: hh, m: mm }) || `${hh}:${mm} hours`;
+                    } else {
+                        const mm = String(minutesLeft).padStart(2, '0');
+                        const ss = String(secondsLeft).padStart(2, '0');
+                        label = t('Label.CountdownMinutesSeconds', { m: mm, s: ss }) || `${mm}:${ss} minutes`;
+                    }
+                    
+                    if (!secondChanceEnabled) {
+                        if (agreeWrap) agreeWrap.style.display = 'none';
+                        
+                        const existingWrapper = document.getElementById('continue-disabled-wrapper');
+                        if (existingWrapper) {
+                            existingWrapper.remove();
+                        }
+                        
+                        const wrapper = document.createElement('div');
+                        wrapper.id = 'continue-disabled-wrapper';
+                        wrapper.className = 'continue-disabled-wrapper';
+                        
+                        const countdown = document.createElement('div');
+                        countdown.className = 'suspension-countdown';
+                        
+                        const icon = document.createElement('img');
+                        icon.src = 'https://www.svgrepo.com/show/455819/exclamation-triangle.svg';
+                        icon.className = 'suspension-icon';
+                        const isLight = document.body.classList.contains('light-mode');
+                        icon.style.filter = isLight ? 'invert(70%) sepia(65%) saturate(600%) hue-rotate(351deg) brightness(95%) contrast(90%)' : 'invert(80%) sepia(89%) saturate(300%) hue-rotate(351deg) brightness(69%) contrast(176%)';
+                        
+                        const labelSpan = document.createElement('span');
+                        labelSpan.className = 'suspension-label';
+                        labelSpan.innerText = suspensionLabel;
+                        
+                        const timeSpan = document.createElement('span');
+                        timeSpan.innerText = ' ' + label;
+                        
+                        countdown.appendChild(icon);
+                        countdown.appendChild(labelSpan);
+                        countdown.appendChild(timeSpan);
+                        
+                        wrapper.appendChild(countdown);
+                        
+                        const continueBtn = document.createElement('button');
+                        continueBtn.className = 'btn-report';
+                        continueBtn.disabled = true;
+                        continueBtn.innerText = t('Action.Continue');
+                        continueBtn.style.background = '#3355ff';
+                        continueBtn.style.color = '#ffffff';
+                        continueBtn.style.border = 'none';
+                        continueBtn.style.opacity = '0.5';
+                        continueBtn.style.cursor = 'not-allowed';
+                        
+                        wrapper.appendChild(continueBtn);
+                        
+                        const footerButtons = document.getElementById('footer-rules-buttons');
+                        if (finalBtn) finalBtn.style.display = 'none';
+                        footerButtons.appendChild(wrapper);
+                    } else {
+                        if (agreeWrap) agreeWrap.style.display = 'none';
+                        if (finalBtn) {
+                            finalBtn.disabled = true;
+                            finalBtn.innerText = label;
+                            finalBtn.style.background = 'transparent';
+                            finalBtn.style.border = '3px solid var(--btn-gray)';
+                            finalBtn.style.color = 'var(--text-muted)';
+                            finalBtn.style.cursor = 'not-allowed';
+                            finalBtn.style.opacity = '1';
+                            
+                            const existingIcon = finalBtn.querySelector('.suspension-icon');
+                            if (!existingIcon) {
+                                const icon = document.createElement('img');
+                                icon.src = 'https://www.svgrepo.com/show/455819/exclamation-triangle.svg';
+                                icon.className = 'suspension-icon';
+                                const isLight = document.body.classList.contains('light-mode');
+                                icon.style.filter = isLight ? 'invert(70%) sepia(65%) saturate(600%) hue-rotate(351deg) brightness(95%) contrast(90%)' : 'invert(80%) sepia(89%) saturate(300%) hue-rotate(351deg) brightness(69%) contrast(176%)';
+                                icon.style.marginRight = '8px';
+                                finalBtn.insertBefore(icon, finalBtn.firstChild);
+                            }
+                            
+                            const textNode = Array.from(finalBtn.childNodes).find(n => n.nodeType === 3);
+                            if (textNode) {
+                                textNode.textContent = ` ${suspensionLabel}: ${label}`;
+                            }
+                        }
                     }
                     return false;
                 }
@@ -1499,7 +1702,13 @@ body {transition: opacity ease-in 0.2s; }
                 try { if (suspensionIntervalId) { clearInterval(suspensionIntervalId); suspensionIntervalId = null; } } catch(e) {}
                 suspensionIntervalId = setInterval(() => {
                     const nowExpired = updateSuspensionState();
-                    if (nowExpired) { try { clearInterval(suspensionIntervalId); } catch(e) {} suspensionIntervalId = null; }
+                    if (nowExpired) { 
+                        try { clearInterval(suspensionIntervalId); } catch(e) {} 
+                        suspensionIntervalId = null;
+                        const wrapper = document.getElementById('continue-disabled-wrapper');
+                        if (wrapper) wrapper.remove();
+                        if (finalBtn) finalBtn.style.display = 'block';
+                    }
                 }, 1000);
             }
         } else {
@@ -1512,7 +1721,10 @@ body {transition: opacity ease-in 0.2s; }
                 finalBtn.innerText = t('Action.Continue');
                 finalBtn.style.opacity = '0.5';
                 finalBtn.style.cursor = 'not-allowed';
+                finalBtn.style.display = 'block';
             }
+            const wrapper = document.getElementById('continue-disabled-wrapper');
+            if (wrapper) wrapper.remove();
         }
         
         updateProgressBar();
@@ -1529,6 +1741,10 @@ body {transition: opacity ease-in 0.2s; }
         document.getElementById('footer-main-buttons').style.display = 'flex';
         document.getElementById('footer-rules-buttons').style.display = 'none';
         try { if (suspensionIntervalId) { clearInterval(suspensionIntervalId); suspensionIntervalId = null; } } catch (e) {}
+        const wrapper = document.getElementById('continue-disabled-wrapper');
+        if (wrapper) wrapper.remove();
+        const finalBtn = document.getElementById('final-continue-btn');
+        if (finalBtn) finalBtn.style.display = 'block';
         updateProgressBar();
     }
 
