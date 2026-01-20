@@ -50,7 +50,7 @@ body {transition: opacity ease-in 0.2s; }
     width: 640px; 
     min-height: min(770px, 85vh); 
     height: auto;
-    max-height: 96vh;
+    max-height: 97vh;
     background: var(--bg-modal); 
     border-radius: var(--radius-modal); 
     box-sizing: border-box; 
@@ -603,12 +603,12 @@ body {transition: opacity ease-in 0.2s; }
             <option value="ExtortionThreats">Extortion and Threats</option>
             <option value="Spam">Spam</option>
             <option value="Scamming">Scamming</option>
-            <option value="DiscriminationHate">Discrimination or Hate</option>
+            <option value="DiscriminationHate.V2">Discriminatory Content</option>
             <option value="SexualContent">Sexual Content</option>
             <option value="MisusingSystems">Misusing Boiby Systems</option>
             <option value="PrivacyGivingPII">Privacy: Giving PII</option>
             <option value="PrivacyAskingPII">Privacy: Asking for PII</option>
-            <option value="PoliticalContent">Political Content</option>
+            <option value="PoliticalContent.V2">Political Figures and Entities</option>
             <option value="Impersonation">Impersonation</option>
             <option value="ViolentGore">Violent Content and Gore</option>
             <option value="UndisclosedAds">Undisclosed Advertisement</option>
@@ -620,29 +620,32 @@ body {transition: opacity ease-in 0.2s; }
             <option value="IllegalRegulated">Illegal or Regulated Content</option>
             <option value="RepeatedRefunds">Repeated Refund Requests</option>
             <option value="Chargebacks">Chargebacks</option>
-            <option value="IPViolation">Intellectual Property Violation</option>
-            <option value="TerrorismExtremism">Terrorism and Violent Extremism</option>
+            <option value="IPViolation.V2">IP Violation</option>
+            <option value="TerrorismExtremism.V2">Terrorism and Extremism</option>
             <option value="ChildEndangerment">Child Endangerment</option>
+            <option value="ChildEndangerment.V3">Harmful Content/Behaviour</option>
             <option value="AccountTheft">Account Theft</option>
         </select>
     </div>
     <div><label>Moderator Note Presets</label><select id="note-preset" onchange="applyPresetNote()"><option value="">-- Choose a Preset --</option>
-        <option value="Child Endangerment">Child Endangerment</option>
         <option value="AltConsequence.V2">Enforcement/Ban Evasion</option>
+        <option value="ChildEndangerment">Child Endangerment</option>
+        <option value="ChildEndangermentTemp">CE (TEMP)</option>
         <option value="Harassment">Bullying and Harassment</option>
         <option value="Spam">Spam</option>
         <option value="Dating">Dating</option>
-        <option value="DiscriminationHate">Discrimination or Hate Speech</option>
-        <option value="Sexual Content">Sexual Content</option>
+        <option value="DiscriminationHate.V2">Discriminatory Content</option>
+        <option value="SexualContent">Sexual Content</option>
         <option value="Scamming">Scamming</option>
-        <option value="PoliticalContent">Political Content</option>
-        <option value="TerrorismExtremism">Terrorism/Extremism</option>
-        <option value="PII">Privacy/PII</option>
+        <option value="PoliticalContent.V2">Political Content</option>
+        <option value="TerrorismExtremism">Terrorism/Extremism (temp)</option>
+        <option value="TerrorismExtremism.V2">Terrorism/Extremism</option>
+        <option value="PII">Privacy (PII)</option>
         <option value="Impersonation">Impersonation</option>
         <option value="Chargeback">Chargeback</option>
-        <option value="Copyright">Copyright Violation</option>
-        <option value="Payment Abuse">Payment Abuse</option>
-        <option value="Misusing Boiby Systems">Misusing Boiby Systems</option>
+        <option value="Copyright">IP Violation</option>
+        <option value="PaymentAbuse">Payment Abuse</option>
+        <option value="MisusingBoibySystems">Misusing Boiby Systems</option>
         <option value="Extortion">Extortion and Threats</option>
         <option value="AccountTheft">Account Theft</option>
         <option value="CompromisedAccount">Compromised Account</option>
@@ -653,11 +656,12 @@ body {transition: opacity ease-in 0.2s; }
         <option value="Misinformation">Misinformation</option>
         <option value="DisruptiveAudio">Disruptive Audio</option>
         <option value="UndisclosedAds">Undisclosed Advertisement</option>
-        <option value="GenericViolation">Generic Violation</option>
+        <option value="GenericViolation">Generic (Inappropriate)</option>
         <option value="Username">Username</option>
         <option value="DisplayName">Display Name</option>
         <option value="OffPlatformBehaviour">Off-Platform Behaviour</option>
         <option value="AccountForBreakingRules">Account for Breaking Rules</option>
+        <option value="DeletedCreatingPromoting">Inappropriate Content Generic</option>
         <option value="MultipleAccountsSevere">Multiple Account Violations</option>
     </select></div>
     <div><label>Custom Note</label><textarea id="note-input" rows="3" oninput="updateContent()"></textarea></div>
@@ -775,31 +779,33 @@ body {transition: opacity ease-in 0.2s; }
     let secondChanceEnabled = false;
 
     const policyMap = {
-        "Harassment": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
-        "Harassment.V2": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
-        "DiscriminationHate": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
-        "Spam": { headerTop: "Heading.SpamHeaderTop", header: "Heading.RuleExplanation.SpamHeader", detail: "Description.SpamDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SpamImportance" },
-        "ExtortionThreats": { headerTop: "Heading.ExtortionHeaderTop", header: "Heading.RuleExplanation.ExtortionHeader", detail: "Description.ExtortionDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ExtortionImportance" },
-        "ViolentGore": { headerTop: "Heading.ViolentHeaderTop", header: "Heading.RuleExplanation.ViolentHeader", detail: "Description.ViolentDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ViolentImportance" },
-        "Dating": { headerTop: "Heading.DatingHeaderTop", header: "Heading.RuleExplanation.DatingHeader", detail: "Description.DatingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.DatingImportance" },
-        "Dating.V2": { headerTop: "Heading.DatingHeaderTop", header: "Heading.RuleExplanation.DatingHeader", detail: "Description.DatingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.DatingImportance" },
-        "MisusingSystems": { headerTop: "Heading.MisusingSystemsHeaderTop", header: "Heading.RuleExplanation.MisusingSystemsHeader", detail: "Description.MisusingSystemsDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.MisusingSystemsImportance" },
-        "DangerousActivities": { headerTop: "Heading.HarmfulHeaderTop", header: "Heading.RuleExplanation.HarmfulHeader", detail: "Description.HarmfulDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.HarmfulImportance" },
-        "Misinformation": { headerTop: "Heading.MisinformationHeaderTop", header: "Heading.RuleExplanation.MisinformationHeader", detail: "Description.MisinformationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.MisinformationImportance" },
-        "UndisclosedAds": { headerTop: "Heading.UndisclosedAdsHeaderTop", header: "Heading.RuleExplanation.UndisclosedAdsHeader", detail: "Description.UndisclosedAdsDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.UndisclosedAdsImportance" },
-        "SexualContent": { headerTop: "Heading.SexualHeaderTop", header: "Heading.RuleExplanation.SexualHeader", detail: "Description.SexualDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SexualImportance" },
-        "PoliticalContent": { headerTop: "Heading.PoliticalHeaderTop", header: "Heading.RuleExplanation.PoliticalHeader", detail: "Description.PoliticalDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PoliticalImportance"},
-        "PoliticalContent.V2": { headerTop: "Heading.PoliticalHeaderTop", header: "Heading.RuleExplanation.PoliticalHeader", detail: "Description.PoliticalDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PoliticalImportance"},
-        "PrivacyGivingPII": { headerTop: "Heading.PIIHeaderTop", header: "Heading.RuleExplanation.PIIHeader", detail: "Description.PIIDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PIIImportance"},
-        "PrivacyAskingPII": { headerTop: "Heading.PIIHeaderTop", header: "Heading.RuleExplanation.PIIHeader", detail: "Description.PIIDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PIIImportance"},
-        "Scamming": { headerTop: "Heading.ScammingHeaderTop", header: "Heading.RuleExplanation.ScammingHeader", detail: "Description.ScammingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ScammingImportance"},
-        "DisruptiveAudio": { headerTop: "Heading.DisruptiveAudioHeaderTop", header: "Heading.RuleExplanation.DisruptiveAudioHeader", detail: "Description.DisruptiveAudioDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.DisruptiveAudioImportance"},
-        "Impersonation": { headerTop: "Heading.ImpersonationHeaderTop", header: "Heading.RuleExplanation.ImpersonationHeader", detail: "Description.ImpersonationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ImpersonationImportance"},
-        "SensitiveEvents": { headerTop: "Heading.SensitiveEventsHeaderTop", header: "Heading.RuleExplanation.SensitiveEventsHeader", detail: "Description.SensitiveEventsDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SensitiveEventsImportance"},
-        "RepeatedRefunds": { headerTop: "Heading.ChargebackHeaderTop", header: "Heading.RuleExplanation.ChargebackHeader", detail: "Description.ChargebackDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ChargebackImportance"},
-        "Chargebacks": { headerTop: "Heading.ChargebackHeaderTop", header: "Heading.RuleExplanation.ChargebackHeader", detail: "Description.ChargebackDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ChargebackImportance"},
-        "IllegalRegulated": { headerTop: "Heading.IllegalContentHeaderTop", header: "Heading.RuleExplanation.IllegalContentHeader", detail: "Description.IllegalContentDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.IllegalContentImportance"},
-        "IPViolation": { headerTop: "Heading.IPViolationHeaderTop", header: "Heading.RuleExplanation.IPViolationHeader", detail: "Description.IPViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.IPViolationImportance"}
+        "Harassment": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.BullyImportance" },
+        "Harassment.V2": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.BullyImportance" },
+        "DiscriminationHate": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.BullyImportance" },
+        "DiscriminationHate.V2": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.BullyImportance" },
+        "Spam": { headerTop: "Heading.SpamHeaderTop", header: "Heading.RuleExplanation.SpamHeader", detail: "Description.SpamDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.SpamImportance" },
+        "ExtortionThreats": { headerTop: "Heading.ExtortionHeaderTop", header: "Heading.RuleExplanation.ExtortionHeader", detail: "Description.ExtortionDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.ExtortionImportance" },
+        "ViolentGore": { headerTop: "Heading.ViolentHeaderTop", header: "Heading.RuleExplanation.ViolentHeader", detail: "Description.ViolentDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.ViolentImportance" },
+        "Dating": { headerTop: "Heading.DatingHeaderTop", header: "Heading.RuleExplanation.DatingHeader", detail: "Description.DatingDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.DatingImportance" },
+        "Dating.V2": { headerTop: "Heading.DatingHeaderTop", header: "Heading.RuleExplanation.DatingHeader", detail: "Description.DatingDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.DatingImportance" },
+        "MisusingSystems": { headerTop: "Heading.MisusingSystemsHeaderTop", header: "Heading.RuleExplanation.MisusingSystemsHeader", detail: "Description.MisusingSystemsDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.MisusingSystemsImportance" },
+        "DangerousActivities": { headerTop: "Heading.HarmfulHeaderTop", header: "Heading.RuleExplanation.HarmfulHeader", detail: "Description.HarmfulDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.HarmfulImportance" },
+        "Misinformation": { headerTop: "Heading.MisinformationHeaderTop.V2", header: "Heading.RuleExplanation.MisinformationHeader", detail: "Description.MisinformationDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.MisinformationImportance" },
+        "UndisclosedAds": { headerTop: "Heading.UndisclosedAdsHeaderTop", header: "Heading.RuleExplanation.UndisclosedAdsHeader", detail: "Description.UndisclosedAdsDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.UndisclosedAdsImportance" },
+        "SexualContent": { headerTop: "Heading.SexualHeaderTop", header: "Heading.RuleExplanation.SexualHeader", detail: "Description.SexualDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.SexualImportance" },
+        "PoliticalContent": { headerTop: "Heading.PoliticalHeaderTop", header: "Heading.RuleExplanation.PoliticalHeader", detail: "Description.PoliticalDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.PoliticalImportance"},
+        "PoliticalContent.V2": { headerTop: "Heading.PoliticalHeaderTop", header: "Heading.RuleExplanation.PoliticalHeader", detail: "Description.PoliticalDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.PoliticalImportance"},
+        "PrivacyGivingPII": { headerTop: "Heading.PIIHeaderTop", header: "Heading.RuleExplanation.PIIHeader", detail: "Description.PIIDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.PIIImportance"},
+        "PrivacyAskingPII": { headerTop: "Heading.PIIHeaderTop", header: "Heading.RuleExplanation.PIIHeader", detail: "Description.PIIDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.PIIImportance"},
+        "Scamming": { headerTop: "Heading.ScammingHeaderTop", header: "Heading.RuleExplanation.ScammingHeader", detail: "Description.ScammingDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.ScammingImportance"},
+        "DisruptiveAudio": { headerTop: "Heading.DisruptiveAudioHeaderTop", header: "Heading.RuleExplanation.DisruptiveAudioHeader", detail: "Description.DisruptiveAudioDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.DisruptiveAudioImportance"},
+        "Impersonation": { headerTop: "Heading.ImpersonationHeaderTop", header: "Heading.RuleExplanation.ImpersonationHeader", detail: "Description.ImpersonationDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.ImpersonationImportance"},
+        "SensitiveEvents": { headerTop: "Heading.SensitiveEventsHeaderTop", header: "Heading.RuleExplanation.SensitiveEventsHeader", detail: "Description.SensitiveEventsDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.SensitiveEventsImportance"},
+        "RepeatedRefunds": { headerTop: "Heading.ChargebackHeaderTop", header: "Heading.RuleExplanation.ChargebackHeader", detail: "Description.ChargebackDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.ChargebackImportance"},
+        "Chargebacks": { headerTop: "Heading.ChargebackHeaderTop", header: "Heading.RuleExplanation.ChargebackHeader", detail: "Description.ChargebackDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.ChargebackImportance"},
+        "IllegalRegulated": { headerTop: "Heading.IllegalContentHeaderTop", header: "Heading.RuleExplanation.IllegalContentHeader", detail: "Description.IllegalContentDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.IllegalContentImportance"},
+        "IPViolation": { headerTop: "Heading.IPViolationHeaderTop", header: "Heading.RuleExplanation.IPViolationHeader", detail: "Description.IPViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.IPViolationImportance"},
+        "IPViolation.V2": { headerTop: "Heading.IPViolationHeaderTop.V2", header: "Heading.RuleExplanation.IPViolationHeader", detail: "Description.IPViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.IPViolationImportance"}
     };
 
     async function init() {
@@ -1108,7 +1114,7 @@ body {transition: opacity ease-in 0.2s; }
                 if (reason === 'Other') {
                     descKey = 'Description.GenericDescription';
                 } else {
-                    descKey = 'Description.SpecificDescription';
+                    descKey = 'Description.SpecificDescription.V2';
                     descVars = { reason: t(`Label.Reason.${reason}`).toLowerCase() };
                 }
             } else {
@@ -1117,14 +1123,14 @@ body {transition: opacity ease-in 0.2s; }
                         descKey = 'Description.GenericTypeDescriptionPlural';
                         descVars = { type: pickType() };
                     } else {
-                        descKey = 'Description.SpecificTypeDescriptionPlural';
+                        descKey = 'Description.SpecificTypeDescriptionPlural.V2';
                         descVars = { type: pickType(), reason: t(`Label.Reason.${reason}`).toLowerCase() };
                     }
                 } else {
                     if (reason === 'Other') {
                         descKey = 'Description.GenericDescription';
                     } else {
-                        descKey = 'Description.SpecificDescription';
+                        descKey = 'Description.SpecificDescription.V2';
                         descVars = { reason: t(`Label.Reason.${reason}`).toLowerCase() };
                     }
                 }
