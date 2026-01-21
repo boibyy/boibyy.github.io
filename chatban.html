@@ -433,14 +433,10 @@
     <div>
         <label>Duration</label>
         <select id="duration-select" onchange="handleDurationChange()">
-            <option value="ChatSuspended10Minutes">10 minutes</option>
-            <option value="ChatSuspended20Minutes">20 minutes</option>
-            <option value="ChatSuspended30Minutes">30 minutes</option>
+            <option value="ChatBreaksRules">Warning</option>
             <option value="ChatSuspended1Hour" selected>1 hour</option>
-            <option value="ChatSuspended3Hours">3 hours</option>
             <option value="ChatSuspended6Hours">6 hours</option>
             <option value="ChatSuspended1Day">1 day</option>
-            <option value="ChatSuspended2Days">2 days</option>
             <option value="ChatSuspended3Days">3 days</option>
             <option value="ChatSuspended5Days">5 days</option>
             <option value="ChatSuspended7Days">7 days</option>
@@ -629,6 +625,8 @@
             descKey = 'Description.ChatSuspendedSingleHour';
         } else if (dur === 'ChatSuspended1Day') {
             descKey = 'Description.ChatSuspendedSingleDay';
+        } else if (dur.includes('ChatBreaks')) {
+            descKey = 'Description.ChatBreaksRulesWarning';
         } else if (dur.includes('Minutes')) {
             const minutes = dur.replace('ChatSuspended', '').replace('Minutes', '');
             descKey = 'Description.ChatSuspendedMultipleMinutes';
