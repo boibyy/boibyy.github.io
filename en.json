@@ -83,6 +83,7 @@
   "Label.PaymentTimestampValue": "Payment on {{date}} at {{time}}",
   "Label.VoiceChatTimestampValue": "Conversation at {{date}} at {{time}}",
   "Label.WebChat": "Web Chat",
+  "Label.UserAbout": "User About",
   "Label.AboutBio": "About Bio",
   "Label.UGCProfileDecoration": "UGC Profile Decoration",
   "Label.UGCProfileBanner": "UGC Profile Banner",
