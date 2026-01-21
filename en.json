@@ -325,6 +325,7 @@
 
   "Heading.ChargebackHeaderTop": "Support us through fair payments",
   "Heading.RuleExplanation.ChargebackHeader": "Don't abuse chargebacks or refunds",
+  "Heading.RuleExplanation.ChargebackHeader.V2": "Don't abuse refunds or make chargebacks",
   "Description.ChargebackDetail": "Submitting multiple refund requests or making chargebacks without a valid reason is not allowed. This includes disputing legitimate transactions through your bank.",
   "Description.ChargebackImportance": "Unfair chargebacks and refund abuse create financial problems and prevent us from providing a quality service to all users.",
 
