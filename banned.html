@@ -743,6 +743,8 @@ body {transition: opacity ease-in 0.2s; }
             <option value="Comment">Comment</option>
             <option value="Audio">Audio</option>
             <option value="Model">Model</option>
+            <option value="Username">Username</option>
+            <option value="DisplayName">Display Name</option>
             <option value="Game">Game</option>
             <option value="Asset">Asset</option>
             <option value="SeriousChatViolation">Serious Chat Violation</option>
@@ -1126,7 +1128,9 @@ body {transition: opacity ease-in 0.2s; }
             else if (item.type === 'Asset') labelText = (t('Label.AssetName') || 'Asset Name');
             else if (item.type === 'Post') labelText = (t('Label.Post') || 'Post');
             else if (item.type === 'Comment') labelText = (t('Label.Comment') || 'Comment');
-            else if (item.type === 'Generic') labelText = 'Offensive item';
+            else if (item.type === 'Generic') labelText = (t('Label.OffensiveItem') || 'Offensive item');
+            else if (item.type === 'Username') labelText = (t('Label.Username') || 'Username');
+            else if (item.type === 'DisplayName') labelText = (t('Label.DisplayName') || 'Display Name');
             
             lbl.innerText = labelText;
             div.appendChild(lbl);
@@ -1145,6 +1149,12 @@ body {transition: opacity ease-in 0.2s; }
                 val.innerText = item.val1 || '';
                 div.appendChild(val);
             } else if (item.type === 'VoiceChat') {
+                const val = document.createElement('div');
+                val.className = 'value';
+                val.style.marginTop = '6px';
+                val.innerText = item.val1 || '';
+                div.appendChild(val);
+            } else if (item.type === 'Username' || item.type === 'DisplayName') {
                 const val = document.createElement('div');
                 val.className = 'value';
                 val.style.marginTop = '6px';
@@ -1356,6 +1366,11 @@ body {transition: opacity ease-in 0.2s; }
             item.val1 = ''; // User input
         }
 
+        // Handle Username and Display Name
+        else if (['Username', 'DisplayName'].includes(currentType)) {
+            item.val1 = ''; // User input
+        }
+
         evidenceItems.push(item); 
         renderEvidenceControls(); 
         updateContent();
@@ -1466,11 +1481,12 @@ body {transition: opacity ease-in 0.2s; }
                 const firstViolation = violations[0];
                 const vType = firstViolation.type;
                 
-                // Check if it's ProfilePicture or VoiceChat (singular types)
-                if (vType === 'ProfilePicture' || vType === 'VoiceChat') {
+                if (vType === 'ProfilePicture' || vType === 'VoiceChat' || vType === 'Username' || vType === 'DisplayName') {
                     let typeText = '';
                     if (vType === 'ProfilePicture') typeText = 'profile picture';
                     else if (vType === 'VoiceChat') typeText = 'voice chat';
+                    else if (vType === 'Username') typeText = 'username';
+                    else if (vType === 'DisplayName') typeText = 'display name';
                     
                     if (reason === 'Other') {
                         descKey = 'Description.GenericTypeDescription.V2';
@@ -1569,6 +1585,8 @@ body {transition: opacity ease-in 0.2s; }
                 else if (i.type === 'Asset') label = (t('Label.AssetName') || 'Asset Name');
                 else if (i.type === 'Post') label = (t('Label.Post') || 'Post');
                 else if (i.type === 'Comment') label = (t('Label.Comment') || 'Comment');
+                else if (i.type === 'Username') label = (t('Label.Username') || 'Username');
+                else if (i.type === 'DisplayName') label = (t('Label.DisplayName') || 'Display Name');
                 
                 d.innerHTML = `<span class="label">${label}:</span><span class="value">${i.val1 || t('Label.NoContent')}</span>`;
                 mainDiv.appendChild(d);
@@ -1694,7 +1712,9 @@ function renderEvidenceControls() {
         else if (item.type === 'Asset') labelText = (t('Label.AssetName') || 'Asset Name');
         else if (item.type === 'Post') labelText = (t('Label.Post') || 'Post');
         else if (item.type === 'Comment') labelText = (t('Label.Comment') || 'Comment');
-        else if (item.type === 'Generic') labelText = 'Offensive item';
+        else if (item.type === 'Generic') labelText = (t('Label.OffensiveItem') || 'Offensive Item');
+        else if (item.type === 'Username') labelText = (t('Label.Username') || 'Username');
+        else if (item.type === 'DisplayName') labelText = (t('Label.DisplayName') || 'Display Name');
         
         lbl.innerText = labelText;
         div.appendChild(lbl);
