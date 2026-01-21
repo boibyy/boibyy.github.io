@@ -31,7 +31,7 @@
   "Label.Reason.SexualContent": "Sexual Content",
   "Label.Reason.PrivacyGivingPII": "Privacy: Giving PII",
   "Label.Reason.PrivacyAskingPII": "Privacy: Asking for PII",
-  "Label.Reason.MisusingSystems": "Misusing Boiby Systems",
+  "Label.Reason.MisusingSystems": "Misusing Boible Systems",
   "Label.Reason.ViolentGore": "Violent Content and Gore",
   "Label.Reason.Misinformation": "Misinformation",
   "Label.Reason.Impersonation": "Impersonation",
@@ -39,8 +39,7 @@
   "Label.Reason.Dating.V2": "Dating and Romantic Content",
   "Label.Reason.DiscriminationHate.V2": "Discriminatory Content",
   "Label.Reason.PoliticalContent.V2": "Political Figures and Entities",
-  "Label.Reason.TerrorismExtremism.V2": "Terrorism and Extremism",
-  "Label.Reason.ChildEndangerment.V3": "Harmful Content/Behaviour",
+  "Label.Reason.ExtortionThreats.V2": "Extortion and Blackmail",
 
   "Label.Reason": "Reason:",
   "Label.Violation": "Violation:",
