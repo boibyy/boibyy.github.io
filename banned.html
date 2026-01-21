@@ -2,11 +2,23 @@
 <html lang="en"><head><style>
 body {transition: opacity ease-in 0.2s; } 
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Boiby</title>
+    <title>Boible</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        
+        * {
+  font-family: "Public Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+#display-desc {
+    margin-top: 1px;
+}
         #second-chance-checkbox {
             display: inline-block !important;
             visibility: visible !important;
@@ -17,28 +29,27 @@ body {transition: opacity ease-in 0.2s; }
         }
         :root {
             --bg-base: #101013; --bg-modal: #191a1f; --bg-card: #272930;
-            --btn-gray: #333640; --btn-gray-hover: #444757; --btn-blue: #5865f2; 
-            --btn-blue-hover: #4752c4; --text-header: #f2f3f5; --text-normal: #dbdee1;
-            --text-muted: #949ba4; --text-trace: #828791; --danger: #da373c;
+            --btn-gray: #30323a; --btn-gray-hover: #373a44; --btn-blue: #5e499c; 
+            --btn-blue-hover: #604d9b --text-header: #f2f3f5; --text-normal: #dbdee1;
+            --text-muted: #828282; --text-trace: #828282; --danger: #da373c;
             --shadow-border: rgba(90, 90, 90, 0.33); --radius-modal: 16px;
             --radius-card: 10px; --radius-btn: 8px; --panel-bg: #1e1f22;
-            --btn-gray2: #33364029; --btn-gray-hover2: #44475741;
+            --btn-gray2: #353841; --btn-gray-hover2: #3d3f4b;
             --warning-orange: #f0b232;
         }
         body.light-mode {
-            --bg-base: #e1e1e1; --bg-modal: #f7f7f8; --bg-card: #e9ebed;
-            --btn-gray: #d7d7db; --btn-gray-hover: #d1d3d7; --text-header: #343434;
-            --text-normal: #343434; --text-muted: #4f5660; --text-trace: #9598a0;
-            --shadow-border: rgba(200,200,200, 0.4); --panel-bg: #f9f9f9;
-            --btn-gray2: #d7d7db4d; --btn-gray-hover2: #d1d3d74d;
-            --warning-orange: #d49a1f;
+            --bg-base: #bbb; --bg-modal: #f7f7f8; --bg-card: #E6E7EB;
+            --btn-gray: #dbdcdf; --btn-gray-hover: #cdd0d8; --text-header: #3a3a3a;
+            --text-normal: #444444; --text-muted: #616872; --text-trace: #676767;
+            --shadow-border: rgba(200,200,200, 0.4); --panel-bg: #f9f9f9; 
+            --btn-gray2: #cdcfd7; --btn-gray-hover2: #c0c2c7;
+            --warning-orange: #d49a1f; 
         }
 
         body { 
             margin: 0; 
             background: var(--bg-base); 
-            color: var(--text-normal); 
-            font-family: 'gg sans', 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
+            color: var(--text-normal);  
             display: flex; 
             justify-content: center; 
             align-items: center; 
@@ -48,9 +59,9 @@ body {transition: opacity ease-in 0.2s; }
         
 .container { 
     width: 640px; 
-    min-height: min(770px, 85vh); 
+    min-height: min(800px, 85vh); 
     height: auto;
-    max-height: 97vh;
+    max-height: 800px;
     background: var(--bg-modal); 
     border-radius: var(--radius-modal); 
     box-sizing: border-box; 
@@ -58,14 +69,19 @@ body {transition: opacity ease-in 0.2s; }
     flex-direction: column; 
     justify-content: space-between;
     position: relative; 
-    box-shadow: 0 0 0 1px var(--shadow-border), 0 3px 24px rgba(0, 0, 0, 0.25); 
+    box-shadow: 0 0 0 1px var(--shadow-border), 0 10px 10px rgba(0, 0, 0, 0.35); 
     overflow-y: auto; 
+}
+@media (max-width:550px) {
+    .container { 
+        max-height: 97vh;
+    }
 }
         
 #agree-checkbox {
     background-color: var(--bg-card);
 }
-        .customizer-toggle { position: fixed; bottom: 20px; left: 20px; z-index: 1000; background: var(--btn-blue); color: white; border: none; padding: 10px 15px; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .customizer-toggle { position: fixed; bottom: 20px; left: 20px; z-index: 1000; background: var(--btn-blue); color: white; border: none; padding: 10px 15px; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 0px 15px rgba(0,0,0,0.8); }
         
         @media (max-width: 768px) {
             .customizer-toggle {
@@ -129,7 +145,7 @@ body {transition: opacity ease-in 0.2s; }
     }
 
     .footer {
-        margin-bottom: 4px!important;
+        margin-bottom: 5px!important;
     }
 }
 
@@ -142,7 +158,7 @@ body {transition: opacity ease-in 0.2s; }
         .progress-bar-container {
             width: 94%;
             height: 5px;
-            background: var(--btn-gray);
+            background-color: var(--btn-gray)!important;
             position: relative;
             margin-left: 3%;
             display: none;
@@ -168,7 +184,7 @@ body {transition: opacity ease-in 0.2s; }
         }
 
         body.light-mode .container {
-            box-shadow: 0 0 0 1px var(--shadow-border), 0 3px 24px rgba(200,200,200, 0.25); 
+            box-shadow: 0 0 0 1px var(--shadow-border), 0 8px 10px rgba(170, 170, 170, 0.35); 
         }
 
         #main-view, #rules-view, #policy-view {
@@ -193,7 +209,11 @@ body {transition: opacity ease-in 0.2s; }
         .btn-view-more, .btn-report-inner {
             font-size: 13px !important;
         }
-        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; margin-top: 2px}
+
+        #footer-main-buttons, #footer-rules-buttons {
+            margin-bottom: 1px
+        }
+        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; margin-top: 4px}
         .title-group { display: flex; align-items: center; gap: 12px; }
         .icon-container { width: 22px; height: 22px; position: relative; display: flex; align-items: center; justify-content: center; }
         .ban-icon { width: 22px; height: 22px; border: 2px solid var(--danger); border-radius: 50%; box-sizing: border-box; position: relative; }
@@ -201,20 +221,57 @@ body {transition: opacity ease-in 0.2s; }
         .svg-icon { width: 26px; height: 26px; }
         h1 { color: var(--text-header); font-size: 21px; font-weight: 700; margin: 0; line-height: 2.4; }
         .dots { color: var(--text-header); font-size: 20px; margin-right: 6px; cursor: pointer; line-height: 1; position: relative; }
-        .description { font-size: 14px; color: var(--text-normal); margin: 0 0 20px 0; line-height: 1.3; }
+        .description { font-size: 14px; color: var(--text-normal); margin: 0 0 21px 0; line-height: 1.; }
         h2 { font-size: 16px; font-weight: 700; color: var(--text-header); margin: 3px 0 12px 0; }
-        .card { background: var(--bg-card); border-radius: var(--radius-card); padding: 16px; margin-bottom: 22px; border: 1px rgba(0, 0, 0, 0.03); }
-        .field { margin-bottom: 12px; }
-        .card .field:last-child { margin-bottom: 0; }
+        .card { background: var(--bg-card); border-radius: var(--radius-card); padding: 16px 15px 16px 15px; margin-bottom: 21px; border: 1px rgba(0, 0, 0, 0.03); }
+        .field { margin-bottom: 12px!important; }
+        .card .field:last-child { margin-bottom: 0!important }
         .label { display: block; font-weight: 700; font-size: 14px; color: var(--text-header); margin-bottom: 2px; }
-        .value { display: block; font-size: 14px; color: var(--text-normal); line-height: 1.35; }
+        .value { display: block; font-size: 14px; color: var(--text-normal); font-weight: 450; line-height: 1.4; }
         .btn-view-more { display: block; width: 100%; background: var(--btn-gray); color: var(--text-header); border: none; padding: 8.5px 0; border-radius: var(--radius-btn); font-size: 13px; font-weight: 600; cursor: pointer; margin-top: 8px; font-family: inherit; }
-        .trace-id { font-size: 13px; color: var(--text-trace); margin-top: -13px; font-weight: 500; padding-bottom: 20px; }
-        .btn-report { background-color: #335fff75; color: #ffffff; border: none; padding: 0px 12px; height: 40px; border-radius: var(--radius-btn); font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; transition: opacity 0.2s; }
-        body.light-mode .btn-report { background-color: #335fff; }
+        #view-more-btn { display: block; width: 100%; background: var(--btn-gray2)!important; color: var(--text-header); border: none; padding: 8.5px 0; border-radius: var(--radius-btn); font-size: 13px; font-weight: 600; cursor: pointer; margin-top: 8px; font-family: inherit; }
+        .trace-id { font-size: 12px; color: var(--text-trace); margin-top: -14px; font-weight: 600; padding-bottom: 21px; }
+        .btn-report { font-weight: 600!important; color: #eeeeee; border: none; padding: 0px 12px; height: 40px; border-radius: var(--radius-btn); font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; transition: opacity 0.2s; }
         #evidence-overflow { display: none; }
         #policy-why-card { padding: 14px; margin-top: 0px; margin-bottom: 10px; }
         #policy-why-card .value { margin: 0; }
+
+        /* HOVERS */
+        .btn-view-more:hover, 
+        .btn-logout:hover, 
+        .modal-button.cancel:hover {
+            background-color: var(--btn-gray-hover) !important;
+            transition: background-color 0.2s ease;
+        }
+
+        #view-more-btn:hover {
+            background-color: var(--btn-gray-hover2) !important;
+            transition: background-color 0.2s ease;
+        }
+
+        body.light-mode .primary-action-btn-2:hover {
+            background-color: #b3a5e4;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+        }
+        .primary-action-btn-2:hover {
+            background-color: #3b2c77;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+        }
+        .btn-report:hover, 
+        .customizer-toggle:hover {
+            background-color: var(--btn-blue-hover);
+            transition: 0.2s ease;
+        }
+
+        .modal-button.send:hover, .primary-action-btn-2:hover {
+            filter: brightness(1.2); /* Slight brighten for the purple */
+            transition: filter 0.2s ease;
+        }
+
+        input[type="checkbox"]:hover {
+            border-color: var(--text-muted) !important;
+            background-color: var(--btn-gray) !important;
+        }
 
         #policy-header-title-1, #policy-header-title-2, #rules-header-title, #second-chance-title-1, #second-chance-title-2 {
             font-size: 24px;
@@ -588,12 +645,12 @@ body {transition: opacity ease-in 0.2s; }
     <div><label>Appearance</label><button class="btn-view-more" onclick="toggleMode()" id="toggle-btn">Switch to Dark</button></div>
     <div><label>Action Duration</label>
         <select id="duration-select" onchange="updateContent()">
-            <option value="Warning">Warning</option>
-            <option value="Suspended1Day">Suspended for 1 day</option>
-            <option value="Suspended3Days">Suspended for 3 days</option>
-            <option value="Suspended7Days">Suspended for 7 days</option>
-            <option value="Suspended14Days">Suspended for 14 days</option>
-            <option value="Banned" selected>Banned</option>
+            <option value="Warning">Warn</option>
+            <option value="Suspended1Day">Suspend 1 day</option>
+            <option value="Suspended3Days">Suspend 3 days</option>
+            <option value="Suspended7Days">Suspend 7 days</option>
+            <option value="Suspended14Days">Suspend 14 days</option>
+            <option value="Banned" selected>Ban (Terminate)</option>
         </select>
     </div>
     <div><label>Reason</label>
@@ -605,7 +662,7 @@ body {transition: opacity ease-in 0.2s; }
             <option value="Scamming">Scamming</option>
             <option value="DiscriminationHate.V2">Discriminatory Content</option>
             <option value="SexualContent">Sexual Content</option>
-            <option value="MisusingSystems">Misusing Boiby Systems</option>
+            <option value="MisusingSystems">Misusing Boible Systems</option>
             <option value="PrivacyGivingPII">Privacy: Giving PII</option>
             <option value="PrivacyAskingPII">Privacy: Asking for PII</option>
             <option value="PoliticalContent.V2">Political Figures and Entities</option>
@@ -624,12 +681,14 @@ body {transition: opacity ease-in 0.2s; }
             <option value="TerrorismExtremism.V2">Terrorism and Extremism</option>
             <option value="ChildEndangerment">Child Endangerment</option>
             <option value="ChildEndangerment.V3">Harmful Content/Behaviour</option>
+            <option value="AbuseOfBoibleEmployees">Abuse of Boible Employees</option>
             <option value="AccountTheft">Account Theft</option>
         </select>
     </div>
     <div><label>Moderator Note Presets</label><select id="note-preset" onchange="applyPresetNote()"><option value="">-- Choose a Preset --</option>
         <option value="AltConsequence.V2">Enforcement/Ban Evasion</option>
         <option value="ChildEndangerment">Child Endangerment</option>
+        <option value="ChildEndangerment.V2">Child Endangerment V2</option>
         <option value="ChildEndangermentTemp">CE (TEMP)</option>
         <option value="Harassment">Bullying and Harassment</option>
         <option value="Spam">Spam</option>
@@ -638,14 +697,14 @@ body {transition: opacity ease-in 0.2s; }
         <option value="SexualContent">Sexual Content</option>
         <option value="Scamming">Scamming</option>
         <option value="PoliticalContent.V2">Political Content</option>
-        <option value="TerrorismExtremism">Terrorism/Extremism (temp)</option>
-        <option value="TerrorismExtremism.V2">Terrorism/Extremism</option>
+        <option value="TerrorismExtremism">Terrorism and Extremism (temp)</option>
+        <option value="TerrorismExtremism.V2">Terrorism and Extremism</option>
         <option value="PII">Privacy (PII)</option>
         <option value="Impersonation">Impersonation</option>
         <option value="Chargeback">Chargeback</option>
         <option value="Copyright">IP Violation</option>
         <option value="PaymentAbuse">Payment Abuse</option>
-        <option value="MisusingBoibySystems">Misusing Boiby Systems</option>
+        <option value="MisusingBoibleSystems">Misusing Boible Systems</option>
         <option value="Extortion">Extortion and Threats</option>
         <option value="AccountTheft">Account Theft</option>
         <option value="CompromisedAccount">Compromised Account</option>
@@ -675,12 +734,24 @@ body {transition: opacity ease-in 0.2s; }
             <option value="Image">Image</option>
             <option value="Post">Post</option>
             <option value="Comment">Comment</option>
-            <option value="Location">Location</option>
-            <option value="ChatEvidence">Chat Evidence ID</option>
+            <option value="Audio">Audio</option>
+            <option value="Model">Model</option>
+            <option value="Game">Game</option>
+            <option value="Asset">Asset</option>
+            <option value="SeriousChatViolation">Serious Chat Violation</option>
+            <option value="VoiceEvidence">Serious Voice Chat Violation</option>
+            <option value="ProfilePicture">Profile Picture</option>
+            <option value="Payment">Payment</option>
+            <option value="VoiceChat">Voice Chat</option>
         </select>
         <button id="add-btn" class="btn-view-more" onclick="addEvidenceItem()" style="display: none;">+ Add Item</button>
     </div>
     <div id="evidence-controls-container"></div>
+    <div id="image-upload-container" style="display: none;">
+        <label>Upload Image</label>
+        <input type="file" id="image-upload-input" accept="image/*" onchange="handleImageUpload(event)">
+        <button class="btn-view-more" onclick="clearImagePreview()" id="clear-image-btn" style="display: none; margin-top: 8px;">Clear Image</button>
+    </div>
 </aside>
 
 <div class="container">
@@ -707,15 +778,20 @@ body {transition: opacity ease-in 0.2s; }
             </div>
             <h2 id="txt-activity"></h2>
             <div class="card" id="evidence-card">
-                <div id="evidence-list-main"></div>
-                <div id="evidence-divider" style="display:none; border-bottom: 1px solid var(--shadow-border); margin: 10px 0;"></div>
-                <div class="field"><span class="label" id="lbl-date-static"></span><span class="value" id="display-date"></span></div>
-                <div id="evidence-overflow"></div>
-                <button class="btn-view-more" style="margin-bottom:1px" id="view-more-btn" onclick="toggleEvidence()">View details</button>
-                
-                <div id="next-section-main" style="display: none;">
-                    <div class="field" style="margin-top: 14px;"><span class="label lbl-mistake-static"></span><span class="value txt-mistake-appeal"></span></div>
-                    <button class="btn-view-more btn-report-inner" style="margin-bottom:1px" onclick="reportMistakeClicked(event)">Report a mistake</button>
+                <div id="image-preview-container" style="display: none; min-width: 225px; width: 225px; height: 225px; background: var(--bg-modal); border-radius: 8px; overflow: hidden; flex-shrink: 0;">
+                    <img id="preview-image" src="" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                <div id="evidence-card-content" style="flex: 1; min-width: 0;">
+                    <div id="evidence-list-main"></div>
+                    <div id="evidence-divider" style="display:none; border-bottom: 1px solid var(--shadow-border); margin: 10px 0;"></div>
+                    <div class="field"><span class="label" id="lbl-date-static"></span><span class="value" id="display-date"></span></div>
+                    <div id="evidence-overflow"></div>
+                    <button class="btn-view-more" id="view-more-btn" onclick="toggleEvidence()">View details</button>
+                    
+                    <div id="next-section-main" style="display: none;">
+                        <div class="field" style="margin-top: 14px;"><span class="label lbl-mistake-static"></span><span class="value txt-mistake-appeal"></span></div>
+                        <button class="btn-view-more btn-report-inner" style="margin-bottom:1px" onclick="reportMistakeClicked(event)">Report a mistake</button>
+                    </div>
                 </div>
             </div>
             <div class="trace-id" id="display-trace"></div>
@@ -755,8 +831,14 @@ body {transition: opacity ease-in 0.2s; }
 
     <div class="footer">
         <div id="footer-main-buttons" style="display: flex; justify-content: flex-end; width: 100%;">
-            <button class="btn-report" id="primary-action-btn" onclick="handlePrimaryClick()" style="color: rgb(17, 17, 17); background: rgba(96, 51, 255, 0.3); opacity: 1; border: none;">Report a mistake</button>
-        </div>
+<button 
+    class="btn-report primary-action-btn-2" 
+    id="primary-action-btn"
+    onclick="handlePrimaryClick()" 
+    style="color: rgb(17, 17, 17); background: rgba(96, 51, 255, 0.3); border: none; transition: 0.2s;"
+>
+    Report a mistake
+</button>        </div>
         <div id="footer-rules-buttons" style="display: none; justify-content: space-between; align-items: center; width: 100%;">
             <div class="agree-section" style="display:flex; align-items:center; gap:10px; flex: 1;">
                 <label style="display:flex; align-items:center; gap:5px; font-size:14px; cursor:pointer; color:var(--text-normal);">
@@ -777,6 +859,7 @@ body {transition: opacity ease-in 0.2s; }
     let suspensionIntervalId = null;
     let reviewDate = null;
     let secondChanceEnabled = false;
+    let uploadedImageBase64 = null;
 
     const policyMap = {
         "Harassment": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.BullyImportance" },
@@ -953,11 +1036,63 @@ body {transition: opacity ease-in 0.2s; }
         }
     }
 
+    function handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                // Calculate dimensions to fit in 500x500
+                let width = img.width;
+                let height = img.height;
+                const maxSize = 500;
+                
+                if (width > height) {
+                    if (width > maxSize) {
+                        height = (height * maxSize) / width;
+                        width = maxSize;
+                    }
+                } else {
+                    if (height > maxSize) {
+                        width = (width * maxSize) / height;
+                        height = maxSize;
+                    }
+                }
+                
+                canvas.width = width;
+                canvas.height = height;
+                ctx.drawImage(img, 0, 0, width, height);
+                
+                uploadedImageBase64 = canvas.toDataURL('image/jpeg', 0.8);
+                document.getElementById('clear-image-btn').style.display = 'block';
+                updateContent();
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function clearImagePreview() {
+        uploadedImageBase64 = null;
+        document.getElementById('image-upload-input').value = '';
+        document.getElementById('clear-image-btn').style.display = 'none';
+        updateContent();
+    }
+
     function renderEvidenceControls() {
         const container = document.getElementById('evidence-controls-container');
         if (!container) return;
         container.innerHTML = '';
         evidenceItems.forEach((item, index) => {
+            const mainDiv = document.createElement('div');
+            mainDiv.style.marginBottom = '15px';
+            
+            // First field
             const div = document.createElement('div');
             div.className = 'field';
             div.style.display = 'flex';
@@ -967,13 +1102,40 @@ body {transition: opacity ease-in 0.2s; }
             const lbl = document.createElement('span');
             lbl.className = 'label';
             let labelText = item.type;
-            if (item.type === 'ChatEvidence') labelText = (t('Label.ChatEvidenceID') || 'Chat Evidence ID');
-            else if (item.type === 'Location') labelText = (t('Label.Location') || 'Location');
+            
+            // Set appropriate labels
+            if (item.type === 'SeriousChatViolation') labelText = (t('Label.ChatEvidenceID') || 'Chat Evidence ID');
+            else if (item.type === 'VoiceEvidence') labelText = (t('Label.VoiceEvidenceID') || 'Voice Evidence ID');
+            else if (item.type === 'ProfilePicture') labelText = (t('Label.ProfilePictureID') || 'Profile Picture ID');
+            else if (item.type === 'Payment') labelText = (t('Label.Payment') || 'Payment');
+            else if (item.type === 'VoiceChat') labelText = (t('Label.VoiceChat') || 'Voice Chat Timestamp');
+            else if (item.type === 'Image') labelText = (t('Label.ImageName') || 'Image Name');
+            else if (item.type === 'Video') labelText = (t('Label.VideoName') || 'Video Name');
+            else if (item.type === 'Audio') labelText = (t('Label.AudioName') || 'Audio Name');
+            else if (item.type === 'Model') labelText = (t('Label.ModelName') || 'Model Name');
+            else if (item.type === 'Game') labelText = (t('Label.GameName') || 'Game Name');
+            else if (item.type === 'Asset') labelText = (t('Label.AssetName') || 'Asset Name');
+            else if (item.type === 'Post') labelText = (t('Label.Post') || 'Post');
+            else if (item.type === 'Comment') labelText = (t('Label.Comment') || 'Comment');
             else if (item.type === 'Generic') labelText = 'Offensive item';
+            
             lbl.innerText = labelText;
             div.appendChild(lbl);
 
-            if (item.type === 'ChatEvidence') {
+            // Handle display/input for val1
+            if (item.type === 'SeriousChatViolation' || item.type === 'VoiceEvidence' || item.type === 'ProfilePicture') {
+                const val = document.createElement('div');
+                val.className = 'value';
+                val.style.marginTop = '6px';
+                val.innerText = item.val1 || '';
+                div.appendChild(val);
+            } else if (item.type === 'Payment') {
+                const val = document.createElement('div');
+                val.className = 'value';
+                val.style.marginTop = '6px';
+                val.innerText = item.val1 || '';
+                div.appendChild(val);
+            } else if (item.type === 'VoiceChat') {
                 const val = document.createElement('div');
                 val.className = 'value';
                 val.style.marginTop = '6px';
@@ -993,7 +1155,88 @@ body {transition: opacity ease-in 0.2s; }
             removeBtn.onclick = () => { evidenceItems.splice(index, 1); renderEvidenceControls(); updateContent(); };
             div.appendChild(removeBtn);
 
-            container.appendChild(div);
+            mainDiv.appendChild(div);
+            
+            // Second field for ID (if applicable)
+            if (['Image', 'Video', 'Audio', 'Model', 'Game', 'Asset', 'Post', 'Comment'].includes(item.type)) {
+                const idDiv = document.createElement('div');
+                idDiv.className = 'field';
+                idDiv.style.display = 'flex';
+                idDiv.style.alignItems = 'center';
+                idDiv.style.gap = '8px';
+                idDiv.style.marginTop = '8px';
+                
+                const idLbl = document.createElement('span');
+                idLbl.className = 'label';
+                let idLabelText = '';
+                
+                if (item.type === 'Image') idLabelText = (t('Label.ImageID') || 'Image ID');
+                else if (item.type === 'Video') idLabelText = (t('Label.VideoID') || 'Video ID');
+                else if (item.type === 'Audio') idLabelText = (t('Label.AudioID') || 'Audio ID');
+                else if (item.type === 'Model') idLabelText = (t('Label.ModelID') || 'Model ID');
+                else if (item.type === 'Game') idLabelText = (t('Label.GameID') || 'Game ID');
+                else if (item.type === 'Asset') idLabelText = (t('Label.AssetID') || 'Asset ID');
+                else if (item.type === 'Post') idLabelText = (t('Label.PostID') || 'Post ID');
+                else if (item.type === 'Comment') idLabelText = (t('Label.CommentID') || 'Comment ID');
+                
+                idLbl.innerText = idLabelText;
+                idDiv.appendChild(idLbl);
+                
+                const idVal = document.createElement('div');
+                idVal.className = 'value';
+                idVal.style.marginTop = '6px';
+                idVal.innerText = item.val2 || '';
+                idDiv.appendChild(idVal);
+                
+                mainDiv.appendChild(idDiv);
+            }
+            
+            // Payment ID field
+            if (item.type === 'Payment') {
+                const idDiv = document.createElement('div');
+                idDiv.className = 'field';
+                idDiv.style.display = 'flex';
+                idDiv.style.alignItems = 'center';
+                idDiv.style.gap = '8px';
+                idDiv.style.marginTop = '8px';
+                
+                const idLbl = document.createElement('span');
+                idLbl.className = 'label';
+                idLbl.innerText = (t('Label.PaymentID') || 'Payment ID');
+                idDiv.appendChild(idLbl);
+                
+                const idVal = document.createElement('div');
+                idVal.className = 'value';
+                idVal.style.marginTop = '6px';
+                idVal.innerText = item.val2 || '';
+                idDiv.appendChild(idVal);
+                
+                mainDiv.appendChild(idDiv);
+            }
+            
+            // Location field for VoiceChat
+            if (item.type === 'VoiceChat') {
+                const locDiv = document.createElement('div');
+                locDiv.className = 'field';
+                locDiv.style.display = 'flex';
+                locDiv.style.alignItems = 'center';
+                locDiv.style.gap = '8px';
+                locDiv.style.marginTop = '8px';
+                
+                const locLbl = document.createElement('span');
+                locLbl.className = 'label';
+                locLbl.innerText = (t('Label.Location') || 'Location');
+                locDiv.appendChild(locLbl);
+                
+                const locInput = document.createElement('input');
+                locInput.value = item.val2 || '';
+                locInput.oninput = (e) => { evidenceItems[index].val2 = e.target.value; updateContent(); };
+                locDiv.appendChild(locInput);
+                
+                mainDiv.appendChild(locDiv);
+            }
+
+            container.appendChild(mainDiv);
         });
     }
 
@@ -1004,23 +1247,104 @@ body {transition: opacity ease-in 0.2s; }
         if (addBtn) addBtn.style.display = (currentType === 'Generic') ? 'block' : 'none'; 
         if (currentType !== 'None') addEvidenceItem(); 
         else { renderEvidenceControls(); updateContent(); } 
+        const imageUploadContainer = document.getElementById('image-upload-container');
+        if (imageUploadContainer) {
+            if (currentType === 'Image' || currentType === 'ProfilePicture') {
+                imageUploadContainer.style.display = 'block';
+            } else {
+                imageUploadContainer.style.display = 'none';
+                clearImagePreview();
+            }
+        }
     }
     
     function addEvidenceItem() { 
-        if (currentType === 'None' || (currentType !== 'Generic' && evidenceItems.length >= 1)) return; 
-        const makeUUID = () => { try { return (self.crypto && self.crypto.randomUUID) ? self.crypto.randomUUID() : ('id-' + Math.random().toString(16).slice(2)); } catch(e){ return 'id-' + Math.random().toString(16).slice(2); } };
+        if (currentType === 'None') return;
+        
+        // Allow multiple items for Generic, SeriousChatViolation, and VoiceEvidence
+        if (currentType !== 'Generic' && currentType !== 'SeriousChatViolation' && currentType !== 'VoiceEvidence' && evidenceItems.length >= 1) return;
+        
+        const makeUUID = () => { 
+            try { 
+                return (self.crypto && self.crypto.randomUUID) ? self.crypto.randomUUID() : ('id-' + Math.random().toString(16).slice(2)); 
+            } catch(e){ 
+                return 'id-' + Math.random().toString(16).slice(2); 
+            } 
+        };
+        
+        const generate12DigitID = () => {
+            return Math.floor(100000000000 + Math.random() * 900000000000).toString();
+        };
+        
         let item = { 
-            id: Date.now(), type: currentType, val1: '', 
-            val2: Math.random().toString(36).substring(2, 12).toUpperCase(), 
-            val3: t('Label.EntireVideo') 
+            id: Date.now() + Math.random(), 
+            type: currentType, 
+            val1: '', 
+            val2: '',
+            val3: ''
         };
 
-        if (currentType === 'ChatEvidence') {
+        // Handle SeriousChatViolation (formerly ChatEvidence)
+        if (currentType === 'SeriousChatViolation') {
             const banTime = reviewDate || new Date();
             const chatTime = new Date(banTime.getTime() - 17 * 60 * 1000);
             const pad = (n) => n.toString().padStart(2, '0');
             const ts = `${chatTime.getFullYear()}-${pad(chatTime.getMonth()+1)}-${pad(chatTime.getDate())}::${pad(chatTime.getHours())}:${pad(chatTime.getMinutes())}:${pad(chatTime.getSeconds())}`;
             item.val1 = `[${ts}]: ${makeUUID()}`;
+        }
+        
+        // Handle VoiceEvidence
+        else if (currentType === 'VoiceEvidence') {
+            const banTime = reviewDate || new Date();
+            const voiceTime = new Date(banTime.getTime() - 17 * 60 * 1000);
+            const pad = (n) => n.toString().padStart(2, '0');
+            const ts = `${voiceTime.getFullYear()}-${pad(voiceTime.getMonth()+1)}-${pad(voiceTime.getDate())}::${pad(voiceTime.getHours())}:${pad(voiceTime.getMinutes())}:${pad(voiceTime.getSeconds())}`;
+            item.val1 = `[${ts}]: ${makeUUID()}`;
+        }
+        
+        // Handle ProfilePicture
+        else if (currentType === 'ProfilePicture') {
+            item.val1 = generate12DigitID();
+        }
+        
+        // Handle Payment
+        else if (currentType === 'Payment') {
+            const paymentDate = reviewDate || new Date();
+            const dateStr = paymentDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+            const timeStr = paymentDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+            item.val1 = t('Label.PaymentTimestampValue', { date: dateStr, time: timeStr });
+            item.val2 = generate12DigitID();
+        }
+        
+        // Handle VoiceChat (formerly Location)
+        else if (currentType === 'VoiceChat') {
+            const vcDate = reviewDate || new Date();
+            const dateStr = vcDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+            const timeStr = vcDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+            item.val1 = t('Label.VoiceChatTimestampValue', { date: dateStr, time: timeStr });
+            item.val2 = ''; // Location - user input
+        }
+        
+        // Handle Image, Video, Audio, Model, Game, Asset (Name + ID)
+        else if (['Image', 'Video', 'Audio', 'Model', 'Game', 'Asset'].includes(currentType)) {
+            item.val1 = ''; // Name field - user input
+            item.val2 = generate12DigitID(); // Auto-generated ID
+        }
+        
+        // Handle Post, Comment (Content + ID)
+        else if (['Post', 'Comment'].includes(currentType)) {
+            item.val1 = ''; // Content - user input
+            item.val2 = generate12DigitID(); // Auto-generated ID
+        }
+        
+        // Handle Video (existing behavior for val3)
+        else if (currentType === 'Video') {
+            item.val3 = t('Label.EntireVideo') || 'Entire Video';
+        }
+        
+        // Handle Generic
+        else if (currentType === 'Generic') {
+            item.val1 = ''; // User input
         }
 
         evidenceItems.push(item); 
@@ -1078,6 +1402,21 @@ body {transition: opacity ease-in 0.2s; }
 
         const descEl = document.getElementById('display-desc');
         const mainBtn = document.getElementById('primary-action-btn');
+
+        const evidenceCard = document.getElementById('evidence-card');
+        if (evidenceCard) {
+            const hasImagePreview = uploadedImageBase64 && (currentType === 'Image' || currentType === 'ProfilePicture');
+            
+            if (hasImagePreview) {
+                evidenceCard.style.display = 'flex';
+                evidenceCard.style.gap = '16px';
+                evidenceCard.style.alignItems = 'flex-start';
+            } else {
+                evidenceCard.style.display = 'block';
+                evidenceCard.style.gap = '';
+                evidenceCard.style.alignItems = '';
+            }
+        }
         
         if (dur === 'Banned') {
             document.getElementById('next-section-main').style.display = 'none';
@@ -1094,44 +1433,63 @@ body {transition: opacity ease-in 0.2s; }
         } else {
             document.getElementById('next-section-main').style.display = 'none';
             const isWarn = dur === 'Warning';
-            const violations = evidenceItems.filter(e => e.type !== 'ChatEvidence');
+            const violations = evidenceItems.filter(e => e.type !== 'SeriousChatViolation' && e.type !== 'VoiceEvidence');
             const hasViolations = violations.length > 0;
-            const mediaTypes = ['Video','Comment','Image','Post'];
-            const genericTypes = ['Generic','Location'];
-            const hasMedia = violations.some(e => mediaTypes.includes(e.type));
-            const hasGeneric = violations.some(e => genericTypes.includes(e.type));
-
-            const pickType = () => {
-                if (!hasViolations) return '';
-                const first = violations[0].type || '';
-                return first.toLowerCase();
-            };
-
+            
+            const warningFilter = 'invert(70%) sepia(65%) saturate(600%) hue-rotate(351deg) brightness(95%) contrast(90%)';
+            const suspensionFilter = 'invert(31%) sepia(93%) saturate(1292%) hue-rotate(1deg) brightness(94%) contrast(92%)';
+            
+            document.getElementById('icon-holder').innerHTML = `<img src="https://www.svgrepo.com/show/455819/exclamation-triangle.svg" class="svg-icon" style="filter: ${isWarn ? warningFilter : suspensionFilter}">`;
+            
             let descKey = 'Description.GenericDescription';
             let descVars = {};
-
+            
+            // Determine which description to use
             if (!hasViolations) {
+                // No violations or only chat/voice evidence - use generic/specific
                 if (reason === 'Other') {
-                    descKey = 'Description.GenericDescription';
+                    descKey = 'Description.GenericDescription.V2';
                 } else {
                     descKey = 'Description.SpecificDescription.V2';
                     descVars = { reason: t(`Label.Reason.${reason}`).toLowerCase() };
                 }
             } else {
-                if (hasMedia) {
+                const firstViolation = violations[0];
+                const vType = firstViolation.type;
+                
+                // Check if it's ProfilePicture or VoiceChat (singular types)
+                if (vType === 'ProfilePicture' || vType === 'VoiceChat') {
+                    let typeText = '';
+                    if (vType === 'ProfilePicture') typeText = 'profile picture';
+                    else if (vType === 'VoiceChat') typeText = 'voice chat';
+                    
                     if (reason === 'Other') {
-                        descKey = 'Description.GenericTypeDescriptionPlural';
-                        descVars = { type: pickType() };
+                        descKey = 'Description.GenericTypeDescription.V2';
+                        descVars = { type: typeText };
                     } else {
-                        descKey = 'Description.SpecificTypeDescriptionPlural.V2';
-                        descVars = { type: pickType(), reason: t(`Label.Reason.${reason}`).toLowerCase() };
+                        descKey = 'Description.SpecificTypeDescription.V2';
+                        descVars = { type: typeText, reason: t(`Label.Reason.${reason}`).toLowerCase() };
                     }
-                } else {
+                }
+                // Check if it's Payment or Generic (generic behavior)
+                else if (vType === 'Payment' || vType === 'Generic') {
                     if (reason === 'Other') {
                         descKey = 'Description.GenericDescription';
                     } else {
                         descKey = 'Description.SpecificDescription.V2';
                         descVars = { reason: t(`Label.Reason.${reason}`).toLowerCase() };
+                    }
+                }
+                // All other types use plural descriptions
+                else {
+                    let typeText = vType.toLowerCase();
+                    
+                    if (reason === 'Other') {
+                        descKey = 'Description.GenericTypeDescriptionPlural.V2';
+                        descVars = { type: typeText };
+                    } else {
+                        descKey = 'Description.SpecificTypeDescriptionPlural.V2';
+                        descVars = { type: typeText, reason: t(`Label.Reason.${reason}`).toLowerCase() };
                     }
                 }
             }
@@ -1141,14 +1499,10 @@ body {transition: opacity ease-in 0.2s; }
                 descEl.innerText = descText;
             }
             
-            const warningFilter = 'invert(70%) sepia(65%) saturate(600%) hue-rotate(351deg) brightness(95%) contrast(90%)';
-            const suspensionFilter = 'invert(31%) sepia(93%) saturate(1292%) hue-rotate(1deg) brightness(94%) contrast(92%)';
-            
-            document.getElementById('icon-holder').innerHTML = `<img src="https://www.svgrepo.com/show/455819/exclamation-triangle.svg" class="svg-icon" style="filter: ${isWarn ? warningFilter : suspensionFilter}">`;
             if(mainBtn) {
                 document.getElementById('next-section-main').style.display = 'none';
                 mainBtn.innerText = t('Action.Continue');
-                mainBtn.style = "background: #5E499C; color: #ffffff; border: none;";
+                mainBtn.style = "background: #5E499C; color: #eeeeee; border: none;";
                 try {
                     mainBtn.disabled = false;
                     mainBtn.style.pointerEvents = 'auto';
@@ -1183,16 +1537,93 @@ body {transition: opacity ease-in 0.2s; }
             }
 
             evidenceItems.filter(i => i.type !== 'Generic').forEach(i => {
-                const d = document.createElement('div'); d.className = 'field';
+                const mainDiv = document.createElement('div');
+                mainDiv.className = 'field';
+                mainDiv.style.marginBottom = '12px';
+                
+                // First field
+                const d = document.createElement('div');
+                d.className = 'field';
+                d.style.marginBottom = '4px';
+                
                 let label = i.type;
-                if (i.type === 'ChatEvidence') label = (t('Label.ChatEvidenceID') || 'Chat Evidence ID');
-                else if (i.type === 'Location') label = (t('Label.Location') || 'Location');
+                if (i.type === 'SeriousChatViolation') label = (t('Label.ChatEvidenceID') || 'Chat Evidence ID');
+                else if (i.type === 'VoiceEvidence') label = (t('Label.VoiceEvidenceID') || 'Voice Evidence ID');
+                else if (i.type === 'ProfilePicture') label = (t('Label.ProfilePictureID') || 'Profile Picture ID');
+                else if (i.type === 'Payment') label = (t('Label.Payment') || 'Payment');
+                else if (i.type === 'VoiceChat') label = (t('Label.VoiceChat') || 'Voice Chat');
+                else if (i.type === 'Image') label = (t('Label.ImageName') || 'Image Name');
+                else if (i.type === 'Video') label = (t('Label.VideoName') || 'Video Name');
+                else if (i.type === 'Audio') label = (t('Label.AudioName') || 'Audio Name');
+                else if (i.type === 'Model') label = (t('Label.ModelName') || 'Model Name');
+                else if (i.type === 'Game') label = (t('Label.GameName') || 'Game Name');
+                else if (i.type === 'Asset') label = (t('Label.AssetName') || 'Asset Name');
+                else if (i.type === 'Post') label = (t('Label.Post') || 'Post');
+                else if (i.type === 'Comment') label = (t('Label.Comment') || 'Comment');
+                
                 d.innerHTML = `<span class="label">${label}:</span><span class="value">${i.val1 || t('Label.NoContent')}</span>`;
-                list.appendChild(d);
+                mainDiv.appendChild(d);
+                
+                // Second field for IDs
+                if (['Image', 'Video', 'Audio', 'Model', 'Game', 'Asset', 'Post', 'Comment'].includes(i.type)) {
+                    const idDiv = document.createElement('div');
+                    idDiv.className = 'field';
+                    idDiv.style.marginBottom = '0';
+                    
+                    let idLabel = '';
+                    if (i.type === 'Image') idLabel = (t('Label.AssetID') || 'Asset ID');
+                    else if (i.type === 'Video') idLabel = (t('Label.AssetID') || 'Asset ID');
+                    else if (i.type === 'Audio') idLabel = (t('Label.AssetID') || 'Asset ID');
+                    else if (i.type === 'Model') idLabel = (t('Label.AssetlID') || 'Asset ID');
+                    else if (i.type === 'Game') idLabel = (t('Label.GameID') || 'Game ID');
+                    else if (i.type === 'Asset') idLabel = (t('Label.AssetID') || 'Asset ID');
+                    else if (i.type === 'Post') idLabel = (t('Label.PostID') || 'Post ID');
+                    else if (i.type === 'Comment') idLabel = (t('Label.CommentID') || 'Comment ID');
+                    
+                    idDiv.innerHTML = `<span class="label">${idLabel}:</span><span class="value">${i.val2 || ''}</span>`;
+                    mainDiv.appendChild(idDiv);
+                }
+                
+                // Payment ID
+                if (i.type === 'Payment') {
+                    const idDiv = document.createElement('div');
+                    idDiv.className = 'field';
+                    idDiv.style.marginBottom = '0';
+                    idDiv.innerHTML = `<span class="label">${t('Label.PaymentID') || 'Payment ID'}:</span><span class="value">${i.val2 || ''}</span>`;
+                    mainDiv.appendChild(idDiv);
+                }
+                
+                // Location for VoiceChat
+                if (i.type === 'VoiceChat') {
+                    const locDiv = document.createElement('div');
+                    locDiv.className = 'field';
+                    locDiv.style.marginBottom = '0';
+                    locDiv.innerHTML = `<span class="label">${t('Label.Location') || 'Location'}:</span><span class="value">${i.val2 || t('Label.NoContent')}</span>`;
+                    mainDiv.appendChild(locDiv);
+                }
+                
+                list.appendChild(mainDiv);
             });
 
             const divider = document.getElementById('evidence-divider');
             if (divider) divider.style.display = evidenceItems.length > 0 ? 'block' : 'none';
+        }
+        const imagePreviewContainer = document.getElementById('image-preview-container');
+        const previewImage = document.getElementById('preview-image');
+        const evidenceCardContent = document.getElementById('evidence-card-content');
+
+        if (uploadedImageBase64 && (currentType === 'Image' || currentType === 'ProfilePicture')) {
+            imagePreviewContainer.style.display = 'block';
+            previewImage.src = uploadedImageBase64;
+            if (evidenceCardContent) {
+                evidenceCardContent.style.flex = '1';
+            }
+        } else {
+            imagePreviewContainer.style.display = 'none';
+            previewImage.src = '';
+            if (evidenceCardContent) {
+                evidenceCardContent.style.flex = '';
+            }
         }
     }
 
@@ -1221,7 +1652,161 @@ body {transition: opacity ease-in 0.2s; }
         
         modal.classList.add('active');
     }
+function renderEvidenceControls() {
+    const container = document.getElementById('evidence-controls-container');
+    if (!container) return;
+    container.innerHTML = '';
+    evidenceItems.forEach((item, index) => {
+        const mainDiv = document.createElement('div');
+        mainDiv.style.marginBottom = '15px';
+        
+        // First field
+        const div = document.createElement('div');
+        div.className = 'field';
+        div.style.display = 'flex';
+        div.style.alignItems = 'center';
+        div.style.gap = '8px';
 
+        const lbl = document.createElement('span');
+        lbl.className = 'label';
+        let labelText = item.type;
+        
+        // Set appropriate labels
+        if (item.type === 'SeriousChatViolation') labelText = (t('Label.ChatEvidenceID') || 'Chat Evidence ID');
+        else if (item.type === 'VoiceEvidence') labelText = (t('Label.VoiceEvidenceID') || 'Voice Evidence ID');
+        else if (item.type === 'ProfilePicture') labelText = (t('Label.ProfilePictureID') || 'Profile Picture ID');
+        else if (item.type === 'Payment') labelText = (t('Label.Payment') || 'Payment');
+        else if (item.type === 'VoiceChat') labelText = (t('Label.VoiceChat') || 'Voice Chat');
+        else if (item.type === 'Image') labelText = (t('Label.ImageName') || 'Image Name');
+        else if (item.type === 'Video') labelText = (t('Label.VideoName') || 'Video Name');
+        else if (item.type === 'Audio') labelText = (t('Label.AudioName') || 'Audio Name');
+        else if (item.type === 'Model') labelText = (t('Label.ModelName') || 'Model Name');
+        else if (item.type === 'Game') labelText = (t('Label.GameName') || 'Game Name');
+        else if (item.type === 'Asset') labelText = (t('Label.AssetName') || 'Asset Name');
+        else if (item.type === 'Post') labelText = (t('Label.Post') || 'Post');
+        else if (item.type === 'Comment') labelText = (t('Label.Comment') || 'Comment');
+        else if (item.type === 'Generic') labelText = 'Offensive item';
+        
+        lbl.innerText = labelText;
+        div.appendChild(lbl);
+
+        // Handle display/input for val1
+        if (item.type === 'SeriousChatViolation' || item.type === 'VoiceEvidence' || item.type === 'ProfilePicture') {
+            const val = document.createElement('div');
+            val.className = 'value';
+            val.style.marginTop = '6px';
+            val.innerText = item.val1 || '';
+            div.appendChild(val);
+        } else if (item.type === 'Payment') {
+            const val = document.createElement('div');
+            val.className = 'value';
+            val.style.marginTop = '6px';
+            val.innerText = item.val1 || '';
+            div.appendChild(val);
+        } else if (item.type === 'VoiceChat') {
+            const val = document.createElement('div');
+            val.className = 'value';
+            val.style.marginTop = '6px';
+            val.innerText = item.val1 || '';
+            div.appendChild(val);
+        } else {
+            const input = document.createElement('input');
+            input.value = item.val1 || '';
+            input.oninput = (e) => { evidenceItems[index].val1 = e.target.value; updateContent(); };
+            div.appendChild(input);
+        }
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'btn-view-more';
+        removeBtn.style.marginLeft = '6px';
+        removeBtn.innerText = 'Remove';
+        removeBtn.onclick = () => { evidenceItems.splice(index, 1); renderEvidenceControls(); updateContent(); };
+        div.appendChild(removeBtn);
+
+        mainDiv.appendChild(div);
+        
+        // Second field for ID (if applicable)
+        if (['Image', 'Video', 'Audio', 'Model', 'Game', 'Asset', 'Post', 'Comment'].includes(item.type)) {
+            const idDiv = document.createElement('div');
+            idDiv.className = 'field';
+            idDiv.style.display = 'flex';
+            idDiv.style.alignItems = 'center';
+            idDiv.style.gap = '8px';
+            idDiv.style.marginTop = '8px';
+            
+            const idLbl = document.createElement('span');
+            idLbl.className = 'label';
+            let idLabelText = '';
+            
+            if (item.type === 'Image') idLabelText = (t('Label.ImageID') || 'Image ID');
+            else if (item.type === 'Video') idLabelText = (t('Label.VideoID') || 'Video ID');
+            else if (item.type === 'Audio') idLabelText = (t('Label.AudioID') || 'Audio ID');
+            else if (item.type === 'Model') idLabelText = (t('Label.ModelID') || 'Model ID');
+            else if (item.type === 'Game') idLabelText = (t('Label.GameID') || 'Game ID');
+            else if (item.type === 'Asset') idLabelText = (t('Label.AssetID') || 'Asset ID');
+            else if (item.type === 'Post') idLabelText = (t('Label.PostID') || 'Post ID');
+            else if (item.type === 'Comment') idLabelText = (t('Label.CommentID') || 'Comment ID');
+            
+            idLbl.innerText = idLabelText;
+            idDiv.appendChild(idLbl);
+            
+            const idVal = document.createElement('div');
+            idVal.className = 'value';
+            idVal.style.marginTop = '6px';
+            idVal.innerText = item.val2 || '';
+            idDiv.appendChild(idVal);
+            
+            mainDiv.appendChild(idDiv);
+        }
+        
+        // Payment ID field
+        if (item.type === 'Payment') {
+            const idDiv = document.createElement('div');
+            idDiv.className = 'field';
+            idDiv.style.display = 'flex';
+            idDiv.style.alignItems = 'center';
+            idDiv.style.gap = '8px';
+            idDiv.style.marginTop = '8px';
+            
+            const idLbl = document.createElement('span');
+            idLbl.className = 'label';
+            idLbl.innerText = (t('Label.PaymentID') || 'Payment ID');
+            idDiv.appendChild(idLbl);
+            
+            const idVal = document.createElement('div');
+            idVal.className = 'value';
+            idVal.style.marginTop = '6px';
+            idVal.innerText = item.val2 || '';
+            idDiv.appendChild(idVal);
+            
+            mainDiv.appendChild(idDiv);
+        }
+        
+        // Location field for VoiceChat
+        if (item.type === 'VoiceChat') {
+            const locDiv = document.createElement('div');
+            locDiv.className = 'field';
+            locDiv.style.display = 'flex';
+            locDiv.style.alignItems = 'center';
+            locDiv.style.gap = '8px';
+            locDiv.style.marginTop = '8px';
+            
+            const locLbl = document.createElement('span');
+            locLbl.className = 'label';
+            locLbl.innerText = (t('Label.Location') || 'Location');
+            locDiv.appendChild(locLbl);
+            
+            const locInput = document.createElement('input');
+            locInput.value = item.val2 || '';
+            locInput.oninput = (e) => { evidenceItems[index].val2 = e.target.value; updateContent(); };
+            locDiv.appendChild(locInput);
+            
+            mainDiv.appendChild(locDiv);
+        }
+
+        container.appendChild(mainDiv);
+    });
+}
     function closeAppealModal() {
         const modal = document.getElementById('appeal-modal');
         modal.classList.remove('active');
