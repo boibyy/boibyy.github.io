@@ -752,6 +752,10 @@ body {transition: opacity ease-in 0.2s; }
             <option value="ProfilePicture">Profile Picture</option>
             <option value="Payment">Payment</option>
             <option value="VoiceChat">Voice Chat</option>
+            <option value="AboutBio">User About</option>
+            <option value="UGCProfileDecoration">UGC Profile Decoration</option>
+            <option value="UGCProfileBanner">UGC Profile Banner</option>
+            <option value="UGCProfileEffect">UGC Profile Effect</option>
         </select>
         <button id="add-btn" class="btn-view-more" onclick="addEvidenceItem()" style="display: none;">+ Add Item</button>
     </div>
@@ -1371,6 +1375,17 @@ body {transition: opacity ease-in 0.2s; }
             item.val1 = ''; // User input
         }
 
+        // Handle User About
+        else if (currentType === 'AboutBio') {
+            item.val1 = ''; // User input
+        }
+
+        // Handle UGC items
+        else if (['UGCProfileDecoration', 'UGCProfileBanner', 'UGCProfileEffect'].includes(currentType)) {
+            item.val1 = ''; // UGC name - user input
+            item.val2 = generate12DigitID(); // Auto-generated ID
+        }
+
         evidenceItems.push(item); 
         renderEvidenceControls(); 
         updateContent();
@@ -1481,12 +1496,13 @@ body {transition: opacity ease-in 0.2s; }
                 const firstViolation = violations[0];
                 const vType = firstViolation.type;
                 
-                if (vType === 'ProfilePicture' || vType === 'VoiceChat' || vType === 'Username' || vType === 'DisplayName') {
+                if (vType === 'ProfilePicture' || vType === 'VoiceChat' || vType === 'Username' || vType === 'DisplayName' || vType === 'AboutBio') {
                     let typeText = '';
                     if (vType === 'ProfilePicture') typeText = 'profile picture';
                     else if (vType === 'VoiceChat') typeText = 'voice chat';
                     else if (vType === 'Username') typeText = 'username';
                     else if (vType === 'DisplayName') typeText = 'display name';
+                    else if (vType === 'AboutBio') typeText = 'about bio';
                     
                     if (reason === 'Other') {
                         descKey = 'Description.GenericTypeDescription.V2';
@@ -1508,6 +1524,11 @@ body {transition: opacity ease-in 0.2s; }
                 // All other types use plural descriptions
                 else {
                     let typeText = vType.toLowerCase();
+                    
+                    // Handle UGC types with proper spacing
+                    if (vType === 'UGCProfileDecoration') typeText = 'UGC profile decoration';
+                    else if (vType === 'UGCProfileBanner') typeText = 'UGC profile banner';
+                    else if (vType === 'UGCProfileEffect') typeText = 'UGC profile effect';
                     
                     if (reason === 'Other') {
                         descKey = 'Description.GenericTypeDescriptionPlural.V2';
@@ -1587,12 +1608,16 @@ body {transition: opacity ease-in 0.2s; }
                 else if (i.type === 'Comment') label = (t('Label.Comment') || 'Comment');
                 else if (i.type === 'Username') label = (t('Label.Username') || 'Username');
                 else if (i.type === 'DisplayName') label = (t('Label.DisplayName') || 'Display Name');
+                else if (i.type === 'AboutBio') label = (t('Label.AboutBio') || 'User About');
+                else if (i.type === 'UGCProfileDecoration') label = (t('Label.UGCProfileDecoration') || 'UGC Profile Decoration');
+                else if (i.type === 'UGCProfileBanner') label = (t('Label.UGCProfileBanner') || 'UGC Profile Banner');
+                else if (i.type === 'UGCProfileEffect') label = (t('Label.UGCProfileEffect') || 'UGC Profile Effect');
                 
                 d.innerHTML = `<span class="label">${label}:</span><span class="value">${i.val1 || t('Label.NoContent')}</span>`;
                 mainDiv.appendChild(d);
                 
                 // Second field for IDs
-                if (['Image', 'Video', 'Audio', 'Model', 'Game', 'Asset', 'Post', 'Comment'].includes(i.type)) {
+                if (['Image', 'Video', 'Audio', 'Model', 'Game', 'Asset', 'Post', 'Comment', 'UGCProfileDecoration', 'UGCProfileBanner', 'UGCProfileEffect'].includes(i.type)) {
                     const idDiv = document.createElement('div');
                     idDiv.className = 'field';
                     idDiv.style.marginBottom = '0';
@@ -1606,6 +1631,9 @@ body {transition: opacity ease-in 0.2s; }
                     else if (i.type === 'Asset') idLabel = (t('Label.AssetID') || 'Asset ID');
                     else if (i.type === 'Post') idLabel = (t('Label.PostID') || 'Post ID');
                     else if (i.type === 'Comment') idLabel = (t('Label.CommentID') || 'Comment ID');
+                    else if (i.type === 'UGCProfileDecoration') idLabel = (t('Label.UGCProfileDecorationID') || 'UGC Profile Decoration ID');
+                    else if (i.type === 'UGCProfileBanner') idLabel = (t('Label.UGCProfileBannerID') || 'UGC Profile Banner ID');
+                    else if (i.type === 'UGCProfileEffect') idLabel = (t('Label.UGCProfileEffectID') || 'UGC Profile Effect ID');
                     
                     idDiv.innerHTML = `<span class="label">${idLabel}:</span><span class="value">${i.val2 || ''}</span>`;
                     mainDiv.appendChild(idDiv);
@@ -1715,6 +1743,10 @@ function renderEvidenceControls() {
         else if (item.type === 'Generic') labelText = (t('Label.OffensiveItem') || 'Offensive Item');
         else if (item.type === 'Username') labelText = (t('Label.Username') || 'Username');
         else if (item.type === 'DisplayName') labelText = (t('Label.DisplayName') || 'Display Name');
+        else if (item.type === 'AboutBio') labelText = (t('Label.AboutBio') || 'User About');
+        else if (item.type === 'UGCProfileDecoration') labelText = (t('Label.UGCProfileDecoration') || 'UGC Profile Decoration');
+        else if (item.type === 'UGCProfileBanner') labelText = (t('Label.UGCProfileBanner') || 'UGC Profile Banner');
+        else if (item.type === 'UGCProfileEffect') labelText = (t('Label.UGCProfileEffect') || 'UGC Profile Effect');
         
         lbl.innerText = labelText;
         div.appendChild(lbl);
@@ -1755,7 +1787,7 @@ function renderEvidenceControls() {
         mainDiv.appendChild(div);
         
         // Second field for ID (if applicable)
-        if (['Image', 'Video', 'Audio', 'Model', 'Game', 'Asset', 'Post', 'Comment'].includes(item.type)) {
+        if (['Image', 'Video', 'Audio', 'Model', 'Game', 'Asset', 'Post', 'Comment', 'UGCProfileDecoration', 'UGCProfileBanner', 'UGCProfileEffect'].includes(item.type)) {
             const idDiv = document.createElement('div');
             idDiv.className = 'field';
             idDiv.style.display = 'flex';
@@ -1775,6 +1807,9 @@ function renderEvidenceControls() {
             else if (item.type === 'Asset') idLabelText = (t('Label.AssetID') || 'Asset ID');
             else if (item.type === 'Post') idLabelText = (t('Label.PostID') || 'Post ID');
             else if (item.type === 'Comment') idLabelText = (t('Label.CommentID') || 'Comment ID');
+            else if (item.type === 'UGCProfileDecoration') idLabel = (t('Label.UGCProfileDecorationID') || 'UGC Profile Decoration ID');
+            else if (item.type === 'UGCProfileBanner') idLabel = (t('Label.UGCProfileBannerID') || 'UGC Profile Banner ID');
+            else if (item.type === 'UGCProfileEffect') idLabel = (t('Label.UGCProfileEffectID') || 'UGC Profile Effect ID');
             
             idLbl.innerText = idLabelText;
             idDiv.appendChild(idLbl);
