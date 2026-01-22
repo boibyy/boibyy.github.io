@@ -341,5 +341,15 @@
   "Label.MessageToUser.AgeVerificationFalse": "Your account has been moderated for providing inaccurate or false information about your identity. When verifying your age to access video uploading features, you must provide accurate information. Alternatively, you can make a payment on Boible.",
   "Label.Reason.DisruptiveVideoContent": "Disruptive Video Content",
   "Label.Reason.DirectingUsersOffPlatform": "Directing Users Off-Platform",
-  "Description.FinalSecondChance": "This is your only second chance. You won't be given another chance to avoid a suspension after this."
+  "Description.FinalSecondChance": "This is your only second chance. You won't be given another chance to avoid a suspension after this.",
+
+  "Label.Reason.ViolentGore.V2": "Extreme Violence and Gore",
+  "Label.MessageToUser.CheatsFirstViolation": "We noticed a modified version of the Boible client was used on one of your devices. This poses safety and security risks, and is not allowed. Please uninstall any unauthorized client modifications on all your devices. Future violations may result in account suspension, and could lead to a permanent ban.",
+  "Label.MessageToUser.CheatsSecondViolation": "We detected a modified version of the Boible client was used on one of your devices. This poses safety and security risks, and is not allowed. Future violations may result in longer suspensions, leading up to a permanent ban.",
+  "Label.MessageToUser.CheatsThirdViolation": "We detected a modified version of the Boible client was used on one of your devices. You have received multiple notifications about this violation. If you violate this rule again, your account may be permanently banned.",
+  "Label.MessageToUser.CheatsPermanent": "Your account has been permanently banned for repeated violations of our rules against modified clients and cheats. You received multiple previous notifications about this violation.",
+  "Heading.CheatingHeaderTop": "Play fair and keep it fun",
+  "Heading.RuleExplanation.CheatingHeader": "Don't use cheats, hacks, or exploits",
+  "Description.CheatingDetail": "Using third-party software to gain an unfair advantage, modifying client files for cheating, or intentionally triggering bugs to bypass intended mechanics isn't allowed.",
+  "Description.CheatingImportance": "Cheating and exploiting can ruin the experience for everyone else and harm the integrity and competitive balance of our community.",
 }
