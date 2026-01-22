@@ -418,12 +418,6 @@
             </div>
             <div class="modal-subtext" id="modal-subtext"></div>
         </div>
-        <div id="enforcement-container" style="display: none;">
-            <label style="display: flex; align-items: center; cursor: pointer; text-transform: none; font-size: 14px;">
-                <input type="checkbox" id="enforcement-checkbox" onchange="updateContent()">
-                Enforcement Ban
-            </label>
-        </div>
         <div id="modal-success-view" style="display: none;">
             <div class="modal-header" id="modal-success-header"></div>
             <div class="modal-description" id="modal-success-description"></div>
@@ -450,6 +444,12 @@
             <option value="ChatBanned">Permanent</option>
         </select>
     </div>
+    <div id="enforcement-container" style="display: none;">
+            <label style="display: flex; align-items: center; cursor: pointer; text-transform: none; font-size: 14px;">
+                <input type="checkbox" id="enforcement-checkbox" onchange="updateContent()">
+                Enforcement Ban
+            </label>
+        </div>
     <div id="reason-container">
         <label>Reason</label>
         <select id="reason-select" onchange="updateContent()">
