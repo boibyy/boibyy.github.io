@@ -14,6 +14,7 @@
   "Heading.Subheading.WhyThisHappened": "Why this happened",
   "Heading.Subheading.ActivityReviewed": "Activity we reviewed",
   "Heading.Subheading.ActivityReviewed.V2": "Recent activity we reviewed",
+
   "Description.BrokeRulesBanned": "We permanently banned your account because of repeated or serious rule-breaking.",
   "Description.GenericDescription": "Your behaviour broke Boible's rules.",
   "Description.GenericTypeDescription": "Your {{type}} broke Boible's rules.",
@@ -334,5 +335,11 @@
   "Heading.IPViolationHeaderTop.V2": "Respect creators' work",
   "Heading.RuleExplanation.IPViolationHeader": "Follow copyright guidelines",
   "Description.IPViolationDetail": "Uploading content that you don't own the rights to, including copyrighted music, videos, and art, isn't allowed without permission from the creator.",
-  "Description.IPViolationImportance": "Protecting other users' intellectual property rights ensures that creators are fairly credited for their hard work."
+  "Description.IPViolationImportance": "Protecting other users' intellectual property rights ensures that creators are fairly credited for their hard work.",
+
+  "Label.Reason.FalseAgeVerify": "False Age Verification",
+  "Label.MessageToUser.AgeVerificationFalse": "Your account has been moderated for providing inaccurate or false information about your identity. When verifying your age to access video uploading features, you must provide accurate information. Alternatively, you can make a payment on Boible.",
+  "Label.Reason.DisruptiveVideoContent": "Disruptive Video Content",
+  "Label.Reason.DirectingUsersOffPlatform": "Directing Users Off-Platform",
+  "Description.FinalSecondChance": "This is your only second chance. You won't be given another chance to avoid a suspension after this."
 }
