@@ -128,6 +128,7 @@
   "Heading.Subheading.SecondChance.V2": "Learn this rule to continue using Boible",
   "Description.SecondChance.First": "Since you've behaved responsibly in the past, you can avoid a suspension this one time by learning this rule.",
   "Description.SecondChance.Second": "You can go back to using Boible now. You won't be able to appeal this decision later.",
+  "Description.FinalSecondChance": "This is your only second chance. You won't be given another chance to avoid a suspension after this.",
 
   "Label.EUTransparency.DecisionMethod": "Decision method:",
   "Label.EUTransparency.AutomatedDetectionAutomatedDecision": "We used automated systems to detect this violation and make this decision.",
@@ -194,6 +195,10 @@
   "Label.Reason.AbuseOfBoibleEmployees": "Abuse of Boible Employees",
   "Label.Reason.LinkedAccountViolation": "Linked Account Violation",
   "Label.Reason.ExtortionThreats.V2": "Extortion and Blackmail",
+  "Label.Reason.ViolentGore.V2": "Extreme Violence and Gore",
+  "Label.Reason.DisruptiveVideoContent": "Disruptive Video Content",
+  "Label.Reason.DirectingUsersOffPlatform": "Directing Users Off-Platform",
+  "Label.Reason.FalseAgeVerify": "False Age Verification",
 
   "Label.MessageToUser.AccountForBreakingRules": "Do not create accounts just for the purpose of breaking the rules.",
   "Label.MessageToUser.GenericViolation": "Your account has been moderated for violating the Terms of Use for inappropriate content/behaviour.",
@@ -237,6 +242,11 @@
   "Label.MessageToUser.AltConsequence.V2": "This account is linked to an account banned for severe or repeated violations of our Community Standards.",
   "Label.MessageToUser.ChildEndangermentTemp": "Your account has been suspended due to violating Boible's Minor Safety policies. Please note that any future Minor Safety violations will result in your account being permanently banned.",
   "Label.MessageToUser.ChildEndangerment.V2": "Your account has been moderated for a severe safety violation of Boible's Community Standards.",
+  "Label.MessageToUser.CheatsFirstViolation": "We noticed a modified version of the Boible client was used on one of your devices. This poses safety and security risks, and is not allowed. Please uninstall any unauthorized client modifications on all your devices. Future violations may result in account suspension, and could lead to a permanent ban.",
+  "Label.MessageToUser.CheatsSecondViolation": "We detected a modified version of the Boible client was used on one of your devices. This poses safety and security risks, and is not allowed. Future violations may result in longer suspensions, leading up to a permanent ban.",
+  "Label.MessageToUser.CheatsThirdViolation": "We detected a modified version of the Boible client was used on one of your devices. You have received multiple notifications about this violation. If you violate this rule again, your account may be permanently banned.",
+  "Label.MessageToUser.CheatsPermanent": "Your account has been permanently banned for repeated violations of our rules against modified clients and cheats. You received multiple previous notifications about this violation.",
+  "Label.MessageToUser.AgeVerificationFalse": "Your account has been moderated for providing inaccurate or false information about your identity. When verifying your age to access video uploading features, you must provide accurate information. Alternatively, you can make a payment on Boible.",
 
   "Heading.BullyHeaderTop": "Be kind and respectful",
   "Heading.RuleExplanation.BullyHeader": "No bullying or discrimination",
@@ -337,17 +347,6 @@
   "Description.IPViolationDetail": "Uploading content that you don't own the rights to, including copyrighted music, videos, and art, isn't allowed without permission from the creator.",
   "Description.IPViolationImportance": "Protecting other users' intellectual property rights ensures that creators are fairly credited for their hard work.",
 
-  "Label.Reason.FalseAgeVerify": "False Age Verification",
-  "Label.MessageToUser.AgeVerificationFalse": "Your account has been moderated for providing inaccurate or false information about your identity. When verifying your age to access video uploading features, you must provide accurate information. Alternatively, you can make a payment on Boible.",
-  "Label.Reason.DisruptiveVideoContent": "Disruptive Video Content",
-  "Label.Reason.DirectingUsersOffPlatform": "Directing Users Off-Platform",
-  "Description.FinalSecondChance": "This is your only second chance. You won't be given another chance to avoid a suspension after this.",
-
-  "Label.Reason.ViolentGore.V2": "Extreme Violence and Gore",
-  "Label.MessageToUser.CheatsFirstViolation": "We noticed a modified version of the Boible client was used on one of your devices. This poses safety and security risks, and is not allowed. Please uninstall any unauthorized client modifications on all your devices. Future violations may result in account suspension, and could lead to a permanent ban.",
-  "Label.MessageToUser.CheatsSecondViolation": "We detected a modified version of the Boible client was used on one of your devices. This poses safety and security risks, and is not allowed. Future violations may result in longer suspensions, leading up to a permanent ban.",
-  "Label.MessageToUser.CheatsThirdViolation": "We detected a modified version of the Boible client was used on one of your devices. You have received multiple notifications about this violation. If you violate this rule again, your account may be permanently banned.",
-  "Label.MessageToUser.CheatsPermanent": "Your account has been permanently banned for repeated violations of our rules against modified clients and cheats. You received multiple previous notifications about this violation.",
   "Heading.CheatingHeaderTop": "Play fair and keep it fun",
   "Heading.RuleExplanation.CheatingHeader": "Don't use cheats, hacks, or exploits",
   "Description.CheatingDetail": "Using third-party software to gain an unfair advantage, modifying client files for cheating, or intentionally triggering bugs to bypass intended mechanics isn't allowed.",
