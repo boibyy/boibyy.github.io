@@ -7,7 +7,7 @@ body {transition: opacity ease-in 0.2s; }
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Boible</title>
+    <title>Boiby</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         
@@ -149,8 +149,24 @@ body {transition: opacity ease-in 0.2s; }
     }
 }
 
-        .panel { position: fixed; left: -320px; top: 0; width: 300px; height: 100%; background: var(--panel-bg); border-right: 1px solid var(--shadow-border); z-index: 999; padding: 20px; box-sizing: border-box; transition: left 0.3s ease; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
-        .panel.open { left: 0; }
+.panel { 
+    position: fixed; 
+    left: -320px; 
+    top: 0; 
+    width: 320px; 
+    height: 100%; 
+    background: var(--panel-bg); 
+    border-right: 1px solid var(--shadow-border); 
+    z-index: 999; 
+    padding: 20px; 
+    box-sizing: border-box; 
+    transition: left 0.3s ease; 
+    overflow-y: auto; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+    margin-bottom: 100px;
+}        .panel.open { left: 0; }
         .panel h3 { margin: 0; font-size: 18px; color: var(--text-header); }
         .panel label { display: block; font-size: 12px; font-weight: bold; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
         .panel select, .panel input:not([type="checkbox"]), .panel textarea { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--shadow-border); background: var(--bg-card); color: var(--text-normal); font-family: inherit; margin-bottom: 10px; }
@@ -244,6 +260,11 @@ body {transition: opacity ease-in 0.2s; }
             transition: background-color 0.2s ease;
         }
 
+        .dots:hover {
+            background: var(--btn-gray2);
+            border-radius: 50%;
+        }
+
         #view-more-btn:hover {
             background-color: var(--btn-gray-hover2) !important;
             transition: background-color 0.2s ease;
@@ -269,8 +290,8 @@ body {transition: opacity ease-in 0.2s; }
         }
 
         input[type="checkbox"]:hover {
-            border-color: var(--text-muted) !important;
             background-color: var(--btn-gray) !important;
+            border: 1px solid var(--btn-gray)!important;
         }
 
         #policy-header-title-1, #policy-header-title-2, #rules-header-title, #second-chance-title-1, #second-chance-title-2 {
@@ -300,16 +321,17 @@ body {transition: opacity ease-in 0.2s; }
             place-content: center;
             cursor: pointer;
             transition: all 0.1s ease-in-out;
+            border: 1px solid var(--btn-gray-hover)!important;
         }
 
         input[type="checkbox"]:hover {
-            border-color: rgb(17, 17, 17);
             background-color: var(--bg-base);
+            border: 1px solid var(--btn-gray)!important;
         }
 
         input[type="checkbox"]:checked {
             background-color: #5E499C!important;
-            border-color: rgb(17, 17, 17)!important;
+            border: none!important;
         }
 
         input[type="checkbox"]::before {
@@ -615,12 +637,18 @@ body {transition: opacity ease-in 0.2s; }
             #image-preview-container {
                 display: none;
             }
+            #dots-trigger {
+                width: 28px;
+                height: 28px;
+                text-align: center;
+                align-content: center;
+            }
         }
     </style>
 </head>
 <body id="main-body" class="light-mode">
 
-<button class="customizer-toggle" onclick="document.getElementById('side-panel').classList.toggle('open')">Settings</button>
+<button class="customizer-toggle" onclick="document.getElementById('side-panel').classList.toggle('open')">Edit</button>
 
 <div class="modal-overlay" id="appeal-modal">
     <div class="modal-content">
@@ -668,7 +696,7 @@ body {transition: opacity ease-in 0.2s; }
             <option value="CheatsExploits">Cheats and Exploits</option>
             <option value="DiscriminationHate.V2">Discriminatory Content</option>
             <option value="SexualContent">Sexual Content</option>
-            <option value="MisusingSystems">Misusing Boible Systems</option>
+            <option value="MisusingSystems">Misusing Boiby Systems</option>
             <option value="PrivacyGivingPII">Privacy: Giving PII</option>
             <option value="PrivacyAskingPII">Privacy: Asking for PII</option>
             <option value="PoliticalContent.V2">Political Figures and Entities</option>
@@ -685,10 +713,10 @@ body {transition: opacity ease-in 0.2s; }
             <option value="RepeatedRefunds">Repeated Refund Requests</option>
             <option value="Chargebacks">Chargebacks</option>
             <option value="IPViolation.V2">IP Violation</option>
-            <option value="TerrorismExtremism.V2">Terrorism and Extremism</option>
+            <option value="TerrorismExtremism.V2">Terrorism/Extremism</option>
             <option value="ChildEndangerment">Child Endangerment</option>
             <option value="ChildEndangerment.V3">Harmful Content/Behaviour</option>
-            <option value="AbuseOfBoibleEmployees">Abuse of Boible Employees</option>
+            <option value="AbuseOfBoibyEmployees">Abuse of Boiby Employees</option>
             <option value="AccountTheft">Account Theft</option>
         </select>
     </div>
@@ -708,16 +736,17 @@ body {transition: opacity ease-in 0.2s; }
         <option value="SexualContent">Sexual Content</option>
         <option value="Scamming">Scamming</option>
         <option value="PoliticalContent.V2">Political Content</option>
-        <option value="TerrorismExtremism">Terrorism and Extremism (temp)</option>
-        <option value="TerrorismExtremism.V2">Terrorism and Extremism</option>
+        <option value="TerrorismExtremism">Terrorism/Extremism (temp)</option>
+        <option value="TerrorismExtremism.V2">Terrorism/Extremism (permanent)</option>
         <option value="PII">Privacy (PII)</option>
         <option value="Impersonation">Impersonation</option>
         <option value="Chargeback">Chargeback</option>
         <option value="Copyright">IP Violation</option>
         <option value="PaymentAbuse">Payment Abuse</option>
-        <option value="MisusingBoibleSystems">Misusing Boible Systems</option>
+        <option value="MisusingBoibySystems">Misusing Boiby Systems</option>
         <option value="Extortion">Extortion and Blackmail</option>
         <option value="RealLifeThreats">Real-life Threats</option>
+        <option value="ViolentGore">Extreme Violence and Gore</option>
         <option value="AccountTheft">Account Theft</option>
         <option value="CompromisedAccount">Compromised Account</option>
         <option value="DangerousActivities">Dangerous Activities</option>
@@ -738,7 +767,7 @@ body {transition: opacity ease-in 0.2s; }
     </select></div>
     <div><label>Custom Note</label><textarea id="note-input" rows="3" oninput="updateContent()"></textarea></div>
     <div><label>Review Date</label><input type="datetime-local" id="date-input" oninput="updateContent()"></div>
-    <div id="second-chance-container"><label>Second Chance</label><input type="checkbox" id="second-chance-checkbox" onchange="handleSecondChanceToggle()"></div>
+    <div id="second-chance-container"><label>Enable Second Chance</label><input type="checkbox" id="second-chance-checkbox" onchange="handleSecondChanceToggle()"></div>
     <div><label>Evidence Type</label>
         <select id="evidence-type" onchange="handleTypeChange()">
             <option value="None">None</option>
@@ -765,12 +794,44 @@ body {transition: opacity ease-in 0.2s; }
         </select>
         <button id="add-btn" class="btn-view-more" onclick="addEvidenceItem()" style="display: none;">+ Add Item</button>
     </div>
+    <div id="experiment-eu-container">
+        <label>EU/UK Decision Field</label>
+        <input type="checkbox" id="experiment-eu-checkbox" autocomplete="off" onchange="handleEUExperimentToggle()">
+    </div>
+    <div id="eu-decision-container" style="display: none;">
+            <label>Automated Decision</label>
+            <select id="eu-decision-select" onchange="updateContent()">
+                <option value="Manual">Manual (no change)</option>
+                <option value="FullyAutomated">Fully automated</option>
+                <option value="AutomatedReview">Automated review</option>
+                <option value="AutomatedDetection">Automated detection</option>
+            </select>
+    </div>
+    <h2 style="border-top: 1px solid var(--btn-gray2); padding-top: 10px; margin-bottom: 4px">Experiments</h2>
+    <p style="font-size:12px; margin-top: -6px!important; margin-bottom: 6px;">These are for testing of new features or changes. Some are currently enabled by default. These may be unstable and may be in an unfinished state.</p>
+    <div id="experiment-educational-container">
+        <label>Enable middle/educational pages</label>
+        <input type="checkbox" id="experiment-educational-checkbox" checked autocomplete="off" onchange="handleExperimentToggle()">
+    </div>
+    <div id="experiment-hide-learn-more-container">
+        <label>Enable hide "Learn more" button</label>
+        <input type="checkbox" id="experiment-hide-learn-more-checkbox" autocomplete="off" onchange="handleHideLearnMoreToggle()">
+    </div>
+    <div id="experiment-settings-menu-container">
+        <label>Enable settings in logout menu</label>
+        <input type="checkbox" id="experiment-settings-menu-checkbox" autocomplete="off" onchange="handleSettingsMenuToggle()">
+    </div>
+    <div id="experiment-send-appeal-container">
+        <label>Enable change to "Send appeal"</label>
+        <input type="checkbox" id="experiment-send-appeal-checkbox" autocomplete="off" onchange="handleSendAppealToggle()">
+    </div>
     <div id="evidence-controls-container"></div>
     <div id="image-upload-container" style="display: none;">
         <label>Upload Image</label>
         <input type="file" id="image-upload-input" accept="image/*" onchange="handleImageUpload(event)">
         <button class="btn-view-more" onclick="clearImagePreview()" id="clear-image-btn" style="display: none; margin-top: 8px;">Clear Image</button>
     </div>
+    <div style="height: 50px; flex-shrink: 0;"></div>
 </aside>
 
 <div class="container">
@@ -879,39 +940,48 @@ body {transition: opacity ease-in 0.2s; }
     let reviewDate = null;
     let secondChanceEnabled = false;
     let uploadedImageBase64 = null;
+    
+    let experimentEnableEducationalPages = true;
+    let experimentEUTransparency = false;
+    let experimentHideLearnMore = false;
+    let experimentSettingsInMenu = false;
+    let experimentSendAppeal = false;
+    
 
     const policyMap = {
-        "Harassment": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.BullyImportance" },
-        "Harassment.V2": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.BullyImportance" },
-        "DiscriminationHate": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.BullyImportance" },
-        "AbuseOfBoibleEmployees": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.BullyImportance" },
-        "DiscriminationHate.V2": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.BullyImportance" },
-        "Spam": { headerTop: "Heading.SpamHeaderTop", header: "Heading.RuleExplanation.SpamHeader", detail: "Description.SpamDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.SpamImportance" },
-        "ExtortionThreats": { headerTop: "Heading.ExtortionHeaderTop", header: "Heading.RuleExplanation.ExtortionHeader", detail: "Description.ExtortionDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.ExtortionImportance" },
-        "ExtortionThreats.V2": { headerTop: "Heading.ExtortionHeaderTop", header: "Heading.RuleExplanation.ExtortionHeader", detail: "Description.ExtortionDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.ExtortionImportance" },
-        "ViolentGore": { headerTop: "Heading.ViolentHeaderTop", header: "Heading.RuleExplanation.ViolentHeader", detail: "Description.ViolentDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.ViolentImportance" },
-        "ViolentGore.V2": { headerTop: "Heading.ViolentHeaderTop", header: "Heading.RuleExplanation.ViolentHeader", detail: "Description.ViolentDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.ViolentImportance" },
-        "CheatsExploits": { headerTop: "Heading.CheatingHeaderTop", header: "Heading.RuleExplanation.CheatingHeader", detail: "Description.CheatingDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.CheatingImportance" },
-        "Dating": { headerTop: "Heading.DatingHeaderTop", header: "Heading.RuleExplanation.DatingHeader", detail: "Description.DatingDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.DatingImportance" },
-        "Dating.V2": { headerTop: "Heading.DatingHeaderTop", header: "Heading.RuleExplanation.DatingHeader", detail: "Description.DatingDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.DatingImportance" },
-        "MisusingSystems": { headerTop: "Heading.MisusingSystemsHeaderTop", header: "Heading.RuleExplanation.MisusingSystemsHeader", detail: "Description.MisusingSystemsDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.MisusingSystemsImportance" },
-        "DangerousActivities": { headerTop: "Heading.HarmfulHeaderTop", header: "Heading.RuleExplanation.HarmfulHeader", detail: "Description.HarmfulDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.HarmfulImportance" },
-        "Misinformation": { headerTop: "Heading.MisinformationHeaderTop.V2", header: "Heading.RuleExplanation.MisinformationHeader", detail: "Description.MisinformationDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.MisinformationImportance" },
-        "UndisclosedAds": { headerTop: "Heading.UndisclosedAdsHeaderTop", header: "Heading.RuleExplanation.UndisclosedAdsHeader", detail: "Description.UndisclosedAdsDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.UndisclosedAdsImportance" },
-        "SexualContent": { headerTop: "Heading.SexualHeaderTop", header: "Heading.RuleExplanation.SexualHeader", detail: "Description.SexualDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.SexualImportance" },
-        "PoliticalContent": { headerTop: "Heading.PoliticalHeaderTop", header: "Heading.RuleExplanation.PoliticalHeader", detail: "Description.PoliticalDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.PoliticalImportance"},
-        "PoliticalContent.V2": { headerTop: "Heading.PoliticalHeaderTop", header: "Heading.RuleExplanation.PoliticalHeader", detail: "Description.PoliticalDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.PoliticalImportance"},
-        "PrivacyGivingPII": { headerTop: "Heading.PIIHeaderTop", header: "Heading.RuleExplanation.PIIHeader", detail: "Description.PIIDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.PIIImportance"},
-        "PrivacyAskingPII": { headerTop: "Heading.PIIHeaderTop", header: "Heading.RuleExplanation.PIIHeader", detail: "Description.PIIDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.PIIImportance"},
-        "Scamming": { headerTop: "Heading.ScammingHeaderTop", header: "Heading.RuleExplanation.ScammingHeader", detail: "Description.ScammingDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.ScammingImportance"},
-        "DisruptiveAudio": { headerTop: "Heading.DisruptiveAudioHeaderTop", header: "Heading.RuleExplanation.DisruptiveAudioHeader", detail: "Description.DisruptiveAudioDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.DisruptiveAudioImportance"},
-        "Impersonation": { headerTop: "Heading.ImpersonationHeaderTop", header: "Heading.RuleExplanation.ImpersonationHeader", detail: "Description.ImpersonationDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.ImpersonationImportance"},
-        "SensitiveEvents": { headerTop: "Heading.SensitiveEventsHeaderTop", header: "Heading.RuleExplanation.SensitiveEventsHeader", detail: "Description.SensitiveEventsDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.SensitiveEventsImportance"},
-        "RepeatedRefunds": { headerTop: "Heading.ChargebackHeaderTop", header: "Heading.RuleExplanation.ChargebackHeader.V2", detail: "Description.ChargebackDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.ChargebackImportance"},
-        "Chargebacks": { headerTop: "Heading.ChargebackHeaderTop", header: "Heading.RuleExplanation.ChargebackHeader.V2", detail: "Description.ChargebackDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.ChargebackImportance"},
-        "IllegalRegulated": { headerTop: "Heading.IllegalContentHeaderTop", header: "Heading.RuleExplanation.IllegalContentHeader", detail: "Description.IllegalContentDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.IllegalContentImportance"},
-        "IPViolation": { headerTop: "Heading.IPViolationHeaderTop", header: "Heading.RuleExplanation.IPViolationHeader", detail: "Description.IPViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.IPViolationImportance"},
-        "IPViolation.V2": { headerTop: "Heading.IPViolationHeaderTop.V2", header: "Heading.RuleExplanation.IPViolationHeader", detail: "Description.IPViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter.V2", importance: "Description.IPViolationImportance"}
+        "Harassment.V2": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
+        "AbuseOfBoibyEmployees": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
+        "DiscriminationHate.V2": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
+        "Spam": { headerTop: "Heading.SpamHeaderTop", header: "Heading.RuleExplanation.SpamHeader", detail: "Description.SpamDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SpamImportance" },
+        "ExtortionThreats.V2": { headerTop: "Heading.ExtortionHeaderTop", header: "Heading.RuleExplanation.ExtortionHeader", detail: "Description.ExtortionDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ExtortionImportance" },
+        "ViolentGore.V2": { headerTop: "Heading.ViolentHeaderTop", header: "Heading.RuleExplanation.ViolentHeader", detail: "Description.ViolentDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ViolentImportance" },
+        "CheatsExploits": { headerTop: "Heading.CheatingHeaderTop", header: "Heading.RuleExplanation.CheatingHeader", detail: "Description.CheatingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.CheatingImportance" },
+        "Dating.V2": { headerTop: "Heading.DatingHeaderTop", header: "Heading.RuleExplanation.DatingHeader", detail: "Description.DatingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.DatingImportance" },
+        "MisusingSystems": { headerTop: "Heading.MisusingSystemsHeaderTop", header: "Heading.RuleExplanation.MisusingSystemsHeader", detail: "Description.MisusingSystemsDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.MisusingSystemsImportance" },
+        "DangerousActivities": { headerTop: "Heading.HarmfulHeaderTop", header: "Heading.RuleExplanation.HarmfulHeader", detail: "Description.HarmfulDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.HarmfulImportance" },
+        "Misinformation": { headerTop: "Heading.MisinformationHeaderTop.V2", header: "Heading.RuleExplanation.MisinformationHeader", detail: "Description.MisinformationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.MisinformationImportance" },
+        "UndisclosedAds": { headerTop: "Heading.UndisclosedAdsHeaderTop", header: "Heading.RuleExplanation.UndisclosedAdsHeader", detail: "Description.UndisclosedAdsDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.UndisclosedAdsImportance" },
+        "SexualContent": { headerTop: "Heading.SexualHeaderTop", header: "Heading.RuleExplanation.SexualHeader", detail: "Description.SexualDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SexualImportance" },
+        "PoliticalContent": { headerTop: "Heading.PoliticalHeaderTop", header: "Heading.RuleExplanation.PoliticalHeader", detail: "Description.PoliticalDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PoliticalImportance"},
+        "PoliticalContent.V2": { headerTop: "Heading.PoliticalHeaderTop", header: "Heading.RuleExplanation.PoliticalHeader", detail: "Description.PoliticalDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PoliticalImportance"},
+        "PrivacyGivingPII": { headerTop: "Heading.PIIHeaderTop", header: "Heading.RuleExplanation.PIIHeader", detail: "Description.PIIDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PIIImportance"},
+        "PrivacyAskingPII": { headerTop: "Heading.PIIHeaderTop", header: "Heading.RuleExplanation.PIIHeader", detail: "Description.PIIDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PIIImportance"},
+        "Scamming": { headerTop: "Heading.ScammingHeaderTop", header: "Heading.RuleExplanation.ScammingHeader", detail: "Description.ScammingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ScammingImportance"},
+        "DisruptiveAudio": { headerTop: "Heading.DisruptiveAudioHeaderTop", header: "Heading.RuleExplanation.DisruptiveAudioHeader", detail: "Description.DisruptiveAudioDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.DisruptiveAudioImportance"},
+        "Impersonation": { headerTop: "Heading.ImpersonationHeaderTop", header: "Heading.RuleExplanation.ImpersonationHeader", detail: "Description.ImpersonationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ImpersonationImportance"},
+        "SensitiveEvents": { headerTop: "Heading.SensitiveEventsHeaderTop", header: "Heading.RuleExplanation.SensitiveEventsHeader", detail: "Description.SensitiveEventsDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SensitiveEventsImportance"},
+        "RepeatedRefunds": { headerTop: "Heading.ChargebackHeaderTop", header: "Heading.RuleExplanation.ChargebackHeader.V2", detail: "Description.ChargebackDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ChargebackImportance"},
+        "Chargebacks": { headerTop: "Heading.ChargebackHeaderTop", header: "Heading.RuleExplanation.ChargebackHeader.V2", detail: "Description.ChargebackDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ChargebackImportance"},
+        "IllegalRegulated": { headerTop: "Heading.IllegalContentHeaderTop", header: "Heading.RuleExplanation.IllegalContentHeader", detail: "Description.IllegalContentDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.IllegalContentImportance"},
+        "IPViolation.V2": { headerTop: "Heading.IPViolationHeaderTop.V2", header: "Heading.RuleExplanation.IPViolationHeader", detail: "Description.IPViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.IPViolationImportance"},
+        "ChildEndangerment": { headerTop: "Heading.GenericViolationHeaderTop.V2", header: "Heading.RuleExplanation.GenericViolationHeader", detail: "Description.GenericViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.GenericViolationImportance"},
+        "ChildEndangerment.V2": { headerTop: "Heading.GenericViolationHeaderTop.V2", header: "Heading.RuleExplanation.GenericViolationHeader", detail: "Description.GenericViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.GenericViolationImportance"},
+        "ChildEndangerment.V3": { headerTop: "Heading.GenericViolationHeaderTop.V2", header: "Heading.RuleExplanation.GenericViolationHeader", detail: "Description.GenericViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.GenericViolationImportance"},
+        "LinkedAccountViolation": { headerTop: "Heading.GenericViolationHeaderTop.V2", header: "Heading.RuleExplanation.GenericViolationHeader", detail: "Description.GenericViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.GenericViolationImportance"},
+        "TerrorismExtremism.V2": { headerTop: "Heading.GenericViolationHeaderTop.V2", header: "Heading.RuleExplanation.GenericViolationHeader", detail: "Description.GenericViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.GenericViolationImportance"},
+        "RealLifeThreats": { headerTop: "Heading.GenericViolationHeaderTop.V2", header: "Heading.RuleExplanation.GenericViolationHeader", detail: "Description.GenericViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.GenericViolationImportance"},
+        "AccountTheft": { headerTop: "Heading.GenericViolationHeaderTop.V2", header: "Heading.RuleExplanation.GenericViolationHeader", detail: "Description.GenericViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.GenericViolationImportance"},
+        "Other": { headerTop: "Heading.GenericViolationHeaderTop.V2", header: "Heading.RuleExplanation.GenericViolationHeader", detail: "Description.GenericViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.GenericViolationImportance"},
     };
 
     async function init() {
@@ -995,7 +1065,15 @@ body {transition: opacity ease-in 0.2s; }
             return;
         }
         
+        // Show back arrow even when experiment is disabled (if not on main view)
         backArrow.classList.add('active');
+        
+        // Hide progress bar if experiment is disabled
+        if (!experimentEnableEducationalPages) {
+            progressContainer.style.display = 'none';
+            return;
+        }
+        
         progressContainer.style.display = 'block';
         
         let progress = 0;
@@ -1057,6 +1135,63 @@ body {transition: opacity ease-in 0.2s; }
             overflow.style.display = 'block';
             btn.innerText = t('Action.ViewLess');
         }
+    }
+
+    function handleExperimentToggle() {
+        experimentEnableEducationalPages = document.getElementById('experiment-educational-checkbox')?.checked || false;
+        console.log('Educational pages experiment toggled:', experimentEnableEducationalPages);
+        updateContent();
+        const experimentCheckbox = document.getElementById('experiment-educational-checkbox');
+        if (experimentCheckbox) {
+            experimentEnableEducationalPages = experimentCheckbox.checked;
+        }
+    }
+
+    function handleHideLearnMoreToggle() {
+        experimentHideLearnMore = document.getElementById('experiment-hide-learn-more-checkbox')?.checked || false;
+        console.log('Hide Learn More experiment toggled:', experimentHideLearnMore);
+        updateContent();
+    }
+
+    function handleEUExperimentToggle() {
+        experimentEUTransparency = document.getElementById('experiment-eu-checkbox')?.checked || false;
+        const container = document.getElementById('eu-decision-container');
+        if (container) {
+            container.style.display = experimentEUTransparency ? 'block' : 'none';
+        }
+        console.log('EU Transparency experiment toggled:', experimentEUTransparency);
+        updateContent();
+    }
+
+    function handleSettingsMenuToggle() {
+        experimentSettingsInMenu = document.getElementById('experiment-settings-menu-checkbox')?.checked || false;
+        console.log('Settings in Menu experiment toggled:', experimentSettingsInMenu);
+        
+        const settingsMenuItem = document.getElementById('settings-menu-item');
+        if (experimentSettingsInMenu) {
+            if (!settingsMenuItem) {
+                const dotsMenu = document.getElementById('dots-menu');
+                const newItem = document.createElement('div');
+                newItem.className = 'dots-menu-item';
+                newItem.id = 'settings-menu-item';
+                newItem.innerText = t('Action.Settings') || 'Settings';
+                newItem.addEventListener('click', () => {
+                    handleSettings();
+                    dotsMenu.classList.remove('active');
+                });
+                dotsMenu.appendChild(newItem);
+            }
+        } else {
+            if (settingsMenuItem) {
+                settingsMenuItem.remove();
+            }
+        }
+    }
+
+    function handleSendAppealToggle() {
+        experimentSendAppeal = document.getElementById('experiment-send-appeal-checkbox')?.checked || false;
+        console.log('Send Appeal experiment toggled:', experimentSendAppeal);
+        updateContent();
     }
 
     function handleImageUpload(event) {
@@ -1289,6 +1424,7 @@ body {transition: opacity ease-in 0.2s; }
         }
     }
     
+    
     function addEvidenceItem() { 
         if (currentType === 'None') return;
         
@@ -1446,6 +1582,46 @@ body {transition: opacity ease-in 0.2s; }
         setTxt('txt-activity', t('Heading.Subheading.ActivityReviewed.V2'));
         setTxt('lbl-date-static', t('Label.ReviewDate'));
         document.getElementById('next-section-main').style.display = 'none';
+
+        // Handle EU transparency
+        const decisionField = document.getElementById('eu-decision-field');
+        const euDecision = document.getElementById('eu-decision-select')?.value || 'Manual';
+
+        if (experimentEUTransparency && euDecision !== 'Manual') {
+            if (!decisionField) {
+                // Create the decision field if it doesn't exist
+                const evidenceCardContent = document.getElementById('evidence-card-content');
+                const dateField = Array.from(evidenceCardContent.children).find(el => 
+                    el.querySelector('#display-date')
+                );
+                
+                if (dateField) {
+                    const newField = document.createElement('div');
+                    newField.id = 'eu-decision-field';
+                    newField.className = 'field';
+                    newField.innerHTML = '<span class="label" id="lbl-decision-static"></span><span class="value" id="display-decision"></span>';
+                    dateField.parentNode.insertBefore(newField, dateField.nextSibling);
+                }
+            }
+            
+            // Set the text based on decision type
+            let decisionText = '';
+            if (euDecision === 'FullyAutomated') {
+                decisionText = t('Label.EUTransparency.AutomatedDetectionAutomatedDecision');
+            } else if (euDecision === 'AutomatedReview') {
+                decisionText = t('Label.EUTransparency.ManualDetectionAutomatedDecision');
+            } else if (euDecision === 'AutomatedDetection') {
+                decisionText = t('Label.EUTransparency.AutomatedDetectionManualDecision');
+            }
+            
+            setTxt('lbl-decision-static', t('Label.EUTransparency.DecisionMethod'));
+            setTxt('display-decision', decisionText);
+        } else {
+            // Remove the field if it exists
+            if (decisionField) {
+                decisionField.remove();
+            }
+        }
 
         const descEl = document.getElementById('display-desc');
         const mainBtn = document.getElementById('primary-action-btn');
@@ -1911,9 +2087,13 @@ function renderEvidenceControls() {
         console.log('Reason:', reason);
         console.log('Is Suspension:', isSuspension);
         console.log('Second Chance Enabled:', secondChanceEnabled);
+        console.log('Educational Pages Enabled:', experimentEnableEducationalPages);
         
         if (dur !== 'Banned') {
-            if (secondChanceEnabled && isSuspension) {
+            if (!experimentEnableEducationalPages) {
+                // Skip all educational pages, go straight to rules
+                goToRulesStep();
+            } else if (secondChanceEnabled && isSuspension) {
                 console.log('Going to second chance step 1');
                 goToSecondChanceStep1();
             } else if (policyMap[reason]) {
@@ -1933,6 +2113,12 @@ function renderEvidenceControls() {
         const hasPolicy = policyMap[reason];
         const dur = document.getElementById('duration-select')?.value;
         const isSuspension = dur.startsWith('Suspended');
+        
+        // If educational pages are disabled, always go back to main
+        if (!experimentEnableEducationalPages) {
+            resetToMain();
+            return;
+        }
         
         if (secondChanceEnabled && isSuspension) {
             if (currentStep === 7) {
@@ -2122,7 +2308,8 @@ function renderEvidenceControls() {
         const learnBtn = document.getElementById('policy-learn-more-btn-1');
         if (learnBtn) { 
             learnBtn.innerText = t('Action.LearnMore'); 
-            learnBtn.onclick = () => { console.log('Learn more clicked for reason', reason); }; 
+            learnBtn.onclick = () => { window.open('https://boiby.dev/Boiby-Community-Standards', '_blank'); };
+            learnBtn.style.display = experimentHideLearnMore ? 'none' : 'block';
         }
 
         try { if (suspensionIntervalId) { clearInterval(suspensionIntervalId); suspensionIntervalId = null; } } catch(e) {}
@@ -2179,7 +2366,7 @@ function renderEvidenceControls() {
         const learnBtn = document.getElementById('policy-learn-more-btn-2');
         if (learnBtn) { 
             learnBtn.innerText = t('Action.LearnMore'); 
-            learnBtn.onclick = () => { console.log('Learn more (why) clicked for reason', reason); }; 
+            learnBtn.onclick = () => { window.open('https://boiby.dev/Boiby-Community-Standards', '_blank'); }; 
         }
 
         const finalBtn = document.getElementById('final-continue-btn');
@@ -2210,8 +2397,18 @@ function renderEvidenceControls() {
         const reason = document.getElementById('reason-select')?.value;
         const isSuspension = dur.startsWith('Suspended');
         const hasPolicy = policyMap[reason];
-        
-        if (secondChanceEnabled && isSuspension) {
+        const rulesHeaderTitle = document.getElementById('rules-header-title');
+        if (rulesHeaderTitle) {
+            if (!experimentEnableEducationalPages) {
+                rulesHeaderTitle.style.marginTop = '26px';
+            } else {
+                rulesHeaderTitle.style.marginTop = ''; // Reset to default
+            }
+        }
+
+        if (!experimentEnableEducationalPages) {
+            currentStep = 4;
+        } else if (secondChanceEnabled && isSuspension) {
             currentStep = hasPolicy ? 5 : 4;
         } else {
             currentStep = 4;
@@ -2233,15 +2430,15 @@ function renderEvidenceControls() {
         setTxt('rules-mistake-text', t('Description.Mistake.V3'));
         setTxt('lbl-agree', t('Label.AgreeToRules.V2'));
 
-        const viewRulesBtn = document.getElementById('btn-view-rules-inner');
+        const viewRulesBtn = document.getElementById('second-chance-view-rules-btn');
         if (viewRulesBtn) {
             viewRulesBtn.innerText = t('Action.ViewRules');
-            viewRulesBtn.onclick = () => { console.log('View rules clicked'); };
+            viewRulesBtn.onclick = () => { window.open('https://boiby.dev/Boiby-Community-Standards', '_blank'); };
         }
 
         const reportBtn = document.getElementById('btn-report-mistake-rules');
         if (reportBtn) {
-            reportBtn.innerText = t('Action.RequestAppeal');
+            reportBtn.innerText = experimentSendAppeal ? t('Action.SendAppeal') : t('Action.RequestAppeal');
             reportBtn.onclick = () => { openAppealModal(); };
         }
 
