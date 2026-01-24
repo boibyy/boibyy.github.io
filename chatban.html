@@ -436,15 +436,23 @@
 <aside class="panel" id="side-panel">
     <h3>Edit Chat Suspension</h3>
     <div>
-        <label>Duration</label>
-        <select id="duration-select" onchange="handleDurationChange()">
-            <option value="ChatBreaksRules.V2">Warning</option>
-            <option value="ChatSuspended10Minutes" selected>10 minutes</option>
-            <option value="ChatSuspended1Hour" selected>1 hour</option>
-            <option value="ChatSuspended6Hours">6 hours</option>
-            <option value="ChatSuspended1Day">1 day</option>
-            <option value="ChatSuspended3Days">3 days</option>
+        <label>Type</label>
+        <select id="type-select" onchange="handleTypeChange()">
+            <option value="text">Text Chat</option>
+            <option value="voice">Voice Chat</option>
         </select>
+    </div>
+    <div>
+        <label>Duration</label>
+            <select id="duration-select" onchange="handleDurationChange()">
+                <option value="Warning">Warning</option>
+                <option value="5Minutes">5 minutes</option>
+                <option value="10Minutes" selected>10 minutes</option>
+                <option value="20Minutes">20 minutes</option>
+                <option value="1Hour">1 hour</option>
+                <option value="1Day">1 day</option>
+                <option value="3Days" id="option-3days">3 days</option>
+            </select>
     </div>
     <div id="reason-container">
         <label>Reason</label>
@@ -516,6 +524,7 @@
         renderMessages();
         updateContent();
     }
+    
 
     function t(key, vars = {}) {
         if (!translations) return key;
@@ -523,6 +532,29 @@
         if (val === undefined || val === null) return key;
         for (const k in vars) val = val.replace(`{{${k}}}`, vars[k]);
         return val;
+    }
+
+    function handleTypeChange() {
+        const type = document.getElementById('type-select')?.value;
+        const option3Days = document.getElementById('option-3days');
+        const messagesSection = document.getElementById('messages-section');
+        const messagesContainer = document.getElementById('messages-container');
+        
+        if (type === 'voice') {
+            option3Days.style.display = 'none';
+            messagesSection.style.display = 'none';
+            messagesContainer.style.display = 'none';
+            // If 3 days was selected, change to 1 day
+            if (document.getElementById('duration-select').value === '3Days') {
+                document.getElementById('duration-select').value = '1Day';
+            }
+        } else {
+            option3Days.style.display = 'block';
+            messagesSection.style.display = 'block';
+            messagesContainer.style.display = 'block';
+        }
+        
+        updateContent();
     }
 
     function handleDurationChange() {
@@ -574,82 +606,66 @@
 
     function updateContent() {
         const traceID = (self.crypto && self.crypto.randomUUID) ? self.crypto.randomUUID() : 'trace-' + Math.random().toString(16).slice(2);
-        const dur = document.getElementById('duration-select')?.value || 'ChatSuspended1Hour';
+        const type = document.getElementById('type-select')?.value || 'text';
+        const duration = document.getElementById('duration-select')?.value || '10Minutes';
         const reason = document.getElementById('reason-select')?.value || 'Other';
-        const isPermanent = dur === 'ChatBanned';
-        const isEnforcement = isPermanent && document.getElementById('enforcement-checkbox')?.checked;
-
-        // Handle enforcement ban UI
-        const messagesSection = document.getElementById('messages-section');
-        const messagesContainer = document.getElementById('messages-container');
-        const reasonContainer = document.getElementById('reason-container');
-        const reasonSelect = document.getElementById('reason-select');
         
-        if (isEnforcement) {
-            messagesSection.style.display = 'none';
-            messagesContainer.style.display = 'none';
-            reasonContainer.style.display = 'none';
-            reasonSelect.value = 'Other';
+        const isVoice = type === 'voice';
+        const isWarning = duration === 'Warning';
+        
+        // Build full key for translations
+        let headingKey, descKey;
+        
+        if (isWarning) {
+            if (isVoice) {
+                headingKey = 'Heading.VoiceRememberOurPolicies';
+                descKey = 'Description.VoiceChatPolicyWarning';
+            } else {
+                headingKey = 'Heading.ChatBreaksRules.V2';
+                descKey = 'Description.ChatBreaksRulesWarning';
+            }
         } else {
-            messagesSection.style.display = 'block';
-            messagesContainer.style.display = 'block';
-            reasonContainer.style.display = 'block';
+            const prefix = isVoice ? 'VoiceChatSuspended' : 'ChatSuspended';
+            headingKey = `Heading.${prefix}${duration}`;
+            
+            if (duration === '1Hour') {
+                descKey = isVoice ? 'Description.VoiceChatSuspendedSingleHour' : 'Description.ChatSuspendedSingleHour';
+            } else if (duration === '1Day') {
+                descKey = isVoice ? 'Description.VoiceChatSuspendedSingleDay' : 'Description.ChatSuspendedSingleDay';
+            } else if (duration.includes('Minutes')) {
+                const mins = duration.replace('Minutes', '');
+                descKey = isVoice ? 'Description.VoiceChatSuspendedMultipleMinutes' : 'Description.ChatSuspendedMultipleMinutes';
+            } else if (duration.includes('Hours')) {
+                const hrs = duration.replace('Hours', '');
+                descKey = isVoice ? 'Description.VoiceChatSuspendedMultipleHours' : 'Description.ChatSuspendedMultipleHours';
+            } else if (duration.includes('Days')) {
+                const days = duration.replace('Days', '');
+                descKey = 'Description.ChatSuspendedMultipleDays';
+            }
         }
-
-        document.getElementById('display-duration-title').innerText = t(`Heading.${dur}`);
-        document.getElementById('display-reason').innerText = t(`Label.Reason.${isEnforcement ? 'Other' : reason}`);
+        
+        let descVars = {};
+        if (!isWarning && (duration.includes('Minutes') || duration.includes('Hours') || duration.includes('Days'))) {
+            const num = duration.replace('Minutes', '').replace('Hours', '').replace('Days', '');
+            descVars = { duration: num };
+        }
+        
+        // Update
+        document.getElementById('display-duration-title').innerText = t(headingKey);
+        document.getElementById('display-desc').innerText = t(descKey, descVars);
+        document.getElementById('display-reason').innerText = t(`Label.Reason.${reason}`);
         document.getElementById('display-trace').innerText = traceID;
         document.getElementById('lbl-reason-static').innerText = t('Label.Reason');
         document.getElementById('lbl-chat-static').innerText = t('Label.Chat');
-
-        // Set description based on duration
-        let descKey = '';
-        let descVars = {};
         
-        if (dur === 'ChatSuspended1Hour') {
-            descKey = 'Description.ChatSuspendedSingleHour';
-        } else if (dur === 'ChatSuspended1Day') {
-            descKey = 'Description.ChatSuspendedSingleDay';
-        } else if (dur.includes('ChatBreaks')) {
-            descKey = 'Description.ChatBreaksRulesWarning';
-        } else if (dur.includes('Minutes')) {
-            const minutes = dur.replace('ChatSuspended', '').replace('Minutes', '');
-            descKey = 'Description.ChatSuspendedMultipleMinutes';
-            descVars = { duration: minutes };
-        } else if (dur.includes('Hours')) {
-            const hours = dur.replace('ChatSuspended', '').replace('Hours', '');
-            descKey = 'Description.ChatSuspendedMultipleHours';
-            descVars = { duration: hours };
-        } else if (dur.includes('Days')) {
-            const days = dur.replace('ChatSuspended', '').replace('Days', '');
-            descKey = 'Description.ChatSuspendedMultipleDays';
-            descVars = { duration: days };
-        }
-
-        document.getElementById('display-desc').innerText = t(descKey, descVars);
-
-        // Render messages or enforcement details
+        // Render
         const list = document.getElementById('evidence-list-main');
         const chatLabel = document.getElementById('lbl-chat-static');
         list.innerHTML = '';
         
-        if (isEnforcement) {
-            // Show enforcement ban details
+        if (isVoice || messages.length === 0) {
             chatLabel.style.display = 'none';
-            
-            const detailsField = document.createElement('div');
-            detailsField.className = 'field';
-            const detailsLabel = document.createElement('span');
-            detailsLabel.className = 'label';
-            detailsLabel.innerText = t('Label.Details');
-            const detailsValue = document.createElement('span');
-            detailsValue.className = 'value';
-            detailsValue.innerText = t('Label.AltConsequence');
-            detailsField.appendChild(detailsLabel);
-            detailsField.appendChild(detailsValue);
-            list.appendChild(detailsField);
-        } else if (messages.length > 0) {
-            // Show chat messages
+        } else {
             chatLabel.style.display = 'block';
             messages.forEach(msg => {
                 const field = document.createElement('div');
@@ -660,12 +676,9 @@
                 field.appendChild(value);
                 list.appendChild(field);
             });
-        } else {
-            // No messages - hide chat label
-            chatLabel.style.display = 'none';
         }
-
-        document.getElementById('evidence-divider').style.display = (messages.length > 0 || isEnforcement) ? 'block' : 'none';
+        
+        document.getElementById('evidence-divider').style.display = (messages.length > 0 && !isVoice) ? 'block' : 'none';
         document.getElementById('view-more-btn').innerText = t('Action.ReportMistake');
         document.getElementById('primary-action-btn').innerText = t('Action.OK');
     }
