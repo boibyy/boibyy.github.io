@@ -1,17 +1,20 @@
 {
   "Heading.ChatBreaksRules": "Your chat breaks the rules",
   "Heading.ChatBreaksRules.V2": "Your text chat breaks the rules",
+  "Heading.ChatSuspended5Minutes": "Chat suspended for 5 minutes",
   "Heading.ChatSuspended10Minutes": "Chat suspended for 10 minutes",
   "Heading.ChatSuspended20Minutes": "Chat suspended for 20 minutes",
-  "Heading.ChatSuspended30Minutes": "Chat suspended for 30 minutes",
   "Heading.ChatSuspended1Hour": "Chat suspended for 1 hour",
-  "Heading.ChatSuspended3Hours": "Chat suspended for 3 hours",
-  "Heading.ChatSuspended6Hours": "Chat suspended for 6 hours",
   "Heading.ChatSuspended1Day": "Chat suspended for 1 day",
-  "Heading.ChatSuspended2Days": "Chat suspended for 2 days",
   "Heading.ChatSuspended3Days": "Chat suspended for 3 days",
-  "Heading.ChatSuspended5Days": "Chat suspended for 5 days",
-  "Heading.ChatSuspended7Days": "Chat suspended for 7 days",
+
+  "Heading.VoiceRememberOurPolicies": "Remember our policies",
+  "Heading.VoiceChatSuspended5Minutes": "Voice chat suspended for 5 minutes",
+  "Heading.VoiceChatSuspended10Minutes": "Voice chat suspended for 10 minutes",
+  "Heading.VoiceChatSuspended20Minutes": "Voice chat suspended for 20 minutes",
+  "Heading.VoiceChatSuspended1Hour": "Voice chat suspended for 1 hour",
+  "Heading.VoiceChatSuspended1Day": "Voice chat suspended for 1 day",
+  "Heading.VoiceChatSuspended": "Voice chat suspended",
 
   "Description.ChatBreaksRulesWarning": "Your text chat use may be suspended if you break the rules again.",
   "Description.ChatSuspendedMultipleDays": "You can’t use chat for {{duration}} days because one or more of your messages broke the rules. If you keep breaking the rules, you could be banned.",
@@ -19,6 +22,12 @@
   "Description.ChatSuspendedMultipleHours": "You can’t use chat for {{duration}} hours because one or more of your messages broke the rules. If you keep breaking the rules, you could be banned.",
   "Description.ChatSuspendedSingleHour": "You can’t use chat for 1 hour because one or more of your messages broke the rules. If you keep breaking the rules, you could be banned.",
   "Description.ChatSuspendedMultipleMinutes": "You can’t use chat for {{duration}} minutes because one or more of your messages broke the rules. If you keep breaking the rules, you could be banned.",
+
+  "Description.VoiceChatPolicyWarning": "We've detected language that may violate the rules. Your voice chat use may be suspended if you break the rules again.",
+  "Description.VoiceChatSuspendedSingleDay": "You can’t use voice chat for 1 hour because one or more of you broke the rules. If you keep breaking the rules, you could be banned.",
+  "Description.VoiceChatSuspendedMultipleHours": "You can’t use voice chat for {{duration}} hours because you broke the rules. If you keep breaking the rules, you could be banned.",
+  "Description.VoiceChatSuspendedSingleHour": "You can’t use voice chat for 1 hour because one or more of you broke the rules. If you keep breaking the rules, you could be banned.",
+  "Description.VoiceChatSuspendedMultipleMinutes": "You can’t use voice chat for {{duration}} minutes because you broke the rules. If you keep breaking the rules, you could be banned.",
 
   "Label.Reason.Other": "Other",
   "Label.Reason.Spam": "Spam",
@@ -43,7 +52,6 @@
   "Label.Reason": "Reason:",
   "Label.Violation": "Violation:",
   "Label.Chat": "Chat:",
-  "Label.Details": "Details:",
   
   "Action.OK": "OK",
   "Action.IUnderstand": "I understand",
@@ -63,5 +71,6 @@
   "Label.Appeals.ReasonPlaceholder": "Additional information (optional)",
   "Label.Appeals.ReasonPlaceholder.V2": "Explain why you think this decision should be reviewed (optional)",
   "Label.Appeals.TooManyAttempts": "Too many attempts. Please wait a bit or try again later.",
-  "Label.Appeals.CannotAppeal": "You can no longer appeal this decision."
+  "Label.Appeals.CannotAppeal": "You can no longer appeal this decision.",
+  "Label.Appeals.CannotAppeal.V2": "You can no longer appeal this decision."
 }
