@@ -24,7 +24,7 @@
   "Description.ChatSuspendedMultipleMinutes": "You can’t use chat for {{duration}} minutes because one or more of your messages broke the rules. If you keep breaking the rules, you could be banned.",
 
   "Description.VoiceChatPolicyWarning": "We've detected language that may violate the rules. Your voice chat use may be suspended if you break the rules again.",
-  "Description.VoiceChatSuspendedSingleDay": "You can’t use voice chat for 1 hour because one or more of you broke the rules. If you keep breaking the rules, you could be banned.",
+  "Description.VoiceChatSuspendedSingleDay": "You can’t use voice chat for 1 day because one or more of you broke the rules. If you keep breaking the rules, you could be banned.",
   "Description.VoiceChatSuspendedMultipleHours": "You can’t use voice chat for {{duration}} hours because you broke the rules. If you keep breaking the rules, you could be banned.",
   "Description.VoiceChatSuspendedSingleHour": "You can’t use voice chat for 1 hour because one or more of you broke the rules. If you keep breaking the rules, you could be banned.",
   "Description.VoiceChatSuspendedMultipleMinutes": "You can’t use voice chat for {{duration}} minutes because you broke the rules. If you keep breaking the rules, you could be banned.",
