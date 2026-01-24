@@ -14,6 +14,13 @@
             font-optical-sizing: auto;
             font-style: normal;
         }
+        body {
+          background-image: url('https://boiby.dev/DSC_0009.JPG');
+          background-repeat: no-repeat;
+          background-size: 3000px auto;
+          background-position: center;
+          min-height: 2000px; 
+        }
         :root {
             --bg-base: #101013;
             --bg-modal: #191a1f;
@@ -33,7 +40,6 @@
 
         body {
             margin: 0;
-            background: var(--bg-base);
             color: var(--text-normal);
             font-family: 'gg sans', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
             display: flex;
@@ -156,7 +162,7 @@
 
         .container {
             max-width: 500px;
-            min-height: min(400px);
+            min-height: min(200px);
             padding: 0px !important;
             width: 640px;
             height: auto;
@@ -166,7 +172,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 0 0 1px var(--shadow-border), 0 3px 24px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 0 0 1px var(--shadow-border), 0 24px 24px rgba(0, 0, 0, 0.5)
         }
 
         .scrollable-body {
@@ -197,7 +203,6 @@
         .card {
             background: var(--bg-card);
             border-radius: var(--radius-card);
-            margin-bottom: 21px;
         }
 
         .field {
@@ -393,12 +398,12 @@
 
         @media (max-width: 640px) {
             .container {
-                width: 100%;
-                height: 100vh;
-                border-radius: 0;
-                border-top-left-radius: 10px;
-                border-top-right-radius: 10px;
+                width: 95%;
             }
+        }
+
+        #display-trace, #lbl-chat-static {
+            display: none;
         }
     </style>
 </head>
@@ -433,14 +438,12 @@
     <div>
         <label>Duration</label>
         <select id="duration-select" onchange="handleDurationChange()">
-            <option value="ChatBreaksRules">Warning</option>
+            <option value="ChatBreaksRules.V2">Warning</option>
             <option value="ChatSuspended10Minutes" selected>10 minutes</option>
             <option value="ChatSuspended1Hour" selected>1 hour</option>
             <option value="ChatSuspended6Hours">6 hours</option>
             <option value="ChatSuspended1Day">1 day</option>
             <option value="ChatSuspended3Days">3 days</option>
-            <option value="ChatSuspended5Days">5 days</option>
-            <option value="ChatSuspended7Days">7 days</option>
         </select>
     </div>
     <div id="reason-container">
@@ -478,7 +481,7 @@
         <h1 style="font-size:24px; line-height: 1.6; margin-bottom: 16px;margin-top: 4px;" id="display-duration-title">Chat suspended for 1 hour</h1>
         <p class="description" id="display-desc" style="line-height: 1.45;margin: 0 0 16px 0;font-weight: 400;"></p>
         
-        <div class="card" id="evidence-card" style="padding: 14px !important;">
+        <div class="card" id="evidence-card" style="padding: 14px 12px 14px 12px !important;">
             <span class="label" id="lbl-chat-static">Chat:</span>
             <div id="evidence-list-main"></div>
             <div id="evidence-divider" style="display: block; border-bottom: 1px solid var(--shadow-border); margin: 10px 0px;"></div>
@@ -524,17 +527,6 @@
 
     function handleDurationChange() {
         const dur = document.getElementById('duration-select')?.value;
-        const isPermanent = dur === 'ChatBanned';
-        const enforcementContainer = document.getElementById('enforcement-container');
-        const enforcementCheckbox = document.getElementById('enforcement-checkbox');
-        
-        if (isPermanent) {
-            enforcementContainer.style.display = 'block';
-        } else {
-            enforcementContainer.style.display = 'none';
-            enforcementCheckbox.checked = false;
-        }
-        
         updateContent();
     }
 
@@ -614,9 +606,7 @@
         let descKey = '';
         let descVars = {};
         
-        if (isPermanent) {
-            descKey = 'Description.BrokeRulesChatBanned';
-        } else if (dur === 'ChatSuspended1Hour') {
+        if (dur === 'ChatSuspended1Hour') {
             descKey = 'Description.ChatSuspendedSingleHour';
         } else if (dur === 'ChatSuspended1Day') {
             descKey = 'Description.ChatSuspendedSingleDay';
