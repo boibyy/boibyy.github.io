@@ -752,9 +752,90 @@ body.dark-mode #display-desc {
                 align-content: center;
             }
         }
+                /* Skeleton Loading Animation */
+        /* Skeleton Loading Animation */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.skeleton-loading {
+    background: linear-gradient(
+        90deg,
+        var(--bg-card) 0%,
+        var(--btn-gray) 20%,
+        var(--bg-card) 40%,
+        var(--bg-card) 100%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 1.2s ease-in-out infinite;
+    color: transparent !important;
+    pointer-events: none;
+    user-select: none;
+    border-radius: 10px;
+}
+
+/* Circle skeleton for icons and dots */
+.skeleton-loading.skeleton-circle {
+    border-radius: 50% !important;
+}
+
+/* Half-width skeleton for headers outside cards */
+.skeleton-loading.skeleton-half {
+    width: 50%;
+    border-radius: 6px;
+}
+
+/* Small border radius for trace */
+.skeleton-loading.skeleton-trace {
+    border-radius: 6px;
+}
+
+.skeleton-loading * {
+    visibility: hidden;
+}
+
+.skeleton-loading::before,
+.skeleton-loading::after {
+    visibility: hidden;
+}
+
+body.loaded .skeleton-loading {
+    animation: none;
+    background: none;
+    color: inherit !important;
+    pointer-events: auto;
+    user-select: auto;
+    border-radius: initial;
+    width: auto;
+}
+
+body.loaded .skeleton-loading * {
+    visibility: visible;
+}
+
+body.loaded .skeleton-loading::before,
+body.loaded .skeleton-loading::after {
+    visibility: visible;
+}
+
+#display-trace.skeleton-loading {
+    width: 35%;
+    max-height: 20px!important;
+    padding: 0
+}
+
+#txt-activity.skeleton-loading,
+#txt-why.skeleton-loading {
+    width: 45%;
+}
     </style>
 </head>
-<body id="main-body" class="light-mode">
+<body id="main-body">
 
 <button class="customizer-toggle" onclick="document.getElementById('side-panel').classList.toggle('open')">Edit</button>
 
@@ -962,11 +1043,16 @@ body.dark-mode #display-desc {
         <input type="file" class="width-full padding-small border-radius-btn bg-card text-normal-color border-thin" id="image-upload-input" accept="image/*" onchange="handleImageUpload(event)">
         <button class="btn-view-more width-full height-medium bg-gray text-header-color border-radius-btn text-small margin-top-small" onclick="clearImagePreview()" id="clear-image-btn" style="display: none;">Clear Image</button>
     </div>
+    <div style="border-top: 1px solid var(--btn-gray2); padding-top: 10px;">
+    <button class="btn-logout width-full" onclick="handleClearData()">
+    Clear Saved Data
+</button>
+</div>
     <div style="height: 50px; flex-shrink: 0;"></div>
 </aside>
 
-<div class="container flex flex-column">
-    <button class="btn-back-arrow margin-bottom-2xlarge" id="btn-back-arrow" onclick="handleBackNavigation()">‹</button>
+<div class="container flex flex-column" id="main-container">
+        <button class="btn-back-arrow margin-bottom-2xlarge" id="btn-back-arrow" onclick="handleBackNavigation()">‹</button>
     <div class="progress-bar-container" id="progress-bar-container">
         <div class="progress-bar-fill" id="progress-bar-fill"></div>
     </div>
@@ -974,21 +1060,21 @@ body.dark-mode #display-desc {
     <div class="scrollable-body flex-1 padding-large">
         <div id="main-view" class="flex flex-column">
             <div class="header flex margin-bottom-large margin-top-xsmall">
-                <div class="title-group flex gap-medium">
-                    <div class="icon-container" id="icon-holder">
+                <div class="title-group flex gap-medium skeleton-loading">
+                    <div class="icon-container skeleton-loading" id="icon-holder">
                         <div class="ban-icon"></div>
                     </div>
-                    <h1 class="text-header-color text-3xlarge" id="display-duration-title">Banned</h1>
+                    <h1 class="text-header-color text-3xlarge " id="display-duration-title">Banned</h1>
                 </div>
-                <div class="dots text-header-color text-2xlarge" id="dots-trigger">⋮
+                <div class="dots text-header-color text-2xlarge skeleton-loading" id="dots-trigger">⋮
                     <div class="dots-menu bg-modal border-thin border-radius-card" id="dots-menu">
                         <div class="dots-menu-item text-xlarge text-normal-color padding-medium" id="logout-menu-item">Log out</div>
                     </div>
                 </div>
             </div>
-            <p class="description text-medium text-normal-color margin-bottom-xlarge" id="display-desc"></p>
-            <h2 class="text-xlarge text-header-color margin-bottom-medium" id="txt-why"></h2>
-            <div class="card bg-card border-radius-card padding-large margin-bottom-2xlarge border-thin">
+            <p class="description text-medium text-normal-color margin-bottom-xlarge skeleton-loading" id="display-desc"></p>
+            <h2 class="text-xlarge text-header-color margin-bottom-medium skeleton-loading" id="txt-why"></h2>
+            <div class="card bg-card border-radius-card padding-large margin-bottom-2xlarge border-thin skeleton-loading">
                 <div class="field margin-bottom-medium">
                     <span class="label text-medium text-header-color margin-bottom-xsmall" id="lbl-reason-static"></span>
                     <span class="value text-medium text-normal-color" id="display-reason">Other</span>
@@ -998,8 +1084,8 @@ body.dark-mode #display-desc {
                     <span class="value text-medium text-normal-color" id="display-note"></span>
                 </div>
             </div>
-            <h2 class="text-xlarge text-header-color margin-bottom-medium" id="txt-activity"></h2>
-            <div class="card bg-card border-radius-card padding-large margin-bottom-2xlarge border-thin" id="evidence-card">
+            <h2 class="text-xlarge text-header-color margin-bottom-medium skeleton-loading" id="txt-activity"></h2>
+            <div class="card bg-card border-radius-card padding-large margin-bottom-2xlarge border-thin skeleton-loading" id="evidence-card">
                 <div id="image-preview-container" class="bg-modal border-radius-btn" style="display: none; min-width: 225px; width: 225px; height: 225px; overflow: hidden; flex-shrink: 0;">
                     <img id="preview-image" src="" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
@@ -1022,7 +1108,7 @@ body.dark-mode #display-desc {
                     </div>
                 </div>
             </div>
-            <div class="trace-id text-small text-muted-color padding-bottom-xlarge" id="display-trace" style="margin-top: -14px;"></div>
+            <div class="trace-id text-small text-muted-color padding-bottom-xlarge skeleton-loading" id="display-trace" style="margin-top: -14px;"></div>
         </div>
 
         <div id="second-chance-view-1" class="flex flex-column" style="display: none;">
@@ -1066,7 +1152,7 @@ body.dark-mode #display-desc {
     <div class="footer flex padding-large">
         <div id="footer-main-buttons" class="flex width-full" style="justify-content: flex-end;">
             <button 
-                class="btn-report primary-action-btn-2 height-medium padding-medium border-radius-btn text-large button-soft-emphasis" 
+                class="btn-report primary-action-btn-2 height-medium padding-medium border-radius-btn text-large button-soft-emphasis skeleton-loading" 
                 id="primary-action-btn"
                 onclick="handlePrimaryClick()" 
                 style="transition: 0.2s;"
@@ -1102,6 +1188,19 @@ body.dark-mode #display-desc {
     let experimentSettingsInMenu = false;
     let experimentSendAppeal = false;
     
+    function handleClearData() {
+        localStorage.clear();
+        // Reset all form fields to defaults
+        if (document.getElementById('duration-select')) document.getElementById('duration-select').value = 'Banned';
+        if (document.getElementById('reason-select')) document.getElementById('reason-select').value = 'Other';
+        if (document.getElementById('note-input')) document.getElementById('note-input').value = '';
+        if (document.getElementById('date-input')) document.getElementById('date-input').value = '';
+        if (document.getElementById('evidence-type')) document.getElementById('evidence-type').value = 'None';
+        evidenceItems = [];
+        currentType = 'None';
+        uploadedImageBase64 = null;
+        location.reload();
+    }
 
     const policyMap = {
         "Harassment.V2": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
@@ -1141,7 +1240,28 @@ body.dark-mode #display-desc {
         "Other": { headerTop: "Heading.GenericViolationHeaderTop.V2", header: "Heading.RuleExplanation.GenericViolationHeader", detail: "Description.GenericViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.GenericViolationImportance"},
     };
 
+    let isInitializing = true;
     async function init() {
+
+        // Load saved theme
+(function loadTheme() {
+    const savedTheme = localStorage.getItem('themeMode');
+    const body = document.getElementById('main-body') || document.body;
+    const btn = document.getElementById('toggle-btn');
+    
+    if (savedTheme === 'dark') {
+        body.classList.remove('light-mode');
+        if (btn) btn.innerText = 'Switch to Light';
+    } else if (savedTheme === 'light') {
+        body.classList.add('light-mode');
+        if (btn) btn.innerText = 'Switch to Dark';
+    } else {
+        // No saved preference, default to light mode
+        body.classList.add('light-mode');
+        localStorage.setItem('themeMode', 'light');
+        if (btn) btn.innerText = 'Switch to Dark';
+    }
+})();
         try { 
             const res = await fetch('en.json'); 
             translations = await res.json(); 
@@ -1150,7 +1270,15 @@ body.dark-mode #display-desc {
             translations = {}; 
         }
         
+        // Load saved ban data
+        const loaded = loadBanData();
+        if (loaded) {
+            renderEvidenceControls();
+            handleTypeChange(); // Update evidence controls based on loaded type
+        }
+        
         updateContent();
+        isInitializing = false;
         
         const finalBtn = document.getElementById('final-continue-btn');
         if (finalBtn) {
@@ -1199,6 +1327,23 @@ body.dark-mode #display-desc {
         for (const k in vars) val = val.replace(`{{${k}}}`, vars[k]);
         return val;
     }
+        function toggleMode() {
+    try {
+        const body = document.getElementById('main-body') || document.body;
+        const btn = document.getElementById('toggle-btn');
+        const isLight = body.classList.contains('light-mode');
+        if (isLight) {
+            body.classList.remove('light-mode');
+            localStorage.setItem('themeMode', 'dark');
+            if (btn) btn.innerText = 'Switch to Light';
+        } else {
+            body.classList.add('light-mode');
+            localStorage.setItem('themeMode', 'light');
+            if (btn) btn.innerText = 'Switch to Dark';
+        }
+        try { updateContent(); } catch (e) { }
+    } catch (e) { console.error('toggleMode error', e); }
+}
 
     function getFormattedDate() {
         const now = reviewDate || new Date();
@@ -1260,22 +1405,6 @@ body.dark-mode #display-desc {
         }
         
         progressBar.style.width = progress + '%';
-    }
-    
-    function toggleMode() {
-        try {
-            const body = document.getElementById('main-body') || document.body;
-            const btn = document.getElementById('toggle-btn');
-            const isLight = body.classList.contains('light-mode');
-            if (isLight) {
-                body.classList.remove('light-mode');
-                if (btn) btn.innerText = t('Action.Theme.SwitchLight') || 'Switch to Light';
-            } else {
-                body.classList.add('light-mode');
-                if (btn) btn.innerText = t('Action.Theme.SwitchDark') || 'Switch to Dark';
-            }
-            try { updateContent(); } catch (e) { }
-        } catch (e) { console.error('toggleMode error', e); }
     }
 
     function toggleEvidence() {
@@ -1704,6 +1833,92 @@ body.dark-mode #display-desc {
         } 
     }
 
+    function saveBanData() {
+        // Don't save during initialization
+        if (isInitializing) return;
+        
+        const banData = {
+            duration: document.getElementById('duration-select')?.value || 'Banned',
+            reason: document.getElementById('reason-select')?.value || 'Other',
+            note: document.getElementById('note-input')?.value || '',
+            reviewDate: document.getElementById('date-input')?.value || '',
+            evidenceType: document.getElementById('evidence-type')?.value || 'None',
+            evidenceItems: evidenceItems,
+            secondChanceEnabled: secondChanceEnabled,
+            uploadedImage: uploadedImageBase64,
+            euDecision: document.getElementById('eu-decision-select')?.value || 'Manual',
+            experiments: {
+                educational: experimentEnableEducationalPages,
+                euTransparency: experimentEUTransparency,
+                hideLearnMore: experimentHideLearnMore,
+                settingsMenu: experimentSettingsInMenu,
+                sendAppeal: experimentSendAppeal
+            }
+        };
+        
+        localStorage.setItem('banData', JSON.stringify(banData));
+        console.log('Ban data saved to localStorage');
+    }
+
+    // Load ban data from localStorage
+    function loadBanData() {
+        const saved = localStorage.getItem('banData');
+        if (!saved) return false;
+        
+        try {
+            const banData = JSON.parse(saved);
+            
+            // Restore form values
+            if (document.getElementById('duration-select')) document.getElementById('duration-select').value = banData.duration;
+            if (document.getElementById('reason-select')) document.getElementById('reason-select').value = banData.reason;
+            if (document.getElementById('note-input')) document.getElementById('note-input').value = banData.note;
+            if (document.getElementById('date-input')) document.getElementById('date-input').value = banData.reviewDate;
+            if (document.getElementById('evidence-type')) document.getElementById('evidence-type').value = banData.evidenceType;
+            if (document.getElementById('eu-decision-select')) document.getElementById('eu-decision-select').value = banData.euDecision;
+            
+            // Restore evidence items
+            evidenceItems = banData.evidenceItems || [];
+            currentType = banData.evidenceType || 'None';
+            
+            // Restore second chance
+            secondChanceEnabled = banData.secondChanceEnabled || false;
+            if (document.getElementById('second-chance-checkbox')) {
+                document.getElementById('second-chance-checkbox').checked = secondChanceEnabled;
+            }
+            
+            // Restore uploaded image
+            uploadedImageBase64 = banData.uploadedImage || null;
+            
+            // Restore experiments
+            if (banData.experiments) {
+                experimentEnableEducationalPages = banData.experiments.educational ?? true;
+                experimentEUTransparency = banData.experiments.euTransparency ?? false;
+                experimentHideLearnMore = banData.experiments.hideLearnMore ?? false;
+                experimentSettingsInMenu = banData.experiments.settingsMenu ?? false;
+                experimentSendAppeal = banData.experiments.sendAppeal ?? false;
+                
+                if (document.getElementById('experiment-educational-checkbox')) document.getElementById('experiment-educational-checkbox').checked = experimentEnableEducationalPages;
+                if (document.getElementById('experiment-eu-checkbox')) document.getElementById('experiment-eu-checkbox').checked = experimentEUTransparency;
+                if (document.getElementById('experiment-hide-learn-more-checkbox')) document.getElementById('experiment-hide-learn-more-checkbox').checked = experimentHideLearnMore;
+                if (document.getElementById('experiment-settings-menu-checkbox')) document.getElementById('experiment-settings-menu-checkbox').checked = experimentSettingsInMenu;
+                if (document.getElementById('experiment-send-appeal-checkbox')) document.getElementById('experiment-send-appeal-checkbox').checked = experimentSendAppeal;
+            }
+            
+            console.log('Ban data loaded from localStorage');
+            return true;
+        } catch (e) {
+            console.error('Error loading ban data:', e);
+            return false;
+        }
+    }
+
+    // Clear ban data from localStorage
+    function clearBanData() {
+        localStorage.removeItem('banData');
+        localStorage.removeItem('themeMode');
+        console.log('All data cleared from localStorage');
+    }
+
     function updateContent() {
         secondChanceEnabled = document.getElementById('second-chance-checkbox')?.checked || false;
         const dur = document.getElementById('duration-select')?.value || 'Warning';
@@ -2021,6 +2236,8 @@ body.dark-mode #display-desc {
                 evidenceCardContent.style.flex = '';
             }
         }
+
+        saveBanData();
     }
 
     function handleSecondChanceToggle() {
@@ -2810,5 +3027,15 @@ function renderEvidenceControls() {
     }
 
     init();
+
+    setTimeout(() => {
+        document.body.classList.add('loaded');
+    }, 300);
+
+    setTimeout(() => {
+    document.querySelectorAll('.skeleton-loading').forEach(el => {
+        el.classList.remove('skeleton-loading');
+    });
+}, 300);
 </script>
 </body></html>
