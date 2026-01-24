@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boiby Community Standards</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #007bff;
+            --border: #e0e0e0;
+            --text-main: #222;
+            --text-dim: #666;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: var(--text-main);
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 60px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .intro {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            margin-top: 10px;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 40px 0 10px 0;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: var(--border);
+            margin-bottom: 20px;
+        }
+
+        details {
+            margin-bottom: 25px;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        summary {
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 5px 0;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::after {
+            content: "+";
+            color: var(--accent);
+            font-weight: 300;
+        }
+
+        details[open] summary::after {
+            content: "−";
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 25px;
+            margin: 10px 0 20px 0;
+        }
+
+        li {
+            margin-bottom: 12px;
+        }
+
+        .desc-text {
+            display: block;
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-top: 2px;
+        }
+
+        .section-intro {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin: 10px 0 5px 0;
+        }
+
+        footer {
+            margin-top: 80px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.85rem;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Community Standards</h1>
+        <p class="intro">Boiby is a place for connection and civility. To ensure a safe environment, we enforce the following standards.</p>
+    </header>
+
+    <h2>Safety & Well-being</h2>
+    <hr>
+    
+    <details open>
+        <summary>Child Safety</summary>
+        <p class="section-intro">We have zero tolerance for any behavior that risks the safety of minors, this includes the following:</p>
+        <ul>
+            <li><strong>Predatory Behavior:</strong> <span class="desc-text">Any attempt to manipulate, groom, or exploit a minor.</span></li>
+            <li><strong>Sexualization:</strong> <span class="desc-text">Soliciting sexual material or engaging in sexual conversation with minors.</span></li>
+            <li><strong>Illegal Content:</strong> <span class="desc-text">Sharing, requesting, or discussing child exploitation material (CSAM).</span></li>
+        </ul>
+    </details>
+
+    <details open>
+        <summary>Violence & Extremism</summary>
+        <p class="section-intro">We prohibit the promotion of violence or the organization of dangerous activities, this includes the following:</p>
+        <ul>
+            <li><strong>Glorification:</strong> <span class="desc-text">Supporting or praising extremist attacks, leaders, or organizations.</span></li>
+            <li><strong>Recruitment:</strong> <span class="desc-text">Encouraging others to join extremist groups or fundraising for them.</span></li>
+            <li><strong>Violent Threats:</strong> <span class="desc-text">Threatening real-world harm, mass shootings, or domestic terrorism.</span></li>
+        </ul>
+    </details>
+
+    <details open>
+        <summary>Self-Harm & Harmful Behavior</summary>
+        <p class="section-intro">We prohibit content that encourages or provides instruction for self-inflicted harm, this includes the following:</p>
+        <ul>
+            <li><strong>Promotion:</strong> <span class="desc-text">Encouraging, instructing, or romanticizing suicide or self-injury.</span></li>
+            <li><strong>Normalization:</strong> <span class="desc-text">Portraying hopelessness as aspirational or discouraging others from seeking help.</span></li>
+        </ul>
+    </details>
+
+    <details open>
+        <summary>Dangerous Content</summary>
+        <p class="section-intro">We prohibit the depiction or promotion of activities that risk severe physical harm, this includes the following:</p>
+        <ul>
+            <li><strong>Dangerous Stunts:</strong> <span class="desc-text">Promoting physical challenges or "dares" that risk extreme injury or death.</span></li>
+            <li><strong>Instructional Harm:</strong> <span class="desc-text">Providing instructions on how to create weapons, explosives, or perform life-threatening acts.</span></li>
+        </ul>
+    </details>
+
+    <h2>Civility & Conduct</h2>
+    <hr>
+
+    <details open>
+        <summary>Harassment & Discrimination</summary>
+        <p class="section-intro">We expect all users to treat one another with respect and dignity, this includes the following:</p>
+        <ul>
+            <li><strong>Targeted Abuse:</strong> <span class="desc-text">Stalking, trolling, extortion, or campaigns of humiliation.</span></li>
+            <li><strong>Hate Speech:</strong> <span class="desc-text">Discrimination or dehumanization based on race, religion, orientation, gender, or disability.</span></li>
+            <li><strong>Impersonation:</strong> <span class="desc-text">Posing as others to damage their reputation or mislead the community.</span></li>
+        </ul>
+    </details>
+
+    <details open>
+        <summary>Sexual Content</summary>
+        <p class="section-intro">We maintain a professional environment and prohibit explicit content, this includes the following:</p>
+        <ul>
+            <li><strong>Explicit Acts:</strong> <span class="desc-text">Nudity, sexual acts, or sexually suggestive avatar clothing and emotes.</span></li>
+            <li><strong>Dating:</strong> <span class="desc-text">Pursuing romantic relationships or engaging in unwanted flirtatious behavior.</span></li>
+        </ul>
+    </details>
+
+    <details open>
+        <summary>Profanity</summary>
+        <p class="section-intro">While Boiby allows limited profanity for users aged 13 and older, the following are prohibited:</p>
+        <ul>
+            <li><strong>Severe Profanity:</strong> <span class="desc-text">Excessive swearing or using profanity to harass others.</span></li>
+            <li><strong>Filter Bypassing:</strong> <span class="desc-text">Attempting to circumvent text filters to display prohibited words.</span></li>
+            <li><strong>Underage Exposure:</strong> <span class="desc-text">Using profanity in spaces or experiences designated for all ages.</span></li>
+        </ul>
+    </details>
+
+    <details open>
+        <summary>Disruptive Audio</summary>
+        <p class="section-intro">Audio should not be used to degrade the experience of others, this includes the following:</p>
+        <ul>
+            <li><strong>Sound Spaming:</strong> <span class="desc-text">Playing loud, high-pitched, or repetitive noises to disrupt conversation.</span></li>
+            <li><strong>Abusive Audio:</strong> <span class="desc-text">Uploading or playing audio containing hate speech or harassment.</span></li>
+        </ul>
+    </details>
+
+    <h2>Integrity & Security</h2>
+    <hr>
+
+    <details open>
+        <summary>Privacy</summary>
+        <p class="section-intro">We are committed to protecting the personal data of our users, this includes the following:</p>
+        <ul>
+            <li><strong>PII Disclosure:</strong> <span class="desc-text">Sharing personal information like home addresses, full legal names, or phone numbers.</span></li>
+            <li><strong>Account Security:</strong> <span class="desc-text">Attempting to solicit or share passwords and login credentials.</span></li>
+            <li><strong>Harassment via Data:</strong> <span class="desc-text">Using private information to intimidate or "dox" other members of the community.</span></li>
+        </ul>
+    </details>
+
+    <details open>
+        <summary>Illegal & Regulated Goods</summary>
+        <p class="section-intro">We prohibit the use of our platform to facilitate illegal transactions, this includes the following:</p>
+        <ul>
+            <li><strong>Regulated Goods:</strong> <span class="desc-text">The sale or promotion of tobacco, alcohol, or pharmaceutical drugs.</span></li>
+            <li><strong>Illegal Substances:</strong> <span class="desc-text">Discussing the sale or manufacture of illegal narcotics.</span></li>
+        </ul>
+    </details>
+
+    <details open>
+        <summary>Economy & Scams</summary>
+        <p class="section-intro">We protect the integrity of the platform economy and user accounts, this includes the following:</p>
+        <ul>
+            <li><strong>Third-Party Trading:</strong> <span class="desc-text">Buying or selling platform currency through unauthorized services.</span></li>
+            <li><strong>Deception:</strong> <span class="desc-text">Using exploits for unfair advantages or phishing for account access.</span></li>
+            <li><strong>Spam:</strong> <span class="desc-text">Repetitive messaging or creating experiences solely to drive users off-platform.</span></li>
+        </ul>
+    </details>
+
+    <details open>
+        <summary>Misusing Boiby System</summary>
+        <p class="section-intro">We prohibit the subversion of platform security and technical systems, this includes the following:</p>
+        <ul>
+            <li><strong>System Bypassing:</strong> <span class="desc-text">Using VPNs to mask location for unauthorized access.</span></li>
+            <li><strong>Evading Enforcement Actions:</strong> <span class="desc-text">Creating or using an account to avoid an enforcement action taken against another account.</span></li>
+            <li><strong>Disruptive Tools:</strong> <span class="desc-text">Using automated tools or bots for disruptive tasks, or uploading obfuscated scripts.</span></li>
+        </ul>
+    </details>
+
+    <footer>
+        &copy; 2026 Boiby.
+    </footer>
+</div>
+
+</body>
+</html>
