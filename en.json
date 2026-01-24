@@ -380,5 +380,44 @@
   "Heading.SwearingHeaderTop": "Use appropriate language",
   "Heading.RuleExplanation.SwearingHeader": "No swearing",
   "Description.SwearingDetail": "It’s against the rules to use swear words. This includes using misspellings, symbols, or other methods to try to get around detection systems.\n\nOnly users over 16 in certain 16+ only spaces are allowed to use strong language, as long it isn't used to harass anyone.",
-  "Description.SwearingImportance": "Boiby is for everyone, including young kids. We use words that are respectful and welcoming for our entire community."
+  "Description.SwearingImportance": "Boiby is for everyone, including young kids. We use words that are respectful and welcoming for our entire community.",
+
+  "Heading.ViolationsAndAppeals": "Violations & Appeals",
+  "Description.ViolationsAndAppeals": "View your violations and manage your appeals. All content and behaviour must follow {{BoibyCommunityStandardsLink}}",
+  
+  "Label.AppealTimeline": "Appeal timeline",
+
+  "Label.ChatLogValue": "{{username}}: {{chatMessage}}",
+  "Heading.Appeals.Status.Received": "We received an appeal you sent",
+  "Heading.Appeals.Status.Denied": "We denied an appeal you sent",
+  "Heading.Appeals.Status.Accepted": "We accepted an appeal you sent",
+  "Label.CommentYouAdded": "Comment you added:",
+
+  "Description.GenericTypeDescription.V3": "Your {{type}} broke the rules",
+  "Action.AppealSomethingNotShown": "Appeal something not shown",
+  "Description.AppealSomethingNotShown": "Can’t find what you’re looking for? Appeal something that isn’t shown here.",
+  "Action.SupportForm": "Support Form",
+  "Action.AppealDecision": "Appeal a decision",
+  "Label.DateTime": "{{date}} | {{time}}",
+  "Label.LearnMoreAppeals": "Learn more about appeals: {{learnMoreLink}}",
+
+  "Label.Status.AppealReceived": "Appeal received",
+  "Label.Status.AppealDenied": "Appeal denied",
+  "Label.Status.AppealAccepted": "Appeal accepted",
+  "Action.ShowDetails": "Show details",
+
+  "Label.PlatformCommunication": "platform communication",
+
+  "Label.Appeals.Unavailable": "Appeal unavailable",
+  "Label.Appeals.LimitReached": "Appeal limit reached",
+  "Description.Appeals.LimitReached": "You’ve reached the maximum number of appeals. You can no longer appeal this violation.",
+
+  "Label.BoibyCommunityStandards": "Boiby Community Standards",
+
+  "Label.LearnMoreAppealsGeneral": "Learn more about appeals here:",
+
+  "Label.AppealDeadline": "You can appeal by {{date}} | {{time}}",
+
+  "Label.Error.Unexpected": "An unexpected error occurred. Please try again later",
+  "Action.Reload": "Reload"
 }
