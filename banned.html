@@ -239,7 +239,7 @@ body {transition: opacity ease-in 0.2s; }
         .dots { color: var(--text-header); font-size: 20px; margin-right: 6px; cursor: pointer; line-height: 1; position: relative; }
         .description { font-size: 14px; color: var(--text-normal); margin: 0 0 21px 0; line-height: 1.; }
         h2 { font-size: 16px; font-weight: 700; color: var(--text-header); margin: 3px 0 12px 0; }
-        .card { background: var(--bg-card); border-radius: var(--radius-card); padding: 16px 15px 16px 15px; margin-bottom: 21px; border: 1px rgba(0, 0, 0, 0.03); }
+        .card { background: var(--bg-card); border-radius: var(--radius-card); padding: 16px 14px 16px 14px; margin-bottom: 21px; border: 1px rgba(0, 0, 0, 0.03); }
         .field { margin-bottom: 12px!important; }
         .card .field:last-child { margin-bottom: 0!important }
         .label { display: block; font-weight: 700; font-size: 14px; color: var(--text-header); margin-bottom: 2px; }
@@ -2210,7 +2210,6 @@ function renderEvidenceControls() {
         const agree = document.getElementById('agree-checkbox');
         
         if (agree) agree.checked = false;
-        
         if (finalBtn) {
             finalBtn.disabled = false;
             finalBtn.innerText = t('Action.Continue');
@@ -2221,7 +2220,6 @@ function renderEvidenceControls() {
             finalBtn.style.opacity = '1';
             finalBtn.style.pointerEvents = 'auto';
         }
-
         const wrapper = document.getElementById('continue-disabled-wrapper');
         if (wrapper) wrapper.remove();
         if (finalBtn) finalBtn.style.display = 'block';
@@ -2656,5 +2654,4 @@ function renderEvidenceControls() {
 
     init();
 </script>
-
 </body></html>
