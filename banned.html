@@ -2251,7 +2251,7 @@ function renderEvidenceControls() {
         const viewRulesBtn = document.getElementById('second-chance-view-rules-btn');
         if (viewRulesBtn) {
             viewRulesBtn.innerText = t('Action.ViewRules');
-            viewRulesBtn.onclick = () => { console.log('View rules clicked from second chance'); };
+            viewRulesBtn.onclick = () => { window.open('/Boiby-Community-Standards', '_blank'); };
         }
 
         const finalBtn = document.getElementById('final-continue-btn');
@@ -2431,7 +2431,7 @@ function renderEvidenceControls() {
         setTxt('rules-mistake-text', t('Description.Mistake.V3'));
         setTxt('lbl-agree', t('Label.AgreeToRules.V2'));
 
-        const viewRulesBtn = document.getElementById('second-chance-view-rules-btn');
+        const viewRulesBtn = document.getElementById('btn-view-rules-inner');
         if (viewRulesBtn) {
             viewRulesBtn.innerText = t('Action.ViewRules');
             viewRulesBtn.onclick = () => { window.open('https://boiby.dev/Boiby-Community-Standards', '_blank'); };
