@@ -810,6 +810,7 @@ body.dark-mode #display-desc {
                 <option value="AutomatedDetection">Automated detection</option>
             </select>
     </div>
+    <div id="evidence-controls-container"></div>
     <h2 style="border-top: 1px solid var(--btn-gray2); padding-top: 10px; margin-bottom: 4px">Experiments</h2>
     <p style="font-size:12px; margin-top: -6px!important; margin-bottom: 6px;">These are for testing of new features or changes. Some are currently enabled by default. These may be unstable and may be in an unfinished state.</p>
     <div id="experiment-educational-container">
@@ -828,7 +829,6 @@ body.dark-mode #display-desc {
         <label>Enable change to "Send appeal"</label>
         <input type="checkbox" id="experiment-send-appeal-checkbox" autocomplete="off" onchange="handleSendAppealToggle()">
     </div>
-    <div id="evidence-controls-container"></div>
     <div id="image-upload-container" style="display: none;">
         <label>Upload Image</label>
         <input type="file" id="image-upload-input" accept="image/*" onchange="handleImageUpload(event)">
