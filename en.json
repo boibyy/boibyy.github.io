@@ -139,6 +139,7 @@
   "Label.IAgreeParent": "I agree to re-activate my child's account",
 
   "Label.EUTransparency.DecisionMethod": "Decision method:",
+  "Label.EUTransparency.DecisionMethod.V2": "How we reviewed this:",
   "Label.EUTransparency.AutomatedDetectionAutomatedDecision": "We used automated systems to detect this violation and make this decision.",
   "Label.EUTransparency.AutomatedDetectionManualDecision": "We used automated systems to detect this violation.",
   "Label.EUTransparency.ManualDetectionAutomatedDecision": "We used automated systems to make this decision.",
@@ -207,6 +208,7 @@
   "Label.Reason.ViolentGore.V2": "Extreme Violence and Gore",
   "Label.Reason.DisruptiveVideoContent": "Disruptive Video Content",
   "Label.Reason.DirectingUsersOffPlatform": "Directing Users Off-Platform",
+  "Label.Reason.Swearing": "Swearing",
   "Label.Reason.FalseAgeVerify": "False Age Verification",
 
   "Label.MessageToUser.AccountForBreakingRules": "Do not create accounts just for the purpose of breaking the rules.",
@@ -257,6 +259,8 @@
   "Label.MessageToUser.CheatsThirdViolation": "We detected a modified version of the Boiby client was used on one of your devices. You have received multiple notifications about this violation. If you violate this rule again, your account may be permanently banned.",
   "Label.MessageToUser.CheatsPermanent": "Your account has been permanently banned for repeated violations of our rules against modified clients and cheats. You received multiple previous notifications about this violation.",
   "Label.MessageToUser.AgeVerificationFalse": "Your account has been moderated for providing inaccurate or false information about your identity. When verifying your age to access video uploading features, you must provide accurate information. Alternatively, you can make a payment on Boiby.",
+  "Label.MessageToUser.Swearing": "Boiby does not permit profane language or swearing. Only users aged 16+ are permitted to use strong language in private messages or 16+ spaces, provided it complies with our policies, and is not used to harass others.",
+  "Label.MessageToUser.DirectingUsersOffPlatform": "Boiby does not permit the use of off-site links of any kind. Links to YouTube, Reddit, Discord, X (formerly Twitter), and Twitch must be wrapped in the applicable API or listed in the Social Networks and Social Links settings of your profile or game page. Links that appear in locations where the API isn't avaliable - such as chat - are prohibited. ",
 
   "Heading.BullyHeaderTop": "Be kind and respectful",
   "Heading.RuleExplanation.BullyHeader": "No bullying or discrimination",
@@ -265,8 +269,8 @@
   "Description.BullyImportance": "To keep Boiby fun and safe for everyone, don’t use words or actions that are intended to harm or bully others. Boiby is for everyone, regardless of background and beliefs.",
 
   "Heading.PIIHeaderTop": "Guard private information",
-  "Heading.RuleExplanation.PIIHeader": "Don't share or request personal information",
-  "Description.PIIDetail": "It's against the rules to share personal information or ask others to share theirs. This includes phone numbers, email addresses, real names, and phyiscal addresses.",
+  "Heading.RuleExplanation.PIIHeader": "Don't share or ask for personal information",
+  "Description.PIIDetail": "It's against the rules to share personal information or ask others to share theirs.\nThis includes phone numbers, email addresses, real names, and phyiscal addresses.",
   "Description.PIIImportance": "Information shared with a bad actor can be used to harm you. This can lead to bullying, threats, or identity theft.",
 
   "Heading.SpamHeaderTop": "Let conversations flow",
@@ -366,5 +370,15 @@
   "Heading.GenericViolationHeaderTop.V2": "Make sure you follow the rules",
   "Heading.RuleExplanation.GenericViolationHeader": "Follow our Community Standards",
   "Description.GenericViolationDetail": "To help keep our platform safe and enjoyable, all users must follow our Community Standards.",
-  "Description.GenericViolationImportance": "Following the rules ensures a respectful community where all users can safely enjoy Boiby without disruption or harm."
+  "Description.GenericViolationImportance": "Following the rules ensures a respectful community where all users can safely enjoy Boiby without disruption or harm.",
+
+  "Heading.OffPlatformHeaderTop": "Keep it on Boiby",
+  "Heading.RuleExplanation.OffPlatformHeader": "No sharing links off of Boiby",
+  "Description.OffPlatformDetail": "It’s against the rules to share links in chat to other websites or tell people how to find your profile on other apps or social media, unless it is an allowed site added to the social connections section of your profile. If someone tells you to go to another website that looks dangerous, you shouldn’t do it and always stay on Boiby.",
+  "Description.OffPlatformImportance": "Links may take you to fake websites that look just like Boiby to steal your account or items. The sites could also have harmful images or videos.",
+
+  "Heading.SwearingHeaderTop": "Use appropriate language",
+  "Heading.RuleExplanation.SwearingHeader": "No swearing",
+  "Description.SwearingDetail": "It’s against the rules to use swear words. This includes using misspellings, symbols, or other methods to try to get around detection systems.\n\nOnly users over 16 in certain 16+ only spaces are allowed to use strong language, as long it isn't used to harass anyone.",
+  "Description.SwearingImportance": "Boiby is for everyone, including young kids. We use words that are respectful and welcoming for our entire community."
 }
