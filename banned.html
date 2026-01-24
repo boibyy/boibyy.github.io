@@ -695,6 +695,8 @@ body.dark-mode #display-desc {
             <option value="Harassment.V2">Bullying and Harassment</option>
             <option value="ExtortionThreats.V2">Extortion and Blackmail</option>
             <option value="Spam">Spam</option>
+            <option value="Swearing">Swearing</option>
+            <option value="DirectingUsersOffPlatform">Directing Users Off-Platform</option>
             <option value="Scamming">Scamming</option>
             <option value="CheatsExploits">Cheats and Exploits</option>
             <option value="DiscriminationHate.V2">Discriminatory Content</option>
@@ -730,6 +732,8 @@ body.dark-mode #display-desc {
         <option value="ChildEndangermentTemp">CE (TEMP)</option>
         <option value="Harassment">Bullying and Harassment</option>
         <option value="Spam">Spam</option>
+        <option value="Swearing">Swearing</option>
+        <option value="DirectingUsersOffPlatform">Directing Users Off-Platform</option>
         <option value="CheatsFirstViolation">Cheats (Warning)</option>
         <option value="CheatsSecondViolation">Cheats (1 day)</option>
         <option value="CheatsThirdViolation">Cheats (7 days)</option>
@@ -956,6 +960,8 @@ body.dark-mode #display-desc {
         "AbuseOfBoibyEmployees": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
         "DiscriminationHate.V2": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
         "Spam": { headerTop: "Heading.SpamHeaderTop", header: "Heading.RuleExplanation.SpamHeader", detail: "Description.SpamDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SpamImportance" },
+        "Swearing": { headerTop: "Heading.SwearingHeaderTop", header: "Heading.RuleExplanation.SwearingHeader", detail: "Description.SwearingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SwearingImportance" },
+        "DirectingUsersOffPlatform": { headerTop: "Heading.OffPlatformHeaderTop", header: "Heading.RuleExplanation.OffPlatformHeader", detail: "Description.OffPlatformDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.OffPlatformImportance" },
         "ExtortionThreats.V2": { headerTop: "Heading.ExtortionHeaderTop", header: "Heading.RuleExplanation.ExtortionHeader", detail: "Description.ExtortionDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ExtortionImportance" },
         "ViolentGore.V2": { headerTop: "Heading.ViolentHeaderTop", header: "Heading.RuleExplanation.ViolentHeader", detail: "Description.ViolentDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ViolentImportance" },
         "CheatsExploits": { headerTop: "Heading.CheatingHeaderTop", header: "Heading.RuleExplanation.CheatingHeader", detail: "Description.CheatingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.CheatingImportance" },
@@ -1617,7 +1623,7 @@ body.dark-mode #display-desc {
                 decisionText = t('Label.EUTransparency.AutomatedDetectionManualDecision');
             }
             
-            setTxt('lbl-decision-static', t('Label.EUTransparency.DecisionMethod'));
+            setTxt('lbl-decision-static', t('Label.EUTransparency.DecisionMethod.V2'));
             setTxt('display-decision', decisionText);
         } else {
             // Remove the field if it exists
