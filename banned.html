@@ -1,69 +1,196 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+
+        <!DOCTYPE html>
+<html lang="en"><head><style>
+body {transition: opacity ease-in 0.2s; } 
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Boiby</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <style>
+        
         * {
-            font-family: "Public Sans", sans-serif;
-            font-optical-sizing: auto;
-            font-style: normal;
+  font-family: "Public Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+body.light-mode #display-desc {
+    color: #333;
+}
+body.dark-mode #display-desc {
+    color: #fff;
+}
+        #second-chance-checkbox {
+            display: inline-block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
-        body {
-          background-image: url('https://boiby.dev/DSC_0009.JPG');
-          background-repeat: no-repeat;
-          background-size: 3000px auto;
-          background-position: center;
-          min-height: 2000px; 
+        .lbl-mistake-static {
+            display: none!important;
         }
         :root {
-            --bg-base: #101013;
-            --bg-modal: #191a1f;
-            --bg-card: #272930;
-            --btn-gray: #333640;
-            --btn-gray-hover: #444757;
-            --text-header: #f2f3f5;
-            --text-normal: #dbdee1;
-            --text-muted: #909090;
-            --text-trace: #909090;
-            --shadow-border: rgba(90, 90, 90, 0.33);
-            --radius-modal: 16px;
-            --radius-card: 10px;
-            --radius-btn: 8px;
-            --panel-bg: #1e1f22;
+            --bg-base: #101013; --bg-modal: #191a1f; --bg-card: #272930;
+            --btn-gray: #30323a; --btn-gray-hover: #373a44; --btn-blue: #5e499c; 
+            --btn-blue-hover: #604d9b --text-header: #f2f3f5; --text-normal: #dbdee1;
+            --text-muted: #828282; --text-trace: #828282; --danger: #da373c;
+            --shadow-border: rgba(90, 90, 90, 0.33); --radius-modal: 16px;
+            --radius-card: 10px; --radius-btn: 8px; --panel-bg: #1e1f22;
+            --btn-gray2: #353841; --btn-gray-hover2: #3d3f4b;
+            --warning-orange: #f0b232;
+            
+            /* Spacing */
+            --spacing-xsmall: 2px;
+            --spacing-small: 5px;
+            --spacing-medium: 10px;
+            --spacing-large: 16px;
+            --spacing-xlarge: 21px;
+            --spacing-2xlarge: 44px;
+            
+            /* Font sizes */
+            --font-xsmall: 12px;
+            --font-small: 13px;
+            --font-medium: 14px;
+            --font-large: 15px;
+            --font-xlarge: 16px;
+            --font-2xlarge: 18px;
+            --font-3xlarge: 21px;
+            --font-4xlarge: 22px;
+            --font-5xlarge: 24px;
+            
+            /* Heights */
+            --height-medium: 40px;
+            --height-large: 90px;
+            
+            /* Borders */
+            --border-thin: 1px;
+            --border-medium: 2px;
+            --border-thick: 3px;
+        }
+        body.light-mode {
+            --bg-base: #bbb; --bg-modal: #f7f7f8; --bg-card: #E6E7EB;
+            --btn-gray: #dbdcdf; --btn-gray-hover: #cdd0d8; --text-header: #3a3a3a;
+            --text-normal: #444444; --text-muted: #616872; --text-trace: #676767;
+            --shadow-border: rgba(200,200,200, 0.4); --panel-bg: #f9f9f9; 
+            --btn-gray2: #cdcfd7; --btn-gray-hover2: #c0c2c7;
+            --warning-orange: #d49a1f; 
         }
 
-        body {
-            margin: 0;
-            color: var(--text-normal);
-            font-family: 'gg sans', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            transition: background 0.2s ease;
-        }
-
-        .customizer-toggle {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 1000;
-            background: #5865f2;
-            color: white;
+        /* Utility Classes */
+        .flex { display: flex; }
+        .flex-column { flex-direction: column; }
+        .flex-1 { flex: 1; }
+        .gap-xsmall { gap: var(--spacing-xsmall); }
+        .gap-small { gap: var(--spacing-small); }
+        .gap-medium { gap: var(--spacing-medium); }
+        .gap-large { gap: var(--spacing-large); }
+        
+        .margin-small { margin: var(--spacing-small); }
+        .margin-medium { margin: var(--spacing-medium); }
+        .margin-bottom-xsmall { margin-bottom: var(--spacing-xsmall); }
+        .margin-bottom-small { margin-bottom: var(--spacing-small); }
+        .margin-bottom-medium { margin-bottom: var(--spacing-medium); }
+        .margin-bottom-large { margin-bottom: var(--spacing-large); }
+        .margin-bottom-xlarge { margin-bottom: var(--spacing-xlarge); }
+        .margin-bottom-2xlarge { margin-bottom: var(--spacing-2xlarge); }
+        .margin-top-xsmall { margin-top: var(--spacing-xsmall); }
+        .margin-top-small { margin-top: var(--spacing-small); }
+        .margin-top-medium { margin-top: var(--spacing-medium); }
+        .margin-top-large { margin-top: var(--spacing-large); }
+        .margin-top-xlarge { margin-top: var(--spacing-xlarge); }
+        .margin-top-2xlarge { margin-top: var(--spacing-2xlarge); }
+        
+        .padding-small { padding: var(--spacing-small); }
+        .padding-medium { padding: var(--spacing-medium); }
+        .padding-large { padding: var(--spacing-large); }
+        .padding-xlarge { padding: var(--spacing-xlarge); }
+        
+        .width-full { width: 100%; }
+        .height-medium { height: var(--height-medium); }
+        
+        .text-xsmall { font-size: var(--font-xsmall); }
+        .text-small { font-size: var(--font-small); }
+        .text-medium { font-size: var(--font-medium); }
+        .text-large { font-size: var(--font-large); }
+        .text-xlarge { font-size: var(--font-xlarge); }
+        .text-2xlarge { font-size: var(--font-2xlarge); }
+        .text-3xlarge { font-size: var(--font-3xlarge); }
+        .text-4xlarge { font-size: var(--font-4xlarge); }
+        .text-5xlarge { font-size: var(--font-5xlarge); }
+        
+        .text-normal-color { color: var(--text-normal); }
+        .text-muted-color { color: var(--text-muted); }
+        .text-header-color { color: var(--text-header); }
+        
+        .bg-card { background: var(--bg-card); }
+        .bg-modal { background: var(--bg-modal); }
+        .bg-gray { background: var(--btn-gray); }
+        .bg-gray2 { background: var(--btn-gray2); }
+        .bg-blue { background: var(--btn-blue); }
+        
+        .border-thin { border: var(--border-thin) solid var(--shadow-border); }
+        .border-medium { border: var(--border-medium) solid var(--btn-gray); }
+        .border-thick { border: var(--border-thick) solid var(--btn-gray); }
+        
+        .border-radius-card { border-radius: var(--radius-card); }
+        .border-radius-btn { border-radius: var(--radius-btn); }
+        .border-radius-modal { border-radius: var(--radius-modal); }
+        
+        .button-emphasis {
+            background: #5E499C;
+            color: #eeeeee;
             border: none;
-            padding: 10px 15px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .button-soft-emphasis {
+            background: rgba(96, 51, 255, 0.3);
+            color: #111;
+            border: none;
+        }
+        
+        body.light-mode .button-soft-emphasis {
+            color: #111;
         }
 
+        body { 
+            margin: 0; 
+            background: var(--bg-base); 
+            color: var(--text-normal);  
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            transition: background 0.2s ease; 
+        }
+        
+.container { 
+    width: 640px; 
+    min-height: min(800px, 85vh); 
+    height: auto;
+    max-height: 800px;
+    background: var(--bg-modal); 
+    border-radius: var(--radius-modal); 
+    box-sizing: border-box; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between;
+    position: relative; 
+    box-shadow: 0 0 0 1px var(--shadow-border), 0 10px 10px rgba(0, 0, 0, 0.35); 
+    overflow-y: auto; 
+}
+@media (max-width:550px) {
+    .container { 
+        max-height: 97vh;
+    }
+}
+        
+#agree-checkbox {
+    background-color: var(--bg-card);
+}
+        .customizer-toggle { position: fixed; bottom: 20px; left: 20px; z-index: 1000; background: var(--btn-blue); color: white; border: none; padding: 10px 15px; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 0px 15px rgba(0,0,0,0.8); }
+        
         @media (max-width: 768px) {
             .customizer-toggle {
                 opacity: 0;
@@ -73,202 +200,128 @@
                 left: 5px;
                 bottom: 5px;
             }
-            .customizer-toggle:active {
+            .customizer-toggle:active, .customizer-toggle:focus {
                 opacity: 0.25;
             }
         }
 
-        .panel {
-            position: fixed;
-            left: -320px;
-            top: 0;
-            width: 300px;
+        @media (max-width: 550px) {
+            body {
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            input, textarea {
+                -webkit-user-select: text;
+                user-select: text;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            .agree-section {
+                flex-direction: column!important;
+                align-items: flex-start!important;
+                margin-bottom: 12px;
+                font-size: 15px;
+            }
+
+    .modal-content {
+        max-width: 85%!important;
+    }
+
+    .scrollable-body {
+        padding: 20px 20px 0 20px!important;
+    }
+
+    #display-duration-title {
+        line-height: 1.2!important;
+        margin-bottom: 14px!important;
+        margin-top: 12px!important;
+        font-size: 21px!important;
+    }
+
+    h1 {
+        line-height: 1.35!important;
+        margin-bottom: 16px!important;
+        margin-top: 12px!important;
+        font-size: 22px!important;
+    }
+
+    .footer {
+        margin-bottom: 5px!important;
+    }
+}
+
+.panel { 
+    position: fixed; 
+    left: -320px; 
+    top: 0; 
+    width: 320px; 
+    height: 100%; 
+    background: var(--panel-bg); 
+    border-right: 1px solid var(--shadow-border); 
+    z-index: 999; 
+    padding: 20px; 
+    box-sizing: border-box; 
+    transition: left 0.3s ease; 
+    overflow-y: auto; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+    margin-bottom: 100px;
+}        .panel.open { left: 0; }
+        .panel h3 { margin: 0; font-size: 18px; color: var(--text-header); }
+        .panel label { display: block; font-size: 12px; font-weight: bold; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
+        .panel select, .panel input:not([type="checkbox"]), .panel textarea { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--shadow-border); background: var(--bg-card); color: var(--text-normal); font-family: inherit; margin-bottom: 10px; }
+        
+        .progress-bar-container {
+            width: 94%;
+            height: 5px;
+            background-color: var(--btn-gray)!important;
+            position: relative;
+            margin-left: 3%;
+            display: none;
+            border-radius: 10px;
+            margin-bottom: -8px;
+            margin-top: 64px;
+        }
+        
+        .progress-bar-fill {
             height: 100%;
-            background: var(--panel-bg);
-            border-right: 1px solid var(--shadow-border);
-            z-index: 999;
-            padding: 20px;
-            box-sizing: border-box;
-            transition: left 0.3s ease;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            background: #5E499C;
+            transition: width 0.3s ease;
+            width: 0%;
+            border-radius: 10px;
         }
-
-        .panel.open {
-            left: 0;
-        }
-
-        .panel h3 {
-            margin: 0;
-            font-size: 18px;
-            color: var(--text-header);
-        }
-
-        .panel label {
-            display: block;
-            font-size: 12px;
-            font-weight: bold;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        .panel select, .panel input:not([type="checkbox"]), .panel textarea {
-            width: 100%;
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid var(--shadow-border);
-            background: var(--bg-card);
-            color: var(--text-normal);
-            font-family: inherit;
-            margin-bottom: 10px;
-        }
-
-        input[type="checkbox"] {
-            appearance: none;
-            -webkit-appearance: none;
-            width: 18px;
-            height: 18px;
-            background-color: var(--bg-card);
-            border: 2px solid var(--shadow-border);
-            border-radius: 4px;
-            display: inline-grid;
-            place-content: center;
-            cursor: pointer;
-            transition: all 0.1s ease-in-out;
-            margin-right: 8px;
-        }
-
-        input[type="checkbox"]:checked {
-            background-color: #5E499C;
-            border-color: #5E499C;
-        }
-
-        input[type="checkbox"]::before {
-            content: "";
-            width: 10px;
-            height: 10px;
-            transform: scale(0);
-            transition: 120ms transform ease-in-out;
-            background-color: var(--bg-modal);
-            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-        }
-
-        input[type="checkbox"]:checked::before {
-            transform: scale(1);
-        }
-
-        .container {
-            max-width: 500px;
-            min-height: min(200px);
-            padding: 0px !important;
-            width: 640px;
-            height: auto;
-            background: var(--bg-modal);
-            border-radius: var(--radius-modal);
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 0 0 1px var(--shadow-border), 0 24px 24px rgba(0, 0, 0, 0.5)
-        }
-
+        
         .scrollable-body {
             flex: 1;
             overflow-y: auto;
-            padding: 16px !important;
-            scrollbar-width: none;
+            padding: 20px 20px 0 20px;
+            scrollbar-width: thin;
             scrollbar-color: var(--btn-gray) transparent;
         }
 
-        h1 {
-            font-size: 24px;
-            line-height: 1.6;
-            margin-bottom: 16px;
-            margin-top: 4px;
-            color: var(--text-header);
-            font-weight: 700;
+        body.light-mode .container {
+            box-shadow: 0 0 0 1px var(--shadow-border), 0 8px 10px rgba(170, 170, 170, 0.35); 
         }
 
-        .description {
-            line-height: 1.45;
-            margin: 0 0 16px 0;
-            font-weight: 400;
-            font-size: 14px;
-            color: var(--text-normal);
-        }
-
-        .card {
-            background: var(--bg-card);
-            border-radius: var(--radius-card);
-        }
-
-        .field {
-            margin-bottom: 0;
-        }
-
-        .card .field:last-child {
-            margin-bottom: 0;
-        }
-
-        .label {
-            display: block;
-            font-weight: 700;
-            font-size: 14px;
-            color: var(--text-header);
-            margin-bottom: 2px;
-        }
-
-        .value {
-            display: block;
-            font-size: 14px;
-            color: var(--text-normal);
-            line-height: 1.35;
-        }
-
-        #evidence-divider {
-            display: block;
-            border-bottom: 1px solid var(--shadow-border);
-            margin: 10px 0px;
-        }
-
-        .btn-view-more {
-            max-height: 28px !important;
-            height: 28px;
-            display: block;
-            width: 100%;
-            background: var(--btn-gray);
-            color: var(--text-header);
-            border: none;
-            border-radius: var(--radius-btn);
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 8px;
-            font-family: inherit;
-            pointer-events: auto;
-        }
-
-        .btn-view-more:hover {
-            background: var(--btn-gray-hover);
-        }
-
-        .trace-id {
-            margin-top: 0px !important;
-            font-size: 12px;
-            padding-bottom: 0px !important;
-            margin-left: 2px;
-            color: var(--text-trace);
-            font-weight: 500;
-        }
-
-        .footer {
-            flex-shrink: 0;
+        #main-view, #rules-view, #policy-view {
             display: flex;
-            justify-content: flex-end;
-            padding: 18px;
+            flex-direction: column;
+            min-height: 100%;
+        }
+
+        .footer { 
+            flex-shrink: 0;
+            display: flex; 
+            justify-content: flex-end; 
+            padding: 20px;
             align-items: center;
             width: 100%;
             box-sizing: border-box;
@@ -277,24 +330,131 @@
             border-bottom-right-radius: var(--radius-modal);
         }
 
-        .btn-report {
-            background: rgb(94, 73, 156);
-            color: rgb(255, 255, 255);
-            border: medium;
-            pointer-events: auto;
-            width: 100%;
-            height: 35px!important;
-            border-radius: var(--radius-btn);
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            font-family: inherit;
-            transition: opacity 0.2s;
-            font-weight: 450;
+        .btn-view-more, .btn-report-inner {
+            font-size: var(--font-small) !important;
         }
 
-        .btn-report:hover {
-            opacity: 0.9;
+        #footer-main-buttons, #footer-rules-buttons {
+            margin-bottom: 1px
+        }
+        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; margin-top: 4px}
+        .title-group { display: flex; align-items: center; gap: 12px; }
+        .icon-container { width: 22px; height: 22px; position: relative; display: flex; align-items: center; justify-content: center; }
+        .ban-icon { width: 22px; height: 22px; border: 2px solid var(--danger); border-radius: 50%; box-sizing: border-box; position: relative; }
+        .ban-icon::after { content: ''; position: absolute; width: 2px; height: 100%; background: var(--danger); top: 0; left: 50%; transform: translateX(-50%) rotate(45deg); }
+        .svg-icon { width: 26px; height: 26px; }
+        h1 { color: var(--text-header); font-size: var(--font-3xlarge); font-weight: 700; margin: 0; line-height: 2.4; }
+        .dots { color: var(--text-header); font-size: 18px; font-weight: 500; width: 26px; height: 26px; text-align: center; align-content: center; cursor: pointer; line-height: 1; position: relative; border-radius: 50%!important; transition: background-color 0.2s!important }
+        .description { font-size: var(--font-medium); color: var(--text-normal); margin: 0 0 21px 0; line-height: 1.35; }
+        h2 { font-size: var(--font-xlarge); font-weight: 700; color: var(--text-header); margin: 3px 0 12px 0; }
+        .card { background: var(--bg-card); border-radius: var(--radius-card); padding: 16px 14px 16px 14px; margin-bottom: 21px; border: 1px rgba(0, 0, 0, 0.03); }
+        .field { margin-bottom: 12px!important; }
+        .card .field:last-child { margin-bottom: 0!important }
+        .label { display: block; font-weight: 700; font-size: var(--font-medium); color: var(--text-header); margin-bottom: 2px; }
+        .value { display: block; font-size: var(--font-medium); color: var(--text-normal); font-weight: 450; line-height: 1.4; }
+        .btn-view-more { height: 32px; display: block; width: 100%; background: var(--btn-gray); color: var(--text-header); border: none; padding: 0px 0; border-radius: var(--radius-btn); font-size: var(--font-small); font-weight: 600; cursor: pointer; margin-top: 8px; font-family: inherit; }
+        #view-more-btn { display: block; width: 100%; background: var(--btn-gray2)!important; color: var(--text-header); border: none; padding: 8.5px 0; border-radius: var(--radius-btn); font-size: var(--font-small); font-weight: 600; cursor: pointer; margin-top: 8px; font-family: inherit; }
+        .trace-id { font-size: var(--font-xsmall); color: var(--text-trace); margin-top: -14px; font-weight: 600; padding-bottom: 21px; }
+        .btn-report { font-weight: 600!important; color: #eeeeee; border: none; padding: 0px 12px; height: var(--height-medium); border-radius: var(--radius-btn); font-size: var(--font-large); font-weight: 500; cursor: pointer; font-family: inherit; transition: opacity 0.2s; }
+        #evidence-overflow { display: none; }
+        #policy-why-card { padding: 14px; margin-top: 0px; margin-bottom: 10px; }
+        #policy-why-card .value { margin: 0; }
+
+        /* HOVERS */
+        .btn-view-more:hover, 
+        .btn-logout:hover, 
+        .modal-button.cancel:hover {
+            background-color: var(--btn-gray-hover) !important;
+            transition: background-color 0.2s ease;
+        }
+
+        .dots:hover {
+            background: var(--btn-gray2);
+            border-radius: 50%;
+        }
+
+        #view-more-btn:hover {
+            background-color: var(--btn-gray-hover2) !important;
+            transition: background-color 0.2s ease;
+        }
+
+        body.light-mode .primary-action-btn-2:hover {
+            background-color: #b3a5e4;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+        }
+        .primary-action-btn-2:hover {
+            background-color: #3b2c77;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+        }
+        .btn-report:hover, 
+        .customizer-toggle:hover {
+            background-color: var(--btn-blue-hover);
+            transition: 0.2s ease;
+        }
+
+        .modal-button.send:hover, .primary-action-btn-2:hover {
+            filter: brightness(1.2);
+            transition: filter 0.2s ease;
+        }
+
+        input[type="checkbox"]:hover {
+            background-color: var(--btn-gray) !important;
+            border: 1px solid var(--btn-gray)!important;
+        }
+
+        #policy-header-title-1, #policy-header-title-2, #rules-header-title, #second-chance-title-1, #second-chance-title-2 {
+            font-size: var(--font-5xlarge);
+        }
+
+        #policy-violated-header, #second-chance-header-1, #second-chance-header-2 {
+            margin-top: 6px!important;
+            font-weight: 15px;
+        }
+
+        #display-policy-description, #rules-description, #display-policy-importance, #rules-mistake-text, #second-chance-description-1, #second-chance-description-2 {
+            font-size: var(--font-large)!important;
+        }
+
+        input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            
+            width: 20px;
+            height: 20px;
+            background-color: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            
+            display: inline-grid;
+            place-content: center;
+            cursor: pointer;
+            transition: all 0.1s ease-in-out;
+            border: 1px solid var(--btn-gray-hover)!important;
+        }
+
+        input[type="checkbox"]:hover {
+            background-color: var(--bg-base);
+            border: 1px solid var(--btn-gray)!important;
+        }
+
+        input[type="checkbox"]:checked {
+            background-color: #5E499C!important;
+            border: none!important;
+        }
+
+        input[type="checkbox"]::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            
+            background-color: var(--bg-modal);
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+
+        input[type="checkbox"]:checked::before {
+            transform: scale(1);
         }
 
         .modal-overlay {
@@ -324,14 +484,14 @@
         }
 
         .modal-header {
-            font-size: 24px;
+            font-size: var(--font-5xlarge);
             font-weight: 700;
             color: var(--text-header);
             margin-bottom: 10px;
         }
 
         .modal-description {
-            font-size: 15px;
+            font-size: var(--font-large);
             color: var(--text-normal);
             line-height: 1.35;
             margin-bottom: 15px;
@@ -339,14 +499,14 @@
 
         .modal-textarea {
             width: 100%;
-            min-height: 90px;
+            min-height: var(--height-large);
             padding: 10px;
             border-radius: var(--radius-btn);
             border: 1px solid var(--shadow-border);
             background: var(--bg-modal);
             color: var(--text-normal);
             font-family: inherit;
-            font-size: 15px;
+            font-size: var(--font-large);
             resize: vertical;
             box-sizing: border-box;
             margin-bottom: 12px;
@@ -360,10 +520,10 @@
 
         .modal-button {
             flex: 1;
-            height: 40px;
+            height: var(--height-medium);
             border: none;
             border-radius: var(--radius-btn);
-            font-size: 15px;
+            font-size: var(--font-large);
             font-weight: 500;
             cursor: pointer;
             font-family: inherit;
@@ -389,7 +549,7 @@
         }
 
         .modal-subtext {
-            font-size: 12px;
+            font-size: var(--font-xsmall);
             font-weight: 500;
             color: var(--text-muted);
             line-height: 1.3;
@@ -397,71 +557,339 @@
         }
 
         @media (max-width: 640px) {
+            .footer {
+                flex-direction: column; 
+                gap: 10px;
+            }
+
+            #footer-main-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
             .container {
-                width: 95%;
+                width: 100%;
+                height: 100vh;
+                border-radius: 0; 
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+
+            .btn-report {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            #footer-rules-buttons {
+                flex-direction: column !important;
+                align-items: stretch !important;
+            }
+
+            #btn-back {
+                width: auto !important;
+                align-self: flex-start;
+            }
+
+            .agree-section {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
             }
         }
 
-        #display-trace, #lbl-chat-static {
-            display: none;
+        .btn-logout {
+            background-color: var(--btn-gray2);
+            border: none;
+            margin-top: 8px;
+            cursor: pointer;
+            color: #eeeeee; 
+            padding: 0px 12px; 
+            height: var(--height-medium); 
+            border-radius: var(--radius-btn); 
+            font-size: var(--font-large); 
+            font-weight: 500; 
+            font-family: inherit; 
+            transition: opacity 0.2s;
         }
+
+        body.light-mode .btn-logout {
+            background-color: var(--btn-gray2);
+            color: #111111;
+        }
+
+        .btn-logout:hover {
+            background-color: var(--btn-gray-hover2);
+        }
+        
+        #lbl-agree {
+            font-weight: 500!important;
+        }
+
+        .dots-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background: var(--bg-modal);
+            border: 1px solid var(--shadow-border);
+            border-radius: var(--radius-card);
+            box-shadow: 0 4px 12px rgba(10, 10, 10, 0.33);
+            display: none;
+            z-index: 100;
+        }
+
+        .dots-menu.active {
+            display: block;
+        }
+
+        .dots-menu-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: var(--font-xlarge);
+            font-weight: 425;
+            color: var(--text-normal);
+            transition: background 0.25s;
+        }
+
+        .dots-menu-item:hover {
+            background: var(--btn-gray);
+        }
+
+        .dots-menu-item:first-child {
+            border-top-left-radius: var(--radius-btn);
+            border-top-right-radius: var(--radius-btn);
+        }
+
+        .dots-menu-item:last-child {
+            border-bottom-left-radius: var(--radius-btn);
+            border-bottom-right-radius: var(--radius-btn);
+        }
+
+        .btn-back-arrow {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: var(--text-header);
+            font-size: var(--font-5xlarge);
+            margin-bottom: 20px!important;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s;
+            z-index: 10;
+        }
+
+        .btn-back-arrow:hover {
+            background: var(--btn-gray2);
+        }
+
+        .btn-back-arrow.active {
+            display: flex;
+        }
+
+        .suspension-countdown {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 12px;
+            height: var(--height-medium);
+            background: transparent;
+            border: 2px solid var(--btn-gray);
+            border-radius: var(--radius-btn);
+            font-size: var(--font-large);
+            font-weight: 500;
+            color: var(--text-normal);
+            box-sizing: border-box;
+        }
+
+        .suspension-icon {
+            width: 16px;
+            height: 16px;
+            opacity: 0.7;
+            flex-shrink: 0;
+        }
+        .suspension-label {
+            font-weight: 700;
+        }
+
+        .continue-disabled-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            width: 100%;
+            justify-content: flex-end;
+        }
+
+        @media (max-width: 640px) {
+            .continue-disabled-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .continue-disabled-wrapper .btn-report {
+                width: 100% !important;
+            }
+            
+            .suspension-countdown {
+                width: 100%;
+                justify-content: center;
+            }
+
+            #image-preview-container {
+                display: none;
+            }
+            #dots-trigger {
+                width: 28px;
+                height: 28px;
+                text-align: center;
+                align-content: center;
+            }
+        }
+                /* Skeleton Loading Animation */
+        /* Skeleton Loading Animation */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.skeleton-loading {
+    background: linear-gradient(
+        90deg,
+        var(--bg-card) 0%,
+        var(--btn-gray) 20%,
+        var(--bg-card) 40%,
+        var(--bg-card) 100%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 1.2s ease-in-out infinite;
+    color: transparent !important;
+    pointer-events: none;
+    user-select: none;
+    border-radius: 10px;
+}
+
+/* Circle skeleton for icons and dots */
+.skeleton-loading.skeleton-circle {
+    border-radius: 50% !important;
+}
+
+/* Half-width skeleton for headers outside cards */
+.skeleton-loading.skeleton-half {
+    width: 50%;
+    border-radius: 6px;
+}
+
+/* Small border radius for trace */
+.skeleton-loading.skeleton-trace {
+    border-radius: 6px;
+}
+
+.skeleton-loading * {
+    visibility: hidden;
+}
+
+.skeleton-loading::before,
+.skeleton-loading::after {
+    visibility: hidden;
+}
+
+body.loaded .skeleton-loading {
+    animation: none;
+    background: none;
+    color: inherit !important;
+    pointer-events: auto;
+    user-select: auto;
+    border-radius: initial;
+    width: auto;
+}
+
+body.loaded .skeleton-loading * {
+    visibility: visible;
+}
+
+body.loaded .skeleton-loading::before,
+body.loaded .skeleton-loading::after {
+    visibility: visible;
+}
+
+#display-trace.skeleton-loading {
+    width: 35%;
+    max-height: 20px!important;
+    padding: 0
+}
+
+#txt-activity.skeleton-loading,
+#txt-why.skeleton-loading {
+    width: 45%;
+}
     </style>
 </head>
-<body>
+<body id="main-body">
 
-<button class="customizer-toggle" onclick="document.getElementById('side-panel').classList.toggle('open')">Settings</button>
+<button class="customizer-toggle" onclick="document.getElementById('side-panel').classList.toggle('open')">Edit</button>
 
 <div class="modal-overlay" id="appeal-modal">
     <div class="modal-content">
         <div id="modal-form-view">
-            <div class="modal-header" id="modal-header"></div>
-            <div class="modal-description" id="modal-description"></div>
-            <textarea class="modal-textarea" id="appeal-textarea" placeholder=""></textarea>
-            <div class="modal-buttons">
-                <button class="modal-button cancel" id="modal-cancel"></button>
-                <button class="modal-button send" id="modal-send"></button>
+            <div class="modal-header text-5xlarge text-header-color margin-bottom-medium" id="modal-header"></div>
+            <div class="modal-description text-large text-normal-color margin-bottom-large" id="modal-description"></div>
+            <textarea class="modal-textarea margin-bottom-medium" id="appeal-textarea" placeholder=""></textarea>
+            <div class="modal-buttons flex gap-small margin-top-xsmall">
+                <button class="modal-button cancel flex-1 height-medium border-radius-btn text-large" id="modal-cancel"></button>
+                <button class="modal-button send flex-1 height-medium border-radius-btn text-large" id="modal-send"></button>
             </div>
-            <div class="modal-subtext" id="modal-subtext"></div>
+            <div class="modal-subtext text-xsmall text-muted-color margin-top-large" id="modal-subtext"></div>
         </div>
         <div id="modal-success-view" style="display: none;">
-            <div class="modal-header" id="modal-success-header"></div>
-            <div class="modal-description" id="modal-success-description"></div>
+            <div class="modal-header text-5xlarge text-header-color margin-bottom-medium" id="modal-success-header"></div>
+            <div class="modal-description text-large text-normal-color margin-bottom-large" id="modal-success-description"></div>
             <div class="modal-buttons">
-                <button class="modal-button send" style="width: 100%;" id="modal-got-it"></button>
+                <button class="modal-button send width-full height-medium border-radius-btn text-large" id="modal-got-it"></button>
             </div>
         </div>
     </div>
 </div>
 
-<aside class="panel" id="side-panel">
-    <h3>Edit Chat Suspension</h3>
+<aside class="panel open flex flex-column gap-large padding-large" id="side-panel">
+    <h3 class="text-2xlarge text-header-color">Edit</h3>
     <div>
-        <label>Type</label>
-        <select id="type-select" onchange="handleTypeChange()">
-            <option value="text">Text Chat</option>
-            <option value="voice">Voice Chat</option>
+        <label class="text-xsmall text-muted-color margin-bottom-small">Appearance</label>
+        <button class="btn-view-more width-full height-medium bg-gray text-header-color border-radius-btn text-small" onclick="toggleMode()" id="toggle-btn">Switch to Dark</button>
+    </div>
+    <div>
+        <label class="text-xsmall text-muted-color margin-bottom-small">Action Duration</label>
+        <select class="width-full padding-small border-radius-btn bg-card text-normal-color border-thin margin-bottom-medium" id="duration-select" onchange="updateContent()">
+            <option value="Warning">Warn</option>
+            <option value="Suspended1Day">Suspend 1 day</option>
+            <option value="Suspended3Days">Suspend 3 days</option>
+            <option value="Suspended7Days">Suspend 7 days</option>
+            <option value="Suspended14Days">Suspend 14 days</option>
+            <option value="Banned" selected>Ban (Terminate)</option>
         </select>
     </div>
     <div>
-        <label>Duration</label>
-            <select id="duration-select" onchange="handleDurationChange()">
-                <option value="Warning">Warning</option>
-                <option value="5Minutes">5 minutes</option>
-                <option value="10Minutes" selected>10 minutes</option>
-                <option value="20Minutes">20 minutes</option>
-                <option value="1Hour">1 hour</option>
-                <option value="1Day">1 day</option>
-                <option value="3Days" id="option-3days">3 days</option>
-            </select>
-    </div>
-    <div id="reason-container">
-        <label>Reason</label>
-        <select id="reason-select" onchange="updateContent()">
+        <label class="text-xsmall text-muted-color margin-bottom-small">Reason</label>
+        <select class="width-full padding-small border-radius-btn bg-card text-normal-color border-thin margin-bottom-medium" id="reason-select" onchange="updateContent()">
             <option value="Other">Other</option>
+            <option value="LinkedAccountViolation">Linked Account Violation</option>
             <option value="Harassment.V2">Bullying and Harassment</option>
             <option value="ExtortionThreats.V2">Extortion and Blackmail</option>
             <option value="Spam">Spam</option>
+            <option value="Swearing">Swearing</option>
+            <option value="DirectingUsersOffPlatform">Directing Users Off-Platform</option>
             <option value="Scamming">Scamming</option>
+            <option value="CheatsExploits">Cheats and Exploits</option>
             <option value="DiscriminationHate.V2">Discriminatory Content</option>
             <option value="SexualContent">Sexual Content</option>
             <option value="MisusingSystems">Misusing Boiby Systems</option>
@@ -469,62 +897,476 @@
             <option value="PrivacyAskingPII">Privacy: Asking for PII</option>
             <option value="PoliticalContent.V2">Political Figures and Entities</option>
             <option value="Impersonation">Impersonation</option>
-            <option value="ViolentGore">Violent Content and Gore</option>
+            <option value="RealLifeThreats">Real-life Threats</option>
+            <option value="ViolentGore.V2">Extreme Violence and Gore</option>
+            <option value="UndisclosedAds">Undisclosed Advertisement</option>
+            <option value="DisruptiveAudio">Disruptive Audio</option>
+            <option value="DangerousActivities">Dangerous Activities</option>
             <option value="Misinformation">Misinformation</option>
             <option value="Dating.V2">Dating and Romantic Content</option>
-            <option value="Swearing">Swearing</option>
-            <option value="DirectingUsersOffPlatform">Directing Users Off-Platform</option>
             <option value="SensitiveEvents">Real-World Sensitive Events</option>
+            <option value="IllegalRegulated">Illegal or Regulated Content</option>
+            <option value="RepeatedRefunds">Repeated Refund Requests</option>
+            <option value="Chargebacks">Chargebacks</option>
+            <option value="IPViolation.V2">IP Violation</option>
+            <option value="TerrorismExtremism.V2">Terrorism/Extremism</option>
+            <option value="ChildEndangerment">Child Endangerment</option>
+            <option value="ChildEndangerment.V3">Harmful Content/Behaviour</option>
+            <option value="AbuseOfBoibyEmployees">Abuse of Boiby Employees</option>
+            <option value="AccountTheft">Account Theft</option>
         </select>
     </div>
-    <div id="messages-section">
-        <label>Chat Messages</label>
-        <button class="btn-view-more" onclick="addMessage()">+ Add Message</button>
+    <div>
+        <label class="text-xsmall text-muted-color margin-bottom-small">Moderator Note Presets</label>
+        <select class="width-full padding-small border-radius-btn bg-card text-normal-color border-thin margin-bottom-medium" id="note-preset" onchange="applyPresetNote()">
+        <option value="">-- Choose a Preset --</option>
+        <option value="AltConsequence.V2">Enforcement/Ban Evasion</option>
+        <option value="ChildEndangerment">Child Endangerment</option>
+        <option value="ChildEndangerment.V2">Child Endangerment V2</option>
+        <option value="ChildEndangermentTemp">CE (TEMP)</option>
+        <option value="Harassment">Bullying and Harassment</option>
+        <option value="Spam">Spam</option>
+        <option value="Swearing">Swearing</option>
+        <option value="DirectingUsersOffPlatform">Directing Users Off-Platform</option>
+        <option value="CheatsFirstViolation">Cheats (Warning)</option>
+        <option value="CheatsSecondViolation">Cheats (1 day)</option>
+        <option value="CheatsThirdViolation">Cheats (7 days)</option>
+        <option value="CheatsPermanent">Cheats (Permanent)</option>
+        <option value="Dating">Dating</option>
+        <option value="DiscriminationHate.V2">Discriminatory Content</option>
+        <option value="SexualContent">Sexual Content</option>
+        <option value="Scamming">Scamming</option>
+        <option value="PoliticalContent.V2">Political Content</option>
+        <option value="TerrorismExtremism">Terrorism/Extremism (temp)</option>
+        <option value="TerrorismExtremism.V2">Terrorism/Extremism (permanent)</option>
+        <option value="PII">Privacy (PII)</option>
+        <option value="Impersonation">Impersonation</option>
+        <option value="Chargeback">Chargeback</option>
+        <option value="Copyright">IP Violation</option>
+        <option value="PaymentAbuse">Payment Abuse</option>
+        <option value="MisusingBoibySystems">Misusing Boiby Systems</option>
+        <option value="Extortion">Extortion and Blackmail</option>
+        <option value="RealLifeThreats">Real-life Threats</option>
+        <option value="ViolentGore">Extreme Violence and Gore</option>
+        <option value="AccountTheft">Account Theft</option>
+        <option value="CompromisedAccount">Compromised Account</option>
+        <option value="DangerousActivities">Dangerous Activities</option>
+        <option value="RepeatedRefunds">Repeated Refund Requests</option>
+        <option value="IllegalRegulated">Illegal or Regulated Content</option>
+        <option value="SensitiveEvents">Real-World Sensitive Events</option>
+        <option value="Misinformation">Misinformation</option>
+        <option value="DisruptiveAudio">Disruptive Audio</option>
+        <option value="UndisclosedAds">Undisclosed Advertisement</option>
+        <option value="GenericViolation">Generic (Inappropriate)</option>
+        <option value="Username">Username</option>
+        <option value="DisplayName">Display Name</option>
+        <option value="AgeVerificationFalse">False Identity Verification</option>
+        <option value="OffPlatformBehaviour">Off-Platform Behaviour</option>
+        <option value="DeletedCreatingPromoting">Inappropriate Content Generic</option>
+        <option value="MultipleAccountsSevere">Multiple Account Violations</option>
+        
+        <option disabled>──────── Legacy Reasons ────────</option>
+        <option value="LegacyEnforcement">Legacy: Enforcement</option>
+        <option value="LegacyScamming">Legacy: Scamming</option>
+        <option value="LegacyPrivacy">Legacy: Privacy</option>
+        <option value="LegacyPostingExploits">Legacy: Posting Exploits</option>
+        <option value="LegacyBadModelInGame">Legacy: Bad Model in Game</option>
+        <option value="LegacyDMCAPermanent">Legacy: DMCA Permanent</option>
+        <option value="LegacyFreeBoibucksGame">Legacy: Free Boibucks Game</option>
+        <option value="LegacyInappropriateContent">Legacy: Inappropriate Content</option>
+        <option value="LegacyHarassment">Legacy: Harassment</option>
+        <option value="LegacyGeneralViolation">Legacy: General Violation</option>
+        <option value="LegacySpam">Legacy: Spam</option>
+        <option value="LegacySwearing">Legacy: Swearing</option>
+        <option value="LegacyDiscriminatory">Legacy: Discriminatory</option>
+        <option value="LegacyHateSpeech">Legacy: Hate Speech</option>
+        <option value="LegacyAdultContent">Legacy: Adult Content</option>
+        <option value="LegacyBanEvasion">Legacy: Ban Evasion</option>
+        <option value="LegacyMisusingBoibySystems">Legacy: Misusing Boiby Systems</option>
+        <option value="LegacyDisruptiveAudio">Legacy: Disruptive Audio</option>
+        <option value="LegacyDating">Legacy: Dating</option>
+        <option value="LegacyDatingSexting">Legacy: Dating/Sexting</option>
+        <option value="LegacyThreats">Legacy: Threats</option>
+        <option value="LegacyCompromisedAccount">Legacy: Compromised Account</option>
+        <option value="LegacyDisputedCharges">Legacy: Disputed Charges</option>
+        <option value="LegacyAccountAssetTheft">Legacy: Account/Asset Theft</option>
+        <option value="LegacyAccountTheft">Legacy: Account Theft</option>
+        <option value="LegacyOffPlatformLinks">Legacy: Off-platform Links</option>
+        <option value="LegacyPoison">Legacy: Poison (Multi-Account)</option>
+        <option value="LegacyScamGamesPermanent">Legacy: Scam Games (Perm)</option>
+        <option value="LegacyScamGamesTemporary">Legacy: Scam Games (Temp)</option>
+        <option value="LegacyExploiting">Legacy: Exploiting</option>
+        <option value="LegacyBotting">Legacy: Botting</option>
+        <option value="LegacyOffPlatformPurchases">Legacy: Off-platform Purchases</option>
+        <option value="LegacyImpersonation">Legacy: Impersonation</option>
+        <option value="LegacyTragicEvent">Legacy: Tragic Event</option>
+        <option value="LegacyAccountForBreakingRules">Legacy: Account for Breaking Rules</option>
+        <option value="LegacyUsername">Legacy: Username</option>
+        <option value="LegacyUsernameOld">Legacy: Username (Old)</option>
+        <option value="LegacyDisplayName">Legacy: Display Name</option>
+        <option value="LegacyUserBlurb">Legacy: User Blurb</option>
+        <option value="LegacyChildEndangermentGeneric">Legacy: Child Endangerment</option>
+        <option value="LegacyTerrorismExtremism">Legacy: Terrorism/Extremism</option>
+        <option value="LegacyTerrorismExtremismSimplified">Legacy: Terrorism (Simple)</option>
+        <option value="LegacyInappropriateImage">Legacy: Inappropriate Image</option>
+        <option value="LegacyInappropriateAudioFile">Legacy: Inappropriate Audio</option>
+        <option value="LegacyModActions">Legacy: Posting Mod Actions</option>
+        <option value="LegacyDeleted">Legacy: Account Deleted</option>
+        <option value="LegacyManualEnforcementV2">Legacy: Manual Enforcement V2</option>
+    </select>
     </div>
-    <div id="messages-container"></div>
+    <div>
+        <label class="text-xsmall text-muted-color margin-bottom-small">Custom Note</label>
+        <textarea class="width-full padding-small border-radius-btn bg-card text-normal-color border-thin margin-bottom-medium text-large" id="note-input" rows="3" oninput="updateContent()"></textarea>
+    </div>
+    <div>
+        <label class="text-xsmall text-muted-color margin-bottom-small">Review Date</label>
+        <input type="datetime-local" class="width-full padding-small border-radius-btn bg-card text-normal-color border-thin margin-bottom-medium" id="date-input" oninput="updateContent()">
+    </div>
+    <div id="second-chance-container">
+        <label class="text-xsmall text-muted-color margin-bottom-small">Enable Second Chance</label>
+        <input type="checkbox" id="second-chance-checkbox" onchange="handleSecondChanceToggle()">
+    </div>
+    <div>
+        <label class="text-xsmall text-muted-color margin-bottom-small">Evidence Type</label>
+        <select class="width-full padding-small border-radius-btn bg-card text-normal-color border-thin margin-bottom-medium" id="evidence-type" onchange="handleTypeChange()">
+            <option value="None">None</option>
+            <option value="Generic">Generic</option>
+            <option value="Video">Video</option>
+            <option value="Image">Image</option>
+            <option value="Post">Post</option>
+            <option value="Comment">Comment</option>
+            <option value="Audio">Audio</option>
+            <option value="Model">Model</option>
+            <option value="Username">Username</option>
+            <option value="DisplayName">Display Name</option>
+            <option value="Game">Game</option>
+            <option value="Asset">Asset</option>
+            <option value="SeriousChatViolation">Serious Chat Violation</option>
+            <option value="VoiceEvidence">Serious Voice Chat Violation</option>
+            <option value="ProfilePicture">Profile Picture</option>
+            <option value="Payment">Payment</option>
+            <option value="VoiceChat">Voice Chat</option>
+            <option value="AboutBio">User About</option>
+            <option value="UGCProfileDecoration">UGC Profile Decoration</option>
+            <option value="UGCProfileBanner">UGC Profile Banner</option>
+            <option value="UGCProfileEffect">UGC Profile Effect</option>
+        </select>
+        <button id="add-btn" class="btn-view-more width-full height-medium bg-gray text-header-color border-radius-btn text-small" onclick="addEvidenceItem()" style="display: none;">+ Add Item</button>
+    </div>
+    <div id="experiment-eu-container">
+        <label class="text-xsmall text-muted-color margin-bottom-small">EU/UK Decision Field</label>
+        <input type="checkbox" id="experiment-eu-checkbox" autocomplete="off" onchange="handleEUExperimentToggle()">
+    </div>
+    <div id="eu-decision-container" style="display: none;">
+        <label class="text-xsmall text-muted-color margin-bottom-small">Automated Decision</label>
+        <select class="width-full padding-small border-radius-btn bg-card text-normal-color border-thin margin-bottom-medium" id="eu-decision-select" onchange="updateContent()">
+            <option value="Manual">Manual (no change)</option>
+            <option value="FullyAutomated">Fully automated</option>
+            <option value="AutomatedReview">Automated review</option>
+            <option value="AutomatedDetection">Automated detection</option>
+        </select>
+    </div>
+    <div id="evidence-controls-container"></div>
+    <h2 class="text-2xlarge text-header-color margin-bottom-xsmall" style="border-top: 1px solid var(--btn-gray2); padding-top: 10px;">Experiments</h2>
+    <p class="text-xsmall text-normal-color margin-bottom-small" style="margin-top: -6px!important;">These are for testing of new features or changes. Some are currently enabled by default. These may be unstable and may be in an unfinished state.</p>
+    <div id="experiment-educational-container">
+        <label class="text-xsmall text-muted-color margin-bottom-small">Enable middle/educational pages</label>
+        <input type="checkbox" id="experiment-educational-checkbox" checked autocomplete="off" onchange="handleExperimentToggle()">
+    </div>
+    <div id="experiment-hide-learn-more-container">
+        <label class="text-xsmall text-muted-color margin-bottom-small">Enable hide "Learn more" button</label>
+        <input type="checkbox" id="experiment-hide-learn-more-checkbox" autocomplete="off" onchange="handleHideLearnMoreToggle()">
+    </div>
+    <div id="experiment-settings-menu-container">
+        <label class="text-xsmall text-muted-color margin-bottom-small">Enable settings in logout menu</label>
+        <input type="checkbox" id="experiment-settings-menu-checkbox" autocomplete="off" onchange="handleSettingsMenuToggle()">
+    </div>
+    <div id="experiment-send-appeal-container">
+        <label class="text-xsmall text-muted-color margin-bottom-small">Enable change to "Send appeal"</label>
+        <input type="checkbox" id="experiment-send-appeal-checkbox" autocomplete="off" onchange="handleSendAppealToggle()">
+    </div>
+    <div id="image-upload-container" style="display: none;">
+        <label class="text-xsmall text-muted-color margin-bottom-small">Upload Image</label>
+        <input type="file" class="width-full padding-small border-radius-btn bg-card text-normal-color border-thin" id="image-upload-input" accept="image/*" onchange="handleImageUpload(event)">
+        <button class="btn-view-more width-full height-medium bg-gray text-header-color border-radius-btn text-small margin-top-small" onclick="clearImagePreview()" id="clear-image-btn" style="display: none;">Clear Image</button>
+    </div>
+    <div style="border-top: 1px solid var(--btn-gray2); padding-top: 10px;">
+    <button class="btn-logout width-full" onclick="handleClearData()">
+    Clear Saved Data
+</button>
+</div>
+    <div style="height: 50px; flex-shrink: 0;"></div>
 </aside>
 
-<div class="container">
-    <div class="scrollable-body">
-        <h1 style="font-size:24px; line-height: 1.6; margin-bottom: 16px;margin-top: 4px;" id="display-duration-title">Chat suspended for 1 hour</h1>
-        <p class="description" id="display-desc" style="line-height: 1.45;margin: 0 0 16px 0;font-weight: 400;"></p>
-        
-        <div class="card" id="evidence-card" style="padding: 14px 12px 14px 12px !important;">
-            <span class="label" id="lbl-chat-static">Chat:</span>
-            <div id="evidence-list-main"></div>
-            <div id="evidence-divider" style="display: block; border-bottom: 1px solid var(--shadow-border); margin: 10px 0px;"></div>
-            <div class="field">
-                <span class="label" id="lbl-reason-static">Reason:</span>
-                <span class="value" id="display-reason">Other</span>
+<div class="container flex flex-column" id="main-container">
+        <button class="btn-back-arrow margin-bottom-2xlarge" id="btn-back-arrow" onclick="handleBackNavigation()">‹</button>
+    <div class="progress-bar-container" id="progress-bar-container">
+        <div class="progress-bar-fill" id="progress-bar-fill"></div>
+    </div>
+    
+    <div class="scrollable-body flex-1 padding-large">
+        <div id="main-view" class="flex flex-column">
+            <div class="header flex margin-bottom-large margin-top-xsmall">
+                <div class="title-group flex gap-medium skeleton-loading">
+                    <div class="icon-container skeleton-loading" id="icon-holder">
+                        <div class="ban-icon"></div>
+                    </div>
+                    <h1 class="text-header-color text-3xlarge " id="display-duration-title">Banned</h1>
+                </div>
+                <div class="dots text-header-color text-2xlarge skeleton-loading" id="dots-trigger">⋮
+                    <div class="dots-menu bg-modal border-thin border-radius-card" id="dots-menu">
+                        <div class="dots-menu-item text-xlarge text-normal-color padding-medium" id="logout-menu-item">Log out</div>
+                    </div>
+                </div>
             </div>
-            <button class="btn-view-more" style="max-height: 30px !important;height: 28px;" id="view-more-btn" onclick="openAppealModal()">Report a mistake</button>
+            <p class="description text-medium text-normal-color margin-bottom-xlarge skeleton-loading" id="display-desc"></p>
+            <h2 class="text-xlarge text-header-color margin-bottom-medium skeleton-loading" id="txt-why"></h2>
+            <div class="card bg-card border-radius-card padding-large margin-bottom-2xlarge border-thin skeleton-loading">
+                <div class="field margin-bottom-medium">
+                    <span class="label text-medium text-header-color margin-bottom-xsmall" id="lbl-reason-static"></span>
+                    <span class="value text-medium text-normal-color" id="display-reason">Other</span>
+                </div>
+                <div class="field">
+                    <span class="label text-medium text-header-color margin-bottom-xsmall" id="lbl-details-static"></span>
+                    <span class="value text-medium text-normal-color" id="display-note"></span>
+                </div>
+            </div>
+            <h2 class="text-xlarge text-header-color margin-bottom-medium skeleton-loading" id="txt-activity"></h2>
+            <div class="card bg-card border-radius-card padding-large margin-bottom-2xlarge border-thin skeleton-loading" id="evidence-card">
+                <div id="image-preview-container" class="bg-modal border-radius-btn" style="display: none; min-width: 225px; width: 225px; height: 225px; overflow: hidden; flex-shrink: 0;">
+                    <img id="preview-image" src="" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                <div id="evidence-card-content" style="flex: 1; min-width: 0;">
+                    <div id="evidence-list-main"></div>
+                    <div id="evidence-divider" class="border-thin margin-top-medium margin-bottom-medium" style="display:none;"></div>
+                    <div class="field margin-bottom-medium">
+                        <span class="label text-medium text-header-color margin-bottom-xsmall" id="lbl-date-static"></span>
+                        <span class="value text-medium text-normal-color" id="display-date"></span>
+                    </div>
+                    <div id="evidence-overflow"></div>
+                    <button class="btn-view-more width-full height-medium bg-gray2 text-header-color border-radius-btn text-small margin-top-small" id="view-more-btn" onclick="toggleEvidence()">View details</button>
+                    
+                    <div id="next-section-main" style="display: none;">
+                        <div class="field margin-top-large">
+                            <span class="label lbl-mistake-static text-medium text-header-color margin-bottom-xsmall"></span>
+                            <span class="value txt-mistake-appeal text-medium text-normal-color"></span>
+                        </div>
+                        <button class="btn-view-more btn-report-inner width-full height-medium bg-gray text-header-color border-radius-btn text-small margin-top-small" onclick="reportMistakeClicked(event)">Report a mistake</button>
+                    </div>
+                </div>
+            </div>
+            <div class="trace-id text-small text-muted-color padding-bottom-xlarge skeleton-loading" id="display-trace" style="margin-top: -14px;"></div>
         </div>
-        
-        <div class="trace-id" id="display-trace" style="margin-top: -15px !important;font-size: 12px;padding-bottom: 0px !important;margin-left: 2px;"></div>
+
+        <div id="second-chance-view-1" class="flex flex-column" style="display: none;">
+            <h1 class="text-5xlarge text-header-color margin-bottom-small margin-top-medium" id="second-chance-title-1"></h1>
+            <h2 class="text-large text-header-color margin-bottom-medium margin-top-xsmall" id="second-chance-header-1"></h2>
+            <span class="value text-large text-normal-color" id="second-chance-description-1" style="white-space: pre-wrap;"></span>
+        </div>
+
+        <div id="policy-view-1" class="flex flex-column" style="display: none;">
+            <h1 class="text-5xlarge text-header-color margin-bottom-small margin-top-medium" id="policy-header-title-1"></h1>
+            <h2 class="text-xlarge text-header-color margin-bottom-medium" id="policy-violated-header"></h2>
+            <span class="value text-large text-normal-color" id="display-policy-description" style="white-space: pre-wrap;"></span>
+            <div class="margin-top-medium">
+                <button class="btn-view-more width-full height-medium bg-gray text-header-color border-radius-btn text-small" id="policy-learn-more-btn-1">Learn more</button>
+            </div>
+        </div>
+
+        <div id="policy-view-2" class="flex flex-column" style="display: none;">
+            <h1 class="text-5xlarge text-header-color margin-bottom-small margin-top-medium" id="policy-header-title-2"></h1>
+            <span class="value text-large text-normal-color" id="display-policy-importance" style="white-space: pre-wrap;"></span>
+        </div>
+
+        <div id="rules-view" class="flex flex-column" style="display: none;">
+            <h1 class="text-5xlarge text-header-color margin-bottom-small margin-top-medium" id="rules-header-title"></h1>
+            <span class="value text-large text-normal-color" id="rules-description" style="white-space: pre-wrap;"></span>
+            <div class="margin-top-small">
+                <button class="btn-view-more width-full height-medium bg-gray text-header-color border-radius-btn text-small" id="btn-view-rules-inner">View rules</button>
+            </div>
+            <span class="value text-large text-normal-color margin-top-2xlarge" id="rules-mistake-text" style="white-space: pre-wrap;"></span>
+            <div class="margin-top-small">
+                <button class="btn-view-more width-full height-medium bg-gray text-header-color border-radius-btn text-small" id="btn-report-mistake-rules">Report a mistake</button>
+            </div>
+        </div>
+
+        <div id="second-chance-view-2" class="flex flex-column" style="display: none;">
+            <h1 class="text-5xlarge text-header-color margin-bottom-small margin-top-medium" id="second-chance-title-2"></h1>
+            <span class="value text-large text-normal-color" id="second-chance-description-2" style="white-space: pre-wrap;"></span>
+        </div>
     </div>
 
-    <div class="footer">
-        <button class="btn-report" id="primary-action-btn" onclick="handleOKClick()" style="background: rgb(94, 73, 156); color: rgb(255, 255, 255); border: medium; pointer-events: auto;width: 100%;height: 36px;">OK</button>
+    <div class="footer flex padding-large">
+        <div id="footer-main-buttons" class="flex width-full" style="justify-content: flex-end;">
+            <button 
+                class="btn-report primary-action-btn-2 height-medium padding-medium border-radius-btn text-large button-soft-emphasis skeleton-loading" 
+                id="primary-action-btn"
+                onclick="handlePrimaryClick()" 
+                style="transition: 0.2s;"
+            >
+                Report a mistake
+            </button>
+        </div>
+        <div id="footer-rules-buttons" class="flex width-full" style="display: none; justify-content: space-between; align-items: center;">
+            <div class="agree-section flex gap-medium flex-1" style="align-items:center;">
+                <label class="flex gap-small text-medium text-normal-color" style="align-items:center; cursor:pointer;">
+                    <input type="checkbox" id="agree-checkbox" onchange="toggleContinueBtn()"> 
+                    <span id="lbl-agree">Check to confirm you understand.</span>
+                </label>
+            </div>
+            <button class="btn-report height-medium padding-medium border-radius-btn text-large" id="final-continue-btn" onclick="handleContinueClick()" disabled style="opacity:0.5; cursor:not-allowed;">Continue</button>
+        </div>
     </div>
 </div>
 
 <script>
     let translations = null;
-    let messages = [{ id: 1, text: 'chat message go here' }];
+    let evidenceItems = [];
+    let currentType = 'None';
+    let currentStep = 1; 
+    let suspensionIntervalId = null;
+    let reviewDate = null;
+    let secondChanceEnabled = false;
+    let uploadedImageBase64 = null;
+    
+    let experimentEnableEducationalPages = true;
+    let experimentEUTransparency = false;
+    let experimentHideLearnMore = false;
+    let experimentSettingsInMenu = false;
+    let experimentSendAppeal = false;
+    
+    function handleClearData() {
+        localStorage.clear();
+        // Reset all form fields to defaults
+        if (document.getElementById('duration-select')) document.getElementById('duration-select').value = 'Banned';
+        if (document.getElementById('reason-select')) document.getElementById('reason-select').value = 'Other';
+        if (document.getElementById('note-input')) document.getElementById('note-input').value = '';
+        if (document.getElementById('date-input')) document.getElementById('date-input').value = '';
+        if (document.getElementById('evidence-type')) document.getElementById('evidence-type').value = 'None';
+        evidenceItems = [];
+        currentType = 'None';
+        uploadedImageBase64 = null;
+        location.reload();
+    }
 
+    const policyMap = {
+        "Harassment.V2": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
+        "AbuseOfBoibyEmployees": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
+        "DiscriminationHate.V2": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
+        "Spam": { headerTop: "Heading.SpamHeaderTop", header: "Heading.RuleExplanation.SpamHeader", detail: "Description.SpamDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SpamImportance" },
+        "Swearing": { headerTop: "Heading.SwearingHeaderTop", header: "Heading.RuleExplanation.SwearingHeader", detail: "Description.SwearingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SwearingImportance" },
+        "DirectingUsersOffPlatform": { headerTop: "Heading.OffPlatformHeaderTop", header: "Heading.RuleExplanation.OffPlatformHeader", detail: "Description.OffPlatformDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.OffPlatformImportance" },
+        "ExtortionThreats.V2": { headerTop: "Heading.ExtortionHeaderTop", header: "Heading.RuleExplanation.ExtortionHeader", detail: "Description.ExtortionDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ExtortionImportance" },
+        "ViolentGore.V2": { headerTop: "Heading.ViolentHeaderTop", header: "Heading.RuleExplanation.ViolentHeader", detail: "Description.ViolentDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ViolentImportance" },
+        "CheatsExploits": { headerTop: "Heading.CheatingHeaderTop", header: "Heading.RuleExplanation.CheatingHeader", detail: "Description.CheatingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.CheatingImportance" },
+        "Dating.V2": { headerTop: "Heading.DatingHeaderTop", header: "Heading.RuleExplanation.DatingHeader", detail: "Description.DatingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.DatingImportance" },
+        "MisusingSystems": { headerTop: "Heading.MisusingSystemsHeaderTop", header: "Heading.RuleExplanation.MisusingSystemsHeader", detail: "Description.MisusingSystemsDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.MisusingSystemsImportance" },
+        "DangerousActivities": { headerTop: "Heading.HarmfulHeaderTop", header: "Heading.RuleExplanation.HarmfulHeader", detail: "Description.HarmfulDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.HarmfulImportance" },
+        "Misinformation": { headerTop: "Heading.MisinformationHeaderTop.V2", header: "Heading.RuleExplanation.MisinformationHeader", detail: "Description.MisinformationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.MisinformationImportance" },
+        "UndisclosedAds": { headerTop: "Heading.UndisclosedAdsHeaderTop", header: "Heading.RuleExplanation.UndisclosedAdsHeader", detail: "Description.UndisclosedAdsDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.UndisclosedAdsImportance" },
+        "SexualContent": { headerTop: "Heading.SexualHeaderTop", header: "Heading.RuleExplanation.SexualHeader", detail: "Description.SexualDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SexualImportance" },
+        "PoliticalContent": { headerTop: "Heading.PoliticalHeaderTop", header: "Heading.RuleExplanation.PoliticalHeader", detail: "Description.PoliticalDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PoliticalImportance"},
+        "PoliticalContent.V2": { headerTop: "Heading.PoliticalHeaderTop", header: "Heading.RuleExplanation.PoliticalHeader", detail: "Description.PoliticalDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PoliticalImportance"},
+        "PrivacyGivingPII": { headerTop: "Heading.PIIHeaderTop", header: "Heading.RuleExplanation.PIIHeader", detail: "Description.PIIDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PIIImportance"},
+        "PrivacyAskingPII": { headerTop: "Heading.PIIHeaderTop", header: "Heading.RuleExplanation.PIIHeader", detail: "Description.PIIDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PIIImportance"},
+        "Scamming": { headerTop: "Heading.ScammingHeaderTop", header: "Heading.RuleExplanation.ScammingHeader", detail: "Description.ScammingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ScammingImportance"},
+        "DisruptiveAudio": { headerTop: "Heading.DisruptiveAudioHeaderTop", header: "Heading.RuleExplanation.DisruptiveAudioHeader", detail: "Description.DisruptiveAudioDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.DisruptiveAudioImportance"},
+        "Impersonation": { headerTop: "Heading.ImpersonationHeaderTop", header: "Heading.RuleExplanation.ImpersonationHeader", detail: "Description.ImpersonationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ImpersonationImportance"},
+        "SensitiveEvents": { headerTop: "Heading.SensitiveEventsHeaderTop", header: "Heading.RuleExplanation.SensitiveEventsHeader", detail: "Description.SensitiveEventsDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SensitiveEventsImportance"},
+        "RepeatedRefunds": { headerTop: "Heading.ChargebackHeaderTop", header: "Heading.RuleExplanation.ChargebackHeader.V2", detail: "Description.ChargebackDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ChargebackImportance"},
+        "Chargebacks": { headerTop: "Heading.ChargebackHeaderTop", header: "Heading.RuleExplanation.ChargebackHeader.V2", detail: "Description.ChargebackDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ChargebackImportance"},
+        "IllegalRegulated": { headerTop: "Heading.IllegalContentHeaderTop", header: "Heading.RuleExplanation.IllegalContentHeader", detail: "Description.IllegalContentDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.IllegalContentImportance"},
+        "IPViolation.V2": { headerTop: "Heading.IPViolationHeaderTop.V2", header: "Heading.RuleExplanation.IPViolationHeader", detail: "Description.IPViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.IPViolationImportance"},
+        "ChildEndangerment": { headerTop: "Heading.GenericViolationHeaderTop.V2", header: "Heading.RuleExplanation.GenericViolationHeader", detail: "Description.GenericViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.GenericViolationImportance"},
+        "ChildEndangerment.V2": { headerTop: "Heading.GenericViolationHeaderTop.V2", header: "Heading.RuleExplanation.GenericViolationHeader", detail: "Description.GenericViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.GenericViolationImportance"},
+        "ChildEndangerment.V3": { headerTop: "Heading.GenericViolationHeaderTop.V2", header: "Heading.RuleExplanation.GenericViolationHeader", detail: "Description.GenericViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.GenericViolationImportance"},
+        "LinkedAccountViolation": { headerTop: "Heading.GenericViolationHeaderTop.V2", header: "Heading.RuleExplanation.GenericViolationHeader", detail: "Description.GenericViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.GenericViolationImportance"},
+        "TerrorismExtremism.V2": { headerTop: "Heading.GenericViolationHeaderTop.V2", header: "Heading.RuleExplanation.GenericViolationHeader", detail: "Description.GenericViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.GenericViolationImportance"},
+        "RealLifeThreats": { headerTop: "Heading.GenericViolationHeaderTop.V2", header: "Heading.RuleExplanation.GenericViolationHeader", detail: "Description.GenericViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.GenericViolationImportance"},
+        "AccountTheft": { headerTop: "Heading.GenericViolationHeaderTop.V2", header: "Heading.RuleExplanation.GenericViolationHeader", detail: "Description.GenericViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.GenericViolationImportance"},
+        "Other": { headerTop: "Heading.GenericViolationHeaderTop.V2", header: "Heading.RuleExplanation.GenericViolationHeader", detail: "Description.GenericViolationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.GenericViolationImportance"},
+    };
+
+    let isInitializing = true;
     async function init() {
-        try {
-            const res = await fetch('chat-en.json');
-            translations = await res.json();
-        } catch (e) {
-            console.error("Translation load failed:", e);
-            translations = {};
+
+        // Load saved theme
+(function loadTheme() {
+    const savedTheme = localStorage.getItem('themeMode');
+    const body = document.getElementById('main-body') || document.body;
+    const btn = document.getElementById('toggle-btn');
+    
+    if (savedTheme === 'dark') {
+        body.classList.remove('light-mode');
+        if (btn) btn.innerText = 'Switch to Light';
+    } else if (savedTheme === 'light') {
+        body.classList.add('light-mode');
+        if (btn) btn.innerText = 'Switch to Dark';
+    } else {
+        // No saved preference, default to light mode
+        body.classList.add('light-mode');
+        localStorage.setItem('themeMode', 'light');
+        if (btn) btn.innerText = 'Switch to Dark';
+    }
+})();
+        try { 
+            const res = await fetch('en.json'); 
+            translations = await res.json(); 
+        } catch (e) { 
+            console.error("Translation load failed.");
+            translations = {}; 
         }
         
-        renderMessages();
+        // Load saved ban data
+        const loaded = loadBanData();
+        if (loaded) {
+            renderEvidenceControls();
+            handleTypeChange(); // Update evidence controls based on loaded type
+        }
+        
         updateContent();
+        isInitializing = false;
+        
+        const finalBtn = document.getElementById('final-continue-btn');
+        if (finalBtn) {
+            finalBtn.onclick = handleContinueClick;
+        }
+        
+        const agree = document.getElementById('agree-checkbox');
+        if (agree) {
+            try { agree.checked = false; } catch (e) {}
+            agree.setAttribute('autocomplete', 'off');
+            agree.removeAttribute('checked');
+            try { agree.removeAttribute('name'); } catch (e) {}
+        }
+
+        document.getElementById('modal-cancel').onclick = closeAppealModal;
+        document.getElementById('modal-send').onclick = sendAppeal;
+        document.getElementById('modal-got-it').onclick = closeAppealModal;
+
+        const dotsTrigger = document.getElementById('dots-trigger');
+        const dotsMenu = document.getElementById('dots-menu');
+        const logoutMenuItem = document.getElementById('logout-menu-item');
+
+        dotsTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dotsMenu.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!dotsTrigger.contains(e.target)) {
+                dotsMenu.classList.remove('active');
+            }
+        });
+
+        logoutMenuItem.addEventListener('click', () => {
+            handleLogout();
+            dotsMenu.classList.remove('active');
+        });
+
+        logoutMenuItem.innerText = t('Action.Logout') || 'Log out';
     }
-    
 
     function t(key, vars = {}) {
         if (!translations) return key;
@@ -533,154 +1375,923 @@
         for (const k in vars) val = val.replace(`{{${k}}}`, vars[k]);
         return val;
     }
-
-    function handleTypeChange() {
-        const type = document.getElementById('type-select')?.value;
-        const option3Days = document.getElementById('option-3days');
-        const messagesSection = document.getElementById('messages-section');
-        const messagesContainer = document.getElementById('messages-container');
-        
-        if (type === 'voice') {
-            option3Days.style.display = 'none';
-            messagesSection.style.display = 'none';
-            messagesContainer.style.display = 'none';
-            // If 3 days was selected, change to 1 day
-            if (document.getElementById('duration-select').value === '3Days') {
-                document.getElementById('duration-select').value = '1Day';
-            }
+        function toggleMode() {
+    try {
+        const body = document.getElementById('main-body') || document.body;
+        const btn = document.getElementById('toggle-btn');
+        const isLight = body.classList.contains('light-mode');
+        if (isLight) {
+            body.classList.remove('light-mode');
+            localStorage.setItem('themeMode', 'dark');
+            if (btn) btn.innerText = 'Switch to Light';
         } else {
-            option3Days.style.display = 'block';
-            messagesSection.style.display = 'block';
-            messagesContainer.style.display = 'block';
+            body.classList.add('light-mode');
+            localStorage.setItem('themeMode', 'light');
+            if (btn) btn.innerText = 'Switch to Dark';
+        }
+        try { updateContent(); } catch (e) { }
+    } catch (e) { console.error('toggleMode error', e); }
+}
+
+    function getFormattedDate() {
+        const now = reviewDate || new Date();
+        const options = { month: 'long', day: 'numeric', year: 'numeric' };
+        const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
+        return `${now.toLocaleDateString('en-US', options)} at ${now.toLocaleTimeString('en-US', timeOptions)}`;
+    }
+
+    function updateProgressBar() {
+        const progressBar = document.getElementById('progress-bar-fill');
+        const progressContainer = document.getElementById('progress-bar-container');
+        const backArrow = document.getElementById('btn-back-arrow');
+        const reason = document.getElementById('reason-select')?.value;
+        const hasPolicy = policyMap[reason];
+        const dur = document.getElementById('duration-select')?.value || 'Warning';
+        const isSuspension = dur.startsWith('Suspended');
+        
+        if (currentStep === 1) {
+            progressContainer.style.display = 'none';
+            backArrow.classList.remove('active');
+            return;
         }
         
-        updateContent();
-    }
-
-    function handleDurationChange() {
-        const dur = document.getElementById('duration-select')?.value;
-        updateContent();
-    }
-
-    function addMessage() {
-        messages.push({ id: Date.now(), text: '' });
-        renderMessages();
-        updateContent();
-    }
-
-    function renderMessages() {
-        const container = document.getElementById('messages-container');
-        container.innerHTML = '';
+        // Show back arrow even when experiment is disabled (if not on main view)
+        backArrow.classList.add('active');
         
-        messages.forEach((msg, index) => {
-            const div = document.createElement('div');
-            div.style.display = 'flex';
-            div.style.gap = '8px';
-            div.style.marginBottom = '10px';
-            
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.value = msg.text;
-            input.placeholder = 'Message text';
-            input.style.flex = '1';
-            input.oninput = (e) => {
-                messages[index].text = e.target.value;
+        // Hide progress bar if experiment is disabled
+        if (!experimentEnableEducationalPages) {
+            progressContainer.style.display = 'none';
+            return;
+        }
+        
+        progressContainer.style.display = 'block';
+        
+        let progress = 0;
+        
+        if (secondChanceEnabled && isSuspension) {
+            // Flow: main -> second chance 1 (step 2) -> policy 1 (step 3) -> policy 2 (step 4) -> rules (step 5) -> second chance 2 (step 7)
+            // Or if no policy: main -> second chance 1 (step 2) -> rules (step 4) -> second chance 2 (step 7)
+            if (hasPolicy) {
+                // 5 steps total (excluding main and final)
+                if (currentStep === 2) progress = 20;      // second chance 1
+                else if (currentStep === 3) progress = 40; // policy 1
+                else if (currentStep === 4) progress = 60; // policy 2
+                else if (currentStep === 5) progress = 80; // rules
+                else if (currentStep === 7) progress = 100; // second chance 2
+            } else {
+                // 3 steps total (excluding main and final)
+                if (currentStep === 2) progress = 33.33;    // second chance 1
+                else if (currentStep === 4) progress = 66.67; // rules
+                else if (currentStep === 7) progress = 100;   // second chance 2
+            }
+        } else if (hasPolicy) {
+            if (currentStep === 2) progress = 33.33;
+            else if (currentStep === 3) progress = 66.67;
+            else if (currentStep === 4) progress = 100;
+        } else {
+            if (currentStep === 4) progress = 100;
+        }
+        
+        progressBar.style.width = progress + '%';
+    }
+
+    function toggleEvidence() {
+        const overflow = document.getElementById('evidence-overflow');
+        const btn = document.getElementById('view-more-btn');
+        const total = evidenceItems.length;
+        if (!overflow || !btn) return;
+        if (total <= 5) return;
+        const isOpen = overflow.style.display === 'block';
+        if (isOpen) {
+            overflow.style.display = 'none';
+            btn.innerText = t('Action.ViewDetails');
+        } else {
+            overflow.style.display = 'block';
+            btn.innerText = t('Action.ViewLess');
+        }
+    }
+
+    function handleExperimentToggle() {
+        experimentEnableEducationalPages = document.getElementById('experiment-educational-checkbox')?.checked || false;
+        console.log('Educational pages experiment toggled:', experimentEnableEducationalPages);
+        updateContent();
+        const experimentCheckbox = document.getElementById('experiment-educational-checkbox');
+        if (experimentCheckbox) {
+            experimentEnableEducationalPages = experimentCheckbox.checked;
+        }
+    }
+
+    function handleHideLearnMoreToggle() {
+        experimentHideLearnMore = document.getElementById('experiment-hide-learn-more-checkbox')?.checked || false;
+        console.log('Hide Learn More experiment toggled:', experimentHideLearnMore);
+        updateContent();
+    }
+
+    function handleEUExperimentToggle() {
+        experimentEUTransparency = document.getElementById('experiment-eu-checkbox')?.checked || false;
+        const container = document.getElementById('eu-decision-container');
+        if (container) {
+            container.style.display = experimentEUTransparency ? 'block' : 'none';
+        }
+        console.log('EU Transparency experiment toggled:', experimentEUTransparency);
+        updateContent();
+    }
+
+    function handleSettingsMenuToggle() {
+        experimentSettingsInMenu = document.getElementById('experiment-settings-menu-checkbox')?.checked || false;
+        console.log('Settings in Menu experiment toggled:', experimentSettingsInMenu);
+        
+        const settingsMenuItem = document.getElementById('settings-menu-item');
+        if (experimentSettingsInMenu) {
+            if (!settingsMenuItem) {
+                const dotsMenu = document.getElementById('dots-menu');
+                const newItem = document.createElement('div');
+                newItem.className = 'dots-menu-item';
+                newItem.id = 'settings-menu-item';
+                newItem.innerText = t('Action.Settings') || 'Settings';
+                newItem.addEventListener('click', () => {
+                    handleSettings();
+                    dotsMenu.classList.remove('active');
+                });
+                dotsMenu.appendChild(newItem);
+            }
+        } else {
+            if (settingsMenuItem) {
+                settingsMenuItem.remove();
+            }
+        }
+    }
+
+    function handleSendAppealToggle() {
+        experimentSendAppeal = document.getElementById('experiment-send-appeal-checkbox')?.checked || false;
+        console.log('Send Appeal experiment toggled:', experimentSendAppeal);
+        updateContent();
+    }
+
+    function handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                // Calculate dimensions to fit in 500x500
+                let width = img.width;
+                let height = img.height;
+                const maxSize = 500;
+                
+                if (width > height) {
+                    if (width > maxSize) {
+                        height = (height * maxSize) / width;
+                        width = maxSize;
+                    }
+                } else {
+                    if (height > maxSize) {
+                        width = (width * maxSize) / height;
+                        height = maxSize;
+                    }
+                }
+                
+                canvas.width = width;
+                canvas.height = height;
+                ctx.drawImage(img, 0, 0, width, height);
+                
+                uploadedImageBase64 = canvas.toDataURL('image/jpeg', 0.8);
+                document.getElementById('clear-image-btn').style.display = 'block';
                 updateContent();
             };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function clearImagePreview() {
+        uploadedImageBase64 = null;
+        document.getElementById('image-upload-input').value = '';
+        document.getElementById('clear-image-btn').style.display = 'none';
+        updateContent();
+    }
+
+    function renderEvidenceControls() {
+        const container = document.getElementById('evidence-controls-container');
+        if (!container) return;
+        container.innerHTML = '';
+        evidenceItems.forEach((item, index) => {
+            const mainDiv = document.createElement('div');
+            mainDiv.style.marginBottom = '15px';
             
+            // First field
+            const div = document.createElement('div');
+            div.className = 'field';
+            div.style.display = 'flex';
+            div.style.alignItems = 'center';
+            div.style.gap = '8px';
+
+            const lbl = document.createElement('span');
+            lbl.className = 'label';
+            let labelText = item.type;
+            
+            // Set appropriate labels
+            if (item.type === 'SeriousChatViolation') labelText = (t('Label.ChatEvidenceID') || 'Chat Evidence ID');
+            else if (item.type === 'VoiceEvidence') labelText = (t('Label.VoiceEvidenceID') || 'Voice Evidence ID');
+            else if (item.type === 'ProfilePicture') labelText = (t('Label.ProfilePictureID') || 'Profile Picture ID');
+            else if (item.type === 'Payment') labelText = (t('Label.Payment') || 'Payment');
+            else if (item.type === 'VoiceChat') labelText = (t('Label.VoiceChat') || 'Voice Chat Timestamp');
+            else if (item.type === 'Image') labelText = (t('Label.ImageName') || 'Image Name');
+            else if (item.type === 'Video') labelText = (t('Label.VideoName') || 'Video Name');
+            else if (item.type === 'Audio') labelText = (t('Label.AudioName') || 'Audio Name');
+            else if (item.type === 'Model') labelText = (t('Label.ModelName') || 'Model Name');
+            else if (item.type === 'Game') labelText = (t('Label.GameName') || 'Game Name');
+            else if (item.type === 'Asset') labelText = (t('Label.AssetName') || 'Asset Name');
+            else if (item.type === 'Post') labelText = (t('Label.Post') || 'Post');
+            else if (item.type === 'Comment') labelText = (t('Label.Comment') || 'Comment');
+            else if (item.type === 'Generic') labelText = (t('Label.OffensiveItem') || 'Offensive item');
+            else if (item.type === 'Username') labelText = (t('Label.Username') || 'Username');
+            else if (item.type === 'DisplayName') labelText = (t('Label.DisplayName') || 'Display Name');
+            
+            lbl.innerText = labelText;
+            div.appendChild(lbl);
+
+            // Handle display/input for val1
+            if (item.type === 'SeriousChatViolation' || item.type === 'VoiceEvidence' || item.type === 'ProfilePicture') {
+                const val = document.createElement('div');
+                val.className = 'value';
+                val.style.marginTop = '6px';
+                val.innerText = item.val1 || '';
+                div.appendChild(val);
+            } else if (item.type === 'Payment') {
+                const val = document.createElement('div');
+                val.className = 'value';
+                val.style.marginTop = '6px';
+                val.innerText = item.val1 || '';
+                div.appendChild(val);
+            } else if (item.type === 'VoiceChat') {
+                const val = document.createElement('div');
+                val.className = 'value';
+                val.style.marginTop = '6px';
+                val.innerText = item.val1 || '';
+                div.appendChild(val);
+            } else if (item.type === 'Username' || item.type === 'DisplayName') {
+                const val = document.createElement('div');
+                val.className = 'value';
+                val.style.marginTop = '6px';
+                val.innerText = item.val1 || '';
+                div.appendChild(val);
+            } else {
+                const input = document.createElement('input');
+                input.value = item.val1 || '';
+                input.oninput = (e) => { evidenceItems[index].val1 = e.target.value; updateContent(); };
+                div.appendChild(input);
+            }
+
             const removeBtn = document.createElement('button');
             removeBtn.className = 'btn-view-more';
+            removeBtn.style.marginLeft = '6px';
             removeBtn.innerText = 'Remove';
-            removeBtn.style.width = '80px';
-            removeBtn.onclick = () => {
-                messages.splice(index, 1);
-                renderMessages();
-                updateContent();
-            };
-            
-            div.appendChild(input);
+            removeBtn.onclick = () => { evidenceItems.splice(index, 1); renderEvidenceControls(); updateContent(); };
             div.appendChild(removeBtn);
-            container.appendChild(div);
+
+            mainDiv.appendChild(div);
+            
+            // Second field for ID (if applicable)
+            if (['Image', 'Video', 'Audio', 'Model', 'Game', 'Asset', 'Post', 'Comment'].includes(item.type)) {
+                const idDiv = document.createElement('div');
+                idDiv.className = 'field';
+                idDiv.style.display = 'flex';
+                idDiv.style.alignItems = 'center';
+                idDiv.style.gap = '8px';
+                idDiv.style.marginTop = '8px';
+                
+                const idLbl = document.createElement('span');
+                idLbl.className = 'label';
+                let idLabelText = '';
+                
+                if (item.type === 'Image') idLabelText = (t('Label.AssetID') || 'Image ID');
+                else if (item.type === 'Video') idLabelText = (t('Label.AssetID') || 'Video ID');
+                else if (item.type === 'Audio') idLabelText = (t('Label.AssetID') || 'Audio ID');
+                else if (item.type === 'Model') idLabelText = (t('Label.AssetID') || 'Model ID');
+                else if (item.type === 'Game') idLabelText = (t('Label.GameID') || 'Game ID');
+                else if (item.type === 'Asset') idLabelText = (t('Label.AssetID') || 'Asset ID');
+                else if (item.type === 'Post') idLabelText = (t('Label.PostID') || 'Post ID');
+                else if (item.type === 'Comment') idLabelText = (t('Label.CommentID') || 'Comment ID');
+                
+                idLbl.innerText = idLabelText;
+                idDiv.appendChild(idLbl);
+                
+                const idVal = document.createElement('div');
+                idVal.className = 'value';
+                idVal.style.marginTop = '6px';
+                idVal.innerText = item.val2 || '';
+                idDiv.appendChild(idVal);
+                
+                mainDiv.appendChild(idDiv);
+            }
+            
+            // Payment ID field
+            if (item.type === 'Payment') {
+                const idDiv = document.createElement('div');
+                idDiv.className = 'field';
+                idDiv.style.display = 'flex';
+                idDiv.style.alignItems = 'center';
+                idDiv.style.gap = '8px';
+                idDiv.style.marginTop = '8px';
+                
+                const idLbl = document.createElement('span');
+                idLbl.className = 'label';
+                idLbl.innerText = (t('Label.PaymentID') || 'Payment ID');
+                idDiv.appendChild(idLbl);
+                
+                const idVal = document.createElement('div');
+                idVal.className = 'value';
+                idVal.style.marginTop = '6px';
+                idVal.innerText = item.val2 || '';
+                idDiv.appendChild(idVal);
+                
+                mainDiv.appendChild(idDiv);
+            }
+            
+            // Location field for VoiceChat
+            if (item.type === 'VoiceChat') {
+                const locDiv = document.createElement('div');
+                locDiv.className = 'field';
+                locDiv.style.display = 'flex';
+                locDiv.style.alignItems = 'center';
+                locDiv.style.gap = '8px';
+                locDiv.style.marginTop = '8px';
+                
+                const locLbl = document.createElement('span');
+                locLbl.className = 'label';
+                locLbl.innerText = (t('Label.Location') || 'Location');
+                locDiv.appendChild(locLbl);
+                
+                const locInput = document.createElement('input');
+                locInput.value = item.val2 || '';
+                locInput.oninput = (e) => { evidenceItems[index].val2 = e.target.value; updateContent(); };
+                locDiv.appendChild(locInput);
+                
+                mainDiv.appendChild(locDiv);
+            }
+
+            container.appendChild(mainDiv);
         });
     }
 
-    function updateContent() {
-        const traceID = (self.crypto && self.crypto.randomUUID) ? self.crypto.randomUUID() : 'trace-' + Math.random().toString(16).slice(2);
-        const type = document.getElementById('type-select')?.value || 'text';
-        const duration = document.getElementById('duration-select')?.value || '10Minutes';
-        const reason = document.getElementById('reason-select')?.value || 'Other';
-        
-        const isVoice = type === 'voice';
-        const isWarning = duration === 'Warning';
-        
-        // Build full key for translations
-        let headingKey, descKey;
-        
-        if (isWarning) {
-            if (isVoice) {
-                headingKey = 'Heading.VoiceRememberOurPolicies';
-                descKey = 'Description.VoiceChatPolicyWarning';
+    function handleTypeChange() { 
+        currentType = document.getElementById('evidence-type')?.value || 'None'; 
+        evidenceItems = []; 
+        const addBtn = document.getElementById('add-btn');
+        if (addBtn) addBtn.style.display = (currentType === 'Generic') ? 'block' : 'none'; 
+        if (currentType !== 'None') addEvidenceItem(); 
+        else { renderEvidenceControls(); updateContent(); } 
+        const imageUploadContainer = document.getElementById('image-upload-container');
+        if (imageUploadContainer) {
+            if (currentType === 'Image' || currentType === 'ProfilePicture') {
+                imageUploadContainer.style.display = 'block';
             } else {
-                headingKey = 'Heading.ChatBreaksRules.V2';
-                descKey = 'Description.ChatBreaksRulesWarning';
+                imageUploadContainer.style.display = 'none';
+                clearImagePreview();
             }
-        } else {
-            const prefix = isVoice ? 'VoiceChatSuspended' : 'ChatSuspended';
-            headingKey = `Heading.${prefix}${duration}`;
+        }
+    }
+    
+    
+    function addEvidenceItem() { 
+        if (currentType === 'None') return;
+        
+        // Allow multiple items for Generic, SeriousChatViolation, and VoiceEvidence
+        if (currentType !== 'Generic' && currentType !== 'SeriousChatViolation' && currentType !== 'VoiceEvidence' && evidenceItems.length >= 1) return;
+        
+        const makeUUID = () => { 
+            try { 
+                return (self.crypto && self.crypto.randomUUID) ? self.crypto.randomUUID() : ('id-' + Math.random().toString(16).slice(2)); 
+            } catch(e){ 
+                return 'id-' + Math.random().toString(16).slice(2); 
+            } 
+        };
+        
+        const generate12DigitID = () => {
+            return Math.floor(100000000000 + Math.random() * 900000000000).toString();
+        };
+        
+        let item = { 
+            id: Date.now() + Math.random(), 
+            type: currentType, 
+            val1: '', 
+            val2: '',
+            val3: ''
+        };
+
+        // Handle SeriousChatViolation (formerly ChatEvidence)
+        if (currentType === 'SeriousChatViolation') {
+            const banTime = reviewDate || new Date();
+            const chatTime = new Date(banTime.getTime() - 17 * 60 * 1000);
+            const pad = (n) => n.toString().padStart(2, '0');
+            const ts = `${chatTime.getFullYear()}-${pad(chatTime.getMonth()+1)}-${pad(chatTime.getDate())}::${pad(chatTime.getHours())}:${pad(chatTime.getMinutes())}:${pad(chatTime.getSeconds())}`;
+            item.val1 = `[${ts}]: ${makeUUID()}`;
+        }
+        
+        // Handle VoiceEvidence
+        else if (currentType === 'VoiceEvidence') {
+            const banTime = reviewDate || new Date();
+            const voiceTime = new Date(banTime.getTime() - 17 * 60 * 1000);
+            const pad = (n) => n.toString().padStart(2, '0');
+            const ts = `${voiceTime.getFullYear()}-${pad(voiceTime.getMonth()+1)}-${pad(voiceTime.getDate())}::${pad(voiceTime.getHours())}:${pad(voiceTime.getMinutes())}:${pad(voiceTime.getSeconds())}`;
+            item.val1 = `[${ts}]: ${makeUUID()}`;
+        }
+        
+        // Handle ProfilePicture
+        else if (currentType === 'ProfilePicture') {
+            item.val1 = generate12DigitID();
+        }
+        
+        // Handle Payment
+        else if (currentType === 'Payment') {
+            const paymentDate = reviewDate || new Date();
+            const dateStr = paymentDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+            const timeStr = paymentDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+            item.val1 = t('Label.PaymentTimestampValue', { date: dateStr, time: timeStr });
+            item.val2 = generate12DigitID();
+        }
+        
+        // Handle VoiceChat (formerly Location)
+        else if (currentType === 'VoiceChat') {
+            const vcDate = reviewDate || new Date();
+            const dateStr = vcDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+            const timeStr = vcDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+            item.val1 = t('Label.VoiceChatTimestampValue', { date: dateStr, time: timeStr });
+            item.val2 = ''; // Location - user input
+        }
+        
+        // Handle Image, Video, Audio, Model, Game, Asset (Name + ID)
+        else if (['Image', 'Video', 'Audio', 'Model', 'Game', 'Asset'].includes(currentType)) {
+            item.val1 = ''; // Name field - user input
+            item.val2 = generate12DigitID(); // Auto-generated ID
+        }
+        
+        // Handle Post, Comment (Content + ID)
+        else if (['Post', 'Comment'].includes(currentType)) {
+            item.val1 = ''; // Content - user input
+            item.val2 = generate12DigitID(); // Auto-generated ID
+        }
+        
+        // Handle Video (existing behavior for val3)
+        else if (currentType === 'Video') {
+            item.val3 = t('Label.EntireVideo') || 'Entire Video';
+        }
+        
+        // Handle Generic
+        else if (currentType === 'Generic') {
+            item.val1 = ''; // User input
+        }
+
+        // Handle Username and Display Name
+        else if (['Username', 'DisplayName'].includes(currentType)) {
+            item.val1 = ''; // User input
+        }
+
+        // Handle User About
+        else if (currentType === 'AboutBio') {
+            item.val1 = ''; // User input
+        }
+
+        // Handle UGC items
+        else if (['UGCProfileDecoration', 'UGCProfileBanner', 'UGCProfileEffect'].includes(currentType)) {
+            item.val1 = ''; // UGC name - user input
+            item.val2 = generate12DigitID(); // Auto-generated ID
+        }
+
+        evidenceItems.push(item); 
+        renderEvidenceControls(); 
+        updateContent();
+    }
+
+    function applyPresetNote() { 
+        const k = document.getElementById('note-preset')?.value; 
+        if (k) {
+            const cleanKey = k.replace(/\s+/g, ''); 
+            const presetText = t(`Label.MessageToUser.${cleanKey}`);
+            if (presetText !== `Label.MessageToUser.${cleanKey}`) {
+                document.getElementById('note-input').value = presetText; 
+                updateContent(); 
+            }
+        } 
+    }
+
+    function saveBanData() {
+        // Don't save during initialization
+        if (isInitializing) return;
+        
+        const banData = {
+            duration: document.getElementById('duration-select')?.value || 'Banned',
+            reason: document.getElementById('reason-select')?.value || 'Other',
+            note: document.getElementById('note-input')?.value || '',
+            reviewDate: document.getElementById('date-input')?.value || '',
+            evidenceType: document.getElementById('evidence-type')?.value || 'None',
+            evidenceItems: evidenceItems,
+            secondChanceEnabled: secondChanceEnabled,
+            uploadedImage: uploadedImageBase64,
+            euDecision: document.getElementById('eu-decision-select')?.value || 'Manual',
+            experiments: {
+                educational: experimentEnableEducationalPages,
+                euTransparency: experimentEUTransparency,
+                hideLearnMore: experimentHideLearnMore,
+                settingsMenu: experimentSettingsInMenu,
+                sendAppeal: experimentSendAppeal
+            }
+        };
+        
+        localStorage.setItem('banData', JSON.stringify(banData));
+        console.log('Ban data saved to localStorage');
+    }
+
+    // Load ban data from localStorage
+    function loadBanData() {
+        const saved = localStorage.getItem('banData');
+        if (!saved) return false;
+        
+        try {
+            const banData = JSON.parse(saved);
             
-            if (duration === '1Hour') {
-                descKey = isVoice ? 'Description.VoiceChatSuspendedSingleHour' : 'Description.ChatSuspendedSingleHour';
-            } else if (duration === '1Day') {
-                descKey = isVoice ? 'Description.VoiceChatSuspendedSingleDay' : 'Description.ChatSuspendedSingleDay';
-            } else if (duration.includes('Minutes')) {
-                const mins = duration.replace('Minutes', '');
-                descKey = isVoice ? 'Description.VoiceChatSuspendedMultipleMinutes' : 'Description.ChatSuspendedMultipleMinutes';
-            } else if (duration.includes('Hours')) {
-                const hrs = duration.replace('Hours', '');
-                descKey = isVoice ? 'Description.VoiceChatSuspendedMultipleHours' : 'Description.ChatSuspendedMultipleHours';
-            } else if (duration.includes('Days')) {
-                const days = duration.replace('Days', '');
-                descKey = 'Description.ChatSuspendedMultipleDays';
+            // Restore form values
+            if (document.getElementById('duration-select')) document.getElementById('duration-select').value = banData.duration;
+            if (document.getElementById('reason-select')) document.getElementById('reason-select').value = banData.reason;
+            if (document.getElementById('note-input')) document.getElementById('note-input').value = banData.note;
+            if (document.getElementById('date-input')) document.getElementById('date-input').value = banData.reviewDate;
+            if (document.getElementById('evidence-type')) document.getElementById('evidence-type').value = banData.evidenceType;
+            if (document.getElementById('eu-decision-select')) document.getElementById('eu-decision-select').value = banData.euDecision;
+            
+            // Restore evidence items
+            evidenceItems = banData.evidenceItems || [];
+            currentType = banData.evidenceType || 'None';
+            
+            // Restore second chance
+            secondChanceEnabled = banData.secondChanceEnabled || false;
+            if (document.getElementById('second-chance-checkbox')) {
+                document.getElementById('second-chance-checkbox').checked = secondChanceEnabled;
+            }
+            
+            // Restore uploaded image
+            uploadedImageBase64 = banData.uploadedImage || null;
+            
+            // Restore experiments
+            if (banData.experiments) {
+                experimentEnableEducationalPages = banData.experiments.educational ?? true;
+                experimentEUTransparency = banData.experiments.euTransparency ?? false;
+                experimentHideLearnMore = banData.experiments.hideLearnMore ?? false;
+                experimentSettingsInMenu = banData.experiments.settingsMenu ?? false;
+                experimentSendAppeal = banData.experiments.sendAppeal ?? false;
+                
+                if (document.getElementById('experiment-educational-checkbox')) document.getElementById('experiment-educational-checkbox').checked = experimentEnableEducationalPages;
+                if (document.getElementById('experiment-eu-checkbox')) document.getElementById('experiment-eu-checkbox').checked = experimentEUTransparency;
+                if (document.getElementById('experiment-hide-learn-more-checkbox')) document.getElementById('experiment-hide-learn-more-checkbox').checked = experimentHideLearnMore;
+                if (document.getElementById('experiment-settings-menu-checkbox')) document.getElementById('experiment-settings-menu-checkbox').checked = experimentSettingsInMenu;
+                if (document.getElementById('experiment-send-appeal-checkbox')) document.getElementById('experiment-send-appeal-checkbox').checked = experimentSendAppeal;
+            }
+            
+            console.log('Ban data loaded from localStorage');
+            return true;
+        } catch (e) {
+            console.error('Error loading ban data:', e);
+            return false;
+        }
+    }
+
+    // Clear ban data from localStorage
+    function clearBanData() {
+        localStorage.removeItem('banData');
+        localStorage.removeItem('themeMode');
+        console.log('All data cleared from localStorage');
+    }
+
+    function updateContent() {
+        secondChanceEnabled = document.getElementById('second-chance-checkbox')?.checked || false;
+        const dur = document.getElementById('duration-select')?.value || 'Warning';
+        
+        const secondChanceContainer = document.getElementById('second-chance-container');
+        if (secondChanceContainer) {
+            if (dur === 'Banned' || dur === 'Warning') {
+                secondChanceContainer.style.display = 'none';
+            } else {
+                secondChanceContainer.style.display = 'block';
             }
         }
         
-        let descVars = {};
-        if (!isWarning && (duration.includes('Minutes') || duration.includes('Hours') || duration.includes('Days'))) {
-            const num = duration.replace('Minutes', '').replace('Hours', '').replace('Days', '');
-            descVars = { duration: num };
-        }
-        
-        // Update
-        document.getElementById('display-duration-title').innerText = t(headingKey);
-        document.getElementById('display-desc').innerText = t(descKey, descVars);
-        document.getElementById('display-reason').innerText = t(`Label.Reason.${reason}`);
-        document.getElementById('display-trace').innerText = traceID;
-        document.getElementById('lbl-reason-static').innerText = t('Label.Reason');
-        document.getElementById('lbl-chat-static').innerText = t('Label.Chat');
-        
-        // Render
-        const list = document.getElementById('evidence-list-main');
-        const chatLabel = document.getElementById('lbl-chat-static');
-        list.innerHTML = '';
-        
-        if (isVoice || messages.length === 0) {
-            chatLabel.style.display = 'none';
+        const traceID = (self.crypto && self.crypto.randomUUID) ? self.crypto.randomUUID() : 'trace-' + Math.random().toString(16).slice(2);
+        const reason = document.getElementById('reason-select')?.value || 'Other';
+        const note = document.getElementById('note-input')?.value || '';
+        const isLight = document.body.classList.contains('light-mode');
+
+        const setTxt = (id, val) => { const el = document.getElementById(id); if(el) el.innerText = val; };
+
+        const dateInputVal = document.getElementById('date-input')?.value;
+        if (dateInputVal) reviewDate = new Date(dateInputVal);
+        else if (!reviewDate) reviewDate = new Date();
+
+        setTxt('lbl-reason-static', t('Label.Reason'));
+        setTxt('lbl-details-static', t('Label.ModeratorNote'));
+        setTxt('display-note', note);
+        setTxt('display-duration-title', t(`Heading.${dur}`));
+        setTxt('display-reason', t(`Label.Reason.${reason}`));
+        setTxt('display-trace', traceID);
+        setTxt('display-date', getFormattedDate());
+        setTxt('txt-why', t('Heading.Subheading.WhyThisHappened'));
+        setTxt('txt-activity', t('Heading.Subheading.ActivityReviewed.V2'));
+        setTxt('lbl-date-static', t('Label.ReviewDate'));
+        document.getElementById('next-section-main').style.display = 'none';
+
+        // Handle EU transparency
+        const decisionField = document.getElementById('eu-decision-field');
+        const euDecision = document.getElementById('eu-decision-select')?.value || 'Manual';
+
+        if (experimentEUTransparency && euDecision !== 'Manual') {
+            if (!decisionField) {
+                // Create the decision field if it doesn't exist
+                const evidenceCardContent = document.getElementById('evidence-card-content');
+                const dateField = Array.from(evidenceCardContent.children).find(el => 
+                    el.querySelector('#display-date')
+                );
+                
+                if (dateField) {
+                    const newField = document.createElement('div');
+                    newField.id = 'eu-decision-field';
+                    newField.className = 'field';
+                    newField.innerHTML = '<span class="label" id="lbl-decision-static"></span><span class="value" id="display-decision"></span>';
+                    dateField.parentNode.insertBefore(newField, dateField.nextSibling);
+                }
+            }
+            
+            // Set the text based on decision type
+            let decisionText = '';
+            if (euDecision === 'FullyAutomated') {
+                decisionText = t('Label.EUTransparency.AutomatedDetectionAutomatedDecision');
+            } else if (euDecision === 'AutomatedReview') {
+                decisionText = t('Label.EUTransparency.ManualDetectionAutomatedDecision');
+            } else if (euDecision === 'AutomatedDetection') {
+                decisionText = t('Label.EUTransparency.AutomatedDetectionManualDecision');
+            }
+            
+            setTxt('lbl-decision-static', t('Label.EUTransparency.DecisionMethod.V2'));
+            setTxt('display-decision', decisionText);
         } else {
-            chatLabel.style.display = 'block';
-            messages.forEach(msg => {
-                const field = document.createElement('div');
-                field.className = 'field';
-                const value = document.createElement('span');
-                value.className = 'value';
-                value.innerText = msg.text || 'chat message go here';
-                field.appendChild(value);
-                list.appendChild(field);
-            });
+            // Remove the field if it exists
+            if (decisionField) {
+                decisionField.remove();
+            }
+        }
+
+        const descEl = document.getElementById('display-desc');
+        const mainBtn = document.getElementById('primary-action-btn');
+
+        const evidenceCard = document.getElementById('evidence-card');
+        if (evidenceCard) {
+            const hasImagePreview = uploadedImageBase64 && (currentType === 'Image' || currentType === 'ProfilePicture');
+            
+            if (hasImagePreview) {
+                evidenceCard.style.display = 'flex';
+                evidenceCard.style.gap = '16px';
+                evidenceCard.style.alignItems = 'flex-start';
+            } else {
+                evidenceCard.style.display = 'block';
+                evidenceCard.style.gap = '';
+                evidenceCard.style.alignItems = '';
+            }
         }
         
-        document.getElementById('evidence-divider').style.display = (messages.length > 0 && !isVoice) ? 'block' : 'none';
-        document.getElementById('view-more-btn').innerText = t('Action.ReportMistake');
-        document.getElementById('primary-action-btn').innerText = t('Action.OK');
+        if (dur === 'Banned') {
+            document.getElementById('next-section-main').style.display = 'none';
+            document.getElementById('icon-holder').innerHTML = '<div class="ban-icon"></div>';
+            if(descEl) descEl.innerText = t('Description.BrokeRulesBanned');
+            if(mainBtn) {
+                mainBtn.innerText = t('Action.ReportMistake');
+                mainBtn.style = `color: ${isLight ? "#111" : "#eee"}; background: rgba(96, 51, 255, 0.3); border: none; cursor: pointer;`;
+                mainBtn.disabled = false;
+                mainBtn.style.pointerEvents = 'auto';
+                mainBtn.removeAttribute('aria-disabled');
+                mainBtn.onclick = () => openAppealModal();
+            }
+        } else {
+            document.getElementById('next-section-main').style.display = 'none';
+            const isWarn = dur === 'Warning';
+            const violations = evidenceItems.filter(e => e.type !== 'SeriousChatViolation' && e.type !== 'VoiceEvidence');
+            const hasViolations = violations.length > 0;
+            
+            const warningFilter = 'invert(70%) sepia(65%) saturate(600%) hue-rotate(351deg) brightness(95%) contrast(90%)';
+            const suspensionFilter = 'invert(31%) sepia(93%) saturate(1292%) hue-rotate(1deg) brightness(94%) contrast(92%)';
+            
+            document.getElementById('icon-holder').innerHTML = `<img src="https://www.svgrepo.com/show/455819/exclamation-triangle.svg" class="svg-icon" style="filter: ${isWarn ? warningFilter : suspensionFilter}">`;
+            
+            let descKey = 'Description.GenericDescription';
+            let descVars = {};
+            
+            // Determine which description to use
+            if (!hasViolations) {
+                // No violations or only chat/voice evidence - use generic/specific
+                if (reason === 'Other') {
+                    descKey = 'Description.GenericDescription.V2';
+                } else {
+                    descKey = 'Description.SpecificDescription.V2';
+                    descVars = { reason: t(`Label.Reason.${reason}`).toLowerCase() };
+                }
+            } else {
+                const firstViolation = violations[0];
+                const vType = firstViolation.type;
+                
+                if (vType === 'ProfilePicture' || vType === 'VoiceChat' || vType === 'Username' || vType === 'DisplayName' || vType === 'AboutBio') {
+                    let typeText = '';
+                    if (vType === 'ProfilePicture') typeText = 'profile picture';
+                    else if (vType === 'VoiceChat') typeText = 'voice chat';
+                    else if (vType === 'Username') typeText = 'username';
+                    else if (vType === 'DisplayName') typeText = 'display name';
+                    else if (vType === 'AboutBio') typeText = 'about bio';
+                    
+                    if (reason === 'Other') {
+                        descKey = 'Description.GenericTypeDescription.V2';
+                        descVars = { type: typeText };
+                    } else {
+                        descKey = 'Description.SpecificTypeDescription.V2';
+                        descVars = { type: typeText, reason: t(`Label.Reason.${reason}`).toLowerCase() };
+                    }
+                }
+                // Check if it's Payment or Generic (generic behavior)
+                else if (vType === 'Payment' || vType === 'Generic') {
+                    if (reason === 'Other') {
+                        descKey = 'Description.GenericDescription';
+                    } else {
+                        descKey = 'Description.SpecificDescription.V2';
+                        descVars = { reason: t(`Label.Reason.${reason}`).toLowerCase() };
+                    }
+                }
+                // All other types use plural descriptions
+                else {
+                    let typeText = vType.toLowerCase();
+                    
+                    // Handle UGC types with proper spacing
+                    if (vType === 'UGCProfileDecoration') typeText = 'UGC profile decoration';
+                    else if (vType === 'UGCProfileBanner') typeText = 'UGC profile banner';
+                    else if (vType === 'UGCProfileEffect') typeText = 'UGC profile effect';
+                    
+                    if (reason === 'Other') {
+                        descKey = 'Description.GenericTypeDescriptionPlural.V2';
+                        descVars = { type: typeText };
+                    } else {
+                        descKey = 'Description.SpecificTypeDescriptionPlural.V2';
+                        descVars = { type: typeText, reason: t(`Label.Reason.${reason}`).toLowerCase() };
+                    }
+                }
+            }
+
+            if (descEl) {
+                const descText = t(descKey, descVars);
+                descEl.innerText = descText;
+            }
+            
+            if(mainBtn) {
+                document.getElementById('next-section-main').style.display = 'none';
+                mainBtn.innerText = t('Action.Continue');
+                mainBtn.style = "background: #5E499C; color: #eeeeee; border: none;";
+                try {
+                    mainBtn.disabled = false;
+                    mainBtn.style.pointerEvents = 'auto';
+                    mainBtn.removeAttribute('aria-disabled');
+                    try { mainBtn.onclick = handlePrimaryClick; } catch(e) {}
+                } catch(e) { console.error('Failed to re-enable primary action button', e); }
+                try {
+                    const reportText = t('Action.ReportMistake') || t('Action.RequestAppeal');
+                    Array.from(document.querySelectorAll('button')).forEach(b => {
+                        try {
+                            if (b && b.innerText && b.innerText.trim() === reportText) {
+                                b.disabled = false;
+                                b.style.pointerEvents = 'auto';
+                                b.removeAttribute('aria-disabled');
+                            }
+                        } catch (e) {}
+                    });
+                } catch (e) { console.error('Error re-enabling report button', e); }
+            }
+        }
+
+        const list = document.getElementById('evidence-list-main');
+        if (list) {
+            list.innerHTML = '';
+
+            const genericItems = evidenceItems.filter(i => i.type === 'Generic');
+            if (genericItems.length > 0) {
+                const d = document.createElement('div'); d.className = 'field';
+                const valuesHtml = genericItems.map(g => `<div>${g.val1 || t('Label.NoContent')}</div>`).join('');
+                d.innerHTML = `<span class="label">Offensive item:</span><span class="value">${valuesHtml}</span>`;
+                list.appendChild(d);
+            }
+
+            evidenceItems.filter(i => i.type !== 'Generic').forEach(i => {
+                const mainDiv = document.createElement('div');
+                mainDiv.className = 'field';
+                mainDiv.style.marginBottom = '12px';
+                
+                // First field
+                const d = document.createElement('div');
+                d.className = 'field';
+                d.style.marginBottom = '4px';
+                
+                let label = i.type;
+                if (i.type === 'SeriousChatViolation') label = (t('Label.ChatEvidenceID') || 'Chat Evidence ID');
+                else if (i.type === 'VoiceEvidence') label = (t('Label.VoiceEvidenceID') || 'Voice Evidence ID');
+                else if (i.type === 'ProfilePicture') label = (t('Label.ProfilePictureID') || 'Profile Picture ID');
+                else if (i.type === 'Payment') label = (t('Label.Payment') || 'Payment');
+                else if (i.type === 'VoiceChat') label = (t('Label.VoiceChat') || 'Voice Chat');
+                else if (i.type === 'Image') label = (t('Label.ImageName') || 'Image Name');
+                else if (i.type === 'Video') label = (t('Label.VideoName') || 'Video Name');
+                else if (i.type === 'Audio') label = (t('Label.AudioName') || 'Audio Name');
+                else if (i.type === 'Model') label = (t('Label.ModelName') || 'Model Name');
+                else if (i.type === 'Game') label = (t('Label.GameName') || 'Game Name');
+                else if (i.type === 'Asset') label = (t('Label.AssetName') || 'Asset Name');
+                else if (i.type === 'Post') label = (t('Label.Post') || 'Post');
+                else if (i.type === 'Comment') label = (t('Label.Comment') || 'Comment');
+                else if (i.type === 'Username') label = (t('Label.Username') || 'Username');
+                else if (i.type === 'DisplayName') label = (t('Label.DisplayName') || 'Display Name');
+                else if (i.type === 'AboutBio') label = (t('Label.AboutBio') || 'User About');
+                else if (i.type === 'UGCProfileDecoration') label = (t('Label.UGCProfileDecoration') || 'UGC Profile Decoration');
+                else if (i.type === 'UGCProfileBanner') label = (t('Label.UGCProfileBanner') || 'UGC Profile Banner');
+                else if (i.type === 'UGCProfileEffect') label = (t('Label.UGCProfileEffect') || 'UGC Profile Effect');
+                
+                d.innerHTML = `<span class="label">${label}:</span><span class="value">${i.val1 || t('Label.NoContent')}</span>`;
+                mainDiv.appendChild(d);
+                
+                // Second field for IDs
+                if (['Image', 'Video', 'Audio', 'Model', 'Game', 'Asset', 'Post', 'Comment', 'UGCProfileDecoration', 'UGCProfileBanner', 'UGCProfileEffect'].includes(i.type)) {
+                    const idDiv = document.createElement('div');
+                    idDiv.className = 'field';
+                    idDiv.style.marginBottom = '0';
+                    
+                    let idLabel = '';
+                    if (i.type === 'Image') idLabel = (t('Label.AssetID') || 'Asset ID');
+                    else if (i.type === 'Video') idLabel = (t('Label.AssetID') || 'Asset ID');
+                    else if (i.type === 'Audio') idLabel = (t('Label.AssetID') || 'Asset ID');
+                    else if (i.type === 'Model') idLabel = (t('Label.AssetID') || 'Asset ID');
+                    else if (i.type === 'Game') idLabel = (t('Label.GameID') || 'Game ID');
+                    else if (i.type === 'Asset') idLabel = (t('Label.AssetID') || 'Asset ID');
+                    else if (i.type === 'Post') idLabel = (t('Label.PostID') || 'Post ID');
+                    else if (i.type === 'Comment') idLabel = (t('Label.CommentID') || 'Comment ID');
+                    else if (i.type === 'UGCProfileDecoration') idLabel = (t('Label.UGCProfileDecorationID') || 'UGC Profile Decoration ID');
+                    else if (i.type === 'UGCProfileBanner') idLabel = (t('Label.UGCProfileBannerID') || 'UGC Profile Banner ID');
+                    else if (i.type === 'UGCProfileEffect') idLabel = (t('Label.UGCProfileEffectID') || 'UGC Profile Effect ID');
+                    
+                    idDiv.innerHTML = `<span class="label">${idLabel}:</span><span class="value">${i.val2 || ''}</span>`;
+                    mainDiv.appendChild(idDiv);
+                }
+                
+                // Payment ID
+                if (i.type === 'Payment') {
+                    const idDiv = document.createElement('div');
+                    idDiv.className = 'field';
+                    idDiv.style.marginBottom = '0';
+                    idDiv.innerHTML = `<span class="label">${t('Label.PaymentID') || 'Payment ID'}:</span><span class="value">${i.val2 || ''}</span>`;
+                    mainDiv.appendChild(idDiv);
+                }
+                
+                // Location for VoiceChat
+                if (i.type === 'VoiceChat') {
+                    const locDiv = document.createElement('div');
+                    locDiv.className = 'field';
+                    locDiv.style.marginBottom = '0';
+                    locDiv.innerHTML = `<span class="label">${t('Label.Location') || 'Location'}:</span><span class="value">${i.val2 || t('Label.NoContent')}</span>`;
+                    mainDiv.appendChild(locDiv);
+                }
+                
+                list.appendChild(mainDiv);
+            });
+
+            const divider = document.getElementById('evidence-divider');
+            if (divider) divider.style.display = evidenceItems.length > 0 ? 'block' : 'none';
+        }
+        const imagePreviewContainer = document.getElementById('image-preview-container');
+        const previewImage = document.getElementById('preview-image');
+        const evidenceCardContent = document.getElementById('evidence-card-content');
+
+        if (uploadedImageBase64 && (currentType === 'Image' || currentType === 'ProfilePicture')) {
+            imagePreviewContainer.style.display = 'block';
+            previewImage.src = uploadedImageBase64;
+            if (evidenceCardContent) {
+                evidenceCardContent.style.flex = '1';
+            }
+        } else {
+            imagePreviewContainer.style.display = 'none';
+            previewImage.src = '';
+            if (evidenceCardContent) {
+                evidenceCardContent.style.flex = '';
+            }
+        }
+
+        saveBanData();
+    }
+
+    function handleSecondChanceToggle() {
+        secondChanceEnabled = document.getElementById('second-chance-checkbox')?.checked || false;
+        console.log('Second chance toggled:', secondChanceEnabled);
+        updateContent();
     }
 
     function openAppealModal() {
@@ -702,7 +2313,170 @@
         
         modal.classList.add('active');
     }
+function renderEvidenceControls() {
+    const container = document.getElementById('evidence-controls-container');
+    if (!container) return;
+    container.innerHTML = '';
+    evidenceItems.forEach((item, index) => {
+        const mainDiv = document.createElement('div');
+        mainDiv.style.marginBottom = '15px';
+        
+        // First field
+        const div = document.createElement('div');
+        div.className = 'field';
+        div.style.display = 'flex';
+        div.style.alignItems = 'center';
+        div.style.gap = '8px';
 
+        const lbl = document.createElement('span');
+        lbl.className = 'label';
+        let labelText = item.type;
+        
+        // Set appropriate labels
+        if (item.type === 'SeriousChatViolation') labelText = (t('Label.ChatEvidenceID') || 'Chat Evidence ID');
+        else if (item.type === 'VoiceEvidence') labelText = (t('Label.VoiceEvidenceID') || 'Voice Evidence ID');
+        else if (item.type === 'ProfilePicture') labelText = (t('Label.ProfilePictureID') || 'Profile Picture ID');
+        else if (item.type === 'Payment') labelText = (t('Label.Payment') || 'Payment');
+        else if (item.type === 'VoiceChat') labelText = (t('Label.VoiceChat') || 'Voice Chat');
+        else if (item.type === 'Image') labelText = (t('Label.ImageName') || 'Image Name');
+        else if (item.type === 'Video') labelText = (t('Label.VideoName') || 'Video Name');
+        else if (item.type === 'Audio') labelText = (t('Label.AudioName') || 'Audio Name');
+        else if (item.type === 'Model') labelText = (t('Label.ModelName') || 'Model Name');
+        else if (item.type === 'Game') labelText = (t('Label.GameName') || 'Game Name');
+        else if (item.type === 'Asset') labelText = (t('Label.AssetName') || 'Asset Name');
+        else if (item.type === 'Post') labelText = (t('Label.Post') || 'Post');
+        else if (item.type === 'Comment') labelText = (t('Label.Comment') || 'Comment');
+        else if (item.type === 'Generic') labelText = (t('Label.OffensiveItem') || 'Offensive Item');
+        else if (item.type === 'Username') labelText = (t('Label.Username') || 'Username');
+        else if (item.type === 'DisplayName') labelText = (t('Label.DisplayName') || 'Display Name');
+        else if (item.type === 'AboutBio') labelText = (t('Label.AboutBio') || 'User About');
+        else if (item.type === 'UGCProfileDecoration') labelText = (t('Label.UGCProfileDecoration') || 'UGC Profile Decoration');
+        else if (item.type === 'UGCProfileBanner') labelText = (t('Label.UGCProfileBanner') || 'UGC Profile Banner');
+        else if (item.type === 'UGCProfileEffect') labelText = (t('Label.UGCProfileEffect') || 'UGC Profile Effect');
+        
+        lbl.innerText = labelText;
+        div.appendChild(lbl);
+
+        // Handle display/input for val1
+        if (item.type === 'SeriousChatViolation' || item.type === 'VoiceEvidence' || item.type === 'ProfilePicture') {
+            const val = document.createElement('div');
+            val.className = 'value';
+            val.style.marginTop = '6px';
+            val.innerText = item.val1 || '';
+            div.appendChild(val);
+        } else if (item.type === 'Payment') {
+            const val = document.createElement('div');
+            val.className = 'value';
+            val.style.marginTop = '6px';
+            val.innerText = item.val1 || '';
+            div.appendChild(val);
+        } else if (item.type === 'VoiceChat') {
+            const val = document.createElement('div');
+            val.className = 'value';
+            val.style.marginTop = '6px';
+            val.innerText = item.val1 || '';
+            div.appendChild(val);
+        } else {
+            const input = document.createElement('input');
+            input.value = item.val1 || '';
+            input.oninput = (e) => { evidenceItems[index].val1 = e.target.value; updateContent(); };
+            div.appendChild(input);
+        }
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'btn-view-more';
+        removeBtn.style.marginLeft = '6px';
+        removeBtn.innerText = 'Remove';
+        removeBtn.onclick = () => { evidenceItems.splice(index, 1); renderEvidenceControls(); updateContent(); };
+        div.appendChild(removeBtn);
+
+        mainDiv.appendChild(div);
+        
+        // Second field for ID (if applicable)
+        if (['Image', 'Video', 'Audio', 'Model', 'Game', 'Asset', 'Post', 'Comment', 'UGCProfileDecoration', 'UGCProfileBanner', 'UGCProfileEffect'].includes(item.type)) {
+            const idDiv = document.createElement('div');
+            idDiv.className = 'field';
+            idDiv.style.display = 'flex';
+            idDiv.style.alignItems = 'center';
+            idDiv.style.gap = '8px';
+            idDiv.style.marginTop = '8px';
+            
+            const idLbl = document.createElement('span');
+            idLbl.className = 'label';
+            let idLabelText = '';
+            
+            if (item.type === 'Image') idLabelText = (t('Label.AssetID') || 'Image ID');
+            else if (item.type === 'Video') idLabelText = (t('Label.AssetID') || 'Video ID');
+            else if (item.type === 'Audio') idLabelText = (t('Label.AssetID') || 'Audio ID');
+            else if (item.type === 'Model') idLabelText = (t('Label.AssetID') || 'Model ID');
+            else if (item.type === 'Game') idLabelText = (t('Label.GameID') || 'Game ID');
+            else if (item.type === 'Asset') idLabelText = (t('Label.AssetID') || 'Asset ID');
+            else if (item.type === 'Post') idLabelText = (t('Label.PostID') || 'Post ID');
+            else if (item.type === 'Comment') idLabelText = (t('Label.CommentID') || 'Comment ID');
+            else if (item.type === 'UGCProfileDecoration') idLabel = (t('Label.UGCProfileDecorationID') || 'UGC Profile Decoration ID');
+            else if (item.type === 'UGCProfileBanner') idLabel = (t('Label.UGCProfileBannerID') || 'UGC Profile Banner ID');
+            else if (item.type === 'UGCProfileEffect') idLabel = (t('Label.UGCProfileEffectID') || 'UGC Profile Effect ID');
+            
+            idLbl.innerText = idLabelText;
+            idDiv.appendChild(idLbl);
+            
+            const idVal = document.createElement('div');
+            idVal.className = 'value';
+            idVal.style.marginTop = '6px';
+            idVal.innerText = item.val2 || '';
+            idDiv.appendChild(idVal);
+            
+            mainDiv.appendChild(idDiv);
+        }
+        
+        // Payment ID field
+        if (item.type === 'Payment') {
+            const idDiv = document.createElement('div');
+            idDiv.className = 'field';
+            idDiv.style.display = 'flex';
+            idDiv.style.alignItems = 'center';
+            idDiv.style.gap = '8px';
+            idDiv.style.marginTop = '8px';
+            
+            const idLbl = document.createElement('span');
+            idLbl.className = 'label';
+            idLbl.innerText = (t('Label.PaymentID') || 'Payment ID');
+            idDiv.appendChild(idLbl);
+            
+            const idVal = document.createElement('div');
+            idVal.className = 'value';
+            idVal.style.marginTop = '6px';
+            idVal.innerText = item.val2 || '';
+            idDiv.appendChild(idVal);
+            
+            mainDiv.appendChild(idDiv);
+        }
+        
+        // Location field for Voice Chat
+        if (item.type === 'VoiceChat') {
+            const locDiv = document.createElement('div');
+            locDiv.className = 'field';
+            locDiv.style.display = 'flex';
+            locDiv.style.alignItems = 'center';
+            locDiv.style.gap = '8px';
+            locDiv.style.marginTop = '8px';
+            
+            const locLbl = document.createElement('span');
+            locLbl.className = 'label';
+            locLbl.innerText = (t('Label.Location') || 'Location');
+            locDiv.appendChild(locLbl);
+            
+            const locInput = document.createElement('input');
+            locInput.value = item.val2 || '';
+            locInput.oninput = (e) => { evidenceItems[index].val2 = e.target.value; updateContent(); };
+            locDiv.appendChild(locInput);
+            
+            mainDiv.appendChild(locDiv);
+        }
+
+        container.appendChild(mainDiv);
+    });
+}
     function closeAppealModal() {
         const modal = document.getElementById('appeal-modal');
         modal.classList.remove('active');
@@ -725,16 +2499,606 @@
         console.log('Appeal sent:', appealText);
     }
 
-    function handleOKClick() {
-        console.log('OK clicked - suspension acknowledged');
+    function handlePrimaryClick() {
+        console.log('handlePrimaryClick invoked');
+        const dur = document.getElementById('duration-select')?.value;
+        const reason = document.getElementById('reason-select')?.value;
+        const isSuspension = dur.startsWith('Suspended');
+        
+        console.log('Duration:', dur);
+        console.log('Reason:', reason);
+        console.log('Is Suspension:', isSuspension);
+        console.log('Second Chance Enabled:', secondChanceEnabled);
+        console.log('Educational Pages Enabled:', experimentEnableEducationalPages);
+        
+        if (dur !== 'Banned') {
+            if (!experimentEnableEducationalPages) {
+                // Skip all educational pages, go straight to rules
+                goToRulesStep();
+            } else if (secondChanceEnabled && isSuspension) {
+                console.log('Going to second chance step 1');
+                goToSecondChanceStep1();
+            } else if (policyMap[reason]) {
+                console.log('Going to policy step 1');
+                goToPolicyStep1();
+            } else {
+                console.log('Going to rules step');
+                goToRulesStep();
+            }
+        } else {
+            console.log('Duration is Banned, opening appeal modal');
+        }
     }
 
-    document.getElementById('modal-cancel').onclick = closeAppealModal;
-    document.getElementById('modal-send').onclick = sendAppeal;
-    document.getElementById('modal-got-it').onclick = closeAppealModal;
+    function handleBackNavigation() {
+        const reason = document.getElementById('reason-select')?.value;
+        const hasPolicy = policyMap[reason];
+        const dur = document.getElementById('duration-select')?.value;
+        const isSuspension = dur.startsWith('Suspended');
+        
+        // If educational pages are disabled, always go back to main
+        if (!experimentEnableEducationalPages) {
+            resetToMain();
+            return;
+        }
+        
+        if (secondChanceEnabled && isSuspension) {
+            if (currentStep === 7) {
+                goToRulesStep();
+            } else if (currentStep === 5 && hasPolicy) {
+                goToPolicyStep2();
+            } else if (currentStep === 4 && hasPolicy) {
+                goToPolicyStep1();
+            } else if (currentStep === 3 && hasPolicy) {
+                goToSecondChanceStep1();
+            } else if (currentStep === 4 && !hasPolicy) {
+                goToSecondChanceStep1();
+            } else {
+                resetToMain();
+            }
+        } else {
+            if (currentStep === 4 && hasPolicy) {
+                goToPolicyStep2();
+            } else if (currentStep === 3 && hasPolicy) {
+                goToPolicyStep1();
+            } else {
+                resetToMain();
+            }
+        }
+    }
+
+    function handleContinueClick() {
+        const finalBtn = document.getElementById('final-continue-btn');
+        if (finalBtn && finalBtn.disabled) return;
+        
+        const reason = document.getElementById('reason-select')?.value;
+        const hasPolicy = policyMap[reason];
+        const dur = document.getElementById('duration-select')?.value;
+        const isSuspension = dur.startsWith('Suspended');
+        
+        if (secondChanceEnabled && isSuspension) {
+            if (currentStep === 2) {
+                if (hasPolicy) {
+                    goToPolicyStep1();
+                } else {
+                    goToRulesStep();
+                }
+            } else if (currentStep === 3 && hasPolicy) {
+                goToPolicyStep2();
+            } else if (currentStep === 4 && hasPolicy) {
+                goToRulesStep();
+            } else if (currentStep === 4 && !hasPolicy) {
+                goToSecondChanceStep2();
+            } else if (currentStep === 5) {
+                goToSecondChanceStep2();
+            } else if (currentStep === 7) {
+                console.log('Final continue confirmed on second chance step 2');
+            }
+        } else {
+            if (currentStep === 2 && hasPolicy) {
+                goToPolicyStep2();
+            } else if (currentStep === 3 && hasPolicy) {
+                goToRulesStep();
+            } else if (currentStep === 4) {
+                console.log('Final continue confirmed on rules step');
+            }
+        }
+    }
+
+    function goToSecondChanceStep1() {
+        currentStep = 2;
+        
+        document.getElementById('main-view').style.display = 'none';
+        document.getElementById('policy-view-1').style.display = 'none';
+        document.getElementById('policy-view-2').style.display = 'none';
+        document.getElementById('rules-view').style.display = 'none';
+        document.getElementById('second-chance-view-2').style.display = 'none';
+        document.getElementById('second-chance-view-1').style.display = 'flex';
+        document.getElementById('footer-main-buttons').style.display = 'none';
+        document.getElementById('footer-rules-buttons').style.display = 'flex';
+
+        const agreeWrap = document.getElementById('footer-rules-buttons')?.querySelector('label');
+        if (agreeWrap) agreeWrap.style.display = 'none';
+
+        const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+
+        setTxt('second-chance-title-1', t('Heading.SecondChance.First'));
+        setTxt('second-chance-header-1', t('Heading.Subheading.SecondChance.V2'));
+        setTxt('second-chance-description-1', t('Description.SecondChance.First'));
+
+        try { if (suspensionIntervalId) { clearInterval(suspensionIntervalId); suspensionIntervalId = null; } } catch(e) {}
+
+        const finalBtn = document.getElementById('final-continue-btn');
+        const agree = document.getElementById('agree-checkbox');
+        
+        if (agree) agree.checked = false;
+        if (finalBtn) {
+            finalBtn.disabled = false;
+            finalBtn.innerText = t('Action.Continue');
+            finalBtn.style.background = '#5E499C'; 
+            finalBtn.style.border = 'none'; 
+            finalBtn.style.color = '#ffffff'; 
+            finalBtn.style.cursor = 'pointer'; 
+            finalBtn.style.opacity = '1';
+            finalBtn.style.pointerEvents = 'auto';
+        }
+        const wrapper = document.getElementById('continue-disabled-wrapper');
+        if (wrapper) wrapper.remove();
+        if (finalBtn) finalBtn.style.display = 'block';
+        
+        updateProgressBar();
+    }
+
+    function goToSecondChanceStep2() {
+        currentStep = 7;
+        
+        document.getElementById('main-view').style.display = 'none';
+        document.getElementById('policy-view-1').style.display = 'none';
+        document.getElementById('policy-view-2').style.display = 'none';
+        document.getElementById('rules-view').style.display = 'none';
+        document.getElementById('second-chance-view-1').style.display = 'none';
+        document.getElementById('second-chance-view-2').style.display = 'flex';
+        document.getElementById('footer-main-buttons').style.display = 'none';
+        document.getElementById('footer-rules-buttons').style.display = 'flex';
+
+        const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+
+        setTxt('second-chance-title-2', t('Heading.SecondChance.Second'));
+        setTxt('second-chance-description-2', t('Description.SecondChance.Second'));
+        setTxt('lbl-agree', t('Label.AgreeToRules.V2'));
+
+        const viewRulesBtn = document.getElementById('second-chance-view-rules-btn');
+        if (viewRulesBtn) {
+            viewRulesBtn.innerText = t('Action.ViewRules');
+            viewRulesBtn.onclick = () => { window.open('/Boiby-Community-Standards', '_blank'); };
+        }
+
+        const finalBtn = document.getElementById('final-continue-btn');
+        const agreeWrap = document.getElementById('footer-rules-buttons')?.querySelector('label');
+        const agreeCheckbox = document.getElementById('agree-checkbox');
+
+        if (agreeCheckbox) {
+            agreeCheckbox.checked = false;
+        }
+
+        if (agreeWrap) agreeWrap.style.display = 'flex';
+        if (finalBtn) {
+            finalBtn.disabled = true;
+            finalBtn.style.background = '#5E499C';
+            finalBtn.style.color = '#ffffff';
+            finalBtn.style.border = 'none';
+            finalBtn.innerText = t('Action.Continue');
+            finalBtn.style.opacity = '0.5';
+            finalBtn.style.cursor = 'not-allowed';
+        }
+
+        const wrapper = document.getElementById('continue-disabled-wrapper');
+        if (wrapper) wrapper.remove();
+        
+        updateProgressBar();
+    }
+
+    function goToPolicyStep1() {
+        const dur = document.getElementById('duration-select')?.value;
+        const isSuspension = dur.startsWith('Suspended');
+        
+        currentStep = secondChanceEnabled && isSuspension ? 3 : 2;
+        const reason = document.getElementById('reason-select')?.value;
+        const mapping = policyMap[reason];
+        if (!mapping) { goToRulesStep(); return; }
+
+        document.getElementById('main-view').style.display = 'none';
+        document.getElementById('policy-view-2').style.display = 'none';
+        document.getElementById('rules-view').style.display = 'none';
+        document.getElementById('second-chance-view-1').style.display = 'none';
+        document.getElementById('second-chance-view-2').style.display = 'none';
+        document.getElementById('policy-view-1').style.display = 'flex';
+        document.getElementById('footer-main-buttons').style.display = 'none';
+        document.getElementById('footer-rules-buttons').style.display = 'flex';
+
+        const agreeWrap = document.getElementById('footer-rules-buttons')?.querySelector('label');
+        if (agreeWrap) agreeWrap.style.display = 'none';
+
+        const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+
+        setTxt('policy-header-title-1', t(mapping.headerTop));
+        setTxt('policy-violated-header', t(mapping.header));
+        setTxt('display-policy-description', t(mapping.detail));
+
+        if (reason === 'PrivacyGivingPII' || reason === 'PrivacyAskingPII') {
+            const descEl = document.getElementById('display-policy-description');
+            if (descEl) {
+                const detailV2 = t('Description.PIIDetail.V2');
+                const dotpoints = [
+                    t('Label.PIIDotpoint1'),
+                    t('Label.PIIDotpoint2'),
+                    t('Label.PIIDotpoint3'),
+                    t('Label.PIIDotpoint4'),
+                    t('Label.PIIDotpoint5')
+                ].map(point => `• ${point}`).join('\n');
+                descEl.innerText = `${detailV2}\n${dotpoints}`;
+            }
+        }
+
+        const learnBtn = document.getElementById('policy-learn-more-btn-1');
+        if (learnBtn) { 
+            learnBtn.innerText = t('Action.LearnMore'); 
+            learnBtn.onclick = () => { window.open('https://boiby.dev/Boiby-Community-Standards', '_blank'); };
+            learnBtn.style.display = experimentHideLearnMore ? 'none' : 'block';
+        }
+
+        try { if (suspensionIntervalId) { clearInterval(suspensionIntervalId); suspensionIntervalId = null; } } catch(e) {}
+
+        const finalBtn = document.getElementById('final-continue-btn');
+        const agree = document.getElementById('agree-checkbox');
+        
+        if (agree) agree.checked = false;
+        
+        if (finalBtn) {
+            finalBtn.disabled = false;
+            finalBtn.innerText = t('Action.Continue');
+            finalBtn.style.background = '#5E499C'; 
+            finalBtn.style.border = 'none'; 
+            finalBtn.style.color = '#ffffff'; 
+            finalBtn.style.cursor = 'pointer'; 
+            finalBtn.style.opacity = '1';
+            finalBtn.style.pointerEvents = 'auto';
+        }
+
+        const wrapper = document.getElementById('continue-disabled-wrapper');
+        if (wrapper) wrapper.remove();
+        if (finalBtn) finalBtn.style.display = 'block';
+        
+        updateProgressBar();
+    }
+
+    function goToPolicyStep2() {
+        const dur = document.getElementById('duration-select')?.value;
+        const isSuspension = dur.startsWith('Suspended');
+        
+        currentStep = secondChanceEnabled && isSuspension ? 4 : 3;
+        const reason = document.getElementById('reason-select')?.value;
+        const mapping = policyMap[reason];
+        if (!mapping) { goToRulesStep(); return; }
+
+        document.getElementById('main-view').style.display = 'none';
+        document.getElementById('policy-view-1').style.display = 'none';
+        document.getElementById('rules-view').style.display = 'none';
+        document.getElementById('second-chance-view-1').style.display = 'none';
+        document.getElementById('second-chance-view-2').style.display = 'none';
+        document.getElementById('policy-view-2').style.display = 'flex';
+        document.getElementById('footer-main-buttons').style.display = 'none';
+        document.getElementById('footer-rules-buttons').style.display = 'flex';
+
+        const agreeWrap = document.getElementById('footer-rules-buttons')?.querySelector('label');
+        if (agreeWrap) agreeWrap.style.display = 'none';
+
+        const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+
+        setTxt('policy-header-title-2', t(mapping.importanceLabel));
+        setTxt('display-policy-importance', t(mapping.importance));
+
+        const learnBtn = document.getElementById('policy-learn-more-btn-2');
+        if (learnBtn) { 
+            learnBtn.innerText = t('Action.LearnMore'); 
+            learnBtn.onclick = () => { window.open('https://boiby.dev/Boiby-Community-Standards', '_blank'); }; 
+        }
+
+        const finalBtn = document.getElementById('final-continue-btn');
+        const agree = document.getElementById('agree-checkbox');
+        
+        if (agree) agree.checked = false;
+        
+        if (finalBtn) {
+            finalBtn.disabled = false;
+            finalBtn.innerText = t('Action.Continue');
+            finalBtn.style.background = '#5E499C'; 
+            finalBtn.style.border = 'none'; 
+            finalBtn.style.color = '#ffffff'; 
+            finalBtn.style.cursor = 'pointer'; 
+            finalBtn.style.opacity = '1';
+            finalBtn.style.pointerEvents = 'auto';
+        }
+
+        const wrapper = document.getElementById('continue-disabled-wrapper');
+        if (wrapper) wrapper.remove();
+        if (finalBtn) finalBtn.style.display = 'block';
+        
+        updateProgressBar();
+    }
+
+    function goToRulesStep() {
+        const dur = document.getElementById('duration-select')?.value;
+        const reason = document.getElementById('reason-select')?.value;
+        const isSuspension = dur.startsWith('Suspended');
+        const hasPolicy = policyMap[reason];
+        const rulesHeaderTitle = document.getElementById('rules-header-title');
+        if (rulesHeaderTitle) {
+            if (!experimentEnableEducationalPages) {
+                rulesHeaderTitle.style.marginTop = '26px';
+            } else {
+                rulesHeaderTitle.style.marginTop = ''; // Reset to default
+            }
+        }
+
+        if (!experimentEnableEducationalPages) {
+            currentStep = 4;
+        } else if (secondChanceEnabled && isSuspension) {
+            currentStep = hasPolicy ? 5 : 4;
+        } else {
+            currentStep = 4;
+        }
+        
+        document.getElementById('main-view').style.display = 'none';
+        document.getElementById('policy-view-1').style.display = 'none';
+        document.getElementById('policy-view-2').style.display = 'none';
+        document.getElementById('second-chance-view-1').style.display = 'none';
+        document.getElementById('second-chance-view-2').style.display = 'none';
+        document.getElementById('rules-view').style.display = 'flex';
+        document.getElementById('footer-main-buttons').style.display = 'none';
+        document.getElementById('footer-rules-buttons').style.display = 'flex';
+
+        const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+        
+        setTxt('rules-header-title', t('Heading.RuleViolationsAddUp'));
+        setTxt('rules-description', t('Description.Foreshadow.V2'));
+        setTxt('rules-mistake-text', t('Description.Mistake.V3'));
+        setTxt('lbl-agree', t('Label.AgreeToRules.V2'));
+
+        const viewRulesBtn = document.getElementById('btn-view-rules-inner');
+        if (viewRulesBtn) {
+            viewRulesBtn.innerText = t('Action.ViewRules');
+            viewRulesBtn.onclick = () => { window.open('https://boiby.dev/Boiby-Community-Standards', '_blank'); };
+        }
+
+        const reportBtn = document.getElementById('btn-report-mistake-rules');
+        if (reportBtn) {
+            reportBtn.innerText = experimentSendAppeal ? t('Action.SendAppeal') : t('Action.ReportMistake');
+            reportBtn.onclick = () => { openAppealModal(); };
+        }
+
+        const finalBtn = document.getElementById('final-continue-btn');
+        const agreeWrap = document.getElementById('footer-rules-buttons')?.querySelector('label');
+        const agreeCheckbox = document.getElementById('agree-checkbox');
+
+        const suspensionDaysMap = { 'Suspended1Day': 1, 'Suspended3Days': 3, 'Suspended7Days': 7, 'Suspended14Days': 14 };
+        
+        if (dur.startsWith('Suspended') && !secondChanceEnabled && suspensionDaysMap[dur]) {
+            const dateInputVal = document.getElementById('date-input')?.value;
+            const startDate = dateInputVal ? new Date(dateInputVal) : (reviewDate || new Date());
+            const days = suspensionDaysMap[dur];
+            const endDate = new Date(startDate.getTime() + days * 24 * 60 * 60 * 1000);
+
+            const updateSuspensionState = () => {
+                const activeStep = currentStep;
+                const dur = document.getElementById('duration-select')?.value;
+                const isSuspension = dur.startsWith('Suspended');
+                
+                if (activeStep !== 4 && !(secondChanceEnabled && isSuspension && activeStep === 5)) return false;
+                const now = new Date();
+                const remMs = endDate.getTime() - now.getTime();
+                
+                if (remMs <= 0) {
+                    if (agreeWrap) agreeWrap.style.display = 'flex';
+                    if (finalBtn) {
+                        finalBtn.disabled = true;
+                        finalBtn.style.background = '#5E499C';
+                        finalBtn.style.color = '#ffffff';
+                        finalBtn.style.border = 'none';
+                        finalBtn.innerText = t('Action.Continue');
+                        finalBtn.style.cursor = 'not-allowed';
+                        finalBtn.style.opacity = '0.5';
+                    }
+                    return true;
+                } else {
+                    const secs = Math.ceil(remMs / 1000);
+                    const totalDays = remMs / (1000 * 60 * 60 * 24);
+                    const daysLeft = Math.ceil(totalDays);
+                    const hoursLeft = Math.floor((remMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutesLeft = Math.floor((remMs % (1000 * 60 * 60)) / (1000 * 60));
+                    const secondsLeft = Math.floor((remMs % (1000 * 60)) / 1000);
+                    
+                    let label = '';
+                    const suspensionLabel = t('Label.Suspension') || 'Suspension';
+                    
+                    if (totalDays >= 1) {
+                        const roundedDays = (totalDays % 1 >= 0.5) ? Math.ceil(totalDays) : Math.floor(totalDays);
+                        if (roundedDays === 1) {
+                            label = t('Label.CountdownSingleDay', { d: roundedDays }) || `${roundedDays} day`;
+                        } else {
+                            label = t('Label.CountdownMultipleDays', { d: roundedDays }) || `${roundedDays} days`;
+                        }
+                    } else if (hoursLeft >= 1) {
+                        const hh = String(hoursLeft).padStart(2, '0');
+                        const mm = String(minutesLeft).padStart(2, '0');
+                        label = t('Label.CountdownHoursMinutes', { h: hh, m: mm }) || `${hh}:${mm} hours`;
+                    } else {
+                        const mm = String(minutesLeft).padStart(2, '0');
+                        const ss = String(secondsLeft).padStart(2, '0');
+                        label = t('Label.CountdownMinutesSeconds', { m: mm, s: ss }) || `${mm}:${ss} minutes`;
+                    }
+                    
+                    if (!secondChanceEnabled) {
+                        if (agreeWrap) agreeWrap.style.display = 'none';
+                        
+                        const existingWrapper = document.getElementById('continue-disabled-wrapper');
+                        if (existingWrapper) {
+                            existingWrapper.remove();
+                        }
+                        
+                        const wrapper = document.createElement('div');
+                        wrapper.id = 'continue-disabled-wrapper';
+                        wrapper.className = 'continue-disabled-wrapper';
+                        
+                        const countdown = document.createElement('div');
+                        countdown.className = 'suspension-countdown';
+                        
+                        const icon = document.createElement('img');
+                        icon.src = 'https://www.svgrepo.com/show/455819/exclamation-triangle.svg';
+                        icon.className = 'suspension-icon';
+                        const isLight = document.body.classList.contains('light-mode');
+                        icon.style.filter = isLight ? 'invert(70%) sepia(65%) saturate(600%) hue-rotate(351deg) brightness(95%) contrast(90%)' : 'invert(80%) sepia(89%) saturate(300%) hue-rotate(351deg) brightness(69%) contrast(176%)';
+                        
+                        const labelSpan = document.createElement('span');
+                        labelSpan.className = 'suspension-label';
+                        labelSpan.innerText = suspensionLabel;
+                        
+                        const timeSpan = document.createElement('span');
+                        timeSpan.innerText = ' ' + label;
+                        
+                        countdown.appendChild(icon);
+                        countdown.appendChild(labelSpan);
+                        countdown.appendChild(timeSpan);
+                        
+                        wrapper.appendChild(countdown);
+                        
+                        const continueBtn = document.createElement('button');
+                        continueBtn.className = 'btn-report';
+                        continueBtn.disabled = true;
+                        continueBtn.innerText = t('Action.Continue');
+                        continueBtn.style.background = '#5E499C';
+                        continueBtn.style.color = '#ffffff';
+                        continueBtn.style.border = 'none';
+                        continueBtn.style.opacity = '0.5';
+                        continueBtn.style.cursor = 'not-allowed';
+                        
+                        wrapper.appendChild(continueBtn);
+                        
+                        const footerButtons = document.getElementById('footer-rules-buttons');
+                        if (finalBtn) finalBtn.style.display = 'none';
+                        footerButtons.appendChild(wrapper);
+                    } else {
+                        if (agreeWrap) agreeWrap.style.display = 'none';
+                        if (finalBtn) {
+                            finalBtn.disabled = true;
+                            finalBtn.innerText = label;
+                            finalBtn.style.background = 'transparent';
+                            finalBtn.style.border = '3px solid var(--btn-gray)';
+                            finalBtn.style.color = 'var(--text-muted)';
+                            finalBtn.style.cursor = 'not-allowed';
+                            finalBtn.style.opacity = '1';
+                            
+                            const existingIcon = finalBtn.querySelector('.suspension-icon');
+                            if (!existingIcon) {
+                                const icon = document.createElement('img');
+                                icon.src = 'https://www.svgrepo.com/show/455819/exclamation-triangle.svg';
+                                icon.className = 'suspension-icon';
+                                const isLight = document.body.classList.contains('light-mode');
+                                icon.style.filter = isLight ? 'invert(70%) sepia(65%) saturate(600%) hue-rotate(351deg) brightness(95%) contrast(90%)' : 'invert(80%) sepia(89%) saturate(300%) hue-rotate(351deg) brightness(69%) contrast(176%)';
+                                icon.style.marginRight = '8px';
+                                finalBtn.insertBefore(icon, finalBtn.firstChild);
+                            }
+                            
+                            const textNode = Array.from(finalBtn.childNodes).find(n => n.nodeType === 3);
+                            if (textNode) {
+                                textNode.textContent = ` ${suspensionLabel}: ${label}`;
+                            }
+                        }
+                    }
+                    return false;
+                }
+            };
+
+            const expiredNow = updateSuspensionState();
+            if (!expiredNow) {
+                try { if (suspensionIntervalId) { clearInterval(suspensionIntervalId); suspensionIntervalId = null; } } catch(e) {}
+                suspensionIntervalId = setInterval(() => {
+                    const nowExpired = updateSuspensionState();
+                    if (nowExpired) { 
+                        try { clearInterval(suspensionIntervalId); } catch(e) {} 
+                        suspensionIntervalId = null;
+                        const wrapper = document.getElementById('continue-disabled-wrapper');
+                        if (wrapper) wrapper.remove();
+                        if (finalBtn) finalBtn.style.display = 'block';
+                    }
+                }, 1000);
+            }
+        } else {
+            if (agreeWrap) agreeWrap.style.display = 'flex';
+            if (finalBtn) {
+                finalBtn.disabled = true;
+                finalBtn.style.background = '#5E499C';
+                finalBtn.style.color = '#ffffff';
+                finalBtn.style.border = 'none';
+                finalBtn.innerText = t('Action.Continue');
+                finalBtn.style.opacity = '0.5';
+                finalBtn.style.cursor = 'not-allowed';
+                finalBtn.style.display = 'block';
+            }
+            const wrapper = document.getElementById('continue-disabled-wrapper');
+            if (wrapper) wrapper.remove();
+        }
+        
+        updateProgressBar();
+    }
+
+    function resetToMain() {
+        currentStep = 1;
+        document.getElementById('policy-view-1').style.display = 'none';
+        document.getElementById('policy-view-2').style.display = 'none';
+        document.getElementById('rules-view').style.display = 'none';
+        document.getElementById('second-chance-view-1').style.display = 'none';
+        document.getElementById('second-chance-view-2').style.display = 'none';
+        document.getElementById('main-view').style.display = 'block';
+        document.getElementById('footer-main-buttons').style.display = 'flex';
+        document.getElementById('footer-rules-buttons').style.display = 'none';
+        try { if (suspensionIntervalId) { clearInterval(suspensionIntervalId); suspensionIntervalId = null; } } catch (e) {}
+        const wrapper = document.getElementById('continue-disabled-wrapper');
+        if (wrapper) wrapper.remove();
+        const finalBtn = document.getElementById('final-continue-btn');
+        if (finalBtn) finalBtn.style.display = 'block';
+        updateProgressBar();
+    }
+
+    function toggleContinueBtn() { 
+        const c = document.getElementById('agree-checkbox'); 
+        const b = document.getElementById('final-continue-btn'); 
+        if (c && b) {
+            b.disabled = !c.checked; 
+            b.style.opacity = c.checked ? "1" : "0.5";
+            b.style.cursor = c.checked ? "pointer" : "not-allowed";
+        }
+    }
+
+    function reportMistakeClicked(event) {
+        console.log('Report mistake clicked from card');
+        openAppealModal();
+    }
+
+    function handleLogout() {
+        console.log('Logout clicked');
+    }
 
     init();
-</script>
 
-</body>
-</html>
+    setTimeout(() => {
+        document.body.classList.add('loaded');
+    }, 300);
+
+    setTimeout(() => {
+    document.querySelectorAll('.skeleton-loading').forEach(el => {
+        el.classList.remove('skeleton-loading');
+    });
+}, 300);
+</script>
+</body></html>
