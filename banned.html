@@ -16,8 +16,11 @@ body {transition: opacity ease-in 0.2s; }
   font-optical-sizing: auto;
   font-style: normal;
 }
-#display-desc {
-    margin-top: 1px;
+body.light-mode #display-desc {
+    color: #333;
+}
+body.dark-mode #display-desc {
+    color: #fff;
 }
         #second-chance-checkbox {
             display: inline-block !important;
@@ -236,8 +239,8 @@ body {transition: opacity ease-in 0.2s; }
         .ban-icon::after { content: ''; position: absolute; width: 2px; height: 100%; background: var(--danger); top: 0; left: 50%; transform: translateX(-50%) rotate(45deg); }
         .svg-icon { width: 26px; height: 26px; }
         h1 { color: var(--text-header); font-size: 21px; font-weight: 700; margin: 0; line-height: 2.4; }
-        .dots { color: var(--text-header); font-size: 20px; margin-right: 6px; cursor: pointer; line-height: 1; position: relative; }
-        .description { font-size: 14px; color: var(--text-normal); margin: 0 0 21px 0; line-height: 1.; }
+        .dots { color: var(--text-header); font-size: 18px; font-weight: 500; width: 26px; height: 26px; text-align: center; align-content: center; cursor: pointer; line-height: 1; position: relative; }
+        .description { font-size: 14px; color: var(--text-normal); margin: 0 0 21px 0; line-height: 1.35; }
         h2 { font-size: 16px; font-weight: 700; color: var(--text-header); margin: 3px 0 12px 0; }
         .card { background: var(--bg-card); border-radius: var(--radius-card); padding: 16px 14px 16px 14px; margin-bottom: 21px; border: 1px rgba(0, 0, 0, 0.03); }
         .field { margin-bottom: 12px!important; }
