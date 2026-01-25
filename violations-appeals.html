@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {transition: opacity ease-in 0.2s; } 
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Violations & Appeals - Boiby</title>
+    <style>
+        * {
+            font-family: "Public Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
+
+        :root {
+            --bg-base: #121215;
+            --bg-modal: #191a1f;
+            --bg-card: #272930;
+            --btn-gray: #30323a;
+            --btn-gray-hover: #373a44;
+            --btn-blue: #5e499c;
+            --btn-blue-hover: #604d9b;
+            --text-header: #f2f3f5;
+            --text-normal: #dbdee1;
+            --text-muted: #828282;
+            --text-trace: #828282;
+            --danger: #da373c;
+            --shadow-border: rgba(255, 255, 255, 0.05);
+            --radius-card: 10px;
+            --radius-btn: 8px;
+            --btn-gray2: #353841;
+            --btn-gray-hover2: #3d3f4b;
+            
+            --spacing-xsmall: 2px;
+            --spacing-small: 5px;
+            --spacing-medium: 10px;
+            --spacing-large: 16px;
+            --spacing-xlarge: 20px;
+            --spacing-2xlargeminus: 36px;
+            --spacing-2xlarge: 44px;
+            
+            --font-xsmall: 12px;
+            --font-small: 13px;
+            --font-medium: 14px;
+            --font-large: 15px;
+            --font-xlarge: 16px;
+            --font-2xlarge: 18px;
+            --font-3xlarge: 20px;
+            --font-4xlarge: 22px;
+            --font-5xlarge: 24px;
+            
+            --height-medium: 40px;
+        }
+
+        body.light-mode {
+            --bg-base: #ffffff;
+            --bg-modal: #f7f7f8;
+            --bg-card: #E6E7EB;
+            --btn-gray: #dbdcdf;
+            --btn-gray-hover: #cdd0d8;
+            --text-header: #3a3a3a;
+            --text-normal: #444444;
+            --text-muted: #616872;
+            --text-trace: #676767;
+            --shadow-border: rgba(0, 0, 0, 0.1);
+            --btn-gray2: #cdcfd7;
+            --btn-gray-hover2: #c0c2c7;
+        }
+
+        body {
+            margin: 0;
+            padding: 60px 0 40px 0;
+            background: var(--bg-base);
+            color: var(--text-normal);
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: var(--text-header);
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: var(--font-xlarge);
+            font-weight: 700;
+            color: var(--text-header);
+            margin: 0 0 8px 0;
+        }
+
+        .description {
+            font-size: var(--font-medium);
+            color: var(--text-normal);
+            margin: 0 0 21px 0;
+            line-height: 1.35;
+        }
+
+        .description a {
+            color: var(--btn-blue);
+            text-decoration: none;
+        }
+
+        .description a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            border-bottom: 2px solid var(--btn-gray);
+            margin: 32px 0;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-card);
+            padding: 16px 14px;
+            margin-bottom: 21px;
+        }
+
+        .field {
+            margin-bottom: 12px;
+        }
+
+        .field:last-child {
+            margin-bottom: 0;
+        }
+
+        .label {
+            display: block;
+            font-weight: 700;
+            font-size: var(--font-medium);
+            color: var(--text-header);
+            margin-bottom: 2px;
+        }
+
+        .value {
+            display: block;
+            font-size: var(--font-medium);
+            color: var(--text-normal);
+            font-weight: 450;
+            line-height: 1.4;
+        }
+
+        .trace-id {
+            font-size: var(--font-xsmall);
+            color: var(--text-trace);
+            font-weight: 600;
+        }
+
+        .btn-view-more {
+            display: block;
+            width: 100%;
+            background: var(--btn-gray2);
+            color: var(--text-header);
+            border: none;
+            padding: 8.5px 0;
+            border-radius: var(--radius-btn);
+            font-size: var(--font-small);
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-view-more:hover {
+            background-color: var(--btn-gray-hover2);
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--btn-gray2);
+            color: var(--text-header);
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--radius-btn);
+            font-size: var(--font-medium);
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-back:hover {
+            background-color: var(--btn-gray-hover);
+        }
+
+        .btn-appeal {
+            background: var(--btn-gray);
+            color: var(--text-header);
+            border: none;
+            padding: 0px 12px;
+            height: var(--height-medium);
+            border-radius: var(--radius-btn);
+            font-size: var(--font-large);
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            width: 120px;
+        }
+
+        .btn-appeal:hover {
+            background-color: var(--btn-gray-hover);
+        }
+
+        /* Utility Classes */
+        .flex { display: flex; }
+        .flex-column { flex-direction: column; }
+        .flex-1 { flex: 1; }
+        .gap-xsmall { gap: var(--spacing-xsmall); }
+        .gap-small { gap: var(--spacing-small); }
+        .gap-medium { gap: var(--spacing-medium); }
+        .gap-large { gap: var(--spacing-large); }
+
+        .margin-small { margin: var(--spacing-small); }
+        .margin-medium { margin: var(--spacing-medium); }
+        .margin-bottom-xsmall { margin-bottom: var(--spacing-xsmall); }
+        .margin-bottom-small { margin-bottom: var(--spacing-small); }
+        .margin-bottom-medium { margin-bottom: 12px; }
+        .margin-bottom-large { margin-bottom: var(--spacing-large); }
+        .margin-bottom-xlarge { margin-bottom: var(--spacing-xlarge); }
+        .margin-bottom-2xlarge { margin-bottom: var(--spacing-2xlarge); }
+        .margin-top-xsmall { margin-top: var(--spacing-xsmall); }
+        .margin-top-small { margin-top: var(--spacing-small); }
+        .margin-top-medium { margin-top: var(--spacing-medium); }
+        .margin-top-large { margin-top: var(--spacing-large); }
+        .margin-top-xlarge { margin-top: var(--spacing-xlarge); }
+        .margin-top-2xlarge { margin-top: var(--spacing-2xlarge); }
+        .margin-top-2xlargeminus { margin-top: var(--spacing-2xlargeminus); }
+
+        .padding-small { padding: var(--spacing-small); }
+        .padding-medium { padding: var(--spacing-medium); }
+        .padding-large { padding: var(--spacing-large); }
+        .padding-xlarge { padding: var(--spacing-xlarge); }
+        .padding-bottom-xlarge { padding-bottom: var(--spacing-xlarge); }
+
+        .width-full { width: 100%; }
+        .height-medium { height: var(--height-medium); }
+
+        .text-xsmall { font-size: var(--font-xsmall); }
+        .text-small { font-size: var(--font-small); }
+        .text-medium { font-size: var(--font-medium); }
+        .text-large { font-size: var(--font-large); }
+        .text-xlarge { font-size: var(--font-xlarge); }
+        .text-2xlarge { font-size: var(--font-2xlarge); }
+        .text-3xlarge { font-size: var(--font-3xlarge); }
+        .text-4xlarge { font-size: var(--font-4xlarge); }
+        .text-5xlarge { font-size: var(--font-5xlarge); }
+
+        .text-normal-color { color: var(--text-normal); }
+        .text-muted-color { color: var(--text-muted); }
+        .text-header-color { color: var(--text-header); }
+
+        .bg-card { background: var(--bg-card); }
+        .bg-modal { background: var(--bg-modal); }
+        .bg-gray { background: var(--btn-gray); }
+        .bg-gray2 { background: var(--btn-gray2); }
+        .bg-blue { background: var(--btn-blue); }
+
+        .border-radius-card { border-radius: var(--radius-card); }
+        .border-radius-btn { border-radius: var(--radius-btn); }
+
+        #list-view {
+            display: block;
+        }
+
+        #detail-view {
+            display: none;
+        }
+        .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.67);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--bg-modal);
+    border-radius: var(--radius-card);
+    padding: 20px;
+    width: 90%;
+    max-width: 440px;
+    box-shadow: 0 0 0 1px var(--shadow-border), 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.modal-header {
+    font-size: var(--font-5xlarge);
+    font-weight: 700;
+    color: var(--text-header);
+    margin-bottom: 10px;
+}
+
+.modal-description {
+    font-size: var(--font-large);
+    color: var(--text-normal);
+    line-height: 1.35;
+    margin-bottom: 15px;
+}
+
+.modal-textarea {
+    width: 100%;
+    min-height: 90px;
+    padding: 10px;
+    border-radius: var(--radius-btn);
+    border: 1px solid var(--shadow-border);
+    background: var(--bg-modal);
+    color: var(--text-normal);
+    font-family: inherit;
+    font-size: var(--font-large);
+    resize: vertical;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.modal-button {
+    flex: 1;
+    height: var(--height-medium);
+    border: none;
+    border-radius: var(--radius-btn);
+    font-size: var(--font-large);
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: opacity 0.2s;
+}
+
+.modal-button.cancel {
+    background: var(--btn-gray);
+    color: var(--text-header);
+}
+
+.modal-button.cancel:hover {
+    background: var(--btn-gray-hover);
+}
+
+.modal-button.send {
+    background: #7309e4;
+    color: #ffffff;
+}
+
+.modal-button.send:hover {
+    opacity: 0.9;
+}
+
+.modal-subtext {
+    font-size: var(--font-xsmall);
+    font-weight: 500;
+    color: var(--text-muted);
+    line-height: 1.3;
+    margin-top: 15px;
+}
+
+.margin-bottom-2xlargeminus {
+    margin-bottom: 32px;
+}
+    </style>
+</head>
+<body class="light-mode">
+
+    <div class="modal-overlay" id="appeal-modal">
+    <div class="modal-content">
+        <div id="modal-form-view">
+            <div class="modal-header text-5xlarge text-header-color margin-bottom-medium" id="modal-header"></div>
+            <div class="modal-description text-large text-normal-color margin-bottom-large" id="modal-description"></div>
+            <textarea class="modal-textarea margin-bottom-medium" id="appeal-textarea" placeholder=""></textarea>
+            <div class="modal-buttons flex gap-small margin-top-xsmall">
+                <button class="modal-button cancel flex-1 height-medium border-radius-btn text-large" id="modal-cancel"></button>
+                <button class="modal-button send flex-1 height-medium border-radius-btn text-large" id="modal-send"></button>
+            </div>
+            <div class="modal-subtext text-xsmall text-muted-color margin-top-large" id="modal-subtext"></div>
+        </div>
+        <div id="modal-success-view" style="display: none;">
+            <div class="modal-header text-5xlarge text-header-color margin-bottom-medium" id="modal-success-header"></div>
+            <div class="modal-description text-large text-normal-color margin-bottom-large" id="modal-success-description"></div>
+            <div class="modal-buttons">
+                <button class="modal-button send width-full height-medium border-radius-btn text-large" id="modal-got-it"></button>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="container">
+        <!-- List View -->
+        <div id="list-view">
+            <h1 id="page-title" class="margin-bottom-medium">Violations & Appeals</h1>
+            <p class="description" id="page-description">
+                Review your violations and manage your appeals. All content must adhere to 
+                <a href="https://boiby.dev/Boiby-Community-Standards" target="_blank">Boiby Community Standards</a>.
+            </p>
+
+            <!-- Violation Card (only shows if there's valid evidence) -->
+            <div class="card" id="violation-card" style="display: none;">
+                <div class="field">
+                    <h2 id="violation-title"></h2>
+                    <span class="value" id="violation-date"></span>
+                </div>
+                <button class="btn-view-more" onclick="viewDetails()">View details</button>
+            </div>
+
+            <div class="divider" id="divider"></div>
+
+            <div class="card">
+                <h2>Appeal something you don't see here</h2>
+                <span class="value">Let us know if we made a mistake.</span>
+                <button class="btn-view-more" onclick="window.location.href='/support-form'">Request appeal</button>
+            </div>
+        </div>
+
+        <!-- Detail View -->
+        <div id="detail-view">
+            <button class="btn-back" onclick="backToList()">← Back</button>
+            <h1 id="detail-title" class="margin-bottom-medium">Your content broke the rules</h1>
+            
+            <div id="main-view" class="flex flex-column">
+                <p class="description text-medium text-normal-color margin-bottom-xlarge" id="display-desc"></p>
+                <h2 class="text-xlarge text-header-color margin-bottom-medium" id="txt-why">Why this happened</h2>
+                <div class="card bg-card border-radius-card padding-large margin-bottom-2xlargeminus">
+                    <div class="field">
+                        <span class="label text-medium text-header-color margin-bottom-xsmall" id="lbl-reason-static">Reason:</span>
+                        <span class="value text-medium text-normal-color" id="display-reason"></span>
+                    </div>
+                </div>
+                <h2 class="text-xlarge text-header-color margin-bottom-medium" id="txt-activity">Activity we reviewed</h2>
+                <div class="card bg-card border-radius-card padding-large margin-bottom-medium" id="evidence-card" style="display: block;">
+                    <div id="image-preview-container" class="bg-modal border-radius-btn" style="display: none; min-width: 225px; width: 225px; height: 225px; overflow: hidden; flex-shrink: 0;">
+                        <img id="preview-image" src="" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div id="evidence-card-content" style="min-width: 0px;">
+                        <div id="evidence-list-main"></div>
+                    </div>
+                </div>
+                <div class="trace-id text-small text-muted-color padding-bottom-xlarge" id="display-trace"></div>
+                <button id="primary-action-btn" onclick="handleAppeal()" class="btn-appeal height-medium padding-medium border-radius-btn text-large" style="font-weight:600px">Send appeal</button>
+                <div class="trace-id text-small text-muted-color padding-bottom-xlarge margin-top-large" id="appeal-deadline"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+let translations = null;
+let banData = null;
+let appealSubmitted = false;
+
+async function init() {
+    // Load theme
+    const savedTheme = localStorage.getItem('themeMode') || 'light';
+    document.body.classList.toggle('light-mode', savedTheme === 'light');
+
+    // Load translations
+    try {
+        const res = await fetch('en.json');
+        translations = await res.json();
+    } catch (e) {
+        console.error("Translation load failed.");
+        translations = {};
+    }
+
+    // Apply translations to static elements
+    applyStaticTranslations();
+
+    // Load ban data from localStorage
+    const savedBanData = localStorage.getItem('banData');
+    if (savedBanData) {
+        try {
+            banData = JSON.parse(savedBanData);
+            displayViolationCard(banData);
+        } catch (e) {
+            console.error('Error parsing ban data:', e);
+        }
+    }
+
+    document.getElementById('modal-cancel').onclick = closeAppealModal;
+    document.getElementById('modal-send').onclick = sendAppeal;
+    document.getElementById('modal-got-it').onclick = closeAppealModal;
+    
+    // Handle hash navigation
+    window.addEventListener('hashchange', handleHashChange);
+    handleHashChange(); // Check on load
+}
+
+function handleHashChange() {
+    if (window.location.hash === '#details' && banData) {
+        document.getElementById('list-view').style.display = 'none';
+        document.getElementById('detail-view').style.display = 'block';
+        populateDetailView(banData);
+    } else {
+        document.getElementById('detail-view').style.display = 'none';
+        document.getElementById('list-view').style.display = 'block';
+    }
+}
+
+function t(key, vars = {}) {
+    if (!translations) return key;
+    let val = translations[key];
+    if (val === undefined || val === null) return key;
+    for (const k in vars) val = val.replace(`{{${k}}}`, vars[k]);
+    return val;
+}
+
+function applyStaticTranslations() {
+    // Page title and description
+    document.getElementById('page-title').innerText = t('Heading.ViolationsAndAppeals');
+    const communityStandardsLink = '<a href="https://boiby.dev/Boiby-Community-Standards" target="_blank">' + t('Label.BoibyCommunityStandards') + '</a>';
+    document.getElementById('page-description').innerHTML = t('Description.ViolationsAndAppeals', { BoibyCommunityStandardsLink: communityStandardsLink });
+    
+    // Detail view static text
+    document.getElementById('txt-why').innerText = t('Heading.Subheading.WhyThisHappened');
+    document.getElementById('txt-activity').innerText = t('Heading.Subheading.ActivityReviewed');
+    document.getElementById('lbl-reason-static').innerText = t('Label.Reason');
+    document.getElementById('primary-action-btn').innerText = t('Action.SendAppeal');
+    
+    // Appeal card
+    const appealCards = document.querySelectorAll('.card h2');
+    appealCards[appealCards.length - 1].innerText = t('Label.AppealSomethingYouDontSee');
+    const appealDesc = appealCards[appealCards.length - 1].nextElementSibling;
+    appealDesc.innerText = t('Label.LetUsKnow');
+    const appealBtn = appealDesc.nextElementSibling;
+    appealBtn.innerText = t('Action.RequestAppeal');
+}
+
+function displayViolationCard(data) {
+    const evidenceItems = data.evidenceItems || [];
+    
+    // Check if there are valid evidence items (not Generic or Payment)
+    const validEvidence = evidenceItems.find(item => 
+        item.type && 
+        item.type !== 'Generic' && 
+        item.type !== 'Payment' && 
+        item.type !== 'None'
+    );
+
+    if (!validEvidence) {
+        return; // Don't show violation card
+    }
+
+    // Show the violation card
+    const violationCard = document.getElementById('violation-card');
+    violationCard.style.display = 'block';
+
+    // Get the type text
+    let typeText = getTypeText(validEvidence.type);
+
+    // Set title using translation
+    const title = t('Description.Appeals.GenericDescription', { type: typeText });
+    document.getElementById('violation-title').innerText = title;
+
+    // Format and set date
+    const reviewDate = data.reviewDate ? new Date(data.reviewDate) : new Date();
+    const dateStr = formatDate(reviewDate);
+    
+    document.getElementById('violation-date').innerText = dateStr;
+}
+
+function getTypeText(type) {
+    const typeMap = {
+        'ProfilePicture': 'profile picture',
+        'VoiceChat': 'voice chat',
+        'Username': 'username',
+        'DisplayName': 'display name',
+        'AboutBio': 'about bio',
+        'SeriousChatViolation': 'chat',
+        'VoiceEvidence': 'voice chat',
+        'UGCProfileDecoration': 'UGC profile decoration',
+        'UGCProfileBanner': 'UGC profile banner',
+        'UGCProfileEffect': 'UGC profile effect'
+    };
+    
+    return typeMap[type] || type.toLowerCase();
+}
+
+function formatDate(date) {
+    const dateOptions = { month: 'long', day: 'numeric', year: 'numeric' };
+    const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
+    const dateStr = date.toLocaleDateString('en-US', dateOptions);
+    const timeStr = date.toLocaleTimeString('en-US', timeOptions);
+    return t('Label.DateTime', { dateTime: `${dateStr} ${t('Label.At')} ${timeStr}` });
+}
+
+function viewDetails() {
+    if (!banData) return;
+    window.location.hash = 'details';
+}
+
+function populateDetailView(data) {
+    const evidenceItems = data.evidenceItems || [];
+    const validEvidence = evidenceItems.find(item => 
+        item.type && 
+        item.type !== 'Generic' && 
+        item.type !== 'Payment' && 
+        item.type !== 'None'
+    );
+
+    // Set title
+    let typeText = validEvidence ? getTypeText(validEvidence.type) : 'content';
+    document.getElementById('detail-title').innerText = t('Description.Appeals.GenericDescription', { type: typeText });
+
+    // Set date
+    const reviewDate = data.reviewDate ? new Date(data.reviewDate) : new Date();
+    document.getElementById('display-desc').innerText = formatDate(reviewDate);
+
+    // Set reason
+    const reason = data.reason || 'Other';
+    document.getElementById('display-reason').innerText = t(`Label.Reason.${reason}`);
+
+    // Generate trace ID
+    const traceID = (self.crypto && self.crypto.randomUUID) ? self.crypto.randomUUID() : 'trace-' + Math.random().toString(16).slice(2);
+    document.getElementById('display-trace').innerText = traceID;
+
+    // Get violation-specific appeal status
+    const violationId = data.id || 'default';
+    const appealStatus = localStorage.getItem(`appealSubmitted_${violationId}`);
+    
+    // Add appeal timeline section if appeal was submitted
+    const txtWhy = document.getElementById('txt-why');
+    const existingAppealSection = document.getElementById('appeal-timeline-section');
+    
+    if (appealStatus && !existingAppealSection) {
+        const appealSection = document.createElement('div');
+        appealSection.id = 'appeal-timeline-section';
+        
+        const appealHeader = document.createElement('h2');
+        appealHeader.className = 'text-xlarge text-header-color margin-bottom-medium';
+        appealHeader.innerText = t('Label.AppealTimeline');
+        
+        const appealCard = document.createElement('div');
+        appealCard.className = 'card bg-card border-radius-card padding-large margin-bottom-2xlargeminus';
+        appealCard.innerHTML = `
+            <div class="field">
+                <span class="label text-medium text-header-color margin-bottom-small">${t('Heading.Appeals.Status.Received')}</span>
+                <span class="value text-medium text-normal-color">${t('Description.AppealReceived')}</span>
+            </div>
+        `;
+        
+        appealSection.appendChild(appealHeader);
+        appealSection.appendChild(appealCard);
+        
+        // Insert before "Why this happened"
+        txtWhy.parentNode.insertBefore(appealSection, txtWhy);
+    }
+    
+    // Hide appeal button if appeal was submitted
+    const appealBtn = document.getElementById('primary-action-btn');
+    if (appealStatus) {
+        appealBtn.style.display = 'none';
+    } else {
+        appealBtn.style.display = 'block';
+    }
+
+    const deadlineDate = new Date(reviewDate.getTime() + 30 * 24 * 60 * 60 * 1000);
+    const deadlineStr = formatDate(deadlineDate);
+    document.getElementById('appeal-deadline').innerText = t('Label.AppealDeadline', { dateTime: deadlineStr });
+
+    // Populate evidence
+    populateEvidence(evidenceItems, data.uploadedImage);
+}
+
+function populateEvidence(evidenceItems, uploadedImage) {
+    const list = document.getElementById('evidence-list-main');
+    list.innerHTML = '';
+
+    // Handle image preview
+    const imagePreviewContainer = document.getElementById('image-preview-container');
+    const previewImage = document.getElementById('preview-image');
+    const evidenceCard = document.getElementById('evidence-card');
+    
+    const hasImageType = evidenceItems.some(item => item.type === 'Image' || item.type === 'ProfilePicture');
+    
+    if (uploadedImage && hasImageType) {
+        imagePreviewContainer.style.display = 'block';
+        previewImage.src = uploadedImage;
+        evidenceCard.style.display = 'flex';
+        evidenceCard.style.gap = '16px';
+        evidenceCard.style.alignItems = 'flex-start';
+    } else {
+        imagePreviewContainer.style.display = 'none';
+        evidenceCard.style.display = 'block';
+        evidenceCard.style.gap = '';
+        evidenceCard.style.alignItems = '';
+    }
+
+    // Populate evidence items
+    evidenceItems.filter(i => i.type !== 'Generic').forEach((i, idx) => {
+        const mainDiv = document.createElement('div');
+        mainDiv.className = 'field';
+        mainDiv.style.marginBottom = idx === evidenceItems.length - 1 ? '0' : '12px';
+        
+        // First field
+        const d = document.createElement('div');
+        d.className = 'field';
+        
+        let label = t(`Label.${i.type}`) || i.type;
+        
+        d.innerHTML = `<span class="label">${label}:</span><span class="value">${i.val1 || t('Label.NoContent')}</span>`;
+        mainDiv.appendChild(d);
+        
+        // Second field for IDs
+        if (['Image', 'Video', 'Audio', 'Model', 'Game', 'Asset', 'Post', 'Comment', 'UGCProfileDecoration', 'UGCProfileBanner', 'UGCProfileEffect'].includes(i.type)) {
+            const idDiv = document.createElement('div');
+            idDiv.className = 'field';
+            idDiv.style.marginBottom = '0';
+            
+            let idLabel = '';
+            if (['Image', 'Video', 'Audio', 'Model', 'Asset'].includes(i.type)) {
+                idLabel = t('Label.AssetID');
+            } else if (i.type === 'Game') {
+                idLabel = t('Label.GameID');
+            } else if (i.type === 'Post') {
+                idLabel = t('Label.PostID');
+            } else if (i.type === 'Comment') {
+                idLabel = t('Label.CommentID');
+            } else if (i.type === 'UGCProfileDecoration') {
+                idLabel = t('Label.UGCProfileDecorationID');
+            } else if (i.type === 'UGCProfileBanner') {
+                idLabel = t('Label.UGCProfileBannerID');
+            } else if (i.type === 'UGCProfileEffect') {
+                idLabel = t('Label.UGCProfileEffectID');
+            }
+            
+            idDiv.innerHTML = `<span class="label">${idLabel}:</span><span class="value">${i.val2 || ''}</span>`;
+            mainDiv.appendChild(idDiv);
+        }
+        
+        // Payment ID
+        if (i.type === 'Payment') {
+            const idDiv = document.createElement('div');
+            idDiv.className = 'field';
+            idDiv.style.marginBottom = '0';
+            idDiv.innerHTML = `<span class="label">${t('Label.PaymentID')}:</span><span class="value">${i.val2 || ''}</span>`;
+            mainDiv.appendChild(idDiv);
+        }
+        
+        // Location for VoiceChat
+        if (i.type === 'VoiceChat') {
+            const locDiv = document.createElement('div');
+            locDiv.className = 'field';
+            locDiv.style.marginBottom = '0';
+            locDiv.innerHTML = `<span class="label">${t('Label.Location')}:</span><span class="value">${i.val2 || t('Label.NoContent')}</span>`;
+            mainDiv.appendChild(locDiv);
+        }
+        
+        list.appendChild(mainDiv);
+    });
+}
+
+function backToList() {
+    window.location.hash = '';
+}
+
+function handleAppeal() {
+    openAppealModal();
+}
+
+function requestAppeal() {
+    openAppealModal();
+}
+
+function openAppealModal() {
+    const modal = document.getElementById('appeal-modal');
+    const formView = document.getElementById('modal-form-view');
+    const successView = document.getElementById('modal-success-view');
+    const textarea = document.getElementById('appeal-textarea');
+    
+    formView.style.display = 'block';
+    successView.style.display = 'none';
+    textarea.value = '';
+    
+    document.getElementById('modal-header').innerText = t('Heading.Appeals.RequestAppeal');
+    document.getElementById('modal-description').innerText = t('Description.Appeals.ReviewsDetail');
+    textarea.placeholder = t('Label.Appeals.ReasonPlaceholder.V2');
+    document.getElementById('modal-cancel').innerText = t('Action.Appeals.Cancel');
+    document.getElementById('modal-send').innerText = t('Action.Appeals.Send');
+    document.getElementById('modal-subtext').innerText = t('Label.Appeals.SubtextNotice');
+    
+    modal.classList.add('active');
+}
+
+function closeAppealModal() {
+    const modal = document.getElementById('appeal-modal');
+    modal.classList.remove('active');
+}
+
+function sendAppeal() {
+    const textarea = document.getElementById('appeal-textarea');
+    const appealText = textarea.value.trim();
+    
+    const formView = document.getElementById('modal-form-view');
+    const successView = document.getElementById('modal-success-view');
+    
+    formView.style.display = 'none';
+    successView.style.display = 'block';
+    
+    document.getElementById('modal-success-header').innerText = t('Heading.Appeals.AppealReceived');
+    document.getElementById('modal-success-description').innerText = t('Description.Appeals.AppealReceived');
+    document.getElementById('modal-got-it').innerText = t('Action.Appeals.GotIt');
+    
+    const violationId = banData.id || 'default';
+    appealSubmitted = true;
+    localStorage.setItem(`appealSubmitted_${violationId}`, 'true');
+    
+    const txtWhy = document.getElementById('txt-why');
+    const existingAppealSection = document.getElementById('appeal-timeline-section');
+    
+    if (!existingAppealSection) {
+        const appealSection = document.createElement('div');
+        appealSection.id = 'appeal-timeline-section';
+        
+        const appealHeader = document.createElement('h2');
+        appealHeader.className = 'text-xlarge text-header-color margin-bottom-medium';
+        appealHeader.innerText = t('Label.AppealTimeline');
+        
+        const appealCard = document.createElement('div');
+        appealCard.className = 'card bg-card border-radius-card padding-large margin-bottom-2xlargeminus';
+        appealCard.innerHTML = `
+            <div class="field">
+                <span class="label text-medium text-header-color margin-bottom-small">${t('Heading.Appeals.Status.Received')}</span>
+                <span class="value text-medium text-normal-color">${t('Description.AppealReceived')}</span>
+            </div>
+        `;
+        
+        appealSection.appendChild(appealHeader);
+        appealSection.appendChild(appealCard);
+        
+        txtWhy.parentNode.insertBefore(appealSection, txtWhy);
+    }
+    
+    // Hide appeal button
+    document.getElementById('primary-action-btn').style.display = 'none';
+    
+    setTimeout(() => {
+        closeAppealModal();
+    }, 10000);
+}
+
+init();
+    </script>
+</body>
+</html>
