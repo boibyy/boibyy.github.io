@@ -1091,6 +1091,19 @@ select:focus-visible,
         <label class="text-xsmall text-muted-color margin-bottom-small">Enable Second Chance</label>
         <input type="checkbox" id="second-chance-checkbox" onchange="handleSecondChanceToggle()">
     </div>
+    <div id="experiment-eu-container">
+        <label class="text-xsmall text-muted-color margin-bottom-small">EU/UK Decision Field</label>
+        <input type="checkbox" id="experiment-eu-checkbox" autocomplete="off" onchange="handleEUExperimentToggle()">
+    </div>
+    <div id="eu-decision-container" style="display: none;">
+        <label class="text-xsmall text-muted-color margin-bottom-small">Automated Decision</label>
+        <select class="width-full padding-small border-radius-btn bg-card text-normal-color border-thin margin-bottom-medium" id="eu-decision-select" onchange="updateContent()">
+            <option value="Manual">Manual (no change)</option>
+            <option value="FullyAutomated">Fully automated</option>
+            <option value="AutomatedReview">Automated review</option>
+            <option value="AutomatedDetection">Automated detection</option>
+        </select>
+    </div>
     <div>
         <label class="text-xsmall text-muted-color margin-bottom-small">Evidence Type</label>
         <select class="width-full padding-small border-radius-btn bg-card text-normal-color border-thin margin-bottom-medium" id="evidence-type" onchange="handleTypeChange()">
@@ -1125,19 +1138,6 @@ select:focus-visible,
     </div>
     <div id="evidence-controls-container"></div>
     <br>
-    <div id="experiment-eu-container">
-        <label class="text-xsmall text-muted-color margin-bottom-small">EU/UK Decision Field</label>
-        <input type="checkbox" id="experiment-eu-checkbox" autocomplete="off" onchange="handleEUExperimentToggle()">
-    </div>
-    <div id="eu-decision-container" style="display: none;">
-        <label class="text-xsmall text-muted-color margin-bottom-small">Automated Decision</label>
-        <select class="width-full padding-small border-radius-btn bg-card text-normal-color border-thin margin-bottom-medium" id="eu-decision-select" onchange="updateContent()">
-            <option value="Manual">Manual (no change)</option>
-            <option value="FullyAutomated">Fully automated</option>
-            <option value="AutomatedReview">Automated review</option>
-            <option value="AutomatedDetection">Automated detection</option>
-        </select>
-    </div>
     <h2 class="text-2xlarge text-header-color margin-bottom-xsmall" style="border-top: 1px solid var(--btn-gray2); padding-top: 10px;">Experiments</h2>
     <p class="text-xsmall text-normal-color margin-bottom-small" style="margin-top: -6px!important;">These are for testing of new features or changes. Some are currently enabled by default. These may be unstable and may be in an unfinished state.</p>
     <div id="experiment-educational-container">
