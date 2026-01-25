@@ -32,11 +32,11 @@ body.dark-mode #display-desc {
             display: none!important;
         }
         :root {
-            --bg-base: #101013; --bg-modal: #191a1f; --bg-card: #272930;
-            --btn-gray: #30323a; --btn-gray-hover: #373a44; --btn-blue: #5e499c; 
-            --btn-blue-hover: #604d9b --text-header: #f2f3f5; --text-normal: #dbdee1;
+            --bg-base: #121215; --bg-modal: #191a1f; --bg-card: #272930;
+            --btn-gray: #30323a; --btn-gray-hover: #373a44; --btn-blue: #7309e4; 
+            --btn-blue-hover: #7309e4; --text-header: #f2f3f5; --text-normal: #dbdee1;
             --text-muted: #828282; --text-trace: #828282; --danger: #da373c;
-            --shadow-border: rgba(90, 90, 90, 0.33); --radius-modal: 16px;
+            --shadow-border: rgba(255, 255, 255, 0.05); --radius-modal: 16px;
             --radius-card: 10px; --radius-btn: 8px; --panel-bg: #1e1f22;
             --btn-gray2: #353841; --btn-gray-hover2: #3d3f4b;
             --warning-orange: #f0b232;
@@ -46,7 +46,7 @@ body.dark-mode #display-desc {
             --spacing-small: 5px;
             --spacing-medium: 10px;
             --spacing-large: 16px;
-            --spacing-xlarge: 21px;
+            --spacing-xlarge: 20px;
             --spacing-2xlarge: 44px;
             
             /* Font sizes */
@@ -56,7 +56,7 @@ body.dark-mode #display-desc {
             --font-large: 15px;
             --font-xlarge: 16px;
             --font-2xlarge: 18px;
-            --font-3xlarge: 21px;
+            --font-3xlarge: 20px;
             --font-4xlarge: 22px;
             --font-5xlarge: 24px;
             
@@ -70,12 +70,25 @@ body.dark-mode #display-desc {
             --border-thick: 3px;
         }
         body.light-mode {
-            --bg-base: #bbb; --bg-modal: #f7f7f8; --bg-card: #E6E7EB;
+            --bg-base: #ffffff; --bg-modal: #f7f7f8; --bg-card: #E6E7EB;
             --btn-gray: #dbdcdf; --btn-gray-hover: #cdd0d8; --text-header: #3a3a3a;
             --text-normal: #444444; --text-muted: #616872; --text-trace: #676767;
-            --shadow-border: rgba(200,200,200, 0.4); --panel-bg: #f9f9f9; 
+            --shadow-border: rgba(0, 0, 0, 0.1); --panel-bg: #f9f9f9; 
             --btn-gray2: #cdcfd7; --btn-gray-hover2: #c0c2c7;
             --warning-orange: #d49a1f; 
+        }
+
+        .page-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* 50% transparent black overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
         }
 
         /* Utility Classes */
@@ -91,7 +104,7 @@ body.dark-mode #display-desc {
         .margin-medium { margin: var(--spacing-medium); }
         .margin-bottom-xsmall { margin-bottom: var(--spacing-xsmall); }
         .margin-bottom-small { margin-bottom: var(--spacing-small); }
-        .margin-bottom-medium { margin-bottom: var(--spacing-medium); }
+        .margin-bottom-medium { margin-bottom: 12px; }
         .margin-bottom-large { margin-bottom: var(--spacing-large); }
         .margin-bottom-xlarge { margin-bottom: var(--spacing-xlarge); }
         .margin-bottom-2xlarge { margin-bottom: var(--spacing-2xlarge); }
@@ -122,7 +135,9 @@ body.dark-mode #display-desc {
         
         .text-normal-color { color: var(--text-normal); }
         .text-muted-color { color: var(--text-muted); }
-        .text-header-color { color: var(--text-header); }
+        .light-mode .text-header-color { color: var(--text-header); }
+
+        .dark-mode .text-header-color { color: var(--text-header); }
         
         .bg-card { background: var(--bg-card); }
         .bg-modal { background: var(--bg-modal); }
@@ -139,13 +154,13 @@ body.dark-mode #display-desc {
         .border-radius-modal { border-radius: var(--radius-modal); }
         
         .button-emphasis {
-            background: #5E499C;
+            background: #7309e4;
             color: #eeeeee;
             border: none;
         }
         
         .button-soft-emphasis {
-            background: rgba(96, 51, 255, 0.3);
+            background: rgba(117, 25, 230, 0.5);
             color: #111;
             border: none;
         }
@@ -172,13 +187,14 @@ body.dark-mode #display-desc {
     max-height: 800px;
     background: var(--bg-modal); 
     border-radius: var(--radius-modal); 
-    box-sizing: border-box; 
+    box-sizing: border-box!important; 
     display: flex; 
     flex-direction: column; 
     justify-content: space-between;
     position: relative; 
-    box-shadow: 0 0 0 1px var(--shadow-border), 0 10px 10px rgba(0, 0, 0, 0.35); 
-    overflow-y: auto; 
+    box-shadow: 0 0 0 1px var(--shadow-border), 0 12px 12px rgba(0, 0, 0, 0.5); 
+    overflow-y: auto;
+    border: 0.5px solid var(--shadow-border)
 }
 @media (max-width:550px) {
     .container { 
@@ -293,7 +309,7 @@ body.dark-mode #display-desc {
         
         .progress-bar-fill {
             height: 100%;
-            background: #5E499C;
+            background: #7309e4;
             transition: width 0.3s ease;
             width: 0%;
             border-radius: 10px;
@@ -308,7 +324,7 @@ body.dark-mode #display-desc {
         }
 
         body.light-mode .container {
-            box-shadow: 0 0 0 1px var(--shadow-border), 0 8px 10px rgba(170, 170, 170, 0.35); 
+            box-shadow: 0 0 0 0 var(--shadow-border), 0 12px 12px rgba(0, 0, 0, 0.1); 
         }
 
         #main-view, #rules-view, #policy-view {
@@ -333,12 +349,13 @@ body.dark-mode #display-desc {
         .btn-view-more, .btn-report-inner {
             font-size: var(--font-small) !important;
         }
+        
 
         #footer-main-buttons, #footer-rules-buttons {
             margin-bottom: 1px
         }
-        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; margin-top: 4px}
-        .title-group { display: flex; align-items: center; gap: 12px; }
+        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1px; margin-top: 6px}
+        .title-group { display: flex; align-items: center; gap: 10px; }
         .icon-container { width: 22px; height: 22px; position: relative; display: flex; align-items: center; justify-content: center; }
         .ban-icon { width: 22px; height: 22px; border: 2px solid var(--danger); border-radius: 50%; box-sizing: border-box; position: relative; }
         .ban-icon::after { content: ''; position: absolute; width: 2px; height: 100%; background: var(--danger); top: 0; left: 50%; transform: translateX(-50%) rotate(45deg); }
@@ -359,6 +376,14 @@ body.dark-mode #display-desc {
         #evidence-overflow { display: none; }
         #policy-why-card { padding: 14px; margin-top: 0px; margin-bottom: 10px; }
         #policy-why-card .value { margin: 0; }
+
+        #policy-view-1.active ~ .header-section,
+        #policy-view-2.active ~ .header-section,
+        #rules-view.active ~ .header-section,
+        #second-chance-view-1.active ~ .header-section,
+        #second-chance-view-2.active ~ .header-section {
+            display: none;
+        }
 
         /* HOVERS */
         .btn-view-more:hover, 
@@ -438,7 +463,7 @@ body.dark-mode #display-desc {
         }
 
         input[type="checkbox"]:checked {
-            background-color: #5E499C!important;
+            background-color: #7309e4!important;
             border: none!important;
         }
 
@@ -540,7 +565,7 @@ body.dark-mode #display-desc {
         }
 
         .modal-button.send {
-            background: #5E499C;
+            background: #7309e4;
             color: #ffffff;
         }
 
@@ -833,6 +858,45 @@ body.loaded .skeleton-loading::after {
 #txt-why.skeleton-loading {
     width: 45%;
 }
+
+/* Focus Utility Classes */
+.focus-visible-ring:focus-visible {
+    outline: 2px solid #7309e4;
+    outline-offset: 2px;
+}
+
+.focus-visible-ring-inset:focus-visible {
+    outline: 2px solid #7309e4;
+    outline-offset: -2px;
+}
+
+.focus-visible-none:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Remove default focus styles */
+button:focus,
+input:focus,
+textarea:focus,
+select:focus,
+[tabindex]:focus {
+    outline: none;
+}
+
+/* Apply focus-visible styles */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+.focusable:focus-visible {
+    outline: 2px solid #7309e4;
+    outline-offset: 2px;
+}
+
+.page-wrapper:focus-visible {
+    outline: 2px solid #7309e4;
+    outline-offset: -2px;
+}
     </style>
 </head>
 <body id="main-body">
@@ -1054,6 +1118,13 @@ body.loaded .skeleton-loading::after {
         </select>
         <button id="add-btn" class="btn-view-more width-full height-medium bg-gray text-header-color border-radius-btn text-small" onclick="addEvidenceItem()" style="display: none;">+ Add Item</button>
     </div>
+    <div id="image-upload-container" style="display: none;">
+        <label class="text-xsmall text-muted-color margin-bottom-small">Upload Image</label>
+        <input type="file" class="width-full padding-small border-radius-btn bg-card text-normal-color border-thin" id="image-upload-input" accept="image/*" onchange="handleImageUpload(event)">
+        <button class="btn-view-more width-full height-medium bg-gray text-header-color border-radius-btn text-small margin-top-small" onclick="clearImagePreview()" id="clear-image-btn" style="display: none;">Clear Image</button>
+    </div>
+    <div id="evidence-controls-container"></div>
+    <br>
     <div id="experiment-eu-container">
         <label class="text-xsmall text-muted-color margin-bottom-small">EU/UK Decision Field</label>
         <input type="checkbox" id="experiment-eu-checkbox" autocomplete="off" onchange="handleEUExperimentToggle()">
@@ -1067,7 +1138,6 @@ body.loaded .skeleton-loading::after {
             <option value="AutomatedDetection">Automated detection</option>
         </select>
     </div>
-    <div id="evidence-controls-container"></div>
     <h2 class="text-2xlarge text-header-color margin-bottom-xsmall" style="border-top: 1px solid var(--btn-gray2); padding-top: 10px;">Experiments</h2>
     <p class="text-xsmall text-normal-color margin-bottom-small" style="margin-top: -6px!important;">These are for testing of new features or changes. Some are currently enabled by default. These may be unstable and may be in an unfinished state.</p>
     <div id="experiment-educational-container">
@@ -1086,11 +1156,6 @@ body.loaded .skeleton-loading::after {
         <label class="text-xsmall text-muted-color margin-bottom-small">Enable change to "Send appeal"</label>
         <input type="checkbox" id="experiment-send-appeal-checkbox" autocomplete="off" onchange="handleSendAppealToggle()">
     </div>
-    <div id="image-upload-container" style="display: none;">
-        <label class="text-xsmall text-muted-color margin-bottom-small">Upload Image</label>
-        <input type="file" class="width-full padding-small border-radius-btn bg-card text-normal-color border-thin" id="image-upload-input" accept="image/*" onchange="handleImageUpload(event)">
-        <button class="btn-view-more width-full height-medium bg-gray text-header-color border-radius-btn text-small margin-top-small" onclick="clearImagePreview()" id="clear-image-btn" style="display: none;">Clear Image</button>
-    </div>
     <div style="border-top: 1px solid var(--btn-gray2); padding-top: 10px;">
     <button class="btn-logout width-full" onclick="handleClearData()">
     Clear Saved Data
@@ -1099,123 +1164,130 @@ body.loaded .skeleton-loading::after {
     <div style="height: 50px; flex-shrink: 0;"></div>
 </aside>
 
-<div class="container flex flex-column" id="main-container">
-        <button class="btn-back-arrow margin-bottom-2xlarge" id="btn-back-arrow" onclick="handleBackNavigation()">‹</button>
-    <div class="progress-bar-container" id="progress-bar-container">
-        <div class="progress-bar-fill" id="progress-bar-fill"></div>
-    </div>
-    
-    <div class="scrollable-body flex-1 padding-large">
-        <div id="main-view" class="flex flex-column">
-            <div class="header flex margin-bottom-large margin-top-xsmall">
-                <div class="title-group flex gap-medium skeleton-loading">
-                    <div class="icon-container skeleton-loading" id="icon-holder">
-                        <div class="ban-icon"></div>
-                    </div>
-                    <h1 class="text-header-color text-3xlarge " id="display-duration-title">Banned</h1>
-                </div>
-                <div class="dots text-header-color text-2xlarge skeleton-loading" id="dots-trigger">⋮
-                    <div class="dots-menu bg-modal border-thin border-radius-card" id="dots-menu">
-                        <div class="dots-menu-item text-xlarge text-normal-color padding-medium" id="logout-menu-item">Log out</div>
-                    </div>
-                </div>
-            </div>
-            <p class="description text-medium text-normal-color margin-bottom-xlarge skeleton-loading" id="display-desc"></p>
-            <h2 class="text-xlarge text-header-color margin-bottom-medium skeleton-loading" id="txt-why"></h2>
-            <div class="card bg-card border-radius-card padding-large margin-bottom-2xlarge border-thin skeleton-loading">
-                <div class="field margin-bottom-medium">
-                    <span class="label text-medium text-header-color margin-bottom-xsmall" id="lbl-reason-static"></span>
-                    <span class="value text-medium text-normal-color" id="display-reason">Other</span>
-                </div>
-                <div class="field">
-                    <span class="label text-medium text-header-color margin-bottom-xsmall" id="lbl-details-static"></span>
-                    <span class="value text-medium text-normal-color" id="display-note"></span>
-                </div>
-            </div>
-            <h2 class="text-xlarge text-header-color margin-bottom-medium skeleton-loading" id="txt-activity"></h2>
-            <div class="card bg-card border-radius-card padding-large margin-bottom-2xlarge border-thin skeleton-loading" id="evidence-card">
-                <div id="image-preview-container" class="bg-modal border-radius-btn" style="display: none; min-width: 225px; width: 225px; height: 225px; overflow: hidden; flex-shrink: 0;">
-                    <img id="preview-image" src="" style="width: 100%; height: 100%; object-fit: contain;">
-                </div>
-                <div id="evidence-card-content" style="flex: 1; min-width: 0;">
-                    <div id="evidence-list-main"></div>
-                    <div id="evidence-divider" class="border-thin margin-top-medium margin-bottom-medium" style="display:none;"></div>
-                    <div class="field margin-bottom-medium">
-                        <span class="label text-medium text-header-color margin-bottom-xsmall" id="lbl-date-static"></span>
-                        <span class="value text-medium text-normal-color" id="display-date"></span>
-                    </div>
-                    <div id="evidence-overflow"></div>
-                    <button class="btn-view-more width-full height-medium bg-gray2 text-header-color border-radius-btn text-small margin-top-small" id="view-more-btn" onclick="toggleEvidence()">View details</button>
-                    
-                    <div id="next-section-main" style="display: none;">
-                        <div class="field margin-top-large">
-                            <span class="label lbl-mistake-static text-medium text-header-color margin-bottom-xsmall"></span>
-                            <span class="value txt-mistake-appeal text-medium text-normal-color"></span>
+<div class="page-wrapper width-full cover" tabindex="-1">
+    <div class="container flex flex-column focusable focus-visible-ring-inset" tabindex="0" id="main-container">
+            <button class="btn-back-arrow margin-bottom-2xlarge" id="btn-back-arrow" onclick="handleBackNavigation()">‹</button>
+        <div class="progress-bar-container" id="progress-bar-container">
+            <div class="progress-bar-fill" id="progress-bar-fill"></div>
+        </div>
+
+        <div class="header-section" style="padding: 20px; padding-bottom: 0; flex-shrink: 0;">
+            <div id="main-view-header">
+                <div class="header flex margin-bottom-large margin-top-xsmall">
+                    <div class="title-group flex gap-medium skeleton-loading" tabindex="-1">
+                        <div class="icon-container skeleton-loading" id="icon-holder" tabindex="0">
+                            <div class="ban-icon"></div>
                         </div>
-                        <button class="btn-view-more btn-report-inner width-full height-medium bg-gray text-header-color border-radius-btn text-small margin-top-small" onclick="reportMistakeClicked(event)">Report a mistake</button>
+                        <h1 class="text-header-color text-3xlarge" id="display-duration-title" tabindex="-1">Banned</h1>
+                    </div>
+                    <div class="dots text-header-color text-2xlarge skeleton-loading focusable" id="dots-trigger" tabindex="0">⋮
+                        <div class="dots-menu bg-modal border-thin border-radius-card" id="dots-menu">
+                            <div class="dots-menu-item text-xlarge text-normal-color padding-medium" id="logout-menu-item" tabindex="0">Log out</div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="trace-id text-small text-muted-color padding-bottom-xlarge skeleton-loading" id="display-trace" style="margin-top: -14px;"></div>
         </div>
+        
+        <div class="scrollable-body flex-1 padding-large">
+            <div id="main-view" class="flex flex-column">
+                <p class="description text-medium text-normal-color margin-bottom-xlarge skeleton-loading" id="display-desc"></p>
+                <h2 class="text-xlarge text-header-color margin-bottom-medium skeleton-loading" id="txt-why"></h2>
+                <div class="card bg-card border-radius-card padding-large margin-bottom-2xlarge border-thin skeleton-loading">
+                    <div class="field margin-bottom-medium">
+                        <span class="label text-medium text-header-color margin-bottom-xsmall" id="lbl-reason-static"></span>
+                        <span class="value text-medium text-normal-color" id="display-reason">Other</span>
+                    </div>
+                    <div class="field">
+                        <span class="label text-medium text-header-color margin-bottom-xsmall" id="lbl-details-static"></span>
+                        <span class="value text-medium text-normal-color" id="display-note"></span>
+                    </div>
+                </div>
+                <h2 class="text-xlarge text-header-color margin-bottom-medium skeleton-loading" id="txt-activity"></h2>
+                <div class="card bg-card border-radius-card padding-large margin-bottom-2xlarge border-thin skeleton-loading" id="evidence-card">
+                    <div id="image-preview-container" class="bg-modal border-radius-btn" style="display: none; min-width: 225px; width: 225px; height: 225px; overflow: hidden; flex-shrink: 0;">
+                        <img id="preview-image" src="" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div id="evidence-card-content" style="flex: 1; min-width: 0;">
+                        <div id="evidence-list-main"></div>
+                        <div id="evidence-divider" class="border-thin margin-top-medium margin-bottom-medium" style="display:none;"></div>
+                        <div class="field margin-bottom-medium">
+                            <span class="label text-medium text-header-color margin-bottom-xsmall" id="lbl-date-static"></span>
+                            <span class="value text-medium text-normal-color" id="display-date"></span>
+                        </div>
+                        <div id="evidence-overflow"></div>
+                        <button class="btn-view-more width-full height-medium bg-gray2 text-header-color border-radius-btn text-small margin-top-small focus-visible-ring" id="view-more-btn" onclick="toggleEvidence()">View details</button>
+                        
+                        <div id="next-section-main" style="display: none;">
+                            <div class="field margin-top-large">
+                                <span class="label lbl-mistake-static text-medium text-header-color margin-bottom-xsmall"></span>
+                                <span class="value txt-mistake-appeal text-medium text-normal-color"></span>
+                            </div>
+                            <button class="btn-view-more btn-report-inner width-full height-medium bg-gray text-header-color border-radius-btn text-small margin-top-small focus-visible-ring" onclick="reportMistakeClicked(event)">Report a mistake</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="trace-id text-small text-muted-color padding-bottom-xlarge skeleton-loading" id="display-trace" style="margin-top: -14px;"></div>
+            </div>
 
-        <div id="second-chance-view-1" class="flex flex-column" style="display: none;">
-            <h1 class="text-5xlarge text-header-color margin-bottom-small margin-top-medium" id="second-chance-title-1"></h1>
-            <h2 class="text-large text-header-color margin-bottom-medium margin-top-xsmall" id="second-chance-header-1"></h2>
-            <span class="value text-large text-normal-color" id="second-chance-description-1" style="white-space: pre-wrap;"></span>
-        </div>
+            <div id="second-chance-view-1" class="flex flex-column" style="display: none;">
+                <h1 class="text-5xlarge text-header-color margin-bottom-small margin-top-medium" id="second-chance-title-1"></h1>
+                <h2 class="text-large text-header-color margin-bottom-medium margin-top-xsmall" id="second-chance-header-1"></h2>
+                <span class="value text-large text-normal-color" id="second-chance-description-1" style="white-space: pre-wrap;"></span>
+            </div>
 
-        <div id="policy-view-1" class="flex flex-column" style="display: none;">
-            <h1 class="text-5xlarge text-header-color margin-bottom-small margin-top-medium" id="policy-header-title-1"></h1>
-            <h2 class="text-xlarge text-header-color margin-bottom-medium" id="policy-violated-header"></h2>
-            <span class="value text-large text-normal-color" id="display-policy-description" style="white-space: pre-wrap;"></span>
-            <div class="margin-top-medium">
-                <button class="btn-view-more width-full height-medium bg-gray text-header-color border-radius-btn text-small" id="policy-learn-more-btn-1">Learn more</button>
+            <div id="policy-view-1" class="flex flex-column" style="display: none;">
+                <h1 class="text-5xlarge text-header-color margin-bottom-small margin-top-medium" id="policy-header-title-1"></h1>
+                <h2 class="text-xlarge text-header-color margin-bottom-medium" id="policy-violated-header"></h2>
+                <span class="value text-large text-normal-color" id="display-policy-description" style="white-space: pre-wrap;"></span>
+                <div class="margin-top-medium">
+                    <button class="btn-view-more width-full height-medium bg-gray text-header-color border-radius-btn text-small focus-visible-ring" id="policy-learn-more-btn-1">Learn more</button>
+                </div>
+            </div>
+
+            <div id="policy-view-2" class="flex flex-column" style="display: none;">
+                <h1 class="text-5xlarge text-header-color margin-bottom-small margin-top-medium" id="policy-header-title-2"></h1>
+                <span class="value text-large text-normal-color" id="display-policy-importance" style="white-space: pre-wrap;"></span>
+            </div>
+
+            <div id="rules-view" class="flex flex-column" style="display: none;">
+                <h1 class="text-5xlarge text-header-color margin-bottom-small margin-top-medium" id="rules-header-title"></h1>
+                <span class="value text-large text-normal-color" id="rules-description" style="white-space: pre-wrap;"></span>
+                <div class="margin-top-small">
+                    <button class="btn-view-more width-full height-medium bg-gray text-header-color border-radius-btn text-small focus-visible-ring" id="btn-view-rules-inner">View rules</button>
+                </div>
+                <span class="value text-large text-normal-color margin-top-2xlarge" id="rules-mistake-text" style="white-space: pre-wrap;"></span>
+                <div class="margin-top-small">
+                    <button class="btn-view-more width-full height-medium bg-gray text-header-color border-radius-btn text-small focus-visible-ring" id="btn-report-mistake-rules">Report a mistake</button>
+                </div>
+            </div>
+
+            <div id="second-chance-view-2" class="flex flex-column" style="display: none;">
+                <h1 class="text-5xlarge text-header-color margin-bottom-small margin-top-medium" id="second-chance-title-2"></h1>
+                <span class="value text-large text-normal-color" id="second-chance-description-2" style="white-space: pre-wrap;"></span>
             </div>
         </div>
 
-        <div id="policy-view-2" class="flex flex-column" style="display: none;">
-            <h1 class="text-5xlarge text-header-color margin-bottom-small margin-top-medium" id="policy-header-title-2"></h1>
-            <span class="value text-large text-normal-color" id="display-policy-importance" style="white-space: pre-wrap;"></span>
-        </div>
-
-        <div id="rules-view" class="flex flex-column" style="display: none;">
-            <h1 class="text-5xlarge text-header-color margin-bottom-small margin-top-medium" id="rules-header-title"></h1>
-            <span class="value text-large text-normal-color" id="rules-description" style="white-space: pre-wrap;"></span>
-            <div class="margin-top-small">
-                <button class="btn-view-more width-full height-medium bg-gray text-header-color border-radius-btn text-small" id="btn-view-rules-inner">View rules</button>
+        <div class="footer flex padding-large">
+            <div id="footer-main-buttons" class="flex width-full" style="justify-content: flex-end;">
+                <button 
+                    class="btn-report primary-action-btn-2 height-medium padding-medium border-radius-btn text-large button-soft-emphasis skeleton-loading focus-visible-ring" 
+                    id="primary-action-btn"
+                    onclick="handlePrimaryClick()" 
+                    style="transition: 0.2s;"
+                >
+                    Report a mistake
+                </button>
             </div>
-            <span class="value text-large text-normal-color margin-top-2xlarge" id="rules-mistake-text" style="white-space: pre-wrap;"></span>
-            <div class="margin-top-small">
-                <button class="btn-view-more width-full height-medium bg-gray text-header-color border-radius-btn text-small" id="btn-report-mistake-rules">Report a mistake</button>
+            <div id="footer-rules-buttons" class="flex width-full" style="display: none; justify-content: space-between; align-items: center;">
+                <div class="agree-section flex gap-medium flex-1" style="align-items:center;">
+                    <label class="flex gap-small text-medium text-normal-color" style="align-items:center; cursor:pointer;">
+                        <input type="checkbox" id="agree-checkbox" class="focus-visible-ring" onchange="toggleContinueBtn()"> 
+                        <span id="lbl-agree">Check to confirm you understand.</span>
+                    </label>
+                </div>
+                <button class="btn-report height-medium padding-medium border-radius-btn text-large focus-visible-ring" id="final-continue-btn" onclick="handleContinueClick()" disabled style="opacity:0.5; cursor:not-allowed;">Continue</button>
             </div>
-        </div>
-
-        <div id="second-chance-view-2" class="flex flex-column" style="display: none;">
-            <h1 class="text-5xlarge text-header-color margin-bottom-small margin-top-medium" id="second-chance-title-2"></h1>
-            <span class="value text-large text-normal-color" id="second-chance-description-2" style="white-space: pre-wrap;"></span>
-        </div>
-    </div>
-
-    <div class="footer flex padding-large">
-        <div id="footer-main-buttons" class="flex width-full" style="justify-content: flex-end;">
-            <button 
-                class="btn-report primary-action-btn-2 height-medium padding-medium border-radius-btn text-large button-soft-emphasis skeleton-loading" 
-                id="primary-action-btn"
-                onclick="handlePrimaryClick()" 
-                style="transition: 0.2s;"
-            >
-                Report a mistake
-            </button>
-        </div>
-        <div id="footer-rules-buttons" class="flex width-full" style="display: none; justify-content: space-between; align-items: center;">
-            <div class="agree-section flex gap-medium flex-1" style="align-items:center;">
-                <label class="flex gap-small text-medium text-normal-color" style="align-items:center; cursor:pointer;">
-                    <input type="checkbox" id="agree-checkbox" onchange="toggleContinueBtn()"> 
-                    <span id="lbl-agree">Check to confirm you understand.</span>
-                </label>
-            </div>
-            <button class="btn-report height-medium padding-medium border-radius-btn text-large" id="final-continue-btn" onclick="handleContinueClick()" disabled style="opacity:0.5; cursor:not-allowed;">Continue</button>
         </div>
     </div>
 </div>
@@ -1289,6 +1361,32 @@ body.loaded .skeleton-loading::after {
     };
 
     let isInitializing = true;
+
+document.getElementById('dots-trigger').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        document.getElementById('dots-menu').classList.toggle('active');
+    }
+});
+
+document.getElementById('main-container').addEventListener('keydown', function(e) {
+    if (e.key === 'Tab') {
+        const focusableElements = document.querySelectorAll(
+            'button:not([disabled]), a[href], input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey && document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+        } else if (!e.shiftKey && document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+        }
+    }
+});
+
     async function init() {
 
         // Load saved theme
@@ -2067,7 +2165,7 @@ body.loaded .skeleton-loading::after {
             if(descEl) descEl.innerText = t('Description.BrokeRulesBanned');
             if(mainBtn) {
                 mainBtn.innerText = t('Action.ReportMistake');
-                mainBtn.style = `color: ${isLight ? "#111" : "#eee"}; background: rgba(96, 51, 255, 0.3); border: none; cursor: pointer;`;
+                mainBtn.style = `color: ${isLight ? "#111" : "#eee"}; background: rgba(117, 25, 230, 0.33); border: none; cursor: pointer;`;
                 mainBtn.disabled = false;
                 mainBtn.style.pointerEvents = 'auto';
                 mainBtn.removeAttribute('aria-disabled');
@@ -2152,7 +2250,7 @@ body.loaded .skeleton-loading::after {
             if(mainBtn) {
                 document.getElementById('next-section-main').style.display = 'none';
                 mainBtn.innerText = t('Action.Continue');
-                mainBtn.style = "background: #5E499C; color: #eeeeee; border: none;";
+                mainBtn.style = "background: #7309e4; color: #eeeeee; border: none;";
                 try {
                     mainBtn.disabled = false;
                     mainBtn.style.pointerEvents = 'auto';
@@ -2607,6 +2705,9 @@ function renderEvidenceControls() {
 
     function goToSecondChanceStep1() {
         currentStep = 2;
+
+        const headerSection = document.querySelector('.header-section');
+        if (headerSection) headerSection.style.display = 'none';
         
         document.getElementById('main-view').style.display = 'none';
         document.getElementById('policy-view-1').style.display = 'none';
@@ -2635,7 +2736,7 @@ function renderEvidenceControls() {
         if (finalBtn) {
             finalBtn.disabled = false;
             finalBtn.innerText = t('Action.Continue');
-            finalBtn.style.background = '#5E499C'; 
+            finalBtn.style.background = '#7309e4'; 
             finalBtn.style.border = 'none'; 
             finalBtn.style.color = '#ffffff'; 
             finalBtn.style.cursor = 'pointer'; 
@@ -2651,6 +2752,9 @@ function renderEvidenceControls() {
 
     function goToSecondChanceStep2() {
         currentStep = 7;
+
+        const headerSection = document.querySelector('.header-section');
+        if (headerSection) headerSection.style.display = 'none';
         
         document.getElementById('main-view').style.display = 'none';
         document.getElementById('policy-view-1').style.display = 'none';
@@ -2684,7 +2788,7 @@ function renderEvidenceControls() {
         if (agreeWrap) agreeWrap.style.display = 'flex';
         if (finalBtn) {
             finalBtn.disabled = true;
-            finalBtn.style.background = '#5E499C';
+            finalBtn.style.background = '#7309e4';
             finalBtn.style.color = '#ffffff';
             finalBtn.style.border = 'none';
             finalBtn.innerText = t('Action.Continue');
@@ -2701,6 +2805,8 @@ function renderEvidenceControls() {
     function goToPolicyStep1() {
         const dur = document.getElementById('duration-select')?.value;
         const isSuspension = dur.startsWith('Suspended');
+        const headerSection = document.querySelector('.header-section');
+        if (headerSection) headerSection.style.display = 'none';
         
         currentStep = secondChanceEnabled && isSuspension ? 3 : 2;
         const reason = document.getElementById('reason-select')?.value;
@@ -2757,7 +2863,7 @@ function renderEvidenceControls() {
         if (finalBtn) {
             finalBtn.disabled = false;
             finalBtn.innerText = t('Action.Continue');
-            finalBtn.style.background = '#5E499C'; 
+            finalBtn.style.background = '#7309e4'; 
             finalBtn.style.border = 'none'; 
             finalBtn.style.color = '#ffffff'; 
             finalBtn.style.cursor = 'pointer'; 
@@ -2775,6 +2881,8 @@ function renderEvidenceControls() {
     function goToPolicyStep2() {
         const dur = document.getElementById('duration-select')?.value;
         const isSuspension = dur.startsWith('Suspended');
+        const headerSection = document.querySelector('.header-section');
+        if (headerSection) headerSection.style.display = 'none';
         
         currentStep = secondChanceEnabled && isSuspension ? 4 : 3;
         const reason = document.getElementById('reason-select')?.value;
@@ -2812,7 +2920,7 @@ function renderEvidenceControls() {
         if (finalBtn) {
             finalBtn.disabled = false;
             finalBtn.innerText = t('Action.Continue');
-            finalBtn.style.background = '#5E499C'; 
+            finalBtn.style.background = '#7309e4'; 
             finalBtn.style.border = 'none'; 
             finalBtn.style.color = '#ffffff'; 
             finalBtn.style.cursor = 'pointer'; 
@@ -2830,6 +2938,8 @@ function renderEvidenceControls() {
     function goToRulesStep() {
         const dur = document.getElementById('duration-select')?.value;
         const reason = document.getElementById('reason-select')?.value;
+        const headerSection = document.querySelector('.header-section');
+        if (headerSection) headerSection.style.display = 'none';
         const isSuspension = dur.startsWith('Suspended');
         const hasPolicy = policyMap[reason];
         const rulesHeaderTitle = document.getElementById('rules-header-title');
@@ -2902,7 +3012,7 @@ function renderEvidenceControls() {
                     if (agreeWrap) agreeWrap.style.display = 'flex';
                     if (finalBtn) {
                         finalBtn.disabled = true;
-                        finalBtn.style.background = '#5E499C';
+                        finalBtn.style.background = '#7309e4';
                         finalBtn.style.color = '#ffffff';
                         finalBtn.style.border = 'none';
                         finalBtn.innerText = t('Action.Continue');
@@ -2976,7 +3086,7 @@ function renderEvidenceControls() {
                         continueBtn.className = 'btn-report';
                         continueBtn.disabled = true;
                         continueBtn.innerText = t('Action.Continue');
-                        continueBtn.style.background = '#5E499C';
+                        continueBtn.style.background = '#7309e4';
                         continueBtn.style.color = '#ffffff';
                         continueBtn.style.border = 'none';
                         continueBtn.style.opacity = '0.5';
@@ -3037,7 +3147,7 @@ function renderEvidenceControls() {
             if (agreeWrap) agreeWrap.style.display = 'flex';
             if (finalBtn) {
                 finalBtn.disabled = true;
-                finalBtn.style.background = '#5E499C';
+                finalBtn.style.background = '#7309e4';
                 finalBtn.style.color = '#ffffff';
                 finalBtn.style.border = 'none';
                 finalBtn.innerText = t('Action.Continue');
@@ -3054,6 +3164,8 @@ function renderEvidenceControls() {
 
     function resetToMain() {
         currentStep = 1;
+        const headerSection = document.querySelector('.header-section');
+        if (headerSection) headerSection.style.display = 'block';
         document.getElementById('policy-view-1').style.display = 'none';
         document.getElementById('policy-view-2').style.display = 'none';
         document.getElementById('rules-view').style.display = 'none';
