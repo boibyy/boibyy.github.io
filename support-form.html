@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {transition: opacity ease-in 0.2s; } 
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Support Form - Boiby</title>
+    <style>
+        * {
+            font-family: "Public Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
+
+        :root {
+            --bg-base: #121215;
+            --bg-modal: #191a1f;
+            --bg-card: #272930;
+            --btn-gray: #30323a;
+            --btn-gray-hover: #373a44;
+            --btn-blue: #5e499c;
+            --btn-blue-hover: #604d9b;
+            --text-header: #f2f3f5;
+            --text-normal: #dbdee1;
+            --text-muted: #828282;
+            --text-trace: #828282;
+            --danger: #da373c;
+            --shadow-border: rgba(255, 255, 255, 0.05);
+            --radius-card: 10px;
+            --radius-btn: 8px;
+            --btn-gray2: #353841;
+            --btn-gray-hover2: #3d3f4b;
+            --input-bg: #1e1f24;
+            --input-border: rgba(255, 255, 255, 0.1);
+            
+            --spacing-xsmall: 2px;
+            --spacing-small: 5px;
+            --spacing-medium: 10px;
+            --spacing-large: 16px;
+            --spacing-xlarge: 20px;
+            --spacing-2xlargeminus: 36px;
+            --spacing-2xlarge: 44px;
+            
+            --font-xsmall: 12px;
+            --font-small: 13px;
+            --font-medium: 14px;
+            --font-large: 15px;
+            --font-xlarge: 16px;
+            --font-2xlarge: 18px;
+            --font-3xlarge: 20px;
+            --font-4xlarge: 22px;
+            --font-5xlarge: 24px;
+            
+            --height-medium: 40px;
+        }
+
+        body.light-mode {
+            --bg-base: #ffffff;
+            --bg-modal: #f7f7f8;
+            --bg-card: #E6E7EB;
+            --btn-gray: #dbdcdf;
+            --btn-gray-hover: #cdd0d8;
+            --text-header: #3a3a3a;
+            --text-normal: #444444;
+            --text-muted: #616872;
+            --text-trace: #676767;
+            --shadow-border: rgba(0, 0, 0, 0.1);
+            --btn-gray2: #cdcfd7;
+            --btn-gray-hover2: #c0c2c7;
+            --input-bg: #ffffff;
+            --input-border: rgba(0, 0, 0, 0.2);
+        }
+
+        body {
+            margin: 0;
+            padding: 60px 0 40px 0;
+            background: var(--bg-base);
+            color: var(--text-normal);
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: var(--text-header);
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            font-size: var(--font-xlarge);
+            font-weight: 700;
+            color: var(--text-header);
+            margin: 0 0 16px 0;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-card);
+            padding: 20px;
+            margin-bottom: 21px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            font-size: var(--font-medium);
+            color: var(--text-header);
+            margin-bottom: 8px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: var(--radius-btn);
+            color: var(--text-normal);
+            font-size: var(--font-medium);
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--btn-blue);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23dbdee1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 36px;
+            cursor: pointer;
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--btn-gray2);
+            color: var(--text-header);
+            border: none;
+            padding: 12px 0;
+            border-radius: var(--radius-btn);
+            font-size: var(--font-large);
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--btn-gray-hover2);
+        }
+
+        .section-title {
+            font-size: var(--font-xlarge);
+            font-weight: 700;
+            color: var(--text-header);
+            margin-bottom: 16px;
+        }
+
+        .success-message {
+            display: none;
+            background: var(--bg-card);
+            border-radius: var(--radius-card);
+            padding: 32px 20px;
+            text-align: center;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .success-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .success-title {
+            font-size: var(--font-3xlarge);
+            font-weight: 700;
+            color: var(--text-header);
+            margin-bottom: 12px;
+        }
+
+        .success-description {
+            font-size: var(--font-medium);
+            color: var(--text-normal);
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .btn-done {
+            display: inline-block;
+            background: var(--btn-blue);
+            color: #ffffff;
+            border: none;
+            padding: 10px 32px;
+            border-radius: var(--radius-btn);
+            font-size: var(--font-large);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            font-family: inherit;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-done:hover {
+            opacity: 0.9;
+        }
+
+        h2 {
+            font-size: 20px!important;
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <div class="container">
+        <h1 id="page-title" style="font-size:32px">Support Form</h1>
+
+        <div id="form-view">
+            <!-- Contact Information -->
+            <div class="card">
+                <h2 class="section-title" id="section-contact">Contact Information</h2>
+                
+                <div class="form-group">
+                    <label class="form-label" id="lbl-username">Username (optional)</label>
+                    <input type="text" class="form-input" id="input-username" placeholder="Username">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="lbl-firstname">First Name (optional)</label>
+                    <input type="text" class="form-input" id="input-firstname" placeholder="First Name">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="lbl-email">Email Address</label>
+                    <input type="email" class="form-input" id="input-email" placeholder="Email Address" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="lbl-email-confirm">Confirm Email Address</label>
+                    <input type="email" class="form-input" id="input-email-confirm" placeholder="Confirm Email Address" required>
+                </div>
+            </div>
+
+            <!-- Issue Details -->
+            <div class="card">
+                <h2 class="section-title" id="section-issue">Issue Details</h2>
+
+                <div class="form-group">
+                    <label class="form-label" id="lbl-device">What device are you having the problem on?</label>
+                    <select class="form-select" id="select-device">
+                        <option value="">Device Type</option>
+                        <option value="windows">Windows PC</option>
+                        <option value="mac">Mac</option>
+                        <option value="linux">Linux</option>
+                        <option value="ios">iPhone/iPad</option>
+                        <option value="android">Android</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="lbl-category">Type of help category</label>
+                    <select class="form-select" id="select-category" onchange="handleCategoryChange()">
+                        <option value="">Help Category Type</option>
+                        <option value="login">Account Hacked or Can't Log In</option>
+                        <option value="appeal">Appeal a Decision</option>
+                        <option value="safety">User Safety Concern</option>
+                        <option value="abuse">Report Abuse</option>
+                        <option value="privacy">Data Privacy Requests</option>
+                        <option value="technical">Technical Problem</option>
+                        <option value="billing">Billing Question</option>
+                        <option value="feature">Feature Request</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="subcategory-group" style="display: none;">
+                    <label class="form-label" id="lbl-subcategory">Please select a subcategory</label>
+                    <select class="form-select" id="select-subcategory">
+                        <option value="">Select subcategory</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="lbl-description">Please describe your issue</label>
+                    <textarea class="form-textarea" id="textarea-description" placeholder="Please describe the issue that you are facing. Include any relevant information like where the issue is occurring or the error message." required></textarea>
+                </div>
+
+                <button class="btn-submit" id="btn-submit" onclick="submitForm()">Continue</button>
+            </div>
+        </div>
+        <div id="success-view" class="success-message">
+            <div class="success-icon">✓</div>
+            <div class="success-title" id="success-title">Thank you for your submission</div>
+            <div class="success-description" id="success-description">We've received your support request and will review it shortly. You should receive a confirmation email at the address you provided.</div>
+            <button class="btn-done" onclick="window.location.href='/'">Done</button>
+        </div>
+    </div>
+
+    <script>
+        let translations = null;
+
+        async function init() {
+            // Load theme
+            const savedTheme = localStorage.getItem('themeMode') || 'light';
+            document.body.classList.toggle('light-mode', savedTheme === 'light');
+
+            // Load translations
+            try {
+                const res = await fetch('en.json');
+                translations = await res.json();
+            } catch (e) {
+                console.error("Translation load failed.");
+                translations = {};
+            }
+
+            applyTranslations();
+        }
+
+        function t(key, vars = {}) {
+            if (!translations) return key;
+            let val = translations[key];
+            if (val === undefined || val === null) return key;
+            for (const k in vars) val = val.replace(`{{${k}}}`, vars[k]);
+            return val;
+        }
+
+        function applyTranslations() {
+            // Page title
+            document.getElementById('page-title').innerText = t('Heading.SupportForm');
+
+            // Contact Information section
+            document.getElementById('section-contact').innerText = t('Heading.SupportForm.ContactInformation');
+            document.getElementById('lbl-username').innerText = t('Label.SupportForm.Username');
+            document.getElementById('input-username').placeholder = t('Label.SupportForm.UsernamePlaceholder');
+            document.getElementById('lbl-firstname').innerText = t('Label.SupportForm.FirstName');
+            document.getElementById('input-firstname').placeholder = t('Label.SupportForm.FirstNamePlaceholder');
+            document.getElementById('lbl-email').innerText = t('Label.SupportForm.EmailAddress');
+            document.getElementById('input-email').placeholder = t('Label.SupportForm.EmailAddressPlaceholder');
+            document.getElementById('lbl-email-confirm').innerText = t('Label.SupportForm.ConfirmEmailAddress');
+            document.getElementById('input-email-confirm').placeholder = t('Label.SupportForm.ConfirmEmailAddressPlaceholder');
+
+            // Issue Details section
+            document.getElementById('section-issue').innerText = t('Heading.SupportForm.IssueDetails');
+            document.getElementById('lbl-device').innerText = t('Label.SupportForm.DeviceQuestion');
+            document.getElementById('lbl-category').innerText = t('Label.SupportForm.HelpCategory');
+            document.getElementById('lbl-subcategory').innerText = t('Label.SupportForm.Subcategory');
+            document.getElementById('lbl-description').innerText = t('Label.SupportForm.IssueDescription');
+            document.getElementById('textarea-description').placeholder = t('Label.SupportForm.IssueDescriptionPlaceholder');
+            document.getElementById('btn-submit').innerText = t('Action.SupportForm.Continue');
+
+            // Update select options
+            const deviceSelect = document.getElementById('select-device');
+            deviceSelect.options[0].text = t('Label.SupportForm.DeviceTypePlaceholder');
+            deviceSelect.options[1].text = t('Label.SupportForm.Device.Windows');
+            deviceSelect.options[2].text = t('Label.SupportForm.Device.Mac');
+            deviceSelect.options[3].text = t('Label.SupportForm.Device.Linux');
+            deviceSelect.options[4].text = t('Label.SupportForm.Device.iOS');
+            deviceSelect.options[5].text = t('Label.SupportForm.Device.Android');
+            deviceSelect.options[6].text = t('Label.SupportForm.Device.Other');
+
+            const categorySelect = document.getElementById('select-category');
+            categorySelect.options[0].text = t('Label.SupportForm.CategoryPlaceholder');
+            categorySelect.options[1].text = t('Label.SupportForm.Category.Login');
+            categorySelect.options[2].text = t('Label.SupportForm.Category.Appeal');
+            categorySelect.options[3].text = t('Label.SupportForm.Category.Safety');
+            categorySelect.options[4].text = t('Label.SupportForm.Category.Abuse');
+            categorySelect.options[5].text = t('Label.SupportForm.Category.Privacy');
+            categorySelect.options[6].text = t('Label.SupportForm.Category.Technical');
+            categorySelect.options[7].text = t('Label.SupportForm.Category.Billing');
+            categorySelect.options[8].text = t('Label.SupportForm.Category.Feature');
+            categorySelect.options[9].text = t('Label.SupportForm.Category.Other');
+
+            // Success view
+            document.getElementById('success-title').innerText = t('Heading.SupportForm.ThankYou');
+            document.getElementById('success-description').innerText = t('Description.SupportForm.SubmissionReceived');
+        }
+
+        const subcategoryOptions = {
+            login: [
+                { value: 'hacked', key: 'Label.SupportForm.Subcategory.Login.Hacked' },
+                { value: 'password', key: 'Label.SupportForm.Subcategory.Login.Password' },
+                { value: '2fa', key: 'Label.SupportForm.Subcategory.Login.2FA' },
+                { value: 'passkey', key: 'Label.SupportForm.Subcategory.Login.Passkey' },
+                { value: 'other-login', key: 'Label.SupportForm.Subcategory.Login.Other' }
+            ],
+            appeal: [
+                { value: 'behavior', key: 'Label.SupportForm.Subcategory.Appeal.Behavior' },
+                { value: 'content', key: 'Label.SupportForm.Subcategory.Appeal.Content' },
+                { value: 'child', key: 'Label.SupportForm.Subcategory.Appeal.Child' }
+            ],
+            safety: [
+                { value: 'inappropriate', key: 'Label.SupportForm.Subcategory.Safety.Inappropriate' }
+            ],
+            abuse: [
+                { value: 'user', key: 'Label.SupportForm.Subcategory.Abuse.User' },
+                { value: 'content-abuse', key: 'Label.SupportForm.Subcategory.Abuse.Content' },
+                { value: 'scam', key: 'Label.SupportForm.Subcategory.Abuse.Scam' }
+            ],
+            privacy: [
+                { value: 'rtbf', key: 'Label.SupportForm.Subcategory.Privacy.RTBF' },
+                { value: 'roa', key: 'Label.SupportForm.Subcategory.Privacy.ROA' },
+                { value: 'other-privacy', key: 'Label.SupportForm.Subcategory.Privacy.Other' }
+            ]
+        };
+
+        function handleCategoryChange() {
+            const category = document.getElementById('select-category').value;
+            const subcategoryGroup = document.getElementById('subcategory-group');
+            const subcategorySelect = document.getElementById('select-subcategory');
+
+            if (subcategoryOptions[category]) {
+                subcategoryGroup.style.display = 'block';
+                subcategorySelect.innerHTML = '<option value="">' + t('Label.SupportForm.SubcategoryPlaceholder') + '</option>';
+                subcategoryOptions[category].forEach(option => {
+                    const opt = document.createElement('option');
+                    opt.value = option.value;
+                    opt.text = t(option.key);
+                    subcategorySelect.appendChild(opt);
+                });
+            } else {
+                subcategoryGroup.style.display = 'none';
+                subcategorySelect.innerHTML = '<option value="">Select subcategory</option>';
+            }
+        }
+
+        function submitForm() {
+            const email = document.getElementById('input-email').value.trim();
+            const emailConfirm = document.getElementById('input-email-confirm').value.trim();
+            const description = document.getElementById('textarea-description').value.trim();
+
+            if (!email || !emailConfirm || !description) {
+                alert(t('Label.SupportForm.ValidationError') || 'Please fill in all required fields.');
+                return;
+            }
+
+            if (email !== emailConfirm) {
+                alert(t('Label.SupportForm.EmailMismatch') || 'Email addresses do not match.');
+                return;
+            }
+
+            // Hide form and show success message
+            document.getElementById('form-view').style.display = 'none';
+            document.getElementById('success-view').classList.add('active');
+        }
+
+        init();
+    </script>
+</body>
+</html>
