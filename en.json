@@ -436,43 +436,111 @@
   "Description.SwearingImportance": "Boiby is for everyone, including young kids. We use words that are respectful and welcoming for our entire community.",
 
   "Heading.ViolationsAndAppeals": "Violations & Appeals",
-  "Description.ViolationsAndAppeals": "View your violations and manage your appeals. All content and behaviour must follow {{BoibyCommunityStandardsLink}}",
-
-  "Label.AppealTimeline": "Appeal timeline",
-
-  "Label.ChatLogValue": "{{username}}: {{chatMessage}}",
-  "Heading.Appeals.Status.Received": "We received an appeal you sent",
-  "Heading.Appeals.Status.Denied": "We denied an appeal you sent",
-  "Heading.Appeals.Status.Accepted": "We accepted an appeal you sent",
-  "Label.CommentYouAdded": "Comment you added:",
-
-  "Description.GenericTypeDescription.V3": "Your {{type}} broke the rules",
-  "Action.AppealSomethingNotShown": "Appeal something not shown",
-  "Description.AppealSomethingNotShown": "Can’t find what you’re looking for? Appeal something that isn’t shown here.",
-  "Action.SupportForm": "Support Form",
-  "Action.AppealDecision": "Appeal a decision",
-  "Label.DateTime": "{{date}} | {{time}}",
+  "Description.ViolationsAndAppeals": "View your violations and manage your appeals. All content and behaviour must follow {{BoibyCommunityStandardsLink}}.",
+  "Label.BoibyCommunityStandards": "Boiby Community Standards",
+  "Label.LearnMoreAppealsGeneral": "Learn more about appeals here:",
   "Label.LearnMoreAppeals": "Learn more about appeals: {{learnMoreLink}}",
 
-  "Label.Status.AppealReceived": "Appeal received",
-  "Label.Status.AppealDenied": "Appeal denied",
-  "Label.Status.AppealAccepted": "Appeal accepted",
+  "Description.Appeals.GenericDescription": "Your {{type}} broke the rules",
+  "Label.ChatLogValue": "{{username}}: {{chatMessage}}",
+  "Label.DateTime": "{{dateTime}}",
+  "Label.PlatformCommunication": "platform communication",
   "Action.ShowDetails": "Show details",
 
-  "Label.PlatformCommunication": "platform communication",
+  "Label.AppealTimeline": "Appeal timeline",
+  "Label.CommentYouAdded": "Comment you added:",
+  "Label.AppealDeadline": "You can appeal by {{dateTime}}",
+  "Label.Status.AppealReceived": "Appeal received",
+  "Label.Status.AppealAccepted": "Appeal accepted",
+  "Label.Status.AppealDenied": "Appeal denied",
+
+  "Heading.Appeals.Status.Received": "We received an appeal you sent",
+  "Description.AppealReceived": "We'll let you know of a decision soon. We estimate a response within a few days. Thanks for sending an appeal.",
+  "Heading.Appeals.Status.Accepted": "We accepted an appeal you sent",
+  "Heading.Appeals.Status.Denied": "We denied an appeal you sent",
+  "Label.StillViolates": "We have reviewed your appeal. This activity is still in violation of Boiby Community Standards.",
+
+  "Label.AppealDecision": "Appeal a decision",
+  "Label.LetUsKnow": "Let us know if we made a mistake.",
+  "Label.AppealSomethingYouDontSee": "Appeal something you don't see here",
+  "Label.AppealSomethingNotShown": "Appeal something not shown",
+  "Description.AppealSomethingNotShown": "Can’t find what you’re looking for? Appeal something that isn’t shown here.",
+  "Label.SupportForm": "Support Form",
 
   "Label.Appeals.Unavailable": "Appeal unavailable",
   "Label.Appeals.LimitReached": "Appeal limit reached",
   "Description.Appeals.LimitReached": "You’ve reached the maximum number of appeals. You can no longer appeal this violation.",
-
-  "Label.BoibyCommunityStandards": "Boiby Community Standards",
-
-  "Label.LearnMoreAppealsGeneral": "Learn more about appeals here:",
-
-  "Label.AppealDeadline": "You can appeal by {{date}} | {{time}}",
-
   "Label.Error.Unexpected": "An unexpected error occurred. Please try again later",
   "Action.Reload": "Reload",
 
-  "Label.StillViolates": "We have reviewed your appeal. This activity is still in violation of Boiby Community Standards."
+  "Heading.SupportForm": "Support Form",
+  "Heading.SupportForm.ContactInformation": "Contact Information",
+  "Heading.SupportForm.IssueDetails": "Issue Details",
+  "Heading.SupportForm.ThankYou": "Thank you for your submission",
+  
+  "Label.SupportForm.Username": "Username (optional)",
+  "Label.SupportForm.UsernamePlaceholder": "Username",
+  "Label.SupportForm.FirstName": "First Name (optional)",
+  "Label.SupportForm.FirstNamePlaceholder": "First Name",
+  "Label.SupportForm.EmailAddress": "Email Address",
+  "Label.SupportForm.EmailAddressPlaceholder": "Email Address",
+  "Label.SupportForm.ConfirmEmailAddress": "Confirm Email Address",
+  "Label.SupportForm.ConfirmEmailAddressPlaceholder": "Confirm Email Address",
+  
+  "Label.SupportForm.DeviceQuestion": "What device are you having the problem on?",
+  "Label.SupportForm.DeviceTypePlaceholder": "Device Type",
+  "Label.SupportForm.Device.Windows": "Windows PC",
+  "Label.SupportForm.Device.Windows.V2": "PC",
+  "Label.SupportForm.Device.Mac": "Mac",
+  "Label.SupportForm.Device.Linux": "Linux",
+  "Label.SupportForm.Device.iOS": "iPhone/iPad",
+  "Label.SupportForm.Device.Android": "Android",
+  "Label.SupportForm.Device.AmazonFire": "Amazon Fire",
+  "Label.SupportForm.Device.Other": "Other",
+  
+  "Label.SupportForm.HelpCategory": "Type of help category",
+  "Label.SupportForm.CategoryPlaceholder": "Help Category Type",
+  "Label.SupportForm.Category.Login": "Account Hacked or Can't Log In",
+  "Label.SupportForm.Category.Appeal": "Appeal a Decision",
+  "Label.SupportForm.Category.Safety": "User Safety Concern",
+  "Label.SupportForm.Category.Abuse": "Report Abuse",
+  "Label.SupportForm.Category.Privacy": "Data Privacy Request",
+  "Label.SupportForm.Category.Technical": "Technical Problem",
+  "Label.SupportForm.Category.Billing": "Billing Question",
+  "Label.SupportForm.Category.Feature": "Feature Request",
+  "Label.SupportForm.Category.Other": "Other",
+  
+  "Label.SupportForm.Subcategory": "Please select a subcategory",
+  "Label.SupportForm.SubcategoryPlaceholder": "Select subcategory",
+  
+  "Label.SupportForm.Subcategory.Login.Hacked": "Account Hacked",
+  "Label.SupportForm.Subcategory.Login.Password": "Forgot Password",
+  "Label.SupportForm.Subcategory.Login.2FA": "Lost access to my 2-step verification method",
+  "Label.SupportForm.Subcategory.Login.Passkey": "Lost access to my passkey",
+  "Label.SupportForm.Subcategory.Login.Other": "Other login issues",
+  
+  "Label.SupportForm.Subcategory.Appeal.Behavior": "I was moderated for my behaviour or the behaviour of an alternate account",
+  "Label.SupportForm.Subcategory.Appeal.Content": "I was moderated for content or assets I created",
+  "Label.SupportForm.Subcategory.Appeal.Child": "I want to appeal on behalf of my child",
+  
+  "Label.SupportForm.Subcategory.Safety.Inappropriate": "Inappropriate user behaviour or content",
+  
+  "Label.SupportForm.Subcategory.Abuse.User": "I want to report a user who is breaking the rules",
+  "Label.SupportForm.Subcategory.Abuse.Content": "I want to report content that is breaking the rules",
+  "Label.SupportForm.Subcategory.Abuse.Scam": "I was scammed by a user",
+  
+  "Label.SupportForm.Subcategory.Privacy.RTBF": "Right to be forgotten (RTBF)",
+  "Label.SupportForm.Subcategory.Privacy.ROA": "Right of Access (ROA)",
+  "Label.SupportForm.Subcategory.Privacy.Other": "Other privacy request",
+  
+  "Label.SupportForm.IssueDescription": "Please describe your issue",
+  "Label.SupportForm.IssueDescriptionPlaceholder": "Please describe the issue that you are facing. Include any relevant information like where the issue is occurring or the error message.",
+  
+  "Label.SupportForm.ValidationError": "Please fill in all required fields.",
+  "Label.SupportForm.EmailMismatch": "Email addresses do not match.",
+  
+  "Description.SupportForm.SubmissionReceived": "We've received your support request and will review it shortly. You should receive a confirmation email at the address you provided.",
+  
+  "Action.SupportForm.Continue": "Continue",
+  "Action.SupportForm.Done": "Done"
 }
