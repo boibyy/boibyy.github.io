@@ -415,7 +415,7 @@
         <div id="list-view">
             <h1 id="page-title" class="margin-bottom-medium">Violations & Appeals</h1>
             <p class="description" id="page-description">
-                Review your violations and manage your appeals. All content must adhere to 
+                View your violations and manage your appeals. All content and behaviour must follow 
                 <a href="https://boiby.dev/Boiby-Community-Standards" target="_blank">Boiby Community Standards</a>.
             </p>
 
@@ -431,9 +431,8 @@
             <div class="divider" id="divider"></div>
 
             <div class="card">
-                <h2>Appeal something you don't see here</h2>
-                <span class="value">Let us know if we made a mistake.</span>
-                <button class="btn-view-more" onclick="window.location.href='/support-form'">Request appeal</button>
+                <h2>Support Form</h2>
+                <a href="/support-form" class="value" style="text-decoration: underline;">Appeal something not shown here ></a>
             </div>
         </div>
 
@@ -542,11 +541,9 @@ function applyStaticTranslations() {
     
     // Appeal card
     const appealCards = document.querySelectorAll('.card h2');
-    appealCards[appealCards.length - 1].innerText = t('Label.AppealSomethingYouDontSee');
+    appealCards[appealCards.length - 1].innerText = t('Label.SupportForm');
     const appealDesc = appealCards[appealCards.length - 1].nextElementSibling;
-    appealDesc.innerText = t('Label.LetUsKnow');
-    const appealBtn = appealDesc.nextElementSibling;
-    appealBtn.innerText = t('Action.RequestAppeal');
+    appealDesc.innerText = t('Label.AppealSomethingNotShown');
 }
 
 function displayViolationCard(data) {
@@ -677,6 +674,7 @@ function populateDetailView(data) {
         appealBtn.style.display = 'block';
     }
 
+    // Set appeal deadline (30 days from review date)
     const deadlineDate = new Date(reviewDate.getTime() + 30 * 24 * 60 * 60 * 1000);
     const deadlineStr = formatDate(deadlineDate);
     document.getElementById('appeal-deadline').innerText = t('Label.AppealDeadline', { dateTime: deadlineStr });
@@ -824,10 +822,12 @@ function sendAppeal() {
     document.getElementById('modal-success-description').innerText = t('Description.Appeals.AppealReceived');
     document.getElementById('modal-got-it').innerText = t('Action.Appeals.GotIt');
     
+    // Mark appeal as submitted for this specific violation
     const violationId = banData.id || 'default';
     appealSubmitted = true;
     localStorage.setItem(`appealSubmitted_${violationId}`, 'true');
     
+    // Add appeal timeline section directly without refresh
     const txtWhy = document.getElementById('txt-why');
     const existingAppealSection = document.getElementById('appeal-timeline-section');
     
@@ -851,15 +851,17 @@ function sendAppeal() {
         appealSection.appendChild(appealHeader);
         appealSection.appendChild(appealCard);
         
+        // Insert before "Why this happened"
         txtWhy.parentNode.insertBefore(appealSection, txtWhy);
     }
     
     // Hide appeal button
     document.getElementById('primary-action-btn').style.display = 'none';
     
+    // Close modal after brief delay
     setTimeout(() => {
         closeAppealModal();
-    }, 10000);
+    }, 2000);
 }
 
 init();
