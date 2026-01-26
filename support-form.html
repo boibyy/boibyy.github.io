@@ -48,8 +48,8 @@
             
             --font-xsmall: 12px;
             --font-small: 13px;
-            --font-medium: 14px;
-            --font-large: 15px;
+            --font-medium: 16px;
+            --font-large: 16px;
             --font-xlarge: 16px;
             --font-2xlarge: 18px;
             --font-3xlarge: 20px;
@@ -82,6 +82,7 @@
             background: var(--bg-base);
             color: var(--text-normal);
             min-height: 100vh;
+            font-size: var(--font-medium);
         }
 
         .container {
@@ -102,6 +103,7 @@
         h2 {
             font-size: var(--font-xlarge);
             font-weight: 700;
+            font-size: 24px;
             color: var(--text-header);
             margin: 0 0 16px 0;
         }
@@ -133,7 +135,7 @@
         .form-select,
         .form-textarea {
             width: 100%;
-            padding: 10px 12px;
+            padding: 12px 12px;
             background: var(--input-bg);
             border: 1px solid var(--input-border);
             border-radius: var(--radius-btn);
@@ -246,13 +248,25 @@
         }
 
         h2 {
-            font-size: 20px!important;
+            font-size: 22px!important;
+            margin-bottom: 20px!important;
+        }
+
+        .form-group.subcategory-compact {
+            margin-top: -8px;
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: var(--font-small);
+            margin-top: 4px;
+            display: none;
         }
     </style>
 </head>
 <body class="light-mode">
     <div class="container">
-        <h1 id="page-title" style="font-size:32px">Support Form</h1>
+        <h1 id="page-title" style="font-size:34px">Support Form</h1>
 
         <div id="form-view">
             <!-- Contact Information -->
@@ -272,22 +286,21 @@
                 <div class="form-group">
                     <label class="form-label" id="lbl-email">Email Address</label>
                     <input type="email" class="form-input" id="input-email" placeholder="Email Address" required>
+                    <div class="error-message" id="email-error">Please enter a valid email address</div>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" id="lbl-email-confirm">Confirm Email Address</label>
                     <input type="email" class="form-input" id="input-email-confirm" placeholder="Confirm Email Address" required>
+                    <div class="error-message" id="email-confirm-error">Email addresses do not match</div>
                 </div>
-            </div>
-
-            <!-- Issue Details -->
-            <div class="card">
+                <br>
                 <h2 class="section-title" id="section-issue">Issue Details</h2>
 
                 <div class="form-group">
                     <label class="form-label" id="lbl-device">What device are you having the problem on?</label>
-                    <select class="form-select" id="select-device">
-                        <option value="">Device Type</option>
+                    <select class="form-select" id="select-device" required>
+                        <option value="" disabled selected>Device Type</option>
                         <option value="windows">Windows PC</option>
                         <option value="mac">Mac</option>
                         <option value="linux">Linux</option>
@@ -299,24 +312,29 @@
 
                 <div class="form-group">
                     <label class="form-label" id="lbl-category">Type of help category</label>
-                    <select class="form-select" id="select-category" onchange="handleCategoryChange()">
-                        <option value="">Help Category Type</option>
+                    <select class="form-select" id="select-category" onchange="handleCategoryChange()" required>
+                        <option value="" disabled selected>Help Category Type</option>
                         <option value="login">Account Hacked or Can't Log In</option>
                         <option value="appeal">Appeal a Decision</option>
                         <option value="safety">User Safety Concern</option>
                         <option value="abuse">Report Abuse</option>
-                        <option value="privacy">Data Privacy Requests</option>
-                        <option value="technical">Technical Problem</option>
-                        <option value="billing">Billing Question</option>
+                        <option value="privacy">Data Privacy Request</option>
+                        <option value="billing">Billing & Payments</option>
+                        <option value="bug">Bug Report</option>
+                        <option value="age">Age-based Settings or Parental Controls</option>
+                        <option value="dmca">DMCA</option>
+                        <option value="exploit">Exploit Report</option>
+                        <option value="ideas">Ideas & Feedback</option>
+                        <option value="technical">Technical Support</option>
+                        <option value="delete">I Want to Delete My Account</option>
                         <option value="feature">Feature Request</option>
                         <option value="other">Other</option>
                     </select>
                 </div>
 
-                <div class="form-group" id="subcategory-group" style="display: none;">
-                    <label class="form-label" id="lbl-subcategory">Please select a subcategory</label>
+                <div class="form-group subcategory-compact" id="subcategory-group" style="display: none;">
                     <select class="form-select" id="select-subcategory">
-                        <option value="">Select subcategory</option>
+                        <option value="" disabled selected>Select subcategory</option>
                     </select>
                 </div>
 
@@ -328,11 +346,13 @@
                 <button class="btn-submit" id="btn-submit" onclick="submitForm()">Continue</button>
             </div>
         </div>
+        
+        <!-- Success Message -->
         <div id="success-view" class="success-message">
             <div class="success-icon">✓</div>
             <div class="success-title" id="success-title">Thank you for your submission</div>
             <div class="success-description" id="success-description">We've received your support request and will review it shortly. You should receive a confirmation email at the address you provided.</div>
-            <button class="btn-done" onclick="window.location.href='/'">Done</button>
+            <button class="btn-done" onclick="window.location.href='/violations-appeals'">OK</button>
         </div>
     </div>
 
@@ -341,7 +361,7 @@
 
         async function init() {
             // Load theme
-            const savedTheme = localStorage.getItem('themeMode') || 'light';
+            const savedTheme = 'light';
             document.body.classList.toggle('light-mode', savedTheme === 'light');
 
             // Load translations
@@ -383,10 +403,13 @@
             document.getElementById('section-issue').innerText = t('Heading.SupportForm.IssueDetails');
             document.getElementById('lbl-device').innerText = t('Label.SupportForm.DeviceQuestion');
             document.getElementById('lbl-category').innerText = t('Label.SupportForm.HelpCategory');
-            document.getElementById('lbl-subcategory').innerText = t('Label.SupportForm.Subcategory');
             document.getElementById('lbl-description').innerText = t('Label.SupportForm.IssueDescription');
             document.getElementById('textarea-description').placeholder = t('Label.SupportForm.IssueDescriptionPlaceholder');
             document.getElementById('btn-submit').innerText = t('Action.SupportForm.Continue');
+
+            // Error messages
+            document.getElementById('email-error').innerText = t('Label.SupportForm.EmailInvalid');
+            document.getElementById('email-confirm-error').innerText = t('Label.SupportForm.EmailMismatch');
 
             // Update select options
             const deviceSelect = document.getElementById('select-device');
@@ -405,10 +428,16 @@
             categorySelect.options[3].text = t('Label.SupportForm.Category.Safety');
             categorySelect.options[4].text = t('Label.SupportForm.Category.Abuse');
             categorySelect.options[5].text = t('Label.SupportForm.Category.Privacy');
-            categorySelect.options[6].text = t('Label.SupportForm.Category.Technical');
-            categorySelect.options[7].text = t('Label.SupportForm.Category.Billing');
-            categorySelect.options[8].text = t('Label.SupportForm.Category.Feature');
-            categorySelect.options[9].text = t('Label.SupportForm.Category.Other');
+            categorySelect.options[6].text = t('Label.SupportForm.Category.Billing');
+            categorySelect.options[7].text = t('Label.SupportForm.Category.BugReport');
+            categorySelect.options[8].text = t('Label.SupportForm.Category.Age');
+            categorySelect.options[9].text = t('Label.SupportForm.Category.DMCA');
+            categorySelect.options[10].text = t('Label.SupportForm.Category.ExploitReport');
+            categorySelect.options[11].text = t('Label.SupportForm.Category.Ideas');
+            categorySelect.options[12].text = t('Label.SupportForm.Category.TechnicalSupport');
+            categorySelect.options[13].text = t('Label.SupportForm.Category.DeleteAccount');
+            categorySelect.options[14].text = t('Label.SupportForm.Category.Feature');
+            categorySelect.options[15].text = t('Label.SupportForm.Category.Other');
 
             // Success view
             document.getElementById('success-title').innerText = t('Heading.SupportForm.ThankYou');
@@ -440,6 +469,32 @@
                 { value: 'rtbf', key: 'Label.SupportForm.Subcategory.Privacy.RTBF' },
                 { value: 'roa', key: 'Label.SupportForm.Subcategory.Privacy.ROA' },
                 { value: 'other-privacy', key: 'Label.SupportForm.Subcategory.Privacy.Other' }
+            ],
+            billing: [
+                { value: 'unauthorized', key: 'Label.SupportForm.Subcategory.Billing.Unauthorized' },
+                { value: 'membership', key: 'Label.SupportForm.Subcategory.Billing.Membership' },
+                { value: 'purchase', key: 'Label.SupportForm.Subcategory.Billing.Purchase' },
+                { value: 'other-billing', key: 'Label.SupportForm.Subcategory.Billing.Other' }
+            ],
+            age: [
+                { value: 'change-age', key: 'Label.SupportForm.Subcategory.Age.ChangeAge' },
+                { value: 'adjust-settings', key: 'Label.SupportForm.Subcategory.Age.AdjustSettings' },
+                { value: 'unlink', key: 'Label.SupportForm.Subcategory.Age.Unlink' }
+            ],
+            dmca: [
+                { value: 'owner-claim', key: 'Label.SupportForm.Subcategory.DMCA.OwnerClaim' },
+                { value: 'other-site', key: 'Label.SupportForm.Subcategory.DMCA.OtherSite' },
+                { value: 'asset-removal', key: 'Label.SupportForm.Subcategory.DMCA.AssetRemoval' }
+            ],
+            ideas: [
+                { value: 'feedback', key: 'Label.SupportForm.Subcategory.Ideas.Feedback' },
+                { value: 'feature-suggestion', key: 'Label.SupportForm.Subcategory.Ideas.FeatureSuggestion' }
+            ],
+            technical: [
+                { value: 'client-crash', key: 'Label.SupportForm.Subcategory.Technical.ClientCrash' },
+                { value: 'game-issue', key: 'Label.SupportForm.Subcategory.Technical.GameIssue' },
+                { value: 'feature-issue', key: 'Label.SupportForm.Subcategory.Technical.FeatureIssue' },
+                { value: 'other-technical', key: 'Label.SupportForm.Subcategory.Technical.Other' }
             ]
         };
 
@@ -449,8 +504,13 @@
             const subcategorySelect = document.getElementById('select-subcategory');
 
             if (subcategoryOptions[category]) {
+                // Show subcategory dropdown
                 subcategoryGroup.style.display = 'block';
-                subcategorySelect.innerHTML = '<option value="">' + t('Label.SupportForm.SubcategoryPlaceholder') + '</option>';
+                
+                // Clear existing options
+                subcategorySelect.innerHTML = '<option value="" disabled selected>' + t('Label.SupportForm.SubcategoryPlaceholder') + '</option>';
+                
+                // Add new options
                 subcategoryOptions[category].forEach(option => {
                     const opt = document.createElement('option');
                     opt.value = option.value;
@@ -458,25 +518,48 @@
                     subcategorySelect.appendChild(opt);
                 });
             } else {
+                // Hide subcategory dropdown
                 subcategoryGroup.style.display = 'none';
-                subcategorySelect.innerHTML = '<option value="">Select subcategory</option>';
+                subcategorySelect.innerHTML = '<option value="" disabled selected>Select subcategory</option>';
             }
         }
 
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
         function submitForm() {
+            // Get form values
             const email = document.getElementById('input-email').value.trim();
             const emailConfirm = document.getElementById('input-email-confirm').value.trim();
             const description = document.getElementById('textarea-description').value.trim();
+            const device = document.getElementById('select-device').value;
+            const category = document.getElementById('select-category').value;
 
-            if (!email || !emailConfirm || !description) {
+            // Reset error messages
+            document.getElementById('email-error').style.display = 'none';
+            document.getElementById('email-confirm-error').style.display = 'none';
+
+            // Validation
+            let hasError = false;
+
+            if (!email || !validateEmail(email)) {
+                document.getElementById('email-error').style.display = 'block';
+                hasError = true;
+            }
+
+            if (!emailConfirm || email !== emailConfirm) {
+                document.getElementById('email-confirm-error').style.display = 'block';
+                hasError = true;
+            }
+
+            if (!description || !device || !category) {
                 alert(t('Label.SupportForm.ValidationError') || 'Please fill in all required fields.');
-                return;
+                hasError = true;
             }
 
-            if (email !== emailConfirm) {
-                alert(t('Label.SupportForm.EmailMismatch') || 'Email addresses do not match.');
-                return;
-            }
+            if (hasError) return;
 
             // Hide form and show success message
             document.getElementById('form-view').style.display = 'none';
