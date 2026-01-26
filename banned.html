@@ -1144,13 +1144,13 @@ select:focus-visible,
         <label class="text-xsmall text-muted-color margin-bottom-small">Enable middle/educational pages</label>
         <input type="checkbox" id="experiment-educational-checkbox" checked autocomplete="off" onchange="handleExperimentToggle()">
     </div>
-    <div id="experiment-hide-learn-more-container">
+    <div style="display:none!important;" id="experiment-hide-learn-more-container">
         <label class="text-xsmall text-muted-color margin-bottom-small">Enable hide "Learn more" button</label>
         <input type="checkbox" id="experiment-hide-learn-more-checkbox" autocomplete="off" onchange="handleHideLearnMoreToggle()">
     </div>
     <div id="experiment-settings-menu-container">
         <label class="text-xsmall text-muted-color margin-bottom-small">Enable settings in logout menu</label>
-        <input type="checkbox" id="experiment-settings-menu-checkbox" autocomplete="off" onchange="handleSettingsMenuToggle()">
+        <input type="checkbox" id="experiment-settings-menu-checkbox" checked autocomplete="off" onchange="handleSettingsMenuToggle()">
     </div>
     <div style="display:none!important;" id="experiment-send-appeal-container">
         <label class="text-xsmall text-muted-color margin-bottom-small">Enable change to "Send appeal"</label>
@@ -1240,9 +1240,7 @@ select:focus-visible,
                 <h1 class="text-5xlarge text-header-color margin-bottom-small margin-top-medium" id="policy-header-title-1"></h1>
                 <h2 class="text-xlarge text-header-color margin-bottom-medium" id="policy-violated-header"></h2>
                 <span class="value text-large text-normal-color" id="display-policy-description" style="white-space: pre-wrap;"></span>
-                <div class="margin-top-medium">
-                    <button class="btn-view-more width-full height-medium bg-gray text-header-color border-radius-btn text-small focus-visible-ring" id="policy-learn-more-btn-1">Learn more</button>
-                </div>
+                <div class="margin-top-medium">                </div>
             </div>
 
             <div id="policy-view-2" class="flex flex-column" style="display: none;">
@@ -1304,7 +1302,7 @@ select:focus-visible,
     
     let experimentEnableEducationalPages = true;
     let experimentEUTransparency = false;
-    let experimentHideLearnMore = false;
+    let experimentHideLearnMore = true;
     let experimentSettingsInMenu = false;
     let experimentSendAppeal = false;
     
