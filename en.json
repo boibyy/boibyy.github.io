@@ -458,6 +458,8 @@
   "Description.AppealReceived": "We'll let you know of a decision soon. We estimate a response within a few days. Thanks for sending an appeal.",
   "Heading.Appeals.Status.Accepted": "We accepted an appeal you sent",
   "Heading.Appeals.Status.Denied": "We denied an appeal you sent",
+  "Label.SeriousChatViolation": "Chat Evidence ID",
+  "Label.VoiceEvidence": "Voice Evidence ID",
   "Label.StillViolates": "We have reviewed your appeal. This activity is still in violation of Boiby Community Standards.",
 
   "Label.AppealDecision": "Appeal a decision",
