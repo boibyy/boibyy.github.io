@@ -461,6 +461,7 @@
   "Label.StillViolates": "We have reviewed your appeal. This activity is still in violation of Boiby Community Standards.",
 
   "Label.AppealDecision": "Appeal a decision",
+  
   "Label.LetUsKnow": "Let us know if we made a mistake.",
   "Label.AppealSomethingYouDontSee": "Appeal something you don't see here",
   "Label.AppealSomethingNotShown": "Appeal something not shown",
@@ -502,13 +503,45 @@
   "Label.SupportForm.CategoryPlaceholder": "Help Category Type",
   "Label.SupportForm.Category.Login": "Account Hacked or Can't Log In",
   "Label.SupportForm.Category.Appeal": "Appeal a Decision",
+  "Label.SupportForm.Category.Moderation": "Moderation",
   "Label.SupportForm.Category.Safety": "User Safety Concern",
   "Label.SupportForm.Category.Abuse": "Report Abuse",
   "Label.SupportForm.Category.Privacy": "Data Privacy Request",
   "Label.SupportForm.Category.Technical": "Technical Problem",
-  "Label.SupportForm.Category.Billing": "Billing Question",
   "Label.SupportForm.Category.Feature": "Feature Request",
   "Label.SupportForm.Category.Other": "Other",
+
+  "Label.SupportForm.Category.Billing": "Billing & Payments",
+"Label.SupportForm.Category.BugReport": "Bug Report",
+"Label.SupportForm.Category.Age": "Age-based Settings or Parental Controls",
+"Label.SupportForm.Category.DMCA": "DMCA",
+"Label.SupportForm.Category.ExploitReport": "Exploit Report",
+"Label.SupportForm.Category.Ideas": "Ideas & Feedback",
+"Label.SupportForm.Category.TechnicalSupport": "Technical Support",
+"Label.SupportForm.Category.DeleteAccount": "I Want to Delete My Account",
+
+"Label.SupportForm.Subcategory.Billing.Unauthorized": "I want to report an unauthorized charge or request a refund",
+"Label.SupportForm.Subcategory.Billing.Membership": "I have an issue with my membership",
+"Label.SupportForm.Subcategory.Billing.Purchase": "I have an issue with a purchase I made",
+"Label.SupportForm.Subcategory.Billing.Other": "Other billing-related question/issue",
+
+"Label.SupportForm.Subcategory.Age.ChangeAge": "Change child age",
+"Label.SupportForm.Subcategory.Age.AdjustSettings": "Adjust child privacy & security settings",
+"Label.SupportForm.Subcategory.Age.Unlink": "Unlinking child's account",
+
+"Label.SupportForm.Subcategory.DMCA.OwnerClaim": "Owner DMCA claim",
+"Label.SupportForm.Subcategory.DMCA.OtherSite": "Other site claim",
+"Label.SupportForm.Subcategory.DMCA.AssetRemoval": "Asset removal request",
+
+"Label.SupportForm.Subcategory.Ideas.Feedback": "Feedback",
+"Label.SupportForm.Subcategory.Ideas.FeatureSuggestion": "Feature suggestion",
+
+"Label.SupportForm.Subcategory.Technical.ClientCrash": "Boiby Client Crashing",
+"Label.SupportForm.Subcategory.Technical.GameIssue": "Specific Game Issue",
+"Label.SupportForm.Subcategory.Technical.FeatureIssue": "Feature Issue",
+"Label.SupportForm.Subcategory.Technical.Other": "Other Issue",
+
+"Label.SupportForm.EmailInvalid": "Please enter a valid email address",
   
   "Label.SupportForm.Subcategory": "Please select a subcategory",
   "Label.SupportForm.SubcategoryPlaceholder": "Select subcategory",
@@ -522,7 +555,6 @@
   "Label.SupportForm.Subcategory.Appeal.Behavior": "I was moderated for my behaviour or the behaviour of an alternate account",
   "Label.SupportForm.Subcategory.Appeal.Content": "I was moderated for content or assets I created",
   "Label.SupportForm.Subcategory.Appeal.Child": "I want to appeal on behalf of my child",
-  
   "Label.SupportForm.Subcategory.Safety.Inappropriate": "Inappropriate user behaviour or content",
   
   "Label.SupportForm.Subcategory.Abuse.User": "I want to report a user who is breaking the rules",
