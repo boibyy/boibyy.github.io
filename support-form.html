@@ -366,7 +366,7 @@
 
             // Load translations
             try {
-                const res = await fetch('en.json');
+                const res = await fetch('support.json');
                 translations = await res.json();
             } catch (e) {
                 console.error("Translation load failed.");
