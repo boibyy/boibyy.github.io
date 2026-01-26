@@ -1,0 +1,132 @@
+{
+      "Heading.Appeals.RequestAppeal": "Request an appeal",
+  "Heading.Appeals.SendAppeal": "Send an appeal",
+  "Heading.Appeals.AppealReceived": "We received your appeal",
+  "Description.Appeals.ReviewsDetail": "Reviews are based on Community Standards.",
+  "Label.Appeals.SubtextNotice": "By selecting Send, you confirm that this information is true and that you're only sending one appeal about this decision.",
+  "Action.Appeals.Send": "Send",
+  "Action.Appeals.Cancel": "Cancel",
+  "Action.Appeals.GotIt": "Got it",
+  "Description.Appeals.AppealReceived": "We’ll let you know of a decision soon. We estimate a response within a few business days, depending on the complexity of the issue. Thanks for sending an appeal.",
+  "Label.Appeals.ReasonPlaceholder": "Additional information (optional)",
+  "Label.Appeals.ReasonPlaceholder.V2": "Explain why you think this decision should be reviewed (optional)",
+  "Label.Appeals.TooManyAttempts": "Too many attempts. Please wait a bit or try again later.",
+  "Label.Appeals.CannotAppeal": "You can no longer appeal this decision.",
+  "Label.Appeals.CannotAppeal.V2": "You can no longer appeal this decision.",
+  "Label.AppealDecision": "Appeal a decision",
+  
+  "Label.LetUsKnow": "Let us know if we made a mistake.",
+  "Label.AppealSomethingYouDontSee": "Appeal something you don't see here",
+  "Label.AppealSomethingNotShown": "Appeal something not shown here >",
+  "Description.AppealSomethingNotShown": "Can’t find what you’re looking for? Appeal something that isn’t shown here.",
+  "Label.SupportForm": "Support Form",
+
+  "Label.Appeals.Unavailable": "Appeal unavailable",
+  "Label.Appeals.LimitReached": "Appeal limit reached",
+  "Description.Appeals.LimitReached": "You’ve reached the maximum number of appeals. You can no longer appeal this violation.",
+  "Label.Error.Unexpected": "An unexpected error occurred. Please try again later",
+  "Action.Reload": "Reload",
+
+    "Heading.SupportForm": "Support Form",
+  "Heading.SupportForm.ContactInformation": "Contact Information",
+  "Heading.SupportForm.IssueDetails": "Issue Details",
+  "Heading.SupportForm.ThankYou": "Thank you for your submission",
+  
+  "Label.SupportForm.Username": "Username (optional)",
+  "Label.SupportForm.UsernamePlaceholder": "Username",
+  "Label.SupportForm.FirstName": "First Name (optional)",
+  "Label.SupportForm.FirstNamePlaceholder": "First Name",
+  "Label.SupportForm.EmailAddress": "Email Address",
+  "Label.SupportForm.EmailAddressPlaceholder": "Email Address",
+  "Label.SupportForm.ConfirmEmailAddress": "Confirm Email Address",
+  "Label.SupportForm.ConfirmEmailAddressPlaceholder": "Confirm Email Address",
+  
+  "Label.SupportForm.DeviceQuestion": "What device are you having the problem on?",
+  "Label.SupportForm.DeviceTypePlaceholder": "Device Type",
+  "Label.SupportForm.Device.Windows": "Windows PC",
+  "Label.SupportForm.Device.Windows.V2": "PC",
+  "Label.SupportForm.Device.Mac": "Mac",
+  "Label.SupportForm.Device.Linux": "Linux",
+  "Label.SupportForm.Device.iOS": "iPhone/iPad",
+  "Label.SupportForm.Device.Android": "Android",
+  "Label.SupportForm.Device.AmazonFire": "Amazon Fire",
+  "Label.SupportForm.Device.Other": "Other",
+  
+  "Label.SupportForm.HelpCategory": "Type of help category",
+  "Label.SupportForm.CategoryPlaceholder": "Help Category Type",
+  "Label.SupportForm.Category.Login": "Account Hacked or Can't Log In",
+  "Label.SupportForm.Category.Appeal": "Appeal a Decision",
+  "Label.SupportForm.Category.Moderation": "Moderation",
+  "Label.SupportForm.Category.Safety": "User Safety Concern",
+  "Label.SupportForm.Category.Abuse": "Report Abuse",
+  "Label.SupportForm.Category.Privacy": "Data Privacy Request",
+  "Label.SupportForm.Category.Technical": "Technical Problem",
+  "Label.SupportForm.Category.Feature": "Feature Request",
+  "Label.SupportForm.Category.Other": "Other",
+
+  "Label.SupportForm.Category.Billing": "Billing & Payments",
+"Label.SupportForm.Category.BugReport": "Bug Report",
+"Label.SupportForm.Category.Age": "Age-based Settings or Parental Controls",
+"Label.SupportForm.Category.DMCA": "DMCA",
+"Label.SupportForm.Category.ExploitReport": "Exploit Report",
+"Label.SupportForm.Category.Ideas": "Ideas & Feedback",
+"Label.SupportForm.Category.TechnicalSupport": "Technical Support",
+"Label.SupportForm.Category.DeleteAccount": "I Want to Delete My Account",
+
+"Label.SupportForm.Subcategory.Billing.Unauthorized": "I want to report an unauthorized charge or request a refund",
+"Label.SupportForm.Subcategory.Billing.Membership": "I have an issue with my membership",
+"Label.SupportForm.Subcategory.Billing.Purchase": "I have an issue with a purchase I made",
+"Label.SupportForm.Subcategory.Billing.Other": "Other billing-related question/issue",
+
+"Label.SupportForm.Subcategory.Age.ChangeAge": "Change child age",
+"Label.SupportForm.Subcategory.Age.AdjustSettings": "Adjust child privacy & security settings",
+"Label.SupportForm.Subcategory.Age.Unlink": "Unlinking child's account",
+
+"Label.SupportForm.Subcategory.DMCA.OwnerClaim": "Owner DMCA claim",
+"Label.SupportForm.Subcategory.DMCA.OtherSite": "Other site claim",
+"Label.SupportForm.Subcategory.DMCA.AssetRemoval": "Asset removal request",
+
+"Label.SupportForm.Subcategory.Ideas.Feedback": "Feedback",
+"Label.SupportForm.Subcategory.Ideas.FeatureSuggestion": "Feature suggestion",
+
+"Label.SupportForm.Subcategory.Technical.ClientCrash": "Boiby Client Crashing",
+"Label.SupportForm.Subcategory.Technical.GameIssue": "Specific Game Issue",
+"Label.SupportForm.Subcategory.Technical.FeatureIssue": "Feature Issue",
+"Label.SupportForm.Subcategory.Technical.Other": "Other Issue",
+
+"Label.SupportForm.EmailInvalid": "Please enter a valid email address",
+  
+  "Label.SupportForm.Subcategory": "Please select a subcategory",
+  "Label.SupportForm.SubcategoryPlaceholder": "Select subcategory",
+  
+  "Label.SupportForm.Subcategory.Login.Hacked": "Account Hacked",
+  "Label.SupportForm.Subcategory.Login.Password": "Forgot Password",
+  "Label.SupportForm.Subcategory.Login.2FA": "Lost access to my 2-step verification method",
+  "Label.SupportForm.Subcategory.Login.Passkey": "Lost access to my passkey",
+  "Label.SupportForm.Subcategory.Login.Other": "Other login issues",
+  
+  "Label.SupportForm.Subcategory.Appeal.Behavior": "I was moderated for my behaviour or the behaviour of an alternate account",
+  "Label.SupportForm.Subcategory.Appeal.Content": "I was moderated for content or assets I created",
+  "Label.SupportForm.Subcategory.Appeal.Child": "I want to appeal on behalf of my child",
+  
+  "Label.SupportForm.Subcategory.Safety.Inappropriate": "Inappropriate user behaviour or content",
+  
+  "Label.SupportForm.Subcategory.Abuse.User": "I want to report a user who is breaking the rules",
+  "Label.SupportForm.Subcategory.Abuse.Content": "I want to report content that is breaking the rules",
+  "Label.SupportForm.Subcategory.Abuse.Scam": "I was scammed by a user",
+  
+  "Label.SupportForm.Subcategory.Privacy.RTBF": "Right to be forgotten (RTBF)",
+  "Label.SupportForm.Subcategory.Privacy.ROA": "Right of Access (ROA)",
+  "Label.SupportForm.Subcategory.Privacy.Other": "Other privacy request",
+  
+  "Label.SupportForm.IssueDescription": "Please describe your issue",
+  "Label.SupportForm.IssueDescriptionPlaceholder": "Please describe the issue that you are facing. Include any relevant information like where the issue is occurring or the error message.",
+  
+  "Label.SupportForm.ValidationError": "Please fill in all required fields.",
+  "Label.SupportForm.EmailMismatch": "Email addresses do not match.",
+  
+  "Description.SupportForm.SubmissionReceived": "We've received your support request and will review it shortly. You should receive a confirmation email at the address you provided.",
+  
+  "Action.SupportForm.Continue": "Continue",
+  "Action.SupportForm.Done": "Done"
+}
