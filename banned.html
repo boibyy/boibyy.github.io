@@ -182,7 +182,7 @@ body.dark-mode #display-desc {
         
 .container { 
     width: 640px; 
-    min-height: min(800px, 90vh); 
+    min-height: min(800px, 85vh); 
     height: auto;
     max-height: 800px;
     background: var(--bg-modal); 
@@ -1216,7 +1216,7 @@ select:focus-visible,
                             <span class="value text-medium text-normal-color" id="display-date"></span>
                         </div>
                         <div id="evidence-overflow"></div>
-                        <button class="btn-view-more width-full height-medium bg-gray2 text-header-color border-radius-btn text-small margin-top-small focus-visible-ring" id="view-more-btn" onclick="reportMistakeClicked(event)">View details</button>
+                        <button class="btn-view-more width-full height-medium bg-gray2 text-header-color border-radius-btn text-small margin-top-small focus-visible-ring" id="view-more-btn" onclick="handleViewDetails()">View details</button>
                         
                         <div id="next-section-main" style="display: none;">
                             <div class="field margin-top-large">
@@ -1324,7 +1324,7 @@ select:focus-visible,
         "Harassment.V2": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
         "AbuseOfBoibyEmployees": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
         "DiscriminationHate.V2": { headerTop: "Heading.BullyHeaderTop", header: "Heading.RuleExplanation.BullyHeader.V2", detail: "Description.BullyDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.BullyImportance" },
-        "Spam": { headerTop: "Heading.SpamHeaderTop", header: "Heading.RuleExplanation.SpamHeader", detail: "Description.SpamDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SpamImportance" },
+        "Spam": { headerTop: "Heading.SpamHeaderTop", header: "Heading.RuleExplanation.SpamHeader.V2", detail: "Description.SpamDetail.V2", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SpamImportance" },
         "Swearing": { headerTop: "Heading.SwearingHeaderTop", header: "Heading.RuleExplanation.SwearingHeader", detail: "Description.SwearingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SwearingImportance" },
         "DirectingUsersOffPlatform": { headerTop: "Heading.OffPlatformHeaderTop", header: "Heading.RuleExplanation.OffPlatformHeader", detail: "Description.OffPlatformDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.OffPlatformImportance" },
         "ExtortionThreats.V2": { headerTop: "Heading.ExtortionHeaderTop", header: "Heading.RuleExplanation.ExtortionHeader", detail: "Description.ExtortionDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ExtortionImportance" },
@@ -1414,11 +1414,10 @@ document.getElementById('main-container').addEventListener('keydown', function(e
             translations = {}; 
         }
         
-        // Load saved ban data
         const loaded = loadBanData();
         if (loaded) {
+            currentType = document.getElementById('evidence-type')?.value || 'None';
             renderEvidenceControls();
-            handleTypeChange(); // Update evidence controls based on loaded type
         }
         
         updateContent();
@@ -1574,6 +1573,22 @@ document.getElementById('main-container').addEventListener('keydown', function(e
         const experimentCheckbox = document.getElementById('experiment-educational-checkbox');
         if (experimentCheckbox) {
             experimentEnableEducationalPages = experimentCheckbox.checked;
+        }
+    }
+
+    function handleViewDetails() {
+        const hasNonGenericEvidence = evidenceItems.some(item => 
+            item.type && 
+            item.type !== 'Generic' && 
+            item.type !== 'Payment' && 
+            item.type !== 'None'
+        );
+        
+        if (hasNonGenericEvidence) {
+            window.open('/violations-appeals#details', '_blank');
+        } else {
+            // Original toggle behavior for Generic/Payment only
+            toggleEvidence();
         }
     }
 
@@ -1838,11 +1853,20 @@ document.getElementById('main-container').addEventListener('keydown', function(e
 
     function handleTypeChange() { 
         currentType = document.getElementById('evidence-type')?.value || 'None'; 
-        evidenceItems = []; 
+        
+        if (!isInitializing) {
+            evidenceItems = []; 
+        }
+        
         const addBtn = document.getElementById('add-btn');
         if (addBtn) addBtn.style.display = (currentType === 'Generic') ? 'block' : 'none'; 
-        if (currentType !== 'None') addEvidenceItem(); 
-        else { renderEvidenceControls(); updateContent(); } 
+        
+        if (currentType !== 'None' && !isInitializing && evidenceItems.length === 0) {
+            addEvidenceItem(); 
+        } else { 
+            renderEvidenceControls(); 
+            updateContent(); 
+        }
         const imageUploadContainer = document.getElementById('image-upload-container');
         if (imageUploadContainer) {
             if (currentType === 'Image' || currentType === 'ProfilePicture') {
@@ -2361,7 +2385,18 @@ document.getElementById('main-container').addEventListener('keydown', function(e
             });
 
             const divider = document.getElementById('evidence-divider');
-            if (divider) divider.style.display = evidenceItems.length > 0 ? 'block' : 'none';
+            const hasGenericEvidence = evidenceItems.some(item => item.type === 'Generic');
+            if (divider) divider.style.display = hasGenericEvidence ? 'block' : 'none';
+
+            const dateLabel = document.getElementById('lbl-date-static');
+            const hasNonGenericEvidence = evidenceItems.some(item => item.type !== 'Generic' && item.type !== 'None');
+            if (dateLabel && dateLabel.parentElement) {
+                if (hasNonGenericEvidence) {
+                    dateLabel.parentElement.style.marginTop = '12px';
+                } else {
+                    dateLabel.parentElement.style.marginTop = '';
+                }
+            }
         }
         const imagePreviewContainer = document.getElementById('image-preview-container');
         const previewImage = document.getElementById('preview-image');
@@ -2378,6 +2413,26 @@ document.getElementById('main-container').addEventListener('keydown', function(e
             previewImage.src = '';
             if (evidenceCardContent) {
                 evidenceCardContent.style.flex = '';
+            }
+        }
+
+        const viewMoreBtn = document.getElementById('view-more-btn');
+        if (viewMoreBtn) {
+            const hasNonGenericEvidence = evidenceItems.some(item => 
+                item.type && 
+                item.type !== 'Generic' && 
+                item.type !== 'Payment' && 
+                item.type !== 'None'
+            );
+            
+            if (hasNonGenericEvidence) {
+                viewMoreBtn.innerText = t('Action.ViewDetails');
+            } else {
+                // Keep toggle behavior for generic items
+                const total = evidenceItems.length;
+                const overflow = document.getElementById('evidence-overflow');
+                const isOpen = overflow && overflow.style.display === 'block';
+                viewMoreBtn.innerText = (total > 5 && isOpen) ? t('Action.ViewLess') : t('Action.ViewDetails');
             }
         }
 
@@ -2461,7 +2516,11 @@ function renderEvidenceControls() {
         } else {
             const input = document.createElement('input');
             input.value = item.val1 || '';
-            input.oninput = (e) => { evidenceItems[index].val1 = e.target.value; updateContent(); };
+            input.oninput = (e) => { 
+                evidenceItems[index].val1 = e.target.value; 
+                saveBanData();
+                updateContent(); 
+            };
             div.appendChild(input);
         }
 
@@ -2550,7 +2609,11 @@ function renderEvidenceControls() {
             
             const locInput = document.createElement('input');
             locInput.value = item.val2 || '';
-            locInput.oninput = (e) => { evidenceItems[index].val2 = e.target.value; updateContent(); };
+            locInput.oninput = (e) => { 
+                evidenceItems[index].val2 = e.target.value; 
+                saveBanData();
+                updateContent(); 
+            };
             locDiv.appendChild(locInput);
             
             mainDiv.appendChild(locDiv);
