@@ -509,10 +509,15 @@ async function init() {
 }
 
 function handleHashChange() {
-    if (window.location.hash === '#details' && banData) {
-        document.getElementById('list-view').style.display = 'none';
-        document.getElementById('detail-view').style.display = 'block';
-        populateDetailView(banData);
+    if (window.location.hash === '#details') {
+        if (banData) {
+            document.getElementById('list-view').style.display = 'none';
+            document.getElementById('detail-view').style.display = 'block';
+            populateDetailView(banData);
+        } else {
+            // No violation detected; redirect back to list
+            window.location.hash = '';
+        }
     } else {
         document.getElementById('detail-view').style.display = 'none';
         document.getElementById('list-view').style.display = 'block';
@@ -680,10 +685,10 @@ function populateDetailView(data) {
     document.getElementById('appeal-deadline').innerText = t('Label.AppealDeadline', { dateTime: deadlineStr });
 
     // Populate evidence
-    populateEvidence(evidenceItems, data.uploadedImage);
+    populateEvidence(evidenceItems, data.uploadedImage, data);
 }
 
-function populateEvidence(evidenceItems, uploadedImage) {
+function populateEvidence(evidenceItems, uploadedImage, data) {
     const list = document.getElementById('evidence-list-main');
     list.innerHTML = '';
 
@@ -769,6 +774,22 @@ function populateEvidence(evidenceItems, uploadedImage) {
         
         list.appendChild(mainDiv);
     });
+
+    // Add action taken field at the end
+    if (data.duration) {
+        const actionDiv = document.createElement('div');
+        actionDiv.className = 'field';
+        actionDiv.style.marginBottom = '0';
+
+        const actionField = document.createElement('div');
+        actionField.className = 'field';
+
+        const actionText = t(`Heading.${data.duration}`);
+
+        actionField.innerHTML = `<span style="margin-top: 12px" class="label">${t('Label.ActionTaken')}:</span><span class="value">${actionText}</span>`;
+        actionDiv.appendChild(actionField);
+        list.appendChild(actionDiv);
+    }
 }
 
 function backToList() {
