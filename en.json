@@ -2,6 +2,8 @@
   "Action.Theme.SwitchLight": "Switch to Light",
   "Action.Theme.SwitchDark": "Switch to Dark",
 
+  "Heading.AccountDeleted": "Account Deleted",
+  "Heading.Terminated": "Account Terminated",
   "Heading.Warning": "Warning",
   "Heading.Suspended1Day": "Suspended for 1 day",
   "Heading.Suspended3Days": "Suspended for 3 days",
@@ -12,6 +14,7 @@
   "Heading.Banned": "Banned",
  
   "Heading.Subheading.WhyThisHappened": "Why this happened",
+  "Heading.Subheading.WhatHappened": "Why this happened",
   "Heading.Subheading.ActivityReviewed": "Activity we reviewed",
   "Heading.Subheading.ActivityReviewed.V2": "Recent activity we reviewed",
 
@@ -328,7 +331,9 @@
 
   "Heading.SpamHeaderTop": "Let conversations flow",
   "Heading.RuleExplanation.SpamHeader": "No spamming",
-  "Description.SpamDetail": "Spam involves repetitive, unwanted, or automated messages or posts, and isn't allowed.",
+  "Heading.RuleExplanation.SpamHeader.V2": "Spamming's against the rules.",
+  "Description.SpamDetail": "Spamming involves repetitive, unwanted, or repeated messaging and isn't allowed.",
+  "Description.SpamDetail.V2": "It's not okay to repeatedly spam the same message over and over again.",
   "Description.SpamImportance": "Spamming harms the experience for others and makes it hard to follow conversations.",
 
   "Heading.ExtortionHeaderTop": "Respect others' safety",
@@ -474,5 +479,7 @@
   "Label.Appeals.LimitReached": "Appeal limit reached",
   "Description.Appeals.LimitReached": "You’ve reached the maximum number of appeals. You can no longer appeal this violation.",
   "Label.Error.Unexpected": "An unexpected error occurred. Please try again later",
-  "Action.Reload": "Reload"
+  "Action.Reload": "Reload",
+
+  "Label.ActionTaken": "Action taken"
 }
