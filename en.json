@@ -18,7 +18,7 @@
   "Heading.Subheading.ActivityReviewed": "Activity we reviewed",
   "Heading.Subheading.ActivityReviewed.V2": "Recent activity we reviewed",
 
-  "Description.BrokeRulesBanned": "We permanently banned your account because of repeated or serious rule-breaking.",
+  "Description.BrokeRulesBanned": "We banned your account because of repeated or serious rule-breaking.",
   "Description.GenericDescription": "Your behaviour broke Boiby's rules.",
   "Description.GenericTypeDescription": "Your {{type}} broke Boiby's rules.",
   "Description.GenericTypeDescriptionPlural": "One of your {{type}}s broke Boiby's rules.",
@@ -229,7 +229,7 @@
   "Label.MessageToUser.PII": "Boiby prohibits users from sharing, or asking for, personally identifiable information (PII). This includes phone numbers, email addresses, full names, off-platform accounts, and physical addresses.",
   "Label.MessageToUser.Chargebacks": "Your account has been suspended for making unauthorized or disputed charges.",
   "Label.MessageToUser.PaymentAbuse": "Your account has been suspended for payment abuse.",
-  "Label.MessageToUser.MisusingBoibySystems": "Boiby does not permit attempts to misuse our platform's report tools, or bypasses of systems that keep our community safe.",
+  "Label.MessageToUser.MisusingBoibySystems": "Boiby does not permit bypasses of our systems that keep our platform and community safe and secure.",
   "Label.MessageToUser.DangerousActivities": "Boiby prohibits the encouragement of or participation in real-life dangerous activities among users.",
   "Label.MessageToUser.SuspiciousAccountPatterns": "Your account has been suspended due to suspicious account activity patterns.",
   "Label.MessageToUser.CompromisedAccount": "This account has been closed as compromised. If you believe this to be a mistake, please send an appeal.",
@@ -366,10 +366,10 @@
   "Description.ImpersonationDetail": "Pretending to be someone else or misrepresenting your identity isn't allowed. This also includes impersonating Boiby staff members or administrators.",
   "Description.ImpersonationImportance": "Impersonation can be used to mislead or confuse others, and may harm the reputation of the person being impersonated.",
 
-  "Heading.MisusingSystemsHeaderTop": "Be responsible with safety systems",
+  "Heading.MisusingSystemsHeaderTop": "Be responsible with our tools",
   "Heading.RuleExplanation.MisusingSystemsHeader": "No misusing our systems",
-  "Description.MisusingSystemsDetail": "Misusing our reporting tools or attempting to bypass our safety and security systems breaks our rules and isn't allowed.",
-  "Description.MisusingSystemsImportance": "Our systems are in place to keep our platform and users safe and secure. Bypassing or misusing these sytems can compromise the safety and integrity of our platform.",
+  "Description.MisusingSystemsDetail": "Misusing our reporting tools or attempting to bypass our safety and security systems breaks our rules and isn't allowed. It's also against the rules to upload content that tries to get around the rules.",
+  "Description.MisusingSystemsImportance": "Our systems are in place to keep everyone safe and secure. Bypassing or misusing these sytems can harm the safety and integrity of our platform.",
 
   "Heading.UndisclosedAdsHeaderTop": "Be transparent about advertising",
   "Heading.RuleExplanation.UndisclosedAdsHeader": "Disclose advertisements properly",
