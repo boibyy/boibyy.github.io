@@ -1,5 +1,4 @@
-
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en"><head><style>
 body {transition: opacity ease-in 0.2s; } 
 </style>
@@ -69,6 +68,149 @@ body.dark-mode #display-desc {
             --border-medium: 2px;
             --border-thick: 3px;
         }
+
+        /* App Mode Styles */
+        body.app-mode .container {
+            max-width: 560px;
+            max-height: min(960px, 90vh);
+        }
+
+        body.app-mode #image-preview-container {
+            border-radius: 5px; /* check later */
+        }
+
+        body.app-mode:not(.app-mode-show-images) #image-preview-container {
+            display: none !important;
+        }
+
+        body.app-mode .btn-back-arrow {
+            margin-top: 46px;
+        }
+        body.app-mode .btn-dots-rules {
+            margin-top: 48px;
+        }
+
+        body.app-mode .progress-bar-container {
+            margin-top: 50px;
+        }
+
+        body.app-mode .container {
+            border-radius: var(--radius-btn);
+        }
+        body.app-mode .modal-content,
+        body.app-mode .card {
+            border-radius: var(--radius-btn);
+        }
+
+        body.app-mode .icon-container,
+        body.app-mode #main-view-header .dots {
+            display: none;
+        }
+
+        body.app-mode .header-section {
+            padding: 0px 0px 0px 0px;
+        }
+
+        body.app-mode .header {
+            justify-content: center;
+            margin-bottom: 2px;
+            padding-bottom: 2px;
+            margin-top: 1px;
+            border-bottom: 1px solid var(--text-trace);
+        }
+
+        body.app-mode .footer {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        body.app-mode #footer-main-buttons {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        body.app-mode .btn-report {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        body.app-mode #footer-rules-buttons {
+            flex-direction: column !important;
+            align-items: stretch !important;
+        }
+
+        body.app-mode .agree-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        body.app-mode .continue-disabled-wrapper {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        body.app-mode .continue-disabled-wrapper .btn-report {
+            width: 100% !important;
+        }
+
+        body.app-mode .suspension-countdown {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Show header on all pages in app mode */
+        body.app-mode .header-section {
+            display: block !important;
+        }
+
+        body.app-mode #display-duration-title {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        body.app-mode .card {
+            margin-bottom: 20px!important;
+            padding: 15px 14px 15px 14px!important;
+        }
+
+        body.app-mode .description {
+            margin-top: 4px;
+            margin-bottom: 20px!important;
+        }
+
+        body.app-mode .header-section {
+    display: block !important;
+    position: relative;
+    z-index: 1;
+}
+
+body.app-mode .progress-bar-container {
+    z-index: 5;
+}
+
+body.app-mode .btn-back-arrow,
+body.app-mode .btn-dots-rules {
+    z-index: 10;
+}
+
+        .btn-logout-app {
+            background-color: rgba(0,0,0,0);
+            color: #eeeeee !important;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        body.light-mode .btn-logout-app {
+            background-color: none!important;
+            color: #222 !important;
+        }
+
+        .btn-logout-app:hover {
+            background-color: var(--btn-gray-hover2) !important;
+        }
+
         body.light-mode {
             --bg-base: #ffffff; --bg-modal: #f7f7f8; --bg-card: #E6E7EB;
             --btn-gray: #dbdcdf; --btn-gray-hover: #cdd0d8; --text-header: #3a3a3a;
@@ -182,7 +324,7 @@ body.dark-mode #display-desc {
         
 .container { 
     width: 640px; 
-    min-height: min(800px, 85vh); 
+    min-height: min(800px, 90vh); 
     height: auto;
     max-height: 800px;
     background: var(--bg-modal); 
@@ -198,7 +340,14 @@ body.dark-mode #display-desc {
 }
 @media (max-width:550px) {
     .container { 
-        max-height: 97vh;
+        max-height: 100vh;
+    }
+}
+
+@media (max-width:550px) {
+    .app-mode .container { 
+        max-height: 100vh!important;
+        padding-bottom: 12px;
     }
 }
         
@@ -238,7 +387,9 @@ body.dark-mode #display-desc {
         }
 
         @media (max-width: 550px) {
-
+            #image-preview-container {
+                display:none!important;
+            }
             .agree-section {
                 flex-direction: column!important;
                 align-items: flex-start!important;
@@ -258,7 +409,7 @@ body.dark-mode #display-desc {
         line-height: 1.2!important;
         margin-bottom: 14px!important;
         margin-top: 12px!important;
-        font-size: 21px!important;
+        font-size: 20px!important;
     }
 
     h1 {
@@ -271,6 +422,10 @@ body.dark-mode #display-desc {
     .footer {
         margin-bottom: 5px!important;
     }
+}
+
+.header-section {
+    padding: 20px;
 }
 
 .panel { 
@@ -290,7 +445,61 @@ body.dark-mode #display-desc {
     flex-direction: column; 
     gap: 15px; 
     margin-bottom: 100px;
-}        .panel.open { left: 0; }
+}
+
+@media (max-width: 800px) {
+    .panel:not(.open) {
+        left: -320px !important;
+    }
+    
+    .panel.open {
+        left: 0 !important;
+    }
+    
+    .panel-close-btn {
+        display: flex;
+    }
+}
+
+.panel.open { left: 0; }
+
+/* Add these new rules */
+.panel-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    background: var(--btn-gray);
+    border: none;
+    border-radius: 50%;
+    color: var(--text-header);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.panel-close-btn:hover {
+    background: var(--btn-gray-hover);
+}
+
+@media (max-width: 800px) {
+    .panel:not(.open) {
+        left: -320px !important;
+    }
+    
+    .panel.open {
+        left: 0 !important;
+    }
+}
+
+.panel-close-btn:hover {
+    background: var(--btn-gray-hover);
+}
+
         .panel h3 { margin: 0; font-size: 18px; color: var(--text-header); }
         .panel label { display: block; font-size: 12px; font-weight: bold; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
         .panel select, .panel input:not([type="checkbox"]), .panel textarea { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--shadow-border); background: var(--bg-card); color: var(--text-normal); font-family: inherit; margin-bottom: 10px; }
@@ -354,7 +563,7 @@ body.dark-mode #display-desc {
         #footer-main-buttons, #footer-rules-buttons {
             margin-bottom: 1px
         }
-        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1px; margin-top: 6px}
+        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1px; margin-top: 7px}
         .title-group { display: flex; align-items: center; gap: 10px; }
         .icon-container { width: 22px; height: 22px; position: relative; display: flex; align-items: center; justify-content: center; }
         .ban-icon { width: 22px; height: 22px; border: 2px solid var(--danger); border-radius: 50%; box-sizing: border-box; position: relative; }
@@ -364,7 +573,7 @@ body.dark-mode #display-desc {
         .dots { color: var(--text-header); font-size: 18px; font-weight: 500; width: 26px; height: 26px; text-align: center; align-content: center; cursor: pointer; line-height: 1; position: relative; border-radius: 50%!important; transition: background-color 0.2s!important }
         .description { font-size: var(--font-medium); color: var(--text-normal); margin: 0 0 21px 0; line-height: 1.35; }
         h2 { font-size: var(--font-xlarge); font-weight: 700; color: var(--text-header); margin: 3px 0 12px 0; }
-        .card { background: var(--bg-card); border-radius: var(--radius-card); padding: 16px 14px 16px 14px; margin-bottom: 21px; border: 1px rgba(0, 0, 0, 0.03); }
+        .card { background: var(--bg-card); border-radius: var(--radius-card); padding: 16px 15px 16px 15px; margin-bottom: 21px; border: 1px rgba(0, 0, 0, 0.03); }
         .field { margin-bottom: 12px!important; }
         .card .field:last-child { margin-bottom: 0!important }
         .label { display: block; font-weight: 700; font-size: var(--font-medium); color: var(--text-header); margin-bottom: 2px; }
@@ -719,6 +928,35 @@ body.dark-mode #display-desc {
             display: flex;
         }
 
+        .btn-dots-rules {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: var(--text-header);
+            font-size: 18px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s;
+            z-index: 10;
+            line-height: 1;
+            margin-top: 2px;
+        }
+
+        .btn-dots-rules:hover {
+            background: var(--btn-gray2);
+        }
+
+        .btn-dots-rules.active {
+            display: flex;
+        }
+
         .suspension-countdown {
             display: flex;
             align-items: center;
@@ -775,6 +1013,14 @@ body.dark-mode #display-desc {
                 height: 28px;
                 text-align: center;
                 align-content: center;
+            }
+            
+            :root {
+            	--font-xsmall: 12px;
+            	--font-small: 13px;
+                --font-medium: 14px;
+                --font-large: 15px;
+                --font-xlarge: 16px;
             }
         }
                 /* Skeleton Loading Animation */
@@ -926,6 +1172,7 @@ select:focus-visible,
 </div>
 
 <aside class="panel open flex flex-column gap-large padding-large" id="side-panel">
+    <button class="panel-close-btn" id="panel-close-btn" onclick="closePanel()">×</button>
     <h3 class="text-2xlarge text-header-color">Edit</h3>
     <div>
         <label class="text-xsmall text-muted-color margin-bottom-small">Appearance</label>
@@ -938,7 +1185,6 @@ select:focus-visible,
             <option value="Suspended1Day">Suspend 1 day</option>
             <option value="Suspended3Days">Suspend 3 days</option>
             <option value="Suspended7Days">Suspend 7 days</option>
-            <option value="Suspended14Days">Suspend 14 days</option>
             <option value="Banned" selected>Ban (Terminate)</option>
         </select>
     </div>
@@ -1144,17 +1390,25 @@ select:focus-visible,
         <label class="text-xsmall text-muted-color margin-bottom-small">Enable middle/educational pages</label>
         <input type="checkbox" id="experiment-educational-checkbox" checked autocomplete="off" onchange="handleExperimentToggle()">
     </div>
+    <div id="experiment-app-mode-container">
+        <label class="text-xsmall text-muted-color margin-bottom-small">Enable App Mode</label>
+        <input type="checkbox" id="experiment-app-mode-checkbox" autocomplete="off" onchange="handleAppModeToggle()">
+    </div>
     <div style="display:none!important;" id="experiment-hide-learn-more-container">
         <label class="text-xsmall text-muted-color margin-bottom-small">Enable hide "Learn more" button</label>
         <input type="checkbox" id="experiment-hide-learn-more-checkbox" autocomplete="off" onchange="handleHideLearnMoreToggle()">
     </div>
-    <div id="experiment-settings-menu-container">
+    <div id="experiment-settings-menu-container" style="display: none !important;">
         <label class="text-xsmall text-muted-color margin-bottom-small">Enable settings in logout menu</label>
         <input type="checkbox" id="experiment-settings-menu-checkbox" checked autocomplete="off" onchange="handleSettingsMenuToggle()">
     </div>
     <div style="display:none!important;" id="experiment-send-appeal-container">
         <label class="text-xsmall text-muted-color margin-bottom-small">Enable change to "Send appeal"</label>
         <input type="checkbox" id="experiment-send-appeal-checkbox" autocomplete="off" onchange="handleSendAppealToggle()">
+    </div>
+    <div id="experiment-app-mode-show-images-container" style="display: none;">
+        <label class="text-xsmall text-muted-color margin-bottom-small">Show images on app mode (does not work on mobile)</label>
+        <input type="checkbox" id="experiment-app-mode-show-images-checkbox" autocomplete="off" onchange="handleAppModeShowImagesToggle()">
     </div>
     <div style="border-top: 1px solid var(--btn-gray2); padding-top: 10px;">
     <button class="btn-logout width-full" onclick="handleClearData()">
@@ -1166,12 +1420,9 @@ select:focus-visible,
 
 <div class="page-wrapper width-full cover" tabindex="-1">
     <div class="container flex flex-column focusable focus-visible-ring-inset" tabindex="0" id="main-container">
-            <button class="btn-back-arrow margin-bottom-2xlarge" id="btn-back-arrow" onclick="handleBackNavigation()">‹</button>
-        <div class="progress-bar-container" id="progress-bar-container">
-            <div class="progress-bar-fill" id="progress-bar-fill"></div>
-        </div>
+            
 
-        <div class="header-section" style="padding: 20px; padding-bottom: 0; flex-shrink: 0;">
+        <div class="header-section" style="padding-bottom: 0; flex-shrink: 0;">
             <div id="main-view-header">
                 <div class="header flex margin-bottom-large margin-top-xsmall">
                     <div class="title-group flex gap-medium skeleton-loading" tabindex="-1">
@@ -1187,6 +1438,17 @@ select:focus-visible,
                     </div>
                 </div>
             </div>
+        </div>
+
+        <button class="btn-back-arrow margin-bottom-2xlarge" id="btn-back-arrow" onclick="handleBackNavigation()">‹</button>
+            <button class="btn-dots-rules" id="btn-dots-rules">⋮
+                <div class="dots-menu bg-modal border-thin border-radius-card" id="dots-menu-rules">
+                    <div class="dots-menu-item text-xlarge text-normal-color padding-medium" id="settings-menu-item-rules" tabindex="0">Settings</div>
+                    <div class="dots-menu-item text-xlarge text-normal-color padding-medium" id="logout-menu-item-rules" tabindex="0">Logout</div>
+                </div>
+            </button>
+        <div class="progress-bar-container" id="progress-bar-container">
+            <div class="progress-bar-fill" id="progress-bar-fill"></div>
         </div>
         
         <div class="scrollable-body flex-1 padding-large">
@@ -1301,10 +1563,48 @@ select:focus-visible,
     let uploadedImageBase64 = null;
     
     let experimentEnableEducationalPages = true;
+    let experimentAppModeShowImages = false;
     let experimentEUTransparency = false;
     let experimentHideLearnMore = true;
-    let experimentSettingsInMenu = false;
+    let experimentSettingsInMenu = true;
     let experimentSendAppeal = false;
+    let experimentAppMode = false;
+
+function reorderContainerElements() {
+    const container = document.getElementById('main-container');
+    const headerSection = document.querySelector('.header-section');
+    const backArrow = document.getElementById('btn-back-arrow');
+    const dotsRules = document.getElementById('btn-dots-rules');
+    const progressBar = document.getElementById('progress-bar-container');
+    const scrollableBody = document.querySelector('.scrollable-body');
+    const footer = document.querySelector('.footer');
+    
+    if (!container || !headerSection || !backArrow || !dotsRules || !progressBar || !scrollableBody) return;
+    
+    // Remove all elements first
+    backArrow.remove();
+    dotsRules.remove();
+    headerSection.remove();
+    progressBar.remove();
+    scrollableBody.remove();
+    if (footer) footer.remove();
+    
+    if (experimentAppMode) {
+        container.appendChild(headerSection);
+        container.appendChild(backArrow);
+        container.appendChild(dotsRules);
+        container.appendChild(progressBar);
+        container.appendChild(scrollableBody);
+        if (footer) container.appendChild(footer);
+    } else {
+        container.appendChild(headerSection);
+        container.appendChild(backArrow);
+        container.appendChild(dotsRules);
+        container.appendChild(progressBar);
+        container.appendChild(scrollableBody);
+        if (footer) container.appendChild(footer);
+    }
+}
     
     function handleClearData() {
         localStorage.clear();
@@ -1406,6 +1706,46 @@ document.getElementById('main-container').addEventListener('keydown', function(e
         if (btn) btn.innerText = 'Switch to Dark';
     }
 })();
+
+        if (window.innerWidth <= 800) {
+            experimentAppMode = true;
+            document.getElementById('experiment-app-mode-checkbox').checked = true;
+            document.body.classList.add('app-mode');
+            
+            // Reorder elements for app mode
+            const container = document.getElementById('main-container');
+            const headerSection = document.querySelector('.header-section');
+            const backArrow = document.getElementById('btn-back-arrow');
+            const dotsRules = document.getElementById('btn-dots-rules');
+            const progressBar = document.getElementById('progress-bar-container');
+            
+            if (container && headerSection && progressBar) {
+                // Correct order: back arrow, dots, progress bar, THEN header
+                container.insertBefore(backArrow, container.firstChild);
+                container.insertBefore(dotsRules, backArrow.nextSibling);
+                container.insertBefore(progressBar, dotsRules.nextSibling);
+                container.insertBefore(headerSection, progressBar.nextSibling);
+            }
+        }
+
+        if (experimentAppMode) {
+            const imagesContainer = document.getElementById('experiment-app-mode-show-images-container');
+            if (imagesContainer) {
+                imagesContainer.style.display = 'block!important';
+            }
+        }
+        
+        // click hndler for duration title in app mode
+        const titleGroup = document.querySelector('.title-group');
+        if (titleGroup) {
+            titleGroup.style.cursor = 'pointer';
+            titleGroup.addEventListener('click', () => {
+                if (experimentAppMode) {
+                    document.getElementById('side-panel').classList.add('open');
+                }
+            });
+        }
+
         try { 
             const res = await fetch('en.json'); 
             translations = await res.json(); 
@@ -1421,6 +1761,7 @@ document.getElementById('main-container').addEventListener('keydown', function(e
         }
         
         updateContent();
+        reorderContainerElements();
         isInitializing = false;
         
         const finalBtn = document.getElementById('final-continue-btn');
@@ -1444,6 +1785,8 @@ document.getElementById('main-container').addEventListener('keydown', function(e
         const dotsMenu = document.getElementById('dots-menu');
         const logoutMenuItem = document.getElementById('logout-menu-item');
 
+        
+
         dotsTrigger.addEventListener('click', (e) => {
             e.stopPropagation();
             dotsMenu.classList.toggle('active');
@@ -1461,6 +1804,58 @@ document.getElementById('main-container').addEventListener('keydown', function(e
         });
 
         logoutMenuItem.innerText = t('Action.Logout') || 'Log out';
+        
+        // Setup rules page dots menu
+        const dotsRulesTrigger = document.getElementById('btn-dots-rules');
+        const dotsRulesMenu = document.getElementById('dots-menu-rules');
+        const settingsRulesItem = document.getElementById('settings-menu-item-rules');
+        const logoutRulesItem = document.getElementById('logout-menu-item-rules');
+
+        if (dotsRulesTrigger && dotsRulesMenu) {
+            dotsRulesTrigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dotsRulesMenu.classList.toggle('active');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!dotsRulesTrigger.contains(e.target)) {
+                    dotsRulesMenu.classList.remove('active');
+                }
+            });
+
+            if (settingsRulesItem) {
+                settingsRulesItem.addEventListener('click', () => {
+                    document.getElementById('side-panel').classList.add('open');
+                    dotsRulesMenu.classList.remove('active');
+                });
+            }
+
+            if (logoutRulesItem) {
+                logoutRulesItem.addEventListener('click', () => {
+                    handleLogout();
+                    dotsRulesMenu.classList.remove('active');
+                });
+            }
+        }
+                
+        // Initialize settings menu item
+        if (experimentSettingsInMenu) {
+            const dotsMenu = document.getElementById('dots-menu');
+            const settingsMenuItem = document.getElementById('settings-menu-item');
+            if (!settingsMenuItem) {
+                const newItem = document.createElement('div');
+                newItem.className = 'dots-menu-item';
+                newItem.id = 'settings-menu-item';
+                newItem.innerText = t('Action.Settings') || 'Settings';
+                newItem.setAttribute('tabindex', '0');
+                newItem.addEventListener('click', () => {
+                    document.getElementById('side-panel').classList.add('open');
+                    dotsMenu.classList.remove('active');
+                });
+                // Insert before logout item
+                dotsMenu.insertBefore(newItem, logoutMenuItem);
+            }
+        }
     }
 
     function t(key, vars = {}) {
@@ -1488,6 +1883,33 @@ document.getElementById('main-container').addEventListener('keydown', function(e
     } catch (e) { console.error('toggleMode error', e); }
 }
 
+function closePanel() {
+    document.getElementById('side-panel').classList.remove('open');
+}
+
+// Long press detection for mobile
+let longPressTimer;
+const dotsToggle = document.getElementById('customizer-toggle');
+
+if (dotsToggle) {
+    dotsToggle.addEventListener('touchstart', (e) => {
+        if (window.innerWidth <= 800) {
+            e.preventDefault();
+            longPressTimer = setTimeout(() => {
+                document.getElementById('side-panel').classList.add('open');
+            }, 500); // 500ms for long press
+        }
+    });
+
+    dotsToggle.addEventListener('touchend', () => {
+        clearTimeout(longPressTimer);
+    });
+
+    dotsToggle.addEventListener('touchmove', () => {
+        clearTimeout(longPressTimer);
+    });
+}
+
     function getFormattedDate() {
         const now = reviewDate || new Date();
         const options = { month: 'long', day: 'numeric', year: 'numeric' };
@@ -1496,59 +1918,61 @@ document.getElementById('main-container').addEventListener('keydown', function(e
     }
 
     function updateProgressBar() {
-        const progressBar = document.getElementById('progress-bar-fill');
-        const progressContainer = document.getElementById('progress-bar-container');
-        const backArrow = document.getElementById('btn-back-arrow');
-        const reason = document.getElementById('reason-select')?.value;
-        const hasPolicy = policyMap[reason];
-        const dur = document.getElementById('duration-select')?.value || 'Warning';
-        const isSuspension = dur.startsWith('Suspended');
-        
-        if (currentStep === 1) {
-            progressContainer.style.display = 'none';
-            backArrow.classList.remove('active');
-            return;
-        }
-        
-        // Show back arrow even when experiment is disabled (if not on main view)
-        backArrow.classList.add('active');
-        
-        // Hide progress bar if experiment is disabled
-        if (!experimentEnableEducationalPages) {
-            progressContainer.style.display = 'none';
-            return;
-        }
-        
-        progressContainer.style.display = 'block';
-        
-        let progress = 0;
-        
-        if (secondChanceEnabled && isSuspension) {
-            // Flow: main -> second chance 1 (step 2) -> policy 1 (step 3) -> policy 2 (step 4) -> rules (step 5) -> second chance 2 (step 7)
-            // Or if no policy: main -> second chance 1 (step 2) -> rules (step 4) -> second chance 2 (step 7)
-            if (hasPolicy) {
-                // 5 steps total (excluding main and final)
-                if (currentStep === 2) progress = 20;      // second chance 1
-                else if (currentStep === 3) progress = 40; // policy 1
-                else if (currentStep === 4) progress = 60; // policy 2
-                else if (currentStep === 5) progress = 80; // rules
-                else if (currentStep === 7) progress = 100; // second chance 2
-            } else {
-                // 3 steps total (excluding main and final)
-                if (currentStep === 2) progress = 33.33;    // second chance 1
-                else if (currentStep === 4) progress = 66.67; // rules
-                else if (currentStep === 7) progress = 100;   // second chance 2
-            }
-        } else if (hasPolicy) {
-            if (currentStep === 2) progress = 33.33;
-            else if (currentStep === 3) progress = 66.67;
-            else if (currentStep === 4) progress = 100;
-        } else {
-            if (currentStep === 4) progress = 100;
-        }
-        
-        progressBar.style.width = progress + '%';
+    const progressBar = document.getElementById('progress-bar-fill');
+    const progressContainer = document.getElementById('progress-bar-container');
+    const backArrow = document.getElementById('btn-back-arrow');
+    const dotsRules = document.getElementById('btn-dots-rules');
+    const reason = document.getElementById('reason-select')?.value;
+    const hasPolicy = policyMap[reason];
+    const dur = document.getElementById('duration-select')?.value || 'Warning';
+    const isSuspension = dur.startsWith('Suspended');
+    
+    if (currentStep === 1) {
+        progressContainer.style.display = 'none';
+        backArrow.classList.remove('active');
+        if (dotsRules) dotsRules.classList.remove('active');
+        return;
     }
+    
+    if (dotsRules) dotsRules.classList.add('active');
+    backArrow.classList.add('active');
+    
+    // Hide progress bar if experiment is disabled
+    if (!experimentEnableEducationalPages) {
+        progressContainer.style.display = 'none';
+        return;
+    }
+    
+    progressContainer.style.display = 'block';
+    
+    let progress = 0;
+    
+    if (secondChanceEnabled && isSuspension) {
+        // Flow: main -> second chance 1 (step 2) -> policy 1 (step 3) -> policy 2 (step 4) -> rules (step 5) -> second chance 2 (step 7)
+        // Or if no policy: main -> second chance 1 (step 2) -> rules (step 4) -> second chance 2 (step 7)
+        if (hasPolicy) {
+            // 5 steps total (excluding main and final)
+            if (currentStep === 2) progress = 20;      // second chance 1
+            else if (currentStep === 3) progress = 40; // policy 1
+            else if (currentStep === 4) progress = 60; // policy 2
+            else if (currentStep === 5) progress = 80; // rules
+            else if (currentStep === 7) progress = 100; // second chance 2
+        } else {
+            // 3 steps total (excluding main and final)
+            if (currentStep === 2) progress = 33.33;    // second chance 1
+            else if (currentStep === 4) progress = 66.67; // rules
+            else if (currentStep === 7) progress = 100;   // second chance 2
+        }
+    } else if (hasPolicy) {
+        if (currentStep === 2) progress = 33.33;
+        else if (currentStep === 3) progress = 66.67;
+        else if (currentStep === 4) progress = 100;
+    } else {
+        if (currentStep === 4) progress = 100;
+    }
+    
+    progressBar.style.width = progress + '%';
+}
 
     function toggleEvidence() {
         const overflow = document.getElementById('evidence-overflow');
@@ -1621,7 +2045,7 @@ document.getElementById('main-container').addEventListener('keydown', function(e
                 newItem.id = 'settings-menu-item';
                 newItem.innerText = t('Action.Settings') || 'Settings';
                 newItem.addEventListener('click', () => {
-                    handleSettings();
+                    document.getElementById('side-panel').classList.add('open');
                     dotsMenu.classList.remove('active');
                 });
                 dotsMenu.appendChild(newItem);
@@ -1636,6 +2060,47 @@ document.getElementById('main-container').addEventListener('keydown', function(e
     function handleSendAppealToggle() {
         experimentSendAppeal = document.getElementById('experiment-send-appeal-checkbox')?.checked || false;
         console.log('Send Appeal experiment toggled:', experimentSendAppeal);
+        updateContent();
+    }
+
+    function handleAppModeToggle() {
+    experimentAppMode = document.getElementById('experiment-app-mode-checkbox')?.checked || false;
+    console.log('App Mode experiment toggled:', experimentAppMode);
+    
+    const body = document.body;
+    const imagesContainer = document.getElementById('experiment-app-mode-show-images-container');
+    
+    // Show/hide the images experiment based on app mode state
+    if (imagesContainer) {
+        imagesContainer.style.display = experimentAppMode ? 'block' : 'none';
+    }
+    
+    if (experimentAppMode) {
+        body.classList.add('app-mode');
+        if (experimentAppModeShowImages) {
+            body.classList.add('app-mode-show-images');
+        }
+    } else {
+        body.classList.remove('app-mode');
+        body.classList.remove('app-mode-show-images');
+    }
+    
+    reorderContainerElements();
+    updateContent();
+}
+
+    function handleAppModeShowImagesToggle() {
+        experimentAppModeShowImages = document.getElementById('experiment-app-mode-show-images-checkbox')?.checked || false;
+        console.log('App Mode Show Images experiment toggled:', experimentAppModeShowImages);
+        
+        const body = document.body;
+        
+        if (experimentAppModeShowImages) {
+            body.classList.add('app-mode-show-images');
+        } else {
+            body.classList.remove('app-mode-show-images');
+        }
+        
         updateContent();
     }
 
@@ -2020,7 +2485,9 @@ document.getElementById('main-container').addEventListener('keydown', function(e
                 euTransparency: experimentEUTransparency,
                 hideLearnMore: experimentHideLearnMore,
                 settingsMenu: experimentSettingsInMenu,
-                sendAppeal: experimentSendAppeal
+                sendAppeal: experimentSendAppeal,
+                appMode: experimentAppMode,
+                appModeShowImages: experimentAppModeShowImages
             }
         };
         
@@ -2043,6 +2510,11 @@ document.getElementById('main-container').addEventListener('keydown', function(e
             if (document.getElementById('date-input')) document.getElementById('date-input').value = banData.reviewDate;
             if (document.getElementById('evidence-type')) document.getElementById('evidence-type').value = banData.evidenceType;
             if (document.getElementById('eu-decision-select')) document.getElementById('eu-decision-select').value = banData.euDecision;
+
+            experimentAppModeShowImages = banData.experiments.appModeShowImages ?? false;
+            if (document.getElementById('experiment-app-mode-show-images-checkbox')) {
+                document.getElementById('experiment-app-mode-show-images-checkbox').checked = experimentAppModeShowImages;
+            }
             
             // Restore evidence items
             evidenceItems = banData.evidenceItems || [];
@@ -2057,21 +2529,25 @@ document.getElementById('main-container').addEventListener('keydown', function(e
             // Restore uploaded image
             uploadedImageBase64 = banData.uploadedImage || null;
             
-            // Restore experiments
             if (banData.experiments) {
                 experimentEnableEducationalPages = banData.experiments.educational ?? true;
                 experimentEUTransparency = banData.experiments.euTransparency ?? false;
                 experimentHideLearnMore = banData.experiments.hideLearnMore ?? false;
-                experimentSettingsInMenu = banData.experiments.settingsMenu ?? false;
+                experimentSettingsInMenu = banData.experiments.settingsMenu ?? true;
                 experimentSendAppeal = banData.experiments.sendAppeal ?? false;
+                experimentAppMode = banData.experiments.appMode ?? (window.innerWidth <= 800);
                 
                 if (document.getElementById('experiment-educational-checkbox')) document.getElementById('experiment-educational-checkbox').checked = experimentEnableEducationalPages;
                 if (document.getElementById('experiment-eu-checkbox')) document.getElementById('experiment-eu-checkbox').checked = experimentEUTransparency;
                 if (document.getElementById('experiment-hide-learn-more-checkbox')) document.getElementById('experiment-hide-learn-more-checkbox').checked = experimentHideLearnMore;
                 if (document.getElementById('experiment-settings-menu-checkbox')) document.getElementById('experiment-settings-menu-checkbox').checked = experimentSettingsInMenu;
                 if (document.getElementById('experiment-send-appeal-checkbox')) document.getElementById('experiment-send-appeal-checkbox').checked = experimentSendAppeal;
+                if (document.getElementById('experiment-app-mode-checkbox')) document.getElementById('experiment-app-mode-checkbox').checked = experimentAppMode;
+                
+                if (experimentAppMode) {
+                    document.body.classList.add('app-mode');
+                }
             }
-            
             console.log('Ban data loaded from localStorage');
             return true;
         } catch (e) {
@@ -2192,6 +2668,19 @@ document.getElementById('main-container').addEventListener('keydown', function(e
                 mainBtn.style.pointerEvents = 'auto';
                 mainBtn.removeAttribute('aria-disabled');
                 mainBtn.onclick = () => openAppealModal();
+                
+                // logout button in app mode
+                const existingLogoutBtn = document.getElementById('app-mode-logout-btn');
+                if (experimentAppMode && !existingLogoutBtn) {
+                    const logoutBtn = document.createElement('button');
+                    logoutBtn.className = 'btn-report btn-logout-app height-medium padding-medium border-radius-btn text-large focus-visible-ring';
+                    logoutBtn.id = 'app-mode-logout-btn';
+                    logoutBtn.innerText = t('Action.Logout') || 'Log out';
+                    logoutBtn.onclick = handleLogout;
+                    mainBtn.parentElement.appendChild(logoutBtn);
+                } else if (!experimentAppMode && existingLogoutBtn) {
+                    existingLogoutBtn.remove();
+                }
             }
         } else {
             document.getElementById('next-section-main').style.display = 'none';
@@ -2199,9 +2688,15 @@ document.getElementById('main-container').addEventListener('keydown', function(e
             const violations = evidenceItems.filter(e => e.type !== 'SeriousChatViolation' && e.type !== 'VoiceEvidence');
             const hasViolations = violations.length > 0;
             
+            // Remove app mode logout button if it exists
+            const existingLogoutBtn = document.getElementById('app-mode-logout-btn');
+            if (existingLogoutBtn) {
+                existingLogoutBtn.remove();
+            }
+            
             const warningFilter = 'invert(70%) sepia(65%) saturate(600%) hue-rotate(351deg) brightness(95%) contrast(90%)';
             const suspensionFilter = 'invert(31%) sepia(93%) saturate(1292%) hue-rotate(1deg) brightness(94%) contrast(92%)';
-            
+
             document.getElementById('icon-holder').innerHTML = `<img src="https://www.svgrepo.com/show/455819/exclamation-triangle.svg" class="svg-icon" style="filter: ${isWarn ? warningFilter : suspensionFilter}">`;
             
             let descKey = 'Description.GenericDescription';
@@ -2754,7 +3249,7 @@ function renderEvidenceControls() {
         currentStep = 2;
 
         const headerSection = document.querySelector('.header-section');
-        if (headerSection) headerSection.style.display = 'none';
+        if (headerSection && !experimentAppMode) headerSection.style.display = 'none';
         
         document.getElementById('main-view').style.display = 'none';
         document.getElementById('policy-view-1').style.display = 'none';
@@ -3037,7 +3532,6 @@ function renderEvidenceControls() {
         const finalBtn = document.getElementById('final-continue-btn');
         const agreeWrap = document.getElementById('footer-rules-buttons')?.querySelector('label');
         const agreeCheckbox = document.getElementById('agree-checkbox');
-
         const suspensionDaysMap = { 'Suspended1Day': 1, 'Suspended3Days': 3, 'Suspended7Days': 7, 'Suspended14Days': 14 };
         
         if (dur.startsWith('Suspended') && !secondChanceEnabled && suspensionDaysMap[dur]) {
@@ -3249,15 +3743,14 @@ function renderEvidenceControls() {
     }
 
     init();
-
     setTimeout(() => {
         document.body.classList.add('loaded');
     }, 300);
-
     setTimeout(() => {
     document.querySelectorAll('.skeleton-loading').forEach(el => {
         el.classList.remove('skeleton-loading');
     });
 }, 300);
 </script>
-</body></html>
+</body>
+</html>
