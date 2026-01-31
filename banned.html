@@ -1813,9 +1813,12 @@ document.getElementById('main-container').addEventListener('keydown', function(e
             renderEvidenceControls();
         }
         
-        updateContent();
-        reorderContainerElements();
-        isInitializing = false;
+        updateContent()
+    reorderContainerElements();
+    isInitializing = false;
+    
+    // Add this line to ensure reason2 container visibility is set correctly
+    handleTypeChange();
         
         const finalBtn = document.getElementById('final-continue-btn');
         if (finalBtn) {
@@ -2370,42 +2373,42 @@ if (dotsToggle) {
     }
 
     function handleTypeChange() { 
-        currentType = document.getElementById('evidence-type')?.value || 'None'; 
+    currentType = document.getElementById('evidence-type')?.value || 'None'; 
+
+    // Clear reason2 when type changes
+    const reason2Select = document.getElementById('reason2-select');
+    if (reason2Select) reason2Select.value = '';
     
-        // Clear reason2 when type changes
-        const reason2Select = document.getElementById('reason2-select');
-        if (reason2Select) reason2Select.value = '';
-        
-        if (!isInitializing) {
-            evidenceItems = []; 
-        }
-        const addBtn = document.getElementById('add-btn');
-        if (addBtn) addBtn.style.display = (currentType === 'Generic') ? 'block' : 'none'; 
-        
-        // Show/hide reason2 container based on type
-        const reason2Container = document.getElementById('reason2-container');
-        const supportsMultipleReasons = ['VoiceChat', 'Comment', 'Post', 'UGCProfileDecoration', 'UGCProfileBanner', 'UGCProfileEffect', 'InExperienceBehaviour'].includes(currentType);
-        if (reason2Container) {
-            reason2Container.style.display = supportsMultipleReasons ? 'block' : 'none';
-        }
-        
-        if (currentType !== 'None' && !isInitializing && evidenceItems.length === 0) {
-            addEvidenceItem(); 
-        } else { 
-            renderEvidenceControls(); 
-            updateContent(); 
-        }
-        
-        const imageUploadContainer = document.getElementById('image-upload-container');
-        if (imageUploadContainer) {
-            if (currentType === 'Image' || currentType === 'ProfilePicture' || currentType === 'InExperienceBehaviour') {
-                imageUploadContainer.style.display = 'block';
-            } else {
-                imageUploadContainer.style.display = 'none';
-                clearImagePreview();
-            }
+    if (!isInitializing) {
+        evidenceItems = []; 
+    }
+    const addBtn = document.getElementById('add-btn');
+    if (addBtn) addBtn.style.display = (currentType === 'Generic') ? 'block' : 'none'; 
+    
+    // Show/hide reason2 container based on type
+    const reason2Container = document.getElementById('reason2-container');
+    const supportsMultipleReasons = ['VoiceChat', 'Comment', 'Post', 'UGCProfileDecoration', 'UGCProfileBanner', 'UGCProfileEffect', 'InExperienceBehaviour'].includes(currentType);
+    if (reason2Container) {
+        reason2Container.style.display = supportsMultipleReasons ? 'block' : 'none';
+    }
+    
+    if (currentType !== 'None' && !isInitializing && evidenceItems.length === 0) {
+        addEvidenceItem(); 
+    } else { 
+        renderEvidenceControls(); 
+        updateContent(); 
+    }
+    
+    const imageUploadContainer = document.getElementById('image-upload-container');
+    if (imageUploadContainer) {
+        if (currentType === 'Image' || currentType === 'ProfilePicture' || currentType === 'InExperienceBehaviour') {
+            imageUploadContainer.style.display = 'block';
+        } else {
+            imageUploadContainer.style.display = 'none';
+            clearImagePreview();
         }
     }
+}
     
     
     function addEvidenceItem() { 
