@@ -36,9 +36,9 @@
   "Description.SpecificDescriptionPluralTwoViolation": "One of your {{type}}s broke the rules against: {{reason}}, {{reason2}}.",
 
   "Description.Mistake": "You can request an appeal or ask us to review this decision here.",
-  "Description.Mistake.V2": "Did we make a mistake? You can request an appeal or ask us to review this decision here.",
-  "Description.Mistake.V3": "Think we've made a mistake? You can appeal this decision here.",
-  "Description.Mistake.V4": "If you think we’ve made a mistake, you can appeal this decision.",
+  "Description.Mistake.V2": "Did we make a mistake? You can request an appeal or ask us to review this decision.",
+  "Description.Mistake.V3": "If you think we’ve made a mistake, you can appeal this decision.",
+  "Description.Mistake.V4": "Think we've made a mistake? You can appeal this decision.",
 
   "Description.Foreshadow": "We may give you a longer suspension -or even ban your account- if you keep breaking the rules.",
   "Description.Foreshadow.V2": "We may give you a longer suspension —or even ban your account— if you keep breaking the rules.",
@@ -123,6 +123,7 @@
   "Action.ReportMistake": "Report a mistake",
   "Action.RequestAppeal": "Request appeal",
   "Action.SendAppeal": "Send appeal",
+  "Action.AppealDecision": "Appeal decision",
   "Action.ViewDetails": "View details",
   "Action.WaitSeconds": "Wait {{n}} seconds",
   "Action.WaitSecond": "Wait {{n}} second",
