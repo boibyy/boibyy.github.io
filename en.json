@@ -35,10 +35,10 @@
   "Description.SpecificDescriptionTwoViolation": "Your {{type}} broke the rules against: {{reason}}, {{reason2}}.",
   "Description.SpecificDescriptionPluralTwoViolation": "One of your {{type}}s broke the rules against: {{reason}}, {{reason2}}.",
 
-  "Description.Mistake": "Did we make a mistake? You can request an appeal or ask us to review this decision here.",
-  "Description.Mistake.V2": "If you think we’ve made a mistake, you can appeal this decision here.",
+  "Description.Mistake": "You can request an appeal or ask us to review this decision here.",
+  "Description.Mistake.V2": "Did we make a mistake? You can request an appeal or ask us to review this decision here.",
   "Description.Mistake.V3": "Think we've made a mistake? You can appeal this decision here.",
-  "Description.Mistake.V4": "Think we've made a mistake? You can appeal this decision.",
+  "Description.Mistake.V4": "If you think we’ve made a mistake, you can appeal this decision.",
 
   "Description.Foreshadow": "We may give you a longer suspension -or even ban your account- if you keep breaking the rules.",
   "Description.Foreshadow.V2": "We may give you a longer suspension —or even ban your account— if you keep breaking the rules.",
