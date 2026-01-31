@@ -12,15 +12,16 @@
   "Heading.Suspended6Months": "Suspended for 6 months",
   "Heading.Suspended1Year": "Suspended for 1 year",
   "Heading.Banned": "Banned",
- 
+
+  "Heading.Subheading.WhatHappened": "What happened",
   "Heading.Subheading.WhyThisHappened": "Why this happened",
-  "Heading.Subheading.WhatHappened": "Why this happened",
   "Heading.Subheading.ActivityReviewed": "Activity we reviewed",
   "Heading.Subheading.ActivityReviewed.V2": "Recent activity we reviewed",
 
   "Description.BrokeRulesBanned": "We banned your account because of repeated or serious rule-breaking.",
   "Description.GenericDescription": "Your behaviour broke Boiby's rules.",
   "Description.GenericTypeDescription": "Your {{type}} broke Boiby's rules.",
+  
   "Description.GenericTypeDescriptionPlural": "One of your {{type}}s broke Boiby's rules.",
   "Description.SpecificDescription": "Your behaviour broke Boiby's rules regarding {{reason}}.",
   "Description.SpecificTypeDescription": "Your {{type}} broke Boiby's rules regarding {{reason}}.",
@@ -34,6 +35,9 @@
   "Description.GenericDescriptionTwoViolation": "Your behaviour broke the rules against: {{reason}}, {{reason2}}.",
   "Description.SpecificDescriptionTwoViolation": "Your {{type}} broke the rules against: {{reason}}, {{reason2}}.",
   "Description.SpecificDescriptionPluralTwoViolation": "One of your {{type}}s broke the rules against: {{reason}}, {{reason2}}.",
+  "Description.GenericDescription.V3": "Your behaviour broke the rules of our community.",
+  "Description.GenericTypeDescription.V3": "Your {{type}} broke the rules of our community.",
+  "Description.GenericTypeDescriptionPlural.V3": "One of your {{type}}s broke the rules of our community.",
 
   "Description.Mistake": "You can request an appeal or ask us to review this decision here.",
   "Description.Mistake.V2": "Did we make a mistake? You can request an appeal or ask us to review this decision.",
