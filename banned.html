@@ -1193,7 +1193,7 @@ select:focus-visible,
         <select class="width-full padding-small border-radius-btn bg-card text-normal-color border-thin margin-bottom-medium" id="reason-select" onchange="updateContent()">
             <option value="Other">Other</option>
             <option value="LinkedAccountViolation">Linked Account Violation</option>
-            <option value="Harassment.V2">Bullying and Harassment</option>
+            <option value="Harassment.V2">Harassment</option>
             <option value="ExtortionThreats.V2">Extortion and Blackmail</option>
             <option value="Spam">Spam</option>
             <option value="Swearing">Swearing</option>
@@ -1213,7 +1213,7 @@ select:focus-visible,
             <option value="DisruptiveAudio">Disruptive Audio</option>
             <option value="DangerousActivities">Dangerous Activities</option>
             <option value="Misinformation">Misinformation</option>
-            <option value="Dating.V2">Dating and Romantic Content</option>
+            <option value="Dating.V2">Dating</option>
             <option value="SensitiveEvents">Real-World Sensitive Events</option>
             <option value="IllegalRegulated">Illegal or Regulated Content</option>
             <option value="RepeatedRefunds">Repeated Refund Requests</option>
@@ -1226,6 +1226,44 @@ select:focus-visible,
             <option value="AccountTheft">Account Theft</option>
         </select>
     </div>
+    <div id="reason2-container" style="display: none;">
+    <label class="text-xsmall text-muted-color margin-bottom-small">Reason 2 (Optional)</label>
+    <select class="width-full padding-small border-radius-btn bg-card text-normal-color border-thin margin-bottom-medium" id="reason2-select" onchange="updateContent()">
+            <option value="Other">Other</option>
+            <option value="LinkedAccountViolation">Linked Account Violation</option>
+            <option value="Harassment.V2">Harassment</option>
+            <option value="ExtortionThreats.V2">Extortion and Blackmail</option>
+            <option value="Spam">Spam</option>
+            <option value="Swearing">Swearing</option>
+            <option value="DirectingUsersOffPlatform">Directing Users Off-Platform</option>
+            <option value="Scamming">Scamming</option>
+            <option value="CheatsExploits">Cheats and Exploits</option>
+            <option value="DiscriminationHate.V2">Discriminatory Content</option>
+            <option value="SexualContent">Sexual Content</option>
+            <option value="MisusingSystems">Misusing Boiby Systems</option>
+            <option value="PrivacyGivingPII">Privacy: Giving PII</option>
+            <option value="PrivacyAskingPII">Privacy: Asking for PII</option>
+            <option value="PoliticalContent.V2">Political Figures and Entities</option>
+            <option value="Impersonation">Impersonation</option>
+            <option value="RealLifeThreats">Real-life Threats</option>
+            <option value="ViolentGore.V2">Extreme Violence and Gore</option>
+            <option value="UndisclosedAds">Undisclosed Advertisement</option>
+            <option value="DisruptiveAudio">Disruptive Audio</option>
+            <option value="DangerousActivities">Dangerous Activities</option>
+            <option value="Misinformation">Misinformation</option>
+            <option value="Dating.V2">Dating</option>
+            <option value="SensitiveEvents">Real-World Sensitive Events</option>
+            <option value="IllegalRegulated">Illegal or Regulated Content</option>
+            <option value="RepeatedRefunds">Repeated Refund Requests</option>
+            <option value="Chargebacks">Chargebacks</option>
+            <option value="IPViolation.V2">IP Violation</option>
+            <option value="TerrorismExtremism.V2">Terrorism/Extremism</option>
+            <option value="ChildEndangerment">Child Endangerment</option>
+            <option value="ChildEndangerment.V3">Harmful Content/Behaviour</option>
+            <option value="AbuseOfBoibyEmployees">Abuse of Boiby Employees</option>
+            <option value="AccountTheft">Account Theft</option>
+        </select>
+</div>
     <div>
         <label class="text-xsmall text-muted-color margin-bottom-small">Moderator Note Presets</label>
         <select class="width-full padding-small border-radius-btn bg-card text-normal-color border-thin margin-bottom-medium" id="note-preset" onchange="applyPresetNote()">
@@ -1365,6 +1403,7 @@ select:focus-visible,
             <option value="DisplayName">Display Name</option>
             <option value="Game">Game</option>
             <option value="Asset">Asset</option>
+            <option value="InExperienceBehaviour">In-experience Behaviour</option>
             <option value="SeriousChatViolation">Serious Chat Violation</option>
             <option value="VoiceEvidence">Serious Voice Chat Violation</option>
             <option value="ProfilePicture">Profile Picture</option>
@@ -2318,13 +2357,23 @@ if (dotsToggle) {
 
     function handleTypeChange() { 
         currentType = document.getElementById('evidence-type')?.value || 'None'; 
+    
+        // Clear reason2 when type changes
+        const reason2Select = document.getElementById('reason2-select');
+        if (reason2Select) reason2Select.value = '';
         
         if (!isInitializing) {
             evidenceItems = []; 
         }
-        
         const addBtn = document.getElementById('add-btn');
         if (addBtn) addBtn.style.display = (currentType === 'Generic') ? 'block' : 'none'; 
+        
+        // Show/hide reason2 container based on type
+        const reason2Container = document.getElementById('reason2-container');
+        const supportsMultipleReasons = ['VoiceChat', 'Comment', 'Post', 'UGCProfileDecoration', 'UGCProfileBanner', 'UGCProfileEffect', 'InExperienceBehaviour'].includes(currentType);
+        if (reason2Container) {
+            reason2Container.style.display = supportsMultipleReasons ? 'block' : 'none';
+        }
         
         if (currentType !== 'None' && !isInitializing && evidenceItems.length === 0) {
             addEvidenceItem(); 
@@ -2332,9 +2381,10 @@ if (dotsToggle) {
             renderEvidenceControls(); 
             updateContent(); 
         }
+        
         const imageUploadContainer = document.getElementById('image-upload-container');
         if (imageUploadContainer) {
-            if (currentType === 'Image' || currentType === 'ProfilePicture') {
+            if (currentType === 'Image' || currentType === 'ProfilePicture' || currentType === 'InExperienceBehaviour') {
                 imageUploadContainer.style.display = 'block';
             } else {
                 imageUploadContainer.style.display = 'none';
@@ -2388,7 +2438,7 @@ if (dotsToggle) {
             item.val1 = `[${ts}]: ${makeUUID()}`;
         }
         
-        // Handle ProfilePicture
+        // Handle ProfilePicture"
         else if (currentType === 'ProfilePicture') {
             item.val1 = generate12DigitID();
         }
@@ -2409,6 +2459,11 @@ if (dotsToggle) {
             const timeStr = vcDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
             item.val1 = t('Label.VoiceChatTimestampValue', { date: dateStr, time: timeStr });
             item.val2 = ''; // Location - user input
+        }
+
+        else if (currentType === 'InExperienceBehaviour') {
+            item.val2 = 'Avatar movement'; // Default interaction type
+            item.val3 = makeUUID(); // Auto-generated Interaction ID
         }
         
         // Handle Image, Video, Audio, Model, Game, Asset (Name + ID)
@@ -2473,6 +2528,7 @@ if (dotsToggle) {
         const banData = {
             duration: document.getElementById('duration-select')?.value || 'Banned',
             reason: document.getElementById('reason-select')?.value || 'Other',
+            reason2: document.getElementById('reason2-select')?.value || '',
             note: document.getElementById('note-input')?.value || '',
             reviewDate: document.getElementById('date-input')?.value || '',
             evidenceType: document.getElementById('evidence-type')?.value || 'None',
@@ -2510,6 +2566,7 @@ if (dotsToggle) {
             if (document.getElementById('date-input')) document.getElementById('date-input').value = banData.reviewDate;
             if (document.getElementById('evidence-type')) document.getElementById('evidence-type').value = banData.evidenceType;
             if (document.getElementById('eu-decision-select')) document.getElementById('eu-decision-select').value = banData.euDecision;
+            if (document.getElementById('reason2-select')) document.getElementById('reason2-select').value = banData.reason2 || '';
 
             experimentAppModeShowImages = banData.experiments.appModeShowImages ?? false;
             if (document.getElementById('experiment-app-mode-show-images-checkbox')) {
@@ -2547,6 +2604,11 @@ if (dotsToggle) {
                 if (experimentAppMode) {
                     document.body.classList.add('app-mode');
                 }
+            }
+            const reason2Container = document.getElementById('reason2-container');
+            const supportsMultipleReasons = ['VoiceChat', 'Comment', 'Post', 'UGCProfileDecoration', 'UGCProfileBanner', 'UGCProfileEffect', 'InExperienceBehaviour'].includes(currentType);
+            if (reason2Container) {
+                reason2Container.style.display = supportsMultipleReasons ? 'block' : 'none';
             }
             console.log('Ban data loaded from localStorage');
             return true;
@@ -2591,7 +2653,15 @@ if (dotsToggle) {
         setTxt('lbl-details-static', t('Label.ModeratorNote'));
         setTxt('display-note', note);
         setTxt('display-duration-title', t(`Heading.${dur}`));
-        setTxt('display-reason', t(`Label.Reason.${reason}`));
+
+        // Handle two reasons
+        const reason2 = document.getElementById('reason2-select')?.value || '';
+        if (reason2 && reason2 !== '') {
+            setTxt('display-reason', t(`Label.Reason.${reason}`) + ', ' + t(`Label.Reason.${reason2}`));
+        } else {
+            setTxt('display-reason', t(`Label.Reason.${reason}`));
+        }
+
         setTxt('display-trace', traceID);
         setTxt('display-date', getFormattedDate());
         setTxt('txt-why', t('Heading.Subheading.WhyThisHappened'));
@@ -2644,7 +2714,7 @@ if (dotsToggle) {
 
         const evidenceCard = document.getElementById('evidence-card');
         if (evidenceCard) {
-            const hasImagePreview = uploadedImageBase64 && (currentType === 'Image' || currentType === 'ProfilePicture');
+            const hasImagePreview = (uploadedImageBase64 && (currentType === 'Image' || currentType === 'ProfilePicture')) || currentType === 'InExperienceBehaviour';
             
             if (hasImagePreview) {
                 evidenceCard.style.display = 'flex';
@@ -2702,62 +2772,94 @@ if (dotsToggle) {
             let descKey = 'Description.GenericDescription';
             let descVars = {};
             
-            // Determine which description to use
-            if (!hasViolations) {
-                // No violations or only chat/voice evidence - use generic/specific
-                if (reason === 'Other') {
-                    descKey = 'Description.GenericDescription.V2';
-                } else {
-                    descKey = 'Description.SpecificDescription.V2';
-                    descVars = { reason: t(`Label.Reason.${reason}`).toLowerCase() };
-                }
-            } else {
-                const firstViolation = violations[0];
-                const vType = firstViolation.type;
-                
-                if (vType === 'ProfilePicture' || vType === 'VoiceChat' || vType === 'Username' || vType === 'DisplayName' || vType === 'AboutBio') {
-                    let typeText = '';
-                    if (vType === 'ProfilePicture') typeText = 'profile picture';
-                    else if (vType === 'VoiceChat') typeText = 'voice chat';
-                    else if (vType === 'Username') typeText = 'username';
-                    else if (vType === 'DisplayName') typeText = 'display name';
-                    else if (vType === 'AboutBio') typeText = 'about bio';
-                    
-                    if (reason === 'Other') {
-                        descKey = 'Description.GenericTypeDescription.V2';
-                        descVars = { type: typeText };
-                    } else {
-                        descKey = 'Description.SpecificTypeDescription.V2';
-                        descVars = { type: typeText, reason: t(`Label.Reason.${reason}`).toLowerCase() };
-                    }
-                }
-                // Check if it's Payment or Generic (generic behavior)
-                else if (vType === 'Payment' || vType === 'Generic') {
-                    if (reason === 'Other') {
-                        descKey = 'Description.GenericDescription';
-                    } else {
-                        descKey = 'Description.SpecificDescription.V2';
-                        descVars = { reason: t(`Label.Reason.${reason}`).toLowerCase() };
-                    }
-                }
-                // All other types use plural descriptions
-                else {
-                    let typeText = vType.toLowerCase();
-                    
-                    // Handle UGC types with proper spacing
-                    if (vType === 'UGCProfileDecoration') typeText = 'UGC profile decoration';
-                    else if (vType === 'UGCProfileBanner') typeText = 'UGC profile banner';
-                    else if (vType === 'UGCProfileEffect') typeText = 'UGC profile effect';
-                    
-                    if (reason === 'Other') {
-                        descKey = 'Description.GenericTypeDescriptionPlural.V2';
-                        descVars = { type: typeText };
-                    } else {
-                        descKey = 'Description.SpecificTypeDescriptionPlural.V2';
-                        descVars = { type: typeText, reason: t(`Label.Reason.${reason}`).toLowerCase() };
-                    }
-                }
-            }
+            const reason2 = document.getElementById('reason2-select')?.value || '';
+const hasTwoReasons = reason2 && reason2 !== '';
+
+if (!hasViolations) {
+    // No violations or only chat/voice evidence - use generic/specific
+    if (reason === 'Other') {
+        descKey = 'Description.GenericDescription.V2';
+    } else if (hasTwoReasons) {
+        descKey = 'Description.GenericDescriptionTwoViolation';
+        descVars = { 
+            reason: t(`Label.Reason.${reason}`).toLowerCase(),
+            reason2: t(`Label.Reason.${reason2}`).toLowerCase()
+        };
+    } else {
+        descKey = 'Description.SpecificDescription.V2';
+        descVars = { reason: t(`Label.Reason.${reason}`).toLowerCase() };
+    }
+} else {
+    const firstViolation = violations[0];
+    const vType = firstViolation.type;
+    
+    // Types that use singular description
+    const singularTypes = ['ProfilePicture', 'VoiceChat', 'Username', 'DisplayName', 'AboutBio', 'InExperienceBehaviour'];
+    
+    if (singularTypes.includes(vType)) {
+        let typeText = '';
+        if (vType === 'ProfilePicture') typeText = 'profile picture';
+        else if (vType === 'VoiceChat') typeText = 'voice chat';
+        else if (vType === 'Username') typeText = 'username';
+        else if (vType === 'DisplayName') typeText = 'display name';
+        else if (vType === 'AboutBio') typeText = 'about bio';
+        else if (vType === 'InExperienceBehaviour') typeText = 'in-experience behaviour';
+        
+        if (reason === 'Other') {
+            descKey = 'Description.GenericTypeDescription.V2';
+            descVars = { type: typeText };
+        } else if (hasTwoReasons) {
+            descKey = 'Description.SpecificDescriptionTwoViolation';
+            descVars = { 
+                type: typeText,
+                reason: t(`Label.Reason.${reason}`).toLowerCase(),
+                reason2: t(`Label.Reason.${reason2}`).toLowerCase()
+            };
+        } else {
+            descKey = 'Description.SpecificTypeDescription.V2';
+            descVars = { type: typeText, reason: t(`Label.Reason.${reason}`).toLowerCase() };
+        }
+    }
+    // Check if it's Payment or Generic (generic behavior)
+    else if (vType === 'Payment' || vType === 'Generic') {
+        if (reason === 'Other') {
+            descKey = 'Description.GenericDescription';
+        } else if (hasTwoReasons) {
+            descKey = 'Description.GenericDescriptionTwoViolation';
+            descVars = { 
+                reason: t(`Label.Reason.${reason}`).toLowerCase(),
+                reason2: t(`Label.Reason.${reason2}`).toLowerCase()
+            };
+        } else {
+            descKey = 'Description.SpecificDescription.V2';
+            descVars = { reason: t(`Label.Reason.${reason}`).toLowerCase() };
+        }
+    }
+    // All other types use plural descriptions
+    else {
+        let typeText = vType.toLowerCase();
+        
+        // Handle UGC types with proper spacing
+        if (vType === 'UGCProfileDecoration') typeText = 'UGC profile decoration';
+        else if (vType === 'UGCProfileBanner') typeText = 'UGC profile banner';
+        else if (vType === 'UGCProfileEffect') typeText = 'UGC profile effect';
+        
+        if (reason === 'Other') {
+            descKey = 'Description.GenericTypeDescriptionPlural.V2';
+            descVars = { type: typeText };
+        } else if (hasTwoReasons) {
+            descKey = 'Description.SpecificDescriptionPluralTwoViolation';
+            descVars = { 
+                type: typeText,
+                reason: t(`Label.Reason.${reason}`).toLowerCase(),
+                reason2: t(`Label.Reason.${reason2}`).toLowerCase()
+            };
+        } else {
+            descKey = 'Description.SpecificTypeDescriptionPlural.V2';
+            descVars = { type: typeText, reason: t(`Label.Reason.${reason}`).toLowerCase() };
+        }
+    }
+}
 
             if (descEl) {
                 const descText = t(descKey, descVars);
@@ -2831,6 +2933,7 @@ if (dotsToggle) {
                 else if (i.type === 'UGCProfileDecoration') label = (t('Label.UGCProfileDecoration') || 'UGC Profile Decoration');
                 else if (i.type === 'UGCProfileBanner') label = (t('Label.UGCProfileBanner') || 'UGC Profile Banner');
                 else if (i.type === 'UGCProfileEffect') label = (t('Label.UGCProfileEffect') || 'UGC Profile Effect');
+                else if (i.type === 'InExperienceBehaviour') label = (t('Label.InExperienceBehaviour') || 'In-experience behaviour');
                 
                 d.innerHTML = `<span class="label">${label}:</span><span class="value">${i.val1 || t('Label.NoContent')}</span>`;
                 mainDiv.appendChild(d);
@@ -2855,6 +2958,21 @@ if (dotsToggle) {
                     else if (i.type === 'UGCProfileEffect') idLabel = (t('Label.UGCProfileEffectID') || 'UGC Profile Effect ID');
                     
                     idDiv.innerHTML = `<span class="label">${idLabel}:</span><span class="value">${i.val2 || ''}</span>`;
+                    mainDiv.appendChild(idDiv);
+                }
+
+                // InExperienceBehaviour fields
+                if (i.type === 'InExperienceBehaviour') {
+                    const typeDiv = document.createElement('div');
+                    typeDiv.className = 'field';
+                    typeDiv.style.marginBottom = '4px';
+                    typeDiv.innerHTML = `<span class="label">${t('Label.InteractionType') || 'Interaction type:'}:</span><span class="value">${i.val2 || 'Avatar movement'}</span>`;
+                    mainDiv.appendChild(typeDiv);
+                    
+                    const idDiv = document.createElement('div');
+                    idDiv.className = 'field';
+                    idDiv.style.marginBottom = '0';
+                    idDiv.innerHTML = `<span class="label">${t('Label.InteractionID') || 'Interaction ID'}:</span><span class="value">${i.val3 || ''}</span>`;
                     mainDiv.appendChild(idDiv);
                 }
                 
@@ -2897,9 +3015,10 @@ if (dotsToggle) {
         const previewImage = document.getElementById('preview-image');
         const evidenceCardContent = document.getElementById('evidence-card-content');
 
-        if (uploadedImageBase64 && (currentType === 'Image' || currentType === 'ProfilePicture')) {
+        if (currentType === 'Image' || currentType === 'ProfilePicture' || currentType === 'InExperienceBehaviour') {
+            const imageSource = uploadedImageBase64 || 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
             imagePreviewContainer.style.display = 'block';
-            previewImage.src = uploadedImageBase64;
+            previewImage.src = imageSource;
             if (evidenceCardContent) {
                 evidenceCardContent.style.flex = '1';
             }
@@ -2910,7 +3029,6 @@ if (dotsToggle) {
                 evidenceCardContent.style.flex = '';
             }
         }
-
         const viewMoreBtn = document.getElementById('view-more-btn');
         if (viewMoreBtn) {
             const hasNonGenericEvidence = evidenceItems.some(item => 
@@ -2985,10 +3103,11 @@ function renderEvidenceControls() {
         else if (item.type === 'UGCProfileDecoration') labelText = (t('Label.UGCProfileDecoration') || 'UGC Profile Decoration');
         else if (item.type === 'UGCProfileBanner') labelText = (t('Label.UGCProfileBanner') || 'UGC Profile Banner');
         else if (item.type === 'UGCProfileEffect') labelText = (t('Label.UGCProfileEffect') || 'UGC Profile Effect');
-        
+        else if (item.type === 'InExperienceBehaviour') labelText = (t('Label.InExperienceBehaviour') || 'In-experience behaviour');
+
         lbl.innerText = labelText;
         div.appendChild(lbl);
-
+        
         // Handle display/input for val1
         if (item.type === 'SeriousChatViolation' || item.type === 'VoiceEvidence' || item.type === 'ProfilePicture') {
             const val = document.createElement('div');
@@ -3008,6 +3127,8 @@ function renderEvidenceControls() {
             val.style.marginTop = '6px';
             val.innerText = item.val1 || '';
             div.appendChild(val);
+            // Interaction Type dropdown for InExperienceBehaviour
+        
         } else {
             const input = document.createElement('input');
             input.value = item.val1 || '';
@@ -3112,6 +3233,56 @@ function renderEvidenceControls() {
             locDiv.appendChild(locInput);
             
             mainDiv.appendChild(locDiv);
+        }
+
+        if (item.type === 'InExperienceBehaviour') {
+            const typeDiv = document.createElement('div');
+            typeDiv.className = 'field';
+            typeDiv.style.display = 'flex';
+            typeDiv.style.alignItems = 'center';
+            typeDiv.style.gap = '8px';
+            typeDiv.style.marginTop = '8px';
+            
+            const typeLbl = document.createElement('span');
+            typeLbl.className = 'label';
+            typeLbl.innerText = (t('Label.InteractionType') || 'Interaction type:');
+            typeDiv.appendChild(typeLbl);
+            
+            const typeSelect = document.createElement('select');
+            typeSelect.className = 'width-full padding-small border-radius-btn bg-card text-normal-color border-thin';
+            typeSelect.innerHTML = `
+                <option value="Avatar movement" ${item.val2 === 'Avatar movement' ? 'selected' : ''}>Avatar movement</option>
+                <option value="Emote usage" ${item.val2 === 'Emote usage' ? 'selected' : ''}>Emote usage</option>
+            `;
+            typeSelect.onchange = (e) => { 
+                evidenceItems[index].val2 = e.target.value; 
+                saveBanData();
+                updateContent(); 
+            };
+            typeDiv.appendChild(typeSelect);
+            
+            mainDiv.appendChild(typeDiv);
+            
+            // Interaction ID field
+            const idDiv = document.createElement('div');
+            idDiv.className = 'field';
+            idDiv.style.display = 'flex';
+            idDiv.style.alignItems = 'center';
+            idDiv.style.gap = '8px';
+            idDiv.style.marginTop = '8px';
+            
+            const idLbl = document.createElement('span');
+            idLbl.className = 'label';
+            idLbl.innerText = (t('Label.InteractionID') || 'Interaction ID:');
+            idDiv.appendChild(idLbl);
+            
+            const idVal = document.createElement('div');
+            idVal.className = 'value';
+            idVal.style.marginTop = '6px';
+            idVal.innerText = item.val3 || '';
+            idDiv.appendChild(idVal);
+            
+            mainDiv.appendChild(idDiv);
         }
 
         container.appendChild(mainDiv);
@@ -3345,80 +3516,113 @@ function renderEvidenceControls() {
     }
 
     function goToPolicyStep1() {
-        const dur = document.getElementById('duration-select')?.value;
-        const isSuspension = dur.startsWith('Suspended');
-        const headerSection = document.querySelector('.header-section');
-        if (headerSection) headerSection.style.display = 'none';
-        
-        currentStep = secondChanceEnabled && isSuspension ? 3 : 2;
-        const reason = document.getElementById('reason-select')?.value;
-        const mapping = policyMap[reason];
-        if (!mapping) { goToRulesStep(); return; }
+    const dur = document.getElementById('duration-select')?.value;
+    const isSuspension = dur.startsWith('Suspended');
+    const headerSection = document.querySelector('.header-section');
+    if (headerSection) headerSection.style.display = 'none';
+    
+    currentStep = secondChanceEnabled && isSuspension ? 3 : 2;
+    const reason = document.getElementById('reason-select')?.value;
+    const reason2 = document.getElementById('reason2-select')?.value || '';
+    const mapping = policyMap[reason];
+    if (!mapping) { goToRulesStep(); return; }
 
-        document.getElementById('main-view').style.display = 'none';
-        document.getElementById('policy-view-2').style.display = 'none';
-        document.getElementById('rules-view').style.display = 'none';
-        document.getElementById('second-chance-view-1').style.display = 'none';
-        document.getElementById('second-chance-view-2').style.display = 'none';
-        document.getElementById('policy-view-1').style.display = 'flex';
-        document.getElementById('footer-main-buttons').style.display = 'none';
-        document.getElementById('footer-rules-buttons').style.display = 'flex';
+    document.getElementById('main-view').style.display = 'none';
+    document.getElementById('policy-view-2').style.display = 'none';
+    document.getElementById('rules-view').style.display = 'none';
+    document.getElementById('second-chance-view-1').style.display = 'none';
+    document.getElementById('second-chance-view-2').style.display = 'none';
+    document.getElementById('policy-view-1').style.display = 'flex';
+    document.getElementById('footer-main-buttons').style.display = 'none';
+    document.getElementById('footer-rules-buttons').style.display = 'flex';
 
-        const agreeWrap = document.getElementById('footer-rules-buttons')?.querySelector('label');
-        if (agreeWrap) agreeWrap.style.display = 'none';
+    const agreeWrap = document.getElementById('footer-rules-buttons')?.querySelector('label');
+    if (agreeWrap) agreeWrap.style.display = 'none';
 
-        const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+    const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
 
-        setTxt('policy-header-title-1', t(mapping.headerTop));
-        setTxt('policy-violated-header', t(mapping.header));
-        setTxt('display-policy-description', t(mapping.detail));
+    setTxt('policy-header-title-1', t(mapping.headerTop));
+    setTxt('policy-violated-header', t(mapping.header));
+    setTxt('display-policy-description', t(mapping.detail));
 
-        if (reason === 'PrivacyGivingPII' || reason === 'PrivacyAskingPII') {
-            const descEl = document.getElementById('display-policy-description');
-            if (descEl) {
-                const detailV2 = t('Description.PIIDetail.V2');
-                const dotpoints = [
-                    t('Label.PIIDotpoint1'),
-                    t('Label.PIIDotpoint2'),
-                    t('Label.PIIDotpoint3'),
-                    t('Label.PIIDotpoint4'),
-                    t('Label.PIIDotpoint5')
-                ].map(point => `• ${point}`).join('\n');
-                descEl.innerText = `${detailV2}\n${dotpoints}`;
+    if (reason === 'PrivacyGivingPII' || reason === 'PrivacyAskingPII') {
+        const descEl = document.getElementById('display-policy-description');
+        if (descEl) {
+            const detailV2 = t('Description.PIIDetail.V2');
+            const dotpoints = [
+                t('Label.PIIDotpoint1'),
+                t('Label.PIIDotpoint2'),
+                t('Label.PIIDotpoint3'),
+                t('Label.PIIDotpoint4'),
+                t('Label.PIIDotpoint5')
+            ].map(point => `• ${point}`).join('\n');
+            descEl.innerText = `${detailV2}\n${dotpoints}`;
+        }
+    }
+
+    // Add second reason content if exists
+    const policyContainer = document.getElementById('policy-view-1');
+    const existingReason2Section = document.getElementById('policy-reason2-section');
+    if (existingReason2Section) existingReason2Section.remove();
+    
+    if (reason2 && reason2 !== '') {
+        const mapping2 = policyMap[reason2];
+        if (mapping2) {
+            const reason2Section = document.createElement('div');
+            reason2Section.id = 'policy-reason2-section';
+            reason2Section.className = 'margin-top-2xlarge';
+            
+            const header2 = document.createElement('h2');
+            header2.className = 'text-xlarge text-header-color margin-bottom-medium';
+            header2.innerText = t(mapping2.header);
+            
+            const desc2 = document.createElement('span');
+            desc2.className = 'value text-large text-normal-color';
+            desc2.style.whiteSpace = 'pre-wrap';
+            desc2.innerText = t(mapping2.detail);
+            
+            reason2Section.appendChild(header2);
+            reason2Section.appendChild(desc2);
+            
+            // Insert before the learn more button
+            const learnBtn = document.getElementById('policy-learn-more-btn-1');
+            if (learnBtn && learnBtn.parentElement) {
+                learnBtn.parentElement.insertBefore(reason2Section, learnBtn.parentElement.querySelector('.margin-top-medium'));
             }
         }
-
-        const learnBtn = document.getElementById('policy-learn-more-btn-1');
-        if (learnBtn) { 
-            learnBtn.innerText = t('Action.LearnMore'); 
-            learnBtn.onclick = () => { window.open('https://boiby.dev/Boiby-Community-Standards', '_blank'); };
-            learnBtn.style.display = experimentHideLearnMore ? 'none' : 'block';
-        }
-
-        try { if (suspensionIntervalId) { clearInterval(suspensionIntervalId); suspensionIntervalId = null; } } catch(e) {}
-
-        const finalBtn = document.getElementById('final-continue-btn');
-        const agree = document.getElementById('agree-checkbox');
-        
-        if (agree) agree.checked = false;
-        
-        if (finalBtn) {
-            finalBtn.disabled = false;
-            finalBtn.innerText = t('Action.Continue');
-            finalBtn.style.background = '#7309e4'; 
-            finalBtn.style.border = 'none'; 
-            finalBtn.style.color = '#ffffff'; 
-            finalBtn.style.cursor = 'pointer'; 
-            finalBtn.style.opacity = '1';
-            finalBtn.style.pointerEvents = 'auto';
-        }
-
-        const wrapper = document.getElementById('continue-disabled-wrapper');
-        if (wrapper) wrapper.remove();
-        if (finalBtn) finalBtn.style.display = 'block';
-        
-        updateProgressBar();
     }
+
+    const learnBtn = document.getElementById('policy-learn-more-btn-1');
+    if (learnBtn) { 
+        learnBtn.innerText = t('Action.LearnMore'); 
+        learnBtn.onclick = () => { window.open('https://boiby.dev/Boiby-Community-Standards', '_blank'); };
+        learnBtn.style.display = experimentHideLearnMore ? 'none' : 'block';
+    }
+
+    try { if (suspensionIntervalId) { clearInterval(suspensionIntervalId); suspensionIntervalId = null; } } catch(e) {}
+
+    const finalBtn = document.getElementById('final-continue-btn');
+    const agree = document.getElementById('agree-checkbox');
+    
+    if (agree) agree.checked = false;
+    
+    if (finalBtn) {
+        finalBtn.disabled = false;
+        finalBtn.innerText = t('Action.Continue');
+        finalBtn.style.background = '#7309e4'; 
+        finalBtn.style.border = 'none'; 
+        finalBtn.style.color = '#ffffff'; 
+        finalBtn.style.cursor = 'pointer'; 
+        finalBtn.style.opacity = '1';
+        finalBtn.style.pointerEvents = 'auto';
+    }
+
+    const wrapper = document.getElementById('continue-disabled-wrapper');
+    if (wrapper) wrapper.remove();
+    if (finalBtn) finalBtn.style.display = 'block';
+    
+    updateProgressBar();
+}
 
     function goToPolicyStep2() {
         const dur = document.getElementById('duration-select')?.value;
