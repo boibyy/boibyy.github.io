@@ -337,7 +337,7 @@
   "Label.PIIDotpoint4": "Phyiscal addresses",
   "Label.PIIDotpoint5": "Passwords",
   "Description.PIIImportance": "Personal information shared with a bad actor can be used to harm you. This can lead to bullying or threats.",
-  "Description.PIIImportance.V2": "If a stranger figures out who you are in real life, they can try to contact you outside of Roblox. This can be dangerous because it’s hard to know online who someone really is."
+  "Description.PIIImportance.V2": "If a stranger figures out who you are in real life, they can try to contact you outside of Roblox. This can be dangerous because it’s hard to know online who someone really is.",
 
   "Heading.SpamHeaderTop": "Let conversations flow",
   "Heading.RuleExplanation.SpamHeader": "No spamming",
