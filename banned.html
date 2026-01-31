@@ -2783,7 +2783,7 @@ if (dotsToggle) {
 
             document.getElementById('icon-holder').innerHTML = `<img src="https://www.svgrepo.com/show/455819/exclamation-triangle.svg" class="svg-icon" style="filter: ${isWarn ? warningFilter : suspensionFilter}">`;
             
-            let descKey = 'Description.GenericDescription';
+            let descKey = 'Description.GenericDescription.V3';
             let descVars = {};
             
             const reason2 = document.getElementById('reason2-select')?.value || '';
@@ -2792,7 +2792,7 @@ const hasTwoReasons = reason2 && reason2 !== '';
 if (!hasViolations) {
     // No violations or only chat/voice evidence - use generic/specific
     if (reason === 'Other') {
-        descKey = 'Description.GenericDescription.V2';
+        descKey = 'Description.GenericDescription.V3';
     } else if (hasTwoReasons) {
         descKey = 'Description.GenericDescriptionTwoViolation';
         descVars = { 
@@ -2820,7 +2820,7 @@ if (!hasViolations) {
         else if (vType === 'InExperienceBehaviour') typeText = 'in-experience behaviour';
         
         if (reason === 'Other') {
-            descKey = 'Description.GenericTypeDescription.V2';
+            descKey = 'Description.GenericTypeDescription.V3';
             descVars = { type: typeText };
         } else if (hasTwoReasons) {
             descKey = 'Description.SpecificDescriptionTwoViolation';
@@ -2837,7 +2837,7 @@ if (!hasViolations) {
     // Check if it's Payment or Generic (generic behavior)
     else if (vType === 'Payment' || vType === 'Generic') {
         if (reason === 'Other') {
-            descKey = 'Description.GenericDescription';
+            descKey = 'Description.GenericDescription.V3';
         } else if (hasTwoReasons) {
             descKey = 'Description.GenericDescriptionTwoViolation';
             descVars = { 
@@ -2859,7 +2859,7 @@ if (!hasViolations) {
         else if (vType === 'UGCProfileEffect') typeText = 'UGC profile effect';
         
         if (reason === 'Other') {
-            descKey = 'Description.GenericTypeDescriptionPlural.V2';
+            descKey = 'Description.GenericTypeDescriptionPlural.V3';
             descVars = { type: typeText };
         } else if (hasTwoReasons) {
             descKey = 'Description.SpecificDescriptionPluralTwoViolation';
