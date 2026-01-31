@@ -717,6 +717,20 @@ body.app-mode .btn-dots-rules {
             box-shadow: 0 0 0 1px var(--shadow-border), 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
+        #display-policy-description,
+        #display-policy-importance {
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+        
+        .value[id*="policy"] {
+            letter-spacing: 0.01em;
+        }
+        
+        #rules-description {
+            line-height: 1.4;
+        }
+
         .modal-header {
             font-size: var(--font-5xlarge);
             font-weight: 700;
@@ -1669,16 +1683,16 @@ function reorderContainerElements() {
         "ExtortionThreats.V2": { headerTop: "Heading.ExtortionHeaderTop", header: "Heading.RuleExplanation.ExtortionHeader", detail: "Description.ExtortionDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ExtortionImportance" },
         "ViolentGore.V2": { headerTop: "Heading.ViolentHeaderTop", header: "Heading.RuleExplanation.ViolentHeader", detail: "Description.ViolentDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ViolentImportance" },
         "CheatsExploits": { headerTop: "Heading.CheatingHeaderTop", header: "Heading.RuleExplanation.CheatingHeader", detail: "Description.CheatingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.CheatingImportance" },
-        "Dating.V2": { headerTop: "Heading.DatingHeaderTop", header: "Heading.RuleExplanation.DatingHeader", detail: "Description.DatingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.DatingImportance" },
-        "MisusingSystems": { headerTop: "Heading.MisusingSystemsHeaderTop", header: "Heading.RuleExplanation.MisusingSystemsHeader", detail: "Description.MisusingSystemsDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.MisusingSystemsImportance" },
-        "DangerousActivities": { headerTop: "Heading.HarmfulHeaderTop", header: "Heading.RuleExplanation.HarmfulHeader", detail: "Description.HarmfulDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.HarmfulImportance" },
         "Misinformation": { headerTop: "Heading.MisinformationHeaderTop.V2", header: "Heading.RuleExplanation.MisinformationHeader", detail: "Description.MisinformationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.MisinformationImportance" },
         "UndisclosedAds": { headerTop: "Heading.UndisclosedAdsHeaderTop", header: "Heading.RuleExplanation.UndisclosedAdsHeader", detail: "Description.UndisclosedAdsDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.UndisclosedAdsImportance" },
         "SexualContent": { headerTop: "Heading.SexualHeaderTop", header: "Heading.RuleExplanation.SexualHeader", detail: "Description.SexualDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.SexualImportance" },
         "PoliticalContent": { headerTop: "Heading.PoliticalHeaderTop", header: "Heading.RuleExplanation.PoliticalHeader", detail: "Description.PoliticalDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PoliticalImportance"},
         "PoliticalContent.V2": { headerTop: "Heading.PoliticalHeaderTop", header: "Heading.RuleExplanation.PoliticalHeader", detail: "Description.PoliticalDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PoliticalImportance"},
-        "PrivacyGivingPII": { headerTop: "Heading.PIIHeaderTop", header: "Heading.RuleExplanation.PIIHeader", detail: "Description.PIIDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PIIImportance"},
-        "PrivacyAskingPII": { headerTop: "Heading.PIIHeaderTop", header: "Heading.RuleExplanation.PIIHeader", detail: "Description.PIIDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PIIImportance"},
+        "PrivacyGivingPII": { headerTop: "Heading.PIIHeaderTop", header: "Heading.RuleExplanation.PIIHeader", detail: "Description.PIIDetail.V2", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PIIImportance.V2", hasDotpoints: true },
+        "PrivacyAskingPII": { headerTop: "Heading.PIIHeaderTop", header: "Heading.RuleExplanation.PIIHeader", detail: "Description.PIIDetail.V2", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.PIIImportance.V2", hasDotpoints: true },
+        "MisusingSystems": { headerTop: "Heading.MisusingSystemsHeaderTop", header: "Heading.RuleExplanation.MisusingSystemsHeader", detail: "Description.MisusingSystemsDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.MisusingSystemsImportance", hasDotpoints: true },
+        "DangerousActivities": { headerTop: "Heading.HarmfulHeaderTop", header: "Heading.RuleExplanation.HarmfulHeader", detail: "Description.HarmfulDetail.V2", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.HarmfulImportance" },
+        "Dating.V2": { headerTop: "Heading.DatingHeaderTop", header: "Heading.RuleExplanation.DatingHeader", detail: "Description.DatingDetail.V2", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.DatingImportance" },
         "Scamming": { headerTop: "Heading.ScammingHeaderTop", header: "Heading.RuleExplanation.ScammingHeader", detail: "Description.ScammingDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ScammingImportance"},
         "DisruptiveAudio": { headerTop: "Heading.DisruptiveAudioHeaderTop", header: "Heading.RuleExplanation.DisruptiveAudioHeader", detail: "Description.DisruptiveAudioDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.DisruptiveAudioImportance"},
         "Impersonation": { headerTop: "Heading.ImpersonationHeaderTop", header: "Heading.RuleExplanation.ImpersonationHeader", detail: "Description.ImpersonationDetail", importanceLabel: "Heading.WhyDoesThisMatter", importance: "Description.ImpersonationImportance"},
@@ -3545,18 +3559,30 @@ function renderEvidenceControls() {
     setTxt('policy-violated-header', t(mapping.header));
     setTxt('display-policy-description', t(mapping.detail));
 
-    if (reason === 'PrivacyGivingPII' || reason === 'PrivacyAskingPII') {
+    // Handle dotpoints for applicable policies
+    if (mapping.hasDotpoints) {
         const descEl = document.getElementById('display-policy-description');
         if (descEl) {
-            const detailV2 = t('Description.PIIDetail.V2');
-            const dotpoints = [
-                t('Label.PIIDotpoint1'),
-                t('Label.PIIDotpoint2'),
-                t('Label.PIIDotpoint3'),
-                t('Label.PIIDotpoint4'),
-                t('Label.PIIDotpoint5')
-            ].map(point => `• ${point}`).join('\n');
-            descEl.innerText = `${detailV2}\n${dotpoints}`;
+            if (reason === 'PrivacyGivingPII' || reason === 'PrivacyAskingPII') {
+                const detailV2 = t('Description.PIIDetail.V2');
+                const dotpoints = [
+                    t('Label.PIIDotpoint1'),
+                    t('Label.PIIDotpoint2'),
+                    t('Label.PIIDotpoint3'),
+                    t('Label.PIIDotpoint4'),
+                    t('Label.PIIDotpoint5')
+                ].map(point => `  • ${point}`).join('\n');
+                descEl.innerText = `${detailV2}\n\n${dotpoints}`;
+            } else if (reason === 'MisusingSystems') {
+                const detail = t('Description.MisusingSystemsDetail');
+                const dotpoints = [
+                    t('Label.MisuingSystemsDotpoint1'),
+                    t('Label.MisuingSystemsDotpoint2'),
+                    t('Label.MisuingSystemsDotpoint3'),
+                    t('Label.MisuingSystemsDotpoint4')
+                ].map(point => `  • ${point}`).join('\n');
+                descEl.innerText = `${detail}\n\n${dotpoints}`;
+            }
         }
     }
 
