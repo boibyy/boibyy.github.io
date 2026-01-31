@@ -595,7 +595,8 @@ function getTypeText(type) {
         'VoiceEvidence': 'voice chat',
         'UGCProfileDecoration': 'UGC profile decoration',
         'UGCProfileBanner': 'UGC profile banner',
-        'UGCProfileEffect': 'UGC profile effect'
+        'UGCProfileEffect': 'UGC profile effect',
+        'InExperienceBehaviour': 'in-experience behaviour'
     };
     
     return typeMap[type] || type.toLowerCase();
@@ -631,9 +632,14 @@ function populateDetailView(data) {
     const reviewDate = data.reviewDate ? new Date(data.reviewDate) : new Date();
     document.getElementById('display-desc').innerText = formatDate(reviewDate);
 
-    // Set reason
+    // Set reason (handle two reasons)
     const reason = data.reason || 'Other';
-    document.getElementById('display-reason').innerText = t(`Label.Reason.${reason}`);
+    const reason2 = data.reason2 || '';
+    if (reason2 && reason2 !== '') {
+        document.getElementById('display-reason').innerText = t(`Label.Reason.${reason}`) + ', ' + t(`Label.Reason.${reason2}`);
+    } else {
+        document.getElementById('display-reason').innerText = t(`Label.Reason.${reason}`);
+    }
 
     // Generate trace ID
     const traceID = (self.crypto && self.crypto.randomUUID) ? self.crypto.randomUUID() : 'trace-' + Math.random().toString(16).slice(2);
@@ -697,11 +703,16 @@ function populateEvidence(evidenceItems, uploadedImage, data) {
     const previewImage = document.getElementById('preview-image');
     const evidenceCard = document.getElementById('evidence-card');
     
-    const hasImageType = evidenceItems.some(item => item.type === 'Image' || item.type === 'ProfilePicture');
-    
-    if (uploadedImage && hasImageType) {
+    const hasImageType = evidenceItems.some(item => 
+        item.type === 'Image' || 
+        item.type === 'ProfilePicture' || 
+        item.type === 'InExperienceBehaviour'
+    );
+
+    if (hasImageType) {
+        const imageSource = uploadedImage || 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
         imagePreviewContainer.style.display = 'block';
-        previewImage.src = uploadedImage;
+        previewImage.src = imageSource;
         evidenceCard.style.display = 'flex';
         evidenceCard.style.gap = '16px';
         evidenceCard.style.alignItems = 'flex-start';
@@ -770,6 +781,20 @@ function populateEvidence(evidenceItems, uploadedImage, data) {
             locDiv.style.marginBottom = '0';
             locDiv.innerHTML = `<span class="label">${t('Label.Location')}:</span><span class="value">${i.val2 || t('Label.NoContent')}</span>`;
             mainDiv.appendChild(locDiv);
+        }
+
+        if (i.type === 'InExperienceBehaviour') {
+            const typeDiv = document.createElement('div');
+            typeDiv.className = 'field';
+            typeDiv.style.marginBottom = '4px';
+            typeDiv.innerHTML = `<span class="label">${t('Label.InteractionType')}:</span><span class="value">${i.val2 || 'Avatar movement'}</span>`;
+            mainDiv.appendChild(typeDiv);
+            
+            const idDiv = document.createElement('div');
+            idDiv.className = 'field';
+            idDiv.style.marginBottom = '0';
+            idDiv.innerHTML = `<span class="label">${t('Label.InteractionID')}:</span><span class="value">${i.val3 || ''}</span>`;
+            mainDiv.appendChild(idDiv);
         }
         
         list.appendChild(mainDiv);
