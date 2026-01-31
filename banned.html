@@ -3755,7 +3755,7 @@ function renderEvidenceControls() {
 
         const reportBtn = document.getElementById('btn-report-mistake-rules');
         if (reportBtn) {
-            reportBtn.innerText = experimentSendAppeal ? t('Action.ReportMistake') : t('Action.RequestAppeal');
+            reportBtn.innerText = experimentSendAppeal ? t('Action.ReportMistake') : t('Action.AppealDecision');
             reportBtn.onclick = () => { openAppealModal(); };
         }
 
