@@ -2891,7 +2891,7 @@ if (!hasViolations) {
                     try { mainBtn.onclick = handlePrimaryClick; } catch(e) {}
                 } catch(e) { console.error('Failed to re-enable primary action button', e); }
                 try {
-                    const reportText = t('Action.ReportMistake') || t('Action.RequestAppeal');
+                    const reportText = t('Action.ReportMistake') || t('Action.AppealDecision');
                     Array.from(document.querySelectorAll('button')).forEach(b => {
                         try {
                             if (b && b.innerText && b.innerText.trim() === reportText) {
