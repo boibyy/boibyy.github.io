@@ -3744,7 +3744,7 @@ function renderEvidenceControls() {
         
         setTxt('rules-header-title', t('Heading.RuleViolationsAddUp'));
         setTxt('rules-description', t('Description.Foreshadow.V2'));
-        setTxt('rules-mistake-text', t('Description.Mistake.V3'));
+        setTxt('rules-mistake-text', t('Description.Mistake.V4'));
         setTxt('lbl-agree', t('Label.AgreeToRules.V2'));
 
         const viewRulesBtn = document.getElementById('btn-view-rules-inner');
@@ -3755,7 +3755,7 @@ function renderEvidenceControls() {
 
         const reportBtn = document.getElementById('btn-report-mistake-rules');
         if (reportBtn) {
-            reportBtn.innerText = experimentSendAppeal ? t('Action.SendAppeal') : t('Action.ReportMistake');
+            reportBtn.innerText = experimentSendAppeal ? t('Action.ReportMistake') : t('Action.RequestAppeal');
             reportBtn.onclick = () => { openAppealModal(); };
         }
 
