@@ -23,6 +23,9 @@
     --shadow-border: rgba(255, 255, 255, 0.05);
     --panel-bg: #1a1b20;
     --warning-orange: #d49a1f;
+    --success: #23a559;
+    --warning: #f0b232;
+    --info: #0070f3;
 }
 
 /* Light Mode */
@@ -41,6 +44,9 @@ body.light-mode {
     --shadow-border: rgba(0, 0, 0, 0.1);
     --panel-bg: #f9f9f9;
     --warning-orange: #d49a1f;
+    --success: #23a559;
+    --warning: #f0b232;
+    --info: #0070f3;
 }
 
 /* --- Global Typography Breathing Room --- */
@@ -353,7 +359,7 @@ body { background: var(--bg-base); color: var(--text-normal); user-select: none;
 .hover-lift:hover { transform: translateY(-2px); }
 .hover-scale:hover { transform: scale(1.02); }
 
-/* --- Layout Glue --- */
+/* --- Layout stuff --- */
 .m-auto { margin: 0 auto; }
 .overflow-hidden { overflow: hidden; }
 .max-w-full { max-width: 100%; }
@@ -370,9 +376,9 @@ body { background: var(--bg-base); color: var(--text-normal); user-select: none;
     pointer-events: none;
 }
 
-/* --- BoibyUI Custom Checkboxes --- */
+/* --- Custom Checkboxes --- */
 
-/* Hide the default browser checkbox */
+/* Hide default browser checkbox */
 .checkbox-container {
     display: inline-flex;
     align-items: center;
@@ -395,7 +401,7 @@ body { background: var(--bg-base); color: var(--text-normal); user-select: none;
     background: transparent;
 }
 
-/* Checkmark Icon (Pseudo-element) */
+/* Checkmark Icon */
 .checkbox-input::before {
     content: "";
     width: 10px;
@@ -403,7 +409,6 @@ body { background: var(--bg-base); color: var(--text-normal); user-select: none;
     transform: scale(0);
     transition: 120ms transform ease-in-out;
     background-color: white;
-    /* This creates a simple checkmark shape */
     clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 }
 
@@ -637,4 +642,84 @@ html.smooth-scroll {
 .custom-select-option.selected {
     background: var(--btn-gray2);
     color: var(--text-header);
+}
+
+/* Layout Stack */
+.stack-v { display: flex; flex-direction: column; }
+.stack-h { display: flex; flex-direction: row; align-items: center; }
+
+/* Responsive Grid */
+.grid-auto { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 16px; 
+}
+
+/* ===================================
+   RESPONSIVE MEDIA QUERIES
+   =================================== */
+
+/* Mobile: 768px and below */
+@media (max-width: 768px) {
+    /* Container adjustments */
+    .main-container { padding: 12px; }
+    .container { padding: 0 12px; }
+    
+    /* Button responsive sizes */
+    .btn-h-large { height: 40px; padding: 0 20px; }
+    .btn-h-medium { height: 36px; padding: 0 16px; }
+    
+    /* Font size scaling */
+    .font-4xlarge { font-size: 28px; }
+    .font-3xlarge { font-size: 24px; }
+    .font-2xlarge { font-size: 20px; }
+    .font-xlarge { font-size: 18px; }
+    
+    /* Grid auto responsive */
+    .grid-auto { 
+        grid-template-columns: 1fr; 
+        gap: 12px; 
+    }
+    
+    /* Width classes override - force full width */
+    .w-400px, .w-300px, .w-200px, .w-150px { width: 100%; }
+    
+    /* Navigation responsive */
+    .nav { 
+        flex-direction: column; 
+        gap: 12px; 
+        align-items: flex-start; 
+    }
+    
+    /* Mobile utility classes */
+    .mobile-full { width: 100% !important; }
+    .mobile-stack { flex-direction: column !important; }
+    .mobile-hide { display: none !important; }
+    
+    /* Gap adjustments for mobile */
+    .gap-2xlarge { gap: 16px; }
+    .gap-xlarge { gap: 12px; }
+    
+    /* Padding adjustments for mobile */
+    .p-huge { padding: 24px; }
+    .p-2xlarge { padding: 20px; }
+    .p-xlarge { padding: 16px; }
+}
+
+/* Tablet: 768px - 1024px */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .tablet-hide { display: none !important; }
+    .tablet-full { width: 100% !important; }
+    .tablet-stack { flex-direction: column !important; }
+}
+
+/* Desktop: 769px and above */
+@media (min-width: 769px) {
+    .desktop-hide { display: none !important; }
+    .desktop-show { display: block !important; }
+}
+
+/* Large Desktop: 1200px and above */
+@media (min-width: 1200px) {
+    .container { max-width: 1400px; }
 }
