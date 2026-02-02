@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoibyUI V1 components reference</title>
+    <link rel="stylesheet" href="BoibyUI.css">
+    <style>
+        /* Quick fixes for alignment issues */
+        .settings-checkbox {
+            margin-left: auto;
+        }
+        
+        .notification-action {
+            align-self: flex-start;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container main-container">
+        <!-- Header Section -->
+        <div class="header-container">
+            <div class="nav">
+                <h1 class="font-4xlarge">BoibyUI Components</h1>
+                <div class="card-primary button-container gap-medium flex justify-end">
+                    <button class="btn btn-secondary btn-h-small" onclick="toggleTheme()">Switch Theme</button>
+                    <button class="btn btn-secondary btn-h-small">Secondary</button>
+                    <button class="btn btn-emphasis btn-h-small">Primary</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Navigation -->
+        <div class="card-secondary radius-medium p-large border-thin-subtle mt-huge">
+            <h2 class="font-2xlarge mb-large">Quick Navigation</h2>
+            <div class="flex row flex-wrap gap-medium">
+                <a href="#typography" class="btn btn-soft-emphasis btn-h-small text-no-decoration">Typography</a>
+                <a href="#buttons" class="btn btn-soft-emphasis btn-h-small text-no-decoration">Buttons</a>
+                <a href="#forms" class="btn btn-soft-emphasis btn-h-small text-no-decoration">Forms</a>
+                <a href="#cards" class="btn btn-soft-emphasis btn-h-small text-no-decoration">Cards</a>
+                <a href="#layout" class="btn btn-soft-emphasis btn-h-small text-no-decoration">Layout</a>
+                <a href="#utilities" class="btn btn-soft-emphasis btn-h-small text-no-decoration">Utilities</a>
+                <a href="#advanced" class="btn btn-soft-emphasis btn-h-small text-no-decoration">Advanced</a>
+            </div>
+        </div>
+
+        <!-- Typography Section -->
+        <div id="typography" class="card-primary radius-medium p-large border-thin-subtle mt-huge">
+            <h2 class="font-2xlarge">Typography & Text Styles</h2>
+            <div class="separator"></div>
+            
+            <h3 class="font-3xlarge mb-medium">All Font Sizes</h3>
+            <div class="flex col gap-medium mb-2xlarge">
+                <div class="font-xsmall">Extra Small (10px) - .font-xsmall</div>
+                <div class="font-small">Small (12px) - .font-small</div>
+                <div class="font-normal">Normal (14px) - .font-normal</div>
+                <div class="font-medium">Medium (16px) - .font-medium</div>
+                <div class="font-large">Large (18px) - .font-large</div>
+                <div class="font-xlarge">Extra Large (20px) - .font-xlarge</div>
+                <div class="font-2xlarge">2XL (24px) - .font-2xlarge</div>
+                <div class="font-3xlarge">3XL (28px) - .font-3xlarge</div>
+                <div class="font-4xlarge">4XL (32px) - .font-4xlarge</div>
+            </div>
+
+            <h3 class="font-2xlarge mb-medium">Font Weights</h3>
+            <div class="flex col gap-medium mb-2xlarge">
+                <div class="text-100">Thin (100) - .text-100</div>
+                <div class="text-200">Extra Light (200) - .text-200</div>
+                <div class="text-300">Light (300) - .text-300</div>
+                <div class="text-400">Regular (400) - .text-400</div>
+                <div class="text-500">Medium (500) - .text-500</div>
+                <div class="text-600">Semibold (600) - .text-600</div>
+                <div class="text-700">Bold (700) - .text-700</div>
+                <div class="text-800">Extra Bold (800) - .text-800</div>
+                <div class="text-900">Black (900) - .text-900</div>
+            </div>
+
+            <h3 class="font-2xlarge mb-medium">Text Colors</h3>
+            <div class="flex col gap-medium mb-2xlarge">
+                <div class="text-header">Header Text - .text-header</div>
+                <div class="text-normal">Normal Text - .text-normal</div>
+                <div class="text-muted">Muted Text - .text-muted</div>
+                <div class="text-trace">Trace Text - .text-trace</div>
+            </div>
+
+            <h3 class="font-2xlarge mb-medium">Text Alignment</h3>
+            <div class="flex col gap-medium">
+                <div class="align-text-left border-thin-subtle p-medium radius-small">Left Aligned - .align-text-left</div>
+                <div class="align-text-center border-thin-subtle p-medium radius-small">Center Aligned - .align-text-center</div>
+                <div class="align-text-right border-thin-subtle p-medium radius-small">Right Aligned - .align-text-right</div>
+            </div>
+        </div>
+
+        <!-- Button Showcase -->
+        <div id="buttons" class="card-primary radius-medium p-large border-thin-subtle mt-huge">
+            <h2 class="font-2xlarge">Button Styles</h2>
+            <div class="separator"></div>
+            
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Size Variants</h4>
+                <div class="button-container gap-medium flex align-center">
+                    <button class="btn btn-emphasis btn-h-xsmall">X-Small</button>
+                    <button class="btn btn-emphasis btn-h-small">Small</button>
+                    <button class="btn btn-emphasis btn-h-medium">Medium</button>
+                    <button class="btn btn-emphasis btn-h-large">Large</button>
+                </div>
+            </div>
+
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Style Variants</h4>
+                <div class="button-container gap-medium flex">
+                    <button class="btn btn-emphasis btn-h-medium">Emphasis</button>
+                    <button class="btn btn-secondary btn-h-medium">Secondary</button>
+                    <button class="btn btn-soft-emphasis btn-h-medium">Soft Emphasis</button>
+                </div>
+            </div>
+
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Interactive States</h4>
+                <div class="button-container gap-medium flex">
+                    <button class="btn btn-emphasis btn-h-medium hover-lift">Hover Lift</button>
+                    <button class="btn btn-secondary btn-h-medium hover-scale">Hover Scale</button>
+                    <button class="btn btn-soft-emphasis btn-h-medium hover-opacity">Hover Opacity</button>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="mb-large">Button Container Layouts</h4>
+                <div class="mb-medium">
+                    <p class="text-muted mb-small">Start Aligned:</p>
+                    <div class="button-container gap-medium flex justify-start border-thin-subtle p-medium radius-small">
+                        <button class="btn btn-secondary btn-h-small">Cancel</button>
+                        <button class="btn btn-emphasis btn-h-small">Confirm</button>
+                    </div>
+                </div>
+                <div class="mb-medium">
+                    <p class="text-muted mb-small">Center Aligned:</p>
+                    <div class="button-container gap-medium flex justify-center border-thin-subtle p-medium radius-small">
+                        <button class="btn btn-secondary btn-h-small">Cancel</button>
+                        <button class="btn btn-emphasis btn-h-small">Confirm</button>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-muted mb-small">End Aligned:</p>
+                    <div class="button-container gap-medium flex justify-end border-thin-subtle p-medium radius-small">
+                        <button class="btn btn-secondary btn-h-small">Cancel</button>
+                        <button class="btn btn-emphasis btn-h-small">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Elements -->
+        <div id="forms" class="card-primary radius-medium p-large border-thin-subtle mt-huge">
+            <h2 class="font-2xlarge">Form Elements</h2>
+            <div class="separator"></div>
+            
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Text Inputs</h4>
+                <div class="flex col gap-medium">
+                    <input type="text" class="input-base w-400px" placeholder="Text input (.input-base)">
+                    <input type="email" class="input-base w-400px" placeholder="Email input">
+                    <input type="password" class="input-base w-400px" placeholder="Password input">
+                    <input type="number" class="input-base w-400px" placeholder="Number input">
+                </div>
+            </div>
+
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Textarea</h4>
+                <textarea class="input-base w-400px h-100px" placeholder="Textarea example (.h-100px)"></textarea>
+            </div>
+
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Checkboxes</h4>
+                <div class="flex col gap-medium">
+                    <label class="checkbox-container">
+                        <input type="checkbox" class="checkbox-input checkbox-purple" checked>
+                        <span>Purple Checkbox (checked)</span>
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" class="checkbox-input checkbox-purple">
+                        <span>Purple Checkbox (unchecked)</span>
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" class="checkbox-input checkbox-neutral" checked>
+                        <span>Neutral Checkbox (checked)</span>
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" class="checkbox-input checkbox-neutral">
+                        <span>Neutral Checkbox (unchecked)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Custom Dropdown</h4>
+                <div class="custom-select-wrapper w-400px">
+                    <div class="custom-select-display" id="customSelect" tabindex="0">
+                        <span id="selectedValue">Select an option...</span>
+                        <span class="custom-select-arrow">▼</span>
+                    </div>
+                    <div class="custom-select-dropdown none" id="customDropdown">
+                        <div class="custom-select-option" data-value="option1">Option 1</div>
+                        <div class="custom-select-option" data-value="option2">Option 2</div>
+                        <div class="custom-select-option" data-value="option3">Option 3</div>
+                        <div class="custom-select-option" data-value="option4">Option 4</div>
+                        <div class="custom-select-option" data-value="option5">Option 5</div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="mb-large">Form Layout Example</h4>
+                <div class="card-secondary radius-medium p-large border-thin-subtle">
+                    <div class="flex col gap-large">
+                        <div class="flex col gap-small">
+                            <label class="text-header text-500">Username</label>
+                            <input type="text" class="input-base full-width" placeholder="Enter username">
+                        </div>
+                        <div class="flex col gap-small">
+                            <label class="text-header text-500">Email</label>
+                            <input type="email" class="input-base full-width" placeholder="your.email@example.com">
+                        </div>
+                        <div class="flex col gap-small">
+                            <label class="text-header text-500">Message</label>
+                            <textarea class="input-base full-width h-150px" placeholder="Type your message here..."></textarea>
+                        </div>
+                        <label class="checkbox-container">
+                            <input type="checkbox" class="checkbox-input checkbox-purple">
+                            <span>I agree to the terms and conditions</span>
+                        </label>
+                        <div class="button-container gap-medium flex justify-end">
+                            <button class="btn btn-secondary btn-h-medium">Cancel</button>
+                            <button class="btn btn-emphasis btn-h-medium">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cards & Containers -->
+        <div id="cards" class="card-primary radius-medium p-large border-thin-subtle mt-huge">
+            <h2 class="font-2xlarge">Cards & Containers</h2>
+            <div class="separator"></div>
+            
+            <div class="flex row gap-xlarge mb-2xlarge flex-wrap">
+                <div class="card-primary radius-medium p-large border-thin-subtle w-300px">
+                    <h3 class="font-xlarge">Primary Card</h3>
+                    <div class="separator"></div>
+                    <p class="text-muted">Uses .card-primary background</p>
+                </div>
+
+                <div class="card-secondary radius-medium p-large border-thin-subtle w-300px">
+                    <h3 class="font-xlarge">Secondary Card</h3>
+                    <div class="separator"></div>
+                    <p class="text-muted">Uses .card-secondary background</p>
+                </div>
+
+                <div class="dialog p-xlarge w-300px">
+                    <h3 class="font-xlarge">Dialog</h3>
+                    <div class="separator"></div>
+                    <p class="text-muted">Uses .dialog with built-in styling</p>
+                </div>
+            </div>
+
+            <h4 class="mb-large">Nested Card Example</h4>
+            <div class="card-secondary radius-medium p-large border-thin-subtle">
+                <h3 class="font-xlarge mb-medium">Parent Card</h3>
+                <div class="flex col gap-medium">
+                    <div class="card-primary radius-small p-medium border-thin-subtle">
+                        <div class="text-600">Nested Card 1</div>
+                        <div class="text-muted text-small">Some content here</div>
+                    </div>
+                    <div class="card-primary radius-small p-medium border-thin-subtle">
+                        <div class="text-600">Nested Card 2</div>
+                        <div class="text-muted text-small">More content here</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Layout System -->
+        <div id="layout" class="card-primary radius-medium p-large border-thin-subtle mt-huge">
+            <h2 class="font-2xlarge">Layout System</h2>
+            <div class="separator"></div>
+            
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Flex Layouts</h4>
+                <div class="mb-medium">
+                    <p class="text-muted mb-small">Row Layout (.flex .row):</p>
+                    <div class="flex row gap-medium border-thin-subtle p-medium radius-small">
+                        <div class="card-secondary p-medium radius-small">Item 1</div>
+                        <div class="card-secondary p-medium radius-small">Item 2</div>
+                        <div class="card-secondary p-medium radius-small">Item 3</div>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-muted mb-small">Column Layout (.flex .col):</p>
+                    <div class="flex col gap-medium border-thin-subtle p-medium radius-small w-300px">
+                        <div class="card-secondary p-medium radius-small">Item 1</div>
+                        <div class="card-secondary p-medium radius-small">Item 2</div>
+                        <div class="card-secondary p-medium radius-small">Item 3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Gap Utilities</h4>
+                <div class="flex row flex-wrap gap-large">
+                    <div class="flex col gap-xsmall border-thin-subtle p-medium radius-small">
+                        <div class="text-muted text-small">gap-xsmall (2px)</div>
+                        <div class="card-secondary p-small radius-xsmall">A</div>
+                        <div class="card-secondary p-small radius-xsmall">B</div>
+                    </div>
+                    <div class="flex col gap-small border-thin-subtle p-medium radius-small">
+                        <div class="text-muted text-small">gap-small (4px)</div>
+                        <div class="card-secondary p-small radius-xsmall">A</div>
+                        <div class="card-secondary p-small radius-xsmall">B</div>
+                    </div>
+                    <div class="flex col gap-medium border-thin-subtle p-medium radius-small">
+                        <div class="text-muted text-small">gap-medium (8px)</div>
+                        <div class="card-secondary p-small radius-xsmall">A</div>
+                        <div class="card-secondary p-small radius-xsmall">B</div>
+                    </div>
+                    <div class="flex col gap-large border-thin-subtle p-medium radius-small">
+                        <div class="text-muted text-small">gap-large (12px)</div>
+                        <div class="card-secondary p-small radius-xsmall">A</div>
+                        <div class="card-secondary p-small radius-xsmall">B</div>
+                    </div>
+                    <div class="flex col gap-xlarge border-thin-subtle p-medium radius-small">
+                        <div class="text-muted text-small">gap-xlarge (16px)</div>
+                        <div class="card-secondary p-small radius-xsmall">A</div>
+                        <div class="card-secondary p-small radius-xsmall">B</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Grid Auto Layout</h4>
+                <div class="grid-auto">
+                    <div class="card-secondary p-large radius-medium border-thin-subtle">
+                        <div class="text-600">Grid Item 1</div>
+                        <div class="text-muted">Auto-fit grid</div>
+                    </div>
+                    <div class="card-secondary p-large radius-medium border-thin-subtle">
+                        <div class="text-600">Grid Item 2</div>
+                        <div class="text-muted">Responsive</div>
+                    </div>
+                    <div class="card-secondary p-large radius-medium border-thin-subtle">
+                        <div class="text-600">Grid Item 3</div>
+                        <div class="text-muted">Min 250px</div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="mb-large">Alignment Demo</h4>
+                <div class="flex col gap-medium">
+                    <div class="flex row align-center border-thin-subtle p-medium radius-small h-100px">
+                        <div class="card-secondary p-medium radius-small">.align-center</div>
+                    </div>
+                    <div class="flex row align-top border-thin-subtle p-medium radius-small h-100px">
+                        <div class="card-secondary p-medium radius-small">.align-top</div>
+                    </div>
+                    <div class="flex row align-bottom border-thin-subtle p-medium radius-small h-100px">
+                        <div class="card-secondary p-medium radius-small">.align-bottom</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Utilities -->
+        <div id="utilities" class="card-primary radius-medium p-large border-thin-subtle mt-huge">
+            <h2 class="font-2xlarge">Utility Classes</h2>
+            <div class="separator"></div>
+            
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Opacity Classes</h4>
+                <div class="flex row gap-medium flex-wrap">
+                    <div class="card-secondary radius-medium p-medium border-thin-subtle opacity-100">100%</div>
+                    <div class="card-secondary radius-medium p-medium border-thin-subtle opacity-90">90%</div>
+                    <div class="card-secondary radius-medium p-medium border-thin-subtle opacity-80">80%</div>
+                    <div class="card-secondary radius-medium p-medium border-thin-subtle opacity-70">70%</div>
+                    <div class="card-secondary radius-medium p-medium border-thin-subtle opacity-60">60%</div>
+                    <div class="card-secondary radius-medium p-medium border-thin-subtle opacity-50">50%</div>
+                    <div class="card-secondary radius-medium p-medium border-thin-subtle opacity-40">40%</div>
+                    <div class="card-secondary radius-medium p-medium border-thin-subtle opacity-30">30%</div>
+                    <div class="card-secondary radius-medium p-medium border-thin-subtle opacity-20">20%</div>
+                    <div class="card-secondary radius-medium p-medium border-thin-subtle opacity-10">10%</div>
+                </div>
+            </div>
+
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Border Radius</h4>
+                <div class="flex row gap-medium flex-wrap">
+                    <div class="card-secondary p-large border-thin-subtle radius-xsmall w-150px">X-Small (4px)</div>
+                    <div class="card-secondary p-large border-thin-subtle radius-small w-150px">Small (8px)</div>
+                    <div class="card-secondary p-large border-thin-subtle radius-medium w-150px">Medium (12px)</div>
+                    <div class="card-secondary p-large border-thin-subtle radius-large w-150px">Large (16px)</div>
+                    <div class="card-secondary p-large border-thin-subtle radius-xlarge w-150px">XL (20px)</div>
+                    <div class="card-secondary p-large border-thin-subtle radius-2xlarge w-150px">2XL (24px)</div>
+                </div>
+            </div>
+
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Shadows</h4>
+                <div class="flex row gap-2xlarge flex-wrap">
+                    <div class="card-primary radius-medium p-large border-thin-subtle shadow-subtle w-200px h-100px flex align-center justify-center">Subtle</div>
+                    <div class="card-primary radius-medium p-large border-thin-subtle shadow-medium w-200px h-100px flex align-center justify-center">Medium</div>
+                    <div class="card-primary radius-medium p-large border-thin-subtle shadow-heavy w-200px h-100px flex align-center justify-center">Heavy</div>
+                </div>
+            </div>
+
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Border Styles</h4>
+                <div class="flex col gap-medium">
+                    <div class="card-secondary p-medium radius-small border-thin-subtle">Thin Subtle (.border-thin-subtle)</div>
+                    <div class="card-secondary p-medium radius-small border-medium-subtle">Medium Subtle (.border-medium-subtle)</div>
+                    <div class="card-secondary p-medium radius-small border-thick-subtle">Thick Subtle (.border-thick-subtle)</div>
+                    <div class="card-secondary p-medium radius-small border-thin-solid">Thin Solid (.border-thin-solid)</div>
+                    <div class="card-secondary p-medium radius-small border-medium-solid">Medium Solid (.border-medium-solid)</div>
+                    <div class="card-secondary p-medium radius-small border-thick-solid">Thick Solid (.border-thick-solid)</div>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="mb-large">Width Classes (Sample)</h4>
+                <div class="flex col gap-small">
+                    <div class="card-secondary p-small radius-small w-100px">100px</div>
+                    <div class="card-secondary p-small radius-small w-200px">200px</div>
+                    <div class="card-secondary p-small radius-small w-300px">300px</div>
+                    <div class="card-secondary p-small radius-small w-25p">25%</div>
+                    <div class="card-secondary p-small radius-small w-50p">50%</div>
+                    <div class="card-secondary p-small radius-small w-75p">75%</div>
+                    <div class="card-secondary p-small radius-small full-width">100%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Components -->
+        <div id="advanced" class="card-primary radius-medium p-large border-thin-subtle mt-huge">
+            <h2 class="font-2xlarge">Advanced Components</h2>
+            <div class="separator"></div>
+            
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Separators</h4>
+                <p>Default separator:</p>
+                <div class="separator"></div>
+                <p>Thick separator:</p>
+                <div class="separator separator-thick"></div>
+                <p class="mb-medium">Vertical separator:</p>
+                <div class="flex row align-center">
+                    <span>Left Content</span>
+                    <div class="separator-vertical"></div>
+                    <span>Right Content</span>
+                </div>
+            </div>
+
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Loading Skeleton</h4>
+                <div class="flex col gap-medium">
+                    <div class="skeleton w-300px h-50px radius-small"></div>
+                    <div class="skeleton w-450px h-50px radius-small"></div>
+                    <div class="skeleton w-200px h-50px radius-small"></div>
+                </div>
+            </div>
+
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Stack Layouts</h4>
+                <div class="flex row gap-2xlarge flex-wrap">
+                    <div class="border-thin-subtle p-medium radius-small">
+                        <p class="text-muted mb-small">Vertical Stack (.stack-v):</p>
+                        <div class="stack-v gap-small">
+                            <div class="card-secondary p-small radius-xsmall">Item 1</div>
+                            <div class="card-secondary p-small radius-xsmall">Item 2</div>
+                            <div class="card-secondary p-small radius-xsmall">Item 3</div>
+                        </div>
+                    </div>
+                    <div class="border-thin-subtle p-medium radius-small">
+                        <p class="text-muted mb-small">Horizontal Stack (.stack-h):</p>
+                        <div class="stack-h gap-small">
+                            <div class="card-secondary p-small radius-xsmall">Item 1</div>
+                            <div class="card-secondary p-small radius-xsmall">Item 2</div>
+                            <div class="card-secondary p-small radius-xsmall">Item 3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Cursor Classes</h4>
+                <div class="flex row gap-medium flex-wrap">
+                    <div class="card-secondary p-medium radius-small cursor-pointer">Pointer</div>
+                    <div class="card-secondary p-medium radius-small cursor-default">Default</div>
+                    <div class="card-secondary p-medium radius-small cursor-not-allowed">Not Allowed</div>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="mb-large">Modal System</h4>
+                <button class="btn btn-emphasis btn-h-medium" onclick="showModal()">Show Modal</button>
+                <p class="mt-medium text-muted">Click to see modal with background cover</p>
+            </div>
+        </div>
+
+        <!-- Spacing Showcase -->
+        <div class="card-primary radius-medium p-large border-thin-subtle mt-huge">
+            <h2 class="font-2xlarge">Spacing System</h2>
+            <div class="separator"></div>
+            
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Padding Scale</h4>
+                <div class="flex col gap-medium">
+                    <div class="border-thin-subtle radius-small p-2xsmall card-secondary">2xsmall (2px)</div>
+                    <div class="border-thin-subtle radius-small p-xsmall card-secondary">xsmall (4px)</div>
+                    <div class="border-thin-subtle radius-small p-small card-secondary">small (8px)</div>
+                    <div class="border-thin-subtle radius-small p-medium card-secondary">medium (12px)</div>
+                    <div class="border-thin-subtle radius-small p-large card-secondary">large (16px)</div>
+                    <div class="border-thin-subtle radius-small p-xlarge card-secondary">xlarge (20px)</div>
+                    <div class="border-thin-subtle radius-small p-2xlarge card-secondary">2xlarge (24px)</div>
+                    <div class="border-thin-subtle radius-small p-huge card-secondary">huge (32px)</div>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="mb-large">Margin Scale (Top)</h4>
+                <div class="border-thin-subtle p-medium radius-small">
+                    <div class="card-secondary p-small radius-xsmall">No margin</div>
+                    <div class="card-secondary p-small radius-xsmall mt-xsmall">mt-xsmall (2px)</div>
+                    <div class="card-secondary p-small radius-xsmall mt-small">mt-small (4px)</div>
+                    <div class="card-secondary p-small radius-xsmall mt-medium">mt-medium (8px)</div>
+                    <div class="card-secondary p-small radius-xsmall mt-large">mt-large (12px)</div>
+                    <div class="card-secondary p-small radius-xsmall mt-xlarge">mt-xlarge (16px)</div>
+                    <div class="card-secondary p-small radius-xsmall mt-2xlarge">mt-2xlarge (20px)</div>
+                    <div class="card-secondary p-small radius-xsmall mt-huge">mt-huge (24px)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scrollbar Demo -->
+        <div class="card-primary radius-medium p-large border-thin-subtle mt-huge">
+            <h2 class="font-2xlarge">Scrollbar Styles</h2>
+            <div class="separator"></div>
+            
+            <div class="flex row gap-large flex-wrap">
+                <div>
+                    <h4 class="mb-medium">Default Scrollbar</h4>
+                    <div class="card-secondary border-thin-subtle radius-small p-medium w-300px h-200px scrollable">
+                        <div class="h-400px">
+                            <p>Scroll down to see the default scrollbar...</p>
+                            <p class="mt-xlarge">More content...</p>
+                            <p class="mt-xlarge">Even more content...</p>
+                            <p class="mt-xlarge">Keep scrolling...</p>
+                            <p class="mt-xlarge">Almost there...</p>
+                            <p class="mt-xlarge">End of content!</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="mb-medium">Thin Scrollbar</h4>
+                    <div class="card-secondary border-thin-subtle radius-small p-medium w-300px h-200px scrollable scrollbar-thin">
+                        <div class="h-400px">
+                            <p>Scroll to see thin scrollbar</p>
+                            <p class="mt-xlarge">More content...</p>
+                            <p class="mt-xlarge">more content...</p>
+                            <p class="mt-xlarge">Keep scrolling...</p>
+                            <p class="mt-xlarge">End of content</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Practical Examples -->
+        <div class="card-primary radius-medium p-large border-thin-subtle mt-huge">
+            <h2 class="font-2xlarge">Examples</h2>
+            <div class="separator"></div>
+            
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">User Profile Card</h4>
+                <div class="card-secondary radius-medium p-xlarge border-thin-subtle w-400px">
+                    <div class="flex col align-center gap-medium">
+                        <div class="flex col align-center gap-small">
+                            <h3 class="font-2xlarge text-header">boiby</h3>
+                            <p class="text-muted mt-xsmall">doajjadfojfjag</p>
+                        </div>
+                        <div class="separator"></div>
+                        <div class="flex row gap-medium full-width">
+                            <button class="btn btn-secondary btn-h-medium flex-1">Message</button>
+                            <button class="btn btn-emphasis btn-h-medium flex-1">Follow</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-2xlarge">
+                <h4 class="mb-large">Settings Panel</h4>
+                <div class="card-secondary radius-medium p-large border-thin-subtle">
+                    <h3 class="font-xlarge mb-medium">Preferences</h3>
+                    <div class="flex col gap-large">
+                        <div class="flex row justify-between align-center">
+                            <div>
+                                <div class="text-header text-500">Enable Notifications</div>
+                                <div class="text-muted text-small">Receive updates and alerts</div>
+                            </div>
+                            <label class="checkbox-container settings-checkbox">
+                                <input type="checkbox" class="checkbox-input checkbox-purple" checked>
+                            </label>
+                        </div>
+                        <div class="separator"></div>
+                        <div class="flex row justify-between align-center">
+                            <div>
+                                <div class="text-header text-500">Dark Mode</div>
+                                <div class="text-muted text-small">Switch theme appearance</div>
+                            </div>
+                            <label class="checkbox-container settings-checkbox">
+                                <input type="checkbox" class="checkbox-input checkbox-purple">
+                            </label>
+                        </div>
+                        <div class="separator"></div>
+                        <div class="flex row justify-between align-center">
+                            <div>
+                                <div class="text-header text-500">Auto-save</div>
+                                <div class="text-muted text-small">Automatically save changes</div>
+                            </div>
+                            <label class="checkbox-container settings-checkbox">
+                                <input type="checkbox" class="checkbox-input checkbox-purple" checked>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="mb-large">Notification Card</h4>
+                <div class="card-secondary radius-medium p-large border-thin-subtle">
+                    <div class="flex row gap-medium align-top">
+                        <div class="w-50px h-50px radius-medium card-primary flex align-center justify-center border-thin-subtle flex-shrink-0">
+                            <span class="font-xlarge">!</span>
+                        </div>
+                        <div class="flex col gap-small flex-1">
+                            <div class="text-header text-600">New message received</div>
+                            <div class="text-muted text-small">You have a new message from Boiby</div>
+                            <div class="text-trace text-small mt-small">2 minutes ago</div>
+                        </div>
+                        <button class="btn btn-soft-emphasis btn-h-small notification-action">View</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Element (hidden by default) -->
+        <div id="modalCover" class="modal-cover none" onclick="hideModal()"></div>
+        <div id="modalBox" class="modal none modal-centered w-400px padding-xlarge radius-large border-thin-subtle shadow-heavy card-primary">
+            <h2 class="font-2xlarge mb-large">Example Modal</h2>
+            <p class="mb-xlarge">This is a modal dialog with a background cover. Click outside or on the button below to close.</p>
+            <div class="separator mb-large"></div>
+            <div class="button-container justify-end gap-medium">
+                <button class="btn btn-secondary btn-h-medium" onclick="hideModal()">Cancel</button>
+                <button class="btn btn-emphasis btn-h-medium" onclick="hideModal()">Confirm</button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-container mt-huge">
+            <p class="text-muted align-text-center">BoibyUI</p>
+            <p class="text-trace align-text-center text-small mt-small">V1</p>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        }
+
+        // Load saved theme preference
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+            }
+        });
+
+        // Modal functionality
+        function showModal() {
+            document.getElementById('modalCover').classList.remove('none');
+            document.getElementById('modalBox').classList.remove('none');
+        }
+
+        function hideModal() {
+            document.getElementById('modalCover').classList.add('none');
+            document.getElementById('modalBox').classList.add('none');
+        }
+
+        // Custom Select Dropdown
+        const customSelect = document.getElementById('customSelect');
+        const customDropdown = document.getElementById('customDropdown');
+        const selectedValue = document.getElementById('selectedValue');
+        const options = document.querySelectorAll('.custom-select-option');
+
+        customSelect.addEventListener('click', (e) => {
+            e.stopPropagation();
+            customDropdown.classList.toggle('none');
+            customSelect.classList.toggle('active');
+        });
+
+        options.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.stopPropagation();
+                selectedValue.textContent = option.textContent;
+                options.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                customDropdown.classList.add('none');
+                customSelect.classList.remove('active');
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+            customDropdown.classList.add('none');
+            customSelect.classList.remove('active');
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
