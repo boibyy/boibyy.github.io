@@ -30,8 +30,8 @@
 
 /* Light Mode */
 body.light-mode {
-    --bg-base: #f7f7f8;
-    --bg-primary: #ffffff;
+    --bg-base: #ffffff;
+    --bg-primary: #f7f7f8;
     --bg-secondary: #E6E7EB;
     --btn-gray: #dbdcdf;
     --btn-gray-hover: #cdd0d8;
