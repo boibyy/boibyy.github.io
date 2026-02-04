@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy BoibyPhone 15 Pro</title>
+    <link rel="stylesheet" href="BoibyUI.css">
+    <style>
+        /* Sticky Sub-Header */
+        .sub-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--shadow-border);
+            z-index: 1000;
+            transform: translateY(-100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sub-header.visible { transform: translateY(0); }
+
+        /* Navigation Pill */
+        .dot-pill {
+            position: fixed;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.03);
+            padding: 16px 10px;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            z-index: 999;
+        }
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #000;
+            opacity: 0.15;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .dot.active { opacity: 1; background: var(--btn-purple); transform: scale(1.3); }
+
+        .config-container {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Locked State Logic */
+        .locked-section {
+            opacity: 0.45;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        #step-summary {
+            display: none;
+            transition: opacity 0.8s ease;
+        }
+        
+        #step-summary.visible {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Image Container */
+        .sticky-image-box {
+            position: sticky;
+            top: 100px;
+            height: 75vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #fbfbfd;
+            border-radius: 28px;
+        }
+
+        .product-img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            transition: opacity 0.4s ease;
+        }
+
+        /* Model Cards */
+        .model-card {
+            border: 1px solid var(--shadow-border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 14px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.2s;
+            background: #fff;
+        }
+        .model-card.active { border: 2px solid var(--btn-purple); padding: 23px; }
+
+        /* Carousel UI */
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(210, 210, 215, 0.3);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: 0.3s;
+            z-index: 10;
+        }
+        .arrow-left { left: 20px; }
+        .arrow-right { right: 20px; }
+        
+        .carousel-pill {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px 18px;
+            border-radius: 20px;
+            display: flex;
+            gap: 12px;
+            opacity: 0;
+            transition: 0.4s ease;
+        }
+        
+        .sticky-image-box:hover .carousel-arrow,
+        .sticky-image-box:hover .carousel-pill { 
+            opacity: 1; 
+            pointer-events: auto; 
+        }
+
+        .c-dot { width: 6px; height: 6px; border-radius: 50%; background: #000; opacity: 0.2; cursor: pointer; }
+        .c-dot.active { opacity: 0.8; }
+
+        /* Steps & Alignment */
+        .step-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .ring-outer {
+            width: 38px; height: 38px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid transparent; cursor: pointer; transition: 0.2s;
+        }
+        .ring-outer.active { border-color: var(--btn-purple); }
+        .ring-inner { width: 30px; height: 30px; border-radius: 50%; }
+
+        .storage-card {
+            border: 1px solid var(--shadow-border); border-radius: 12px;
+            padding: 26px; margin-bottom: 14px; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center; transition: 0.2s;
+            background: #fff;
+        }
+        .storage-card.active { border: 2px solid var(--btn-purple); padding: 25px; }
+
+        .summary-wrapper { background: var(--bg-primary); padding: 140px 0; border-top: 1px solid var(--shadow-border); }
+        .summary-crop-box { width: 100%; max-width: 450px; height: 380px; overflow: hidden }
+        .summary-crop-box img { width: 95%; object-fit: cover; object-position: top; }
+
+        .text-special-header { font-weight: 600; color: #1d1d1f; letter-spacing: -0.01em}
+        .text-big-header { font-weight: 600; color: #1d1d1f; letter-spacing: -0.01em; font-size: 40px;}
+        .text-specific-muted { color: #86868b; font-weight: 400; }
+        .letter-space-minimal {letter-spacing: -0.02em; }
+
+        #step-model { margin-top: -90px; }
+    </style>
+</head>
+<body class="light-mode smooth-scroll">
+
+    <div id="sub-header" class="sub-header">
+        <div class="container stack-h justify-space-between p-medium gap-large">
+            <span class="text-special-header font-large" id="header-title">BoibyPhone 15 Pro</span>
+            <span id="header-price" class="text-medium">From A$1,899</span>
+        </div>
+    </div>
+
+    <div class="dot-pill" id="main-nav-pill">
+        <div class="dot active" onclick="jumpTo('step-model')"></div>
+        <div class="dot" onclick="jumpTo('step-color')"></div>
+        <div class="dot" onclick="jumpTo('step-storage')"></div>
+        <div class="dot" id="nav-dot-summary" style="pointer-events: none;"></div>
+    </div>
+
+    <div class="config-container">
+        <div id="main-header" class="mb-large" style="padding-top: 80px; height: 160px;">
+            <h1 class="text-big-header mb-medium">Buy BoibyPhone 15 Pro</h1>
+            <p id="main-price-display" class="font-large text-specific-muted">From A$1,899</p>
+        </div>
+
+        <div class="flex row gap-5xlarge mobile-stack">
+            <div class="w-65p mobile-full">
+                <div id="img-container" class="sticky-image-box mt-large">
+                    <button class="carousel-arrow arrow-left" onclick="moveSlide(-1)">❮</button>
+                    <img id="view-img" src="15_pro_colours.png" alt="BoibyPhone" class="product-img">
+                    <button class="carousel-arrow arrow-right" onclick="moveSlide(1)">❯</button>
+                    <div class="carousel-pill">
+                        <div class="c-dot active" onclick="setCarousel(1)"></div>
+                        <div class="c-dot" onclick="setCarousel(2)"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-35p mobile-full">
+                <section class="step-section" id="step-model">
+                    <h2 class="font-2xlarge text-special-header mb-huge">
+                        Model. <span class="text-specific-muted">Which is best for you?</span>
+                    </h2>
+                    <div id="model-pro" class="model-card" onclick="updateModel('Pro', 1899)">
+                        <div class="stack-v">
+                            <span class="text-special-header font-large">BoibyPhone 15 Pro</span>
+                            <span class="text-specific-muted">6.3-inch display</span>
+                        </div>
+                        <span class="text-specific-muted">From A$1,899</span>
+                    </div>
+                    <div id="model-max" class="model-card" onclick="updateModel('Pro Max', 2299)">
+                        <div class="stack-v">
+                            <span class="text-special-header font-large">BoibyPhone 15 Pro Max</span>
+                            <span class="text-specific-muted">6.9-inch display</span>
+                        </div>
+                        <span class="text-specific-muted">From A$2,299</span>
+                    </div>
+                </section>
+
+                <section class="step-section locked-section" id="step-color">
+                    <h2 class="font-2xlarge text-special-header mb-xlarge">
+                        Colour. <span class="text-specific-muted">Pick your favourite.</span>
+                    </h2>
+                    <p id="label-color" class="text-600 font-medium mt-medium mb-xlarge">Colour</p>
+                    <div class="stack-h gap-medium">
+                        <div class="ring-outer" onmouseenter="hoverColor('Deep Purple')" onmouseleave="revertColor()" onclick="updateColor('Deep Purple', '#453660')">
+                            <div class="ring-inner" style="background-color: #453660;"></div>
+                        </div>
+                        <div class="ring-outer" onmouseenter="hoverColor('Cherry Red')" onmouseleave="revertColor()" onclick="updateColor('Cherry Red', '#70403F')">
+                            <div class="ring-inner" style="background-color: #70403F;"></div>
+                        </div>
+                        <div class="ring-outer" onmouseenter="hoverColor('Silver')" onmouseleave="revertColor()" onclick="updateColor('Silver', '#C3C3C3')">
+                            <div class="ring-inner" style="background-color: #C3C3C3;"></div>
+                        </div>
+                        <div class="ring-outer" onmouseenter="hoverColor('Slate Grey')" onmouseleave="revertColor()" onclick="updateColor('Slate Grey', '#252525')">
+                            <div class="ring-inner" style="background-color: #252525;"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="step-section locked-section" id="step-storage">
+                    <h2 class="font-2xlarge text-special-header mb-huge">
+                        Storage. <span class="text-specific-muted">How much space do you need?</span>
+                    </h2>
+                    <div id="storage-options-container"></div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="summary-wrapper" id="step-summary">
+        <div class="container stack-h align-center justify-center gap-5xlarge mobile-stack p-huge">
+            <div class="summary-crop-box">
+                <img id="summary-view" src="15_pro_colours.png" alt="Your BoibyPhone">
+            </div>
+            <div class="stack-v w-500px">
+                <h2 class="font-4xlarge text-700 text-header letter-space-minimal">Your new BoibyPhone 15 <span id="sum-model-text">Pro</span>.<br><span class="text-700 text-muted letter-space-minimal"> Just the way you want it.</span></h2>
+                <div class="stack-v mt-medium mb-huge">
+                    <span id="sum-title" class="font-large text-500 mb-medium">BoibyPhone 15 Pro</span>
+                    <span id="sum-price" class="mt-medium font-2xlarge text-special-header">A$1,899</span>
+                    <p class="font-normal text-trace mt-large">Includes GST</p>
+                    <div class="separator"></div>
+                    <p class="font-normal text-trace mt-large">Pickup and delivery details for your area will be shown in check-out.</p>
+                </div>
+                <button class="btn btn-emphasis btn-h-large full-width radius-medium">Add to Bag</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Pricing data
+        const pricingData = {
+            'Pro': {
+                storage: {
+                    256: 1899,
+                    512: 2099,
+                    1024: 2499,
+                    2048: 3099
+                }
+            },
+            'Pro Max': {
+                storage: {
+                    512: 2299,
+                    1024: 2699,
+                    2048: 3299,
+                }
+            }
+        };
+
+        // State
+        let state = { 
+            model: "", 
+            color: "", 
+            storage: 0, 
+            price: 0,
+            carouselIndex: 1
+        };
+
+        function updateModel(modelName, basePrice) {
+            state.model = modelName;
+            state.price = basePrice;
+            state.storage = 0;
+            state.color = "";
+
+            // Update active state
+            document.querySelectorAll('.model-card').forEach(c => {
+                c.classList.toggle('active', c.id === (modelName === 'Pro Max' ? 'model-max' : 'model-pro'));
+            });
+
+            // Reset color selection
+            document.querySelectorAll('.ring-outer').forEach(r => r.classList.remove('active'));
+            document.getElementById('label-color').innerText = 'Colour';
+
+            // Render storage options
+            renderStorageOptions();
+
+            // Unlock color section
+            document.getElementById('step-color').classList.remove('locked-section');
+            
+            // Lock storage section until color is selected
+            document.getElementById('step-storage').classList.add('locked-section');
+            
+            // Hide summary
+            document.getElementById('step-summary').classList.remove('visible');
+            document.getElementById('nav-dot-summary').style.pointerEvents = 'none';
+
+            // Update image
+            refreshImages();
+
+            // Scroll to color
+            setTimeout(() => jumpTo('step-color'), 100);
+        }
+
+        function updateColor(name, hex) {
+            state.color = name;
+            document.getElementById('label-color').innerText = `Colour - ${name}`;
+            
+            // Update active ring
+            document.querySelectorAll('.ring-outer').forEach(r => {
+                const inner = r.querySelector('.ring-inner');
+                const bgColor = inner.style.backgroundColor;
+                r.classList.toggle('active', bgColor.toLowerCase().includes(hex.slice(1).toLowerCase()));
+            });
+
+            // Unlock storage section
+            document.getElementById('step-storage').classList.remove('locked-section');
+            
+            // Update images
+            refreshImages();
+            
+            // Scroll to storage
+            setTimeout(() => jumpTo('step-storage'), 100);
+        }
+
+        function updateStorage(gb, price) {
+            state.storage = gb;
+            state.price = price;
+            
+            // Update active storage card
+            document.querySelectorAll('.storage-card').forEach(c => {
+                c.classList.toggle('active', c.id === `box-${gb}`);
+            });
+            
+            // Show summary
+            document.getElementById('step-summary').classList.add('visible');
+            document.getElementById('nav-dot-summary').style.pointerEvents = 'auto';
+
+            // Update all price displays
+            const pStr = `A$${price.toLocaleString()}`;
+            document.getElementById('main-price-display').innerText = pStr;
+            document.getElementById('header-price').innerText = pStr;
+            document.getElementById('sum-price').innerText = pStr;
+            
+            // Update summary text
+            refreshText();
+            
+            // Scroll to summary
+            setTimeout(() => jumpTo('step-summary'), 350);
+        }
+
+        function refreshImages() {
+            const main = document.getElementById('view-img');
+            const sum = document.getElementById('summary-view');
+            
+            if (!state.model) return;
+            
+            const modelSlug = state.model.toLowerCase().replace(/\s/g, '_');
+            
+            main.style.opacity = '0';
+            setTimeout(() => {
+                if (!state.color) {
+                    // Pre-color selection
+                    main.src = `15_${modelSlug}_colours.png`;
+                } else {
+                    // Post-color selection
+                    const colorSlug = state.color.toLowerCase().replace(/\s/g, '_');
+                    main.src = `15_${modelSlug}_${colorSlug}_${state.carouselIndex}.png`;
+                    sum.src = `15_${modelSlug}_${colorSlug}_2.png`;
+                }
+                main.style.opacity = '1';
+            }, 250);
+        }
+
+        function renderStorageOptions() {
+            const container = document.getElementById('storage-options-container');
+            const options = pricingData[state.model].storage;
+            container.innerHTML = '';
+
+            Object.keys(options).forEach(gb => {
+                const price = options[gb];
+                const label = gb >= 1024 ? `${gb/1024}TB` : `${gb}GB`;
+                const card = document.createElement('div');
+                card.className = `storage-card ${state.storage == gb ? 'active' : ''}`;
+                card.id = `box-${gb}`;
+                card.onclick = () => updateStorage(gb, price);
+                card.innerHTML = `<span class="text-special-header font-large">${label}</span>
+                                  <span class="text-specific-muted font-normal">A$${price.toLocaleString()}</span>`;
+                container.appendChild(card);
+            });
+        }
+
+        function refreshText() {
+            let storageLabel = "";
+            if(state.storage) {
+                storageLabel = state.storage >= 1024 ? ` ${state.storage/1024}TB` : ` ${state.storage}GB`;
+            }
+            const c = state.color ? ` ${state.color}` : "";
+            document.getElementById('sum-title').innerText = `BoibyPhone 15 ${state.model}${storageLabel}${c}`;
+            document.getElementById('sum-model-text').innerText = state.model;
+        }
+
+        function hoverColor(name) { 
+            document.getElementById('label-color').innerText = `Colour - ${name}`; 
+        }
+        
+        function revertColor() { 
+            document.getElementById('label-color').innerText = state.color ? `Colour - ${state.color}` : `Colour`; 
+        }
+
+        function setCarousel(idx) {
+            state.carouselIndex = idx;
+            document.querySelectorAll('.c-dot').forEach((d, i) => {
+                d.classList.toggle('active', (i + 1) === idx);
+            });
+            refreshImages();
+        }
+
+        function moveSlide(direction) {
+            if (!state.color) return;
+            state.carouselIndex += direction;
+            if (state.carouselIndex > 2) state.carouselIndex = 1;
+            if (state.carouselIndex < 1) state.carouselIndex = 2;
+            setCarousel(state.carouselIndex);
+        }
+
+        function jumpTo(id) {
+            const el = document.getElementById(id);
+            if(el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Scroll listener for header and navigation
+        window.addEventListener('scroll', () => {
+            const sub = document.getElementById('sub-header');
+            const dots = document.querySelectorAll('.dot');
+            
+            (window.scrollY > 200) ? sub.classList.add('visible') : sub.classList.remove('visible');
+
+            const sections = ['step-model', 'step-color', 'step-storage', 'step-summary'];
+            
+            sections.forEach((id, i) => {
+                const el = document.getElementById(id);
+                if (el && getComputedStyle(el).display !== 'none') {
+                    const rect = el.getBoundingClientRect();
+                    const viewportCenter = window.innerHeight / 2;
+                    
+                    if (rect.top <= viewportCenter && rect.bottom >= viewportCenter) {
+                        dots.forEach(d => d.classList.remove('active'));
+                        if (dots[i]) dots[i].classList.add('active');
+                    }
+                }
+            });
+        });
+        
+        // Prevent scroll restoration on page load
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+    </script>
+</body>
+</html>
