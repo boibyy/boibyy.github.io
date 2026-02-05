@@ -3,9 +3,10 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/appeal-form/', 
-  root: './',
+  base: '/chatban/', 
+  root: './', 
   build: {
-    outDir: '../dist/appeal-form', // Build for mrege
+    outDir: '../chatban/',
+    emptyOutDir: true,
   }
 })
