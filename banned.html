@@ -645,8 +645,12 @@ body.app-mode .btn-dots-rules {
             font-weight: 15px;
         }
 
-        #display-policy-description, #rules-description, #display-policy-importance, #rules-mistake-text, #second-chance-description-1, #second-chance-description-2 {
+        #rules-mistake-text {
             font-size: var(--font-large)!important;
+        }
+
+        #display-policy-description, #rules-description, #display-policy-importance, #second-chance-description-1, #second-chance-description-2 {
+            font-size: 16px!important;
         }
 
         input[type="checkbox"] {
@@ -3720,7 +3724,7 @@ function renderEvidenceControls() {
         const rulesHeaderTitle = document.getElementById('rules-header-title');
         if (rulesHeaderTitle) {
             if (!experimentEnableEducationalPages) {
-                rulesHeaderTitle.style.marginTop = '26px';
+                rulesHeaderTitle.style.marginTop = '36px';
             } else {
                 rulesHeaderTitle.style.marginTop = ''; // Reset to default
             }
