@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Boiby's Website</title>
+
+    <script src="modal.js"></script>
+    <script src="theme.js"></script>
+    <script src="nav.js"></script>
+  <link rel="stylesheet" crossorigin href="/appeal-form/assets/index-BEB2UGkI.css">
+</head>
+
+<body class="dark">
+    <header>
+        <img src="/appeal-form/assets/boiby-DDQ0ez76.png" class="favicon" alt="Boiby">
+        <a href="#" class="hamburger">☰</a>
+        <nav>
+            <a href="/index" class="link active">Home</a>
+            <a href="/about" class="link">About</a>
+            <a href="/projects" class="link">Projects</a>
+            <a href="/extras" class="link">Extras</a>
+            <a href="/contact" class="link">Contact</a>
+        </nav>
+        <button id="theme-toggle" class="secondary" onclick="toggleTheme()">Switch to Light Mode</button>
+        <button id="motion-toggle" class="secondary" onclick="toggleMotion()">Reduce Motion</button>
+    </header>
+
+    <main>
+        <section id="home" class="heading">
+            <div class="heading-container">
+                <h1 class="text-center header-margin-home">Welcome to the Boiby Website</h1>
+                <img src="/appeal-form/assets/boiby-BEmp-DsF.JPG" class="heading-hero-image-full" alt="Heading Image">
+            </div>
+        </section>
+        
+        <div class="container">
+            <section>
+                <h2 class="section-title">Welcome to my website
+                    <img src="/appeal-form/assets/boiby-DDQ0ez76.png" class="bouncy-image" alt="Boiby Icon">
+                </h2>
+                <div class="cards-container">
+                    <div class="card full-width">
+                        <h2>Hello!</h2>
+                        <p>My name is boiby, and I like messing with technology and computers. I don't know what else to tell you. I will write a proper about page eventually.</p>
+                    </div>
+                    <div class="card">
+                        <h2>My Projects</h2>
+                        <p>Personal projects... Many of these are unfinished and may be buggy; I made these for fun, after all.</p>
+                        <!-- <button class="primary-blue w-100"><a href="/projects">Projects</a></button> -->
+                        <button class="secondary w-100 disabled"><a>Work In Progress</a></button>
+                    </div>
+                    <div class="card">
+                        <h2>Extras</h2>
+                        <p>A collection of other stuff that doesn't really fit into it's own category.</p>
+                        <button class="secondary w-100 disabled"><a>Work In Progress</a></button>
+                    </div>
+                    <div class="card">
+                        <h2>Contact</h2>
+                        <p>If you wish to contact me via Discord or on Github, you can do so via these links.</p>
+                        <!-- <button class="primary-blue w-100"><a href="/contacts">Contacts</a></button> -->
+                        <button class="secondary w-100 disabled"><a>Work In Progress</a></button>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="modal-button-container">
+                <button class="primary-blue" onclick="openModal()">Random blue button</button>
+            </section><br>
+
+            <section class="button-container">
+                <button class="primary-blue"><a href="boibyapp">Get the Boiby App</a></button>
+            </section>
+        </div>
+    </main>
+    
+    <footer>
+        <hr>
+        <p>© Boiby 2025</p>
+    </footer>
+    
+    <div id="modal" class="modal" onclick="closeModal()" style="display: none;">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <p class="modal-header-text">Hello hello</p>
+            </div>
+            <div class="modal-body">
+                <p>Thank you for clicking on the blue button.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="secondary" onclick="closeModal()">Close</button>
+                <button class="primary-blue">This button does nothing lol</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
