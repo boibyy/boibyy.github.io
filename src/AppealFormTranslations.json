@@ -1,0 +1,46 @@
+{
+    "Heading.AppealDecision": "Appeal a decision",
+    "Description.AppealInfo": "If you think we've made a mistake, you may appeal our decision here.",
+    "Description.ViewViolations": "To view your current violations, visit",
+    "Description.ReviewsBasedOn": "Reviews are based on",
+    "Link.ViolationsAppeals": "Violations & Appeals",
+    "Link.CommunityStandards": "Boiby Community Standards",
+    
+    "Label.EmailAddress": "Email address",
+    "Label.ConfirmEmail": "Confirm email address",
+    "Label.DecisionType": "What kind of decision would you like to appeal?",
+    "Label.AppealReason": "Why are you appealing this decision?",
+    
+    "Placeholder.Email": "your.email@example.com",
+    "Placeholder.SelectDecisionType": "Select a decision type",
+    "Placeholder.AppealReason": "Please describe why you believe this decision should be reviewed.",
+    
+    "DecisionType.Account": "Account",
+    "DecisionType.AltAccount": "Alt Account",
+    "DecisionType.Chat": "Chat",
+    "DecisionType.VoiceChat": "Voice Chat",
+    "DecisionType.Cheating": "Cheating",
+    "DecisionType.Experience": "Experience I own - Suspension",
+    "DecisionType.Asset": "Image or other asset",
+    "DecisionType.Billing": "Billing or Chargeback",
+    "DecisionType.ChildAccount": "Child's Account",
+    "DecisionType.AvatarProfile": "Avatar or Profile",
+    
+    "CharCounter.Format": "{current} / {max}",
+    
+    "Error.EmailRequired": "Email address is required",
+    "Error.EmailInvalid": "Please enter a valid email address",
+    "Error.ConfirmEmailRequired": "Please confirm your email address",
+    "Error.ConfirmEmailInvalid": "Please enter a valid email address",
+    "Error.EmailsDoNotMatch": "Email addresses do not match",
+    "Error.DecisionTypeRequired": "Please select a decision type",
+    "Error.AppealReasonRequired": "Please explain why you are appealing this decision",
+    
+    "Confirmation.Text": "By selecting Send, you confirm that this information is true and you're only sending one appeal about this decision.",
+    
+    "Button.Send": "Send",
+    "Button.OK": "OK",
+    
+    "Modal.AppealSent.Title": "Appeal sent",
+    "Modal.AppealSent.Message": "We received your appeal. We estimate a review within a few days, depending on the complexity of the issue. Thanks for sending an appeal."
+}
