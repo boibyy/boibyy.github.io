@@ -1,0 +1,13 @@
+{
+  "name": "boibyy-monorepo",
+  "private": true,
+  "workspaces": [
+    "appeal-form",
+    "chatban"
+  ],
+  "scripts": {
+    "install:all": "npm --prefix appeal-form install && npm --prefix chatban install",
+    "build:all": "npm run build --prefix appeal-form && npm run build --prefix chatban",
+    "dev:all": "npm --prefix appeal-form run dev & npm --prefix chatban run dev"
+  }
+}

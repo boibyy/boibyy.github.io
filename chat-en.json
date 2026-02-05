@@ -31,7 +31,7 @@
 
   "Label.Reason.Other": "Other",
   "Label.Reason.Spam": "Spam",
-  "Label.Reason.Harassment.V2": "Bullying and Harassment",
+  "Label.Reason.Harassment": "Harassment",
   "Label.Reason.ExtortionThreats": "Extortion and Threats",
   "Label.Reason.Scamming": "Scamming",
   "Label.Reason.SexualContent": "Sexual Content",
