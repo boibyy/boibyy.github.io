@@ -167,12 +167,15 @@
 </head>
 <body class="light-mode smooth-scroll">
 
-    <div id="sub-header" class="sub-header">
-        <div class="container stack-h justify-space-between p-medium gap-large">
-            <span class="text-special-header font-large">BoibyPhone 15</span>
-            <span id="header-price" class="text-medium">From A$1,349</span>
+    <div id="sub-header" class="sub-header visible">
+    <div class="container stack-h justify-space-between p-medium gap-large">
+        <span class="text-special-header font-large">BoibyPhone 15</span>
+        <div class="stack-h gap-medium">
+            <a href="spec-sheet.html" class="btn btn-secondary btn-h-small text-no-decoration" style="color: var(--text-header);">Tech Specs</a>
+            <span id="header-price" class="text-medium">A$1,349</span>
         </div>
     </div>
+</div>
 
     <div class="dot-pill" id="main-nav-pill">
         <div class="dot active" data-step="step-finish" onclick="jumpTo('step-finish')"></div>
@@ -415,4 +418,5 @@
         renderStorageOptions();
     </script>
 </body>
+
 </html>
