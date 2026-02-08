@@ -1,0 +1,674 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoibyPhone 15 - Tech Specs</title>
+    <link rel="stylesheet" href="BoibyUI.css">
+    <style>
+        /* Sticky Sub-Header */
+        .sub-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--shadow-border);
+            z-index: 1000;
+        }
+
+        .spec-container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Hero Section with Image */
+        .spec-hero {
+            padding: 120px 0 80px 0;
+            text-align: center;
+        }
+
+        .spec-hero-image {
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .spec-hero-image img {
+            max-width: 75%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .text-big-header { 
+            font-weight: 600; 
+            color: #1d1d1f; 
+            letter-spacing: -0.01em; 
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .text-special-header { 
+            font-weight: 600; 
+            color: #1d1d1f; 
+            letter-spacing: -0.01em;
+        }
+
+        .text-specific-muted { 
+            color: #86868b; 
+            font-weight: 400; 
+        }
+
+        /* Spec Sections */
+        .spec-section {
+            border-top: 1px solid var(--shadow-border);
+            padding: 60px 0;
+        }
+
+        .spec-section-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 40px;
+            letter-spacing: -0.01em;
+        }
+
+        /* Two Column Layout */
+        .spec-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            margin-bottom: 32px;
+        }
+
+        .spec-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1d1d1f;
+            padding-top: 4px;
+        }
+
+        .spec-content {
+            font-size: 14px;
+            color: #1d1d1f;
+            line-height: 1.7;
+        }
+
+        .spec-content p {
+            margin-bottom: 0.8em;
+        }
+
+        .spec-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .spec-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .spec-list li {
+            margin-bottom: 8px;
+            color: #1d1d1f;
+        }
+
+        .spec-subtitle {
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+
+        /* Footer Note */
+        .spec-footer {
+            padding: 60px 0 100px 0;
+            border-top: 1px solid var(--shadow-border);
+        }
+
+        .spec-footnote {
+            font-size: 12px;
+            color: #86868b;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .spec-container {
+                padding: 0 20px;
+            }
+
+            .spec-hero {
+                padding: 100px 0 60px 0;
+            }
+
+            .text-big-header {
+                font-size: 36px;
+            }
+
+            .spec-row {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                margin-bottom: 40px;
+            }
+
+            .spec-section {
+                padding: 40px 0;
+            }
+
+            .spec-section-title {
+                font-size: 24px;
+                margin-bottom: 32px;
+            }
+        }
+    </style>
+</head>
+<body class="light-mode smooth-scroll">
+
+    <div class="sub-header">
+        <div class="container stack-h justify-space-between p-medium gap-large">
+            <span class="text-special-header font-large">BoibyPhone 15</span>
+            <span class="text-medium text-specific-muted">Tech Specs</span>
+        </div>
+    </div>
+
+    <div class="spec-container">
+        <!-- Hero Section -->
+        <section class="spec-hero">
+            <div class="spec-hero-image">
+                <img id="hero-img" src="15_blue_1.png" alt="BoibyPhone 15">
+            </div>
+            <h1 class="text-big-header">BoibyPhone 15</h1>
+            <p class="font-xlarge text-specific-muted">Technical Specifications</p>
+        </section>
+
+        <!-- Finish Section -->
+        <section class="spec-section">
+            <h2 class="spec-section-title">Finish</h2>
+            
+            <div class="spec-row">
+                <div class="spec-label">Colours</div>
+                <div class="spec-content">
+                    <p>Black, White, Teal, Purple, Blue</p>
+                </div>
+            </div>
+
+            <div class="spec-row">
+                <div class="spec-label">Materials</div>
+                <div class="spec-content">
+                    <p>Aluminium design</p>
+                    <p>Boiby Ceramic front</p>
+                    <p>Colour-infused matte-textured glass back</p>
+                    <p></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="spec-section">
+            <h2 class="spec-section-title">Size and Weight</h2>
+            
+            <div class="spec-row">
+                <div class="spec-label">Dimensions</div><div class="spec-content">
+                    <p>Width: 71.6 mm (2.82 inches)</p>
+                    <p>Height: 149.7 mm (5.89 inches)</p>
+                    <p>Depth: 7.70 mm (0.30 inches)</p>
+                    <p>Weight: 175 grams (6.17 ounces)</p>
+                </div>
+                
+            </div>
+        </section><section class="spec-section">
+            <h2 class="spec-section-title">Buttons &amp; Ports</h2>
+            
+            <div class="spec-row">
+                <div class="spec-label">Buttons</div>
+                <div class="spec-content">
+                    <p>Power button</p>
+                <p>Volume buttons</p><p>Boiby button (programmable)</p></div>
+            </div>
+
+            <div class="spec-row">
+                <div class="spec-label">Ports/Slots</div>
+                <div class="spec-content">
+                    <p>USB-C port for charge and transfer</p>
+                    <p>USB 3.2 Gen 2 (10 Gbps) transfer speed</p><p>3.5mm headphone jack</p>
+                    <p>NanoSIM &amp; microSD card combo slot</p>
+                    <p></p>
+                </div>
+            </div>
+        </section><!-- Capacity Section -->
+        <section class="spec-section">
+            <h2 class="spec-section-title">Storage<sup>1</sup></h2>
+            
+            <div class="spec-row">
+                <div class="spec-label">Storage Options</div>
+                <div class="spec-content">
+                    <p>256GB</p>
+                    <p>512GB</p>
+                </div>
+            </div>
+        <div class="spec-row">
+                <div class="spec-label">Storage Specifications</div>
+                <div class="spec-content">
+                    <p>NVMe-based flash storage</p>
+                    
+                </div>
+            </div><div class="spec-row">
+                <div class="spec-label">MicroSD slot</div>
+                <div class="spec-content">
+                    <p>SD Express card support</p>
+                    
+                </div>
+            </div></section>
+
+        <!-- Display Section -->
+        <section class="spec-section">
+            <h2 class="spec-section-title">Display</h2>
+            
+            <div class="spec-row">
+                <div class="spec-label">Boiby Vibrant HDR display</div>
+                <div class="spec-content">
+                    <p>6.3-inch (diagonal) all-screen OLED display</p>
+                    <p>2610-by-1200-pixel resolution, at 458 ppi</p>
+                </div>
+            </div>
+
+            <div class="spec-row">
+                <div class="spec-label">Features</div>
+                <div class="spec-content">
+                    <p>SmoothMotion (1 - 120Hz adaptive refresh rate)</p><p>Boiby Bubble</p><p>Always-On display</p><p>Haptic Touch capable</p>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </div>
+            </div>
+        <div class="spec-row">
+                <div class="spec-label">Brightness</div>
+                <div class="spec-content">
+                    <p>2000 nits max brightness (HDR)</p><p>3000 nits peak brightness (outdoor)</p><p>1 nit mininimum brightness</p>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </div>
+            </div><div class="spec-row">
+                <div class="spec-label">Colour &amp; Contrast</div>
+                <div class="spec-content">
+                    
+                    
+                    
+                    <p>2,000,000:1 contrast ratio (typical)</p><p>HDR display</p>
+                    
+                    <p>Wide colour gamut (P3)</p>
+                    
+                    
+                    
+                    
+                    
+                    
+                <p>1 billion colours (native 10-bit)</p></div>
+            </div><div class="spec-row">
+                <div class="spec-label">Protection &amp; Visibility</div>
+                <div class="spec-content">
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <p>Boiby Ceramic protection</p><p>Fingerprint-resistant oleophobic coating</p>
+                    
+                <p>Anti-reflective coating</p></div>
+            </div></section>
+
+        <!-- Chip Section -->
+        <section class="spec-section">
+            <h2 class="spec-section-title">Performance</h2>
+            
+            <div class="spec-row">
+                <div class="spec-label">Processor</div>
+                <div class="spec-content">
+                    <p class="spec-subtitle">Boiby B15 chip</p>
+                    <p>8-core CPU with 2 performance cores, 4 efficiency cores, and 2 low-power cores</p>
+                    <p>8-core GPU with Neural Accelerators</p>
+                    <p>Hardware-accelerated ray tracing (4th generation)</p><p>16-core Neural Engine (NPU)</p>
+                <p>4.3 TFLOPs FP32 GPU performance</p><p>2nm process node</p></div>
+            </div>
+        <div class="spec-row">
+                <div class="spec-label">Memory</div>
+                <div class="spec-content">
+                    <p class="spec-subtitle">12 GB memory</p>
+                    <p>LPDDR5X 10700 MT/s</p>
+                    <p>85.6 GB/s memory bandwidth</p>
+                    
+                </div>
+            </div></section>
+
+        <!-- Camera Section -->
+        <section class="spec-section">
+            <h2 class="spec-section-title">Camera</h2>
+            
+            <div class="spec-row">
+                <div class="spec-label">Dual camera system</div>
+                <div class="spec-content">
+                    <p class="spec-subtitle">Main: 48MP</p>
+                    <p>26mm focal length</p><p>ƒ/1.6 aperture</p>
+                    <p>1/1.44" sensor size</p>
+                    
+                    <p>Second-generation sensor-shift optical image stabilisation</p><p>2x optical-quality zoom (12MP)</p><p>Digital zoom up to 10×</p>
+
+                    
+                    <p>Support for high-resolution photos (24MP and 48MP)</p><p class="spec-subtitle">Ultra Wide: 48MP</p>
+                    <p>13mm focal length</p><p>ƒ/2.2 aperture</p>
+                    <p>1/2.52" sensor size</p><p>120° field of view</p>
+                    
+                <p>1x macro photos (12MP)</p><p>Support for high-resolution photos (24MP and 48MP)</p></div>
+            </div>
+
+            <div class="spec-row" style="
+    margin-top: 60px;
+">
+                <div class="spec-label">Camera Features</div>
+                <div class="spec-content">
+                    
+                    
+                    
+                    
+                    
+                    <p>Dual LED flash</p>
+                    
+                    
+                    <p>Sapphire crystal lens cover</p><p>Boiby Smart HDR &amp; Boiby Photo Engine</p>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <p>Macro photography; portrait mode; lighting effects; advanced autofocus</p>
+                    
+                    
+                    
+                    <p></p>
+                    <p>Auto image stabilisation, Advanced red-eye correction, burst mode, photo geotagging</p>
+                    
+                    
+                    <p>Image formats captured: HEIF, JPEG and JPEG-XL</p>
+                <p>100% Focus Pixels</p></div>
+            </div>
+
+            <div class="spec-row">
+                <div class="spec-label">Video Recording</div>
+                <div class="spec-content">
+                    <p>4K video recording at 24 fps, 25 fps, 30 fps or 60 fps</p>
+                    <p>1080p HD video recording at 24 fps, 25 fps, 30 fps, 60 fps, or 120 fps</p>
+                    <p>720p HD video recording at 30 fps</p>
+                    
+                    
+                    <p>HDR video recording with Dolby Vision up to 4K at 60 fps</p>
+                    
+                    
+                    
+                    <p>Slo-mo video support for 1080p at 120 fps or 240 fps; and timelapse</p>
+                    
+                    
+                    
+                    <p>Second-generation sensor-shift optical image stabilisation for video (Main)</p>
+                    
+                    
+                    
+                </div>
+            </div>
+
+            <div class="spec-row">
+                <div class="spec-label">Front Camera</div>
+                <div class="spec-content">
+                    <p>20MP camera</p>
+                    <p>Square multi-direction sensor</p><p>ƒ/1.9 aperture</p>
+                    
+                    
+                    
+                    
+                    <p>Smart HDR 5</p>
+                    
+                    
+                    
+                    <p>Night mode; lens correction, auto image stabilisation, burst mode</p>
+                    
+                    
+                    <p>Wide colour capture for photos</p>
+                    
+                    
+                    
+                </div>
+            </div>
+        </section>
+
+        <section class="spec-section">
+            <h2 class="spec-section-title">Power and Battery<sup>2</sup></h2>
+            
+            <div class="spec-row">
+                <div class="spec-label">Battery Life</div>
+                <div class="spec-content">
+                    <p>4260 mAh battery (typical)</p>
+                    <p>Typical screen-on-time: Up to 10 hours</p><p>Video playback (best-case): Up to 24 hours</p>
+                    
+                </div>
+            </div>
+
+            <div class="spec-row">
+                <div class="spec-label">Charging</div>
+                <div class="spec-content">
+                    <p>Wired charging (USB-C) up to 45W</p>
+                    <p>Magnetic Qi2 wireless charging up to 25W</p>
+                    
+                    <p>Fast-charge capable: Up to 50% charge in around 20 minutes with 45W adapter</p>
+                </div>
+            </div>
+        </section><!-- Cellular & Wireless Section -->
+        <section class="spec-section">
+            <h2 class="spec-section-title">Cellular and Wireless</h2>
+            
+            <div class="spec-row">
+                <div class="spec-label">Cellular</div>
+                <div class="spec-content">
+                    <p>Boiby N3 chip</p>
+                    
+                    <p>5G (sub-6 GHz and mmWave) &amp; LTE Advanced</p><p>Wi‑Fi 7 (802.11be) with 2×2 MIMO</p>
+                    <p>Bluetooth 6 LE</p>
+                    
+                    <p>NFC with reader mode</p>
+                    
+                <p>Boiby W2 chip (ultra-wideband)</p></div>
+            </div>
+
+            <div class="spec-row">
+                <div class="spec-label">SIM Card</div>
+                <div class="spec-content">
+                    <p>Dual SIM (nano-SIM and eSIM)</p>
+                    <p>Dual eSIM support</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="spec-section">
+            <h2 class="spec-section-title">Water &amp; Dust Resistance<sup>3</sup></h2>
+            
+            <div class="spec-row">
+                <div class="spec-label">Dimensions</div>
+                <div class="spec-content">
+                    <p>Width: 71.6 mm (2.82 inches)</p>
+                    <p>Height: 149.6 mm (5.89 inches)</p>
+                    <p>Depth: 7.70 mm (0.30 inches)</p>
+                    <p>Weight: 171 grams (6.03 ounces)</p>
+                </div>
+            </div>
+        </section><section class="spec-section">
+            <h2 class="spec-section-title">Audio &amp; Video Playback</h2>
+            
+            <div class="spec-row">
+                <div class="spec-label">Audio</div>
+                <div class="spec-content">
+                    <p>Supported formats include AAC, APAC, MP3, WAV, FLAC, Dolby Digital, Dolby Digital Plus and Dolby Atmos</p>
+                    <p>Spatial Audio playback
+
+</p><p>Output: Stereo speakers &amp; headphone jack</p>
+                    
+                    
+                    
+                    
+                    
+                <p>Input: Dual-mic array</p></div>
+            </div>
+        <div class="spec-row">
+                <div class="spec-label">Video</div>
+                <div class="spec-content">
+                    
+                    <p>Supported formats include HEVC, H.264, H.265, and AV1
+</p><p>HDR with Dolby Vision, Dolby Vision 2, HDR10+ Advanced, HDR10+/HDR10 and HLG
+
+</p>
+                    
+                    
+                    
+                    
+                    
+                <p>Video mirroring and video out support: Up to 4K HDR through native DisplayPort output over USB‑C</p></div>
+            </div></section><section class="spec-section">
+            <h2 class="spec-section-title">Sensors</h2>
+            
+            <div class="spec-row">
+                <div class="spec-label">Built-in Sensors</div>
+                <div class="spec-content">
+                    <p>3D secure facial recognition array</p>
+                    <p>Under-display ultrasonic fingerprint reader</p>
+                    <p>Barometer, gyroscope, accelerometer, proximity sensor, dual ambient light sensors</p>
+                    
+                    
+                    
+                    
+                </div>
+            </div>
+        </section>
+        
+
+        <section class="spec-section">
+            <h2 class="spec-section-title">Biometrics &amp; Security</h2>
+            
+            <div class="spec-row">
+                <div class="spec-label">Biometrics</div>
+                <div class="spec-content">
+                    <p>Facial ID</p>
+                    <p>Fingerprint ID</p>
+                    
+                    
+                    
+                    
+                    
+                </div>
+            <div class="spec-label">Security Features</div><div class="spec-content">
+                    <p>Activation lock</p>
+                    <p>Memory Integrity Protection (system-wide)</p>
+                    
+                    
+                    
+                    
+                    
+                <p>Boiby Security Chip</p><p>Full device encryption</p></div><p></p></div>
+        </section><!-- Power & Battery Section -->
+        
+
+        
+        
+
+        <!-- Operating System Section -->
+        <section class="spec-section">
+            <h2 class="spec-section-title">Operating System</h2>
+            
+            <div class="spec-row">
+                <div class="spec-label">OS</div>
+                <div class="spec-content">
+                    <p>boibyOS 15</p>
+                    <p>8 years of major OS upgrades</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Accessibility Section -->
+        
+
+        <!-- In the Box Section -->
+        <section class="spec-section">
+            <h2 class="spec-section-title">In the Box</h2>
+            
+            <div class="spec-row">
+                <div class="spec-label">Contents</div>
+                <div class="spec-content">
+                    <p>BoibyPhone 15</p>
+                    <p>USB-C Charge Cable (1m)</p>
+                    <p>45W USB-C power adapter</p><p>Documentation</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Size & Weight Section -->
+        
+
+        <!-- Environmental Section -->
+        <section class="spec-section">
+            <h2 class="spec-section-title">Environmental Requirements</h2>
+            
+            <div class="spec-row">
+                <div class="spec-label">Operating Environment</div>
+                <div class="spec-content">
+                    <p>Operating ambient temperature: 0° to 35° C (32° to 95° F)</p>
+                    <p>Non-operating temperature: −20° to 45° C (−4° to 113° F)</p>
+                    <p>Relative humidity: 5% to 95% non-condensing</p>
+                    <p>Operating altitude: tested up to 3,000 m (10,000 feet)</p>
+                </div>
+            </div>
+
+            
+        </section>
+
+        <!-- Footer Notes -->
+        <section class="spec-footer">
+            <p class="spec-footnote">1. Available space is less and varies due to many factors. A standard configuration uses approximately 12GB to 18GB of space, including boibyOS 15 with its latest features and Boiby preloaded apps that can be deleted. Boiby apps that can be deleted use about 4GB of space, and you can download them back. Storage capacity subject to change based on software version, settings and BoibyPhone model.</p>
+            
+            <p class="spec-footnote">2. All battery claims depend on network configuration and many other factors; actual results will vary. Battery has limited recharge cycles and may eventually need to be replaced. Battery life and charge cycles vary by use and settings.</p>
+            
+            <p class="spec-footnote">3. BoibyPhone 15 is splash, water and dust resistant and was tested under controlled conditions with a rating of IP68 under IEC standard 60529 (maximum depth of 6 metres for up to 30 minutes). Splash, water and dust resistance are not permanent conditions. Resistance may decrease as a result of normal wear. Do not attempt to charge BoibyPhone when wet; refer to user guide for cleaning &amp; drying instructions. Liquid damage is not covered under warranty.</p>
+        </section>
+    </div>
+
+    <script>
+        // Dynamic image based on color preference (optional enhancement)
+        const colors = ['blue', 'teal', 'purple', 'white', 'black'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        document.getElementById('hero-img').src = `15_${randomColor}_1.png`;
+    </script>
+
+
+</body></html>
