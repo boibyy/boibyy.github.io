@@ -226,6 +226,12 @@
   "Label.Reason.DisruptiveVideoContent": "Disruptive Video Content",
   "Label.Reason.DirectingUsersOffPlatform": "Directing Users Off-Platform",
   "Label.Reason.Swearing": "Swearing",
+  "Label.Reason.BundleSize": "Bundle Size Violation",
+  "Label.Reason.InaccurateAgeRating": "Inaccurate Age Rating",
+  "Label.Reason.IncorrectItemCategory": "Incorrect Item Category",
+  "Label.Reason.DisruptiveAvatarItem": "Disruptive Avatar Item",
+  "Label.Reason.DisruptiveProfileItem": "Disruptive Profile Item",
+  "Label.Reason.FalseReporting": "False Reporting",
 
   "Label.MessageToUser.AccountForBreakingRules": "Do not create accounts just for the purpose of breaking the rules.",
   "Label.MessageToUser.GenericViolation": "Your account has been moderated for violating the Terms of Use for inappropriate content/behaviour.",
@@ -501,6 +507,9 @@
   "Description.Appeals.LimitReached": "You’ve reached the maximum number of appeals. You can no longer appeal this violation.",
   "Label.Error.Unexpected": "An unexpected error occurred. Please try again later",
   "Action.Reload": "Reload",
+
+  "Label.AppealRedirectNotice": "This form is no longer accepting this type of appeal. Appeals sent under the wrong category will not be reviewed. To request an appeal, visit {{Label.NewAppealLink}}.",
+  "Label.NewAppealLink": "Appeal a Decision",
 
   "Label.ActionTaken": "Action taken"
 }
