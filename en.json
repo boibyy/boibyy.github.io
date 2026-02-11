@@ -511,5 +511,8 @@
   "Label.AppealRedirectNotice": "This form is no longer accepting this type of appeal. Appeals sent under the wrong category will not be reviewed. To request an appeal, visit {{Label.NewAppealLink}}.",
   "Label.NewAppealLink": "Appeal a Decision",
 
-  "Label.ActionTaken": "Action taken"
+  "Label.ActionTaken": "Action taken",
+  "Label.DataNotice": "What happens to my data?",
+  "Label.TimeRemaining": "Time remaining",
+  "Label.
 }
