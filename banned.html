@@ -84,10 +84,10 @@ body.dark-mode #display-desc {
         }
 
         body.app-mode .btn-back-arrow {
-            margin-top: 46px;
+            margin-top: 20px; /* Changed from 46px */
         }
         body.app-mode .btn-dots-rules {
-            margin-top: 48px;
+            margin-top: 20px; /* Changed from 48px */
         }
 
         body.app-mode .progress-bar-container {
@@ -920,7 +920,7 @@ body.app-mode .btn-dots-rules {
 
         .btn-back-arrow {
             position: absolute;
-            top: 12px;
+            top: 20px; /* Changed from 12px to match header padding */
             left: 12px;
             width: 36px;
             height: 36px;
@@ -948,7 +948,7 @@ body.app-mode .btn-dots-rules {
 
         .btn-dots-rules {
             position: absolute;
-            top: 12px;
+            top: 20px; /* Changed from 12px to match header padding */
             right: 12px;
             width: 36px;
             height: 36px;
@@ -1160,6 +1160,26 @@ select:focus-visible,
 .page-wrapper:focus-visible {
     outline: 2px solid #7309e4;
     outline-offset: -2px;
+}
+
+        .header {
+    min-height: 48px; /* Ensures consistent height across all pages */
+}
+
+/* Keep dots visible only on main view by default */
+#main-view-header .dots {
+    display: block;
+}
+
+/* Hide dots on other views unless in app mode */
+body:not(.app-mode) .btn-dots-rules {
+    display: none !important;
+}
+
+/* In app mode, show dots on rules view (last educational page) */
+body.app-mode #rules-view.active ~ .header-section .btn-dots-rules,
+body.app-mode #second-chance-view-2.active ~ .header-section .btn-dots-rules {
+    display: flex !important;
 }
     </style>
 </head>
