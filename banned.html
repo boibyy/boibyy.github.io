@@ -920,7 +920,7 @@ body.app-mode .btn-dots-rules {
 
         .btn-back-arrow {
             position: absolute;
-            top: 20px; /* Changed from 12px to match header padding */
+            top: 20px;
             left: 12px;
             width: 36px;
             height: 36px;
@@ -928,14 +928,19 @@ body.app-mode .btn-dots-rules {
             border: none;
             background: transparent;
             color: var(--text-header);
-            font-size: var(--font-5xlarge);
-            margin-bottom: 20px!important;
             cursor: pointer;
             display: none;
             align-items: center;
             justify-content: center;
             transition: background 0.15s;
             z-index: 10;
+            padding: 0; /* Remove any default padding */
+        }
+
+        .btn-back-arrow svg {
+            display: block; /* Removes inline spacing */
+            width: 24px;
+            height: 24px;
         }
 
         .btn-back-arrow:hover {
@@ -1517,7 +1522,11 @@ body.app-mode #second-chance-view-2.active ~ .header-section .btn-dots-rules {
             </div>
         </div>
 
-        <button class="btn-back-arrow margin-bottom-2xlarge" id="btn-back-arrow" onclick="handleBackNavigation()">‹</button>
+        <button class="btn-back-arrow margin-bottom-2xlarge" id="btn-back-arrow" onclick="handleBackNavigation()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
             <button class="btn-dots-rules" id="btn-dots-rules">⋮
                 <div class="dots-menu bg-modal border-thin border-radius-card" id="dots-menu-rules">
                     <div class="dots-menu-item text-xlarge text-normal-color padding-medium" id="settings-menu-item-rules" tabindex="0">Settings</div>
