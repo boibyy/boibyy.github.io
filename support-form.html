@@ -529,42 +529,78 @@
             return re.test(email);
         }
 
-        function submitForm() {
-            // Get form values
-            const email = document.getElementById('input-email').value.trim();
-            const emailConfirm = document.getElementById('input-email-confirm').value.trim();
-            const description = document.getElementById('textarea-description').value.trim();
-            const device = document.getElementById('select-device').value;
-            const category = document.getElementById('select-category').value;
+        async function submitForm() {
+    // Get form values
+    const email = document.getElementById('input-email').value.trim();
+    const emailConfirm = document.getElementById('input-email-confirm').value.trim();
+    const username = document.getElementById('input-username').value.trim();
+    const firstname = document.getElementById('input-firstname').value.trim();
+    const description = document.getElementById('textarea-description').value.trim();
+    const device = document.getElementById('select-device').value;
+    const category = document.getElementById('select-category').value;
+    const subcategory = document.getElementById('select-subcategory').value;
 
-            // Reset error messages
-            document.getElementById('email-error').style.display = 'none';
-            document.getElementById('email-confirm-error').style.display = 'none';
+    // Reset error messages
+    document.getElementById('email-error').style.display = 'none';
+    document.getElementById('email-confirm-error').style.display = 'none';
 
-            // Validation
-            let hasError = false;
+    // Validation
+    let hasError = false;
 
-            if (!email || !validateEmail(email)) {
-                document.getElementById('email-error').style.display = 'block';
-                hasError = true;
-            }
+    if (!email || !validateEmail(email)) {
+        document.getElementById('email-error').style.display = 'block';
+        hasError = true;
+    }
 
-            if (!emailConfirm || email !== emailConfirm) {
-                document.getElementById('email-confirm-error').style.display = 'block';
-                hasError = true;
-            }
+    if (!emailConfirm || email !== emailConfirm) {
+        document.getElementById('email-confirm-error').style.display = 'block';
+        hasError = true;
+    }
 
-            if (!description || !device || !category) {
-                alert(t('Label.SupportForm.ValidationError') || 'Please fill in all required fields.');
-                hasError = true;
-            }
+    if (!description || !device || !category) {
+        alert(t('Label.SupportForm.ValidationError') || 'Please fill in all required fields.');
+        hasError = true;
+    }
 
-            if (hasError) return;
+    if (hasError) return;
 
+    // Get banData from localStorage
+    const banData = localStorage.getItem('banData') || 'No ban data available';
+
+    // Prepare form data for Web3Forms
+    const formData = new FormData();
+    formData.append('access_key', 'cab9ca21-dbad-4204-a0b9-b9578e8d20ec');
+    formData.append('subject', `Support Request: ${category}`);
+    formData.append('from_name', username || firstname || 'Anonymous');
+    formData.append('email', email);
+    formData.append('username', username);
+    formData.append('firstname', firstname);
+    formData.append('device', device);
+    formData.append('category', category);
+    formData.append('subcategory', subcategory);
+    formData.append('description', description);
+    formData.append('banData', banData);
+
+    try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
             // Hide form and show success message
             document.getElementById('form-view').style.display = 'none';
             document.getElementById('success-view').classList.add('active');
+        } else {
+            alert('Submission failed. Please try again.');
         }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Submission failed. Please try again.');
+    }
+}
 
         init();
     </script>
