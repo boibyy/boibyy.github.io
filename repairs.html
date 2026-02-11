@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoibyPhone Repair Cost Estimator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: #000000;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 24px;
+        }
+
+        .page-description {
+            font-size: 16px;
+            color: #b0b0b0;
+            max-width: 900px;
+            margin: 0 auto 16px;
+            line-height: 1.6;
+        }
+
+        .obsolete-link {
+            color: #0070f3;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .obsolete-link:hover {
+            text-decoration: underline;
+        }
+
+        .estimate-card {
+            background: #1d1d1f;
+            border-radius: 16px;
+            max-width: 740px;
+            margin: 0 auto;
+            padding: 48px;
+        }
+
+        .card-title {
+            font-size: 32px;
+            font-weight: 600;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .card-subtitle {
+            font-size: 16px;
+            color: #b0b0b0;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-size: 12px;
+            color: #86868b;
+            display: block;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .custom-dropdown {
+            width: 100%;
+            background: #000000;
+            border: 1px solid #424245;
+            color: #ffffff;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 17px;
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            transition: border-color 0.2s;
+        }
+
+        .custom-dropdown:hover {
+            border-color: #636366;
+        }
+
+        .custom-dropdown:focus {
+            border-color: #0070f3;
+        }
+
+        .help-link {
+            color: #0070f3;
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        .help-link:hover {
+            text-decoration: underline;
+        }
+
+        .estimate-button {
+            width: 100%;
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 16px;
+            border-radius: 980px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 32px;
+            margin-bottom: 40px;
+            transition: opacity 0.2s;
+        }
+
+        .estimate-button:hover {
+            opacity: 0.9;
+        }
+
+        .results-section {
+            display: none;
+            border-top: 1px solid #424245;
+            padding-top: 40px;
+        }
+
+        .results-section.active {
+            display: block;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1px 1fr;
+            gap: 0;
+        }
+
+        .result-column {
+            padding: 0 24px;
+        }
+
+        .result-divider {
+            width: 1px;
+            background: #424245;
+        }
+
+        .result-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .result-description {
+            font-size: 14px;
+            color: #b0b0b0;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .result-price {
+            font-size: 56px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 40px;
+        }
+
+        .service-button {
+            width: 100%;
+            background: #0070f3;
+            color: #ffffff;
+            border: none;
+            padding: 16px;
+            border-radius: 980px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            margin-top: 20px;
+        }
+
+        .service-button:hover {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 32px;
+            }
+
+            .estimate-card {
+                padding: 32px 24px;
+            }
+
+            .card-title {
+                font-size: 24px;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .result-divider {
+                display: none;
+            }
+
+            .result-column {
+                padding: 0;
+            }
+
+            .result-price {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1 class="page-title">How much will it cost?</h1>
+        <p class="page-description">
+            Use our "Get an Estimate" tool to review potential costs if you get service directly from BoibyPhone. 
+            If you go to another service provider, they can set their own fees, so ask them for an estimate. 
+            For service covered by BoibyCare+, your fee per incident will be the same regardless of which service provider you choose.
+        </p>
+        <p class="page-description" style="margin-bottom: 8px;">
+            Hardware service may no longer be available for some older products.
+        </p>
+        <a href="#" class="obsolete-link">See obsolete and vintage products</a>
+    </div>
+
+    <div class="estimate-card">
+        <h2 class="card-title">Get an estimate</h2>
+        <p class="card-subtitle">Make your selections below.</p>
+
+        <div class="form-group">
+            <label class="form-label">Service type</label>
+            <select id="serviceType" class="custom-dropdown">
+                <option value="">Select service type</option>
+                <option value="battery">Battery</option>
+                <option value="screen">Broken screen (front only)</option>
+                <option value="back">Broken back glass</option>
+                <option value="both">Broken screen and back glass</option>
+                <option value="charging">Charging port</option>
+                <option value="camera">Rear camera</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Product or accessory</label>
+            <select id="seriesType" class="custom-dropdown">
+                <option value="">Select product</option>
+                <option value="9">BoibyPhone 9</option>
+                <option value="X">BoibyPhone X</option>
+                <option value="11">BoibyPhone 11</option>
+                <option value="12">BoibyPhone 12</option>
+                <option value="13">BoibyPhone 13</option>
+                <option value="14">BoibyPhone 14</option>
+                <option value="15">BoibyPhone 15</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Model</label>
+            <select id="modelType" class="custom-dropdown" disabled>
+                <option value="">Select model</option>
+            </select>
+            <a href="#" class="help-link">Need help identifying your model? ›</a>
+        </div>
+
+        <button class="estimate-button" id="getEstimateBtn">Get estimate</button>
+
+        <div class="results-section" id="resultsSection">
+            <div class="results-grid">
+                <div class="result-column">
+                    <h3 class="result-title">Your estimated cost</h3>
+                    <p class="result-description">
+                        We'll check your service coverage to determine the final service fee.
+                    </p>
+                    <div class="result-price" id="estimatedCost">A$ 169</div>
+                </div>
+
+                <div class="result-divider"></div>
+
+                <div class="result-column">
+                    <h3 class="result-title">Got a BoibyCare+ plan?</h3>
+                    <p class="result-description">
+                        If available, use your applicable BoibyCare+ plan benefits with this fee:
+                    </p>
+                    <div class="result-price">A$ 0</div>
+                </div>
+            </div>
+
+            <button class="service-button">Get service</button>
+        </div>
+    </div>
+
+    <script>
+        const modelOptions = {
+            '9': [
+                { value: 'boiby9', text: 'BoibyPhone 9' },
+                { value: 'boiby9plus', text: 'BoibyPhone 9 Plus' }
+            ],
+            'X': [
+                { value: 'boibyX', text: 'BoibyPhone X' }
+            ],
+            '11': [
+                { value: 'boiby11', text: 'BoibyPhone 11' },
+                { value: 'boiby11pro', text: 'BoibyPhone 11 Pro' },
+                { value: 'boiby11promax', text: 'BoibyPhone 11 Pro Max' }
+            ],
+            '12': [
+                { value: 'boiby12', text: 'BoibyPhone 12' },
+                { value: 'boiby12pro', text: 'BoibyPhone 12 Pro' },
+                { value: 'boiby12promax', text: 'BoibyPhone 12 Pro Max' }
+            ],
+            '13': [
+                { value: 'boiby13', text: 'BoibyPhone 13' },
+                { value: 'boiby13pro', text: 'BoibyPhone 13 Pro' },
+                { value: 'boiby13promax', text: 'BoibyPhone 13 Pro Max' }
+            ],
+            '14': [
+                { value: 'boiby14', text: 'BoibyPhone 14' },
+                { value: 'boiby14pro', text: 'BoibyPhone 14 Pro' },
+                { value: 'boiby14promax', text: 'BoibyPhone 14 Pro Max' }
+            ],
+            '15': [
+                { value: 'boiby15', text: 'BoibyPhone 15' },
+                { value: 'boiby15pro', text: 'BoibyPhone 15 Pro' },
+                { value: 'boiby15promax', text: 'BoibyPhone 15 Pro Max' }
+            ]
+        };
+
+        // Pricing array (all set to A$50 for testing)
+        const prices = {
+            'battery': 50,
+            'screen': 50,
+            'back': 50,
+            'both': 50,
+            'charging': 50,
+            'camera': 50,
+            'other': 50
+        };
+
+        const seriesSelect = document.getElementById('seriesType');
+        const modelSelect = document.getElementById('modelType');
+        const serviceSelect = document.getElementById('serviceType');
+        const getEstimateBtn = document.getElementById('getEstimateBtn');
+        const resultsSection = document.getElementById('resultsSection');
+        const estimatedCost = document.getElementById('estimatedCost');
+
+        // Update model dropdown when series changes
+        seriesSelect.addEventListener('change', function() {
+            const selectedSeries = this.value;
+            modelSelect.innerHTML = '<option value="">Select model</option>';
+            
+            if (selectedSeries && modelOptions[selectedSeries]) {
+                modelSelect.disabled = false;
+                modelOptions[selectedSeries].forEach(model => {
+                    const option = document.createElement('option');
+                    option.value = model.value;
+                    option.textContent = model.text;
+                    modelSelect.appendChild(option);
+                });
+            } else {
+                modelSelect.disabled = true;
+            }
+        });
+
+        // Handle estimate button click
+        getEstimateBtn.addEventListener('click', function() {
+            const serviceType = serviceSelect.value;
+            const series = seriesSelect.value;
+            const model = modelSelect.value;
+
+            if (!serviceType || !series || !model) {
+                alert('Please select all options before getting an estimate.');
+                return;
+            }
+
+            // Get price from pricing array
+            const price = prices[serviceType] || 50;
+            estimatedCost.textContent = `A$ ${price}`;
+
+            // Show results section
+            resultsSection.classList.add('active');
+
+            // Scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+    </script>
+</body>
+</html>
