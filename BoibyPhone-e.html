@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy BoibyPhone e</title>
+    <link rel="stylesheet" href="BoibyUI.css">
+    <style>
+        @import url('https://rsms.me/inter/inter.css');
+        
+        *, *::before, *::after {
+            font-family: 'Inter', sans-serif !important;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Sticky Sub-Header */
+        .sub-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--shadow-border);
+            z-index: 1000;
+            transform: translateY(-100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sub-header.visible { transform: translateY(0); }
+
+        /* Navigation Pill */
+        .dot-pill {
+            position: fixed;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.03);
+            padding: 16px 10px;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            z-index: 999;
+        }
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #000;
+            opacity: 0.15;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .dot.active { opacity: 1; background: var(--btn-purple); transform: scale(1.3); }
+
+        .config-container {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Locked State Logic */
+        .locked-section {
+            opacity: 0.45;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        #step-summary {
+            display: none; /* Hidden until both steps complete */
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        #step-summary.visible {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Image Container */
+        .sticky-image-box {
+            position: sticky;
+            top: 100px;
+            height: 75vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #fbfbfd;
+            border-radius: 28px;
+        }
+
+        .product-img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            transition: opacity 0.4s ease;
+        }
+
+        /* Carousel UI */
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(210, 210, 215, 0.3);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: 0.3s;
+            z-index: 10;
+        }
+        .arrow-left { left: 20px; }
+        .arrow-right { right: 20px; }
+        
+        .carousel-pill {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px 18px;
+            border-radius: 20px;
+            display: flex;
+            gap: 12px;
+            opacity: 0;
+            transition: 0.4s ease;
+        }
+        
+        .carousel-nav-visible .carousel-arrow,
+        .carousel-nav-visible .carousel-pill { opacity: 1; pointer-events: auto; }
+
+        .c-dot { width: 6px; height: 6px; border-radius: 50%; background: #000; opacity: 0.2; cursor: pointer; }
+        .c-dot.active { opacity: 0.8; }
+
+        /* Steps & Alignment */
+        .step-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        #step-finish { margin-top: -90px; }
+
+        .ring-outer {
+            width: 38px; height: 38px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid transparent; cursor: pointer; transition: 0.2s;
+        }
+        .ring-outer.active { border-color: var(--btn-purple); }
+        .ring-inner { width: 30px; height: 30px; border-radius: 50%; }
+
+        .storage-card {
+            border: 1px solid var(--shadow-border); border-radius: 12px;
+            padding: 26px; margin-bottom: 14px; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center; transition: 0.2s;
+            background: #fff;
+        }
+        .storage-card.active { border: 2px solid var(--btn-purple); padding: 25px; }
+
+        .summary-wrapper { background: var(--bg-primary); padding: 140px 0; border-top: 1px solid var(--shadow-border); }
+        .summary-crop-box { width: 100%; max-width: 450px; height: 380px; overflow: hidden }
+        .summary-crop-box img { width: 95%; object-fit: cover; object-position: top; }
+
+        .text-special-header { font-weight: 600; color: #1d1d1f; letter-spacing: -0.01em}
+        .text-big-header { font-weight: 600; color: #1d1d1f; letter-spacing: -0.01em; font-size: 40px;}
+        .text-specific-muted { color: #86868b; font-weight: 400; }
+        .letter-space-minimal {letter-spacing: -0.02em; }
+    </style>
+</head>
+<body class="light-mode smooth-scroll">
+
+    <div id="sub-header" class="sub-header visible">
+    <div class="container stack-h justify-space-between p-medium gap-large">
+        <span class="text-special-header font-large">BoibyPhone e</span>
+        <div class="stack-h gap-medium">
+            <a href="BoibyPhone-e_specs.html" class="btn btn-secondary btn-h-small text-no-decoration" style="color: var(--text-header);">Tech Specs</a>
+            <span id="header-price" class="text-medium">A$849</span>
+            <span id="info" class="text-medium">Available February 17 at 5:00 PM AEDT</span>
+        </div>
+    </div>
+</div>
+
+    <div class="dot-pill" id="main-nav-pill">
+        <div class="dot active" data-step="step-finish" onclick="jumpTo('step-finish')"></div>
+        <div class="dot" id="nav-dot-storage" data-step="step-storage" onclick="jumpTo('step-storage')"></div>
+        <div class="dot" id="nav-dot-summary" data-step="step-summary" style="pointer-events: none;" onclick="jumpTo('step-summary')"></div>
+    </div>
+
+    <div class="config-container">
+        <div id="main-header" class="mb-large" style="padding-top: 80px; height: 160px;">
+            <h1 class="text-big-header mb-medium">Buy BoibyPhone e</h1>
+            <p id="main-price-display" class="font-large text-specific-muted">From A$849</p>
+        </div>
+
+        <div class="flex row gap-5xlarge mobile-stack">
+            <div class="w-65p mobile-full">
+                <div id="img-container" class="sticky-image-box mt-large">
+                    <button class="carousel-arrow arrow-left" onclick="moveSlide(-1)">❮</button>
+                    <img id="view-img" src="e_colours.png" alt="BoibyPhone e" class="product-img">
+                    <button class="carousel-arrow arrow-right" onclick="moveSlide(1)">❯</button>
+                    <div class="carousel-pill">
+                        <div class="c-dot active" onclick="setCarousel(1)"></div>
+                        <div class="c-dot" onclick="setCarousel(2)"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-35p mobile-full">
+                <section class="step-section" id="step-finish">
+                    <h2 class="font-2xlarge text-special-header mb-xlarge">
+                        Colour. <span class="text-specific-muted">Pick your favourite.</span>
+                    </h2>
+                    <p id="label-color" class="text-600 font-medium mt-medium mb-xlarge">Colour</p>
+                    <div class="stack-h gap-medium">
+                        <div class="ring-outer" onmouseenter="hoverColor('White')" onmouseleave="revertColor()" onclick="updateColor('White', '#F5F5F5')">
+                            <div class="ring-inner" style="background-color: #F5F5F5;"></div>
+                        </div>
+
+                        <div class="ring-outer" onmouseenter="hoverColor('Blue')" onmouseleave="revertColor()" onclick="updateColor('Blue', '#A8C5E8')">
+                            <div class="ring-inner" style="background-color: #A8C5E8;"></div>
+                        </div>
+
+                        <div class="ring-outer" onmouseenter="hoverColor('Pink')" onmouseleave="revertColor()" onclick="updateColor('Pink', '#F5C6D9')">
+                            <div class="ring-inner" style="background-color: #F5C6D9;"></div>
+                        </div>
+
+                        <div class="ring-outer" onmouseenter="hoverColor('Yellow')" onmouseleave="revertColor()" onclick="updateColor('Yellow', '#FFE89B')">
+                            <div class="ring-inner" style="background-color: #FFE89B;"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="step-section locked-section" id="step-storage">
+                    <h2 class="font-2xlarge text-special-header mb-huge">
+                        Storage. <span class="text-specific-muted">How much space do you need?</span>
+                    </h2>
+                    <div id="box-256" class="storage-card" onclick="updateStorage(256, 849)">
+                        <span class="text-special-header font-large">256GB</span>
+                        <span class="text-specific-muted font-normal">A$849</span>
+                    </div>
+                    <div id="box-512" class="storage-card" onclick="updateStorage(512, 1049)">
+                        <span class="text-special-header font-large">512GB</span>
+                        <span class="text-specific-muted font-normal">A$1,049</span>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="summary-wrapper" id="step-summary">
+        <div class="container stack-h align-center justify-center gap-5xlarge mobile-stack p-huge">
+            <div class="summary-crop-box">
+                <img id="summary-view" src="e_colours.png" alt="Your BoibyPhone e (rear)">
+            </div>
+            <div class="stack-v w-500px">
+                <h2 class="font-4xlarge text-700 text-header letter-space-minimal">Your new BoibyPhone e.<br><span class="text-700 text-muted letter-space-minimal"> Just the way you want it.</span></h2>
+                <div class="stack-v mt-medium mb-huge">
+                    <span id="sum-title" class="font-large text-500 mb-medium">BoibyPhone e</span>
+                    <span id="sum-price" class="mt-medium font-2xlarge text-special-header">A$849</span>
+                    <p id="tax-note" class="font-normal text-trace mt-large">Includes GST</p>
+                    <div class="separator"></div>
+                    <p id="delivery-note" class="font-normal text-trace mt-large">Pickup and delivery details for your area will be shown in check-out.</p>
+                </div>
+                <button class="btn btn-emphasis btn-h-large full-width radius-medium">Add to bag</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let state = { color: "", storage: 0, carouselIndex: 1 };
+
+        window.addEventListener('scroll', () => {
+            const sub = document.getElementById('sub-header');
+            const dots = document.querySelectorAll('.dot');
+            
+            // 1. Handle Sub-header visibility
+            if (window.scrollY > 200) {
+                sub.classList.add('visible');
+            } else {
+                sub.classList.remove('visible');
+            }
+
+            const sections = ['step-finish', 'step-storage', 'step-summary'];
+            
+            sections.forEach((id, i) => {
+                const el = document.getElementById(id);
+                
+                // Only track if section exists and is not hidden
+                if (el && getComputedStyle(el).display !== 'none') {
+                    const rect = el.getBoundingClientRect();
+                    
+                    // Check if the section is occupying the vertical center of the screen
+                    const viewportCenter = window.innerHeight / 2;
+                    
+                    if (rect.top <= viewportCenter && rect.bottom >= viewportCenter) {
+                        dots.forEach(d => d.classList.remove('active'));
+                        if (dots[i]) {
+                            dots[i].classList.add('active');
+                        }
+                    }
+                }
+            });
+        });
+
+        function updateColor(name, hex) {
+            state.color = name;
+            state.carouselIndex = 1;
+            document.getElementById('label-color').innerText = `Colour - ${name}`;
+            
+            document.querySelectorAll('.ring-outer').forEach(r => {
+                r.classList.toggle('active', r.querySelector('.ring-inner').style.backgroundColor.includes(hex) || r.querySelector('.ring-inner').getAttribute('style').includes(hex));
+            });
+
+            // Unlock Storage
+            document.getElementById('step-storage').classList.remove('locked-section');
+            document.getElementById('img-container').classList.add('carousel-nav-visible');
+
+            refreshImages();
+            jumpTo('step-storage');
+            refreshText();
+            
+        }
+
+        function hoverColor(name) {
+            document.getElementById('label-color').innerText = `Colour - ${name}`;
+        }
+
+        function revertColor() {
+            // If a color has been selected, show that. Otherwise, show the default prompt.
+            if (state.color) {
+                document.getElementById('label-color').innerText = `Colour - ${state.color}`;
+            } else {
+                document.getElementById('label-color').innerText = `Colour`;
+            }
+        }
+
+        function updateStorage(gb, price) {
+            state.storage = gb;
+            document.querySelectorAll('.storage-card').forEach(c => c.classList.toggle('active', c.id === `box-${gb}`));
+            
+            // Show Summary
+            const sumSec = document.getElementById('step-summary');
+            sumSec.classList.add('visible');
+            document.getElementById('nav-dot-summary').style.display = 'block';
+
+            const pStr = `A$${price.toLocaleString()}`;
+            document.getElementById('main-price-display').innerText = pStr;
+            document.getElementById('header-price').innerText = pStr;
+            document.getElementById('sum-price').innerText = pStr;
+            
+            setTimeout(() => jumpTo('step-summary'), 350);
+            refreshText();
+        }
+
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        };
+
+        function moveSlide(direction) {
+            if (!state.color) return;
+            state.carouselIndex += direction;
+            if (state.carouselIndex > 2) state.carouselIndex = 1;
+            if (state.carouselIndex < 1) state.carouselIndex = 2;
+            setCarousel(state.carouselIndex);
+        }
+
+        function setCarousel(idx) {
+            state.carouselIndex = idx;
+            document.querySelectorAll('.c-dot').forEach((d, i) => d.classList.toggle('active', (i + 1) === idx));
+            refreshImages();
+        }
+
+        function refreshImages() {
+            const main = document.getElementById('view-img');
+            const sum = document.getElementById('summary-view');
+            const slug = state.color.toLowerCase();
+            main.style.opacity = '0';
+            setTimeout(() => {
+                main.src = `e_${slug}_${state.carouselIndex}.png`;
+                sum.src = `e_${slug}_2.png`;
+                main.style.opacity = '1';
+            }, 250);
+        }
+
+        function refreshText() {
+            const s = state.storage ? ` ${state.storage}GB` : "";
+            const c = state.color ? ` ${state.color}` : "";
+            document.getElementById('sum-title').innerText = `BoibyPhone e${s}${c}`;
+        }
+
+        function jumpTo(id) {
+            const el = document.getElementById(id);
+            if(el && el.style.display !== 'none') {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+    </script>
+</body>
+</html>
