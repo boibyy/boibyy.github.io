@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare bPhone Models</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body { background: #fff; color: #1d1d1f; margin: 0; padding: 0; }
+
+        /* ── Nav ─────────────────────────── */
+        .sub-header {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.09);
+            z-index: 1000;
+        }
+        .sub-header-inner {
+            max-width: 1260px; margin: 0 auto;
+            padding: 0 44px; height: 52px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-title { font-size: 17px; font-weight: 700; color: #1d1d1f; letter-spacing: -0.01em; }
+        .btn-nav {
+            background: #f0f0f5; border: none; border-radius: 980px;
+            padding: 8px 18px; font-size: 13px; font-weight: 600; color: #1d1d1f;
+            cursor: pointer; text-decoration: none; transition: background 0.15s; display: inline-block;
+        }
+        .btn-nav:hover { background: #e2e2e8; }
+
+        /* ── Page ─────────────────────────── */
+        .page-wrap { max-width: 1260px; margin: 0 auto; padding: 0 44px 120px; }
+        .page-hero { padding: 104px 0 52px; text-align: center; }
+        .page-hero h1 { font-size: 54px; font-weight: 700; letter-spacing: -0.03em; color: #1d1d1f; margin-bottom: 10px; line-height: 1.05; }
+        .page-hero p { font-size: 18px; color: #86868b; font-weight: 400; }
+
+        /* ── Grid ─────────────────────────── */
+        .compare-grid { display: grid; }
+
+        /* ── Column header cards ──────────── */
+        .col-head {
+            padding: 0 28px 40px;
+            display: flex; flex-direction: column; align-items: center;
+            border-right: 1px solid rgba(0,0,0,0.08);
+        }
+        .col-head:last-child { border-right: none; }
+
+        .model-select-wrap { position: relative; width: 100%; margin-bottom: 28px; }
+        .model-select {
+            width: 100%; appearance: none; -webkit-appearance: none;
+            background: #f0f0f5; border: none; border-radius: 11px;
+            padding: 12px 38px 12px 16px;
+            font-size: 15px; font-weight: 700; color: #1d1d1f;
+            cursor: pointer; outline: none; transition: background 0.15s;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23616872' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 14px center;
+        }
+        .model-select:hover { background-color: #e4e4ea; }
+
+        /* ── Sticky selects bar ────────────── */
+        .sticky-selects {
+            position: sticky;
+            top: 52px;
+            z-index: 900;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            display: grid;
+        }
+        .sticky-selects .sel-wrap {
+            padding: 10px 28px;
+            border-right: 1px solid rgba(0,0,0,0.08);
+        }
+
+        /* ── Responsive: 2-col on tablet/mobile ─ */
+        @media (max-width: 820px) {
+            .page-wrap { padding: 0 16px 80px; }
+            .sub-header-inner { padding: 0 16px; }
+            .page-hero { padding: 80px 0 36px; }
+            .page-hero h1 { font-size: 36px; }
+            .page-hero p { font-size: 15px; }
+            .section-label { padding: 36px 0 16px; }
+            .section-label h3 { font-size: 19px; }
+            .col-head { padding: 0 14px 28px; }
+            .spec-cell { padding: 0 14px 56px; }
+            .spec-big { font-size: 48px; }
+            .spec-lines { font-size: 13px; }
+            .spec-lines span { min-height: 44px; }
+            .spec-lines .ln-gap { height: 44px; }
+            .cam-line-cell { height: 44px; font-size: 13px; padding: 0 10px; }
+        }
+
+        /* Phone image */
+        .phone-img-area {
+            width: 100%; height: 220px;
+            display: flex; align-items: flex-end; justify-content: center;
+        }
+        .phone-img-area img {
+            max-height: 100%; max-width: 65%;
+            object-fit: contain; transition: opacity 0.25s ease; display: block;
+        }
+        .empty-phone {
+            width: 64px; height: 118px;
+            border: 2px dashed #d8d8e0; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center; color: #c8c8d0;
+        }
+
+        /* Swatches */
+        .swatches { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+        .sw-ring {
+            width: 26px; height: 26px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid transparent; cursor: pointer; transition: border-color 0.15s; flex-shrink: 0;
+        }
+        .sw-ring.active { border-color: #1d1d1f; }
+        .sw-dot { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); }
+
+        /* CTA */
+        .col-cta { width: 100%; padding-top: 20px; }
+        .cta-price { text-align: center; font-size: 14px; font-weight: 500; color: #86868b; margin-bottom: 12px; }
+        .cta-price strong { color: #1d1d1f; font-weight: 700; }
+        .cta-btns { display: flex; flex-direction: column; gap: 9px; }
+        .btn-buy {
+            display: block; text-align: center;
+            background: #7309e4; color: #fff;
+            text-decoration: none; border-radius: 980px;
+            padding: 12px 20px; font-size: 15px; font-weight: 700; transition: opacity 0.2s;
+        }
+        .btn-buy:hover { opacity: 0.88; }
+        .btn-learn {
+            display: block; text-align: center;
+            background: #f0f0f5; color: #1d1d1f;
+            text-decoration: none; border-radius: 980px;
+            padding: 12px 20px; font-size: 15px; font-weight: 600; transition: background 0.2s;
+        }
+        .btn-learn:hover { background: #e4e4ea; }
+
+        /* ── Section title ─────────────────── */
+        .section-label {
+            grid-column: 1 / -1;
+            padding: 90px 0 28px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+        .section-label.first { border-top: none; }
+        .section-label h3 {
+            font-size: 24px; font-weight: 700; letter-spacing: -0.02em; color: #1d1d1f; margin: 0;
+        }
+
+        /* ── Spec row ─────────────────────── */
+        .spec-row {
+            grid-column: 1 / -1;
+            display: grid;
+        }
+
+        /* ── Spec cell ────────────────────── */
+        .spec-cell {
+            padding: 0 28px 101px;
+            display: flex; flex-direction: column; align-items: center;
+            text-align: center;
+            border-right: 1px solid rgba(0,0,0,0.08);
+        }
+
+        /* Big number */
+        .spec-big {
+            font-size: 64px; font-weight: 700; letter-spacing: -0.04em;
+            color: #1d1d1f; line-height: 1; margin-bottom: 26px;
+        }
+
+        /* Empty dash */
+        .spec-empty {
+            font-size: 32px; font-weight: 300; color: #86868b;
+            line-height: 1; padding: 10px 0 20px;
+        }
+
+        /* Icon */
+        .spec-icon { width: 60px; height: 60px; margin-bottom: 26px; color: #1d1d1f; }
+        .spec-icon svg { width: 60px; height: 60px; }
+
+        /* ── Unified line rhythm ───────────────
+           One "row unit" = 52px tall.
+           Each span is a fixed-height flex box so
+           wrapping text stays within its 52px slot.
+        ─────────────────────────────────────── */
+        .spec-lines {
+            font-size: 15px; font-weight: 500;
+            color: #1d1d1f; line-height: 1.3;
+            text-align: center;
+            display: flex; flex-direction: column; gap: 0;
+        }
+        .spec-lines span {
+            display: flex; align-items: center; justify-content: center;
+            min-height: 52px; padding: 4px 0;
+        }
+        .spec-lines .ln-gap { display: block; min-height: 0; height: 52px; padding: 0; }
+
+        /* ── Camera per-line alignment ─────── */
+        .camera-rows-container {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .cam-line-cell {
+            height: 52px;        /* exactly one row unit */
+            padding: 0 28px;
+            text-align: center;
+            font-size: 15px; font-weight: 500; color: #1d1d1f;
+            border-right: 1px solid rgba(0,0,0,0.08);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .cam-line-cell.cam-gap  { height: 52px; }           /* blank row = same height */
+        .cam-line-cell.cam-divider {
+            height: 1px; padding: 0;
+            background: rgba(0,0,0,0.08);
+            margin: 26px 0;                                  /* half a row above & below */
+            border-right: none;
+        }
+        .cam-icon-cell { padding-bottom: 8px; }
+
+        /* ── Camera icon row ───────────────── */
+        #camera-icon-row .spec-cell { padding-bottom: 16px; }
+
+        /* ── Footnote ──────────────────────── */
+        .footnote {
+            grid-column: 1 / -1;
+            padding: 44px 0 0;
+            border-top: 1px solid rgba(0,0,0,0.08);
+            font-size: 12px; color: #86868b; line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sub-header">
+    <div class="sub-header-inner">
+        <span class="nav-title">Compare bPhone</span>
+        <a href="#" class="btn-nav">All Models</a>
+    </div>
+</div>
+
+<div class="page-wrap">
+    <div class="page-hero">
+        <h1>Compare</h1>
+        <p>Select up to three models to compare side by side.</p>
+    </div>
+
+    <!-- Sticky model selects — always visible while scrolling -->
+    <div class="sticky-selects" id="sticky-selects">
+        <div class="sel-wrap">
+            <select class="model-select" id="sel-0" onchange="selectModel(0,this.value)">
+                <option value="" disabled>Choose a model</option>
+                <option value="11promax">bPhone 11 Pro Max</option>
+                <option value="11pro">bPhone 11 Pro</option>
+                <option value="11" selected>bPhone 11</option>
+                <option value="e">bPhone e</option>
+            </select>
+        </div>
+        <div class="sel-wrap">
+            <select class="model-select" id="sel-1" onchange="selectModel(1,this.value)">
+                <option value="" disabled>Choose a model</option>
+                <option value="11promax">bPhone 11 Pro Max</option>
+                <option value="11pro" selected>bPhone 11 Pro</option>
+                <option value="11">bPhone 11</option>
+                <option value="e">bPhone e</option>
+            </select>
+        </div>
+        <div class="sel-wrap">
+            <select class="model-select" id="sel-2" onchange="selectModel(2,this.value)">
+                <option value="" disabled>Choose a model</option>
+                <option value="11promax" selected>bPhone 11 Pro Max</option>
+                <option value="11pro">bPhone 11 Pro</option>
+                <option value="11">bPhone 11</option>
+                <option value="e">bPhone e</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="compare-grid" id="compare-grid">
+
+        <!-- Column 0 -->
+        <div class="col-head" id="ch-0">
+            <div class="phone-img-area" id="img-0"></div>
+            <div class="swatches" id="sw-0"></div>
+            <div class="col-cta" id="cta-0"></div>
+        </div>
+
+        <!-- Column 1 -->
+        <div class="col-head" id="ch-1">
+            <div class="phone-img-area" id="img-1"></div>
+            <div class="swatches" id="sw-1"></div>
+            <div class="col-cta" id="cta-1"></div>
+        </div>
+
+        <!-- Column 2 -->
+        <div class="col-head" id="ch-2">
+            <div class="phone-img-area" id="img-2"></div>
+            <div class="swatches" id="sw-2"></div>
+            <div class="col-cta" id="cta-2"></div>
+        </div>
+
+        <!-- DISPLAY -->
+        <div class="section-label first"><h3>Display</h3></div>
+        <div class="spec-row">
+            <div class="spec-cell" id="sc-display-0"></div>
+            <div class="spec-cell" id="sc-display-1"></div>
+            <div class="spec-cell" id="sc-display-2"></div>
+        </div>
+
+        <!-- DESIGN -->
+        <div class="section-label"><h3>Design</h3></div>
+        <div class="spec-row">
+            <div class="spec-cell" id="sc-design-0"></div>
+            <div class="spec-cell" id="sc-design-1"></div>
+            <div class="spec-cell" id="sc-design-2"></div>
+        </div>
+
+        <!-- PROTECTION -->
+        <div class="section-label"><h3>Protection</h3></div>
+        <div class="spec-row">
+            <div class="spec-cell" id="sc-protection-0"></div>
+            <div class="spec-cell" id="sc-protection-1"></div>
+            <div class="spec-cell" id="sc-protection-2"></div>
+        </div>
+
+        <!-- PERFORMANCE -->
+        <div class="section-label"><h3>Performance</h3></div>
+        <div class="spec-row">
+            <div class="spec-cell" id="sc-chip-0"></div>
+            <div class="spec-cell" id="sc-chip-1"></div>
+            <div class="spec-cell" id="sc-chip-2"></div>
+        </div>
+
+        <!-- MEMORY -->
+        <div class="section-label"><h3>Memory</h3></div>
+        <div class="spec-row">
+            <div class="spec-cell" id="sc-memory-0"></div>
+            <div class="spec-cell" id="sc-memory-1"></div>
+            <div class="spec-cell" id="sc-memory-2"></div>
+        </div>
+
+        <!-- BATTERY -->
+        <div class="section-label"><h3>Battery</h3></div>
+        <div class="spec-row">
+            <div class="spec-cell" id="sc-battery-0"></div>
+            <div class="spec-cell" id="sc-battery-1"></div>
+            <div class="spec-cell" id="sc-battery-2"></div>
+        </div>
+
+        <!-- CAMERA -->
+        <div class="section-label"><h3>Camera</h3></div>
+        <div id="camera-icon-row" class="spec-row">
+            <div class="spec-cell cam-icon-cell" id="sc-cam-icon-0"></div>
+            <div class="spec-cell cam-icon-cell" id="sc-cam-icon-1"></div>
+            <div class="spec-cell cam-icon-cell" id="sc-cam-icon-2"></div>
+        </div>
+        <div id="camera-rows-container" class="camera-rows-container"></div>
+
+        <!-- CONNECTIVITY -->
+        <div class="section-label"><h3>Connectivity</h3></div>
+        <div class="spec-row">
+            <div class="spec-cell" id="sc-connectivity-0"></div>
+            <div class="spec-cell" id="sc-connectivity-1"></div>
+            <div class="spec-cell" id="sc-connectivity-2"></div>
+        </div>
+
+        <!-- WIRED CHARGING -->
+        <div class="section-label"><h3>Wired Charging</h3></div>
+        <div class="spec-row">
+            <div class="spec-cell" id="sc-wired-0"></div>
+            <div class="spec-cell" id="sc-wired-1"></div>
+            <div class="spec-cell" id="sc-wired-2"></div>
+        </div>
+
+        <!-- WIRELESS CHARGING -->
+        <div class="section-label"><h3>Wireless Charging</h3></div>
+        <div class="spec-row">
+            <div class="spec-cell" id="sc-wireless-0"></div>
+            <div class="spec-cell" id="sc-wireless-1"></div>
+            <div class="spec-cell" id="sc-wireless-2"></div>
+        </div>
+
+        <!-- STORAGE -->
+        <div class="section-label"><h3>Storage</h3></div>
+        <div class="spec-row">
+            <div class="spec-cell" id="sc-storage-0"></div>
+            <div class="spec-cell" id="sc-storage-1"></div>
+            <div class="spec-cell" id="sc-storage-2"></div>
+        </div>
+
+        <!-- FULL SPECS -->
+        <div class="section-label"><h3>Full Specifications</h3></div>
+        <div class="spec-row">
+            <div class="spec-cell" id="sc-specs-0"></div>
+            <div class="spec-cell" id="sc-specs-1"></div>
+            <div class="spec-cell" id="sc-specs-2"></div>
+        </div>
+
+        <!-- Footnote -->
+        <div class="footnote">
+            * bPhone 11 Pro and bPhone 11 Pro Max are rated IP69K (protection against high-pressure water jets up to 100 bar at 80°C). bPhone 11 and bPhone e are rated IP68 (maximum depth of 6 metres for up to 1 hour). Water and dust resistance are not permanent conditions and may decrease as a result of normal wear.
+        </div>
+
+    </div>
+</div>
+
+<script>
+/* ─────────────────────────────────────────
+   ICONS
+───────────────────────────────────────── */
+const ICONS = {
+    display: `<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="8" y="6" width="44" height="34" rx="5"/>
+        <path d="M20 48h20M30 40v8"/>
+        <rect x="22" y="14" width="16" height="18" rx="2" stroke-width="1.4" opacity=".4"/>
+    </svg>`,
+    design: `<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="18" y="4" width="24" height="52" rx="6"/>
+        <line x1="24" y1="11" x2="36" y2="11" stroke-width="2"/>
+        <circle cx="30" cy="50" r="2.5" fill="currentColor" stroke="none"/>
+        <line x1="25" y1="30" x2="35" y2="30" stroke-width="1.4" opacity=".5"/>
+        <line x1="25" y1="35" x2="32" y2="35" stroke-width="1.4" opacity=".5"/>
+    </svg>`,
+    protection: `<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M30 6L8 15v14c0 13 9.6 23.6 22 26 12.4-2.4 22-13 22-26V15L30 6z"/>
+        <path d="M21 30l7 7 11-13"/>
+    </svg>`,
+    chip: `<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="18" y="18" width="24" height="24" rx="4"/>
+        <line x1="24" y1="18" x2="24" y2="10"/><line x1="36" y1="18" x2="36" y2="10"/>
+        <line x1="24" y1="42" x2="24" y2="50"/><line x1="36" y1="42" x2="36" y2="50"/>
+        <line x1="18" y1="24" x2="10" y2="24"/><line x1="18" y1="36" x2="10" y2="36"/>
+        <line x1="42" y1="24" x2="50" y2="24"/><line x1="42" y1="36" x2="50" y2="36"/>
+        <rect x="24" y="24" width="12" height="12" rx="2"/>
+    </svg>`,
+    memory: `<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="8" y="20" width="44" height="20" rx="4"/>
+        <line x1="18" y1="20" x2="18" y2="13"/><line x1="26" y1="20" x2="26" y2="13"/>
+        <line x1="34" y1="20" x2="34" y2="13"/><line x1="42" y1="20" x2="42" y2="13"/>
+        <line x1="18" y1="40" x2="18" y2="47"/><line x1="26" y1="40" x2="26" y2="47"/>
+        <line x1="34" y1="40" x2="34" y2="47"/><line x1="42" y1="40" x2="42" y2="47"/>
+        <rect x="14" y="26" width="8" height="8" rx="1.5"/><rect x="26" y="26" width="8" height="8" rx="1.5"/>
+        <rect x="38" y="26" width="8" height="8" rx="1.5"/>
+    </svg>`,
+    battery: `<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="6" y="19" width="44" height="22" rx="5"/>
+        <path d="M50 27v6" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M22 30h10M27 25v10" stroke-width="1.8"/>
+    </svg>`,
+    camera: `<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M54 46a4 4 0 01-4 4H10a4 4 0 01-4-4V22a4 4 0 014-4h8l4-5h12l4 5h8a4 4 0 014 4v24z"/>
+        <circle cx="30" cy="33" r="9"/>
+        <circle cx="30" cy="33" r="4" opacity=".2" fill="currentColor" stroke="none"/>
+        <circle cx="44" cy="23" r="2" fill="currentColor" stroke="none"/>
+    </svg>`,
+    connectivity: `<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M30 8v32M20 16l10-10 10 10"/>
+        <rect x="22" y="40" width="16" height="10" rx="3"/>
+        <line x1="26" y1="45" x2="26" y2="50"/><line x1="30" y1="45" x2="30" y2="50"/><line x1="34" y1="45" x2="34" y2="50"/>
+    </svg>`,
+    wired: `<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 10v12M26 10v12"/>
+        <rect x="13" y="22" width="18" height="14" rx="3"/>
+        <path d="M22 36v6"/>
+        <path d="M22 42q10 7 10 12"/>
+        <rect x="27" y="52" width="12" height="5" rx="2"/>
+    </svg>`,
+    wireless: `<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 26c5.5-5.5 13-8.5 20-8.5s14.5 3 20 8.5"/>
+        <path d="M16 32a19 19 0 0128 0"/>
+        <path d="M22 38a11 11 0 0116 0"/>
+        <circle cx="30" cy="44" r="3" fill="currentColor" stroke="none"/>
+        <rect x="22" y="50" width="16" height="7" rx="3.5" stroke-width="1.6"/>
+    </svg>`,
+    storage: `<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="30" cy="16" rx="20" ry="7"/>
+        <path d="M10 16v12c0 3.9 9 7 20 7s20-3.1 20-7V16"/>
+        <path d="M10 28v12c0 3.9 9 7 20 7s20-3.1 20-7V28"/>
+        <circle cx="22" cy="16" r="2" fill="currentColor" stroke="none" opacity=".6"/>
+    </svg>`,
+};
+
+/* ─────────────────────────────────────────
+   MODEL DATA
+   To edit: update prices, specs, etc. here.
+───────────────────────────────────────── */
+const MODELS = {
+    '11promax': {
+        name: 'bPhone 11 Pro Max',
+        buyLink: 'bPhone-11-Pro.html',
+        specsLink: 'bPhone-11-Pro_specs.html',
+        priceFrom: 'A$2,199',   
+        imgBase: '15_pro_max',
+        colors: [
+            { name: 'Slate Grey',  hex: '#6B6E73', slug: 'slate_grey' },
+            { name: 'Silver',      hex: '#C5C6C8', slug: 'silver' },
+            { name: 'Cherry Red',  hex: '#9B2F35', slug: 'cherry_red' },
+            { name: 'Deep Purple', hex: '#4A2D5E', slug: 'deep_purple' },
+        ],
+        sections: {
+            display:      { big: '6.9"',  lines: ['Boiby Vibrant HDR display', 'SmoothMotion 120Hz', 'Always-on display', 'Boiby Bubble', '4000 nits peak brightness', 'Super thin borders'] },
+            design:       { icon: 'design',       lines: ['Aluminium frame', 'Contoured edges', 'Boiby Button'] },
+            protection:   { icon: 'protection',   lines: ['Boiby Ceramic front', 'Boiby Ceramic back', 'IP69K rated', 'Water resistant to 100 bar at 80°C'] },
+            chip:         { big: 'B11',   lines: ['Boiby B11 Pro chip', '8-core CPU', '10-core GPU with Neural Accelerators', '16-core Neural Engine', 'Hardware-accelerated ray tracing'] },
+            memory:       { big: '16GB',  lines: ['16GB of memory'] },
+            battery:      { icon: 'battery',      lines: ['5229 mAh battery', 'GAP', 'Up to 31 hours of video playback', 'Up to 13.5 hours screen-on-time'] },
+            connectivity: { icon: 'connectivity', lines: ['USB-C', 'USB 4 — up to 40 Gbps', 'DisplayPort output up to 8K HDR over USB-C', '3.5mm headphone jack'] },
+            wired:        { icon: 'wired',        lines: ['Wired charging up to 65W', '0–50% in around 15 minutes with 65W adapter'] },
+            wireless:     { icon: 'wireless',     lines: ['Magnetic Qi2 wireless charging up to 25W', 'Supports magnetic cases and accessories'] },
+            storage:      { icon: 'storage',      lines: ['512GB', '1TB', '2TB'] },
+        },
+    },
+    '11pro': {
+        name: 'bPhone 11 Pro',
+        buyLink: 'bPhone-11-Pro.html',
+        specsLink: 'bPhone-11-Pro_specs.html',
+        priceFrom: 'A$1,799',  
+        imgBase: '15_pro',
+        colors: [
+            { name: 'Slate Grey',  hex: '#6B6E73', slug: 'slate_grey' },
+            { name: 'Silver',      hex: '#C5C6C8', slug: 'silver' },
+            { name: 'Cherry Red',  hex: '#9B2F35', slug: 'cherry_red' },
+            { name: 'Deep Purple', hex: '#4A2D5E', slug: 'deep_purple' },
+        ],
+        sections: {
+            display:      { big: '6.3"',  lines: ['Boiby Vibrant HDR display', 'SmoothMotion 120Hz', 'Always-on display', 'Boiby Bubble', '4000 nits peak brightness', 'Super thin borders'] },
+            design:       { icon: 'design',       lines: ['Aluminium frame', 'Contoured edges', 'Boiby Button'] },
+            protection:   { icon: 'protection',   lines: ['Boiby Ceramic front', 'Boiby Ceramic back', 'IP69K rated', 'Water resistant to 100 bar at 80°C'] },
+            chip:         { big: 'B11',   lines: ['Boiby B11 Pro chip', '8-core CPU', '10-core GPU with Neural Accelerators', '16-core Neural Engine', 'Hardware-accelerated ray tracing'] },
+            memory:       { big: '16GB',  lines: ['16GB of memory'] },
+            battery:      { icon: 'battery',      lines: ['4408 mAh battery', 'GAP', 'Up to 26 hours of video playback', 'Up to 11.5 hours screen-on-time'] },
+            connectivity: { icon: 'connectivity', lines: ['USB-C', 'USB 4 — up to 40 Gbps', 'DisplayPort output up to 8K HDR over USB-C', '3.5mm headphone jack'] },
+            wired:        { icon: 'wired',        lines: ['Wired charging up to 65W', '0–50% in around 15 minutes with 65W adapter'] },
+            wireless:     { icon: 'wireless',     lines: ['Magnetic Qi2 wireless charging up to 25W', 'Supports magnetic cases and accessories'] },
+            storage:      { icon: 'storage',      lines: ['256GB', '512GB', '1TB', '2TB'] },
+        },
+    },
+    '11': {
+        name: 'bPhone 11',
+        buyLink: 'bPhone-11.html',
+        specsLink: 'bPhone-11_specs.html',
+        priceFrom: 'A$1,399',
+        imgBase: '15',
+        colors: [
+            { name: 'Black',  hex: '#3B3E3F', slug: 'black' },
+            { name: 'White',  hex: '#EEEEEE', slug: 'white' },
+            { name: 'Teal',   hex: '#9DC9C7', slug: 'teal' },
+            { name: 'Purple', hex: '#725DAF', slug: 'purple' },
+            { name: 'Blue',   hex: '#6884EA', slug: 'blue' },
+        ],
+        sections: {
+            display:      { big: '6.3"',  lines: ['Boiby Vibrant HDR display', 'SmoothMotion 120Hz', 'Always-on display', 'Boiby Bubble', '3000 nits peak brightness', 'Super thin borders'] },
+            design:       { icon: 'design',       lines: ['Aluminium frame', 'Matte-textured glass back', 'Boiby Button'] },
+            protection:   { icon: 'protection',   lines: ['Boiby Ceramic front', 'Matte-textured glass back', 'IP68 rated', 'Water resistant to 6 metres for 1 hour*'] },
+            chip:         { big: 'B11',   lines: ['Boiby B11 chip', '8-core CPU', '8-core GPU with Neural Accelerators', '16-core Neural Engine', 'Hardware-accelerated ray tracing'] },
+            memory:       { big: '12GB',  lines: ['12GB of memory'] },
+            battery:      { icon: 'battery',      lines: ['4260 mAh battery', 'GAP', 'Up to 24 hours of video playback', 'Up to 10 hours screen-on-time'] },
+            connectivity: { icon: 'connectivity', lines: ['USB-C', 'USB 3.2 Gen 2 — up to 10 Gbps', 'DisplayPort output up to 4K HDR over USB-C', '3.5mm headphone jack'] },
+            wired:        { icon: 'wired',        lines: ['Wired charging up to 45W', '0–50% in around 20 minutes with 45W adapter'] },
+            wireless:     { icon: 'wireless',     lines: ['Magnetic Qi2 wireless charging up to 25W', 'Supports magnetic cases and accessories'] },
+            storage:      { icon: 'storage',      lines: ['256GB', '512GB'] },
+        },
+    },
+    'e': {
+        name: 'bPhone e',
+        buyLink: 'bPhone-e.html',
+        specsLink: 'bPhone-e_specs.html',
+        priceFrom: 'A$849',
+        imgBase: 'e',
+        colors: [
+            { name: 'White',  hex: '#EEEEEE', slug: 'white' },
+            { name: 'Blue',   hex: '#6884EA', slug: 'blue' },
+            { name: 'Pink',   hex: '#E8A0B0', slug: 'pink' },
+            { name: 'Yellow', hex: '#F5D66B', slug: 'yellow' },
+        ],
+        sections: {
+            display:      { big: '6.1"',  lines: ['Boiby Vibrant HDR display', 'SmoothMotion 120Hz', 'Always-on display', 'Boiby Bubble', '2000 nits peak brightness'] },
+            design:       { icon: 'design',       lines: ['Aluminium frame', 'Matte-textured glass back', 'Boiby Button'] },
+            protection:   { icon: 'protection',   lines: ['Boiby Ceramic front', 'Matte-textured glass back', 'IP68 rated', 'Water resistant to 6 metres for 1 hour*'] },
+            chip:         { big: 'B11',   lines: ['Boiby B11 chip', '8-core CPU', '7-core GPU with Neural Accelerators', '16-core Neural Engine', 'Hardware-accelerated ray tracing'] },
+            memory:       { big: '8GB',   lines: ['8GB of memory'] },
+            battery:      { icon: 'battery',      lines: ['4310 mAh battery', 'GAP', 'Up to 24 hours of video playback', 'Up to 10 hours screen-on-time'] },
+            connectivity: { icon: 'connectivity', lines: ['USB-C', 'USB 3.2 Gen 1 — up to 5 Gbps', '3.5mm headphone jack'] },
+            wired:        { icon: 'wired',        lines: ['Wired charging up to 30W', '0–50% in around 30 minutes with 30W adapter'] },
+            wireless:     { icon: 'wireless',     lines: ['Magnetic Qi2 wireless charging up to 15W', 'Supports magnetic cases and accessories'] },
+            storage:      { icon: 'storage',      lines: ['256GB', '512GB'] },
+        },
+    },
+};
+
+/* ─────────────────────────────────────────
+   CAMERA DATA
+   Each key maps to a row in CAM_SCHEMA.
+   Empty string = blank (not applicable).
+───────────────────────────────────────── */
+const CAM_SCHEMA = [
+    { type: 'text',    key: 'system'       },
+    { type: 'gap'                          },
+    { type: 'text',    key: 'lens1'        },
+    { type: 'text',    key: 'lens2'        },
+    { type: 'text',    key: 'lens3'        },
+    { type: 'divider'                      },
+    { type: 'text',    key: 'zoom_max'     },
+    { type: 'gap'                          },
+    { type: 'text',    key: 'zoom_options' }, // Combined: "0.5×, 1×, 2×, 4×, 8× zoom options"
+    { type: 'text',    key: 'zoom_dig'     },
+    { type: 'divider'                      },
+    { type: 'text',    key: 'var_ap'       },
+    { type: 'text',    key: 'hires'        },
+    { type: 'text',    key: 'portrait'     },
+    { type: 'text',    key: 'macro'        },
+    { type: 'text',    key: 'video'        },
+    { type: 'text',    key: 'ois'          },
+    { type: 'text',    key: 'raw'          },
+];
+
+const CAM_DATA = {
+    '11promax': {
+        system:       'Pro triple camera system',
+        lens1:        '48MP Main',
+        lens2:        '48MP Ultra Wide',
+        lens3:        '48MP 4× Telephoto',
+        zoom_max:     'Up to 8× optical-quality zoom',
+        zoom_options: '0.5×, 1×, 2×, 4×, 8× zoom options',
+        zoom_dig:     '40× digital zoom',
+        var_ap:       'Variable aperture (main)',
+        hires:        'High-resolution 24MP and 48MP photos',
+        portrait:     'Portrait mode with Depth and Focus control',
+        macro:        'Macro photography',
+        video:        'HDR Dolby Vision up to 8K at 30fps',
+        ois:          'Sensor-shift OIS (3rd generation)',
+        raw:          'BoibyRAW photos',
+    },
+    '11pro': {
+        system:       'Pro triple camera system',
+        lens1:        '48MP Main',
+        lens2:        '48MP Ultra Wide',
+        lens3:        '48MP 4× Telephoto',
+        zoom_max:     'Up to 8× optical-quality zoom',
+        zoom_options: '0.5×, 1×, 2×, 4×, 8× zoom options',
+        zoom_dig:     '40× digital zoom',
+        var_ap:       'Variable aperture (main)',
+        hires:        'High-resolution 24MP and 48MP photos',
+        portrait:     'Portrait mode with Depth and Focus control',
+        macro:        'Macro photography',
+        video:        'HDR Dolby Vision up to 8K at 30fps, 6K at 60 fps, and 4K at 120 fps',
+        ois:          'Sensor-shift OIS (3rd generation)',
+        raw:          'BoibyRAW photos',
+    },
+    '11': {
+        system:       'Dual camera system',
+        lens1:        '48MP Main',
+        lens2:        '48MP Ultra Wide',
+        lens3:        '',
+        zoom_max:     'Up to 2× optical-quality zoom',
+        zoom_options: '0.5×, 1×, 2× zoom options',
+        zoom_dig:     '10× digital zoom',
+        var_ap:       '',
+        hires:        'High-resolution 24MP and 48MP photos',
+        portrait:     'Portrait mode with Depth and Focus control',
+        macro:        'Macro photography',
+        video:        'HDR Dolby Vision up to 4K at 60fps',
+        ois:          'Sensor-shift OIS (2nd generation)',
+        raw:          '',
+    },
+    'e': {
+        system:       'Single camera system',
+        lens1:        '48MP Main',
+        lens2:        '',
+        lens3:        '',
+        zoom_max:     '2× optical-quality zoom',
+        zoom_options: '1×, 2× zoom options',
+        zoom_dig:     '10× digital zoom',
+        var_ap:       '',
+        hires:        'High-resolution 24MP and 48MP photos',
+        portrait:     'Portrait mode',
+        macro:        '',
+        video:        'HDR Dolby Vision up to 4K at 60fps',
+        ois:          'Sensor-shift OIS',
+        raw:          '',
+    },
+};
+
+/* ─────────────────────────────────────────
+   STATE
+───────────────────────────────────────── */
+// Default: col 0 = 11, col 1 = 11pro, col 2 = 11promax
+const colState    = ['11', '11pro', '11promax'];
+const colColorIdx = [0, 0, 0];
+
+const SECTION_KEYS = ['display','design','protection','chip','memory','battery','connectivity','wired','wireless','storage'];
+
+/* ─────────────────────────────────────────
+   HELPERS
+───────────────────────────────────────── */
+function buildLines(arr) {
+    return arr.map(l => l === 'GAP'
+        ? `<span class="ln-gap"></span>`
+        : `<span>${l}</span>`
+    ).join('');
+}
+
+function getImgSrc(md, ci) {
+    return `${md.imgBase}_${md.colors[ci].slug}_1.png`;
+}
+
+function emptyDash() {
+    return `<span class="spec-empty">—</span>`;
+}
+
+/* ─────────────────────────────────────────
+   RENDER SPEC CELL
+───────────────────────────────────────── */
+function renderSpecCell(el, md, key) {
+    if (!md) { el.innerHTML = emptyDash(); return; }
+    const s = md.sections[key];
+    if (!s) { el.innerHTML = emptyDash(); return; }
+    let h = '';
+    if (s.big)        h += `<span class="spec-big">${s.big}</span>`;
+    else if (s.icon)  h += `<div class="spec-icon">${ICONS[s.icon] || ICONS.design}</div>`;
+    if (s.lines)      h += `<div class="spec-lines">${buildLines(s.lines)}</div>`;
+    el.innerHTML = h;
+}
+
+/* ─────────────────────────────────────────
+   RENDER CAMERA GRID
+   Every row is a set of cells all the same
+   height as one spec-line (52px desktop,
+   44px mobile). gap/divider rows also emit
+   one cell per visible column so borders
+   align correctly.
+───────────────────────────────────────── */
+function renderCameraGrid() {
+    const isMobile = window.innerWidth <= 820;
+    const numCols  = isMobile ? 2 : 3;
+    const cols     = [0, 1, 2].slice(0, numCols);
+
+    // Icon row
+    [0, 1, 2].forEach(ci => {
+        const el = document.getElementById(`sc-cam-icon-${ci}`);
+        if (!el) return;
+        const md = colState[ci] ? MODELS[colState[ci]] : null;
+        el.innerHTML = md ? `<div class="spec-icon">${ICONS.camera}</div>` : emptyDash();
+    });
+
+    const container = document.getElementById('camera-rows-container');
+    if (!container) return;
+    container.innerHTML = '';
+    container.style.gridTemplateColumns = `repeat(${numCols}, 1fr)`;
+
+    CAM_SCHEMA.forEach(entry => {
+        cols.forEach((ci, idx) => {
+            const isLast = idx === cols.length - 1;
+            const cell = document.createElement('div');
+
+            if (entry.type === 'gap') {
+                cell.className = 'cam-line-cell cam-gap';
+                cell.style.borderRight = isLast ? 'none' : '';
+                container.appendChild(cell);
+                return;
+            }
+
+            if (entry.type === 'divider') {
+                cell.className = 'cam-line-cell cam-divider';
+                // Full-width divider: span all cols on first cell, hide rest
+                if (idx === 0) {
+                    cell.style.gridColumn = `1 / -1`;
+                    container.appendChild(cell);
+                }
+                // Skip remaining cols — the one cell spans all
+                if (idx > 0) return;
+                return;
+            }
+
+            // Normal text row
+            cell.className = 'cam-line-cell';
+            if (isLast) cell.style.borderRight = 'none';
+
+            const key = colState[ci];
+            if (!key) {
+                cell.innerHTML = '<span style="color:#86868b;font-weight:300;font-size:20px;">—</span>';
+            } else {
+                const val = CAM_DATA[key]?.[entry.key] ?? '';
+                if (val === '') {
+                    cell.innerHTML = '<span style="color:#86868b;font-weight:300;font-size:20px;">—</span>';
+                } else {
+                    cell.textContent = val;
+                }
+            }
+            container.appendChild(cell);
+        });
+    });
+
+    // Bottom padding row
+    const pad = document.createElement('div');
+    pad.style.cssText = 'grid-column:1/-1; height:101px;';
+    container.appendChild(pad);
+}
+
+/* ─────────────────────────────────────────
+   RENDER COLUMN
+───────────────────────────────────────── */
+function renderColumn(ci) {
+    const key = colState[ci];
+    const md  = key ? MODELS[key] : null;
+
+    // Phone image
+    const imgArea = document.getElementById(`img-${ci}`);
+    if (md) {
+        imgArea.innerHTML = `<img src="${getImgSrc(md, colColorIdx[ci])}" alt="${md.name}"
+            onerror="this.style.display='none';">`;
+    } else {
+        imgArea.innerHTML = `<div class="empty-phone">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="5" y="2" width="14" height="20" rx="3"/>
+            </svg>
+        </div>`;
+    }
+
+    // Swatches
+    const swArea = document.getElementById(`sw-${ci}`);
+    swArea.innerHTML = md ? md.colors.map((c, i) =>
+        `<div class="sw-ring${i === colColorIdx[ci] ? ' active' : ''}"
+              onclick="pickColor(${ci},${i})" title="${c.name}">
+            <div class="sw-dot" style="background:${c.hex}"></div>
+        </div>`
+    ).join('') : '';
+
+    // CTA
+    const ctaArea = document.getElementById(`cta-${ci}`);
+    ctaArea.innerHTML = md ? `
+        <div class="cta-price">From <strong>${md.priceFrom}</strong></div>
+        <div class="cta-btns">
+            <a href="${md.buyLink}" class="btn-buy">Buy</a>
+            <a href="${md.specsLink}" class="btn-learn">Learn more</a>
+        </div>` : '';
+
+    // Standard spec cells
+    SECTION_KEYS.forEach(s => {
+        const el = document.getElementById(`sc-${s}-${ci}`);
+        if (el) renderSpecCell(el, md, s);
+    });
+
+    // Camera grid (rebuilds all 3 columns together)
+    renderCameraGrid();
+
+    // Full specs link
+    const specEl = document.getElementById(`sc-specs-${ci}`);
+    if (specEl) {
+        specEl.innerHTML = md
+            ? `<a href="${md.specsLink}" class="btn-learn" style="display:inline-block;margin-top:4px;">View full specifications</a>`
+            : emptyDash();
+    }
+}
+
+/* ─────────────────────────────────────────
+   EVENTS
+───────────────────────────────────────── */
+function getVisibleCols() {
+    return window.innerWidth <= 820 ? [0, 1] : [0, 1, 2];
+}
+
+/* Apply 2-col or 3-col layout to all rows by setting grid-template-columns
+   directly and showing/hiding the third cell in each row via display. */
+function applyLayout() {
+    const isMobile = window.innerWidth <= 820;
+    const cols = isMobile ? 2 : 3;
+    const colStr = `repeat(${cols}, 1fr)`;
+
+    // compare-grid itself
+    document.getElementById('compare-grid').style.gridTemplateColumns = colStr;
+
+    // sticky selects bar
+    const ss = document.getElementById('sticky-selects');
+    if (ss) {
+        ss.style.gridTemplateColumns = colStr;
+        ss.querySelectorAll('.sel-wrap').forEach((w, i) => {
+            w.style.display = (i === 2 && isMobile) ? 'none' : '';
+            w.style.borderRight = (i === cols - 1) ? 'none' : '';
+        });
+    }
+
+    // col-heads
+    document.querySelectorAll('.col-head').forEach((el, i) => {
+        el.style.display = (i === 2 && isMobile) ? 'none' : '';
+        el.style.borderRight = (i === cols - 1) ? 'none' : '';
+    });
+
+    // every spec-row: set 2 or 3 col grid, show/hide 3rd cell, fix border
+    document.querySelectorAll('.spec-row').forEach(row => {
+        row.style.gridTemplateColumns = colStr;
+        const cells = row.querySelectorAll('.spec-cell');
+        cells.forEach((cell, i) => {
+            cell.style.display = (i === 2 && isMobile) ? 'none' : '';
+            cell.style.borderRight = (i === cols - 1) ? 'none' : '1px solid rgba(0,0,0,0.08)';
+        });
+    });
+}
+
+function updateSelectOptions() {
+    const visible = getVisibleCols();
+    [0, 1, 2].forEach(ci => {
+        const sel = document.getElementById(`sel-${ci}`);
+        if (!sel) return;
+        const otherSelected = visible.filter(i => i !== ci).map(i => colState[i]);
+        Array.from(sel.options).forEach(opt => {
+            opt.disabled = opt.value !== '' && otherSelected.includes(opt.value);
+        });
+    });
+}
+
+function selectModel(ci, key) {
+    colState[ci]    = key || null;
+    colColorIdx[ci] = 0;
+    updateSelectOptions();
+    renderColumn(ci);
+}
+
+function pickColor(ci, colorIdx) {
+    const md = colState[ci] ? MODELS[colState[ci]] : null;
+    if (!md) return;
+    colColorIdx[ci] = colorIdx;
+
+    const img = document.querySelector(`#img-${ci} img`);
+    if (img) {
+        img.style.opacity = '0';
+        setTimeout(() => {
+            img.src = getImgSrc(md, colorIdx);
+            img.style.opacity = '1';
+        }, 200);
+    }
+    document.querySelectorAll(`#sw-${ci} .sw-ring`)
+        .forEach((el, i) => el.classList.toggle('active', i === colorIdx));
+}
+
+/* ─────────────────────────────────────────
+   INIT — render default columns
+───────────────────────────────────────── */
+[0, 1, 2].forEach(i => renderColumn(i));
+applyLayout();
+updateSelectOptions();
+
+let lastMobile = window.innerWidth <= 820;
+window.addEventListener('resize', () => {
+    const nowMobile = window.innerWidth <= 820;
+    if (nowMobile !== lastMobile) {
+        lastMobile = nowMobile;
+        applyLayout();
+        renderCameraGrid();
+        updateSelectOptions();
+    }
+});
+</script>
+</body>
+</html>
