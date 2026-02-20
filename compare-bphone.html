@@ -236,8 +236,62 @@
             font-size: 12px; color: #86868b; line-height: 1.7;
         }
     </style>
+    <style>
+        .site-nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.09);
+        }
+        .site-nav-inner {
+            max-width: 1260px; margin: 0 auto;
+            padding: 0 44px; height: 52px;
+            display: flex; align-items: center; gap: 0;
+        }
+        .nav-logo {
+            font-size: 17px; font-weight: 700; color: #1d1d1f;
+            letter-spacing: -0.02em; text-decoration: none;
+            margin-right: 32px; flex-shrink: 0;
+        }
+        .nav-links {
+            display: flex; align-items: center; gap: 4px;
+            list-style: none; margin: 0; padding: 0; flex: 1;
+        }
+        .nav-links a, .nav-links span {
+            font-size: 13px; font-weight: 500;
+            padding: 6px 12px; border-radius: 980px;
+            text-decoration: none; transition: background 0.15s;
+            white-space: nowrap; display: block;
+        }
+        .nav-links a { color: #1d1d1f; }
+        .nav-links a:hover { background: rgba(0,0,0,0.06); }
+        .nav-links a.active { font-weight: 600; }
+        .nav-links span { color: #acacb2; cursor: default; } /* disabled */
+        .nav-divider {
+            width: 1px; height: 18px;
+            background: rgba(0,0,0,0.1); margin: 0 4px;
+            flex-shrink: 0;
+        }
+    </style>
 </head>
 <body>
+
+<nav class="site-nav">
+    <div class="site-nav-inner">
+        <a href="bPhone.html" class="nav-logo">bPhone</a>
+        <ul class="nav-links">
+            <li><a href="bPhone-11-Pro.html">bPhone 11 Pro</a></li>
+            <li><a href="bPhone-11.html">bPhone 11</a></li>
+            <li><a href="bPhone-e.html">bPhone e</a></li>
+            <li class="nav-divider" role="separator" aria-hidden="true"></li>
+            <li><span>Accessories</span></li>
+            <li><a href="why-bPhone.html">Why bPhone</a></li>
+            <li><span>boibyOS</span></li>
+            <li><span>Support</span></li>
+        </ul>
+    </div>
+</nav>
 
 <div class="sub-header">
     <div class="sub-header-inner">
