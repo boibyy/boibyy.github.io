@@ -275,23 +275,8 @@
         }
     </style>
 </head>
-<body>
 
-<nav class="site-nav">
-    <div class="site-nav-inner">
-        <a href="bPhone.html" class="nav-logo">bPhone</a>
-        <ul class="nav-links">
-            <li><a href="bPhone-11-Pro.html">bPhone 11 Pro</a></li>
-            <li><a href="bPhone-11.html">bPhone 11</a></li>
-            <li><a href="bPhone-e.html">bPhone e</a></li>
-            <li class="nav-divider" role="separator" aria-hidden="true"></li>
-            <li><span>Accessories</span></li>
-            <li><a href="why-bPhone.html">Why bPhone</a></li>
-            <li><span>boibyOS</span></li>
-            <li><span>Support</span></li>
-        </ul>
-    </div>
-</nav>
+<body>
 
 <div class="sub-header">
     <div class="sub-header-inner">
@@ -417,6 +402,14 @@
         </div>
         <div id="camera-rows-container" class="camera-rows-container"></div>
 
+        <!-- FRONT CAMERA -->
+        <div class="section-label"><h3>Front Camera</h3></div>
+        <div class="spec-row">
+            <div class="spec-cell" id="sc-frontcam-0"></div>
+            <div class="spec-cell" id="sc-frontcam-1"></div>
+            <div class="spec-cell" id="sc-frontcam-2"></div>
+        </div>
+
         <!-- CONNECTIVITY -->
         <div class="section-label"><h3>Connectivity</h3></div>
         <div class="spec-row">
@@ -514,6 +507,13 @@ const ICONS = {
         <circle cx="30" cy="33" r="4" opacity=".2" fill="currentColor" stroke="none"/>
         <circle cx="44" cy="23" r="2" fill="currentColor" stroke="none"/>
     </svg>`,
+    frontcam: `<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="18" y="4" width="24" height="52" rx="6"/>
+        <circle cx="30" cy="13" r="4.5"/>
+        <circle cx="30" cy="13" r="2" fill="currentColor" stroke="none" opacity=".35"/>
+        <circle cx="36" cy="9" r="1.2" fill="currentColor" stroke="none" opacity=".5"/>
+        <line x1="24" y1="52" x2="36" y2="52" stroke-width="2.2" opacity=".4"/>
+    </svg>`,
     connectivity: `<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <path d="M30 8v32M20 16l10-10 10 10"/>
         <rect x="22" y="40" width="16" height="10" rx="3"/>
@@ -559,12 +559,13 @@ const MODELS = {
             { name: 'Deep Purple', hex: '#4A2D5E', slug: 'deep_purple' },
         ],
         sections: {
-            display:      { big: '6.9"',  lines: ['Boiby Vibrant HDR display', 'SmoothMotion 120Hz', 'Always-on display', 'Boiby Bubble', '4000 nits peak brightness', 'Super thin borders'] },
+            display:      { big: '6.9"',  lines: ['Boiby Vibrant HDR display', 'SmoothMotion 120Hz', 'Always-on display', 'Boiby Bubble', '4000 nits peak brightness', '1 nit minimum brightness', 'Super thin borders'] },
             design:       { icon: 'design',       lines: ['Aluminium frame', 'Contoured edges', 'Boiby Button', 'Haptic volume buttons'] },
             protection:   { icon: 'protection',   lines: ['Boiby Ceramic front', 'Boiby Ceramic back', 'IP69K rated', 'Water resistant to 100 bar at 80°C'] },
             chip:         { big: 'B11',   lines: ['Boiby B11 Pro chip', '8-core CPU', '10-core GPU with Neural Accelerators', '16-core Neural Engine', 'Hardware-accelerated ray tracing'] },
             memory:       { big: '16GB',  lines: ['16GB of memory'] },
-            battery:      { icon: 'battery',      lines: ['5229 mAh battery', 'Up to 31 hours of video playback', 'Up to 13.5 hours screen-on-time'] },
+            battery:      { icon: 'battery',      lines: ['5229 mAh battery', 'Up to 31 hours of video playback'] },
+            frontcam:     { icon: 'frontcam',     lines: ['20MP Centre Focus front camera', 'Centre Focus for photos', 'Centre Focus for video calls', 'Tap to zoom and rotate', 'Ultra-stabilized video', 'Dual Capture'] },
             connectivity: { icon: 'connectivity', lines: ['USB-C', 'USB 4 — up to 40 Gbps', 'DisplayPort output up to 8K HDR over USB-C', '3.5mm headphone jack'] },
             wired:        { icon: 'wired',        lines: ['Wired charging up to 65W', '0–50% in around 15 minutes with 65W adapter'] },
             wireless:     { icon: 'wireless',     lines: ['Magnetic Qi2 wireless charging up to 25W', 'Supports magnetic cases and accessories'] },
@@ -584,12 +585,13 @@ const MODELS = {
             { name: 'Deep Purple', hex: '#4A2D5E', slug: 'deep_purple' },
         ],
         sections: {
-            display:      { big: '6.3"',  lines: ['Boiby Vibrant HDR display', 'SmoothMotion 120Hz', 'Always-on display', 'Boiby Bubble', '4000 nits peak brightness', 'Super thin borders'] },
+            display:      { big: '6.3"',  lines: ['Boiby Vibrant HDR display', 'SmoothMotion 120Hz', 'Always-on display', 'Boiby Bubble', '4000 nits peak brightness', '1 nit minimum brightness', 'Super thin borders'] },
             design:       { icon: 'design',       lines: ['Aluminium frame', 'Contoured edges', 'Boiby Button', 'Haptic volume buttons'] },
             protection:   { icon: 'protection',   lines: ['Boiby Ceramic front', 'Boiby Ceramic back', 'IP69K rated', 'Water resistant to 100 bar at 80°C'] },
             chip:         { big: 'B11',   lines: ['Boiby B11 Pro chip', '8-core CPU', '10-core GPU with Neural Accelerators', '16-core Neural Engine', 'Hardware-accelerated ray tracing'] },
             memory:       { big: '16GB',  lines: ['16GB of memory'] },
-            battery:      { icon: 'battery',      lines: ['4408 mAh battery', 'Up to 26 hours of video playback', 'Up to 11.5 hours screen-on-time'] },
+            battery:      { icon: 'battery',      lines: ['4408 mAh battery', 'Up to 26 hours of video playback'] },
+            frontcam:     { icon: 'frontcam',     lines: ['20MP Centre Focus front camera', 'Centre Focus for photos', 'Centre Focus for video calls', 'Tap to zoom and rotate', 'Ultra-stabilized video', 'Dual Capture'] },
             connectivity: { icon: 'connectivity', lines: ['USB-C', 'USB 4 — up to 40 Gbps', 'DisplayPort output up to 4K HDR over USB-C', '3.5mm headphone jack'] },
             wired:        { icon: 'wired',        lines: ['Wired charging up to 65W', '0–50% in around 15 minutes with 65W adapter'] },
             wireless:     { icon: 'wireless',     lines: ['Magnetic Qi2 wireless charging up to 25W', 'Supports magnetic cases and accessories'] },
@@ -610,12 +612,13 @@ const MODELS = {
             { name: 'Blue',   hex: '#6884EA', slug: 'blue' },
         ],
         sections: {
-            display:      { big: '6.3"',  lines: ['Boiby Vibrant HDR display', 'SmoothMotion 120Hz', 'Always-on display', 'Boiby Bubble', '3000 nits peak brightness', 'Super thin borders'] },
+            display:      { big: '6.3"',  lines: ['Boiby Vibrant HDR display', 'SmoothMotion 120Hz', 'Always-on display', 'Boiby Bubble', '3000 nits peak brightness', '1 nit minimum brightness', 'Super thin borders'] },
             design:       { icon: 'design',       lines: ['Aluminium frame', 'Contoured edges', 'Boiby Button', 'Haptic volume buttons'] },
             protection:   { icon: 'protection',   lines: ['Boiby Ceramic front', '—', 'IP68 rated', 'Water resistant to 6 metres for 1 hour*'] },
             chip:         { big: 'B11',   lines: ['Boiby B11 chip', '8-core CPU', '8-core GPU with Neural Accelerators', '16-core Neural Engine', 'Hardware-accelerated ray tracing'] },
             memory:       { big: '12GB',  lines: ['12GB of memory'] },
-            battery:      { icon: 'battery',      lines: ['4260 mAh battery', 'Up to 24 hours of video playback', 'Up to 10 hours screen-on-time'] },
+            battery:      { icon: 'battery',      lines: ['4260 mAh battery', 'Up to 24 hours of video playback'] },
+            frontcam:     { icon: 'frontcam',     lines: ['20MP Centre Focus front camera', 'Centre Focus for photos', 'Centre Focus for video calls', 'Tap to zoom and rotate', 'Ultra-stabilized video', 'Dual Capture'] },
             connectivity: { icon: 'connectivity', lines: ['USB-C', 'USB 3.2 Gen 2 — up to 10 Gbps', 'DisplayPort output up to 4K HDR over USB-C', '3.5mm headphone jack'] },
             wired:        { icon: 'wired',        lines: ['Wired charging up to 45W', '0–50% in around 20 minutes with 45W adapter'] },
             wireless:     { icon: 'wireless',     lines: ['Magnetic Qi2 wireless charging up to 25W', 'Supports magnetic cases and accessories'] },
@@ -635,13 +638,14 @@ const MODELS = {
             { name: 'Yellow', hex: '#F5D66B', slug: 'yellow' },
         ],
         sections: {
-            display:      { big: '6.1"',  lines: ['Boiby Vibrant HDR display', 'SmoothMotion 120Hz', 'Always-on display', 'Boiby Bubble', '2000 nits peak brightness', '—'] },
+            display:      { big: '6.1"',  lines: ['Boiby Vibrant HDR display', 'SmoothMotion 120Hz', 'Always-on display', 'Boiby Bubble', '2000 nits peak brightness', '—', '—'] },
             design:       { icon: 'design',       lines: ['Aluminium frame', 'Contoured edges', 'Boiby Button', '—'] },
             protection:   { icon: 'protection',   lines: ['Boiby Ceramic front', '—', 'IP68 rated', 'Water resistant to 6 metres for 1 hour*'] },
             chip:         { big: 'B11',   lines: ['Boiby B11 chip', '8-core CPU', '7-core GPU with Neural Accelerators', '16-core Neural Engine', 'Hardware-accelerated ray tracing'] },
             memory:       { big: '8GB',   lines: ['8GB of memory'] },
-            battery:      { icon: 'battery',      lines: ['4310 mAh battery', 'Up to 24 hours of video playback', 'Up to 10 hours screen-on-time'] },
-            connectivity: { icon: 'connectivity', lines: ['USB-C', 'USB 3.2 Gen 1 — up to 5 Gbps', '3.5mm headphone jack'] },
+            battery:      { icon: 'battery',      lines: ['4310 mAh battery', 'Up to 24 hours of video playback'] },
+            frontcam:     { icon: 'frontcam',     lines: ['12MP front camera', '—', '—', 'Tap to zoom', '—', 'Dual Capture'] },
+            connectivity: { icon: 'connectivity', lines: ['USB-C', 'USB 3.2 Gen 1 — up to 5 Gbps', '—', '3.5mm headphone jack'] },
             wired:        { icon: 'wired',        lines: ['Wired charging up to 30W', '0–50% in around 30 minutes with 30W adapter'] },
             wireless:     { icon: 'wireless',     lines: ['Magnetic Qi2 wireless charging up to 15W', 'Supports magnetic cases and accessories'] },
             storage:      { icon: 'storage',      lines: ['256GB', '512GB'] },
@@ -663,7 +667,7 @@ const CAM_SCHEMA = [
     { type: 'divider'                      },
     { type: 'text',    key: 'zoom_max'     },
     { type: 'gap'                          },
-    { type: 'text',    key: 'zoom_options' }, // Combined: "0.5×, 1×, 2×, 4×, 8× zoom options"
+    { type: 'text',    key: 'zoom_options' },
     { type: 'text',    key: 'zoom_dig'     },
     { type: 'divider'                      },
     { type: 'text',    key: 'var_ap'       },
@@ -745,11 +749,10 @@ const CAM_DATA = {
 /* ─────────────────────────────────────────
    STATE
 ───────────────────────────────────────── */
-// Default: col 0 = 11, col 1 = 11pro, col 2 = 11promax
 const colState    = ['11', '11pro', '11promax'];
 const colColorIdx = [0, 0, 0];
 
-const SECTION_KEYS = ['display','design','protection','chip','memory','battery','connectivity','wired','wireless','storage'];
+const SECTION_KEYS = ['display','design','protection','chip','memory','battery','frontcam','connectivity','wired','wireless','storage'];
 
 /* ─────────────────────────────────────────
    HELPERS
@@ -785,11 +788,6 @@ function renderSpecCell(el, md, key) {
 
 /* ─────────────────────────────────────────
    RENDER CAMERA GRID
-   Every row is a set of cells all the same
-   height as one spec-line (52px desktop,
-   44px mobile). gap/divider rows also emit
-   one cell per visible column so borders
-   align correctly.
 ───────────────────────────────────────── */
 function renderCameraGrid() {
     const isMobile = window.innerWidth <= 820;
@@ -823,12 +821,10 @@ function renderCameraGrid() {
 
             if (entry.type === 'divider') {
                 cell.className = 'cam-line-cell cam-divider';
-                // Full-width divider: span all cols on first cell, hide rest
                 if (idx === 0) {
                     cell.style.gridColumn = `1 / -1`;
                     container.appendChild(cell);
                 }
-                // Skip remaining cols — the one cell spans all
                 if (idx > 0) return;
                 return;
             }
@@ -921,17 +917,13 @@ function getVisibleCols() {
     return window.innerWidth <= 820 ? [0, 1] : [0, 1, 2];
 }
 
-/* Apply 2-col or 3-col layout to all rows by setting grid-template-columns
-   directly and showing/hiding the third cell in each row via display. */
 function applyLayout() {
     const isMobile = window.innerWidth <= 820;
     const cols = isMobile ? 2 : 3;
     const colStr = `repeat(${cols}, 1fr)`;
 
-    // compare-grid itself
     document.getElementById('compare-grid').style.gridTemplateColumns = colStr;
 
-    // sticky selects bar
     const ss = document.getElementById('sticky-selects');
     if (ss) {
         ss.style.gridTemplateColumns = colStr;
@@ -941,13 +933,11 @@ function applyLayout() {
         });
     }
 
-    // col-heads
     document.querySelectorAll('.col-head').forEach((el, i) => {
         el.style.display = (i === 2 && isMobile) ? 'none' : '';
         el.style.borderRight = (i === cols - 1) ? 'none' : '';
     });
 
-    // every spec-row: set 2 or 3 col grid, show/hide 3rd cell, fix border
     document.querySelectorAll('.spec-row').forEach(row => {
         row.style.gridTemplateColumns = colStr;
         const cells = row.querySelectorAll('.spec-cell');
