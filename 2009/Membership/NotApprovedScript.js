@@ -92,13 +92,13 @@
    function render() {
       const container = document.getElementById("NotApprovedContainer");
       if (!container) {
-         console.error("ban-screen.js: #NotApprovedContainer not found.");
+         console.error("NotApprovedScript.js: #NotApprovedContainer not found.");
          return;
       }
 
       const p = getPunishment();
       if (!p) {
-         container.innerHTML = "<p><b>No punishment record found.</b></p>";
+         container.innerHTML = "";
          return;
       }
 
