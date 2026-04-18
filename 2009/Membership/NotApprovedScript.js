@@ -1,9 +1,8 @@
 // ============================================================
-// ban-screen.js
+// NotApprovedScript.js
 // Reads the latest (or target) punishment from localStorage
 // and injects the correct ban screen content into the page.
 //
-// Usage: include this script on the ban screen page.
 // It reads from localStorage key "roblox_punishments".
 //
 // To display a specific punishment, add ?id=UUID to the URL.
@@ -12,7 +11,7 @@
 
 (function () {
    const STORAGE_KEY = "roblox_punishments";
-  
+
    function loadPunishments() {
       try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
       catch { return []; }
@@ -30,14 +29,19 @@
    function formatDate(ms) {
       if (ms === null || ms === undefined) return "";
       const d = new Date(ms);
-      let h = d.getUTCHours(), m = d.getUTCMinutes(), s = d.getUTCSeconds();
-      const ampm = h >= 12 ? "PM" : "AM";
-      h = h % 12 || 12;
-      const pad = n => String(n).padStart(2, "0");
-      return `${d.getUTCMonth()+1}/${d.getUTCDate()}/${d.getUTCFullYear()} ${h}:${pad(m)}:${pad(s)} ${ampm}`;
+      const parts = new Intl.DateTimeFormat("en-US", {
+         timeZone: "America/Chicago",
+         month: "numeric", day: "numeric", year: "numeric",
+         hour: "numeric", minute: "2-digit", second: "2-digit",
+         hour12: true,
+      }).formatToParts(d);
+      const get = type => parts.find(p => p.type === type)?.value ?? "";
+      return `${get("month")}/${get("day")}/${get("year")} ${get("hour")}:${get("minute")}:${get("second")} ${get("dayPeriod")}`;
    }
-  
+
    const TITLES = {
+      "Remind":      "Reminder",
+      "Warn":        "Warning",
       "Ban 1 Day":   "Banned for 1 Day",
       "Ban 3 Days":  "Banned for 3 Days",
       "Ban 7 Days":  "Banned for 7 Days",
@@ -54,7 +58,6 @@
       if (type === "Poison") {
          return "<p><b>Your account has been terminated, and new account creation has been disabled.</b></p>";
       }
-      // Ban types
       const durationMap = {
          "Ban 1 Day":   "1 day",
          "Ban 3 Days":  "3 days",
@@ -102,12 +105,12 @@
          return;
       }
 
-      const title     = TITLES[p.PUNISHMENT_TYPE] || p.PUNISHMENT_TYPE;
-      const dateStr   = formatDate(p.BEGIN_DATE);
-      const noteHtml  = p.MESSAGE_TO_USER
+      const title      = TITLES[p.PUNISHMENT_TYPE] || p.PUNISHMENT_TYPE;
+      const dateStr    = formatDate(p.BEGIN_DATE);
+      const noteHtml   = p.MESSAGE_TO_USER
          ? `<b mode="encode">${escapeHtml(p.MESSAGE_TO_USER)}</b>`
          : "";
-      const uttHtml   = buildUtterances(p.UTTERANCES);
+      const uttHtml    = buildUtterances(p.UTTERANCES);
       const footerHtml = buildFooterParagraph(p);
 
       container.innerHTML = `

@@ -1,12 +1,10 @@
 // ============================================================
-// roblox-admin.js
+// Admin.js
 // Admin panel logic: form handling, localStorage, data schema
 // ============================================================
 
 const STORAGE_KEY = "roblox_punishments";
 const REASONS = ["Inappropriate", "Spam", "Profanity", "Harassment", "Scamming", "Privacy", "Adult Content"];
-
-// ---- Utility ----
 
 function generateUUID() {
    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
@@ -22,7 +20,7 @@ function generateHash() {
    return h;
 }
 
-// Random ms timestamp between Mar 12 2009 00:00:00 UTC and Jul 31 2010 23:59:59 UTC
+// Random ms timestamp
 function randomDateInRange() {
    const start = Date.UTC(2009, 2, 12, 0, 0, 0);    // Mar = month 2
    const end   = Date.UTC(2010, 6, 31, 23, 59, 59);  // Jul = month 6
@@ -47,7 +45,6 @@ function computeEndDate(type, beginMs) {
 }
 
 // ---- LocalStorage ----
-
 function loadPunishments() {
    try {
       return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
@@ -77,8 +74,7 @@ function clearAll() {
    }
 }
 
-// ---- Utterances UI ----
-
+// ---- Utterances ----
 let utteranceCount = 0;
 
 function addUtterance() {
@@ -130,13 +126,11 @@ function collectUtterances() {
 }
 
 // ---- Date toggle ----
-
 document.getElementById("useRandomDate").addEventListener("change", function () {
    document.getElementById("datePickerWrap").style.display = this.checked ? "none" : "block";
 });
 
 // ---- Submit ----
-
 function submitAction() {
    const statusEl = document.getElementById("status");
    statusEl.className = "";
@@ -151,7 +145,6 @@ function submitAction() {
       return;
    }
 
-   // Date
    let beginMs;
    const useRandom = document.getElementById("useRandomDate").checked;
    if (useRandom) {
@@ -163,14 +156,24 @@ function submitAction() {
          statusEl.textContent = "Please pick a date/time, or use random.";
          return;
       }
-      // datetime-local gives local time; we treat it as the chosen UTC value
-      beginMs = new Date(val).getTime();
-      // Clamp check
-      const minMs = Date.UTC(2009, 2, 12);
-      const maxMs = Date.UTC(2010, 6, 31, 23, 59, 59);
-      if (beginMs < minMs || beginMs > maxMs) {
+      // Treat the picked datetime-local value as CT wall-clock time.
+      const naiveMs = new Date(val).getTime();
+      const ctParts = new Intl.DateTimeFormat("en-US", {
+         timeZone: "America/Chicago",
+         year: "numeric", month: "2-digit", day: "2-digit",
+         hour: "2-digit", minute: "2-digit", second: "2-digit",
+         hour12: false,
+      }).formatToParts(new Date(naiveMs));
+      const gp = type => ctParts.find(p => p.type === type)?.value ?? "0";
+      const ctWallMs = new Date(`${gp("year")}-${gp("month")}-${gp("day")}T${gp("hour")}:${gp("minute")}:${gp("second")}`).getTime();
+      const ctOffsetMs = naiveMs - ctWallMs;
+      beginMs = naiveMs + ctOffsetMs;
+      // Clamp: Mar 12 2009 00:00:00 CT - Jul 31 2010 23:59:59 CT
+      const minCT = new Date("2009-03-12T00:00:00").getTime() + ctOffsetMs;
+      const maxCT = new Date("2010-07-31T23:59:59").getTime() + ctOffsetMs;
+      if (beginMs < minCT || beginMs > maxCT) {
          statusEl.className = "error";
-         statusEl.textContent = "Date must be between Mar 12 2009 and Jul 31 2010.";
+         statusEl.textContent = "Date must be between March 12 2009 and July 31 2010 (CT).";
          return;
       }
    }
@@ -193,17 +196,17 @@ function submitAction() {
    renderSavedList();
 }
 
-// ---- Saved list display ----
-
 function formatDate(ms) {
    if (ms === null || ms === undefined) return "(none)";
    const d = new Date(ms);
-   // Format: M/D/YYYY H:MM:SS AM/PM (matches the ban screen style)
-   let h = d.getUTCHours(), m = d.getUTCMinutes(), s = d.getUTCSeconds();
-   const ampm = h >= 12 ? "PM" : "AM";
-   h = h % 12 || 12;
-   const pad = n => String(n).padStart(2, "0");
-   return `${d.getUTCMonth()+1}/${d.getUTCDate()}/${d.getUTCFullYear()} ${h}:${pad(m)}:${pad(s)} ${ampm}`;
+   const parts = new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/Chicago",
+      month: "numeric", day: "numeric", year: "numeric",
+      hour: "numeric", minute: "2-digit", second: "2-digit",
+      hour12: true,
+   }).formatToParts(d);
+   const get = type => parts.find(p => p.type === type)?.value ?? "";
+   return `${get("month")}/${get("day")}/${get("year")} ${get("hour")}:${get("minute")}:${get("second")} ${get("dayPeriod")}`;
 }
 
 function renderSavedList() {
@@ -214,12 +217,11 @@ function renderSavedList() {
    let html = `<table>
       <tr>
          <th>#</th>
-         <th>Type</th>
+         <th>Action</th>
          <th>Begin</th>
          <th>End</th>
-         <th>Note</th>
+         <th>Message to user</th>
          <th>Utterances</th>
-         <th>ID</th>
          <th></th>
       </tr>`;
 
