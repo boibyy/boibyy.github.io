@@ -7,17 +7,27 @@
         a,body{text-decoration:none}
         a{color:#00f}
         p{margin-block:20px;font-size:8.5pt}
-        body{text-transform:none;-webkit-font-smoothing:none;-moz-osx-font-smoothing:grayscale;font-smooth:never;text-rendering:optimizeSpeed;font:8.5pt Verdana,sans-serif;margin:0;background:url(https://boiby.dev/2009/images/bg_gradient.jpg) repeat-x #f8fcff}
+        body{display:flex;flex-direction:column;text-transform:none;-webkit-font-smoothing:none;-moz-osx-font-smoothing:grayscale;font-smooth:never;text-rendering:optimizeSpeed;font:8.5pt Verdana,sans-serif;margin:0;background:url(https://boiby.dev/2009/images/bg_gradient.jpg) repeat-x #f8fcff}
         h1,b{font-weight: bolder}
-        h1{display:flex;justify-content:center;font-family:'Comic Sans MS',cursive;font-size:19.5pt;margin-block:0;transform: scaleY(0.98);}
+        h1 {
+		  display: flex;
+		  justify-content: center;
+		  font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+		  font-size: 19pt;
+		  font-weight: bold;
+		  margin-top: 0;
+		  margin-bottom: 5px;
+		  transform: scaleY(0.98); /* Adjust this number until it looks right to you */
+		  -webkit-font-smoothing: none;
+		}
         #NotApprovedContainer{border:1px solid #000;margin:100px auto;padding:30px;max-width:498px}
         #MasterContainer{margin:0 auto;max-width:900px}
         blockquote{margin-block: 20px}
+		footer{margin-top: auto}
       </style>
    </head>
    <body topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0" bgcolor="#F8FCFF">
-      <form name="aspnetForm">
-         <div id="MasterContainer">
+      <div id="MasterContainer">
             <div id="Content">
                <div style="
                    margin: 0 auto;
@@ -42,7 +52,7 @@
             </div>
          </div>
          <div class="FooterNav" style="font-size: 10px; text-align: center">
-	<div id="Footer" style="font: 400 8px Verdana, sans-serif; margin-top: 10px; text-align: center; color: rgb(0, 0, 0); letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+	<footer id="Footer" style="font: 400 8px Verdana, sans-serif; margin-top: 10px; text-align: center; color: rgb(0, 0, 0); letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
 		<hr width="900">
 		<div class="FooterNav" style="font-size: 10px;">
 			<a id="ctl00_rbxFooter_PrivacyHyperLink0" style="text-decoration: none; color: blue;" href="#">
@@ -62,7 +72,6 @@
 		to the products of these companies is intended.<br>Use of this site 
 		signifies your acceptance of the&nbsp;<a id="ctl00_rbxFooter_hlTermsOfService0" style="text-decoration: none; color: blue;" href="#">Terms 
 		and Conditions</a>.</p></div>
-</div>
-      </form>
+	</footer>
    </body>
 </html>
